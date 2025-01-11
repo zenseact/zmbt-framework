@@ -9,7 +9,7 @@
  * How to update:
  * 1. Update the template at `templates/expr/expression_keyword.hpp`
  * 2. Update the keyword data at `templates/expr/data.yaml`
- * 3. Regenerate file with `bazel run //templates/expr:expression_keyword_hpp > zmbt/include/zmbt/model/expression_keyword.hpp`
+ * 3. Regenerate file with `bazel run //templates/expr:expression_keyword_hpp > packages/cxx/include/zmbt/model/expression_keyword.hpp`
  * 4. Commit changes
  */
 

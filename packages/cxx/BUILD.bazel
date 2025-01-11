@@ -1,40 +1,57 @@
 # (c) Copyright 2024 Zenseact AB
-# SPDX-License-Identifier: Apache-2.0
+
+config_setting(
+    name = "debug",
+    values = {
+        "compilation_mode": "dbg",
+    },
+)
+
+ZMBT_COPTS = select({
+    ":debug": ["-g"],
+    "//conditions:default": ["-O2"]
+})
 
 BOOST_LIBS = [
     "@boost//:algorithm",
-    "@boost//:callable_traits",
-    "@boost//:date_time",
-    "@boost//:describe",
+    "@boost//:chrono",
+    "@boost//:exception",
     "@boost//:filesystem",
-    "@boost//:json",
     "@boost//:format",
-    "@boost//:log",
-    "@boost//:mp11",
-    "@boost//:phoenix",
-    "@boost//:preprocessor",
+    "@boost//:json",
+    "@boost//:lambda2",
+    "@boost//:pfr",
     "@boost//:program_options",
-    "@boost//:range",
     "@boost//:regex",
-    "@boost//:spirit",
-    "@boost//:test",
-    "@boost//:type_index",
-    "@boost//:variant",
+    "@boost//:system",
+    "@boost//:timer",
+    "@boost//:callable_traits",
+    "@boost//:conversion",
+    "@boost//:vmd",
+    "@boost//:log",
 ]
+
+INTERNAL_LIB_VISIBILITY = [
+    ":__pkg__",
+    "//packages/cxx/test:__pkg__",
+]
+
+
 
 cc_library(
     name = "logging",
-    visibility = ["//visibility:public"],
+    visibility = INTERNAL_LIB_VISIBILITY,
     includes = ["include/"],
     hdrs = glob([
         "include/zmbt/logging.hpp",
     ]),
-    deps = BOOST_LIBS
+    deps = BOOST_LIBS,
+    copts = ZMBT_COPTS,
 )
 
 cc_library(
     name = "core",
-    visibility = ["//visibility:public"],
+    visibility = INTERNAL_LIB_VISIBILITY,
     includes = ["include/"],
     hdrs = glob([
         "include/zmbt/core.hpp",
@@ -43,12 +60,13 @@ cc_library(
     srcs = glob([
         "src/core/*.cpp",
     ]),
-    deps = BOOST_LIBS
+    deps = BOOST_LIBS,
+    copts = ZMBT_COPTS,
 )
 
 cc_library(
     name = "reflect",
-    visibility = ["//visibility:public"],
+    visibility = INTERNAL_LIB_VISIBILITY,
     includes = ["include/"],
     hdrs = glob([
         "include/zmbt/reflect.hpp",
@@ -57,12 +75,13 @@ cc_library(
     srcs = glob([
         "src/reflect/*.cpp",
     ]),
-    deps = [":core"]
+    deps = [":core"],
+    copts = ZMBT_COPTS,
 )
 
 cc_library(
     name = "model",
-    visibility = ["//visibility:public"],
+    visibility = INTERNAL_LIB_VISIBILITY,
     includes = ["include/"],
     hdrs = glob([
         "include/zmbt/model.hpp",
@@ -74,13 +93,14 @@ cc_library(
     deps = [
         ":reflect",
         ":logging"
-    ]
+    ],
+    copts = ZMBT_COPTS,
 )
 
 
 cc_library(
     name = "mapping",
-    visibility = ["//visibility:public"],
+    visibility = INTERNAL_LIB_VISIBILITY,
     includes = ["include/"],
     hdrs = glob([
         "include/zmbt/mapping.hpp",
@@ -93,24 +113,26 @@ cc_library(
         ":reflect",
         ":logging",
         ":model"
-    ]
+    ],
+    copts = ZMBT_COPTS,
 )
 
 
 cc_library(
-    name = "application",
-    visibility = ["//visibility:public"],
+    name = "appconfig",
+    visibility = INTERNAL_LIB_VISIBILITY,
     includes = ["include/"],
     hdrs = glob([
-        "include/zmbt/application.hpp",
-        "include/zmbt/application/*.hpp",
+        "include/zmbt/appconfig.hpp",
+        "include/zmbt/appconfig/*.hpp",
     ]),
     srcs = glob([
-        "src/application/*.cpp",
+        "src/appconfig/*.cpp",
     ]),
     deps = [
         ":mapping",
-    ]
+    ],
+    copts = ZMBT_COPTS,
 )
 
 
@@ -124,19 +146,29 @@ cc_library(
         "include/zmbt/api.hpp",
         "include/zmbt/api/*.hpp",
     ]),
-    deps = [":application"]
+    srcs = glob(
+        [
+            "src/**/*.cpp",
+        ],
+        exclude = [
+            "src/main*.cpp"
+        ],
+    ),
+    deps = [":appconfig"],
+    copts = ZMBT_COPTS,
 )
 
 
 cc_library(
-    name = "boost_main",
+    name = "main_boost",
     visibility = ["//visibility:public"],
     includes = ["include/"],
     srcs = [
-        "src/boost_test_main.cpp",
+        "src/main_boost.cpp",
     ],
     deps = [
         ":zmbt",
         "@boost//:test.so",
     ],
+    copts = ZMBT_COPTS,
 )

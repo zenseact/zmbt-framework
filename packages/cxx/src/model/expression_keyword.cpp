@@ -8,7 +8,7 @@
  * How to update:
  * 1. Update the template at `templates/expr/expression_keyword.cpp`
  * 2. Update the keyword data at `templates/expr/data.yaml`
- * 3. Regenerate file with `bazel run //templates/expr:expression_keyword_cpp > zmbt/src/model/expression_keyword.cpp`
+ * 3. Regenerate file with `bazel run //templates/expr:expression_keyword_cpp > packages/cxx/src/model/expression_keyword.cpp`
  * 4. Commit changes
  */
 

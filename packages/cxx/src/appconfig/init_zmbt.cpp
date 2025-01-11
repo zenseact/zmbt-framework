@@ -150,7 +150,7 @@ void init_logging(std::string log_lvl, std::string log_sink)
 
 
 namespace zmbt {
-namespace application {
+namespace appconfig {
 
 void InitZmbt(int argc, char **argv)
 {
@@ -176,7 +176,7 @@ void InitZmbt(int argc, char **argv)
         default_log_level = "warning";
     }
 
-    po::options_description desc("ZMBT test application options");
+    po::options_description desc("ZMBT test appconfig options");
     desc.add_options()
         ("zmbt_log_level", po::value<std::string>()->default_value(default_log_level), "[trace|debug|info|warning|error|fatal] log severity level")
         ("zmbt_log_sink", po::value<std::string>()->default_value(default_log_sink), "file name")
@@ -192,7 +192,7 @@ void InitZmbt(int argc, char **argv)
     ZMBT_LOG_JSON(info) << "ZMBT initialized";
 }
 
-} // namespace application
+} // namespace appconfig
 } // namespace zmbt
 
 

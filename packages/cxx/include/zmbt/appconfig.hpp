@@ -9,6 +9,6 @@
 
 
 // #include "api/ns.hpp"
-#include "application/init_test.hpp"
+#include "appconfig/init_zmbt.hpp"
 
 #endif // ZMBT_APPLICATION_HPP_

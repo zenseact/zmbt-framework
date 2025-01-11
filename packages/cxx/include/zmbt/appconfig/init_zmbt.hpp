@@ -4,15 +4,15 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_APPLICATION_INIT_TEST_HPP_
-#define ZMBT_APPLICATION_INIT_TEST_HPP_
+#ifndef ZMBT_APPLICATION_INIT_ZMBT_HPP_
+#define ZMBT_APPLICATION_INIT_ZMBT_HPP_
 
 namespace zmbt {
-namespace application {
+namespace appconfig {
 
 void InitZmbt(int argc, char **argv);
 
-} // namespace application
+} // namespace appconfig
 } // namespace zmbt
 
-#endif // ZMBT_APPLICATION_INIT_TEST_HPP_
+#endif // ZMBT_APPLICATION_INIT_ZMBT_HPP_
