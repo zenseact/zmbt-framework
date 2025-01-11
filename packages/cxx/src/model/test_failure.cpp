@@ -6,8 +6,11 @@
  */
 
 #include "zmbt/model/test_failure.hpp"
+#include "zmbt/model/exceptions.hpp"
 
 
+
+// GCOV_EXCL_START
 
 namespace
 {
@@ -19,32 +22,14 @@ std::string format_failure_report(boost::json::value const& report)
     ss << "\nZMBT_TEST_FAILURE_END\n";
     return ss.str();
 }
-
 } // namespace
 
 
 namespace zmbt {
-
-
-// GCOV_EXCL_START
-
 void default_test_failure(boost::json::value const& report)
 {
-    auto formatter_report = format_failure_report(report);
-
-#ifdef ZMBT_FAIL_TO_GTEST
-#include <gtest/gtest.h>
-    FAIL() << formatter_report;
-
-#elif defined(ZMBT_FAIL_TO_BOOST)
-#include <boost/test/unit_test.hpp>
-    BOOST_ERROR(formatter_report);
-
-#else
-    throw std::runtime_error(formatter_report);
-
-#endif
+    throw test_assertion_failure(format_failure_report(report));
 }
-// GCOV_EXCL_END
-
 } // namespace zmbt
+
+// GCOV_EXCL_END

@@ -26,20 +26,10 @@ struct base_error : public std::runtime_error {
     }
 };
 
-struct init_policy_error : public base_error {
-    using base_error::base_error;
-};
 
+/// Failed serialization
 struct serialization_error : public base_error {
     using base_error::base_error;
-};
-
-struct signal_path_error : public base_error {
-    using base_error::base_error;
-};
-
-struct precision_loss_error : public std::runtime_error {
-    using std::runtime_error::runtime_error;
 };
 
 }  // namespace zmbt

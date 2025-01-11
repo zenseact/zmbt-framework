@@ -6,6 +6,8 @@
 
 
 #include "zmbt/model/generic_signal_operator.hpp"
+#include "zmbt/model/exceptions.hpp"
+
 
 
 #include <zmbt/core/aliases.hpp>
@@ -69,7 +71,7 @@ namespace
     bool is_less_as_object(boost::json::object const&, boost::json::object const&)
     {
         // NOTE: this logic may be implemented in future, as js object preserves order of kv pairs
-        throw zmbt::base_error("order relation is undefined for JSON objects");
+        throw zmbt::expression_error("order relation is undefined for JSON objects");
     }
 
 } // namespace
@@ -188,11 +190,12 @@ bool GenericSignalOperator::operator<(GenericSignalOperator const& other) const
     }
 
 
+
     auto lkind = lhs.kind();
     auto rkind = rhs.kind();
     std::stringstream msg;
     msg << "undefined JSON order relation for " << lkind << " and " << rkind;
-    throw base_error(msg.str());
+    throw expression_error(msg.str());
     return false;
 }
 
@@ -229,7 +232,7 @@ boost::json::value GenericSignalOperator::operator-() const
         return nullptr;
     default:
         // TODO: add kind to msg
-        throw base_error("invalid negation operand");
+        throw expression_error("invalid negation operand");
         return nullptr;
     }
 }
@@ -248,7 +251,7 @@ boost::json::value GenericSignalOperator::operator~() const
         return nullptr;
     default:
         // TODO: add kind to msg
-        throw base_error("invalid complement operand");
+        throw expression_error("invalid complement operand");
         return nullptr;
     }
 }
@@ -299,13 +302,13 @@ common_arithmetic_kind(value_, rhs.value_);             \
 if(X_ZERO_DIV &&                                        \
     boost::json::value_to<double>(rhs.value_) == 0)     \
 {                                                       \
-    throw base_error("zero division");                  \
+    throw expression_error("zero division");            \
 }                                                       \
 switch (result_kind)                                    \
 {                                                       \
 X_BINOP_CASES                                           \
 default:                                                \
-    throw base_error("invalid operands");               \
+    throw expression_error("invalid operands");         \
     return nullptr;                                     \
 }
 
@@ -414,7 +417,7 @@ boost::json::value GenericSignalOperator::pow(GenericSignalOperator const& rhs) 
 
     if (result_kind == boost::json::kind::null)
     {
-        throw base_error("invalid power operands");
+        throw expression_error("invalid power operands");
     }
 
     double result_double = std::pow(boost::json::value_to<double>(value_),boost::json::value_to<double>(rhs.value_));

@@ -13,49 +13,54 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "expression_keyword.hpp"
+#include "exceptions.hpp"
 
 
-#define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT)                                                       \
-template <class T>                                                                                        \
-static auto handle_if_##TRAIT(boost::json::value const& val) -> mp_if<TRAIT<T>, boost::json::value>        \
-{                                                                                                         \
-    return reflect::json_from(OP reflect::dejsonize<T>(val));                                             \
-}                                                                                                         \
-template <class T>                                                                                        \
-static auto handle_if_##TRAIT(boost::json::value const&) -> mp_if<mp_not<TRAIT<T>>, boost::json::value>    \
-{                                                                                                         \
-    throw base_error("%s has no defined " #OP " operator", type_name<T>());                               \
-    return nullptr;                                                                                       \
+#define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT)                                              \
+template <class T>                                                                              \
+static auto handle_if_##TRAIT(boost::json::value const& val)                                    \
+-> mp_if<TRAIT<T>, boost::json::value>                                                          \
+{                                                                                               \
+    return reflect::json_from(OP reflect::dejsonize<T>(val));                                   \
+}                                                                                               \
+template <class T>                                                                              \
+static auto handle_if_##TRAIT(boost::json::value const&)                                        \
+-> mp_if<mp_not<TRAIT<T>>, boost::json::value>                                                  \
+{                                                                                               \
+    throw expression_error("%s has no defined " #OP " operator", type_name<T>());               \
+    return nullptr;                                                                             \
 }
 
 
-#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT)                                                         \
-template <class T>                                                                                        \
-static auto handle_if_##TRAIT(boost::json::value const& lhs, boost::json::value const& rhs)                \
--> mp_if<TRAIT<T>, boost::json::value>                                                                    \
-{                                                                                                         \
-    return reflect::json_from(reflect::dejsonize<T>(lhs) OP reflect::dejsonize<T>(rhs));                  \
-}                                                                                                         \
-template <class T>                                                                                        \
-static auto handle_if_##TRAIT(boost::json::value const&, boost::json::value const&) -> mp_if<mp_not<TRAIT<T>>, boost::json::value>    \
-{                                                                                                         \
-    throw base_error("%s has no defined " #OP " operator", type_name<T>());                               \
-    return nullptr;                                                                                       \
+#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT)                                                \
+template <class T>                                                                              \
+static auto handle_if_##TRAIT(boost::json::value const& lhs, boost::json::value const& rhs)     \
+-> mp_if<TRAIT<T>, boost::json::value>                                                          \
+{                                                                                               \
+    return reflect::json_from(reflect::dejsonize<T>(lhs) OP reflect::dejsonize<T>(rhs));        \
+}                                                                                               \
+template <class T>                                                                              \
+static auto handle_if_##TRAIT(boost::json::value const&, boost::json::value const&)             \
+-> mp_if<mp_not<TRAIT<T>>, boost::json::value>                                                  \
+{                                                                                               \
+    throw expression_error("%s has no defined " #OP " operator", type_name<T>());               \
+    return nullptr;                                                                             \
 }
 
 
-#define ZMBT_SOH_HANDLE_RELATION(OP, TRAIT)                                                              \
-template <class T>                                                                                        \
-static auto handle_if_##TRAIT(boost::json::value const& lhs, boost::json::value const& rhs)                \
--> mp_if<TRAIT<T>, bool>                                                                                  \
-{                                                                                                         \
-    return reflect::dejsonize<T>(lhs) OP reflect::dejsonize<T>(rhs);                                      \
-}                                                                                                         \
-template <class T>                                                                                        \
-static auto handle_if_##TRAIT(boost::json::value const&, boost::json::value const&) -> mp_if<mp_not<TRAIT<T>>, bool>                  \
-{                                                                                                         \
-    throw base_error("%s has no defined " #OP " operator", type_name<T>());                               \
-    return false;                                                                                         \
+#define ZMBT_SOH_HANDLE_RELATION(OP, TRAIT)                                                     \
+template <class T>                                                                              \
+static auto handle_if_##TRAIT(boost::json::value const& lhs, boost::json::value const& rhs)     \
+-> mp_if<TRAIT<T>, bool>                                                                        \
+{                                                                                               \
+    return reflect::dejsonize<T>(lhs) OP reflect::dejsonize<T>(rhs);                            \
+}                                                                                               \
+template <class T>                                                                              \
+static auto handle_if_##TRAIT(boost::json::value const&, boost::json::value const&)             \
+-> mp_if<mp_not<TRAIT<T>>, bool>                                                                \
+{                                                                                               \
+    throw expression_error("%s has no defined " #OP " operator", type_name<T>());               \
+    return false;                                                                               \
 }
 
 namespace zmbt {
@@ -119,7 +124,7 @@ class SignalOperatorHandler
     template <class T>
     static auto is_truth(boost::json::value const&) -> mp_if<mp_not<is_convertible<T, bool>>, bool>
     {
-        throw base_error("%s has no boolean conversion defined", type_name<T>());
+        throw expression_error("%s has no boolean conversion defined", type_name<T>());
         return false;
     }
 

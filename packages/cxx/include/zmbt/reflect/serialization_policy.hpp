@@ -139,7 +139,7 @@ struct default_serialization<T, first_if_t<void,
                 std::int64_t value = v.as_int64();
                 std::int64_t test_value = static_cast<std::int64_t>(static_cast<underlying_t>(value));
                 if (value != test_value) {
-                    throw std::overflow_error("narrowing enum conversion, invalid value = " + std::to_string(value));
+                    throw serialization_error("narrowing enum conversion, can't represent " + std::to_string(value));
                 }
                 t = static_cast<T>(value);
             }
@@ -147,7 +147,7 @@ struct default_serialization<T, first_if_t<void,
 
                 std::uint64_t value = v.as_uint64();
                 if (value > std::numeric_limits<underlying_t>::max()) {
-                    throw std::overflow_error("narrowing enum conversion, invalid value = " + std::to_string(value));
+                    throw serialization_error("narrowing enum conversion, can't represent " + std::to_string(value));
                 }
                 t = static_cast<T>(value);
             }
@@ -165,9 +165,7 @@ struct default_serialization<T, first_if_t<void,
             });
 
             if (not found) {
-                std::stringstream ss;
-                ss << "invalid enum value: " << value;
-                throw base_error(ss.str());
+                throw serialization_error("invalid enum value: %s", value);
             }
 
         }
@@ -354,7 +352,7 @@ void dejsonize_array(boost::json::array const& jarr, T (&array)[N])
 
     if (jarr.size() != N)
     {
-        throw base_error("JSON array size mismatch in deserialization of `%s[%d]`",
+        throw serialization_error("JSON array size mismatch in deserialization of `%s[%d]`",
             zmbt::type_name<T>() , N);
     }
     auto jarr_it = jarr.cbegin();

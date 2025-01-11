@@ -179,7 +179,7 @@ void TestParameterResolver::init_param_iters()
                     continuation_parameters.push_back(i);
                 }
                 else if (zip_length && (N != zip_length)) {
-                    throw base_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
+                    throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
                 }
                 else
                 {

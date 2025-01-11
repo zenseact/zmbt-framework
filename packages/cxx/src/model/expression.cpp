@@ -10,10 +10,7 @@
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
 
-#include <boost/regex.hpp>
 
-#define ASSERT_WARN(E) if (!(E)) { std::cerr << zmbt::format("WARN: %s#%d - " #E "\n", __FILE__, __LINE__);}
-#define ASSERT(E)      if (!(E)) { throw zmbt::base_error("%s#%d - " #E, __FILE__, __LINE__);}
 
 namespace
 {

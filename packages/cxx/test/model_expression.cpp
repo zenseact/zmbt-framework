@@ -78,13 +78,9 @@ BOOST_AUTO_TEST_CASE(NormalFormXor)
 {
     Expression xor1 = Xor(Gt(0), Lt(1));
     Expression xor2 = And(Or(Gt(0), Lt(1)), Not(And(Gt(0), Lt(1))));
-    // BOOST_CHECK_EQUAL(xor1.match({0,0}), xor2.match(0,0));
-    // BOOST_CHECK_EQUAL(xor1.match({0,1}), xor2.match(0,1));
-    // BOOST_CHECK_EQUAL(xor1.match({1,0}), xor2.match(1,0));
-    // BOOST_CHECK_EQUAL(xor1.match({1,1}), xor2.match(1,1));
-    // BOOST_CHECK_NE(   xor1.match({1,0}), xor2.match(1,1));
-
-
+    BOOST_CHECK_EQUAL(xor1.match(0), xor2.match(0));
+    BOOST_CHECK_EQUAL(xor1.match(1), xor2.match(1));
+    BOOST_CHECK_EQUAL(xor1.match(.5), xor2.match(.5));
 }
 
 BOOST_AUTO_TEST_CASE(Negation)

@@ -180,19 +180,17 @@ void ChannelHandle::inject(boost::json::value value) const
             }
             else {
                 // TODO: log
-                throw std::out_of_range(
-                    zmbt::format("%s node not found at %s", signal_path(), signal_node).c_str()
-                );
+                throw model_error("%s node not found at %s", signal_path(), signal_node);
             }
         }
     }
     break;
     case Kind::Exception:
         // TODO: impl
-        throw base_error("Exception clause not implemented");
+        throw model_error("Exception clause not implemented");
         break;
     default:
-        throw base_error("invalid injection kind");
+        throw model_error("invalid injection kind");
         break;
     }
 }
@@ -249,10 +247,10 @@ boost::json::value ChannelHandle::observe() const
     case Kind::CallCount:
         return ifc_handle.ObservedCalls();
     case ChannelHandle::Kind::Exception:
-        throw base_error("Exception channel not implemented");
+        throw model_error("Exception channel not implemented");
         break;
     default:
-        throw base_error("implementation error");
+        throw model_error("invalid channel kind");
         break;
     }
     return nullptr;

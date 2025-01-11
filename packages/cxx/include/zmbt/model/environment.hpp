@@ -228,7 +228,7 @@ class Environment {
         }
         else
         {
-            throw std::out_of_range("Environment does not have a variable with the specified key");
+            throw environment_error("Environment does not have a variable with the specified key");
         }
     }
 
@@ -283,7 +283,7 @@ class Environment {
      *
      * @details Dynamic polymorphism is not supported, as the type safety is ensured
      * by comparing typeid(T). If the type T is not exactly the same as was used on
-     * corresponding SetShared call, the method will throw std::runtime_error.
+     * corresponding SetShared call, the method will throw environment_error.
      *
      * If corresponding data was not set, the metod return nullptr.
      *
@@ -306,7 +306,7 @@ class Environment {
         auto record = data_->shared.at(key);
         if (std::type_index(typeid(T)) != record.first)
         {
-            throw std::runtime_error("GetShared invoked with incompatible type");
+            throw environment_error("GetShared invoked with incompatible type");
         }
 
         return std::static_pointer_cast<T>(record.second);

@@ -5,15 +5,16 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include "zmbt/logging.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
+#include "zmbt/model/exceptions.hpp"
 
 #include <boost/regex.hpp>
 
-#define ASSERT_WARN(E) if (!(E)) { std::cerr << zmbt::format("WARN: %s#%d - " #E "\n", __FILE__, __LINE__);}
-#define ASSERT(E)      if (!(E)) { throw zmbt::base_error("%s#%d - " #E, __FILE__, __LINE__);}
+#define ASSERT(E)      if (!(E)) { throw zmbt::expression_error("%s#%d - " #E, __FILE__, __LINE__);}
 
 namespace
 {
@@ -336,7 +337,7 @@ V eval_impl<Keyword::Size>(V const& params, V const& sample, O const&)
     }
     else
     {
-        ASSERT_WARN(false)
+        ZMBT_LOG_JSON(warning) << "invalid Size application";
         return nullptr;
     }
 
@@ -369,7 +370,7 @@ V eval_impl<Keyword::Card>(V const& params, V const& sample, O const&)
     }
     else
     {
-        ASSERT_WARN(false)
+        ZMBT_LOG_JSON(warning) << "invalid Card application";
         return nullptr;
     }
 
@@ -544,7 +545,7 @@ void handle_terminal_binary_args(bool const has_params, V const& params, V const
         }
         else
         {
-            throw zmbt::model_error("got invalid params for binary operator, should be pair");
+            throw zmbt::expression_error("got invalid params for binary operator, should be pair");
         }
     }
 }
@@ -631,7 +632,7 @@ boost::json::value zmbt::v2::Expression::eval(boost::json::value const& x, Signa
         default:
         {
             // TODO: throw
-            throw zmbt::base_error("%s keyword not implemented", reflect::json_from(keyword()));
+            throw zmbt::expression_error("%s keyword not implemented", reflect::json_from(keyword()));
             return nullptr;
         }
     }

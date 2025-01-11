@@ -255,23 +255,23 @@ public:
             }
         }
         else {
-            throw base_error("invalid SetInjectsRange values");
+            throw environment_error("SetInjectsRange: invalid range values");
         }
 
-        if (signal_path.size() < 1)
+        if (signal_path.empty())
         {
-            throw base_error("empty signal_path on SetInjectsRange - shall start with group name");
+            throw environment_error("SetInjectsRange: empty signal_path (shall start with group name)");
         }
         auto const group = signal_path.substr(1, signal_path.find('/',2)-1);
         auto const path_in_group = signal_path.substr(group.size()+1);
 
         if (("args" != group) && ("return" != group) && ("exception" != group))
         {
-            throw base_error("invalid injection group: %s", group);
+            throw environment_error("SetInjectsRange: invalid injection group: %s", group);
         }
         else if ("exception" == group)
         {
-            throw base_error("exception injection not implemented");
+            throw environment_error("SetInjectsRange: exception injection not implemented");
         }
 
         for (auto const& kv : inject_map) {

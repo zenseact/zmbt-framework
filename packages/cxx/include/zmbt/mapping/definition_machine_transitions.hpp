@@ -360,9 +360,8 @@ struct DefinitionMachine::T_InSeries
         auto const curcnl = N_STATE.cur_cnl_idx();
         if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "join")
         {
-            throw base_error("can't combine MergeInSeries with Join");
+            throw model_error("can't combine MergeInSeries with Join");
         }
-        // throw base_error("channel join not implemented");
 
         N_STATE.model("%s/combine", N_STATE.head_channel()) = "series";
 
@@ -382,9 +381,8 @@ struct DefinitionMachine::T_Join
         auto const curcnl = N_STATE.cur_cnl_idx();
         if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "series")
         {
-            throw base_error("can't combine Join with MergeInSeries");
+            throw model_error("can't combine Join with MergeInSeries");
         }
-        // throw base_error("channel union not implemented");
         N_STATE.model("%s/combine", N_STATE.head_channel()) = "join";
         return Target(N_STATE);
     }

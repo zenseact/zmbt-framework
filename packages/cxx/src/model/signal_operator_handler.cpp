@@ -110,7 +110,7 @@ boost::json::value SignalOperatorHandler::apply(ExpressionKeyword const& keyword
     // case ExpressionKeyword::Quot: return TODO
 
     default:
-        throw base_error("invalid operand");
+        throw expression_error("invalid operand");
         return nullptr;
     }
 }
@@ -185,7 +185,7 @@ bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json
     }
     else
     {
-        throw base_error("undefined operation: `%s ⊆ %s`", lhs , rhs);
+        throw expression_error("undefined operation: `%s ⊆ %s`", lhs , rhs);
     }
     return false;
 }
@@ -218,7 +218,7 @@ bool SignalOperatorHandler::contains(boost::json::value const& set, boost::json:
     }
     else
     {
-        throw base_error("undefined operation: `%s ∈ %s`", element, set);
+        throw expression_error("undefined operation: `%s ∈ %s`", element, set);
     }
     return false;
 }

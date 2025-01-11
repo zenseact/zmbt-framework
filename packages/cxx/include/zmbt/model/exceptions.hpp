@@ -13,9 +13,8 @@
 namespace zmbt {
 
 
-
 /// Failed test assertion
-struct assertion_failure : public base_error {
+struct test_assertion_failure : public base_error {
     using base_error::base_error;
 };
 
@@ -29,12 +28,10 @@ struct environment_error : public base_error {
     using base_error::base_error;
 };
 
-
-/// Environment missing registry record
-struct missing_registry_error : public environment_error {
-    using environment_error::environment_error;
+/// Expression evaluation error
+struct expression_error : public base_error {
+    using base_error::base_error;
 };
-
 
 }  // namespace zmbt
 

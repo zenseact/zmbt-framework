@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(TypedVariables)
     Environment env {};
 
 
-    BOOST_CHECK_THROW(env.GetVar<int>("number"), std::out_of_range);
+    BOOST_CHECK_THROW(env.GetVar<int>("number"), zmbt::environment_error);
 
     env.SetVar("number", 42);
     BOOST_CHECK(42 == env.GetVar<int>("number"));
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE(Lifetime)
     }
     {
         zmbt::Environment env2 {};
-        BOOST_CHECK_THROW(env2.GetVar("lol"), std::out_of_range);
+        BOOST_CHECK_THROW(env2.GetVar("lol"), zmbt::environment_error);
     }
 
     zmbt::Environment env  {};
