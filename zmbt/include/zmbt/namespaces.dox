@@ -1,0 +1,23 @@
+/**
+ * @copyright (c) Copyright 2022-2023 Volvo Car Corporation
+ * @copyright (c) Copyright 2024 Zenseact AB
+ * @license SPDX-License-Identifier: Apache-2.0
+ */
+
+#error Doxygen documentation file, not for include
+
+/**
+ * @namespace zmbt
+ * @brief ZMBT root namespace
+ */
+
+/**
+ * @namespace zmbt::reflect
+ * @brief Reflection functionality
+ */
+
+
+/**
+ * @namespace zmbt::api
+ * @brief Library API with fixture classes and entries from main ns
+ */

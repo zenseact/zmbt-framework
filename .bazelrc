@@ -1,0 +1,13 @@
+common --enable_bzlmod=false --enable_platform_specific_config
+
+build:linux --sandbox_add_mount_pair=/tmp
+build:macos --sandbox_add_mount_pair=/var/tmp
+build:windows --sandbox_add_mount_pair=C:\Temp
+build --platforms @zig_sdk//platform:linux_x86_64
+
+test --test_arg --log_level=all
+
+build:iwyu --aspects @com_github_storypku_bazel_iwyu//bazel/iwyu:iwyu.bzl%iwyu_aspect
+build:iwyu --output_groups=report
+build:iwyu --@com_github_storypku_bazel_iwyu//:iwyu_mappings=//bazel/iwyu:mappings
+

@@ -1,0 +1,8 @@
+---
+Checks: >
+  clang-diagnostic-*,clang-analyzer-*,cppcoreguidelines-*,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+WarningsAsErrors: true
+HeaderFilterRegex: '.*'
+AnalyzeTemporaryDtors: false

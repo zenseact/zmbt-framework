@@ -1,0 +1,8 @@
+# (c) Copyright 2024 Zenseact AB
+
+filegroup(
+    name = "mappings",
+    srcs = glob([
+        "mappings/*.imp",
+    ]),
+)

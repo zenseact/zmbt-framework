@@ -1,0 +1,142 @@
+# (c) Copyright 2024 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+BOOST_LIBS = [
+    "@boost//:algorithm",
+    "@boost//:callable_traits",
+    "@boost//:date_time",
+    "@boost//:describe",
+    "@boost//:filesystem",
+    "@boost//:json",
+    "@boost//:format",
+    "@boost//:log",
+    "@boost//:mp11",
+    "@boost//:phoenix",
+    "@boost//:preprocessor",
+    "@boost//:program_options",
+    "@boost//:range",
+    "@boost//:regex",
+    "@boost//:spirit",
+    "@boost//:test",
+    "@boost//:type_index",
+    "@boost//:variant",
+]
+
+cc_library(
+    name = "logging",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/logging.hpp",
+    ]),
+    deps = BOOST_LIBS
+)
+
+cc_library(
+    name = "core",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/core.hpp",
+        "include/zmbt/core/*.hpp",
+    ]),
+    srcs = glob([
+        "src/core/*.cpp",
+    ]),
+    deps = BOOST_LIBS
+)
+
+cc_library(
+    name = "reflect",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/reflect.hpp",
+        "include/zmbt/reflect/*.hpp",
+    ]),
+    srcs = glob([
+        "src/reflect/*.cpp",
+    ]),
+    deps = [":core"]
+)
+
+cc_library(
+    name = "model",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/model.hpp",
+        "include/zmbt/model/*.hpp",
+    ]),
+    srcs = glob([
+        "src/model/*.cpp",
+    ]),
+    deps = [
+        ":reflect",
+        ":logging"
+    ]
+)
+
+
+cc_library(
+    name = "mapping",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/mapping.hpp",
+        "include/zmbt/mapping/*.hpp",
+    ]),
+    srcs = glob([
+        "src/mapping/*.cpp",
+    ]),
+    deps = [
+        ":reflect",
+        ":logging",
+        ":model"
+    ]
+)
+
+
+cc_library(
+    name = "application",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/application.hpp",
+        "include/zmbt/application/*.hpp",
+    ]),
+    srcs = glob([
+        "src/application/*.cpp",
+    ]),
+    deps = [
+        ":mapping",
+    ]
+)
+
+
+cc_library(
+    name = "zmbt",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zenseact-mbt.hpp",
+        "include/zmbt/all.hpp",
+        "include/zmbt/api.hpp",
+        "include/zmbt/api/*.hpp",
+    ]),
+    deps = [":application"]
+)
+
+
+cc_library(
+    name = "boost_main",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    srcs = [
+        "src/boost_test_main.cpp",
+    ],
+    deps = [
+        ":zmbt",
+        "@boost//:test.so",
+    ],
+)
