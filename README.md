@@ -26,7 +26,14 @@ The value of this approach in software verification includes:
 Read next: [Signal Mapping model](docs/signal-mapping.md).
 
 
-# Dependencies
+## Dependencies
 
  - C++ Standard >= 14
  - [Boost](https://www.boost.org/) >= 1.84
+
+
+## Development Status
+
+The project is currently in active development, with core features functional in a prototype state. For the initial release, we aim to refine the implementation and address technical debt, including the development of the test runner application, enhanced logging and reporting capabilities, and comprehensive documentation and verification.
+
+In the long term, we plan to introduce Finite-State Automata test models that will operate on the same infrastructure as Signal Mapping models.
