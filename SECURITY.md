@@ -1,29 +1,27 @@
 # Security Policy
 
-This document describes the ZMBT security risks to consider when using the framework,
-and instructions on handling and reporting issues.
+This document outlines the security risks associated with the ZMBT framework
+and provides guidelines for handling and reporting security issues.
 
-## Reporting a Vulnerability
-<!-- TODO(MS2) -->
-:construction: TBC :construction:
-<!--
-Use this section to tell people how to report a vulnerability.
+## Potential Vulnerabilities
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc. -->
+The framework interacts with tested systems and data through serialization and foreign function interfaces.
+It relies on user-provided adaptors, which may introduce vulnerabilities during test execution.
+Additionally, adaptor code generated using template engines (e.g., Jinja2) can create security risks
+during the rendering process if not properly managed.
 
-## Potential vulnerabilities
-<!-- TODO(MS3) -->
+## Recommendations
 
-### Code generation tools
+* Use only the framework’s built-in code generation utilities.
+* Carefully review test adaptors, templates, and generated code for security issues.
+* Execute code generation and testing in isolated environments.
+* Apply the principle of least privilege to all generation and execution processes.
+* Validate and sanitize all test inputs and template data.
+* Securely manage and store sensitive data and secrets.
 
-:construction: TBC :construction:
 
-### Untrusted inputs
+## Reporting
 
-:construction: TBC :construction:
+Do not report security vulnerabilities in public issues.
+Instead, [open a private security advisory on GitHub](https://github.com/zenseact/zmbt-framework/security/advisories/new).
 
-### Resource allocation
-
-:construction: TBC :construction:
