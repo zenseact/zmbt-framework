@@ -38,8 +38,8 @@ BOOST_AUTO_TEST_CASE(NormalFormBijection)
 BOOST_AUTO_TEST_CASE(ExplicitSerializationBijection)
 {
     Expression original {42};
-    value js = reflect::json_from(original);
-    Expression converted = reflect::dejsonize<Expression>(js);
+    value js = json_from(original);
+    Expression converted = dejsonize<Expression>(js);
     BOOST_CHECK(original == converted);
 }
 
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE(EqString)
 BOOST_AUTO_TEST_CASE(EqNoop)
 {
     value js = Noop;
-    BOOST_CHECK_EQUAL(js, reflect::json_from(Expression::Keyword::Noop));
+    BOOST_CHECK_EQUAL(js, json_from(Expression::Keyword::Noop));
 }
 
 
@@ -509,7 +509,7 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 {
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = reflect::dejsonize<zmbt::ExpressionKeyword>(":ArbitraryStringNotPresentInKeywords");
+        auto const kw = dejsonize<zmbt::ExpressionKeyword>(":ArbitraryStringNotPresentInKeywords");
         if (kw != zmbt::ExpressionKeyword::Undefined)
         {
             BOOST_FAIL("ITER FAILED = " << i);
@@ -520,10 +520,10 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 
 BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
 {
-    boost::json::string const test_kw = reflect::json_from(zmbt::ExpressionKeyword::ProperSuperset).as_string();
+    boost::json::string const test_kw = json_from(zmbt::ExpressionKeyword::ProperSuperset).as_string();
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = reflect::dejsonize<zmbt::ExpressionKeyword>(test_kw);
+        auto const kw = dejsonize<zmbt::ExpressionKeyword>(test_kw);
         if (kw != zmbt::ExpressionKeyword::ProperSuperset)
         {
             BOOST_FAIL("ITER FAILED = " << i);

@@ -49,8 +49,6 @@ class InstanceTestRunner
 
     void exec_postrun_tasks(TestDiagnostics diagnostics);
 
-    bool handle_injection(ChannelHandle const& channel, Expression const& expr, TestDiagnostics diagnostics, int n);
-
     bool prepare_test(std::size_t const n, TestDiagnostics diagnostics);
 
     bool execute_trigger(TestDiagnostics diagnostics);

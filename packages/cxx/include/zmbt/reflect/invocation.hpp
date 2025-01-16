@@ -5,8 +5,8 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_REFLECT_INTERFACE_POLICY_HPP_
-#define ZMBT_REFLECT_INTERFACE_POLICY_HPP_
+#ifndef ZMBT_REFLECT_INTERFACE_HPP_
+#define ZMBT_REFLECT_INTERFACE_HPP_
 
 #include <functional>
 #include <tuple>
@@ -26,7 +26,7 @@ namespace reflect {
 
 
 /**
- * @brief Generic interface reflection template policy
+ * @brief Interface reflection metafunction
  *
  * @details Provides type definitions and 'apply' method for generic interfaces
  *
@@ -62,7 +62,7 @@ using enable_custom_invocation = first_if_t<void, has_custom_invocation<ifc_poin
 
 
 /**
- * @brief Generic interface reflection template policy
+ * @brief Interface reflection metafunction
  *
  * @details Provides type definitions and 'apply' method for generic interfaces
  *
@@ -144,10 +144,10 @@ struct invocation<S, detail::enable_custom_invocation<S>> : custom_invocation<if
 
 
 template<class T, class E = void>
-struct has_invocation_policy_for : std::false_type { };
+struct has_invocation_mf_for : std::false_type { };
 
 template<class T>
-struct has_invocation_policy_for<T, void_t<typename invocation<T>::type>> : std::true_type { };
+struct has_invocation_mf_for<T, void_t<typename invocation<T>::type>> : std::true_type { };
 
 
 template <class I>
@@ -239,7 +239,7 @@ struct invocation_is_on_host<Host, T,
 
 template<class Host, class T>
 struct invocation_is_on_host<Host, T,
-    std::enable_if_t<not has_invocation_policy_for<T>::value>
+    std::enable_if_t<not has_invocation_mf_for<T>::value>
 > : std::false_type {};
 
 

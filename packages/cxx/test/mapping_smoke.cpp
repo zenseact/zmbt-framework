@@ -204,13 +204,13 @@ namespace TestInterface
     template <class T>
     T init()
     {
-        return zmbt::reflect::initialization<T>::init();
+        return zmbt::reflect::signal_traits<T>::init();
     }
 
     template <class T>
     void initRef(T& second)
     {
-        second = zmbt::reflect::initialization<T>::init();
+        second = zmbt::reflect::signal_traits<T>::init();
     }
 
     template <class T>
@@ -225,7 +225,7 @@ namespace TestInterface
 BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, SmokeTestTypes)
 {
 
-    auto init_value = zmbt::reflect::initialization<T>::init();
+    auto init_value = zmbt::reflect::signal_traits<T>::init();
     auto test_value = test_value_for<T>();
 
 
@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, SmokeTestTypes)
 BOOST_AUTO_TEST_CASE_TEMPLATE(Init, T, SmokeTestTypes)
 {
 
-    auto init_value = zmbt::reflect::initialization<T>::init();
+    auto init_value = zmbt::reflect::signal_traits<T>::init();
 
     SignalMapping("init<%s>", type_name<T>())
     .OnTrigger (&TestInterface::init<T>)
@@ -262,7 +262,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Init, T, SmokeTestTypes)
 BOOST_AUTO_TEST_CASE_TEMPLATE(InitRef, T, SmokeTestTypes)
 {
 
-    auto init_value = zmbt::reflect::initialization<T>::init();
+    auto init_value = zmbt::reflect::signal_traits<T>::init();
     auto test_value = test_value_for<T>();
 
     SignalMapping("initRef<%s>", type_name<T>())
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(InitRef, T, SmokeTestTypes)
 BOOST_AUTO_TEST_CASE_TEMPLATE(Ignore, T, SmokeTestTypes)
 {
 
-    auto init_value = zmbt::reflect::initialization<T>::init();
+    auto init_value = zmbt::reflect::signal_traits<T>::init();
     auto test_value = test_value_for<T>();
 
     SignalMapping("ignore<%s>", type_name<T>())

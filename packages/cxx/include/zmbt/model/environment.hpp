@@ -18,10 +18,10 @@
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/model/signal_operator_handler.hpp>
-#include <zmbt/reflect/initialization_policy.hpp>
-#include <zmbt/reflect/invocation_policy.hpp>
+#include <zmbt/reflect/signal_traits.hpp>
+#include <zmbt/reflect/invocation.hpp>
 #include <zmbt/reflect/prototypes.hpp>
-#include <zmbt/reflect/serialization_policy.hpp>
+#include <zmbt/reflect/serialization.hpp>
 #include <exception>
 #include <functional>
 #include <iosfwd>
@@ -121,7 +121,7 @@ class Environment {
     void SetVar(object_id obj, std::string key, T var)
     {
         auto lock = Lock();
-        data_->json_data("/vars/%s/%s", obj, key) = reflect::json_from(var);
+        data_->json_data("/vars/%s/%s", obj, key) = json_from(var);
     }
 
     template <class T>
@@ -147,8 +147,8 @@ class Environment {
     {
         auto lock = Lock();
         boost::json::object& varmap = data_->json_data.get_or_create_object("/vars/%s", obj);
-        varmap.insert({{key, reflect::json_from(update_value)}});
-        return reflect::dejsonize<T>(varmap[key]);
+        varmap.insert({{key, json_from(update_value)}});
+        return dejsonize<T>(varmap[key]);
     }
 
 
@@ -181,17 +181,17 @@ class Environment {
      */
     //@{
     template <class T>
-    T GetVarOrDefault(object_id obj, std::string key, T default_value = reflect::initialization<T>::init())
+    T GetVarOrDefault(object_id obj, std::string key, T default_value = reflect::signal_traits<T>::init())
     {
         auto lock = Lock();
         boost::json::object& varmap = data_->json_data.get_or_create_object("/vars/%s", obj);
         return varmap.contains(key)
-            ? reflect::dejsonize<T>(varmap.at(key))
+            ? dejsonize<T>(varmap.at(key))
             : default_value;
     }
 
     template <class T>
-    T GetVarOrDefault(std::string key, T default_value = reflect::initialization<T>::init())
+    T GetVarOrDefault(std::string key, T default_value = reflect::signal_traits<T>::init())
     {
         return GetVarOrDefault<T>(nullptr, key, default_value);
     }
@@ -224,7 +224,7 @@ class Environment {
         boost::json::object& varmap = data_->json_data.get_or_create_object("/vars/%s", obj);
         if (varmap.contains(key))
         {
-            return reflect::dejsonize<T>(varmap[key]);
+            return dejsonize<T>(varmap[key]);
         }
         else
         {

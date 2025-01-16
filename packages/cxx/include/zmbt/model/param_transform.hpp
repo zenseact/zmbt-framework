@@ -16,7 +16,7 @@
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/core/parameter.hpp>
 #include <zmbt/model/exceptions.hpp>
-#include <zmbt/reflect/serialization_policy.hpp>
+#include <zmbt/reflect/serialization.hpp>
 #include <stdint.h>
 #include <utility>
 
@@ -63,7 +63,7 @@ struct param_transform<T, traits::require_json_from<T>>
 
     boost::json::value operator()(T&& arg)
     {
-        return zmbt::reflect::json_from(arg);
+        return zmbt::json_from(arg);
     }
 };
 

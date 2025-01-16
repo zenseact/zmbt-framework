@@ -15,6 +15,8 @@
 
 
 #include <boost/spirit/include/qi.hpp>
+#include <boost/json.hpp>
+
 
 #include "zmbt/reflect.hpp"
 #include "zmbt/model/expression_keyword.hpp"
@@ -25,9 +27,9 @@
     #define ZMBT_KEYWORD_PREFIX ":"
 #endif
 
+
 namespace zmbt {
-namespace reflect {
-boost::json::value custom_serialization<ExpressionKeyword>::json_from(ExpressionKeyword const& kw)
+void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, ExpressionKeyword const& kw)
 {
     using Kw = ExpressionKeyword;
 
@@ -35,15 +37,16 @@ boost::json::value custom_serialization<ExpressionKeyword>::json_from(Expression
     {
 @for group in keyword_groups:
 @for keyword in group['keywords']:
-    case Kw::@keyword.get('enum', keyword['name'].capitalize()): return ZMBT_KEYWORD_PREFIX "@keyword['name']";
+    case Kw::@keyword.get('enum', keyword['name'].capitalize()): { v = ZMBT_KEYWORD_PREFIX "@keyword['name']"; break; }
 @end
 @end
         // TODO: throw
-        default: return ":undefined";
+        default: v = ":undefined";
     }
 }
 
-ExpressionKeyword custom_serialization<ExpressionKeyword>::dejsonize(boost::json::value const& v)
+ExpressionKeyword
+tag_invoke(boost::json::value_to_tag<ExpressionKeyword> const&, boost::json::value const& v)
 {
     if (not v.is_string())
     {
@@ -59,5 +62,4 @@ ExpressionKeyword custom_serialization<ExpressionKeyword>::dejsonize(boost::json
     static_cast<void>(boost::spirit::qi::parse(iter, end, keyword_parser, keyword_out));
     return keyword_out;
 }
-} // namespace reflect
 } // namespace zmbt

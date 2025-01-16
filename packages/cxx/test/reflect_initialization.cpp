@@ -20,7 +20,7 @@ class NoDefaultConstructor {
 
 
 template<>
-struct zmbt::reflect::custom_initialization<NoDefaultConstructor>
+struct zmbt::reflect::custom_signal_traits<NoDefaultConstructor>
 {
     static NoDefaultConstructor init()
     {
@@ -30,5 +30,5 @@ struct zmbt::reflect::custom_initialization<NoDefaultConstructor>
 
 BOOST_AUTO_TEST_CASE(NoDefault)
 {
-    BOOST_CHECK_NO_THROW(zmbt::reflect::initialization<NoDefaultConstructor>::init());
+    BOOST_CHECK_NO_THROW(zmbt::reflect::signal_traits<NoDefaultConstructor>::init());
 }

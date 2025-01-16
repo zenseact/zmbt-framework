@@ -105,7 +105,7 @@ class TriggerIfc
     static auto apply_fn(std::function<R()> fn) -> mp_if<mp_not<is_void<R>>, boost::json::value>
     {
         auto ret = fn();
-        return reflect::json_from(ret);
+        return json_from(ret);
     }
 
 public:
@@ -122,8 +122,8 @@ public:
             using ifc_host_unref_t = remove_reference_t<typename reflection::host_t>;
 
             args_unqf_t stored_args = args_in.is_array()
-                ? reflect::dejsonize<args_unqf_t>(args_in)
-                : reflect::dejsonize<args_unqf_t>(boost::json::array{args_in});
+                ? dejsonize<args_unqf_t>(args_in)
+                : dejsonize<args_unqf_t>(boost::json::array{args_in});
 
             args_t test_args = convert_tuple_to<args_t>(stored_args);
 
@@ -137,7 +137,7 @@ public:
             });
 
             return {
-                {"args", reflect::json_from(convert_tuple_to<args_unqf_t>(test_args))},
+                {"args", json_from(convert_tuple_to<args_unqf_t>(test_args))},
                 {"return", ret},
                 {"ts", get_ts()},
                 {"tid", get_tid()},

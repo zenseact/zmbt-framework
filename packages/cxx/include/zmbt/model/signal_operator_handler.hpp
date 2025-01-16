@@ -21,7 +21,7 @@ template <class T>                                                              
 static auto handle_if_##TRAIT(boost::json::value const& val)                                    \
 -> mp_if<TRAIT<T>, boost::json::value>                                                          \
 {                                                                                               \
-    return reflect::json_from(OP reflect::dejsonize<T>(val));                                   \
+    return json_from(OP dejsonize<T>(val));                                   \
 }                                                                                               \
 template <class T>                                                                              \
 static auto handle_if_##TRAIT(boost::json::value const&)                                        \
@@ -37,7 +37,7 @@ template <class T>                                                              
 static auto handle_if_##TRAIT(boost::json::value const& lhs, boost::json::value const& rhs)     \
 -> mp_if<TRAIT<T>, boost::json::value>                                                          \
 {                                                                                               \
-    return reflect::json_from(reflect::dejsonize<T>(lhs) OP reflect::dejsonize<T>(rhs));        \
+    return json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs));        \
 }                                                                                               \
 template <class T>                                                                              \
 static auto handle_if_##TRAIT(boost::json::value const&, boost::json::value const&)             \
@@ -53,7 +53,7 @@ template <class T>                                                              
 static auto handle_if_##TRAIT(boost::json::value const& lhs, boost::json::value const& rhs)     \
 -> mp_if<TRAIT<T>, bool>                                                                        \
 {                                                                                               \
-    return reflect::dejsonize<T>(lhs) OP reflect::dejsonize<T>(rhs);                            \
+    return dejsonize<T>(lhs) OP dejsonize<T>(rhs);                            \
 }                                                                                               \
 template <class T>                                                                              \
 static auto handle_if_##TRAIT(boost::json::value const&, boost::json::value const&)             \
@@ -105,20 +105,20 @@ class SignalOperatorHandler
         -> mp_if<detail::has_type_decorated_type<T>, boost::json::value>
     {
         using Decorated = typename T::decorated_type;
-        return reflect::json_from(static_cast<Decorated>(reflect::dejsonize<T>(a)));
+        return json_from(static_cast<Decorated>(dejsonize<T>(a)));
     }
 
     template <class T>
     static auto decorate(boost::json::value const& a)
         -> mp_if<mp_not<detail::has_type_decorated_type<T>>, boost::json::value>
     {
-        return reflect::json_from(reflect::dejsonize<T>(a));
+        return json_from(dejsonize<T>(a));
     }
 
     template <class T>
     static auto is_truth(boost::json::value const& val) -> mp_if<is_convertible<T, bool>, bool>
     {
-        return static_cast<bool>(reflect::dejsonize<T>(val));
+        return static_cast<bool>(dejsonize<T>(val));
     }
 
     template <class T>

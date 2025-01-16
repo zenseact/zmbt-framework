@@ -9,7 +9,7 @@
 #include <zmbt/core/aliases.hpp>
 #include <zmbt/core/format_string.hpp>
 #include <zmbt/model/expression_keyword.hpp>
-#include <zmbt/reflect/serialization_policy.hpp>
+#include <zmbt/reflect/serialization.hpp>
 #include <cstddef>
 
 #include "zmbt/mapping/test_runner.hpp"
@@ -185,7 +185,7 @@ void DefinitionHelper::add_test_case(std::vector<Expression> const& tv)
             "/tests/%d/%d", N, i);
         }
     }
-    model("/tests/+") = reflect::json_from(tv);
+    model("/tests/+") = json_from(tv);
 }
 
 }  // namespace mapping

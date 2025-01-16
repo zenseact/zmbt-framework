@@ -19,7 +19,7 @@ struct O {
 
 int freefun(int x) { return x; }
 
-BOOST_AUTO_TEST_SUITE(InvocationPolicy)
+BOOST_AUTO_TEST_SUITE(InvocationMetafn)
 
 BOOST_AUTO_TEST_CASE(ApplyFreeFun)
 {

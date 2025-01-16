@@ -14,6 +14,8 @@
 
 
 #include <boost/spirit/include/qi.hpp>
+#include <boost/json.hpp>
+
 
 #include "zmbt/reflect.hpp"
 #include "zmbt/model/expression_keyword.hpp"
@@ -24,123 +26,124 @@
     #define ZMBT_KEYWORD_PREFIX ":"
 #endif
 
+
 namespace zmbt {
-namespace reflect {
-boost::json::value custom_serialization<ExpressionKeyword>::json_from(ExpressionKeyword const& kw)
+void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, ExpressionKeyword const& kw)
 {
     using Kw = ExpressionKeyword;
 
     switch(kw)
     {
-    case Kw::Id: return ZMBT_KEYWORD_PREFIX "id";
-    case Kw::Noop: return ZMBT_KEYWORD_PREFIX "noop";
-    case Kw::True: return ZMBT_KEYWORD_PREFIX "true";
-    case Kw::False: return ZMBT_KEYWORD_PREFIX "false";
-    case Kw::Null: return ZMBT_KEYWORD_PREFIX "null";
-    case Kw::Pi: return ZMBT_KEYWORD_PREFIX "pi";
-    case Kw::E: return ZMBT_KEYWORD_PREFIX "e";
-    case Kw::Inf: return ZMBT_KEYWORD_PREFIX "inf";
-    case Kw::Eps: return ZMBT_KEYWORD_PREFIX "eps";
-    case Kw::NaN: return ZMBT_KEYWORD_PREFIX "nan";
-    case Kw::Bool: return ZMBT_KEYWORD_PREFIX "bool";
-    case Kw::Nil: return ZMBT_KEYWORD_PREFIX "nil";
-    case Kw::Not: return ZMBT_KEYWORD_PREFIX "not";
-    case Kw::And: return ZMBT_KEYWORD_PREFIX "and";
-    case Kw::Or: return ZMBT_KEYWORD_PREFIX "or";
-    case Kw::Xor: return ZMBT_KEYWORD_PREFIX "xor";
-    case Kw::Eq: return ZMBT_KEYWORD_PREFIX "eq";
-    case Kw::Ne: return ZMBT_KEYWORD_PREFIX "ne";
-    case Kw::Lt: return ZMBT_KEYWORD_PREFIX "lt";
-    case Kw::Le: return ZMBT_KEYWORD_PREFIX "le";
-    case Kw::Gt: return ZMBT_KEYWORD_PREFIX "gt";
-    case Kw::Ge: return ZMBT_KEYWORD_PREFIX "ge";
-    case Kw::Ni: return ZMBT_KEYWORD_PREFIX "ni";
-    case Kw::NotNi: return ZMBT_KEYWORD_PREFIX "not-ni";
-    case Kw::SetEq: return ZMBT_KEYWORD_PREFIX "set-eq";
-    case Kw::Subset: return ZMBT_KEYWORD_PREFIX "subset";
-    case Kw::Superset: return ZMBT_KEYWORD_PREFIX "superset";
-    case Kw::ProperSubset: return ZMBT_KEYWORD_PREFIX "p-subset";
-    case Kw::ProperSuperset: return ZMBT_KEYWORD_PREFIX "p-superset";
-    case Kw::In: return ZMBT_KEYWORD_PREFIX "in";
-    case Kw::NotIn: return ZMBT_KEYWORD_PREFIX "not-in";
-    case Kw::Neg: return ZMBT_KEYWORD_PREFIX "neg";
-    case Kw::Abs: return ZMBT_KEYWORD_PREFIX "abs";
-    case Kw::Sign: return ZMBT_KEYWORD_PREFIX "sign";
-    case Kw::Ceil: return ZMBT_KEYWORD_PREFIX "ceil";
-    case Kw::Floor: return ZMBT_KEYWORD_PREFIX "floor";
-    case Kw::Round: return ZMBT_KEYWORD_PREFIX "round";
-    case Kw::Add: return ZMBT_KEYWORD_PREFIX "add";
-    case Kw::Sub: return ZMBT_KEYWORD_PREFIX "sub";
-    case Kw::Mul: return ZMBT_KEYWORD_PREFIX "mul";
-    case Kw::Div: return ZMBT_KEYWORD_PREFIX "div";
-    case Kw::Pow: return ZMBT_KEYWORD_PREFIX "pow";
-    case Kw::Log: return ZMBT_KEYWORD_PREFIX "log";
-    case Kw::Mod: return ZMBT_KEYWORD_PREFIX "mod";
-    case Kw::Quot: return ZMBT_KEYWORD_PREFIX "quot";
-    case Kw::Sqrt: return ZMBT_KEYWORD_PREFIX "sqrt";
-    case Kw::Sin: return ZMBT_KEYWORD_PREFIX "sin";
-    case Kw::Cos: return ZMBT_KEYWORD_PREFIX "cos";
-    case Kw::Tan: return ZMBT_KEYWORD_PREFIX "tan";
-    case Kw::Asin: return ZMBT_KEYWORD_PREFIX "asin";
-    case Kw::Acos: return ZMBT_KEYWORD_PREFIX "acos";
-    case Kw::Atan: return ZMBT_KEYWORD_PREFIX "atan";
-    case Kw::Sinh: return ZMBT_KEYWORD_PREFIX "sinh";
-    case Kw::Cosh: return ZMBT_KEYWORD_PREFIX "cosh";
-    case Kw::Tanh: return ZMBT_KEYWORD_PREFIX "tanh";
-    case Kw::Asinh: return ZMBT_KEYWORD_PREFIX "asinh";
-    case Kw::Acosh: return ZMBT_KEYWORD_PREFIX "acosh";
-    case Kw::Atanh: return ZMBT_KEYWORD_PREFIX "atanh";
-    case Kw::Exp: return ZMBT_KEYWORD_PREFIX "exp";
-    case Kw::Erf: return ZMBT_KEYWORD_PREFIX "erf";
-    case Kw::Erfc: return ZMBT_KEYWORD_PREFIX "erfc";
-    case Kw::Gamma: return ZMBT_KEYWORD_PREFIX "gamma";
-    case Kw::BitNot: return ZMBT_KEYWORD_PREFIX "b-not";
-    case Kw::BitAnd: return ZMBT_KEYWORD_PREFIX "b-and";
-    case Kw::BitOr: return ZMBT_KEYWORD_PREFIX "b-or";
-    case Kw::BitXor: return ZMBT_KEYWORD_PREFIX "b-xor";
-    case Kw::BitLshift: return ZMBT_KEYWORD_PREFIX "b-lshift";
-    case Kw::BitRshift: return ZMBT_KEYWORD_PREFIX "b-rshift";
-    case Kw::Map: return ZMBT_KEYWORD_PREFIX "map";
-    case Kw::Filter: return ZMBT_KEYWORD_PREFIX "filter";
-    case Kw::Compose: return ZMBT_KEYWORD_PREFIX "compose";
-    case Kw::Recur: return ZMBT_KEYWORD_PREFIX "recur";
-    case Kw::Apply: return ZMBT_KEYWORD_PREFIX "apply";
-    case Kw::Partial: return ZMBT_KEYWORD_PREFIX "partial";
-    case Kw::Reduce: return ZMBT_KEYWORD_PREFIX "reduce";
-    case Kw::Concat: return ZMBT_KEYWORD_PREFIX "concat";
-    case Kw::Union: return ZMBT_KEYWORD_PREFIX "union";
-    case Kw::Intersect: return ZMBT_KEYWORD_PREFIX "intersect";
-    case Kw::Diff: return ZMBT_KEYWORD_PREFIX "set-diff";
-    case Kw::Cartesian: return ZMBT_KEYWORD_PREFIX "cartesian";
-    case Kw::Transp: return ZMBT_KEYWORD_PREFIX "transp";
-    case Kw::Set: return ZMBT_KEYWORD_PREFIX "set";
-    case Kw::List: return ZMBT_KEYWORD_PREFIX "list";
-    case Kw::Slide: return ZMBT_KEYWORD_PREFIX "slide";
-    case Kw::Stride: return ZMBT_KEYWORD_PREFIX "stride";
-    case Kw::Slice: return ZMBT_KEYWORD_PREFIX "slice";
-    case Kw::Sort: return ZMBT_KEYWORD_PREFIX "sort";
-    case Kw::Repeat: return ZMBT_KEYWORD_PREFIX "repeat";
-    case Kw::At: return ZMBT_KEYWORD_PREFIX "at";
-    case Kw::Sum: return ZMBT_KEYWORD_PREFIX "sum";
-    case Kw::Prod: return ZMBT_KEYWORD_PREFIX "prod";
-    case Kw::Card: return ZMBT_KEYWORD_PREFIX "card";
-    case Kw::Size: return ZMBT_KEYWORD_PREFIX "size";
-    case Kw::Count: return ZMBT_KEYWORD_PREFIX "count";
-    case Kw::Min: return ZMBT_KEYWORD_PREFIX "min";
-    case Kw::Max: return ZMBT_KEYWORD_PREFIX "max";
-    case Kw::Argmin: return ZMBT_KEYWORD_PREFIX "argmin";
-    case Kw::Argmax: return ZMBT_KEYWORD_PREFIX "argmax";
-    case Kw::Any: return ZMBT_KEYWORD_PREFIX "any";
-    case Kw::All: return ZMBT_KEYWORD_PREFIX "all";
-    case Kw::Saturate: return ZMBT_KEYWORD_PREFIX "saturate";
-    case Kw::Re: return ZMBT_KEYWORD_PREFIX "re";
-    case Kw::Approx: return ZMBT_KEYWORD_PREFIX "approx";
+    case Kw::Id: { v = ZMBT_KEYWORD_PREFIX "id"; break; }
+    case Kw::Noop: { v = ZMBT_KEYWORD_PREFIX "noop"; break; }
+    case Kw::True: { v = ZMBT_KEYWORD_PREFIX "true"; break; }
+    case Kw::False: { v = ZMBT_KEYWORD_PREFIX "false"; break; }
+    case Kw::Null: { v = ZMBT_KEYWORD_PREFIX "null"; break; }
+    case Kw::Pi: { v = ZMBT_KEYWORD_PREFIX "pi"; break; }
+    case Kw::E: { v = ZMBT_KEYWORD_PREFIX "e"; break; }
+    case Kw::Inf: { v = ZMBT_KEYWORD_PREFIX "inf"; break; }
+    case Kw::Eps: { v = ZMBT_KEYWORD_PREFIX "eps"; break; }
+    case Kw::NaN: { v = ZMBT_KEYWORD_PREFIX "nan"; break; }
+    case Kw::Bool: { v = ZMBT_KEYWORD_PREFIX "bool"; break; }
+    case Kw::Nil: { v = ZMBT_KEYWORD_PREFIX "nil"; break; }
+    case Kw::Not: { v = ZMBT_KEYWORD_PREFIX "not"; break; }
+    case Kw::And: { v = ZMBT_KEYWORD_PREFIX "and"; break; }
+    case Kw::Or: { v = ZMBT_KEYWORD_PREFIX "or"; break; }
+    case Kw::Xor: { v = ZMBT_KEYWORD_PREFIX "xor"; break; }
+    case Kw::Eq: { v = ZMBT_KEYWORD_PREFIX "eq"; break; }
+    case Kw::Ne: { v = ZMBT_KEYWORD_PREFIX "ne"; break; }
+    case Kw::Lt: { v = ZMBT_KEYWORD_PREFIX "lt"; break; }
+    case Kw::Le: { v = ZMBT_KEYWORD_PREFIX "le"; break; }
+    case Kw::Gt: { v = ZMBT_KEYWORD_PREFIX "gt"; break; }
+    case Kw::Ge: { v = ZMBT_KEYWORD_PREFIX "ge"; break; }
+    case Kw::Ni: { v = ZMBT_KEYWORD_PREFIX "ni"; break; }
+    case Kw::NotNi: { v = ZMBT_KEYWORD_PREFIX "not-ni"; break; }
+    case Kw::SetEq: { v = ZMBT_KEYWORD_PREFIX "set-eq"; break; }
+    case Kw::Subset: { v = ZMBT_KEYWORD_PREFIX "subset"; break; }
+    case Kw::Superset: { v = ZMBT_KEYWORD_PREFIX "superset"; break; }
+    case Kw::ProperSubset: { v = ZMBT_KEYWORD_PREFIX "p-subset"; break; }
+    case Kw::ProperSuperset: { v = ZMBT_KEYWORD_PREFIX "p-superset"; break; }
+    case Kw::In: { v = ZMBT_KEYWORD_PREFIX "in"; break; }
+    case Kw::NotIn: { v = ZMBT_KEYWORD_PREFIX "not-in"; break; }
+    case Kw::Neg: { v = ZMBT_KEYWORD_PREFIX "neg"; break; }
+    case Kw::Abs: { v = ZMBT_KEYWORD_PREFIX "abs"; break; }
+    case Kw::Sign: { v = ZMBT_KEYWORD_PREFIX "sign"; break; }
+    case Kw::Ceil: { v = ZMBT_KEYWORD_PREFIX "ceil"; break; }
+    case Kw::Floor: { v = ZMBT_KEYWORD_PREFIX "floor"; break; }
+    case Kw::Round: { v = ZMBT_KEYWORD_PREFIX "round"; break; }
+    case Kw::Add: { v = ZMBT_KEYWORD_PREFIX "add"; break; }
+    case Kw::Sub: { v = ZMBT_KEYWORD_PREFIX "sub"; break; }
+    case Kw::Mul: { v = ZMBT_KEYWORD_PREFIX "mul"; break; }
+    case Kw::Div: { v = ZMBT_KEYWORD_PREFIX "div"; break; }
+    case Kw::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }
+    case Kw::Log: { v = ZMBT_KEYWORD_PREFIX "log"; break; }
+    case Kw::Mod: { v = ZMBT_KEYWORD_PREFIX "mod"; break; }
+    case Kw::Quot: { v = ZMBT_KEYWORD_PREFIX "quot"; break; }
+    case Kw::Sqrt: { v = ZMBT_KEYWORD_PREFIX "sqrt"; break; }
+    case Kw::Sin: { v = ZMBT_KEYWORD_PREFIX "sin"; break; }
+    case Kw::Cos: { v = ZMBT_KEYWORD_PREFIX "cos"; break; }
+    case Kw::Tan: { v = ZMBT_KEYWORD_PREFIX "tan"; break; }
+    case Kw::Asin: { v = ZMBT_KEYWORD_PREFIX "asin"; break; }
+    case Kw::Acos: { v = ZMBT_KEYWORD_PREFIX "acos"; break; }
+    case Kw::Atan: { v = ZMBT_KEYWORD_PREFIX "atan"; break; }
+    case Kw::Sinh: { v = ZMBT_KEYWORD_PREFIX "sinh"; break; }
+    case Kw::Cosh: { v = ZMBT_KEYWORD_PREFIX "cosh"; break; }
+    case Kw::Tanh: { v = ZMBT_KEYWORD_PREFIX "tanh"; break; }
+    case Kw::Asinh: { v = ZMBT_KEYWORD_PREFIX "asinh"; break; }
+    case Kw::Acosh: { v = ZMBT_KEYWORD_PREFIX "acosh"; break; }
+    case Kw::Atanh: { v = ZMBT_KEYWORD_PREFIX "atanh"; break; }
+    case Kw::Exp: { v = ZMBT_KEYWORD_PREFIX "exp"; break; }
+    case Kw::Erf: { v = ZMBT_KEYWORD_PREFIX "erf"; break; }
+    case Kw::Erfc: { v = ZMBT_KEYWORD_PREFIX "erfc"; break; }
+    case Kw::Gamma: { v = ZMBT_KEYWORD_PREFIX "gamma"; break; }
+    case Kw::BitNot: { v = ZMBT_KEYWORD_PREFIX "b-not"; break; }
+    case Kw::BitAnd: { v = ZMBT_KEYWORD_PREFIX "b-and"; break; }
+    case Kw::BitOr: { v = ZMBT_KEYWORD_PREFIX "b-or"; break; }
+    case Kw::BitXor: { v = ZMBT_KEYWORD_PREFIX "b-xor"; break; }
+    case Kw::BitLshift: { v = ZMBT_KEYWORD_PREFIX "b-lshift"; break; }
+    case Kw::BitRshift: { v = ZMBT_KEYWORD_PREFIX "b-rshift"; break; }
+    case Kw::Map: { v = ZMBT_KEYWORD_PREFIX "map"; break; }
+    case Kw::Filter: { v = ZMBT_KEYWORD_PREFIX "filter"; break; }
+    case Kw::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
+    case Kw::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
+    case Kw::Apply: { v = ZMBT_KEYWORD_PREFIX "apply"; break; }
+    case Kw::Partial: { v = ZMBT_KEYWORD_PREFIX "partial"; break; }
+    case Kw::Reduce: { v = ZMBT_KEYWORD_PREFIX "reduce"; break; }
+    case Kw::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
+    case Kw::Union: { v = ZMBT_KEYWORD_PREFIX "union"; break; }
+    case Kw::Intersect: { v = ZMBT_KEYWORD_PREFIX "intersect"; break; }
+    case Kw::Diff: { v = ZMBT_KEYWORD_PREFIX "set-diff"; break; }
+    case Kw::Cartesian: { v = ZMBT_KEYWORD_PREFIX "cartesian"; break; }
+    case Kw::Transp: { v = ZMBT_KEYWORD_PREFIX "transp"; break; }
+    case Kw::Set: { v = ZMBT_KEYWORD_PREFIX "set"; break; }
+    case Kw::List: { v = ZMBT_KEYWORD_PREFIX "list"; break; }
+    case Kw::Slide: { v = ZMBT_KEYWORD_PREFIX "slide"; break; }
+    case Kw::Stride: { v = ZMBT_KEYWORD_PREFIX "stride"; break; }
+    case Kw::Slice: { v = ZMBT_KEYWORD_PREFIX "slice"; break; }
+    case Kw::Sort: { v = ZMBT_KEYWORD_PREFIX "sort"; break; }
+    case Kw::Repeat: { v = ZMBT_KEYWORD_PREFIX "repeat"; break; }
+    case Kw::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
+    case Kw::Sum: { v = ZMBT_KEYWORD_PREFIX "sum"; break; }
+    case Kw::Prod: { v = ZMBT_KEYWORD_PREFIX "prod"; break; }
+    case Kw::Card: { v = ZMBT_KEYWORD_PREFIX "card"; break; }
+    case Kw::Size: { v = ZMBT_KEYWORD_PREFIX "size"; break; }
+    case Kw::Count: { v = ZMBT_KEYWORD_PREFIX "count"; break; }
+    case Kw::Min: { v = ZMBT_KEYWORD_PREFIX "min"; break; }
+    case Kw::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
+    case Kw::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }
+    case Kw::Argmax: { v = ZMBT_KEYWORD_PREFIX "argmax"; break; }
+    case Kw::Any: { v = ZMBT_KEYWORD_PREFIX "any"; break; }
+    case Kw::All: { v = ZMBT_KEYWORD_PREFIX "all"; break; }
+    case Kw::Saturate: { v = ZMBT_KEYWORD_PREFIX "saturate"; break; }
+    case Kw::Re: { v = ZMBT_KEYWORD_PREFIX "re"; break; }
+    case Kw::Approx: { v = ZMBT_KEYWORD_PREFIX "approx"; break; }
         // TODO: throw
-        default: return ":undefined";
+        default: v = ":undefined";
     }
 }
 
-ExpressionKeyword custom_serialization<ExpressionKeyword>::dejsonize(boost::json::value const& v)
+ExpressionKeyword
+tag_invoke(boost::json::value_to_tag<ExpressionKeyword> const&, boost::json::value const& v)
 {
     if (not v.is_string())
     {
@@ -156,6 +159,5 @@ ExpressionKeyword custom_serialization<ExpressionKeyword>::dejsonize(boost::json
     static_cast<void>(boost::spirit::qi::parse(iter, end, keyword_parser, keyword_out));
     return keyword_out;
 }
-} // namespace reflect
 } // namespace zmbt
 

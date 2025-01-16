@@ -15,6 +15,8 @@
 #ifndef ZMBT_MODEL_EXPRESSION_KEYWORD_HPP_
 #define ZMBT_MODEL_EXPRESSION_KEYWORD_HPP_
 
+#include <boost/json.hpp>
+
 #include "zmbt/reflect.hpp"
 
 #ifndef ZMBT_KEYWORD_PREFIX
@@ -350,13 +352,12 @@ enum class ExpressionKeyword
     Undefined
 };
 
+// Boost JSON conversion from ExpressionKeyword
+void tag_invoke(boost::json::value_from_tag const&, boost::json::value&, ExpressionKeyword const& t);
 
-template<>
-struct reflect::custom_serialization<ExpressionKeyword> {
+// Boost JSON conversion to ExpressionKeyword
+ExpressionKeyword tag_invoke(boost::json::value_to_tag<ExpressionKeyword> const&, boost::json::value const&);
 
-    static boost::json::value json_from(ExpressionKeyword const& kw);
-    static ExpressionKeyword dejsonize(boost::json::value const& v);
-};
 
 } // namespace zmbt
 

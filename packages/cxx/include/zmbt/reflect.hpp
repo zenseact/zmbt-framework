@@ -10,9 +10,9 @@
 
 
 #include "reflect/ducktyping_traits_pp.hpp"  // IWYU pragma: keep
-#include "reflect/initialization_policy.hpp"  // IWYU pragma: keep
-#include "reflect/invocation_policy.hpp"  // IWYU pragma: keep
+#include "reflect/signal_traits.hpp"  // IWYU pragma: keep
+#include "reflect/invocation.hpp"  // IWYU pragma: keep
 #include "reflect/prototypes.hpp"  // IWYU pragma: keep
-#include "reflect/serialization_policy.hpp"  // IWYU pragma: keep
+#include "reflect/serialization.hpp"  // IWYU pragma: keep
 
 #endif  // ZMBT_CORE_HPP_

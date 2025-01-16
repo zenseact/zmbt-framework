@@ -1,141 +1,92 @@
 <!-- (c) Copyright 2024 Zenseact AB -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-Reflection API
-==============
+# Reflection API
 
-*** note
-*This section is in progress*
-***
+Currently, ZMBT does not require complete type reflection. The `SignalMapping` tests rely solely on signal serialization and default value initialization. Future updates will ensure interoperability with Boost C++ libraries that provide data reflection capabilities.
 
-Namespace: `zmbt::reflect`
+To operate on test data and interfaces within the test model, the framework utilizes the following metafunctions in the `zmbt::reflect` namespace:
 
-To operate on test data and interfaces in test model, the library requires the following reflection metadata/metafunctions:
+- `serialization<T>`: JSON serialization and deserialization for type `T`.
+- `signal_traits<T>`: Default values for type `T`.
+- `invocation<T>`: Type traits and a runtime `apply` method for callable type `T`.
 
-- `zmbt::reflect::serialization` - signal type JSON serialization and deserialization.
-- `zmbt::reflect::initialization` - default value for signal types with no default constructor.
-- `zmbt::reflect::invocation` - interface invocation compile-time metadata and run-time apply method.
+For customization, specialize the metafunctions `zmbt::reflect::custom_*<T, E = void>`, as detailed below. The template parameter `E` serves as an optional SFINAE enabler.
 
 ## Serialization
-Default serialization reflection is covered by Boost.JSON for builtin types, and STL and Boost containers. To simplify serialization for the user-defined plain signals, we provide default serialization for enums and classes/structs, reflected with Boost.Describe lib as follows:
 
-> *DEPRECATION WARNING*: The Boost.JSON supports described types since 1.81
-> with some differences with ZMBT, this integration is a subject of change
+Serialization is based on Boost.JSON, and it can be enabled by following the [Boost.JSON API](https://www.boost.org/doc/libs/release/libs/json/). However, the recommended approach is to use the metafunction `zmbt::reflect::custom_serialization<T, E = void>`. This enables serialization independently of Boost.JSON, preventing argument-dependent lookup pollution in the tested system (see the example in [demo_hermetic_serialization.cpp](../packages/cxx/test/demo_hermetic_serialization.cpp)). This is particularly useful when user data already has defined serialization that is unsuitable for testing or when template types in tests are not expected to be serializable in the SUT context.
 
 ```cpp
-// data types defined elsewhere in SUT:
-struct my_ns::Point {int x, int y};
-enum class my_ns::Enum {A, B};
-
-namespace my_ns {
-
-// ADL injection macro
-ZMBT_INJECT_JSON_TAG_INVOKE
-
-BOOST_DESCRIBE_STRUCT(
-    Point,  // typename
-    (),     // list of base classes
-    (x, y)   // member names
-)
-
-BOOST_DESCRIBE_ENUM(
-    Enum, // typename
-    A, B  // memvers
-)
-
-} // my_ns
+template <class T>
+struct zmbt::reflect::custom_serialization<T, std::enable_if_t<my_trait<T>>> {
+    // Convert T to JSON
+    static boost::json::value json_from(const T& t);
+    // Convert JSON to T
+    static T dejsonize(const boost::json::value& v);
+};
 ```
 
-Other Boost serialization libs may be supported in future. A more complex
-serialization may be defined by user with `reflect::custom_seialization` (see below).
+For simpler serialization, use the [Boost.Describe](https://www.boost.org/doc/libs/release/libs/describe/):
 
-## Initialization
-This metafunction provides initial signal value for models and Environment.
-If your signal type has no default ctor, use reflect::custom_initialization (see below).
+```cpp
+namespace sut {
+BOOST_DESCRIBE_STRUCT(Point, (), (x, y))
+BOOST_DESCRIBE_ENUM(Enum, A, B)
+} // namespace sut
+```
 
-## Invocation
-This metafunction provides type info about interface invocation details, and an apply method to be used in run-time, e. g., by model trigger.
+Support for other Boost reflection libraries may be added in the future.
 
-Default invocation covers most of the use cases: free functions, functor objects with single operator(), member functions, and member data. Customization may be required in some edge cases, e.g. to handle unserializable signal types (see below).
+Note that `zmbt::reflect::serialization` is not intended for direct use. Instead, use `zmbt::json_from` and `zmbt::dejsonize`, which fall back to Boost.JSON when no default or custom conversions are defined.
 
-## Reflection customisation
-Templates:
+To enable full interoperability with Boost.JSON for user data types, use the following macros to inject `tag_invoke` and `operator<<`:
 
- - `reflect::custom_seialization`
- - `reflect::custom_initialization`
- - `reflect::custom_invocation`
+- `ZMBT_INJECT_JSON_TAG_INVOKE`
+- `ZMBT_INJECT_OSTREAM_OPERATOR`
+- `ZMBT_INJECT_SERIALIZATION` (wraps both `tag_invoke` and `operator<<`)
+- `ZMBT_INJECT_JSON_TAG_INVOKE_INTO(...)` - pass nested namespaces as list
+- `ZMBT_INJECT_OSTREAM_OPERATOR_INTO(...)`
+- `ZMBT_INJECT_SERIALIZATION_INTO(...)`
 
-The library provides a uniform way to inject needed specializations into reflection metafunctions to customize their behavior:
+## Signal Traits
 
-Example:
+This metafunction currently provides initial signal values for models and the environment. Use `reflect::custom_signal_traits` to provide initial values for types without a default constructor or to specify custom default values for testing.
+
+Future updates may extend this metafunction to include other traits, such as boundary values.
 
 ```cpp
 template <>
-struct zmbt::reflect::custom_serialization<MySignal>
-{
-
-    static boost::json::value json_from(MySignal const& t)
-    {
-        // ...
+struct zmbt::reflect::custom_signal_traits<MySignal> {
+    static constexpr MySignal init() {
+        return MySignal{/* parameters for default test value */};
     }
+};
 
-    static MySignal dejsonize(boost::json::value const& jv)
-    {
-        // ...
-    }
-}
-
-template <>
-struct zmbt::reflect::custom_initialization<MySignal>
-{
-
-    static constexpr MySignal init()
-    {
-        return MySignal { /* parameters for default test value */};
-    }
-}
-// macros for simple cases:
+// Macros for simpler cases:
 ZMBT_DEFINE_CUSTOM_INIT(MySignal, (...))
+```
 
+## Invocation
 
+This metafunction provides type information about interface invocation details and a runtime `apply` method, which is useful for model triggers.
 
+The default invocation covers most use cases: free functions, functor objects with a single `operator()`, and member functions. Customization may be necessary for edge cases, such as handling unserializable signal types.
+
+```cpp
 template <>
-struct zmbt::reflect::custom_invocation<void(*)(MySignal*)>
-{
+struct zmbt::reflect::custom_invocation<void(*)(MySignal*)> {
     using type     = void(*)(MySignal*);
     using host_t   = void;
     using return_t = void;
     using args_t   = std::tuple<MySignal&>;
 
     template <class Ignore>
-    static return_t apply(Ignore, type ifc, args_t args)
-    {
-        MySignal& value_out  = std::get<0>(args);
-        ifc(&value_out);
+    static return_t apply(Ignore, type ifc, args_t args) {
+        MySignal& value_out = std::get<0>(args);
+        return ifc(&value_out);
     }
-}
-```
-
-The last example shows the transformation of the `(MySignal*) -> void` function
-to `(MySignal&) -> void`. This allows environment and model APIs to handle the interface,
-not supported by default because of pointers.
-
-Then an environment interface hook may looks like
-
-```cpp
-void function_to_mock(MySignal* value_out)
-{
-    *value_out = zmbt::api::InterfaceRecord(function_to_mock).Hook();
-}
-```
-
-If a straitforward specialization is not enough, all policies accept additional
-SFINAE-enabling parameter, which can be used for more complex partitions, e. g.:
-
-```cpp
-template <class T>
-struct zmbt::reflect::custom_serialization<T, std::enable_if_t<my_trait<T>::value>>
-{
-    // my implementation
 };
 ```
+
+This example transforms a function of type `(MySignal*) -> void` into `(MySignal&) -> void`, allowing the framework to handle interfaces that involve pointers, which are not supported by default.

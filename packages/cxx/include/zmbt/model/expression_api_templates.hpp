@@ -12,7 +12,7 @@
 #include <initializer_list>
 #include <boost/json.hpp>
 #include "zmbt/model/expression_keyword.hpp"
-#include "zmbt/reflect/serialization_policy.hpp"
+#include "zmbt/reflect/serialization.hpp"
 #include "expression.hpp"
 
 namespace zmbt {
@@ -46,7 +46,7 @@ struct ExprOneParam : public Expression
     template <class T>
     Expression operator()(T&& param) const
     {
-        return Expression(k, reflect::json_from(std::forward<T>(param)));
+        return Expression(k, json_from(std::forward<T>(param)));
     }
 };
 

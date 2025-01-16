@@ -52,7 +52,7 @@ public:
     Expression();
 
     template <class T>
-    Expression(T const& sample) : Expression(reflect::json_from(sample)) {}
+    Expression(T const& sample) : Expression(json_from(sample)) {}
 
     Expression(Expression const& o)
     {

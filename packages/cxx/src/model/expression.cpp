@@ -37,13 +37,13 @@ Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&
 
 
 Expression::Expression(Keyword const& keyword, boost::json::value const& params)
-    : Expression(internal_tag{}, keyword, boost::json::object{{reflect::json_from(keyword).get_string(), params}})
+    : Expression(internal_tag{}, keyword, boost::json::object{{json_from(keyword).get_string(), params}})
 {
 }
 
 
 Expression::Expression(Keyword const& keyword)
-    : Expression(internal_tag{}, keyword, reflect::json_from(keyword))
+    : Expression(internal_tag{}, keyword, json_from(keyword))
 {
 }
 
@@ -60,11 +60,11 @@ struct Expression::json_ctor_params
 
         if (expr.is_object() && expr.get_object().size() == 1)
         {
-            keyword = reflect::dejsonize<Keyword>(expr.get_object().cbegin()->key());
+            keyword = dejsonize<Keyword>(expr.get_object().cbegin()->key());
         }
         else
         {
-            keyword = reflect::dejsonize<Keyword>(expr);
+            keyword = dejsonize<Keyword>(expr);
         }
 
         if (keyword != Keyword::Undefined)
@@ -74,7 +74,7 @@ struct Expression::json_ctor_params
         else
         {
             keyword = Keyword::Eq;
-            underlying = boost::json::object{{reflect::json_from(Keyword::Eq).get_string(), std::move(expr)}};
+            underlying = boost::json::object{{json_from(Keyword::Eq).get_string(), std::move(expr)}};
         }
     }
 
@@ -83,11 +83,11 @@ struct Expression::json_ctor_params
 
         if (expr.is_object() && expr.get_object().size() == 1)
         {
-            keyword = reflect::dejsonize<Keyword>(expr.get_object().cbegin()->key());
+            keyword = dejsonize<Keyword>(expr.get_object().cbegin()->key());
         }
         else
         {
-            keyword = reflect::dejsonize<Keyword>(expr);
+            keyword = dejsonize<Keyword>(expr);
         }
 
         if (keyword != Keyword::Undefined)
@@ -97,7 +97,7 @@ struct Expression::json_ctor_params
         else
         {
             keyword = Keyword::Eq;
-            underlying = boost::json::object{{reflect::json_from(Keyword::Eq).get_string(), expr}};
+            underlying = boost::json::object{{json_from(Keyword::Eq).get_string(), expr}};
         }
     }
 };

@@ -632,7 +632,7 @@ boost::json::value zmbt::v2::Expression::eval(boost::json::value const& x, Signa
         default:
         {
             // TODO: throw
-            throw zmbt::expression_error("%s keyword not implemented", reflect::json_from(keyword()));
+            throw zmbt::expression_error("%s keyword not implemented", json_from(keyword()));
             return nullptr;
         }
     }

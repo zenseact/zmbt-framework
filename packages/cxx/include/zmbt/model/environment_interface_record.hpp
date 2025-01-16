@@ -157,7 +157,7 @@ public:
     void InjectReturn(T value, int const nofcall = -1)
     {
         // TODO: handle conversion error
-        InjectReturn(reflect::json_from(value), nofcall);
+        InjectReturn(json_from(value), nofcall);
     }
     //@}
 
@@ -387,13 +387,13 @@ class TypedInterfaceRecord : public Environment::IfcRec
         captures("/+") = {
             {"ts", ts},
             {"tid", tid },
-            {"args", reflect::json_from(convert_tuple_to<unqf_args_t>(args))}
+            {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
         };
-        // captures("/+/args") = reflect::json_from(convert_tuple_to<unqf_args_t>(args));
+        // captures("/+/args") = json_from(convert_tuple_to<unqf_args_t>(args));
 
         auto nofcall = captures().as_array().size();
 
-        auto args_out = reflect::dejsonize<unqf_args_t>(GetInjectionArgs(nofcall));
+        auto args_out = dejsonize<unqf_args_t>(GetInjectionArgs(nofcall));
 
         // Produce
         auto args_hook = convert_tuple_to<hookout_args_t>(args);
@@ -427,7 +427,7 @@ class TypedInterfaceRecord : public Environment::IfcRec
     return_t Hook(hookout_args_t args)
     {
         auto const nofcall = HookImpl(args);
-        return reflect::dejsonize<return_t>(GetInjectionReturn(nofcall));
+        return dejsonize<return_t>(GetInjectionReturn(nofcall));
     }
 
     template <class... A>
@@ -435,7 +435,7 @@ class TypedInterfaceRecord : public Environment::IfcRec
     {
         hookout_args_t args {arg...};
         auto const nofcall = HookImpl(args);
-        return reflect::dejsonize<return_t>(GetInjectionReturn(nofcall));
+        return dejsonize<return_t>(GetInjectionReturn(nofcall));
     }
     //@}
 };

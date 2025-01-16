@@ -10,7 +10,7 @@
 
 #include <boost/json.hpp>
 #include <zmbt/core/type_tag.hpp>
-#include <zmbt/reflect/initialization_policy.hpp>
+#include <zmbt/reflect/signal_traits.hpp>
 #include <iostream>
 
 namespace zmbt {
@@ -35,7 +35,7 @@ public:
 
     template<class T>
     GenericSignalOperator(type_tag<T>)
-        : GenericSignalOperator(reflect::initialization<T>::init())
+        : GenericSignalOperator(reflect::signal_traits<T>::init())
     {
     }
 

@@ -32,12 +32,12 @@ BOOST_AUTO_TEST_CASE(EnumNominalMatch)
 {
 
     auto expr = Eq(ducks::Grey::Quack);
-    BOOST_CHECK(expr.match(zmbt::reflect::json_from(ducks::Grey::Quack)));
-    BOOST_CHECK(expr.match(zmbt::reflect::json_from(ducks::White::Quack)));
+    BOOST_CHECK(expr.match(zmbt::json_from(ducks::Grey::Quack)));
+    BOOST_CHECK(expr.match(zmbt::json_from(ducks::White::Quack)));
 
     expr = Ne(ducks::White::Quack);
-    BOOST_CHECK(!expr.match(zmbt::reflect::json_from(ducks::Grey::Quack)));
-    BOOST_CHECK(!expr.match(zmbt::reflect::json_from(ducks::White::Quack)));
+    BOOST_CHECK(!expr.match(zmbt::json_from(ducks::Grey::Quack)));
+    BOOST_CHECK(!expr.match(zmbt::json_from(ducks::White::Quack)));
 }
 
 
@@ -90,12 +90,12 @@ struct Decorator
 
     explicit Decorator(boost::json::value const& v)
     : value_{v.is_string()
-        ? zmbt::reflect::dejsonize<decorated_type>(v)
+        ? zmbt::dejsonize<decorated_type>(v)
         : decorated_type(boost::json::value_to<int>(v))
     } {}
 
     operator boost::json::value() const {
-        return zmbt::reflect::json_from(value_);
+        return zmbt::json_from(value_);
     }
 };
 

@@ -8,9 +8,9 @@
 #define ZMBT_REFLECT_PROTOTYPES_HPP_
 
 #include "zmbt/core.hpp"
-#include "initialization_policy.hpp"
-#include "serialization_policy.hpp"
-#include "invocation_policy.hpp"
+#include "signal_traits.hpp"
+#include "serialization.hpp"
+#include "invocation.hpp"
 
 namespace zmbt {
 namespace reflect {
@@ -26,16 +26,16 @@ auto init_return() -> mp_if<is_void<T>, boost::json::value>
 template <class T>
 auto init_return() -> mp_if<mp_not<is_void<T>>, boost::json::value>
 {
-    return reflect::json_from(reflect::initialization<T>::init());
+    return json_from(reflect::signal_traits<T>::init());
 }
 
 template <class T>
 auto init_args()
 {
-    return reflect::json_from(reflect::init_tuple<T>()).as_array();
+    return json_from(reflect::init_tuple<T>()).as_array();
 }
 
-} // namespace
+} // namespace detail
 
 
 /// Interface prototypes in JSON as {"args": [...], "return": ... }
