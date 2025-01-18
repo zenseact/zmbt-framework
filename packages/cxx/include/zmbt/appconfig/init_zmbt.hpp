@@ -10,6 +10,7 @@
 namespace zmbt {
 namespace appconfig {
 
+/// Initialize test application
 void InitZmbt(int argc, char **argv);
 
 } // namespace appconfig

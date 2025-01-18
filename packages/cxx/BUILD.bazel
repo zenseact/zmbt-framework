@@ -86,9 +86,12 @@ cc_library(
     hdrs = glob([
         "include/zmbt/model.hpp",
         "include/zmbt/model/*.hpp",
+        "include/zmbt/decor.hpp", # TODO: Move decor to a separate target
+        "include/zmbt/decor/*.hpp",
     ]),
     srcs = glob([
         "src/model/*.cpp",
+        "src/decor/*.cpp",
     ]),
     deps = [
         ":reflect",

@@ -7,6 +7,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include "zmbt/model.hpp"
+#include "zmbt/decor.hpp"
+
 
 
 namespace utf = boost::unit_test;
@@ -19,7 +21,7 @@ using namespace boost::json;
 
 using V = boost::json::value;
 
-boost::json::object NF(Expression::Keyword const& kw, boost::json::value const& v)
+boost::json::object NF(Keyword const& kw, boost::json::value const& v)
 {
     return {{json_from(kw).as_string(), v}};
 }
@@ -56,21 +58,21 @@ BOOST_AUTO_TEST_CASE(ImplicitSerializationBijection)
 BOOST_AUTO_TEST_CASE(EqInt)
 {
     value js = Expression(42);
-    BOOST_CHECK_EQUAL(js, NF(Expression::Keyword::Eq, 42));
+    BOOST_CHECK_EQUAL(js, NF(Keyword::Eq, 42));
 }
 
 
 BOOST_AUTO_TEST_CASE(EqString)
 {
     value js = Expression("Lol");
-    BOOST_CHECK_EQUAL(js, NF(Expression::Keyword::Eq, "Lol"));
+    BOOST_CHECK_EQUAL(js, NF(Keyword::Eq, "Lol"));
 }
 
 
 BOOST_AUTO_TEST_CASE(EqNoop)
 {
     value js = Noop;
-    BOOST_CHECK_EQUAL(js, json_from(Expression::Keyword::Noop));
+    BOOST_CHECK_EQUAL(js, json_from(Keyword::Noop));
 }
 
 
@@ -101,9 +103,9 @@ BOOST_AUTO_TEST_CASE(Negation)
 BOOST_AUTO_TEST_CASE(Conjunction)
 {
     value expression = And(Gt(0), Lt(42));
-    value should_be = NF(Expression::Keyword::And, array{
-        NF(Expression::Keyword::Gt, 0),
-        NF(Expression::Keyword::Lt, 42),
+    value should_be = NF(Keyword::And, array{
+        NF(Keyword::Gt, 0),
+        NF(Keyword::Lt, 42),
     });
 
     BOOST_CHECK_EQUAL(expression, should_be);
@@ -113,9 +115,9 @@ BOOST_AUTO_TEST_CASE(Conjunction)
 BOOST_AUTO_TEST_CASE(Disjunction)
 {
     value expression = Or(Gt(0), Lt(42));
-    value should_be = NF(Expression::Keyword::Or, array{
-        NF(Expression::Keyword::Gt, 0),
-        NF(Expression::Keyword::Lt, 42),
+    value should_be = NF(Keyword::Or, array{
+        NF(Keyword::Gt, 0),
+        NF(Keyword::Lt, 42),
     });
     BOOST_CHECK_EQUAL(expression, should_be);
 }
@@ -123,7 +125,7 @@ BOOST_AUTO_TEST_CASE(Disjunction)
 BOOST_AUTO_TEST_CASE(CustomOperator)
 {
     Expression x {42};
-    BOOST_CHECK(x.is(ExpressionKeyword::Eq));
+    BOOST_CHECK(x.is(Keyword::Eq));
     BOOST_CHECK_EQUAL(x.params(), 42);
     BOOST_CHECK(x.match(42));
     BOOST_CHECK(x.match(42, SignalOperatorHandler(type<int>)));
@@ -195,7 +197,7 @@ BOOST_AUTO_TEST_CASE(NiNotNi)
 
 BOOST_AUTO_TEST_CASE(MatchWithPreciseOp)
 {
-    auto op = SignalOperatorHandler(type<precise<double>>);
+    auto op = SignalOperatorHandler(type<decor::precise<double>>);
     BOOST_CHECK(In({0.5, 0.2})    .match(0.2)    );
     BOOST_CHECK(In({0.5, 0.2})    .match(0.2, op));
     BOOST_CHECK(In({1.1f, 0.2, 1}).match(1, op)  );
@@ -509,8 +511,8 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 {
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = dejsonize<zmbt::ExpressionKeyword>(":ArbitraryStringNotPresentInKeywords");
-        if (kw != zmbt::ExpressionKeyword::Undefined)
+        auto const kw = dejsonize<zmbt::Keyword>(":ArbitraryStringNotPresentInKeywords");
+        if (kw != zmbt::Keyword::Undefined)
         {
             BOOST_FAIL("ITER FAILED = " << i);
             break;
@@ -520,11 +522,11 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 
 BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
 {
-    boost::json::string const test_kw = json_from(zmbt::ExpressionKeyword::ProperSuperset).as_string();
+    boost::json::string const test_kw = json_from(zmbt::Keyword::ProperSuperset).as_string();
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = dejsonize<zmbt::ExpressionKeyword>(test_kw);
-        if (kw != zmbt::ExpressionKeyword::ProperSuperset)
+        auto const kw = dejsonize<zmbt::Keyword>(test_kw);
+        if (kw != zmbt::Keyword::ProperSuperset)
         {
             BOOST_FAIL("ITER FAILED = " << i);
             break;

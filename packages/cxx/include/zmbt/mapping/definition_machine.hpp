@@ -32,13 +32,13 @@ namespace mapping {
 /// Mapping model definition machine
 class DefinitionMachine
 {
-    DefinitionHelper mapping_;
+    detail::DefinitionHelper mapping_;
 
   public:
     DefinitionMachine() : mapping_{} {}
-    DefinitionMachine(DefinitionHelper& mapping) : mapping_{mapping} {}
+    DefinitionMachine(detail::DefinitionHelper& mapping) : mapping_{mapping} {}
 
-    DefinitionHelper& state()
+    detail::DefinitionHelper& state()
     {
         return mapping_;
     }

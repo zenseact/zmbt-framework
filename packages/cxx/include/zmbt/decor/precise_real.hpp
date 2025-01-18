@@ -17,6 +17,8 @@
 
 namespace zmbt {
 
+namespace decor {
+/// Exception thrown by decor::precise
 struct precision_loss_error : public std::runtime_error {
     using std::runtime_error::runtime_error;
 };
@@ -49,10 +51,16 @@ inline long double strto<long double>(char const*const str, char ** end)
 } // namespace detail
 
 
-/// Type decorator for floating point numbers. Throws on precision loss in runtime.
+/// \brief Type decorator for floating point numbers. Throws on precision loss in runtime.
+/// \details The class will ensure exact value conversion between floating point types
+/// of different precision on construction and assignment.
+/// In addition to handling the f23 vs f63, this class also can be constructed from string literals,
+/// enabling support for hex representation.
 template <class VT>
 struct precise
 {
+    // TODO: document the decoration API
+    /// The decorated type
     using decorated_type = VT;
 
     static_assert(std::is_floating_point<decorated_type>::value, "template paremeter is not a floating number type");
@@ -81,12 +89,12 @@ struct precise
         auto const value_as_t = detail::strto<T>(str, &end);
 
         if (end == str) {
-            throw std::invalid_argument("zmbt::precise<T> string parsing error");
+            throw std::invalid_argument("zmbt::decor::precise<T> string parsing error");
         }
 
         // test reverse
         if (std::isnormal(value_as_t) and (value_as_t != detail::strto<decorated_type>(str, nullptr))) {
-            throw precision_loss_error("precision loss when creating zmbt::precise<T>");
+            throw precision_loss_error("precision loss when creating zmbt::decor::precise<T>");
         }
 
         return validate(value_as_t);
@@ -101,7 +109,7 @@ struct precise
         #pragma GCC diagnostic ignored "-Wpragmas"
         decorated_type value = init_value;
         if (std::isnormal(init_value) and (T {value} !=  init_value)) {
-            throw precision_loss_error("precision loss when creating zmbt::precise<T>");
+            throw precision_loss_error("precision loss when creating zmbt::decor::precise<T>");
         }
         #pragma GCC diagnostic pop
         return value;
@@ -132,7 +140,7 @@ struct precise
             }
         }
         else {
-            throw std::invalid_argument("zmbt::precise<T> string parsing error");
+            throw std::invalid_argument("zmbt::decor::precise<T> string parsing error");
             return {};
         }
     }
@@ -231,24 +239,25 @@ struct precise
     decorated_type value_;
 };
 
+} // namespace decor
 
 namespace reflect {
 
 template <class T>
-struct custom_serialization<precise<T>> {
+struct custom_serialization<decor::precise<T>> {
 
 
-    static boost::json::value json_from(precise<T> const t)
+    static boost::json::value json_from(decor::precise<T> const t)
     {
         boost::json::value v;
         v.emplace_string() = t.stringify();
         return v;
     }
 
-    static precise<T>
+    static decor::precise<T>
     dejsonize(boost::json::value const& v)
     {
-        precise<T> result;
+        decor::precise<T> result;
         switch (v.kind()) {
             case boost::json::kind::string:
                 result = v.get_string().data();
@@ -263,7 +272,7 @@ struct custom_serialization<precise<T>> {
                 result = v.get_uint64();
                 break;
             default:
-                throw std::invalid_argument("zmbt::precise<T> conversion failure");
+                throw std::invalid_argument("zmbt::decor::precise<T> conversion failure");
                 break;
         }
         return result;

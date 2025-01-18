@@ -16,7 +16,9 @@
 namespace zmbt {
 
 
-
+/// @brief Generic operator for signal in JSON representation, enabling type erasure.
+/// @details Provides default operators based on signal type, known at the construction.
+/// Operator call will return null if it is not supported for the given signal type.
 class GenericSignalOperator
 {
     boost::json::value value_;

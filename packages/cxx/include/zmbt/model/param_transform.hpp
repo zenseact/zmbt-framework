@@ -57,7 +57,7 @@ struct param_transform_base
 
 
 template <class T>
-struct param_transform<T, traits::require_json_from<T>>
+struct param_transform<T, require_json_from<T>>
 {
     param_transform(Param const&, boost::json::array const&) {}
 
@@ -73,7 +73,7 @@ template <class T, class = void>
 struct param_transform_interface;
 
 template <class T>
-struct param_transform_interface<T, traits::require_cal<T>> : public param_transform_base
+struct param_transform_interface<T, require_cal<T>> : public param_transform_base
 {
     using param_transform_base::param_transform_base;
 
@@ -137,7 +137,7 @@ struct param_transform_interface<T, traits::require_cal<T>> : public param_trans
 };
 
 template <class T>
-struct param_transform_interface<T, traits::require_not_cal<T>> : public param_transform_base
+struct param_transform_interface<T, require_not_cal<T>> : public param_transform_base
 {
     using param_transform_base::param_transform_base;
 
@@ -161,7 +161,7 @@ struct param_transform_interface<T, traits::require_not_cal<T>> : public param_t
 };
 
 template <class T>
-struct param_transform<T, traits::require_no_json_from<T>> : public param_transform_interface<T>
+struct param_transform<T, require_no_json_from<T>> : public param_transform_interface<T>
 {
     using param_transform_interface<T>::param_transform_interface;
 };

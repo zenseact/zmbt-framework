@@ -8,7 +8,6 @@
 #ifndef ZMBT_CORE_TYPE_INFO_HPP_
 #define ZMBT_CORE_TYPE_INFO_HPP_
 
-// #include <cxxabi.h>
 
 #include <type_traits>
 #include <boost/type_index.hpp>

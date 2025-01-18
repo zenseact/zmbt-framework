@@ -26,7 +26,7 @@ namespace zmbt {
     def define_api_constant(group, keyword):
         Key = keyword.get('enum', keyword['name'].capitalize())
         BaseTemplate = group['api-template']
-        return f"static {BaseTemplate}<ExpressionKeyword::{Key}> const {Key}{{}};"
+        return f"static {BaseTemplate}<Keyword::{Key}> const {Key}{{}};"
 )
 
 namespace expr
@@ -35,36 +35,45 @@ namespace expr
 @for group in filter(lambda g: 'api-template' in g, keyword_groups):
 @for keyword in group['keywords']:
 
-    @if comment := keyword.get('comment', None):
-    @for line in comment.split('\n'):
-    /// @line
+/// \brief @keyword.get('brief', keyword['name'].capitalize())
+    @if details := keyword.get('details', None):
+/// \details
+        @for line in details.split('\n'):
+/// @line
+        @end
     @end
-    @end
-    @define_api_constant(group, keyword)
+@define_api_constant(group, keyword)
 @end
 @end
 
 
 
-/// Floating point approximate equal
-/// Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
-static struct Approx_ : public Expression
+
+struct Approx_ : public Expression
 {
     Approx_() : Expression(Keyword::Approx)
     {}
 
     Expression operator()(double reference, double rtol, double atol = std::numeric_limits<double>::epsilon()) const
     {
-        return Expression(Expression::Keyword::Approx, boost::json::array {reference, rtol, atol});
+        return Expression(Keyword::Approx, boost::json::array {reference, rtol, atol});
     }
-} Approx;
+};
+
+/// \brief Floating point approximate equal
+/// \details Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
+static Approx_ const Approx {};
 
 
 // Aliases
 
+/// Alias for expr::Noop
 static decltype(Noop) const _ = Noop;
+/// Alias for expr::Ni
 static decltype(Ni) const Contains = Ni;
+/// Alias for expr::Approx
 static decltype(Approx) const Near = Approx;
+/// Alias for expr::Re
 static decltype(Re) const Regex = Re;
 
 }

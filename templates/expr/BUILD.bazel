@@ -13,27 +13,27 @@ filegroup(
 )
 
 wheezy_template_codegen(
-    name = "expression_keyword_hpp",
+    name = "keyword_hpp",
     data = ":data",
-    entry_template = "expression_keyword.hpp",
+    entry_template = "keyword.hpp",
     extra_templates = [
     ],
     visibility = ["//visibility:public"],
 )
 
 wheezy_template_codegen(
-    name = "expression_keyword_cpp",
+    name = "keyword_cpp",
     data = ":data",
-    entry_template = "expression_keyword.cpp",
+    entry_template = "keyword.cpp",
     extra_templates = [
     ],
     visibility = ["//visibility:public"],
 )
 
 wheezy_template_codegen(
-    name = "expression_grammar_cpp",
+    name = "keyword_grammar_cpp",
     data = ":data",
-    entry_template = "expression_grammar.cpp",
+    entry_template = "keyword_grammar.cpp",
     extra_templates = [
     ],
     visibility = ["//visibility:public"],

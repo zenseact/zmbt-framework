@@ -11,26 +11,22 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "signal_operator_handler.hpp"
-#include "expression_keyword.hpp"
+#include "keyword.hpp"
 #include "exceptions.hpp"
 
 
 namespace zmbt {
 
-namespace v2 {
-
-
+/// JSON transformation expression base
 class Expression
 {
-
-    ExpressionKeyword keyword_;
+    Keyword keyword_;
     boost::json::value underlying_;
     boost::json::value const* params_ptr_;
     boost::json::value const dummy_params_{};
 
-
     struct internal_tag{};
-    Expression(internal_tag, ExpressionKeyword const& keyword, boost::json::value&& underlying);
+    Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying);
 
     struct json_ctor_params;
     Expression(json_ctor_params&&);
@@ -40,13 +36,12 @@ protected:
     using V = boost::json::value;
 
 public:
-    using Keyword = ExpressionKeyword;
 
     static boost::json::array toArray(std::initializer_list<Expression> const& list);
 
     Expression(std::initializer_list<boost::json::value_ref> items);
     Expression(boost::json::value const& expr);
-    Expression(ExpressionKeyword const& keyword, boost::json::value const& params);
+    Expression(Keyword const& keyword, boost::json::value const& params);
     explicit Expression(Keyword const& keyword);
 
     Expression();
@@ -153,12 +148,8 @@ public:
 
 };
 
-ZMBT_INJECT_SERIALIZATION
-}
-
-
 template<class T>
-struct reflect::custom_serialization<T, mp_if<is_base_of<v2::Expression, T>, void>> {
+struct reflect::custom_serialization<T, mp_if<is_base_of<Expression, T>, void>> {
 
     static boost::json::value
     json_from(T const& t)
@@ -169,14 +160,10 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<v2::Expression, T>, voi
     static T
     dejsonize(boost::json::value const& v)
     {
-        return static_cast<T>(v2::Expression(v));
+        return static_cast<T>(Expression(v));
     }
 
 };
-
-
-
-using Expression = v2::Expression;
 
 }  // namespace zmbt
 

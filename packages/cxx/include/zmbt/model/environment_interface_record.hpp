@@ -389,7 +389,6 @@ class TypedInterfaceRecord : public Environment::IfcRec
             {"tid", tid },
             {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
         };
-        // captures("/+/args") = json_from(convert_tuple_to<unqf_args_t>(args));
 
         auto nofcall = captures().as_array().size();
 

@@ -11,7 +11,8 @@
 
 using namespace zmbt::api;
 
-using zmbt::precision_loss_error;
+using zmbt::decor::precise;
+using zmbt::decor::precision_loss_error;
 
 BOOST_AUTO_TEST_CASE(Constructor)
 {

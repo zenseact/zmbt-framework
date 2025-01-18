@@ -12,7 +12,7 @@
 #include <zmbt/model/environment_interface_record.hpp>
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/expression.hpp>
-#include <zmbt/model/expression_keyword.hpp>
+#include <zmbt/model/keyword.hpp>
 #include <zmbt/model/signal_operator_handler.hpp>
 #include <zmbt/core.hpp>
 #include <cstddef>
@@ -141,11 +141,11 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
             continue;
         }
         auto expr = Expression(test_value);
-        if (expr.keyword() == Expression::Keyword::Noop)
+        if (expr.keyword() == Keyword::Noop)
         {
             continue;
         }
-        else if (expr.keyword() != Expression::Keyword::Eq)
+        else if (expr.keyword() != Keyword::Eq)
         {
             report_failure(diagnostics
                 .Error(
@@ -208,7 +208,7 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
             continue;
         }
         auto expr = Expression(test_value);
-        if (expr.keyword() == Expression ::Keyword::Noop)
+        if (expr.keyword() == Keyword::Noop)
         {
             continue;
         }

@@ -16,7 +16,7 @@
 namespace zmbt {
 namespace mapping {
 
-
+/// Test diagnostics for test case execution
 struct TestDiagnostics
 {
     enum class Result

@@ -11,7 +11,7 @@
 #include <cstddef>
 #include <initializer_list>
 #include <boost/json.hpp>
-#include "zmbt/model/expression_keyword.hpp"
+#include "zmbt/model/keyword.hpp"
 #include "zmbt/reflect/serialization.hpp"
 #include "expression.hpp"
 
@@ -23,7 +23,8 @@ namespace detail
     boost::json::value as_set(std::initializer_list<boost::json::value_ref> set);
 }
 
-template <ExpressionKeyword k>
+/// Invariant Expression
+template <Keyword k>
 struct ExprNoParams : public Expression
 {
     ExprNoParams()
@@ -31,7 +32,8 @@ struct ExprNoParams : public Expression
     {}
 };
 
-template <ExpressionKeyword k>
+/// Expression with one parameter
+template <Keyword k>
 struct ExprOneParam : public Expression
 {
     ExprOneParam()
@@ -50,7 +52,8 @@ struct ExprOneParam : public Expression
     }
 };
 
-template <ExpressionKeyword k>
+/// Expression with one or two parameters
+template <Keyword k>
 struct ExprOneOrTwoParam : public Expression
 {
     ExprOneOrTwoParam()
@@ -67,7 +70,8 @@ struct ExprOneOrTwoParam : public Expression
     }
 };
 
-template <ExpressionKeyword k>
+/// Expression with two parameters
+template <Keyword k>
 struct ExprTwoParam : public Expression
 {
     ExprTwoParam()
@@ -80,8 +84,8 @@ struct ExprTwoParam : public Expression
     }
 };
 
-
-template <ExpressionKeyword k>
+/// Expression with variadic parameters
+template <Keyword k>
 struct ExprVariadicParam : public Expression
 {
     ExprVariadicParam()
@@ -118,7 +122,8 @@ struct ExprVariadicParam : public Expression
     }
 };
 
-template <Expression::Keyword Kw>
+/// Expression with set-like parameter
+template <Keyword Kw>
 struct ExprSetParam : public Expression
 {
     ExprSetParam()

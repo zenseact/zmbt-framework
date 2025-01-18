@@ -13,7 +13,7 @@
 namespace zmbt {
 namespace mapping {
 
-
+/// Test runner for SignalMapping model
 class TestRunner
 {
     class Impl;

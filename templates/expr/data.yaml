@@ -7,95 +7,95 @@ keyword_groups:
     api-template: ExprNoParams
     keywords:
       - name: id
-        comment: Identity function
+        brief: Identity function
 
   - name: constants
     api-template: ExprNoParams
     keywords:
       - name: noop
-        comment: No operation
+        brief: No operation
         alias: n/a
       - name: 'true'
-        comment: logical constant true
+        brief: logical constant true
         alias: T
       - name: 'false'
-        comment: logical constant false
+        brief: logical constant false
         alias: ⊥
       - name: 'null'
-        comment: constant null-value
+        brief: constant null-value
       - name: pi
-        comment: Pi constant
+        brief: Pi constant
         alias: π
       - name: e
-        comment: Euler's number
+        brief: Euler's number
       - name: inf
-        comment: Infinity
+        brief: Infinity
       - name: eps
-        comment: Machine epsilon
+        brief: Machine epsilon
       - name: nan
         enum: NaN
-        comment: Not a number
+        brief: Not a number
 
   - name: simple predicates
     api-template: ExprNoParams
     keywords:
       - name: bool
-        comment: Predicate on boolean transform (aka Truthy)
+        brief: Predicate on boolean transform (aka Truthy)
         alias: '?'
       - name: nil
-        comment: Predicate on boolean transform (aka Falsy)
+        brief: Predicate on boolean transform (aka Falsy)
 
   - name: parametric predicates
     api-template: ExprOneParam
     keywords:
       - name: not
-        comment: Logical complement
+        brief: Logical complement
         alias: ¬
 
   - name: variadic predicates
     api-template: ExprVariadicParam
     keywords:
       - name: and
-        comment: Logical conjunction
+        brief: Logical conjunction
         alias: ∧
       - name: or
-        comment: Logical disjunction
+        brief: Logical disjunction
         alias: ∨
 
   - name: xor
     api-template: ExprTwoParam
     keywords:
       - name: xor
-        comment: Logical exclusive or
+        brief: Logical exclusive or
         alias: ⊕
 
   - name: relation predicates
     api-template: ExprOneParam
     keywords:
       - name: eq
-        comment: Is equal
+        brief: Is equal
         alias: '='
       - name: ne
-        comment: Not equal
+        brief: Not equal
         alias: '≠'
       - name: lt
-        comment: Lesser than
+        brief: Lesser than
         alias: '<'
       - name: le
-        comment: Lesser or equal
+        brief: Lesser or equal
         alias: '≤'
       - name: gt
-        comment: Greater than
+        brief: Greater than
         alias: '>'
       - name: ge
-        comment: Greater or equal
+        brief: Greater or equal
         alias: '≥'
       - name: ni
-        comment: Contains element
+        brief: Contains element
         enum: Ni
         alias: '∋'
       - name: not-ni
-        comment: Not contains element
+        brief: Not contains element
         enum: NotNi
         alias: '∌'
 
@@ -104,111 +104,111 @@ keyword_groups:
     keywords:
       - name: set-eq
         enum: SetEq
-        comment: Equal as set
+        brief: Equal as set
       - name: subset
-        comment: Is subset
+        brief: Is subset
         alias: '⊆'
       - name: superset
-        comment: is superset
+        brief: is superset
         alias: '⊇'
       - name: p-subset
         enum: ProperSubset
-        comment: Is proper subset
+        brief: Is proper subset
         alias: '⊂'
       - name: p-superset
         enum: ProperSuperset
-        comment: Is proper superset
+        brief: Is proper superset
         alias: '⊃'
       - name: in
-        comment: Element is in
+        brief: Element is in
         alias: '∈'
       - name: not-in
         enum: NotIn
-        comment: Element is not in
+        brief: Element is not in
         alias: '∉'
 
   - name: unary real fn
     api-template: ExprNoParams
     keywords:
       - name: neg
-        comment: Negate
+        brief: Negate
       - name: abs
-        comment: Absolute value
+        brief: Absolute value
       - name: sign
-        comment: Sign
+        brief: Sign
       - name: ceil
-        comment: Ceil
+        brief: Ceil
       - name: floor
-        comment: Floor
+        brief: Floor
       - name: round
-        comment: Round
+        brief: Round
 
   - name: binary real fn
     api-template: ExprOneParam
     keywords:
       - name: add
-        comment: Add
+        brief: Add
         alias: '+'
       - name: sub
-        comment: Substract
+        brief: Substract
         alias: '-'
       - name: mul
-        comment: Multiply
+        brief: Multiply
         alias: '*'
       - name: div
-        comment: Divide
+        brief: Divide
         alias: '/'
       - name: pow
-        comment: To power
+        brief: To power
         alias: '**'
       - name: log
-        comment: Logarithm
+        brief: Logarithm
       - name: mod
-        comment: Modulo
+        brief: Modulo
         alias: '%'
       - name: quot
-        comment: Quotient
+        brief: Quotient
         alias: '//'
       - name: sqrt
-        comment: Square root
+        brief: Square root
       - name: sin
-        comment: Sinus
+        brief: Sinus
       - name: cos
-        comment: Cosinus
+        brief: Cosinus
       - name: tan
-        comment: Tangens
+        brief: Tangens
       - name: asin
-        comment: Arcsin
+        brief: Arcsin
       - name: acos
-        comment: Arccos
+        brief: Arccos
       - name: atan
-        comment: Arctan
+        brief: Arctan
       - name: sinh
-        comment: Hyperbolic sin
+        brief: Hyperbolic sin
       - name: cosh
-        comment: Hyperbolic cos
+        brief: Hyperbolic cos
       - name: tanh
-        comment: Hyperbolic tan
+        brief: Hyperbolic tan
       - name: asinh
-        comment: Hyperbolic  arcsin
+        brief: Hyperbolic  arcsin
       - name: acosh
-        comment: Hyperbolic arccos
+        brief: Hyperbolic arccos
       - name: atanh
-        comment: Hyperbolic arctan
+        brief: Hyperbolic arctan
       - name: exp
-        comment: Exponential (e^x)
+        brief: Exponential (e^x)
       - name: erf
-        comment: Error function
+        brief: Error function
       - name: erfc
-        comment: Error function complement
+        brief: Error function complement
       - name: gamma
-        comment: Gamma function
+        brief: Gamma function
 
   - name: bitwise unary fn
     api-template: ExprNoParams
     keywords:
       - name: b-not
-        comment: Bitwise not
+        brief: Bitwise not
         enum: BitNot
         alias: '~'
 
@@ -216,23 +216,23 @@ keyword_groups:
     api-template: ExprOneParam
     keywords:
       - name: b-and
-        comment: Bitwise and
+        brief: Bitwise and
         enum: BitAnd
         alias: '|'
       - name: b-or
-        comment: Bitwise or
+        brief: Bitwise or
         enum: BitOr
         alias: '^'
       - name: b-xor
-        comment: Bitwise xor
+        brief: Bitwise xor
         enum: BitXor
         alias: '~'
       - name: b-lshift
-        comment: Bitwise left shift
+        brief: Bitwise left shift
         enum: BitLshift
         alias: '<<'
       - name: b-rshift
-        comment: Bitwise right shift
+        brief: Bitwise right shift
         enum: BitRshift
         alias: '>>'
 
@@ -240,25 +240,25 @@ keyword_groups:
     api-template: ExprOneParam
     keywords:
       - name: map
-        comment: Apply param fn to every element of sequence
+        brief: Apply param fn to every element of sequence
       - name: filter
-        comment: Filter sequence by predicate param
+        brief: Filter sequence by predicate param
 
   - name: high-order variadic fn
     api-template: ExprVariadicParam
     keywords:
       - name: compose
-        comment: Compose functions
+        brief: Compose functions
 
   - name: high-order two params
     api-template: ExprTwoParam
     keywords:
       - name: recur
-        comment: apply recursion to parameter fn
+        brief: apply recursion to parameter fn
       - name: apply
-        comment: Apply fn to literal param
+        brief: Apply fn to literal param
       - name: partial
-        comment: Bind parameters
+        brief: Bind parameters
 
   - name: high-order reduce
     api-template: ExprOneOrTwoParam
@@ -269,47 +269,46 @@ keyword_groups:
     api-template: ExprNoParams
     keywords:
       - name: concat
-        comment: Concatenate sequences
+        brief: Concatenate sequences
       - name: union
-        comment: Set union
+        brief: Set union
         alias: '∪'
       - name: intersect
-        comment: Set intersection
+        brief: Set intersection
         alias: '∩'
       - name: set-diff
         enum: Diff
-        comment: Set difference
+        brief: Set difference
       - name: cartesian
-        comment: Cartesian product
+        brief: Cartesian product
       - name: transp
-        comment: Transpose 2-d array, turning rows into columns
+        brief: Transpose 2-d array, turning rows into columns
       - name: set
-        comment: Sequence to set
+        brief: Sequence to set
       - name: list
-        comment: Envelop value in array (equivalent to Repeat(1))
+        brief: Envelop value in array (equivalent to Repeat(1))
 
 
   - name: structural one param
     api-template: ExprOneParam
     keywords:
       - name: slide
-        comment: Sliding-window iteration
+        brief: Sliding-window iteration
       - name: stride
-        comment: Striding iteration
+        brief: Striding iteration
       - name: slice
-        comment: Slice sequence by "start:stop:step"
+        brief: Slice sequence by "start:stop:step"
       - name: sort
-        comment: Sort array by comparison parameter fn
+        brief: Sort array by comparison parameter fn
       - name: repeat
-        comment: Repeat value in array
+        brief: Repeat value in array
 
   - name: structural one or two params
     api-template: ExprOneOrTwoParam
     keywords:
       - name: at
-        comment: |
-          Transform value with query pseudo-language
-
+        brief: Transform value with query pseudo-language
+        details: |-
           Evaluation rules:
             1. int    q |-> x |-> array x at index q (negative -> reverse)
             2. str    q |-> x |-> value x at JSON Pointer q
@@ -323,48 +322,47 @@ keyword_groups:
     api-template: ExprOneOrTwoParam
     keywords:
       - name: sum
-        comment: >
-          Summation reduction, real param - initial value
+        brief: Summation reduction, real param - initial value
         alias: Σ
       - name: prod
-        comment: Multiplication reduction, real param - initial value
+        brief: Multiplication reduction, real param - initial value
         alias: Π
 
   - name: sequence properties
     api-template: ExprOneOrTwoParam
     keywords:
       - name: card
-        comment: Set cardinality (uniques count)
+        brief: Set cardinality (uniques count)
       - name: size
-        comment: Sequence size
+        brief: Sequence size
       - name: count
-        comment: Count matches
+        brief: Count matches
       - name: min
-        comment: Min value
+        brief: Min value
       - name: max
-        comment: Max value
+        brief: Max value
       - name: argmin
-        comment: Min value index
+        brief: Min value index
       - name: argmax
-        comment: Max value index
+        brief: Max value index
 
   - name: match combos
     api-template: ExprVariadicParam
     keywords:
       - name: any
-        comment: Match any predicate
+        brief: Match any predicate
       - name: all
-        comment:  Match all predicates
+        brief:  Match all predicates
       - name: saturate
-        comment: Saturate matches in order
+        brief: Saturate matches in order
 
   - name: regex
     api-template: ExprOneParam
     keywords:
       - name: re
-        comment: Regular expression match
+        brief: Regular expression match
 
   - name: approx
     keywords:
       - name: approx
-        comment: Approximately equal
+        brief: Approximately equal

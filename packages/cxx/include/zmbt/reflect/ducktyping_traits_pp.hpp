@@ -10,20 +10,20 @@
 
 #define CAT(a, b) a##b
 
-#define ZMBT_TRAIT_HAS_TYPE(trait, name)           \
-    template <class T, class = void>                \
-    struct trait : std::false_type {};              \
-    template <class T>                              \
-    struct trait<                                   \
+#define ZMBT_TRAIT_HAS_TYPE(trait, name)     \
+    template <class T, class = void>         \
+    struct trait : std::false_type {};       \
+    template <class T>                       \
+    struct trait<                            \
         T, zmbt::void_t<typename T::name>>   \
     : std::true_type {};
 
 
-#define ZMBT_TRAIT_HAS_MEMBER(trait, name)                 \
-    template <class T, class = void>                        \
-    struct trait : std::false_type {};                      \
-    template <class T>                                      \
-    struct trait<T,                                         \
+#define ZMBT_TRAIT_HAS_MEMBER(trait, name)           \
+    template <class T, class = void>                 \
+    struct trait : std::false_type {};               \
+    template <class T>                               \
+    struct trait<T,                                  \
     zmbt::void_t<decltype(std::declval<T>().name())>>\
     : std::true_type {};
 

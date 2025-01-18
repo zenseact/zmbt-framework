@@ -12,7 +12,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "expression_keyword.hpp"
+#include "keyword.hpp"
 #include "exceptions.hpp"
 
 
@@ -207,12 +207,12 @@ public:
         return operators.decorate_(a);
     }
 
-    boost::json::value apply(ExpressionKeyword const& keyword, boost::json::value const& x, boost::json::value const& y = nullptr) const;
+    boost::json::value apply(Keyword const& keyword, boost::json::value const& x, boost::json::value const& y = nullptr) const;
 
     /// Is true
     bool is_truth(boost::json::value const& a) const
     {
-        return apply(ExpressionKeyword::Bool, a, nullptr).get_bool();
+        return apply(Keyword::Bool, a, nullptr).get_bool();
     }
 
 private:

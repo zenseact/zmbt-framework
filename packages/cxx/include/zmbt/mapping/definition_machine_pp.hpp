@@ -34,7 +34,7 @@ class DefinitionMachine::State                          \
 {                                                       \
   private:                                              \
     friend class DefinitionMachine;                     \
-    State(DefinitionHelper& m) : Base(m) {}             \
+    State(detail::DefinitionHelper& m) : Base(m) {}             \
     State(State const&) = delete;                       \
     State(State&&) = default;                           \
   public:                                               \

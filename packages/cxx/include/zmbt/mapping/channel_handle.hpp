@@ -16,6 +16,7 @@
 namespace zmbt {
 namespace mapping {
 
+/// Channel clause handle for SignalMapping model
 class ChannelHandle
 {
     JsonNode data_;

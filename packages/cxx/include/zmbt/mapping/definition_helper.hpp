@@ -26,7 +26,8 @@
 namespace zmbt {
 namespace mapping {
 
-
+namespace detail {
+/// SignalMapping model definition helper
 class DefinitionHelper {
 
   public:
@@ -71,7 +72,7 @@ class DefinitionHelper {
     };
 
     template <class P>
-    traits::require_not_param<P, boost::json::value>
+    require_not_param<P, boost::json::value>
     handle_obj_p(P&& obj, uint32_t&)
     {
         return {object_id(obj)};
@@ -89,7 +90,7 @@ class DefinitionHelper {
     }
 
     template <class P>
-    traits::require_cal<P, boost::json::value>
+    require_cal<P, boost::json::value>
     handle_cal_p(P&& cal, uint32_t&)
     {
         env.RegisterPrototypes(cal);
@@ -137,7 +138,7 @@ class DefinitionHelper {
     }
 
     template <class T>
-    traits::require_cal<T>
+    require_cal<T>
     add_channel(T&& cal, boost::json::string_view role)
     {
         uint32_t param_type = cnl_prm_none;
@@ -154,7 +155,7 @@ class DefinitionHelper {
     }
 
     template <class T>
-    traits::require_not_cal<T>
+    require_not_cal<T>
     add_channel(T&& key, boost::json::string_view role)
     {
         uint32_t param_type {cnl_prm_none};
@@ -178,6 +179,7 @@ class DefinitionHelper {
 
 };  // DefinitionHelper
 
+}  // namespace detail
 }  // namespace mapping
 }  // namespace zmbt
 

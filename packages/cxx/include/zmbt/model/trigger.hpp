@@ -12,6 +12,23 @@
 
 namespace zmbt {
 
+namespace detail {
+
+template <class T>
+inline auto static_ptr_cast(std::shared_ptr<void> obj)
+{
+    return std::static_pointer_cast<T>(obj);
+};
+
+template <>
+inline auto static_ptr_cast<nullptr_t>(std::shared_ptr<void> obj)
+{
+    return nullptr;
+};
+
+}
+
+
 
 /// Object handler to be used with TriggerIfc
 class TriggerObj
@@ -133,7 +150,7 @@ public:
                 }
                 // WARN: is_unsafe_ptr cast
                 // TODO: check type_index by comp option
-                return reflection::apply(std::static_pointer_cast<ifc_host_unref_t>(obj), ifc_ptr, test_args);
+                return reflection::apply(detail::static_ptr_cast<ifc_host_unref_t>(obj), ifc_ptr, test_args);
             });
 
             return {

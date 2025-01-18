@@ -8,7 +8,6 @@
 #define ZMBT_APPLICATION_HPP_
 
 
-// #include "api/ns.hpp"
 #include "appconfig/init_zmbt.hpp"
 
 #endif // ZMBT_APPLICATION_HPP_

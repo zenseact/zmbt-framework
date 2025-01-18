@@ -72,7 +72,6 @@ class Environment {
 
   public:
     class IfcRec;
-    template<class> class IfcRecTyped;
 
 
     JsonNode& json_data()

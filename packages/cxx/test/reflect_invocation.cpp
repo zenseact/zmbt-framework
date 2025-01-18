@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_SUITE(InvocationMetafn)
 BOOST_AUTO_TEST_CASE(ApplyFreeFun)
 {
     using reflection = zmbt::reflect::invocation<decltype(&freefun)>;
-    auto ret = reflection::apply(nullptr, freefun, {42});
+    reflection::return_t const ret = reflection::apply(nullptr, freefun, reflection::args_t{42});
     BOOST_TEST(ret == 42);
 }
 
@@ -32,8 +32,7 @@ BOOST_AUTO_TEST_CASE(ApplyFunctor)
 {
     using reflection = zmbt::reflect::invocation<O*>;
     O obj;
-
-    auto ret = reflection::apply(nullptr, &obj, {42});
+    reflection::return_t const ret = reflection::apply(nullptr, &obj, reflection::args_t{42});
     BOOST_TEST(ret == 42);
 }
 
@@ -41,8 +40,7 @@ BOOST_AUTO_TEST_CASE(ApplyMemfun)
 {
     using reflection = zmbt::reflect::invocation<decltype(&O::set_x)>;
     O obj;
-
-    reflection::apply(obj, &O::set_x, {42});
+    reflection::apply(obj, &O::set_x, reflection::args_t{42});
     BOOST_TEST(obj.x == 42);
 }
 

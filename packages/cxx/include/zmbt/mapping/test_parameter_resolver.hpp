@@ -16,7 +16,7 @@
 namespace zmbt {
 namespace mapping {
 
-
+/// Test spec generator that handles parameter resolution
 class TestParameterResolver
 {
     JsonNode model_;

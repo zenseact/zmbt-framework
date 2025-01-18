@@ -27,7 +27,7 @@ namespace
 }
 
 static_assert(
-    zmbt::reflect::has_invocation_mf_for<decltype(&foo)>::value,
+    zmbt::reflect::has_invocation_for<decltype(&foo)>::value,
     "This should never happen!"
 );
 
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE(FunctorTrigger, *boost::unit_test::disabled())
     auto fctor = [&](int) -> int { return 0; };
     using fctor_t = decltype(fctor);
 
-    static_assert(has_invocation_mf_for<fctor_t&>::value, "");
+    static_assert(has_invocation_for<fctor_t&>::value, "");
 
     SignalMapping("SignalMapping on functor: compilation test")
     .OnTrigger(fctor)

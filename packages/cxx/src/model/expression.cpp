@@ -14,7 +14,7 @@
 
 namespace
 {
-using Keyword = zmbt::ExpressionKeyword;
+using Keyword = zmbt::Keyword;
 
 
 boost::json::value const* ptrToParams(boost::json::value const& underlying)
@@ -26,7 +26,6 @@ boost::json::value const* ptrToParams(boost::json::value const& underlying)
 
 
 namespace zmbt {
-namespace v2 {
 
 Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying)
     : keyword_{keyword}
@@ -132,5 +131,4 @@ boost::json::array Expression::toArray(std::initializer_list<Expression> const& 
     return arr;
 }
 
-}  // namespace v2
 }  // namespace zmbt

@@ -8,7 +8,7 @@
 
 #include <zmbt/core/aliases.hpp>
 #include <zmbt/core/format_string.hpp>
-#include <zmbt/model/expression_keyword.hpp>
+#include <zmbt/model/keyword.hpp>
 #include <zmbt/reflect/serialization.hpp>
 #include <cstddef>
 
@@ -17,6 +17,7 @@
 
 namespace zmbt {
 namespace mapping {
+namespace detail {
 
 DefinitionHelper::DefinitionHelper()
     : env{}
@@ -179,7 +180,7 @@ void DefinitionHelper::add_test_case(std::vector<Expression> const& tv)
     for (size_t i = 0; i < tv.size(); i++)
     {
         auto const& expr = tv.at(i);
-        if (expr.is(Expression::Keyword::Eq) && Param::isParam(expr.subexpr()))
+        if (expr.is(Keyword::Eq) && Param::isParam(expr.subexpr()))
         {
             params("/%s/pointers/+", expr.subexpr()) = format(
             "/tests/%d/%d", N, i);
@@ -188,5 +189,6 @@ void DefinitionHelper::add_test_case(std::vector<Expression> const& tv)
     model("/tests/+") = json_from(tv);
 }
 
+}  // namespace detail
 }  // namespace mapping
 }  // namespace zmbt

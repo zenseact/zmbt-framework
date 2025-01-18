@@ -11,6 +11,7 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/model.hpp"
+#include "zmbt/decor.hpp"
 #include "zmbt/mapping.hpp"
 
 namespace zmbt {
@@ -21,44 +22,34 @@ using zmbt::type;
 
 using zmbt::Environment;
 using zmbt::InterfaceRecord;
-using zmbt::precise;
 
 using zmbt::Expression;
+
+using namespace zmbt::decor;
 using namespace zmbt::expr;
 
 using zmbt::mapping::SignalMapping;
 
-
 struct ModelTestFixture;
-
 
 #ifdef _DOXYGEN_
 
-    /// @brief zmbt::Environment alias
-    class Environment {};
-
-    /// @brief zmbt::precise alias
-    class precise {};
-
-    /**
-     * @brief zmbt::InterfaceRecord alias
-     *
-     * @param ...
-     * @return auto
-     */
-    auto InterfaceRecord(...);
-
-    /// @brief zmbt::type alias
-    constexpr auto type;
-
-    /// @brief zmbt::arg_index alias
-    constexpr auto arg_index;
-
-    /// @brief zmbt::return_value alias
-    constexpr auto return_value;
+/// Alias for zmbt::Param
+class Param {};
+/// Alias for zmbt::type
+constexpr auto  type;
+/// Alias for zmbt::Environment
+class Environment {};
+/// Alias for zmbt::InterfaceRecord
+auto InterfaceRecord(...);
+/// Alias for zmbt::precise
+class precise {};
+/// Alias for zmbt::Expression
+class Expression {};
+/// Alias for zmbt::mapping::SignalMapping
+class SignalMapping {};
 
 #endif
-
 
 }
 }

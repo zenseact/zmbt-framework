@@ -22,7 +22,7 @@ namespace
 using V = boost::json::value;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
-using Keyword = zmbt::Expression::Keyword;
+using Keyword = zmbt::Keyword;
 
 template <Keyword keyword>
 V eval_impl(V const& params, V const& x, O const& op);
@@ -553,7 +553,7 @@ void handle_terminal_binary_args(bool const has_params, V const& params, V const
 } // namespace
 
 
-boost::json::value zmbt::v2::Expression::eval(boost::json::value const& x, SignalOperatorHandler const& op) const
+boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOperatorHandler const& op) const
 {
     switch(keyword())
     {

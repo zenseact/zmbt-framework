@@ -12,7 +12,7 @@
 
 namespace zmbt {
 
-
+/// Type tag to pass template parameters as function arguments
 template <class T>
 struct type_tag {
     using type = T;

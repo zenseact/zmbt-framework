@@ -26,7 +26,7 @@
 namespace zmbt {
 
 
-
+/// Data container for the Environment
 struct EnvironmentData {
 
     using mutex_t = std::recursive_mutex;

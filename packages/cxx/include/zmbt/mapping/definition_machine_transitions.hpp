@@ -63,14 +63,14 @@ struct DefinitionMachine::T_OnTrigger
 
 
     template <class O, class I>
-    traits::require_literal<O, I, Target>
+    require_literal<O, I, Target>
     OnTrigger(O&& obj, I&& ifc) {
         auto key = N_STATE.env.RegisterTriggerLiteral(obj, ifc);
         return OnTrigger(key);
     }
 
     template <class I>
-    traits::require_cal<I, Target>
+    require_cal<I, Target>
     OnTrigger(I&& ifc) {
         static_assert(!is_member_pointer<I>::value, "");
         return OnTrigger(ifc_host_nullptr<I>, std::forward<I>(ifc));
@@ -78,7 +78,7 @@ struct DefinitionMachine::T_OnTrigger
 
 
     template <class I>
-    traits::require_cal<I, Target>
+    require_cal<I, Target>
     OnTrigger(Param const& obj, I&& ifc)
     {
         N_STATE.model("/trigger") = {
@@ -89,7 +89,7 @@ struct DefinitionMachine::T_OnTrigger
     }
 
     template <class H>
-    traits::require_obj<H, Target>
+    require_obj<H, Target>
     OnTrigger(H&& obj, Param const& ifc)
     {
         N_STATE.model("/trigger") = {
@@ -105,7 +105,7 @@ struct DefinitionMachine::T_InjectTo
 {
     /// Create input channel with an interface literal
     template <class O, class C>
-    traits::require_not_str<O, Target>
+    require_not_str<O, Target>
     InjectTo(O&& obj, C&& cal)
     {
         N_STATE.add_channel(std::forward<O>(obj), std::forward<C>(cal), "inject");
@@ -115,7 +115,7 @@ struct DefinitionMachine::T_InjectTo
 
     /// Create input channel
     template <class C>
-    traits::require_not_str<C, Target>
+    require_not_str<C, Target>
     InjectTo(C&& cal)
     {
         N_STATE.add_channel(std::forward<C>(cal), "inject");
@@ -137,7 +137,7 @@ struct DefinitionMachine::T_ObserveOn
 {
     /// Create input channel with an interface literal
     template <class O, class C>
-    traits::require_not_str<O, Target>
+    require_not_str<O, Target>
     ObserveOn(O&& obj, C&& cal)
     {
         N_STATE.add_channel(std::forward<O>(obj), std::forward<C>(cal), "observe");
@@ -146,7 +146,7 @@ struct DefinitionMachine::T_ObserveOn
 
     /// Create input channel
     template <class C>
-    traits::require_not_str<C, Target>
+    require_not_str<C, Target>
     ObserveOn(C&& cal)
     {
         N_STATE.add_channel(std::forward<C>(cal), "observe");

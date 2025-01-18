@@ -16,7 +16,7 @@
 
 namespace zmbt {
 
-
+/// ZMBT Base exception
 struct base_error : public std::runtime_error {
     using std::runtime_error::runtime_error;
 

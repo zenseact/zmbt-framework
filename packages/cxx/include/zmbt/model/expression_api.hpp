@@ -27,343 +27,349 @@ namespace expr
 {
 
 
-    /// Identity function
-    static ExprNoParams<ExpressionKeyword::Id> const Id{};
+/// \brief Identity function
+static ExprNoParams<Keyword::Id> const Id{};
 
-    /// No operation
-    static ExprNoParams<ExpressionKeyword::Noop> const Noop{};
+/// \brief No operation
+static ExprNoParams<Keyword::Noop> const Noop{};
 
-    /// logical constant true
-    static ExprNoParams<ExpressionKeyword::True> const True{};
+/// \brief logical constant true
+static ExprNoParams<Keyword::True> const True{};
 
-    /// logical constant false
-    static ExprNoParams<ExpressionKeyword::False> const False{};
+/// \brief logical constant false
+static ExprNoParams<Keyword::False> const False{};
 
-    /// constant null-value
-    static ExprNoParams<ExpressionKeyword::Null> const Null{};
+/// \brief constant null-value
+static ExprNoParams<Keyword::Null> const Null{};
 
-    /// Pi constant
-    static ExprNoParams<ExpressionKeyword::Pi> const Pi{};
+/// \brief Pi constant
+static ExprNoParams<Keyword::Pi> const Pi{};
 
-    /// Euler's number
-    static ExprNoParams<ExpressionKeyword::E> const E{};
+/// \brief Euler's number
+static ExprNoParams<Keyword::E> const E{};
 
-    /// Infinity
-    static ExprNoParams<ExpressionKeyword::Inf> const Inf{};
+/// \brief Infinity
+static ExprNoParams<Keyword::Inf> const Inf{};
 
-    /// Machine epsilon
-    static ExprNoParams<ExpressionKeyword::Eps> const Eps{};
+/// \brief Machine epsilon
+static ExprNoParams<Keyword::Eps> const Eps{};
 
-    /// Not a number
-    static ExprNoParams<ExpressionKeyword::NaN> const NaN{};
+/// \brief Not a number
+static ExprNoParams<Keyword::NaN> const NaN{};
 
-    /// Predicate on boolean transform (aka Truthy)
-    static ExprNoParams<ExpressionKeyword::Bool> const Bool{};
+/// \brief Predicate on boolean transform (aka Truthy)
+static ExprNoParams<Keyword::Bool> const Bool{};
 
-    /// Predicate on boolean transform (aka Falsy)
-    static ExprNoParams<ExpressionKeyword::Nil> const Nil{};
+/// \brief Predicate on boolean transform (aka Falsy)
+static ExprNoParams<Keyword::Nil> const Nil{};
 
-    /// Logical complement
-    static ExprOneParam<ExpressionKeyword::Not> const Not{};
+/// \brief Logical complement
+static ExprOneParam<Keyword::Not> const Not{};
 
-    /// Logical conjunction
-    static ExprVariadicParam<ExpressionKeyword::And> const And{};
+/// \brief Logical conjunction
+static ExprVariadicParam<Keyword::And> const And{};
 
-    /// Logical disjunction
-    static ExprVariadicParam<ExpressionKeyword::Or> const Or{};
+/// \brief Logical disjunction
+static ExprVariadicParam<Keyword::Or> const Or{};
 
-    /// Logical exclusive or
-    static ExprTwoParam<ExpressionKeyword::Xor> const Xor{};
+/// \brief Logical exclusive or
+static ExprTwoParam<Keyword::Xor> const Xor{};
 
-    /// Is equal
-    static ExprOneParam<ExpressionKeyword::Eq> const Eq{};
+/// \brief Is equal
+static ExprOneParam<Keyword::Eq> const Eq{};
 
-    /// Not equal
-    static ExprOneParam<ExpressionKeyword::Ne> const Ne{};
+/// \brief Not equal
+static ExprOneParam<Keyword::Ne> const Ne{};
 
-    /// Lesser than
-    static ExprOneParam<ExpressionKeyword::Lt> const Lt{};
+/// \brief Lesser than
+static ExprOneParam<Keyword::Lt> const Lt{};
 
-    /// Lesser or equal
-    static ExprOneParam<ExpressionKeyword::Le> const Le{};
+/// \brief Lesser or equal
+static ExprOneParam<Keyword::Le> const Le{};
 
-    /// Greater than
-    static ExprOneParam<ExpressionKeyword::Gt> const Gt{};
+/// \brief Greater than
+static ExprOneParam<Keyword::Gt> const Gt{};
 
-    /// Greater or equal
-    static ExprOneParam<ExpressionKeyword::Ge> const Ge{};
+/// \brief Greater or equal
+static ExprOneParam<Keyword::Ge> const Ge{};
 
-    /// Contains element
-    static ExprOneParam<ExpressionKeyword::Ni> const Ni{};
+/// \brief Contains element
+static ExprOneParam<Keyword::Ni> const Ni{};
 
-    /// Not contains element
-    static ExprOneParam<ExpressionKeyword::NotNi> const NotNi{};
+/// \brief Not contains element
+static ExprOneParam<Keyword::NotNi> const NotNi{};
 
-    /// Equal as set
-    static ExprSetParam<ExpressionKeyword::SetEq> const SetEq{};
+/// \brief Equal as set
+static ExprSetParam<Keyword::SetEq> const SetEq{};
 
-    /// Is subset
-    static ExprSetParam<ExpressionKeyword::Subset> const Subset{};
+/// \brief Is subset
+static ExprSetParam<Keyword::Subset> const Subset{};
 
-    /// is superset
-    static ExprSetParam<ExpressionKeyword::Superset> const Superset{};
+/// \brief is superset
+static ExprSetParam<Keyword::Superset> const Superset{};
 
-    /// Is proper subset
-    static ExprSetParam<ExpressionKeyword::ProperSubset> const ProperSubset{};
+/// \brief Is proper subset
+static ExprSetParam<Keyword::ProperSubset> const ProperSubset{};
 
-    /// Is proper superset
-    static ExprSetParam<ExpressionKeyword::ProperSuperset> const ProperSuperset{};
+/// \brief Is proper superset
+static ExprSetParam<Keyword::ProperSuperset> const ProperSuperset{};
 
-    /// Element is in
-    static ExprSetParam<ExpressionKeyword::In> const In{};
+/// \brief Element is in
+static ExprSetParam<Keyword::In> const In{};
 
-    /// Element is not in
-    static ExprSetParam<ExpressionKeyword::NotIn> const NotIn{};
+/// \brief Element is not in
+static ExprSetParam<Keyword::NotIn> const NotIn{};
 
-    /// Negate
-    static ExprNoParams<ExpressionKeyword::Neg> const Neg{};
+/// \brief Negate
+static ExprNoParams<Keyword::Neg> const Neg{};
 
-    /// Absolute value
-    static ExprNoParams<ExpressionKeyword::Abs> const Abs{};
+/// \brief Absolute value
+static ExprNoParams<Keyword::Abs> const Abs{};
 
-    /// Sign
-    static ExprNoParams<ExpressionKeyword::Sign> const Sign{};
+/// \brief Sign
+static ExprNoParams<Keyword::Sign> const Sign{};
 
-    /// Ceil
-    static ExprNoParams<ExpressionKeyword::Ceil> const Ceil{};
+/// \brief Ceil
+static ExprNoParams<Keyword::Ceil> const Ceil{};
 
-    /// Floor
-    static ExprNoParams<ExpressionKeyword::Floor> const Floor{};
+/// \brief Floor
+static ExprNoParams<Keyword::Floor> const Floor{};
 
-    /// Round
-    static ExprNoParams<ExpressionKeyword::Round> const Round{};
+/// \brief Round
+static ExprNoParams<Keyword::Round> const Round{};
 
-    /// Add
-    static ExprOneParam<ExpressionKeyword::Add> const Add{};
+/// \brief Add
+static ExprOneParam<Keyword::Add> const Add{};
 
-    /// Substract
-    static ExprOneParam<ExpressionKeyword::Sub> const Sub{};
+/// \brief Substract
+static ExprOneParam<Keyword::Sub> const Sub{};
 
-    /// Multiply
-    static ExprOneParam<ExpressionKeyword::Mul> const Mul{};
+/// \brief Multiply
+static ExprOneParam<Keyword::Mul> const Mul{};
 
-    /// Divide
-    static ExprOneParam<ExpressionKeyword::Div> const Div{};
+/// \brief Divide
+static ExprOneParam<Keyword::Div> const Div{};
 
-    /// To power
-    static ExprOneParam<ExpressionKeyword::Pow> const Pow{};
+/// \brief To power
+static ExprOneParam<Keyword::Pow> const Pow{};
 
-    /// Logarithm
-    static ExprOneParam<ExpressionKeyword::Log> const Log{};
+/// \brief Logarithm
+static ExprOneParam<Keyword::Log> const Log{};
 
-    /// Modulo
-    static ExprOneParam<ExpressionKeyword::Mod> const Mod{};
+/// \brief Modulo
+static ExprOneParam<Keyword::Mod> const Mod{};
 
-    /// Quotient
-    static ExprOneParam<ExpressionKeyword::Quot> const Quot{};
+/// \brief Quotient
+static ExprOneParam<Keyword::Quot> const Quot{};
 
-    /// Square root
-    static ExprOneParam<ExpressionKeyword::Sqrt> const Sqrt{};
+/// \brief Square root
+static ExprOneParam<Keyword::Sqrt> const Sqrt{};
 
-    /// Sinus
-    static ExprOneParam<ExpressionKeyword::Sin> const Sin{};
+/// \brief Sinus
+static ExprOneParam<Keyword::Sin> const Sin{};
 
-    /// Cosinus
-    static ExprOneParam<ExpressionKeyword::Cos> const Cos{};
+/// \brief Cosinus
+static ExprOneParam<Keyword::Cos> const Cos{};
 
-    /// Tangens
-    static ExprOneParam<ExpressionKeyword::Tan> const Tan{};
+/// \brief Tangens
+static ExprOneParam<Keyword::Tan> const Tan{};
 
-    /// Arcsin
-    static ExprOneParam<ExpressionKeyword::Asin> const Asin{};
+/// \brief Arcsin
+static ExprOneParam<Keyword::Asin> const Asin{};
 
-    /// Arccos
-    static ExprOneParam<ExpressionKeyword::Acos> const Acos{};
+/// \brief Arccos
+static ExprOneParam<Keyword::Acos> const Acos{};
 
-    /// Arctan
-    static ExprOneParam<ExpressionKeyword::Atan> const Atan{};
+/// \brief Arctan
+static ExprOneParam<Keyword::Atan> const Atan{};
 
-    /// Hyperbolic sin
-    static ExprOneParam<ExpressionKeyword::Sinh> const Sinh{};
+/// \brief Hyperbolic sin
+static ExprOneParam<Keyword::Sinh> const Sinh{};
 
-    /// Hyperbolic cos
-    static ExprOneParam<ExpressionKeyword::Cosh> const Cosh{};
+/// \brief Hyperbolic cos
+static ExprOneParam<Keyword::Cosh> const Cosh{};
 
-    /// Hyperbolic tan
-    static ExprOneParam<ExpressionKeyword::Tanh> const Tanh{};
+/// \brief Hyperbolic tan
+static ExprOneParam<Keyword::Tanh> const Tanh{};
 
-    /// Hyperbolic  arcsin
-    static ExprOneParam<ExpressionKeyword::Asinh> const Asinh{};
+/// \brief Hyperbolic  arcsin
+static ExprOneParam<Keyword::Asinh> const Asinh{};
 
-    /// Hyperbolic arccos
-    static ExprOneParam<ExpressionKeyword::Acosh> const Acosh{};
+/// \brief Hyperbolic arccos
+static ExprOneParam<Keyword::Acosh> const Acosh{};
 
-    /// Hyperbolic arctan
-    static ExprOneParam<ExpressionKeyword::Atanh> const Atanh{};
+/// \brief Hyperbolic arctan
+static ExprOneParam<Keyword::Atanh> const Atanh{};
 
-    /// Exponential (e^x)
-    static ExprOneParam<ExpressionKeyword::Exp> const Exp{};
+/// \brief Exponential (e^x)
+static ExprOneParam<Keyword::Exp> const Exp{};
 
-    /// Error function
-    static ExprOneParam<ExpressionKeyword::Erf> const Erf{};
+/// \brief Error function
+static ExprOneParam<Keyword::Erf> const Erf{};
 
-    /// Error function complement
-    static ExprOneParam<ExpressionKeyword::Erfc> const Erfc{};
+/// \brief Error function complement
+static ExprOneParam<Keyword::Erfc> const Erfc{};
 
-    /// Gamma function
-    static ExprOneParam<ExpressionKeyword::Gamma> const Gamma{};
+/// \brief Gamma function
+static ExprOneParam<Keyword::Gamma> const Gamma{};
 
-    /// Bitwise not
-    static ExprNoParams<ExpressionKeyword::BitNot> const BitNot{};
+/// \brief Bitwise not
+static ExprNoParams<Keyword::BitNot> const BitNot{};
 
-    /// Bitwise and
-    static ExprOneParam<ExpressionKeyword::BitAnd> const BitAnd{};
+/// \brief Bitwise and
+static ExprOneParam<Keyword::BitAnd> const BitAnd{};
 
-    /// Bitwise or
-    static ExprOneParam<ExpressionKeyword::BitOr> const BitOr{};
+/// \brief Bitwise or
+static ExprOneParam<Keyword::BitOr> const BitOr{};
 
-    /// Bitwise xor
-    static ExprOneParam<ExpressionKeyword::BitXor> const BitXor{};
+/// \brief Bitwise xor
+static ExprOneParam<Keyword::BitXor> const BitXor{};
 
-    /// Bitwise left shift
-    static ExprOneParam<ExpressionKeyword::BitLshift> const BitLshift{};
+/// \brief Bitwise left shift
+static ExprOneParam<Keyword::BitLshift> const BitLshift{};
 
-    /// Bitwise right shift
-    static ExprOneParam<ExpressionKeyword::BitRshift> const BitRshift{};
+/// \brief Bitwise right shift
+static ExprOneParam<Keyword::BitRshift> const BitRshift{};
 
-    /// Apply param fn to every element of sequence
-    static ExprOneParam<ExpressionKeyword::Map> const Map{};
+/// \brief Apply param fn to every element of sequence
+static ExprOneParam<Keyword::Map> const Map{};
 
-    /// Filter sequence by predicate param
-    static ExprOneParam<ExpressionKeyword::Filter> const Filter{};
+/// \brief Filter sequence by predicate param
+static ExprOneParam<Keyword::Filter> const Filter{};
 
-    /// Compose functions
-    static ExprVariadicParam<ExpressionKeyword::Compose> const Compose{};
+/// \brief Compose functions
+static ExprVariadicParam<Keyword::Compose> const Compose{};
 
-    /// apply recursion to parameter fn
-    static ExprTwoParam<ExpressionKeyword::Recur> const Recur{};
+/// \brief apply recursion to parameter fn
+static ExprTwoParam<Keyword::Recur> const Recur{};
 
-    /// Apply fn to literal param
-    static ExprTwoParam<ExpressionKeyword::Apply> const Apply{};
+/// \brief Apply fn to literal param
+static ExprTwoParam<Keyword::Apply> const Apply{};
 
-    /// Bind parameters
-    static ExprTwoParam<ExpressionKeyword::Partial> const Partial{};
+/// \brief Bind parameters
+static ExprTwoParam<Keyword::Partial> const Partial{};
 
-    static ExprOneOrTwoParam<ExpressionKeyword::Reduce> const Reduce{};
+/// \brief Reduce
+static ExprOneOrTwoParam<Keyword::Reduce> const Reduce{};
 
-    /// Concatenate sequences
-    static ExprNoParams<ExpressionKeyword::Concat> const Concat{};
+/// \brief Concatenate sequences
+static ExprNoParams<Keyword::Concat> const Concat{};
 
-    /// Set union
-    static ExprNoParams<ExpressionKeyword::Union> const Union{};
+/// \brief Set union
+static ExprNoParams<Keyword::Union> const Union{};
 
-    /// Set intersection
-    static ExprNoParams<ExpressionKeyword::Intersect> const Intersect{};
+/// \brief Set intersection
+static ExprNoParams<Keyword::Intersect> const Intersect{};
 
-    /// Set difference
-    static ExprNoParams<ExpressionKeyword::Diff> const Diff{};
+/// \brief Set difference
+static ExprNoParams<Keyword::Diff> const Diff{};
 
-    /// Cartesian product
-    static ExprNoParams<ExpressionKeyword::Cartesian> const Cartesian{};
+/// \brief Cartesian product
+static ExprNoParams<Keyword::Cartesian> const Cartesian{};
 
-    /// Transpose 2-d array, turning rows into columns
-    static ExprNoParams<ExpressionKeyword::Transp> const Transp{};
+/// \brief Transpose 2-d array, turning rows into columns
+static ExprNoParams<Keyword::Transp> const Transp{};
 
-    /// Sequence to set
-    static ExprNoParams<ExpressionKeyword::Set> const Set{};
+/// \brief Sequence to set
+static ExprNoParams<Keyword::Set> const Set{};
 
-    /// Envelop value in array (equivalent to Repeat(1))
-    static ExprNoParams<ExpressionKeyword::List> const List{};
+/// \brief Envelop value in array (equivalent to Repeat(1))
+static ExprNoParams<Keyword::List> const List{};
 
-    /// Sliding-window iteration
-    static ExprOneParam<ExpressionKeyword::Slide> const Slide{};
+/// \brief Sliding-window iteration
+static ExprOneParam<Keyword::Slide> const Slide{};
 
-    /// Striding iteration
-    static ExprOneParam<ExpressionKeyword::Stride> const Stride{};
+/// \brief Striding iteration
+static ExprOneParam<Keyword::Stride> const Stride{};
 
-    /// Slice sequence by "start:stop:step"
-    static ExprOneParam<ExpressionKeyword::Slice> const Slice{};
+/// \brief Slice sequence by "start:stop:step"
+static ExprOneParam<Keyword::Slice> const Slice{};
 
-    /// Sort array by comparison parameter fn
-    static ExprOneParam<ExpressionKeyword::Sort> const Sort{};
+/// \brief Sort array by comparison parameter fn
+static ExprOneParam<Keyword::Sort> const Sort{};
 
-    /// Repeat value in array
-    static ExprOneParam<ExpressionKeyword::Repeat> const Repeat{};
+/// \brief Repeat value in array
+static ExprOneParam<Keyword::Repeat> const Repeat{};
 
-    /// Transform value with query pseudo-language
-    /// 
-    /// Evaluation rules:
-    ///   1. int    q |-> x |-> array x at index q (negative -> reverse)
-    ///   2. str    q |-> x |-> value x at JSON Pointer q
-    ///   3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
-    ///   4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
-    /// 
-    /// Optional second parameter - predicate P:
-    ///   At(q, P) <==> Compose(P, At(q))
-    /// 
-    static ExprOneOrTwoParam<ExpressionKeyword::At> const At{};
+/// \brief Transform value with query pseudo-language
+/// \details
+/// Evaluation rules:
+///   1. int    q |-> x |-> array x at index q (negative -> reverse)
+///   2. str    q |-> x |-> value x at JSON Pointer q
+///   3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
+///   4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
+/// 
+/// Optional second parameter - predicate P:
+///   At(q, P) <==> Compose(P, At(q))
+static ExprOneOrTwoParam<Keyword::At> const At{};
 
-    /// Summation reduction, real param - initial value
-    /// 
-    static ExprOneOrTwoParam<ExpressionKeyword::Sum> const Sum{};
+/// \brief Summation reduction, real param - initial value
+static ExprOneOrTwoParam<Keyword::Sum> const Sum{};
 
-    /// Multiplication reduction, real param - initial value
-    static ExprOneOrTwoParam<ExpressionKeyword::Prod> const Prod{};
+/// \brief Multiplication reduction, real param - initial value
+static ExprOneOrTwoParam<Keyword::Prod> const Prod{};
 
-    /// Set cardinality (uniques count)
-    static ExprOneOrTwoParam<ExpressionKeyword::Card> const Card{};
+/// \brief Set cardinality (uniques count)
+static ExprOneOrTwoParam<Keyword::Card> const Card{};
 
-    /// Sequence size
-    static ExprOneOrTwoParam<ExpressionKeyword::Size> const Size{};
+/// \brief Sequence size
+static ExprOneOrTwoParam<Keyword::Size> const Size{};
 
-    /// Count matches
-    static ExprOneOrTwoParam<ExpressionKeyword::Count> const Count{};
+/// \brief Count matches
+static ExprOneOrTwoParam<Keyword::Count> const Count{};
 
-    /// Min value
-    static ExprOneOrTwoParam<ExpressionKeyword::Min> const Min{};
+/// \brief Min value
+static ExprOneOrTwoParam<Keyword::Min> const Min{};
 
-    /// Max value
-    static ExprOneOrTwoParam<ExpressionKeyword::Max> const Max{};
+/// \brief Max value
+static ExprOneOrTwoParam<Keyword::Max> const Max{};
 
-    /// Min value index
-    static ExprOneOrTwoParam<ExpressionKeyword::Argmin> const Argmin{};
+/// \brief Min value index
+static ExprOneOrTwoParam<Keyword::Argmin> const Argmin{};
 
-    /// Max value index
-    static ExprOneOrTwoParam<ExpressionKeyword::Argmax> const Argmax{};
+/// \brief Max value index
+static ExprOneOrTwoParam<Keyword::Argmax> const Argmax{};
 
-    /// Match any predicate
-    static ExprVariadicParam<ExpressionKeyword::Any> const Any{};
+/// \brief Match any predicate
+static ExprVariadicParam<Keyword::Any> const Any{};
 
-    /// Match all predicates
-    static ExprVariadicParam<ExpressionKeyword::All> const All{};
+/// \brief Match all predicates
+static ExprVariadicParam<Keyword::All> const All{};
 
-    /// Saturate matches in order
-    static ExprVariadicParam<ExpressionKeyword::Saturate> const Saturate{};
+/// \brief Saturate matches in order
+static ExprVariadicParam<Keyword::Saturate> const Saturate{};
 
-    /// Regular expression match
-    static ExprOneParam<ExpressionKeyword::Re> const Re{};
+/// \brief Regular expression match
+static ExprOneParam<Keyword::Re> const Re{};
 
 
 
-/// Floating point approximate equal
-/// Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
-static struct Approx_ : public Expression
+
+struct Approx_ : public Expression
 {
     Approx_() : Expression(Keyword::Approx)
     {}
 
     Expression operator()(double reference, double rtol, double atol = std::numeric_limits<double>::epsilon()) const
     {
-        return Expression(Expression::Keyword::Approx, boost::json::array {reference, rtol, atol});
+        return Expression(Keyword::Approx, boost::json::array {reference, rtol, atol});
     }
-} Approx;
+};
+
+/// \brief Floating point approximate equal
+/// \details Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
+static Approx_ const Approx {};
 
 
 // Aliases
 
+/// Alias for expr::Noop
 static decltype(Noop) const _ = Noop;
+/// Alias for expr::Ni
 static decltype(Ni) const Contains = Ni;
+/// Alias for expr::Approx
 static decltype(Approx) const Near = Approx;
+/// Alias for expr::Re
 static decltype(Re) const Regex = Re;
 
 }

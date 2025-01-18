@@ -60,54 +60,54 @@ SignalOperatorHandler::SignalOperatorHandler()
 #undef GENERIC_T2
 
 
-boost::json::value SignalOperatorHandler::apply(ExpressionKeyword const& keyword, boost::json::value const& x, boost::json::value const& y) const
+boost::json::value SignalOperatorHandler::apply(Keyword const& keyword, boost::json::value const& x, boost::json::value const& y) const
 {
     switch (keyword)
     {
-    case ExpressionKeyword::Bool: return operators.is_truth_(x);
-    case ExpressionKeyword::Nil: return !operators.is_truth_(x);
+    case Keyword::Bool: return operators.is_truth_(x);
+    case Keyword::Nil: return !operators.is_truth_(x);
 
-    case ExpressionKeyword::Eq: return operators.is_equal_(x, y);
-    case ExpressionKeyword::Ne: return !operators.is_equal_(x, y);
+    case Keyword::Eq: return operators.is_equal_(x, y);
+    case Keyword::Ne: return !operators.is_equal_(x, y);
 
-    case ExpressionKeyword::Le: return operators.is_le_(x, y);
-    case ExpressionKeyword::Gt: return !operators.is_le_(x, y);
-    case ExpressionKeyword::Ge: return operators.is_le_(y, x);
-    case ExpressionKeyword::Lt: return !operators.is_le_(y, x);
+    case Keyword::Le: return operators.is_le_(x, y);
+    case Keyword::Gt: return !operators.is_le_(x, y);
+    case Keyword::Ge: return operators.is_le_(y, x);
+    case Keyword::Lt: return !operators.is_le_(y, x);
 
-    case ExpressionKeyword::Add: return operators.add_(x, y);
-    case ExpressionKeyword::Sub: return operators.sub_(x, y);
-    case ExpressionKeyword::Mul: return operators.mul_(x, y);
-    case ExpressionKeyword::Div: return operators.div_(x, y);
-    case ExpressionKeyword::Mod: return operators.mod_(x, y);
+    case Keyword::Add: return operators.add_(x, y);
+    case Keyword::Sub: return operators.sub_(x, y);
+    case Keyword::Mul: return operators.mul_(x, y);
+    case Keyword::Div: return operators.div_(x, y);
+    case Keyword::Mod: return operators.mod_(x, y);
 
-    case ExpressionKeyword::Neg   : return operators.neg_(x);
-    case ExpressionKeyword::BitNot: return operators.compl_(x);
-    case ExpressionKeyword::BitAnd: return operators.conj_(x, y);
-    case ExpressionKeyword::BitOr : return operators.disj_(x, y);
-    case ExpressionKeyword::BitXor: return operators.bxor_(x, y);
+    case Keyword::Neg   : return operators.neg_(x);
+    case Keyword::BitNot: return operators.compl_(x);
+    case Keyword::BitAnd: return operators.conj_(x, y);
+    case Keyword::BitOr : return operators.disj_(x, y);
+    case Keyword::BitXor: return operators.bxor_(x, y);
 
-    // case ExpressionKeyword::BitLshift: return operators TODO
-    // case ExpressionKeyword::BitRshift: return operators TODO
+    // case Keyword::BitLshift: return operators TODO
+    // case Keyword::BitRshift: return operators TODO
 
-    case ExpressionKeyword::SetEq: return is_subset(x, y) && is_subset(y, x); // TODO: optimize
-    case ExpressionKeyword::Subset: return is_subset(x, y);
-    case ExpressionKeyword::Superset: return is_subset(y, x);
-    case ExpressionKeyword::ProperSubset  : return is_subset(x, y) && !is_subset(y, x); // TODO: optimize
-    case ExpressionKeyword::ProperSuperset: return is_subset(y, x) && !is_subset(x, y); // TODO: optimize
+    case Keyword::SetEq: return is_subset(x, y) && is_subset(y, x); // TODO: optimize
+    case Keyword::Subset: return is_subset(x, y);
+    case Keyword::Superset: return is_subset(y, x);
+    case Keyword::ProperSubset  : return is_subset(x, y) && !is_subset(y, x); // TODO: optimize
+    case Keyword::ProperSuperset: return is_subset(y, x) && !is_subset(x, y); // TODO: optimize
 
-    case ExpressionKeyword::In: return contains(y, x);
-    case ExpressionKeyword::Ni: return contains(x, y);
-    case ExpressionKeyword::NotIn: return !contains(y, x);
-    case ExpressionKeyword::NotNi: return !contains(x, y);
-    case ExpressionKeyword::Approx: return is_approx(x, y);
+    case Keyword::In: return contains(y, x);
+    case Keyword::Ni: return contains(x, y);
+    case Keyword::NotIn: return !contains(y, x);
+    case Keyword::NotNi: return !contains(x, y);
+    case Keyword::Approx: return is_approx(x, y);
 
-    case ExpressionKeyword::Pow:
+    case Keyword::Pow:
     {
         return GenericSignalOperator(x).pow(y);
     }
-    // case ExpressionKeyword::Log: return TODO
-    // case ExpressionKeyword::Quot: return TODO
+    // case Keyword::Log: return TODO
+    // case Keyword::Quot: return TODO
 
     default:
         throw expression_error("invalid operand");

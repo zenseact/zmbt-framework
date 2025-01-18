@@ -40,8 +40,6 @@
          (::boost::log::keywords::severity = (boost::log::trivial::sev)) \
    )
 
-// #define ZMBT_LOG_INSTANCE ::zmbt::logging::test::get()
-// #define ZMBT_LOG_INSTANCE_INTERNAL ::zmbt::logging::internal::get()
 
 #define ZMBT_LOG_INSTANCE ::boost::log::trivial::logger::get()
 #define ZMBT_LOG_INSTANCE_INTERNAL ::boost::log::trivial::logger::get()
@@ -61,16 +59,13 @@ namespace zmbt {
 namespace logging {
 
 
-// Update and return attribute value
+/// Update and return boost::log attribute value
 template <class T>
 T upd_attr(char* const name, T value) {
     auto attr = boost::log::attribute_cast<boost::log::attributes::mutable_constant<T>>(boost::log::core::get()->get_thread_attributes()[name]);
     attr.set(value);
     return attr.get();
 }
-
-// BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(test, boost::log::sources::logger_mt)
-// BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(internal, boost::log::sources::logger)
 
 
 } // namespace logging

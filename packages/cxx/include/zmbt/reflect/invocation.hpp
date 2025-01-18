@@ -15,9 +15,9 @@
 #include "zmbt/core.hpp"
 
 
-#define USE_IMLPEMENTATION_TYPEDEFS         \
-using host_t   = ifc_host_t<type>;    \
-using return_t = ifc_return_t<type>;  \
+#define USE_IMLPEMENTATION_TYPEDEFS  \
+using host_t   = ifc_host_t<type>;   \
+using return_t = ifc_return_t<type>; \
 using args_t   = ifc_args_t<type>;
 
 
@@ -28,15 +28,42 @@ namespace reflect {
 /**
  * @brief Interface reflection metafunction
  *
- * @details Provides type definitions and 'apply' method for generic interfaces
+ * @details Provides type definitions and 'apply' method for callables
  *
- * @tparam S
- * @tparam E
+ * @tparam T callable type
+ * @tparam E SFINAE enabler
  */
-template <class S, class E = void>
+template <class T, class E = void>
 struct invocation;
 
 
+/**
+ * @brief Customize the interface reflection metafunction
+ *
+ * @details Provide custom type definitions and 'apply' method for callables.
+ * Required fields:
+ * - type: callable type (metafunction template parameter)
+ * - host_t: host object type
+ * - return_t: callable return type
+ * - args_t: callable arguments tuple type
+ * - apply: callable invocation method with signature:
+ *      1. If host_t is nullptr_t:
+ * ```
+ * static return_t apply(nullptr_t, type ifc, args_t args);
+ * ```
+ *      2. If host_t is class:
+ * ```
+ * template <class H>
+ * static return_t apply(H&& object, type ifc, args_t args);
+ * ```
+ *
+ * For class methods, the `apply` function must support references and pointers,
+ * including smart pointers. Therefore, a templated version of the `apply` is recommended
+ * but can be replaced with a set of overloads if necessary.
+ *
+ * @tparam T callable type
+ * @tparam E SFINAE enabler
+ */
 template <class T, class E = void>
 struct custom_invocation;
 
@@ -84,13 +111,6 @@ struct default_invocation<S, first_if_t<void, ifc_is_member_handle<S>>>
     static return_t apply(H&& object, type ifc, args_t args)
     {
         return boost::mp11::tuple_apply(std::mem_fn(ifc), std::tuple_cat(std::forward_as_tuple(object), args));
-
-    }
-
-    template <class H, class... T>
-    static return_t apply(H&& object, type ifc, std::tuple<T...> args)
-    {
-        return default_invocation<S>::apply(std::forward<H>(object), ifc, convert_tuple_to<args_t>(args));
     }
 };
 
@@ -100,16 +120,10 @@ struct default_invocation<S, first_if_any_t<void, ifc_is_fn_handle<S>, ifc_is_fu
     using type = S;
     USE_IMLPEMENTATION_TYPEDEFS
 
-    template <class Ignore>
-    static return_t apply(Ignore, type ifc, args_t args)
+    static return_t apply(host_t, type ifc, args_t args)
     {
+        static_assert(std::is_same<host_t, nullptr_t>::value, "");
         return boost::mp11::tuple_apply(ifc, args);
-    }
-
-    template <class Ignore, class... T>
-    static return_t apply(Ignore, type ifc, std::tuple<T...> args)
-    {
-        return default_invocation<S>::apply(nullptr, ifc, convert_tuple_to<args_t>(args));
     }
 };
 
@@ -119,16 +133,10 @@ struct default_invocation<S, first_if_t<void, ifc_is_functor_ptr<S>>>
     using type = S;
     USE_IMLPEMENTATION_TYPEDEFS
 
-    template <class Ignore>
-    static return_t apply(Ignore, type ifc, args_t args)
+    static return_t apply(host_t, type ifc, args_t args)
     {
+        static_assert(std::is_same<host_t, nullptr_t>::value, "");
         return boost::mp11::tuple_apply(*ifc, args);
-    }
-
-    template <class Ignore, class... T>
-    static return_t apply(Ignore, type ifc, std::tuple<T...> args)
-    {
-        return default_invocation<S>::apply(nullptr, ifc, convert_tuple_to<args_t>(args));
     }
 };
 
@@ -142,12 +150,12 @@ struct invocation<S, detail::enable_default_invocation<S>> : detail::default_inv
 template <class S>
 struct invocation<S, detail::enable_custom_invocation<S>> : custom_invocation<ifc_pointer_t<S>> {};
 
-
+/// Trait check for reflect::invocation<T>
 template<class T, class E = void>
-struct has_invocation_mf_for : std::false_type { };
+struct has_invocation_for : std::false_type { };
 
 template<class T>
-struct has_invocation_mf_for<T, void_t<typename invocation<T>::type>> : std::true_type { };
+struct has_invocation_for<T, void_t<typename invocation<T>::type>> : std::true_type { };
 
 
 template <class I>
@@ -219,30 +227,6 @@ using invocation_host_t = typename invocation<T>::host_t;
  */
 template <class T>
 using invocation_unqf_host_t = remove_cvref_t<invocation_host_t<T>>;
-
-
-
-
-
-template<class Host, class T, class E = void>
-struct invocation_is_on_host;
-
-template<class Host, class T>
-struct invocation_is_on_host<Host, T,
-    std::enable_if_t<std::is_base_of<invocation_unqf_host_t<T>, remove_cvref_t<Host>>::value>
-> : std::true_type {};
-
-template<class Host, class T>
-struct invocation_is_on_host<Host, T,
-    std::enable_if_t<not std::is_base_of<invocation_unqf_host_t<T>, remove_cvref_t<Host>>::value>
-> : std::false_type {};
-
-template<class Host, class T>
-struct invocation_is_on_host<Host, T,
-    std::enable_if_t<not has_invocation_mf_for<T>::value>
-> : std::false_type {};
-
-
 
 }  // namespace reflect
 }  // namespace zmbt

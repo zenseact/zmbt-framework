@@ -12,6 +12,7 @@
 #include "reflect.hpp"
 #include "model.hpp"
 #include "mapping.hpp"
+#include "decor.hpp"
 #include "api.hpp"
 #include "appconfig.hpp"
 

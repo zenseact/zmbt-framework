@@ -20,7 +20,7 @@ class DefinitionMachine::N_Node
 {
 private:
     friend class DefinitionMachine;
-    N_Node(DefinitionHelper& m) : DefinitionMachine(m) {}
+    N_Node(detail::DefinitionHelper& m) : DefinitionMachine(m) {}
     N_Node(N_Node const&) = delete;
     N_Node(N_Node&&) = default;
   public:
@@ -45,13 +45,13 @@ public:
 
 
 
-/// DefinitionHelper definition machine entry point
+/// Entry point for mapping::DefinitionMachine
 class SignalMapping : public DefinitionMachine::N_Main
 {
 public:
 
     /**
-     * @brief Construct the DefinitionHelper definition machine entry point
+     * @brief Construct the machine entry point
      *
      * @tparam T
      * @param name model name or format pattern string

@@ -15,7 +15,6 @@
 #include "core/format_string.hpp"
 #include "core/generic_traits.hpp"
 #include "core/get_info.hpp"
-#include "core/instantiation_assert.hpp"
 #include "core/interface_traits.hpp"
 #include "core/json_iter.hpp"
 #include "core/json_node.hpp"

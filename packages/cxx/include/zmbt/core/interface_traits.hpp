@@ -89,7 +89,8 @@ using is_ifc_handle = mp_any<
 >;
 
 
-
+/// Get pointer to callable object
+//@{
 template <class T, class R = decay_t<T>>
 auto get_ifc_pointer (T  x) -> first_if_t<R,
     ifc_is_member_handle<T>
@@ -98,7 +99,6 @@ auto get_ifc_pointer (T  x) -> first_if_t<R,
     return x;
 }
 
-
 template <class T, class R = decay_t<T>>
 auto get_ifc_pointer (T x) -> first_if_t<R,
     ifc_is_fn_handle<T>
@@ -106,7 +106,6 @@ auto get_ifc_pointer (T x) -> first_if_t<R,
 {
     return x;
 }
-
 
 template <class T, class R = add_pointer_t<remove_reference_t<T>>>
 auto get_ifc_pointer (T*  x) -> first_if_t<R,
@@ -123,9 +122,11 @@ auto get_ifc_pointer (T&  x) -> first_if_t<R,
 {
     return &x;
 }
+//@}
 
-///////////////
 
+/// Get reference to callable object
+//@{
 template <class T, class R = decay_t<T> const>
 auto get_ifc_handle (T const  x) -> first_if_t<R,
     ifc_is_member_handle<T>
@@ -134,7 +135,6 @@ auto get_ifc_handle (T const  x) -> first_if_t<R,
     return x;
 }
 
-
 template <class T, class R = decay_t<T> const>
 auto get_ifc_handle (T  const x) -> first_if_t<R,
     ifc_is_fn_handle<T>
@@ -142,9 +142,6 @@ auto get_ifc_handle (T  const x) -> first_if_t<R,
 {
     return x;
 }
-
-
-
 
 template <class T, class R = add_lvalue_reference_t<T> const>
 auto get_ifc_handle (T *  x) -> first_if_t<R,
@@ -161,13 +158,12 @@ auto get_ifc_handle (T &  x) -> first_if_t<R,
 {
     return x;
 }
-
+//@}
 
 
 namespace detail {
 template <class T>
 using ifc_pointer_valid_t = decltype(get_ifc_pointer(std::declval<T>()));
-// using ifc_pointer_valid_t = decltype(get_ifc_pointer(std::declval<add_lvalue_reference_t<T>>()));
 }
 
 template <class T>
@@ -197,11 +193,10 @@ using ifc_handle_t = typename ifc_handle<T>::type;
 // PART TRAITS
 
 namespace detail {
-
-    template <class T>
-    struct qualified_class_of {
-        using type = ct::qualified_class_of_t<T>;
-    };
+template <class T>
+struct qualified_class_of {
+    using type = ct::qualified_class_of_t<T>;
+};
 }
 
 template <class T, class = void>
@@ -213,7 +208,8 @@ struct ifc_host {
 template <class T>
 using ifc_host_t = typename ifc_host<T>::type;
 
-
+/// @brief Resolves to H*{} for member function pointers of H,
+/// or to nullptr_t for other callables
 template <class T>
 constexpr add_pointer_t<remove_reference_t<ifc_host_t<T>>> ifc_host_nullptr {};
 
@@ -234,7 +230,7 @@ struct ifc_args_impl <T, first_if_none_t<void_t<ct::args_t<T>>, ifc_is_member_ha
     using type = ct::args_t<T>;
 };
 
-}
+} // namespace detail
 
 template <class T>
 struct ifc_args
@@ -246,22 +242,15 @@ template <class T>
 using ifc_args_t = typename ifc_args<T>::type;
 
 
-
 template <class T>
 struct ifc_return : ct::return_type<T> {
     using type = typename mp_eval_or<mp_identity<void>, ct::return_type, ifc_handle_t<T>>::type;
-    // using typename ct::return_type<T>::type;
 };
 
 template <class T>
 using ifc_return_t = typename ifc_return<T>::type;
 
-
-
-
-
 }  // namespace zmbt
 
-
-#endif  // ZMBT_REFLECT_INTERFACE_PLUGIN_DEFAULT_HPP_
+#endif  // ZMBT_CORE_INTERFACE_TRAITS_HPP_
 
