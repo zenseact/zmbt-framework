@@ -16,13 +16,13 @@ keyword_groups:
         brief: No operation
         alias: n/a
       - name: 'true'
-        brief: logical constant true
+        brief: Logical true
         alias: T
       - name: 'false'
-        brief: logical constant false
+        brief: Logical false
         alias: ⊥
       - name: 'null'
-        brief: constant null-value
+        brief: Null value
       - name: pi
         brief: Pi constant
         alias: π

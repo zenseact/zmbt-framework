@@ -8,7 +8,7 @@
  * How to update:
  * 1. Update the template at `templates/expr/expression_api.hpp`
  * 2. Update the keyword data at `templates/expr/data.yaml`
- * 3. Regenerate file with `bazel run //templates/expr:expression_api_hpp > packages/cxx/include/zmbt/model/expression_api.hpp`
+ * 3. Regenerate file with `bazel run //templates/expr:expression_api_hpp > zmbt-framework/backends/cxx/include/zmbt/model/expression_api.hpp`
  * 4. Commit changes
  */
 

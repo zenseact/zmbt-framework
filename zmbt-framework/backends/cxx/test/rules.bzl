@@ -7,7 +7,7 @@ def unit_test_group(lib, srcs):
             srcs = [src],
             deps = [
                 lib,
-                "//packages/cxx:main_boost",
+                "//zmbt-framework/backends/cxx:main_boost",
             ],
             linkopts = [
                 '-lm'

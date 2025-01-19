@@ -8,7 +8,7 @@
  * How to update:
  * 1. Update the template at `templates/expr/keyword_grammar.cpp`
  * 2. Update the keyword data at `templates/expr/data.yaml`
- * 3. Regenerate file with `bazel run //templates/expr:keyword_grammar_cpp > packages/cxx/src/model/keyword_grammar.cpp`
+ * 3. Regenerate file with `bazel run //templates/expr:keyword_grammar_cpp > zmbt-framework/backends/cxx/src/model/keyword_grammar.cpp`
  * 4. Commit changes
  */
 

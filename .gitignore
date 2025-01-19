@@ -3,4 +3,4 @@
 bazel-*
 docs/doxygen/html
 __pycache__
-packages/py/dist/
+dist/

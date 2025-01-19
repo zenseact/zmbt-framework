@@ -1,7 +1,7 @@
 # copyright (c) Copyright 2024 Zenseact AB
 # SPDX-License-Identifier: Apache-2.0
 
-load("//packages/cxx/test:rules.bzl", "unit_test_group")
+load("//zmbt-framework/backends/cxx/test:rules.bzl", "unit_test_group")
 
 CORE_SRCS = glob([
     "core_*.cpp",
@@ -25,27 +25,27 @@ DEMO_SRCS = glob([
 
 
 unit_test_group(
-    lib = "//packages/cxx:core",
+    lib = "//zmbt-framework/backends/cxx:core",
     srcs = CORE_SRCS,
 )
 
 unit_test_group(
-    lib = "//packages/cxx:reflect",
+    lib = "//zmbt-framework/backends/cxx:reflect",
     srcs = REFLECT_SRCS,
 )
 
 unit_test_group(
-    lib = "//packages/cxx:model",
+    lib = "//zmbt-framework/backends/cxx:model",
     srcs = MODEL_SRCS,
 )
 
 unit_test_group(
-    lib = "//packages/cxx:mapping",
+    lib = "//zmbt-framework/backends/cxx:mapping",
     srcs = MAPPING_SRCS,
 )
 
 unit_test_group(
-    lib = "//packages/cxx:zmbt",
+    lib = "//zmbt-framework/backends/cxx:zmbt",
     srcs = DEMO_SRCS,
 )
 
@@ -54,7 +54,7 @@ cc_test(
     name = 'threads_env',
     srcs = ['threads_env.cpp'],
     deps = [
-        "//packages/cxx:model",
+        "//zmbt-framework/backends/cxx:model",
         "@com_google_googletest//:gtest_main"
     ],
     defines = [

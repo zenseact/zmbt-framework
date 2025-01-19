@@ -33,7 +33,7 @@ BOOST_LIBS = [
 
 INTERNAL_LIB_VISIBILITY = [
     ":__pkg__",
-    "//packages/cxx/test:__pkg__",
+    "//zmbt-framework/backends/cxx/test:__pkg__",
 ]
 
 

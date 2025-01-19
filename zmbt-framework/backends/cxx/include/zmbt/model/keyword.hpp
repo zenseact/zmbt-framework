@@ -8,7 +8,7 @@
  * How to update:
  * 1. Update the template at `templates/expr/keyword.hpp`
  * 2. Update the keyword data at `templates/expr/data.yaml`
- * 3. Regenerate file with `bazel run //templates/expr:keyword_hpp > packages/cxx/include/zmbt/model/keyword.hpp`
+ * 3. Regenerate file with `bazel run //templates/expr:keyword_hpp > zmbt-framework/backends/cxx/include/zmbt/model/keyword.hpp`
  * 4. Commit changes
  */
 
