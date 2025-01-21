@@ -475,9 +475,9 @@ BOOST_AUTO_TEST_CASE(TestRepeat)
 
 
 
-BOOST_AUTO_TEST_CASE(TestCompose)
+BOOST_AUTO_TEST_CASE(TestComposeRepeat)
 {
-    boost::json::value rep3x3 {
+    boost::json::value const rep3x3 {
         {42,42,42},
         {42,42,42},
         {42,42,42},
@@ -486,6 +486,23 @@ BOOST_AUTO_TEST_CASE(TestCompose)
     BOOST_CHECK_EQUAL(rep3x3, Compose(Repeat(4), Repeat(3)).eval(42));
 }
 
+BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
+{
+    auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1, true)));
+    auto const AllFalseFirst  = Compose(Map(At(0)), Filter(At(1, false)));
+
+    boost::json::array const pairs {
+        {"lol", true},
+        {"kek", true},
+        {"foo", false},
+        {"bar", false},
+    };
+
+    BOOST_CHECK_EQUAL(AllTrueFirst.eval(pairs), V({"lol", "kek"}));
+    BOOST_CHECK_EQUAL(AllFalseFirst.eval(pairs), V({"foo", "bar"}));
+}
+
+
 
 BOOST_AUTO_TEST_CASE(TestMap)
 {
@@ -493,6 +510,23 @@ BOOST_AUTO_TEST_CASE(TestMap)
     BOOST_CHECK_EQUAL(Map(Mod(2)).eval({1,2,3,4}), V({1,0,1,0}));
 
     BOOST_CHECK_EQUAL(Map(Pow(0.5)).eval({4,9,16,25}), V({2,3,4,5}));
+}
+
+
+
+BOOST_AUTO_TEST_CASE(TestP)
+{
+    Param const p1 {1};
+    Param const p2 {2};
+
+    auto const expr = Compose(Map(At(p1)), Filter(At(p2, false)));
+    boost::json::array list{};
+
+    JsonTraverse([&](boost::json::value const& v, std::string const jp){
+        if (Param::isParam(v)) list.push_back(value_from(jp));
+        return false;
+    })(expr.underlying());
+    BOOST_CHECK_EQUAL(list.size(), 2);
 }
 
 BOOST_AUTO_TEST_CASE(TestFilter)

@@ -335,6 +335,39 @@ BOOST_AUTO_TEST_CASE(SetMatchExpression)
     ;
 }
 
+BOOST_AUTO_TEST_CASE(DeepParamExpression)
+{
+    auto sut = [](boost::json::value const& x){ return x; };
+
+    Param const input {0};
+    Param const at_ptr {1};
+    Param const expect {2};
+
+
+    SignalMapping("Test parametrized expressions")
+    .OnTrigger(sut)
+        .InjectTo  (sut)
+        .ObserveOn (sut)
+    .Test
+        (input, At(at_ptr, expect))
+    .Zip
+        (input , 42)
+        (at_ptr, "")
+        (expect, 42)
+    .Zip
+        (input , {"lol", 42})
+        (at_ptr, 0    , 1 )
+        (expect, "lol", 42)
+    .Zip
+        (input, {
+            {"lol", 13},
+            {"kek", {1,2,42}},
+        })
+        (at_ptr, "/lol", "/kek/2")
+        (expect, 13    ,  42     )
+    ;
+}
+
 BOOST_AUTO_TEST_CASE(DeepSetMatch)
 {
     auto sut = [](boost::json::value const& x){ return x; };

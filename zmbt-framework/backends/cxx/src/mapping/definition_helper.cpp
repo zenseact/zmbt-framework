@@ -173,18 +173,18 @@ void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json
 
 void DefinitionHelper::add_test_case(std::vector<Expression> const& tv)
 {
-    // TODO: implement expression parametrization
-    // This is a draft guess-based logic, the correct implementation
-    // would require Keyword::Param + traversing the expr value to get nested params
     auto const N = model.at("/tests").as_array().size();
+
     for (size_t i = 0; i < tv.size(); i++)
     {
         auto const& expr = tv.at(i);
-        if (expr.is(Keyword::Eq) && Param::isParam(expr.subexpr()))
-        {
-            params("/%s/pointers/+", expr.subexpr()) = format(
-            "/tests/%d/%d", N, i);
-        }
+        JsonTraverse([&](boost::json::value const& v, std::string const jp){
+            if (Param::isParam(v)) {
+                params("/%s/pointers/+", v) = format(
+                            "/tests/%d/%d%s", N, i, jp);
+            }
+            return false;
+        })(expr.underlying());
     }
     model("/tests/+") = json_from(tv);
 }
