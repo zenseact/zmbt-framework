@@ -84,10 +84,14 @@ class Environment {
         return data_->json_data;
     }
 
+    /// Get the Environment thread lock
     lock_t Lock() const;
-    lock_t TryLock() const;
-    lock_t DeferLock() const;
 
+    /// Get the Environment thread lock with std::try_to_lock tag
+    lock_t TryLock() const;
+
+    /// Get the Environment thread lock with std::defer_lock tag
+    lock_t DeferLock() const;
 
     Environment();
 
@@ -104,6 +108,8 @@ class Environment {
     {
     }
 
+    /// @brief Dump current environment state in prettified JSON
+    /// @param os output stream
     void DumpJsonData(std::ostream &os);
 
 
@@ -311,7 +317,7 @@ class Environment {
         return std::static_pointer_cast<T>(record.second);
     }
 
-
+    /// Check if shared variable exists
     template <class... A>
     bool ContainsShared(boost::json::string_view fmtstr, A&&... arg) const
     {
@@ -421,7 +427,17 @@ class Environment {
 
     boost::json::string GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id);
 
-
+    /**
+     * @brief Register test trigger to enable FFI in the test model runners.
+     *
+     * @tparam H
+     * @tparam I
+     * @param host  callable host object
+     * @param interface callable interface handle
+     * @param key string key, unique per environment
+     * @return
+     */
+    //@{
     template <class H, class I>
     Environment& RegisterTrigger(H&& host, I&& interface, boost::json::string_view key)
     {
@@ -451,12 +467,12 @@ class Environment {
     }
 
 
-
     template <class I>
     Environment& RegisterTrigger(I&& interface, boost::json::string_view key)
     {
         return RegisterTrigger(ifc_host_nullptr<I>, std::forward<I>(interface), key);
     }
+    //@}
 
     template <class H, class I>
     boost::json::string RegisterTriggerLiteral(H&& host, I&& interface)
@@ -483,7 +499,15 @@ class Environment {
         return *this;
     }
 
-
+    /**
+     * @brief Register interface to enable FFI in the test model runners.
+     *
+     * @param obj_id object associated with callable
+     * @param ifc_id callable handle
+     * @param key string key, unique per environment
+     * @return
+     */
+    //@{
     Environment& RegisterInterface(object_id const& obj_id, interface_id const& ifc_id, boost::json::string_view key);
 
     Environment& RegisterInterface(object_id const& obj_id, interface_id const& ifc_id);
@@ -517,8 +541,17 @@ class Environment {
     {
         return RegisterInterface<I>(ifc_host_nullptr<I>, std::forward<I>(interface));
     }
+    //@}
 
 
+    /**
+     * @brief Register operator handler to enable FFI for type decoration in the test model runners
+     *
+     * @param op operator handler
+     * @param key string key, unique per environment
+     * @return
+     */
+    //@{
     Environment& RegisterOperator(SignalOperatorHandler const& op, boost::json::string_view key);
 
 
@@ -526,13 +559,17 @@ class Environment {
     {
         return RegisterOperator(op, op.annotation());
     }
+    //@}
+
 
     SignalOperatorHandler GetOperator(boost::json::string_view name) const;
 
     SignalOperatorHandler GetOperatorOrDefault(boost::json::string_view name) const;
 
+    /// Set custom test failure handler
     Environment& SetFailureHandler(std::function<void(boost::json::value const&)> const& fn);
 
+    /// Reset the test handler to default
     Environment& ResetFailureHandler();
 
     Environment& HandleTestFailure(boost::json::value const& diagnostics);

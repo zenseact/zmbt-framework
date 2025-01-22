@@ -4,15 +4,12 @@
 Environment API
 ===============
 
-*** note
-*This section is in progress*
-***
 
-Class: `Environment`
+Class: `zmbt::Environment`
 
-*Environment* is basically a sophisticated associative container. It's only purpose is to provide safe and convenient storage for the test data. It does not interact with any other component on its own.
+*Environment* is basically a sophisticated associative container. It's only purpose is to provide safe and convenient storage for the test data. It does not interact with any other component on its own, but test model runners may use it for interaction with triggers and mocks.
 
-Considering its implementation as a weak singleton, the environment may be viewed as an internal database for the test I/O data, accessible from any part of the test application.
+Considering its implementation as a weak singleton, the environment may be viewed as an internal database for the test I/O data, accessible from any part of the test application. The lifetime of the environment affects observability of the manageable effects - it is recommended to keep an instance of `zmbt::Environment` in the test fixture, allowing the RAII to reset the environment between tests.
 
 The Environment class methods are organized in the following groups:
 
@@ -24,23 +21,40 @@ The Environment class methods are organized in the following groups:
 
 ## InterfaceRecord API
 
-Method: `InterfaceRecord`
+Method: `zmbt::InterfaceRecord`
 
 The method creates an extension to the environment that manages the signal records for particular interface. It owns an instance of environment, prolonging its lifetime.
 The following methods may be needed in user code:
 
-- stimuli setters (`InjectArgs, InjectReturn`) and getters (`GetInjectionArgs, GetInjectionReturn`)
-- **Hook**: This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values.
+- stimuli setters:
+    - `zmbt::Environment::IfcRec::InjectArgs`
+    - `zmbt::Environment::IfcRec::InjectReturn`
+- stimuli getters:
+    - `zmbt::Environment::IfcRec::GetInjectionArgs`
+    - `zmbt::Environment::IfcRec::GetInjectionReturn`
+- Mock call rerouting: `zmbt::TypedInterfaceRecord::Hook`: This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values.
 
 
-## Arbitrary global data
+## Arbitrary data management
 
-- **SetVar, GetVar, GetVarOrDefault, GetVarOrUpdate**: handle serializable variables associated with objects and string keys.
-- **SetShared, GetShared**: handle data of arbitrary types, including non-serializable ones. Getter method requires an explicit template parameter to check the type correctness in run-time.
+A set of interfaces not managed by test runners directly, but allowing the user to utilize safe storage for globally-accessed data.
+
+JSON-serializable variables managed by:
+- `zmbt::Environment::SetVar`
+- `zmbt::Environment::GetVar`
+- `zmbt::Environment::GetVarOrDefault`
+- `zmbt::Environment::GetVarOrUpdate`
+
+Interfaces managing non-serializable data:
+- `zmbt::Environment::SetShared`
+- `zmbt::Environment::GetShared`: requires an explicit template parameter to check the type correctness in run-time.
 
 
 ## Thread safety
-Every method in the Environment class is designed to be thread-safe. For scenarios requiring transactional logic, the environment can be secured using a RAII lock object that manages a recursive mutex. The relevant methods for this functionality are **Lock**, **TryLock**, and **DeferLock**.
+Every method in the Environment class is designed to be thread-safe. For scenarios requiring transactional logic, the environment can be secured using a RAII lock object that manages a recursive mutex. The relevant methods for this functionality are
+ - `zmbt::Environment::Lock`
+ - `zmbt::Environment::TryLock`
+ - `zmbt::Environment::DeferLock`
 
 
 ## Environment Lifetime
@@ -54,4 +68,8 @@ All automated test models are designed to reset their data before each test, ens
 
 ## Environment Cleanup
 
-The clean-up methods are `ResetInterfaceData, ResetInterfaceDataFor, ResetAll, ResetAllFor`.
+The clean-up methods are
+ - `zmbt::Environment::ResetInterfaceData`
+ - `zmbt::Environment::ResetInterfaceDataFor`
+ - `zmbt::Environment::ResetAll`
+ - `zmbt::Environment::ResetAllFor`
