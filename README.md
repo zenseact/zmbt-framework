@@ -37,3 +37,42 @@ Read next: [Signal Mapping model](docs/signal-mapping.md).
 The project is currently in active development, with core features functional in a prototype state. For the initial release, we aim to refine the implementation and address technical debt, including the development of the test runner application, enhanced logging and reporting capabilities, and comprehensive documentation and verification.
 
 In the long term, we plan to introduce Finite-State Automata test models that will operate on the same infrastructure as Signal Mapping models.
+
+
+## Build and test
+
+1. [Install Bazel](https://github.com/bazelbuild/bazel/releases/tag/7.4.1)
+2. (optional) Install ccache and doxygen: `sudo apt update && sudo install ccache doxygen`
+3. (optional) Install codegen dependencies: `python -m pip install wheezy.template ruamel.yaml`
+3. Run `bazel query //...` to list the targets
+4. Run `bazel test //...` to compile and run tests
+5. (Linux) Run `./docs/generate_doxy.sh` to generate API Reference with Doxygen (see also: [#6](https://github.com/zenseact/zmbt-framework/issues/6))
+
+
+### Linux setup
+
+The build is not yet hermetic and you may face errors related to ccache, depending on it's configuration (see `cchache -p`).
+It can be solved by setting the ccache `temporary_dir` to `/run/user/1000/ccache-tmp` (check the permissions)
+to enable local ccache in Bazel sandbox mode, or by passing `--spawn_strategy=standalone` to bazel commands to turn off the sandboxing. The problem should be addressed in [#5 issue](https://github.com/zenseact/zmbt-framework/issues/5).
+
+
+## How to use
+
+For Bazel prejects:
+
+```Starlark
+# WORKSPACE
+zmbt_tag = ...
+
+http_archive(
+    name = "zmbt",
+    netrc = NETRC_PATH,
+    sha256 = ...,
+    strip_prefix = "zmbt-framework-{}".format(zmbt_tag),
+    urls = [
+        "https://github.com/zenseact/zmbt-framework/archive/{}.tar.gz".format(zmbt_tag),
+    ],
+)
+```
+
+Support for CMake will be included in the [initial release](https://github.com/zenseact/zmbt-framework/milestone/3).
