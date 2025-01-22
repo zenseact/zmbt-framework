@@ -122,6 +122,17 @@ BOOST_AUTO_TEST_CASE(JsonNodeAtTheEndToken)
     BOOST_CHECK(op.at("/other/array/@/deeply").is_object());
 }
 
+BOOST_AUTO_TEST_CASE(JsonNodeAtTheEndTokenOnEmpty)
+{
+    auto op = JsonNode{};
+    op("/array").emplace_array();
+    BOOST_CHECK_EQUAL(op.at("/array").as_array().size(), 0);
+    BOOST_CHECK_THROW(op.at("/array/@"), std::exception); // throw on empty array in const at(...)
+    BOOST_CHECK_NO_THROW(op("/array/@").is_null());
+    BOOST_CHECK_EQUAL(op.at("/array").as_array().size(), 1);
+    BOOST_CHECK_NO_THROW(op.at("/array/@").is_null()); // no errors - array is not empty
+    BOOST_CHECK_EQUAL(op.at("/array").as_array().size(), 1);
+}
 
 BOOST_AUTO_TEST_CASE(JsonNodePastTheEndToken)
 {

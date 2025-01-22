@@ -30,20 +30,20 @@ void TestParameterResolver::resolve_deferred_params(JsonNode& next_model)
 try
 {
 
-    auto& name = next_model.at("/name");
+    auto& name = next_model("/name");
     if (DeferredFormat::isDeferredFormat(name))
     {
         name = DeferredFormat(name).to_string();
     }
 
-    auto& description = next_model.at("/description");
+    auto& description = next_model("/description");
     if (DeferredFormat::isDeferredFormat(description))
     {
         description = DeferredFormat(description).to_string();
     }
 
 
-    auto& trigger = next_model.at("/trigger");
+    auto& trigger = next_model("/trigger");
     interface_id trig_ifc;
     object_id    trig_obj;
 
@@ -64,7 +64,7 @@ try
         trig_obj = env.ObjectId(trigger.as_string());
     }
 
-    for (auto& channel: next_model.at("/channels").as_array())
+    for (auto& channel: next_model("/channels").as_array())
     {
         auto& interface   = channel.as_object().at("interface");
         auto& kind        = channel.as_object().at("kind");

@@ -30,8 +30,9 @@ namespace zmbt {
 /// \b
 /// Additions to the standard JSON Pointer syntax:
 /// At-the-end token: '@'. Points to the last element of an array.
+/// Queries with at-the-end token always results in creating a new node on empty array.
 /// Past-the-end token: '+'. Points to the new element of an array.
-/// Querise with past-the-end token are only valid in operator[] calls and always results in creating a new node.
+/// Queries with past-the-end token always results in creating a new node.
 ///
 /// \b
 /// The rules for the additional tokens are:
@@ -39,7 +40,8 @@ namespace zmbt {
 /// \b
 /// For each @ token
 ///  - if the node is null, the token substituted with 0; otherwise
-///  - if the node is an array, the token substituted with node size - 1; otherwise
+///  - if the node is an empty array, the token substituted with 0; otherwise
+///  - if the node is a non-empty array, the token substituted with node size - 1; otherwise
 ///  - an error is produced.
 ///
 /// \b
@@ -155,25 +157,11 @@ public:
 
     boost::json::value const& at(boost::json::string_view json_ptr) const;
 
-    boost::json::value& at(boost::json::string_view json_ptr)
-    {
-        JsonNode const& self = *this;
-        return const_cast<boost::json::value&>(self.at(json_ptr));
-    }
-
-
     template <class T, class... A>
     boost::json::value const& at(boost::json::string_view fmtstr, T&& first, A&&... rest) const
     {
         return at(format(fmtstr, std::forward<T>(first), std::forward<A>(rest)...));
     }
-    template <class T, class... A>
-    boost::json::value& at(boost::json::string_view fmtstr, T&& first, A&&... rest)
-    {
-        JsonNode const& self = *this;
-        return const_cast<boost::json::value&>(self.at(fmtstr, std::forward<T>(first), std::forward<A>(rest)...));
-    }
-
 
     boost::json::value const* find_pointer(boost::json::string_view json_ptr) const
     {

@@ -115,12 +115,12 @@ void DefinitionHelper::add_param_values(Param const& p, boost::json::array const
 
 void DefinitionHelper::init_zip()
 {
-    model.at("/param_groups").as_array().push_back("Zip");
+    model("/param_groups").as_array().push_back("Zip");
 }
 
 void DefinitionHelper::init_prod()
 {
-    model.at("/param_groups").as_array().push_back("Prod");
+    model("/param_groups").as_array().push_back("Prod");
 }
 
 void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, boost::json::string_view role, uint32_t const param_type)

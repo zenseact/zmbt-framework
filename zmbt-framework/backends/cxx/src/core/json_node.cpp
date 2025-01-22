@@ -132,7 +132,11 @@ boost::json::string JsonNode::resolve_tokens(boost::json::string_view query) con
 
         auto const& array = subnode->get_array();
 
-        if (token == "+")
+        if (array.empty())
+        {
+            token = "0";
+        }
+        else if (token == "+")
         {
             token = std::to_string(array.size());
         }
