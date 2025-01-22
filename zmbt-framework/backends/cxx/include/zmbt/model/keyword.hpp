@@ -36,13 +36,13 @@ enum class Keyword
     /// No operation
     Noop,
 
-    /// logical constant true
+    /// Logical true
     True,
 
-    /// logical constant false
+    /// Logical false
     False,
 
-    /// constant null-value
+    /// Null value
     Null,
 
     /// Pi constant
@@ -252,6 +252,7 @@ enum class Keyword
     /// Bind parameters
     Partial,
 
+    /// Reduce
     Reduce,
 
     /// Concatenate sequences
@@ -294,20 +295,9 @@ enum class Keyword
     Repeat,
 
     /// Transform value with query pseudo-language
-    /// 
-    /// Evaluation rules:
-    ///   1. int    q |-> x |-> array x at index q (negative -> reverse)
-    ///   2. str    q |-> x |-> value x at JSON Pointer q
-    ///   3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
-    ///   4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
-    /// 
-    /// Optional second parameter - predicate P:
-    ///   At(q, P) <==> Compose(P, At(q))
-    /// 
     At,
 
     /// Summation reduction, real param - initial value
-    /// 
     Sum,
 
     /// Multiplication reduction, real param - initial value

@@ -218,15 +218,15 @@ keyword_groups:
       - name: b-and
         brief: Bitwise and
         enum: BitAnd
-        alias: '|'
+        alias: '&'
       - name: b-or
         brief: Bitwise or
         enum: BitOr
-        alias: '^'
+        alias: '|'
       - name: b-xor
         brief: Bitwise xor
         enum: BitXor
-        alias: '~'
+        alias: '^'
       - name: b-lshift
         brief: Bitwise left shift
         enum: BitLshift
@@ -281,6 +281,7 @@ keyword_groups:
         brief: Set difference
       - name: cartesian
         brief: Cartesian product
+        alias: '×'
       - name: transp
         brief: Transpose 2-d array, turning rows into columns
       - name: set

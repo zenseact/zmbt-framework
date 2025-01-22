@@ -33,13 +33,13 @@ static ExprNoParams<Keyword::Id> const Id{};
 /// \brief No operation
 static ExprNoParams<Keyword::Noop> const Noop{};
 
-/// \brief logical constant true
+/// \brief Logical true
 static ExprNoParams<Keyword::True> const True{};
 
-/// \brief logical constant false
+/// \brief Logical false
 static ExprNoParams<Keyword::False> const False{};
 
-/// \brief constant null-value
+/// \brief Null value
 static ExprNoParams<Keyword::Null> const Null{};
 
 /// \brief Pi constant

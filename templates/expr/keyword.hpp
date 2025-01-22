@@ -33,11 +33,7 @@ enum class Keyword
 @for group in keyword_groups:
 @for keyword in group['keywords']:
 
-    @if comment := keyword.get('comment', None):
-    @for line in comment.split('\n'):
-    /// @line
-    @end
-    @end
+    /// @keyword.get('brief', keyword['name'].capitalize())
     @keyword.get('enum', keyword['name'].capitalize()),
 @end
 @end
