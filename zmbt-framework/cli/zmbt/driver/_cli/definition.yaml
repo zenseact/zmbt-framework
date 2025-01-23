@@ -1,0 +1,60 @@
+# (c) Copyright 2024 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+context_settings:
+  help_option_names: ['-h', '--help']
+  max_content_width: 150
+  show_default: yes
+
+variadic-arguments: &variadic-arguments
+  input:
+    type: Path
+    nargs: -1 # variadic number in click.argument
+    metavar: FILES
+
+common-options: &common-options
+
+  format: &format
+    alias: f
+    help: Output format
+    type: Choice
+    choices: [term, md, html]
+    default: term
+
+  out: &out
+    help: Output file
+    alias: o
+    type: Path
+    default: '?stdout'
+
+help: |
+  \b
+  Zenseact MBT Framework
+  Version: {version}
+
+  \b
+    * Test driver
+    * Code generation utils
+
+commands:
+
+  test:
+    help: Run ZMBT test
+
+    arguments: *variadic-arguments
+    options:
+      <<: *common-options
+      dry-run:
+        help: Dry-run.
+        is_flag: yes
+
+  validate:
+    help: |
+      \b
+      Validate the test specs.
+
+      FILES: test specification files.
+
+    arguments: *variadic-arguments
+    options:
+      <<: *common-options

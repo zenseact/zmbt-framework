@@ -1,0 +1,101 @@
+# copyright (c) Copyright 2024 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+load("//zmbt-framework/backends/cxx/test:rules.bzl", "unit_test_group")
+
+CORE_SRCS = glob([
+    "core_*.cpp",
+])
+
+REFLECT_SRCS = glob([
+    "reflect_*.cpp",
+])
+
+MODEL_SRCS = glob([
+    "model_*.cpp",
+])
+
+MAPPING_SRCS = glob([
+    "mapping_*.cpp",
+])
+
+DEMO_SRCS = glob([
+    "demo_*.cpp",
+])
+
+
+unit_test_group(
+    lib = "//zmbt-framework/backends/cxx:core",
+    srcs = CORE_SRCS,
+)
+
+unit_test_group(
+    lib = "//zmbt-framework/backends/cxx:reflect",
+    srcs = REFLECT_SRCS,
+)
+
+unit_test_group(
+    lib = "//zmbt-framework/backends/cxx:model",
+    srcs = MODEL_SRCS,
+)
+
+unit_test_group(
+    lib = "//zmbt-framework/backends/cxx:mapping",
+    srcs = MAPPING_SRCS,
+)
+
+unit_test_group(
+    lib = "//zmbt-framework/backends/cxx:zmbt",
+    srcs = DEMO_SRCS,
+)
+
+
+cc_test(
+    name = 'threads_env',
+    srcs = ['threads_env.cpp'],
+    deps = [
+        "//zmbt-framework/backends/cxx:model",
+        "@com_google_googletest//:gtest_main"
+    ],
+    defines = [
+        "BOOST_TEST_LOG_LEVEL=all"
+    ],
+    linkopts = [
+        '-lpthread',
+        '-lm'
+    ],
+    env = {
+    },
+    args = [
+        "--gtest_repeat=10",
+        "--gtest_recreate_environments_when_repeating",
+    ]
+)
+
+
+# publish sources to simplify testing on client side
+filegroup(
+    name = "core_test_sources",
+    srcs = CORE_SRCS,
+    visibility = ["//visibility:public"],
+)
+filegroup(
+    name = "reflect_test_sources",
+    srcs = REFLECT_SRCS,
+    visibility = ["//visibility:public"],
+)
+filegroup(
+    name = "model_test_sources",
+    srcs = MODEL_SRCS,
+    visibility = ["//visibility:public"],
+)
+filegroup(
+    name = "mapping_test_sources",
+    srcs = MAPPING_SRCS,
+    visibility = ["//visibility:public"],
+)
+filegroup(
+    name = "demo_test_sources",
+    srcs = DEMO_SRCS,
+    visibility = ["//visibility:public"],
+)

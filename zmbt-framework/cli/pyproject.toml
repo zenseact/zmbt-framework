@@ -1,0 +1,50 @@
+# TODO: switch to build-system that allows customization (stuptools or other)
+# and move this config to the repo root
+
+[build-system]
+requires = ['flit_core>=3.2,<4']
+build-backend = 'flit_core.buildapi'
+
+[project]
+name = "zmbt-py"
+authors = [
+    {name = "Oleksandr Khorolskyi", email = "oleksandr.khorolskyi@zenseact.com"},
+]
+
+# TODO: add group email
+# maintainers = [
+#     {name = "ZMBT maintainers", email = "group-email@zenseact.com"}
+# ]
+
+readme="README.md"
+
+requires-python = ">=3.8"
+keywords = ["test", "MBT"]
+
+# TODO: replace with file path after build-system update
+license = {text = "Apache-2.0"}
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: C++",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Testing :: Unit",
+]
+dependencies = [
+    "click >= 8.1",
+    "jsonschema >= 4.15",
+    "progress>=1.6",
+    "ruamel.yaml>=0.18",
+]
+
+dynamic = ["version", "description"]
+
+[project.scripts]
+zmbt = "zmbt.driver.__main__:main"
+
+[tool.flit.module]
+name = "zmbt"
+
+
+[tool.flit.sdist]
+include = ["./"]

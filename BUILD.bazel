@@ -1,0 +1,13 @@
+# (c) Copyright 2024 Zenseact AB
+
+alias(
+    name = "zmbt_cxx",
+    actual = "//zmbt-framework/backends/cxx:zmbt",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "zmbt_cxx_main_boost",
+    actual = "//zmbt-framework/backends/cxx:main_boost",
+    visibility = ["//visibility:public"],
+)

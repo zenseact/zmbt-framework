@@ -1,0 +1,6 @@
+.vscode/
+
+bazel-*
+docs/doxygen/html
+__pycache__
+dist/

@@ -1,0 +1,47 @@
+/**
+ * @copyright (c) Copyright 2022-2023 Volvo Car Corporation
+ * @copyright (c) Copyright 2024 Zenseact AB
+ * @license SPDX-License-Identifier: Apache-2.0
+ */
+
+#error Doxygen documentation file, not for include
+
+/**
+ * @namespace zmbt
+ * @brief ZMBT root namespace
+ */
+
+/**
+ * @namespace zmbt::reflect
+ * @brief Reflection metafunctions
+ */
+
+/**
+ * @namespace zmbt::mapping
+ * @brief Signal Mapping model functionality
+ */
+
+/**
+ * @namespace zmbt::expr
+ * @brief Expression API namespace with function objects holding the keywords implementation.
+ */
+
+/**
+ * @namespace zmbt::decor
+ * @brief Signal type decorators
+ */
+
+/**
+ * @namespace zmbt::api
+ * @brief Framework API with fixture classes and entries from main ns
+ */
+
+/**
+ * @namespace zmbt::appconfig
+ * @brief Test application configuration (work in progress)
+ */
+
+/**
+ * @namespace zmbt::logging
+ * @brief Logging (work in progress)
+ */

@@ -1,0 +1,14 @@
+---
+Language:  Cpp
+Standard:  Auto
+BasedOnStyle:  Google
+AccessModifierOffset: -2
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction:   true
+ColumnLimit:     120
+IndentWidth:     4
+...

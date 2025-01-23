@@ -1,0 +1,21 @@
+# Source: https://github.com/include-what-you-use/include-what-you-use/blob/master/docs/IWYUMappings.md
+[
+  {include: ["@[<\"]boost/algorithm/string/.*[\">]"                 , "private", "<boost/algorithm/string.hpp>"               , "public"]},
+  {include: ["@[<\"]boost/algorithm/string/.*[\">]"                 , "private", "<boost/algorithm/string_regex.hpp>"         , "public"]},
+  {include: ["@[<\"]boost/describe/.*[\">]"                         , "private", "<boost/describe.hpp>"                       , "public"]},
+  {include: ["@[<\"]boost/detail/basic_pointerbuf.hpp[\">]"         , "private", "<boost/lexical_cast.hpp>"                   , "public"]},
+  {include: ["@[<\"]boost/filesystem/.*[\">]"                       , "private", "<boost/filesystem.hpp>"                     , "public"]},
+  {include: ["@[<\"]boost/geometry/(algorithms|core|index)/.*[\">]" , "private", "<boost/geometry/geometry.hpp>"              , "public"]},
+  {include: ["@[<\"]boost/geometry/geometries/.*[\">]"              , "private", "<boost/geometry/geometries/geometries.hpp>" , "public"]},
+  {include: ["@[<\"]boost/json/.*[\">]"                             , "private", "<boost/json.hpp>"                           , "public"]},
+  {include: ["@[<\"]boost/format/.*[\">]"                           , "private", "<boost/format.hpp>"                         , "public"]},
+  {include: ["@[<\"]boost/iterator/iterator_facade.hpp[\">]"        , "private", "<boost/filesystem.hpp>"                     , "public"]},
+  {include: ["@[<\"]boost/lexical_cast/.*[\">]"                     , "private", "<boost/lexical_cast.hpp>"                   , "public"]},
+  {include: ["@[<\"]boost/mp11/.*[\">]"                             , "private", "<boost/mp11.hpp>"                           , "public"]},
+  {include: ["@[<\"]boost/optional/.*[\">]"                         , "private", "<boost/optional.hpp>"                       , "public"]},
+  {include: ["@[<\"]boost/preprocessor/.*[\">]"                     , "private", "<boost/preprocessor.hpp>"                   , "public"]},
+  {include: ["@[<\"]boost/program_options/.*[\">]"                  , "private", "<boost/program_options.hpp>"                , "public"]},
+  {include: ["@[<\"]boost/regex/.*[\">]"                            , "private", "<boost/regex.hpp>"                          , "public"]},
+  {include: ["@[<\"]boost/type_index/.*[\">]"                       , "private", "<boost/type_index.hpp>"                     , "public"]},
+  {include: ["@[<\"]boost/variant/.*[\">]"                          , "private", "<boost/variant.hpp>"                        , "public"]},
+]

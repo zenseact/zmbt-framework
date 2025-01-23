@@ -1,0 +1,49 @@
+# (c) Copyright 2024 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+load("//tools/codegen:rules.bzl", "wheezy_template_codegen")
+
+
+filegroup(
+    name = "data",
+    srcs = [
+        "data.yaml",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+wheezy_template_codegen(
+    name = "keyword_hpp",
+    data = ":data",
+    entry_template = "keyword.hpp",
+    extra_templates = [
+    ],
+    visibility = ["//visibility:public"],
+)
+
+wheezy_template_codegen(
+    name = "keyword_cpp",
+    data = ":data",
+    entry_template = "keyword.cpp",
+    extra_templates = [
+    ],
+    visibility = ["//visibility:public"],
+)
+
+wheezy_template_codegen(
+    name = "keyword_grammar_cpp",
+    data = ":data",
+    entry_template = "keyword_grammar.cpp",
+    extra_templates = [
+    ],
+    visibility = ["//visibility:public"],
+)
+
+wheezy_template_codegen(
+    name = "expression_api_hpp",
+    data = ":data",
+    entry_template = "expression_api.hpp",
+    extra_templates = [
+    ],
+    visibility = ["//visibility:public"],
+)
