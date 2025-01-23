@@ -364,13 +364,13 @@ static Approx_ const Approx {};
 // Aliases
 
 /// Alias for expr::Noop
-static decltype(Noop) const _ = Noop;
+static auto const _ = Noop;
 /// Alias for expr::Ni
-static decltype(Ni) const Contains = Ni;
+static auto const Contains = Ni;
 /// Alias for expr::Approx
-static decltype(Approx) const Near = Approx;
+static auto const Near = Approx;
 /// Alias for expr::Re
-static decltype(Re) const Regex = Re;
+static auto const Regex = Re;
 
 }
 

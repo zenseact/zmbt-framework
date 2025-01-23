@@ -584,10 +584,6 @@ class Environment {
 
 };
 
-
-
-
-using Environment = Environment;
 }  // namespace zmbt
 
 #endif  // ZMBT_FIXTURE_ENVIRONMENT_STORE_HPP_
