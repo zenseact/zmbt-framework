@@ -1,0 +1,36 @@
+name: Run Tests
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  test:
+    name: Build and test backends/${{ matrix.backend }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - backend: cxx
+          script: ci/linux-test-backend-cxx.sh
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run all tests in docker
+        shell: bash
+        run: |
+            mkdir -p /tmp/build_output/
+            chmod +x ${{ matrix.script }}
+            ${{ matrix.script }}
