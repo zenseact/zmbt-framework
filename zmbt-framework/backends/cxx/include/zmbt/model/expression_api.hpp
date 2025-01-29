@@ -1,3 +1,5 @@
+
+
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -12,8 +14,6 @@
  * 4. Commit changes
  */
 
-
-
 #ifndef ZMBT_MODEL_EXPRESSION_API_HPP_
 #define ZMBT_MODEL_EXPRESSION_API_HPP_
 
@@ -24,292 +24,292 @@ namespace expr {
 
 
 /// \brief Identity function
-static signature::Base<Keyword::Id> const Id{};
+static signature::Base<Keyword::Id> const Id;
 
 /// \brief No operation
-static signature::Base<Keyword::Noop> const Noop{};
+static signature::Base<Keyword::Noop> const Noop;
 /// \brief Alias for Noop
-static auto const _ = Noop;
+static signature::Base<Keyword::Noop> const _;
 
 /// \brief Logical true
-static signature::Base<Keyword::True> const True{};
+static signature::Base<Keyword::True> const True;
 
 /// \brief Logical false
-static signature::Base<Keyword::False> const False{};
+static signature::Base<Keyword::False> const False;
 
 /// \brief Null value
-static signature::Base<Keyword::Null> const Null{};
+static signature::Base<Keyword::Null> const Null;
 
 /// \brief Pi constant
-static signature::Base<Keyword::Pi> const Pi{};
+static signature::Base<Keyword::Pi> const Pi;
 
 /// \brief Euler's number
-static signature::Base<Keyword::E> const E{};
+static signature::Base<Keyword::E> const E;
 
 /// \brief Infinity
-static signature::Base<Keyword::Inf> const Inf{};
+static signature::Base<Keyword::Inf> const Inf;
 
 /// \brief Machine epsilon
-static signature::Base<Keyword::Eps> const Eps{};
+static signature::Base<Keyword::Eps> const Eps;
 
 /// \brief Not a number
-static signature::Base<Keyword::NaN> const NaN{};
+static signature::Base<Keyword::NaN> const NaN;
 
 /// \brief Predicate on boolean transform (aka Truthy)
-static signature::Base<Keyword::Bool> const Bool{};
+static signature::Base<Keyword::Bool> const Bool;
 
 /// \brief Predicate on boolean transform (aka Falsy)
-static signature::Base<Keyword::Nil> const Nil{};
+static signature::Base<Keyword::Nil> const Nil;
 
 /// \brief Negate
-static signature::Base<Keyword::Neg> const Neg{};
+static signature::Base<Keyword::Neg> const Neg;
 
 /// \brief Absolute value
-static signature::Base<Keyword::Abs> const Abs{};
+static signature::Base<Keyword::Abs> const Abs;
 
 /// \brief Sign
-static signature::Base<Keyword::Sign> const Sign{};
+static signature::Base<Keyword::Sign> const Sign;
 
 /// \brief Ceil
-static signature::Base<Keyword::Ceil> const Ceil{};
+static signature::Base<Keyword::Ceil> const Ceil;
 
 /// \brief Floor
-static signature::Base<Keyword::Floor> const Floor{};
+static signature::Base<Keyword::Floor> const Floor;
 
 /// \brief Round
-static signature::Base<Keyword::Round> const Round{};
+static signature::Base<Keyword::Round> const Round;
 
 /// \brief Bitwise not
-static signature::Base<Keyword::BitNot> const BitNot{};
+static signature::Base<Keyword::BitNot> const BitNot;
 
 /// \brief Concatenate sequences
-static signature::Base<Keyword::Concat> const Concat{};
+static signature::Base<Keyword::Concat> const Concat;
 
 /// \brief Set union
-static signature::Base<Keyword::Union> const Union{};
+static signature::Base<Keyword::Union> const Union;
 
 /// \brief Set intersection
-static signature::Base<Keyword::Intersect> const Intersect{};
+static signature::Base<Keyword::Intersect> const Intersect;
 
 /// \brief Set difference
-static signature::Base<Keyword::Diff> const Diff{};
+static signature::Base<Keyword::Diff> const Diff;
 
 /// \brief Cartesian product
-static signature::Base<Keyword::Cartesian> const Cartesian{};
+static signature::Base<Keyword::Cartesian> const Cartesian;
 
 /// \brief Transpose 2-d array, turning rows into columns
-static signature::Base<Keyword::Transp> const Transp{};
+static signature::Base<Keyword::Transp> const Transp;
 
 /// \brief Sequence to set
-static signature::Base<Keyword::Set> const Set{};
+static signature::Base<Keyword::Set> const Set;
 
 /// \brief Envelop value in array (equivalent to Repeat(1))
-static signature::Base<Keyword::List> const List{};
+static signature::Base<Keyword::List> const List;
 
 /// \brief Logical complement
-static signature::OneParam<Keyword::Not> const Not{};
+static signature::OneParam<Keyword::Not> const Not;
 
 /// \brief Is equal
-static signature::OneParam<Keyword::Eq> const Eq{};
+static signature::OneParam<Keyword::Eq> const Eq;
 
 /// \brief Not equal
-static signature::OneParam<Keyword::Ne> const Ne{};
+static signature::OneParam<Keyword::Ne> const Ne;
 
 /// \brief Lesser than
-static signature::OneParam<Keyword::Lt> const Lt{};
+static signature::OneParam<Keyword::Lt> const Lt;
 
 /// \brief Lesser or equal
-static signature::OneParam<Keyword::Le> const Le{};
+static signature::OneParam<Keyword::Le> const Le;
 
 /// \brief Greater than
-static signature::OneParam<Keyword::Gt> const Gt{};
+static signature::OneParam<Keyword::Gt> const Gt;
 
 /// \brief Greater or equal
-static signature::OneParam<Keyword::Ge> const Ge{};
+static signature::OneParam<Keyword::Ge> const Ge;
 
 /// \brief Contains element
-static signature::OneParam<Keyword::Ni> const Ni{};
+static signature::OneParam<Keyword::Ni> const Ni;
 /// \brief Alias for Ni
-static auto const Contains = Ni;
+static signature::OneParam<Keyword::Ni> const Contains;
 
 /// \brief Not contains element
-static signature::OneParam<Keyword::NotNi> const NotNi{};
+static signature::OneParam<Keyword::NotNi> const NotNi;
 
 /// \brief Add
-static signature::OneParam<Keyword::Add> const Add{};
+static signature::OneParam<Keyword::Add> const Add;
 
 /// \brief Substract
-static signature::OneParam<Keyword::Sub> const Sub{};
+static signature::OneParam<Keyword::Sub> const Sub;
 
 /// \brief Multiply
-static signature::OneParam<Keyword::Mul> const Mul{};
+static signature::OneParam<Keyword::Mul> const Mul;
 
 /// \brief Divide
-static signature::OneParam<Keyword::Div> const Div{};
+static signature::OneParam<Keyword::Div> const Div;
 
 /// \brief To power
-static signature::OneParam<Keyword::Pow> const Pow{};
+static signature::OneParam<Keyword::Pow> const Pow;
 
 /// \brief Logarithm
-static signature::OneParam<Keyword::Log> const Log{};
+static signature::OneParam<Keyword::Log> const Log;
 
 /// \brief Modulo
-static signature::OneParam<Keyword::Mod> const Mod{};
+static signature::OneParam<Keyword::Mod> const Mod;
 
 /// \brief Quotient
-static signature::OneParam<Keyword::Quot> const Quot{};
+static signature::OneParam<Keyword::Quot> const Quot;
 
 /// \brief Square root
-static signature::OneParam<Keyword::Sqrt> const Sqrt{};
+static signature::OneParam<Keyword::Sqrt> const Sqrt;
 
 /// \brief Sinus
-static signature::OneParam<Keyword::Sin> const Sin{};
+static signature::OneParam<Keyword::Sin> const Sin;
 
 /// \brief Cosinus
-static signature::OneParam<Keyword::Cos> const Cos{};
+static signature::OneParam<Keyword::Cos> const Cos;
 
 /// \brief Tangens
-static signature::OneParam<Keyword::Tan> const Tan{};
+static signature::OneParam<Keyword::Tan> const Tan;
 
 /// \brief Arcsin
-static signature::OneParam<Keyword::Asin> const Asin{};
+static signature::OneParam<Keyword::Asin> const Asin;
 
 /// \brief Arccos
-static signature::OneParam<Keyword::Acos> const Acos{};
+static signature::OneParam<Keyword::Acos> const Acos;
 
 /// \brief Arctan
-static signature::OneParam<Keyword::Atan> const Atan{};
+static signature::OneParam<Keyword::Atan> const Atan;
 
 /// \brief Hyperbolic sin
-static signature::OneParam<Keyword::Sinh> const Sinh{};
+static signature::OneParam<Keyword::Sinh> const Sinh;
 
 /// \brief Hyperbolic cos
-static signature::OneParam<Keyword::Cosh> const Cosh{};
+static signature::OneParam<Keyword::Cosh> const Cosh;
 
 /// \brief Hyperbolic tan
-static signature::OneParam<Keyword::Tanh> const Tanh{};
+static signature::OneParam<Keyword::Tanh> const Tanh;
 
 /// \brief Hyperbolic  arcsin
-static signature::OneParam<Keyword::Asinh> const Asinh{};
+static signature::OneParam<Keyword::Asinh> const Asinh;
 
 /// \brief Hyperbolic arccos
-static signature::OneParam<Keyword::Acosh> const Acosh{};
+static signature::OneParam<Keyword::Acosh> const Acosh;
 
 /// \brief Hyperbolic arctan
-static signature::OneParam<Keyword::Atanh> const Atanh{};
+static signature::OneParam<Keyword::Atanh> const Atanh;
 
 /// \brief Exponential (e^x)
-static signature::OneParam<Keyword::Exp> const Exp{};
+static signature::OneParam<Keyword::Exp> const Exp;
 
 /// \brief Error function
-static signature::OneParam<Keyword::Erf> const Erf{};
+static signature::OneParam<Keyword::Erf> const Erf;
 
 /// \brief Error function complement
-static signature::OneParam<Keyword::Erfc> const Erfc{};
+static signature::OneParam<Keyword::Erfc> const Erfc;
 
 /// \brief Gamma function
-static signature::OneParam<Keyword::Gamma> const Gamma{};
+static signature::OneParam<Keyword::Gamma> const Gamma;
 
 /// \brief Bitwise and
-static signature::OneParam<Keyword::BitAnd> const BitAnd{};
+static signature::OneParam<Keyword::BitAnd> const BitAnd;
 
 /// \brief Bitwise or
-static signature::OneParam<Keyword::BitOr> const BitOr{};
+static signature::OneParam<Keyword::BitOr> const BitOr;
 
 /// \brief Bitwise xor
-static signature::OneParam<Keyword::BitXor> const BitXor{};
+static signature::OneParam<Keyword::BitXor> const BitXor;
 
 /// \brief Bitwise left shift
-static signature::OneParam<Keyword::BitLshift> const BitLshift{};
+static signature::OneParam<Keyword::BitLshift> const BitLshift;
 
 /// \brief Bitwise right shift
-static signature::OneParam<Keyword::BitRshift> const BitRshift{};
+static signature::OneParam<Keyword::BitRshift> const BitRshift;
 
 /// \brief Sliding-window iteration
-static signature::OneParam<Keyword::Slide> const Slide{};
+static signature::OneParam<Keyword::Slide> const Slide;
 
 /// \brief Striding iteration
-static signature::OneParam<Keyword::Stride> const Stride{};
+static signature::OneParam<Keyword::Stride> const Stride;
 
 /// \brief Slice sequence by "start:stop:step"
-static signature::OneParam<Keyword::Slice> const Slice{};
+static signature::OneParam<Keyword::Slice> const Slice;
 
 /// \brief Sort array by comparison parameter fn
-static signature::OneParam<Keyword::Sort> const Sort{};
+static signature::OneParam<Keyword::Sort> const Sort;
 
 /// \brief Repeat value in array
-static signature::OneParam<Keyword::Repeat> const Repeat{};
+static signature::OneParam<Keyword::Repeat> const Repeat;
 
 /// \brief Regular expression match
-static signature::OneParam<Keyword::Re> const Re{};
+static signature::OneParam<Keyword::Re> const Re;
 /// \brief Alias for Re
-static auto const Regex = Re;
+static signature::OneParam<Keyword::Re> const Regex;
 
 /// \brief Logical conjunction
-static signature::VariadicExpr<Keyword::And> const And{};
+static signature::VariadicExpr<Keyword::And> const And;
 
 /// \brief Logical disjunction
-static signature::VariadicExpr<Keyword::Or> const Or{};
+static signature::VariadicExpr<Keyword::Or> const Or;
 
 /// \brief Match any predicate
-static signature::VariadicExpr<Keyword::Any> const Any{};
+static signature::VariadicExpr<Keyword::Any> const Any;
 
 /// \brief Match all predicates
-static signature::VariadicExpr<Keyword::All> const All{};
+static signature::VariadicExpr<Keyword::All> const All;
 
 /// \brief Saturate matches in order
-static signature::VariadicExpr<Keyword::Saturate> const Saturate{};
+static signature::VariadicExpr<Keyword::Saturate> const Saturate;
 
 /// \brief Compose functions
-static signature::VariadicExpr<Keyword::Compose> const Compose{};
+static signature::VariadicExpr<Keyword::Compose> const Compose;
 
 /// \brief Logical exclusive or
-static signature::TwoExpr<Keyword::Xor> const Xor{};
+static signature::TwoExpr<Keyword::Xor> const Xor;
 
 /// \brief Equal as set
-static signature::SetParam<Keyword::SetEq> const SetEq{};
+static signature::SetParam<Keyword::SetEq> const SetEq;
 
 /// \brief Is subset
-static signature::SetParam<Keyword::Subset> const Subset{};
+static signature::SetParam<Keyword::Subset> const Subset;
 
 /// \brief is superset
-static signature::SetParam<Keyword::Superset> const Superset{};
+static signature::SetParam<Keyword::Superset> const Superset;
 
 /// \brief Is proper subset
-static signature::SetParam<Keyword::ProperSubset> const ProperSubset{};
+static signature::SetParam<Keyword::ProperSubset> const ProperSubset;
 
 /// \brief Is proper superset
-static signature::SetParam<Keyword::ProperSuperset> const ProperSuperset{};
+static signature::SetParam<Keyword::ProperSuperset> const ProperSuperset;
 
 /// \brief Element is in
-static signature::SetParam<Keyword::In> const In{};
+static signature::SetParam<Keyword::In> const In;
 
 /// \brief Element is not in
-static signature::SetParam<Keyword::NotIn> const NotIn{};
+static signature::SetParam<Keyword::NotIn> const NotIn;
 
 /// \brief Apply param fn to every element of sequence
-static signature::OneExpr<Keyword::Map> const Map{};
+static signature::OneExpr<Keyword::Map> const Map;
 
 /// \brief Filter sequence by predicate param
-static signature::OneExpr<Keyword::Filter> const Filter{};
+static signature::OneExpr<Keyword::Filter> const Filter;
 
 /// \brief apply recursion to parameter fn
-static signature::ExprAndOptionalParam<Keyword::Recur> const Recur{};
+static signature::ExprAndOptionalParam<Keyword::Recur> const Recur;
 
 /// \brief Apply fn to literal param
-static signature::ExprAndOptionalParam<Keyword::Apply> const Apply{};
+static signature::ExprAndOptionalParam<Keyword::Apply> const Apply;
 
 /// \brief Bind parameters
-static signature::ExprAndOptionalParam<Keyword::Partial> const Partial{};
+static signature::ExprAndOptionalParam<Keyword::Partial> const Partial;
 
 /// \brief reduce
-static signature::ExprAndOptionalParam<Keyword::Reduce> const Reduce{};
+static signature::ExprAndOptionalParam<Keyword::Reduce> const Reduce;
 
 /// \brief Summation reduction, real param - initial value
-static signature::ExprAndOptionalParam<Keyword::Sum> const Sum{};
+static signature::ExprAndOptionalParam<Keyword::Sum> const Sum;
 
 /// \brief Multiplication reduction, real param - initial value
-static signature::ExprAndOptionalParam<Keyword::Prod> const Prod{};
+static signature::ExprAndOptionalParam<Keyword::Prod> const Prod;
 
 /// \brief Transform value with query pseudo-language
 /// \details
@@ -321,35 +321,35 @@ static signature::ExprAndOptionalParam<Keyword::Prod> const Prod{};
 /// 
 /// Optional second parameter - predicate P:
 ///   At(q, P) <==> Compose(P, At(q))
-static signature::ParamAndOptionalExpr<Keyword::At> const At{};
+static signature::ParamAndOptionalExpr<Keyword::At> const At;
 
 /// \brief Set cardinality (uniques count)
-static signature::ParamAndOptionalExpr<Keyword::Card> const Card{};
+static signature::ParamAndOptionalExpr<Keyword::Card> const Card;
 
 /// \brief Sequence size
-static signature::ParamAndOptionalExpr<Keyword::Size> const Size{};
+static signature::ParamAndOptionalExpr<Keyword::Size> const Size;
 
 /// \brief Count matches
-static signature::ParamAndOptionalExpr<Keyword::Count> const Count{};
+static signature::ParamAndOptionalExpr<Keyword::Count> const Count;
 
 /// \brief Min value
-static signature::ParamAndOptionalExpr<Keyword::Min> const Min{};
+static signature::ParamAndOptionalExpr<Keyword::Min> const Min;
 
 /// \brief Max value
-static signature::ParamAndOptionalExpr<Keyword::Max> const Max{};
+static signature::ParamAndOptionalExpr<Keyword::Max> const Max;
 
 /// \brief Min value index
-static signature::ParamAndOptionalExpr<Keyword::Argmin> const Argmin{};
+static signature::ParamAndOptionalExpr<Keyword::Argmin> const Argmin;
 
 /// \brief Max value index
-static signature::ParamAndOptionalExpr<Keyword::Argmax> const Argmax{};
+static signature::ParamAndOptionalExpr<Keyword::Argmax> const Argmax;
 
 /// \brief Floating point approximately equal
 /// \details
 /// Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
-static signature::Approx const Approx{};
+static signature::Approx const Approx;
 /// \brief Alias for Approx
-static auto const Near = Approx;
+static signature::Approx const Near;
 
 } // namespace expr
 } // namespace zmbt

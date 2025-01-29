@@ -1,4 +1,6 @@
 @require(keyword_groups)
+@(from expr_helpers import Keyword)
+
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -13,19 +15,6 @@
  * 4. Commit changes
  */
 
-@(
-    def get_name(keyword):
-        return keyword.get('enum', keyword['name'].capitalize())
-
-    def define_api_constant(signature, keyword):
-        Key = get_name(keyword)
-        if signature == 'non-template':
-            classname = f"signature::{Key}"
-        else:
-            classname = f"signature::{signature}<Keyword::{Key}>"
-        return f"static {classname} const {Key}{{}};"
-)
-
 #ifndef ZMBT_MODEL_EXPRESSION_API_HPP_
 #define ZMBT_MODEL_EXPRESSION_API_HPP_
 
@@ -35,19 +24,19 @@ namespace zmbt {
 namespace expr {
 
 @for signature, group in keyword_groups.items():
-@for keyword in group:
+@for keyword in Keyword.map(signature, group):
 
-/// \brief @keyword.get('brief', keyword['name'])
-    @if details := keyword.get('details', None):
+/// \brief @keyword.DocBrief
+    @if details := keyword.DocDetails:
 /// \details
         @for line in details.split('\n'):
 /// @line
         @end
     @end
-@define_api_constant(signature, keyword)
-@for alias in keyword.get('aliases', []):
-/// \brief Alias for @get_name(keyword)
-static auto const @alias.capitalize() = @get_name(keyword);
+static signature::@keyword.Class const @keyword.Name;
+@for alias in keyword.Aliases:
+/// \brief Alias for @keyword.Name
+static signature::@keyword.Class const @alias.capitalize();
 @end
 @end
 @end
