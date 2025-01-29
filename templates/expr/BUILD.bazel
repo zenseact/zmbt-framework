@@ -7,7 +7,7 @@ load("//tools/codegen:rules.bzl", "wheezy_template_codegen")
 filegroup(
     name = "data",
     srcs = [
-        "data.yaml",
+        "keywords.yaml",
     ],
     visibility = ["//visibility:public"],
 )

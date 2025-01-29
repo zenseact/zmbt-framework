@@ -1,0 +1,299 @@
+# (c) Copyright 2024-2025 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+keyword_groups:
+  # grouped by base signature
+
+  Base:
+  - name: id
+    brief: Identity function
+  - name: noop
+    brief: No operation
+    short: n/a
+    aliases: [ '_' ]
+  - name: 'true'
+    brief: Logical true
+    short: T
+  - name: 'false'
+    brief: Logical false
+    short: ⊥
+  - name: 'null'
+    brief: Null value
+  - name: pi
+    brief: Pi constant
+    short: π
+  - name: e
+    brief: Euler's number
+  - name: inf
+    brief: Infinity
+  - name: eps
+    brief: Machine epsilon
+  - name: nan
+    enum: NaN
+    brief: Not a number
+  - name: bool
+    brief: Predicate on boolean transform (aka Truthy)
+    short: '?'
+  - name: nil
+    brief: Predicate on boolean transform (aka Falsy)
+  - name: neg
+    brief: Negate
+  - name: abs
+    brief: Absolute value
+  - name: sign
+    brief: Sign
+  - name: ceil
+    brief: Ceil
+  - name: floor
+    brief: Floor
+  - name: round
+    brief: Round
+  - name: b-not
+    brief: Bitwise not
+    enum: BitNot
+    short: '~'
+  - name: concat
+    brief: Concatenate sequences
+  - name: union
+    brief: Set union
+    short: '∪'
+  - name: intersect
+    brief: Set intersection
+    short: '∩'
+  - name: set-diff
+    enum: Diff
+    brief: Set difference
+  - name: cartesian
+    brief: Cartesian product
+    short: '×'
+  - name: transp
+    brief: Transpose 2-d array, turning rows into columns
+  - name: set
+    brief: Sequence to set
+  - name: list
+    brief: Envelop value in array (equivalent to Repeat(1))
+
+  OneParam:
+  - name: not
+    brief: Logical complement
+    short: ¬
+  - name: eq
+    brief: Is equal
+    short: '='
+  - name: ne
+    brief: Not equal
+    short: '≠'
+  - name: lt
+    brief: Lesser than
+    short: '<'
+  - name: le
+    brief: Lesser or equal
+    short: '≤'
+  - name: gt
+    brief: Greater than
+    short: '>'
+  - name: ge
+    brief: Greater or equal
+    short: '≥'
+  - name: ni
+    brief: Contains element
+    enum: Ni
+    short: '∋'
+    aliases: [ 'contains' ]
+  - name: not-ni
+    brief: Not contains element
+    enum: NotNi
+    short: '∌'
+  - name: add
+    brief: Add
+    short: '+'
+  - name: sub
+    brief: Substract
+    short: '-'
+  - name: mul
+    brief: Multiply
+    short: '*'
+  - name: div
+    brief: Divide
+    short: '/'
+  - name: pow
+    brief: To power
+    short: '**'
+  - name: log
+    brief: Logarithm
+  - name: mod
+    brief: Modulo
+    short: '%'
+  - name: quot
+    brief: Quotient
+    short: '//'
+  - name: sqrt
+    brief: Square root
+  - name: sin
+    brief: Sinus
+  - name: cos
+    brief: Cosinus
+  - name: tan
+    brief: Tangens
+  - name: asin
+    brief: Arcsin
+  - name: acos
+    brief: Arccos
+  - name: atan
+    brief: Arctan
+  - name: sinh
+    brief: Hyperbolic sin
+  - name: cosh
+    brief: Hyperbolic cos
+  - name: tanh
+    brief: Hyperbolic tan
+  - name: asinh
+    brief: Hyperbolic  arcsin
+  - name: acosh
+    brief: Hyperbolic arccos
+  - name: atanh
+    brief: Hyperbolic arctan
+  - name: exp
+    brief: Exponential (e^x)
+  - name: erf
+    brief: Error function
+  - name: erfc
+    brief: Error function complement
+  - name: gamma
+    brief: Gamma function
+  - name: b-and
+    brief: Bitwise and
+    enum: BitAnd
+    short: '&'
+  - name: b-or
+    brief: Bitwise or
+    enum: BitOr
+    short: '|'
+  - name: b-xor
+    brief: Bitwise xor
+    enum: BitXor
+    short: '^'
+  - name: b-lshift
+    brief: Bitwise left shift
+    enum: BitLshift
+    short: '<<'
+  - name: b-rshift
+    brief: Bitwise right shift
+    enum: BitRshift
+    short: '>>'
+  - name: slide
+    brief: Sliding-window iteration
+  - name: stride
+    brief: Striding iteration
+  - name: slice
+    brief: Slice sequence by "start:stop:step"
+  - name: sort
+    brief: Sort array by comparison parameter fn
+  - name: repeat
+    brief: Repeat value in array
+  - name: re
+    brief: Regular expression match
+    aliases: [ 'regex' ]
+
+  VariadicExpr:
+  - name: and
+    brief: Logical conjunction
+    short: ∧
+  - name: or
+    brief: Logical disjunction
+    short: ∨
+  - name: any
+    brief: Match any predicate
+  - name: all
+    brief: Match all predicates
+  - name: saturate
+    brief: Saturate matches in order
+  - name: compose
+    brief: Compose functions
+
+  TwoExpr:
+  - name: xor
+    brief: Logical exclusive or
+    short: ⊕
+
+  SetParam:
+  - name: set-eq
+    enum: SetEq
+    brief: Equal as set
+  - name: subset
+    brief: Is subset
+    short: '⊆'
+  - name: superset
+    brief: is superset
+    short: '⊇'
+  - name: p-subset
+    enum: ProperSubset
+    brief: Is proper subset
+    short: '⊂'
+  - name: p-superset
+    enum: ProperSuperset
+    brief: Is proper superset
+    short: '⊃'
+  - name: in
+    brief: Element is in
+    short: '∈'
+  - name: not-in
+    enum: NotIn
+    brief: Element is not in
+    short: '∉'
+
+  OneExpr:
+  - name: map
+    brief: Apply param fn to every element of sequence
+  - name: filter
+    brief: Filter sequence by predicate param
+
+  ExprAndOptionalParam:
+  - name: recur
+    brief: apply recursion to parameter fn
+  - name: apply
+    brief: Apply fn to literal param
+  - name: partial
+    brief: Bind parameters
+  - name: reduce
+  # reduce aliases
+  - name: sum
+    brief: Summation reduction, real param - initial value
+    short: Σ
+  - name: prod
+    brief: Multiplication reduction, real param - initial value
+    short: Π
+
+  ParamAndOptionalExpr:
+  - name: at
+    brief: Transform value with query pseudo-language
+    details: |-
+      Evaluation rules:
+        1. int    q |-> x |-> array x at index q (negative -> reverse)
+        2. str    q |-> x |-> value x at JSON Pointer q
+        3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
+        4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
+
+      Optional second parameter - predicate P:
+        At(q, P) <==> Compose(P, At(q))
+  - name: card
+    brief: Set cardinality (uniques count)
+  - name: size
+    brief: Sequence size
+  - name: count
+    brief: Count matches
+  - name: min
+    brief: Min value
+  - name: max
+    brief: Max value
+  - name: argmin
+    brief: Min value index
+  - name: argmax
+    brief: Max value index
+
+  non-template:
+  - name: approx
+    brief: Floating point approximately equal
+    details: |-
+      Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
+    aliases: [ 'near' ]
