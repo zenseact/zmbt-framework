@@ -79,6 +79,9 @@ public:
         return *this;
     }
 
+    /// Pipe expressions (apply Compose with left-to-right flow)
+    friend Expression operator|(Expression const& lhs, Expression const& rhs);
+
 
     ~Expression() = default;
 

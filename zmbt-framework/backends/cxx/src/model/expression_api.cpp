@@ -26,5 +26,10 @@ namespace detail
 }
 
 
+Expression operator|(Expression const& lhs, Expression const& rhs)
+{
+    return expr::Compose(rhs, lhs);
+}
+
 
 } // namespace zmbt

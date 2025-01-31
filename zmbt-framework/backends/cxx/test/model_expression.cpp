@@ -473,23 +473,35 @@ BOOST_AUTO_TEST_CASE(TestRepeat)
     BOOST_CHECK_EQUAL(boost::json::value({42,42,42}), Repeat(3).eval(42));
 }
 
+BOOST_AUTO_TEST_CASE(TestComposePipe)
+{
+    auto const test = boost::json::parse(R"({
+        "foo": {
+            "bar": {
+                "baz": 42
+            }
+        }
+    })");
 
+    BOOST_CHECK_EQUAL(42, Compose(At("/baz"), At("/bar"), At("/foo")).eval(test));
+    BOOST_CHECK_EQUAL(42, (At("/foo") | At("/bar") | At("/baz")).eval(test));
+}
 
 BOOST_AUTO_TEST_CASE(TestComposeRepeat)
 {
-    boost::json::value const rep3x3 {
+    boost::json::value const rep4x3 {
         {42,42,42},
         {42,42,42},
         {42,42,42},
         {42,42,42},
     };
-    BOOST_CHECK_EQUAL(rep3x3, Compose(Repeat(4), Repeat(3)).eval(42));
+    BOOST_CHECK_EQUAL(rep4x3, Compose(Repeat(4), Repeat(3)).eval(42));
 }
 
 BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 {
     auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1, true)));
-    auto const AllFalseFirst  = Compose(Map(At(0)), Filter(At(1, false)));
+    auto const AllFalseFirst  = Filter(At(1) | Eq(false)) | Map(At(0));
 
     boost::json::array const pairs {
         {"lol", true},
