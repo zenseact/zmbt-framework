@@ -422,13 +422,13 @@ V eval_impl<Keyword::Map>(V const& expr, V const& value, O const& op)
     auto const& value_as_array = value.get_array();
     ASSERT(expr.is_object());
     auto const& expr_as_object = expr.get_object();
+    boost::json::array ret {};
     if (value_as_array.empty())
     {
-        return nullptr;
+        return ret;
     }
     auto F = E(expr_as_object);
 
-    boost::json::array ret {};
     ret.reserve(value_as_array.size());
 
     for (auto const& el: value_as_array)
@@ -448,14 +448,12 @@ V eval_impl<Keyword::Filter>(V const& expr, V const& value, O const& op)
     auto const& value_as_array = value.get_array();
     ASSERT(expr.is_object());
     auto const& expr_as_object = expr.get_object();
+    boost::json::array ret {};
     if (value_as_array.empty())
     {
-        return nullptr;
+        return ret;
     }
     auto F = E(expr_as_object);
-
-    boost::json::array ret {};
-
     for (auto const& el: value_as_array)
     {
         if (op.is_truth(F.eval(el, op)))
