@@ -126,28 +126,5 @@ expr::signature::ParamAndOptionalExpr<Keyword::Argmax> Argmax = {};
 expr::signature::Approx Approx = {};
 expr::signature::Approx Near = Approx;
 
-
-
-namespace detail
-{
-    boost::json::value as_set(std::initializer_list<boost::json::value_ref> set)
-    {
-        boost::json::value val(set);
-        if (set.size() != 1 || val.is_object())
-        {
-            return val;
-        }
-        else
-        {
-            return boost::json::array{val};
-        }
-    }
-}
-
-Expression operator|(Expression const& lhs, Expression const& rhs)
-{
-    return expr::Compose(rhs, lhs);
-}
-
 } // namespace zmbt
 

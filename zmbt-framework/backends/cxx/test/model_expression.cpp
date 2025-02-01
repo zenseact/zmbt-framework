@@ -496,6 +496,8 @@ BOOST_AUTO_TEST_CASE(TestComposeRepeat)
         {42,42,42},
     };
     BOOST_CHECK_EQUAL(rep4x3, Compose(Repeat(4), Repeat(3)).eval(42));
+    BOOST_CHECK_EQUAL(rep4x3, (Repeat(3) | Repeat(4)).eval(42));
+    BOOST_CHECK_EQUAL(rep4x3, (Repeat(3) | Repeat(4) <<= 42).eval());
 }
 
 BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
@@ -589,6 +591,25 @@ BOOST_AUTO_TEST_CASE(TestPow)
     BOOST_CHECK_EQUAL(Pow(0.5).eval(9), 3);
 
 }
+
+BOOST_AUTO_TEST_CASE(TestApply)
+{
+    BOOST_CHECK_EQUAL(Apply(Pow(2), 3).eval(), 9);
+
+    BOOST_CHECK_EQUAL((Pow(3) <<= 4).eval(), 64);
+}
+
+BOOST_AUTO_TEST_CASE(TestComposeVsApplyPrecedence)
+{
+    // <<= has lower precedence than |
+
+    // Invalid expression: Add(2) <<= 2 | Eq(4) is Add(2) <<= (2 | Eq(4))
+    BOOST_CHECK_NE(Add(2) <<= 2 | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
+
+    BOOST_CHECK_EQUAL((Add(2) <<= 2) | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
+    BOOST_CHECK_EQUAL(((Add(2) <<= 2) | Eq(4)).eval(), true);
+}
+
 
 BOOST_AUTO_TEST_CASE(NotImplemented)
 {

@@ -79,8 +79,24 @@ public:
         return *this;
     }
 
-    /// Pipe expressions (apply Compose with left-to-right flow)
+    /// \brief Compose expressions left-to-right
+    /// \details Pipe functional expressions in composition,
+    /// s.t. `a | b` is equivalent to `Compose(b, a)`.
     friend Expression operator|(Expression const& lhs, Expression const& rhs);
+
+    /// \brief Apply x to lhs expression.
+    /// \details Equivalent to Apply(expr, x).
+    /// Note that operator <<= precedence is lower than pipe operator,
+    /// so `a <<= b` should be wrapped in parentheses when followed by |.
+    friend Expression operator<<=(Expression const& expr, boost::json::value const& x);
+
+    template <class T>
+    friend Expression operator<<=(Expression const& lhs, T const& rhs)
+    {
+        return lhs <<= json_from(rhs);
+    }
+
+
 
 
     ~Expression() = default;
@@ -147,7 +163,7 @@ public:
         return result.get_bool();
     }
 
-    boost::json::value eval(boost::json::value const& x, SignalOperatorHandler const& op = {}) const;
+    boost::json::value eval(boost::json::value const& x = nullptr, SignalOperatorHandler const& op = {}) const;
 
 };
 

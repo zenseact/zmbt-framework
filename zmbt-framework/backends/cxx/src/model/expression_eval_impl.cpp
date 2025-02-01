@@ -28,6 +28,16 @@ template <Keyword keyword>
 V eval_impl(V const& params, V const& x, O const& op);
 
 
+template <>
+V eval_impl<Keyword::Apply>(V const& param, V const& x, O const& op)
+{
+    ASSERT(param.is_array());
+    ASSERT(x.is_null());
+    auto const& expr = param.get_array().at(0);
+    auto const& args = param.get_array().at(1);
+    return E(expr).eval(args, op);
+}
+
 
 template <>
 V eval_impl<Keyword::Not>(V const& param, V const& x, O const& op)
@@ -625,7 +635,7 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
         ZMBT_EXPR_EVAL_IMPL_CASE(Recur)
         ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
         ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
-
+        ZMBT_EXPR_EVAL_IMPL_CASE(Apply)
 
         default:
         {
