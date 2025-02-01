@@ -12,17 +12,21 @@ class Keyword:
     @cached_property
     def Class(self):
         if self._signature == 'non-template':
-            return f"{self.Name}"
+            return f"{self.Enum}"
         else:
-            return f"{self._signature}<Keyword::{self.Name}>"
+            return f"{self._signature}<Keyword::{self.Enum}>"
 
     @property
     def Name(self) -> str:
-        return self._definition.get('enum', self._definition['name'].capitalize())
+        return self._definition['name']
+
+    @property
+    def Enum(self) -> str:
+        return self._definition.get('enum', self._definition['name'].replace('-',' ').title().replace(' ', ''))
 
     @property
     def DocBrief(self) -> str:
-        return self._definition.get('brief', self._definition['name'])
+        return self._definition.get('brief', self._definition['name']).capitalize()
 
     @property
     def DocDetails(self) -> str:
@@ -35,3 +39,15 @@ class Keyword:
     @property
     def Aliases(self) -> str:
         return self._definition.get('aliases', [])
+
+    @property
+    def Domain(self) -> str:
+        return self._definition.get('domain', 'any')
+
+    @property
+    def Codomain(self) -> str:
+        return self._definition.get('codomain', 'any')
+
+    @property
+    def Params(self) -> list:
+        return self._definition.get('params', 'any')

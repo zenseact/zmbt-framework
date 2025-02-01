@@ -1,4 +1,5 @@
 @require(keyword_groups)
+@(from expr_helpers import Keyword)
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -30,11 +31,11 @@ namespace zmbt {
 /// ZMBT Expression keyword
 enum class Keyword
 {
-@for group in keyword_groups.values():
-@for keyword in group:
+@for signature, group in keyword_groups.items():
+@for keyword in Keyword.map(signature, group):
 
-    /// @keyword.get('brief', keyword['name'].capitalize())
-    @keyword.get('enum', keyword['name'].capitalize()),
+    /// @keyword.Name
+    @keyword.Enum,
 @end
 @end
 

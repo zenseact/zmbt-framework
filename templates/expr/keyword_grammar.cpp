@@ -1,4 +1,5 @@
 @require(keyword_groups)
+@(from expr_helpers import Keyword)
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -35,14 +36,14 @@ namespace zmbt
 KeywordSymbol::KeywordSymbol()
 {
     add
-@for group in keyword_groups.values():
-@for keyword in group:
-    (ZMBT_KEYWORD_PREFIX "@keyword['name']", zmbt::Keyword::@get_name(keyword))
-    @if 'short' in keyword:
-    (ZMBT_KEYWORD_PREFIX "@keyword['short']", zmbt::Keyword::@get_name(keyword))
+@for signature, group in keyword_groups.items():
+@for keyword in Keyword.map(signature, group):
+    (ZMBT_KEYWORD_PREFIX "@keyword.Name", zmbt::Keyword::@keyword.Enum)
+    @if short := keyword.Short:
+    (ZMBT_KEYWORD_PREFIX "@short", zmbt::Keyword::@keyword.Enum)
     @end
-    @for alias in keyword.get('aliases', []):
-    (ZMBT_KEYWORD_PREFIX "@alias", zmbt::Keyword::@get_name(keyword))
+    @for alias in keyword.Aliases:
+    (ZMBT_KEYWORD_PREFIX "@alias", zmbt::Keyword::@keyword.Enum)
     @end
 @end
 @end

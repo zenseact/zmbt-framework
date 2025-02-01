@@ -216,12 +216,14 @@ public:
         return operators.decorate_(a);
     }
 
-    boost::json::value apply(Keyword const& keyword, boost::json::value const& x, boost::json::value const& y = nullptr) const;
+    /// \brief Apply operands
+    /// \details For unary operators, lhs is nullptr
+    boost::json::value apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
 
     /// Is true
     bool is_truth(boost::json::value const& a) const
     {
-        return apply(Keyword::Bool, a, nullptr).get_bool();
+        return apply(Keyword::Bool, nullptr, a).get_bool();
     }
 
 private:

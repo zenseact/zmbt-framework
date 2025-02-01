@@ -31,9 +31,8 @@ class Expression
     struct json_ctor_params;
     Expression(json_ctor_params&&);
 
-
-protected:
     using V = boost::json::value;
+    void handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
 
 public:
 
@@ -145,7 +144,6 @@ public:
     {
         return kwrd == keyword_;
     }
-
 
     operator boost::json::value() const
     {

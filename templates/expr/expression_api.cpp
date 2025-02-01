@@ -21,9 +21,9 @@ namespace zmbt {
 
 @for signature, group in keyword_groups.items():
 @for keyword in Keyword.map(signature, group):
-expr::signature::@keyword.Class @keyword.Name = {};
+expr::signature::@keyword.Class @keyword.Enum = {};
 @for alias in keyword.Aliases:
-expr::signature::@keyword.Class @alias.capitalize() = @keyword.Name;
+expr::signature::@keyword.Class @alias.capitalize() = @keyword.Enum;
 @end
 @end
 @end

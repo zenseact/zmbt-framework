@@ -3,292 +3,922 @@
 
 keyword_groups:
   # grouped by base signature
+  Const:
+    - name: noop
+      brief: No operation
+      short: n/a
+      aliases: [ '_' ]
+      value: true
 
-  Base:
-  - name: id
-    brief: Identity function
-  - name: noop
-    brief: No operation
-    short: n/a
-    aliases: [ '_' ]
-  - name: 'true'
-    brief: Logical true
-    short: T
-  - name: 'false'
-    brief: Logical false
-    short: ⊥
-  - name: 'null'
-    brief: Null value
-  - name: pi
-    brief: Pi constant
-    short: π
-  - name: e
-    brief: Euler's number
-  - name: inf
-    brief: Infinity
-  - name: eps
-    brief: Machine epsilon
-  - name: nan
-    enum: NaN
-    brief: Not a number
-  - name: bool
-    brief: Predicate on boolean transform (aka Truthy)
-    short: '?'
-  - name: nil
-    brief: Predicate on boolean transform (aka Falsy)
-  - name: neg
-    brief: Negate
-  - name: abs
-    brief: Absolute value
-  - name: sign
-    brief: Sign
-  - name: ceil
-    brief: Ceil
-  - name: floor
-    brief: Floor
-  - name: round
-    brief: Round
-  - name: b-not
-    brief: Bitwise not
-    enum: BitNot
-    short: '~'
-  - name: concat
-    brief: Concatenate sequences
-  - name: union
-    brief: Set union
-    short: '∪'
-  - name: intersect
-    brief: Set intersection
-    short: '∩'
-  - name: set-diff
-    enum: Diff
-    brief: Set difference
-  - name: cartesian
-    brief: Cartesian product
-    short: '×'
-  - name: transp
-    brief: Transpose 2-d array, turning rows into columns
-  - name: set
-    brief: Sequence to set
-  - name: list
-    brief: Envelop value in array (equivalent to Repeat(1))
-  - name: card
-    brief: Set cardinality (uniques count)
-  - name: size
-    brief: Sequence size
-  - name: min
-    brief: Min value
-  - name: max
-    brief: Max value
-  - name: argmin
-    brief: Min value index
-  - name: argmax
-    brief: Max value index
-  - name: not
-    brief: Logical complement
-    short: ¬
+    - name: 'true'
+      brief: Logical true
+      short: T
+      value: true
 
-  OneParam:
-  - name: eq
-    brief: Is equal
-    short: '='
-  - name: ne
-    brief: Not equal
-    short: '≠'
-  - name: lt
-    brief: Lesser than
-    short: '<'
-  - name: le
-    brief: Lesser or equal
-    short: '≤'
-  - name: gt
-    brief: Greater than
-    short: '>'
-  - name: ge
-    brief: Greater or equal
-    short: '≥'
-  - name: ni
-    brief: Contains element
-    enum: Ni
-    short: '∋'
-    aliases: [ 'contains' ]
-  - name: not-ni
-    brief: Not contains element
-    enum: NotNi
-    short: '∌'
-  - name: and
-    brief: Logical conjunction
-    short: ∧
-  - name: or
-    brief: Logical disjunction
-    short: ∨
-  - name: add
-    brief: Add
-    short: '+'
-  - name: sub
-    brief: Substract
-    short: '-'
-  - name: mul
-    brief: Multiply
-    short: '*'
-  - name: div
-    brief: Divide
-    short: '/'
-  - name: pow
-    brief: To power
-    short: '**'
-  - name: log
-    brief: Logarithm
-  - name: mod
-    brief: Modulo
-    short: '%'
-  - name: quot
-    brief: Quotient
-    short: '//'
-  - name: sqrt
-    brief: Square root
-  - name: sin
-    brief: Sinus
-  - name: cos
-    brief: Cosinus
-  - name: tan
-    brief: Tangens
-  - name: asin
-    brief: Arcsin
-  - name: acos
-    brief: Arccos
-  - name: atan
-    brief: Arctan
-  - name: sinh
-    brief: Hyperbolic sin
-  - name: cosh
-    brief: Hyperbolic cos
-  - name: tanh
-    brief: Hyperbolic tan
-  - name: asinh
-    brief: Hyperbolic  arcsin
-  - name: acosh
-    brief: Hyperbolic arccos
-  - name: atanh
-    brief: Hyperbolic arctan
-  - name: exp
-    brief: Exponential (e^x)
-  - name: erf
-    brief: Error function
-  - name: erfc
-    brief: Error function complement
-  - name: gamma
-    brief: Gamma function
-  - name: b-and
-    brief: Bitwise and
-    enum: BitAnd
-    short: '&'
-  - name: b-or
-    brief: Bitwise or
-    enum: BitOr
-    short: '|'
-  - name: b-xor
-    brief: Bitwise xor
-    enum: BitXor
-    short: '^'
-  - name: b-lshift
-    brief: Bitwise left shift
-    enum: BitLshift
-    short: '<<'
-  - name: b-rshift
-    brief: Bitwise right shift
-    enum: BitRshift
-    short: '>>'
-  - name: slide
-    brief: Sliding-window iteration
-  - name: stride
-    brief: Striding iteration
-  - name: slice
-    brief: Slice sequence by "start:stop:step"
-  - name: sort
-    brief: Sort array by comparison parameter fn
-  - name: repeat
-    brief: Repeat value in array
-  - name: re
-    brief: Regular expression match
-    aliases: [ 'regex' ]
-  - name: at
-    brief: Transform value with query pseudo-language
-    details: |-
-      Evaluation rules:
-        1. int    q |-> x |-> array x at index q (negative -> reverse)
-        2. str    q |-> x |-> value x at JSON Pointer q
-        3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
-        4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
+    - name: 'false'
+      brief: Logical false
+      short: ⊥
+      value: false
 
-      Optional second parameter - predicate P:
-        At(q, P) <==> Compose(P, At(q))
+    - name: 'null'
+      brief: Null value
+      value: null
 
-  VariadicExpr:
-  - name: any
-    brief: Match any predicate
-  - name: all
-    brief: Match all predicates
-  - name: none
-    brief: Match none of predicates
-  - name: saturate
-    brief: Saturate matches in order
-  - name: compose
-    brief: Compose functions
+    - name: pi
+      brief: Pi constant
+      short: π
+      type: real
 
-  SetParam:
-  - name: set-eq
-    enum: SetEq
-    brief: Equal as set
-  - name: subset
-    brief: Is subset
-    short: '⊆'
-  - name: superset
-    brief: is superset
-    short: '⊇'
-  - name: p-subset
-    enum: ProperSubset
-    brief: Is proper subset
-    short: '⊂'
-  - name: p-superset
-    enum: ProperSuperset
-    brief: Is proper superset
-    short: '⊃'
-  - name: in
-    brief: Element is in
-    short: '∈'
-  - name: not-in
-    enum: NotIn
-    brief: Element is not in
-    short: '∉'
+    - name: e
+      brief: Euler's number
+      type: real
 
-  OneExpr:
-  - name: map
-    brief: Apply param fn to every element of sequence
-  - name: filter
-    brief: Filter sequence by predicate param
-  - name: count
-    brief: Count matches
+    - name: inf
+      brief: Infinity
+      type: real
 
-  ExprAndOptionalParam:
-  - name: recur
-    brief: apply recursion to parameter fn
-  - name: apply
-    brief: Apply fn to literal param
-  - name: partial
-    brief: Bind parameters
-  - name: reduce
-  # reduce aliases
-  - name: sum
-    brief: Summation reduction, real param - initial value
-    short: Σ
-  - name: prod
-    brief: Multiplication reduction, real param - initial value
-    short: Π
+    - name: eps
+      brief: Machine epsilon
+      type: real
+
+    - name: nan
+      enum: NaN
+      brief: Not a number
+      type: real
+
+  Unary:
+    - name: id
+      brief: Identity function
+      domain: any
+      codomain: any
+
+    - name: bool
+      brief: Predicate on boolean transform (aka Truthy)
+      short: '?'
+      alias: [ 'truthy' ]
+      domain: any
+      codomain: bool
+
+    - name: nil
+      brief: Predicate on boolean transform (aka Falsy)
+      alias: [ 'falsy' ]
+      domain: any
+      codomain: bool
+
+    - name: not
+      brief: Logical complement
+      short: ¬
+      domain: any
+      codomain: bool
+
+    - name: neg
+      brief: Negate
+      domain: real
+      codomain: real
+
+    - name: abs
+      brief: Absolute value
+      domain: real
+      codomain: real
+
+    - name: sign
+      domain: real
+      codomain: int
+
+    - name: ceil
+      domain: real
+      codomain: int
+
+    - name: floor
+      domain: real
+      codomain: int
+
+    - name: b-not
+      brief: Bitwise not
+      enum: BitNot
+      short: '~'
+      domain: uint
+      codomain: uint
+
+    - name: concat
+      brief: Concatenate sequences
+      domain: list[list]
+      codomain: list
+
+    - name: union
+      brief: Set union
+      short: '∪'
+      domain: list[set]
+      codomain: set
+
+
+    - name: intersect
+      brief: Set intersection
+      short: '∩'
+      domain: list[set]
+      codomain: set
+
+
+    - name: set-diff
+      enum: Diff
+      brief: Set difference
+      domain: list[set]
+
+    - name: cartesian
+      brief: Cartesian product
+      short: '×'
+      domain: list[set]
+      codomain: list[list]
+
+    - name: transp
+      brief: Transpose multidimensional list, turning rows into columns
+      details: |-
+        May be used to zip sequences of equal length.
+        Example:
+          [[1, 2, 3], [4, 5, 6]] -> [[1, 4], [2, 5], [3, 6]]
+      domain: list[list]
+      codomain: list[list]
+
+    - name: set
+      brief: Sequence to set
+      domain: list
+      codomain: set
+
+
+    - name: list
+      brief: Envelop value in list (equivalent to Repeat(1))
+      domain: any
+      codomain: list
+
+
+    - name: card
+      brief: Set cardinality (uniques count)
+      domain: union[list, object]
+      codomain: uint
+
+    - name: size
+      brief: Sequence size
+      domain: union[list, object]
+      codomain: uint
+
+    - name: sqrt
+      brief: Square root
+      domain: real
+      codomain: real
+
+    - name: sin
+      brief: Sinus
+      domain: real
+      codomain: real
+
+    - name: cos
+      brief: Cosinus
+      domain: real
+      codomain: real
+
+    - name: tan
+      brief: Tangens
+      domain: real
+      codomain: real
+
+    - name: asin
+      brief: Arcsin
+      domain: real
+      codomain: real
+
+    - name: acos
+      brief: Arccos
+      domain: real
+      codomain: real
+
+    - name: atan
+      brief: Arctan
+      domain: real
+      codomain: real
+
+    - name: sinh
+      brief: Hyperbolic sin
+      domain: real
+      codomain: real
+
+    - name: cosh
+      brief: Hyperbolic cos
+      domain: real
+      codomain: real
+
+    - name: tanh
+      brief: Hyperbolic tan
+      domain: real
+      codomain: real
+
+    - name: asinh
+      brief: Hyperbolic arcsin
+      domain: real
+      codomain: real
+
+    - name: acosh
+      brief: Hyperbolic arccos
+      domain: real
+      codomain: real
+
+    - name: atanh
+      brief: Hyperbolic arctan
+      domain: real
+      codomain: real
+
+    - name: exp
+      brief: Exponential (e^x)
+      domain: real
+      codomain: real
+
+    - name: erf
+      brief: Error function
+      domain: real
+      codomain: real
+
+    - name: erfc
+      brief: Error function complement
+      domain: real
+      codomain: real
+
+    - name: gamma
+      brief: Gamma function
+      domain: real
+      codomain: real
+
+  UnaryParam:
+    - name: round
+      brief: Round to nearest integer with optional precision
+      commutative: false
+      domain: real
+      codomain: real
+      params:
+        - label: precision
+          type: int
+          default: 0
+
+    # reduce aliases
+    - name: sum
+      brief: Summation reduction, real param - initial value
+      details: Equivalent to Reduce(Add, ...)
+      short: Σ
+      domain: list
+      codomain: real
+      params:
+        - label: initial value
+          default: 0
+
+    - name: prod
+      brief: Multiplication reduction, real param - initial value
+      details: Equivalent to Reduce(Mul, ...)
+      short: Π
+      domain: list
+      codomain: real
+      params:
+        - label: initial value
+          default: 1
+
+  Binary:
+    - name: eq
+      brief: Is equal
+      short: '='
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: ne
+      brief: Not equal
+      short: '≠'
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: lt
+      brief: Lesser than
+      short: '<'
+      commutative-dual: ge
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: le
+      brief: Lesser or equal
+      short: '≤'
+      commutative-dual: gt
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: gt
+      brief: Greater than
+      short: '>'
+      commutative-dual: le
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: ge
+      brief: Greater or equal
+      short: '≥'
+      commutative-dual: lt
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: ni
+      brief: Contains element
+      enum: Ni
+      short: '∋'
+      aliases: [ 'contains' ]
+      commutative-dual: in
+      domain: [set, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: not-ni
+      brief: Not contains element
+      enum: NotNi
+      short: '∌'
+      commutative-dual: not-in
+      domain: [set, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: and
+      brief: Logical and
+      details: |-
+        Generic behavior:
+          if first operand is truthy, returns second operand, otherwise first
+      short: ∧
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: or
+      brief: Logical or
+      short: ∨
+      details: |-
+        Generic behavior:
+          if first operand is truthy, returns first operand, second otherwise
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: add
+      brief: Addition
+      short: '+'
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: sub
+      brief: Subtraction
+      short: '-'
+      domain: [real, real]
+      codomain: real
+      commutative-dual: sub-from
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: sub-from
+      brief: Reverse subtraction
+      details: |-
+        Subtraction with reverse arguments, i. e.
+          1. [ ] |-> [y, x] |-> x - y
+          2. [x] |-> [y]    |-> x - y
+      commutative-dual: sub
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: x
+          partial: domain/1
+
+    - name: mul
+      brief: Multiplication
+      short: '*'
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: div
+      brief: Division
+      short: '/'
+      details: |-
+        1. [ ] |-> [x, y] |-> x / y
+        2. [y] |-> [x]    |-> x / y
+      commutative-dual: div-from
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: divisor
+          partial: domain/1
+
+    - name: div-from
+      brief: Reverse division
+      details: |-
+        Division with reverse arguments, i. e.
+          1. [ ] |-> [y, x] |-> x / y
+          2. [x] |-> [y]    |-> x / y
+      commutative-dual: div
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: dividend
+          partial: domain/1
+
+    - name: pow
+      brief: To power
+      short: '**'
+      details: |-
+        X to power p
+          1. [ ] |-> [x, p] |-> x^p
+          2. [p] |-> [x]    |-> x^p
+      commutative-dual: pow-from
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: power
+          partial: domain/1
+
+    - name: pow-from
+      brief: Reverse power
+      details: |-
+        Pow with reverse arguments, i. e.
+          1. [ ] |-> [p, x] |-> x^p
+          2. [x] |-> [p]    |-> x^p
+      commutative-dual: pow
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: x
+          partial: domain/1
+
+    - name: log
+      brief: Logarithm
+      short: 'log'
+      details: |-
+        Logarithm with base b:
+          1. [ ] |-> [x, b] |-> log_b(x)
+          2. [b] |-> [x]    |-> log_b(x)
+      commutative-dual: log-from
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: base
+          partial: domain/1
+
+    - name: log-from
+      brief: Reverse logarithm
+      details: |-
+        Log with reverse arguments, i. e.
+          1. [ ] |-> [b, x] |-> log_b(x)
+          2. [b] |-> [b]    |-> log_b(x)
+      commutative-dual: log
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: x
+          partial: domain/1
+
+    - name: mod
+      brief: Modulo
+      short: '%'
+      details: |-
+        Modulo of x:
+          1. [ ] |-> [x, m] |-> x % m
+          2. [m] |-> [x]    |-> x % m
+      commutative-dual: mod-from
+      domain: [real, int]
+      codomain: int
+      params:
+        - label: modulus
+          partial: domain/1
+
+    - name: mod-from
+      brief: Reverse modulo
+      details: |-
+        Modulo with reverse arguments, i. e.
+          1. [ ] |-> [b, x] |-> log_b(x)
+          2. [b] |-> [b]    |-> log_b(x)
+      commutative-dual: mod
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: x
+          partial: domain/1
+
+    - name: quot
+      brief: Quotient
+      short: '//'
+      details: |-
+        Quotient of x:
+          1. [ ] |-> [x, d] |-> x // d
+          2. [d] |-> [x]    |-> x // d
+      commutative-dual: quot-from
+      domain: [real, int]
+      codomain: real
+      params:
+        - label: divisor
+          partial: domain/1
+
+    - name: quot-from
+      brief: Reverse quotient
+      details: |-
+        Quotient with reverse arguments, i. e.
+          1. [ ] |-> [d, x] |-> x // d
+          2. [x] |-> [d]    |-> x // d
+      commutative-dual: quot
+      domain: [int, real]
+      codomain: real
+      params:
+        - label: dividend
+          partial: domain/1
+
+    - name: b-and
+      brief: Bitwise and
+      enum: BitAnd
+      short: '&'
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: b-or
+      brief: Bitwise or
+      enum: BitOr
+      short: '|'
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: b-xor
+      brief: Bitwise xor
+      enum: BitXor
+      short: '^'
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: b-lshift
+      brief: Bitwise left shift
+      enum: BitLshift
+      short: '<<'
+      details: |-
+        1. [ ] |-> [x, s] |-> x << s
+        2. [s] |-> [x]    |-> x << s
+      commutative-dual: b-lshift-from
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: shift
+          partial: domain/1
+
+    - name: b-lshift-from
+      brief: Reverse bitwise left shift
+      enum: BitLshiftFrom
+      details: |-
+        Bitwise left shift with reverse arguments, i. e.
+          1. [ ] |-> [s, x] |-> x << s
+          2. [x] |-> [s]    |-> x << s
+      commutative-dual: b-lshift
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: x
+          partial: domain/1
+
+    - name: b-rshift
+      brief: Bitwise right shift
+      enum: BitRshift
+      short: '>>'
+      details: |-
+        1. [ ] |-> [x, s] |-> x >> s
+        2. [s] |-> [x]    |-> x >> s
+      commutative-dual: b-rshift-from
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: shift
+          partial: domain/1
+
+    - name: b-rshift-from
+      brief: Reverse bitwise right shift
+      enum: BitRshiftFrom
+      details: |-
+        Bitwise right shift with reverse arguments, i. e.
+          1. [ ] |-> [s, x] |-> x >> s
+          2. [x] |-> [s]    |-> x >> s
+      commutative-dual: b-rshift
+      domain: [uint, uint]
+      codomain: uint
+      params:
+        - label: x
+          partial: domain/1
+
+    - name: slide
+      brief: Sliding-window iteration
+      details: |-
+        Sliding window iteration by specified window width.
+      commutative: false
+      domain: [list, int]
+      codomain: list[list]
+      params:
+        - label: window width
+          partial: domain/1
+
+    - name: stride
+      brief: Striding iteration
+      details: |-
+        Striding iteration by specified step width.
+      commutative: false
+      domain: [list, int]
+      codomain: list[list]
+      params:
+        - label: step width
+          partial: domain/1
+
+    - name: repeat
+      brief: Repeat value in list
+      commutative: false
+      domain: [any, int]
+      codomain: list
+      params:
+        - label: count
+          partial: domain/1
+
+    - name: re
+      brief: Regular expression match
+      details: If input is not a string, match it's serialized form.
+      aliases: [ 'regex' ]
+      commutative: false
+      domain: [any, str]
+      codomain: bool
+      params:
+        - label: pattern
+          partial: domain/1
+
+    - name: at
+      brief: Transform JSON value with given query
+      details: |-
+        Query evaluation rules:
+        ```
+          1. q: int  |-> x: list  |-> x at index q (negative -> reverse)
+          2. q: str  |-> x: any   |-> x at JSON Pointer q
+          3. q: list |-> x: any   |-> [x at q1, x at q2, ...]
+          4. {"key": q1, "$q2": q3, ...} |-> x: any |->
+              { "key1": x at q1, "$(x at q2)": x at q3, ...}
+        ```
+      # TODO: add slice support (start:stop:step)
+      commutative: false
+      domain: [any, union: [int, str, list, object]]
+      codomain: any
+      params:
+        - label: query
+          partial: domain/1
+
+  BinarySetRhs:
+    - name: set-eq
+      enum: SetEq
+      brief: Equal as set
+      short: '≡'
+      domain: [set, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    - name: subset
+      brief: Is subset
+      short: '⊆'
+      domain: [set, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+
+    - name: superset
+      brief: is superset
+      short: '⊇'
+      domain: [set, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+
+    - name: p-subset
+      enum: ProperSubset
+      brief: Is proper subset
+      short: '⊂'
+      domain: [set, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+
+    - name: p-superset
+      enum: ProperSuperset
+      brief: Is proper superset
+      short: '⊃'
+      domain: [set, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+
+    - name: in
+      brief: Element is in
+      short: '∈'
+      domain: [any, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+
+    - name: not-in
+      enum: NotIn
+      brief: Element is not in
+      short: '∉'
+      domain: [any, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+  HiOrd:
+    - name: map
+      brief: Apply param expr to every element of sequence
+      domain: list
+      codomain: list
+      params:
+        - type: fn
+
+    - name: filter
+      brief: Filter sequence by predicate param
+      domain: list
+      codomain: list
+      params:
+        - type: predicate
+
+    - name: count
+      brief: Count matches by predicate param
+      domain: list
+      codomain: uint
+      params:
+        - type: predicate
+
+    - name: sort
+      brief: Sort list by comparison parameter expr
+      domain: list
+      codomain: list
+      params:
+        - label: lesser than
+          type: relation
+
+    - name: min
+      brief: Min value
+      domain: list
+      codomain: any
+      params:
+        - label: lesser than
+          type: relation
+
+    - name: max
+      brief: Max value
+      domain: list
+      codomain: any
+      params:
+        - label: lesser than
+          type: relation
+
+    - name: argmin
+      brief: Min value index
+      domain: list
+      codomain: uint
+      params:
+        - label: lesser than
+          type: relation
+
+    - name: argmax
+      brief: Max value index
+      domain: list
+      codomain: uint
+      params:
+        - label: lesser than
+          type: relation
+
+  HiOrdParam:
+    - name: recur
+      brief: apply recursion to parameter expr
+      domain: any
+      codomain: any
+      params:
+        - type: fn
+        - label: depth
+          type: int
+
+    - name: apply
+      brief: Apply expr to literal param
+      domain: null
+      codomain: any
+      params:
+        - type: fn
+        - label: argument
+          type: any
+
+    - name: bind
+      brief: Bind parameters
+      params:
+        - type: fn
+        - label: params
+          type: object
+
+  HiOrdParamOpt:
+    - name: reduce
+      brief: Reduce sequence with binary operator and optional initial value
+      details: |-
+        If initial value is not provided, first element is used.
+        If sequence is empty and initial value is not provided, error is raised.
+      domain: list
+      codomain: any
+      params:
+        - type: fn
+        - label: initial value
+          default: domain/0
+
+  HiOrdVariadic:
+    - name: any
+      brief: Match any predicate
+      domain: any
+      codomain: bool
+      params:
+        - label: predicates
+          type: list[expr]
+
+    - name: all
+      brief: Match all predicates
+      domain: any
+      codomain: bool
+      params:
+        - label: predicates
+          type: list[expr]
+
+    - name: saturate
+      brief: Saturate matches in order
+      domain: list
+      codomain: bool
+      params:
+        - label: predicates
+          type: list[expr]
+
+    - name: compose
+      brief: Compose functions
+      domain: any
+      codomain: any
+      params:
+        - label: functions
+          type: list[expr]
 
   non-template:
-  - name: approx
-    brief: Floating point approximately equal
-    details: |-
-      Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
-    aliases: [ 'near' ]
+    - name: approx
+      brief: Floating point approximately equal
+      details: |-
+        Based on numpy.isclose: abs(a - b) <= (atol + rtol * abs(ref))
+      aliases: [ 'near' ]
+      params: [ real, real ]
+      domain: real
+      codomain: bool

@@ -1,3 +1,4 @@
+
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -30,313 +31,331 @@ namespace zmbt {
 enum class Keyword
 {
 
-    /// Identity function
-    Id,
-
-    /// No operation
+    /// noop
     Noop,
 
-    /// Logical true
+    /// true
     True,
 
-    /// Logical false
+    /// false
     False,
 
-    /// Null value
+    /// null
     Null,
 
-    /// Pi constant
+    /// pi
     Pi,
 
-    /// Euler's number
+    /// e
     E,
 
-    /// Infinity
+    /// inf
     Inf,
 
-    /// Machine epsilon
+    /// eps
     Eps,
 
-    /// Not a number
+    /// nan
     NaN,
 
-    /// Predicate on boolean transform (aka Truthy)
+    /// id
+    Id,
+
+    /// bool
     Bool,
 
-    /// Predicate on boolean transform (aka Falsy)
+    /// nil
     Nil,
 
-    /// Negate
-    Neg,
-
-    /// Absolute value
-    Abs,
-
-    /// Sign
-    Sign,
-
-    /// Ceil
-    Ceil,
-
-    /// Floor
-    Floor,
-
-    /// Round
-    Round,
-
-    /// Bitwise not
-    BitNot,
-
-    /// Concatenate sequences
-    Concat,
-
-    /// Set union
-    Union,
-
-    /// Set intersection
-    Intersect,
-
-    /// Set difference
-    Diff,
-
-    /// Cartesian product
-    Cartesian,
-
-    /// Transpose 2-d array, turning rows into columns
-    Transp,
-
-    /// Sequence to set
-    Set,
-
-    /// Envelop value in array (equivalent to Repeat(1))
-    List,
-
-    /// Set cardinality (uniques count)
-    Card,
-
-    /// Sequence size
-    Size,
-
-    /// Min value
-    Min,
-
-    /// Max value
-    Max,
-
-    /// Min value index
-    Argmin,
-
-    /// Max value index
-    Argmax,
-
-    /// Logical complement
+    /// not
     Not,
 
-    /// Is equal
-    Eq,
+    /// neg
+    Neg,
 
-    /// Not equal
-    Ne,
+    /// abs
+    Abs,
 
-    /// Lesser than
-    Lt,
+    /// sign
+    Sign,
 
-    /// Lesser or equal
-    Le,
+    /// ceil
+    Ceil,
 
-    /// Greater than
-    Gt,
+    /// floor
+    Floor,
 
-    /// Greater or equal
-    Ge,
+    /// b-not
+    BitNot,
 
-    /// Contains element
-    Ni,
+    /// concat
+    Concat,
 
-    /// Not contains element
-    NotNi,
+    /// union
+    Union,
 
-    /// Logical conjunction
-    And,
+    /// intersect
+    Intersect,
 
-    /// Logical disjunction
-    Or,
+    /// set-diff
+    Diff,
 
-    /// Add
-    Add,
+    /// cartesian
+    Cartesian,
 
-    /// Substract
-    Sub,
+    /// transp
+    Transp,
 
-    /// Multiply
-    Mul,
+    /// set
+    Set,
 
-    /// Divide
-    Div,
+    /// list
+    List,
 
-    /// To power
-    Pow,
+    /// card
+    Card,
 
-    /// Logarithm
-    Log,
+    /// size
+    Size,
 
-    /// Modulo
-    Mod,
-
-    /// Quotient
-    Quot,
-
-    /// Square root
+    /// sqrt
     Sqrt,
 
-    /// Sinus
+    /// sin
     Sin,
 
-    /// Cosinus
+    /// cos
     Cos,
 
-    /// Tangens
+    /// tan
     Tan,
 
-    /// Arcsin
+    /// asin
     Asin,
 
-    /// Arccos
+    /// acos
     Acos,
 
-    /// Arctan
+    /// atan
     Atan,
 
-    /// Hyperbolic sin
+    /// sinh
     Sinh,
 
-    /// Hyperbolic cos
+    /// cosh
     Cosh,
 
-    /// Hyperbolic tan
+    /// tanh
     Tanh,
 
-    /// Hyperbolic  arcsin
+    /// asinh
     Asinh,
 
-    /// Hyperbolic arccos
+    /// acosh
     Acosh,
 
-    /// Hyperbolic arctan
+    /// atanh
     Atanh,
 
-    /// Exponential (e^x)
+    /// exp
     Exp,
 
-    /// Error function
+    /// erf
     Erf,
 
-    /// Error function complement
+    /// erfc
     Erfc,
 
-    /// Gamma function
+    /// gamma
     Gamma,
 
-    /// Bitwise and
-    BitAnd,
+    /// round
+    Round,
 
-    /// Bitwise or
-    BitOr,
-
-    /// Bitwise xor
-    BitXor,
-
-    /// Bitwise left shift
-    BitLshift,
-
-    /// Bitwise right shift
-    BitRshift,
-
-    /// Sliding-window iteration
-    Slide,
-
-    /// Striding iteration
-    Stride,
-
-    /// Slice sequence by "start:stop:step"
-    Slice,
-
-    /// Sort array by comparison parameter fn
-    Sort,
-
-    /// Repeat value in array
-    Repeat,
-
-    /// Regular expression match
-    Re,
-
-    /// Transform value with query pseudo-language
-    At,
-
-    /// Match any predicate
-    Any,
-
-    /// Match all predicates
-    All,
-
-    /// Match none of predicates
-    None,
-
-    /// Saturate matches in order
-    Saturate,
-
-    /// Compose functions
-    Compose,
-
-    /// Equal as set
-    SetEq,
-
-    /// Is subset
-    Subset,
-
-    /// is superset
-    Superset,
-
-    /// Is proper subset
-    ProperSubset,
-
-    /// Is proper superset
-    ProperSuperset,
-
-    /// Element is in
-    In,
-
-    /// Element is not in
-    NotIn,
-
-    /// Apply param fn to every element of sequence
-    Map,
-
-    /// Filter sequence by predicate param
-    Filter,
-
-    /// Count matches
-    Count,
-
-    /// apply recursion to parameter fn
-    Recur,
-
-    /// Apply fn to literal param
-    Apply,
-
-    /// Bind parameters
-    Partial,
-
-    /// Reduce
-    Reduce,
-
-    /// Summation reduction, real param - initial value
+    /// sum
     Sum,
 
-    /// Multiplication reduction, real param - initial value
+    /// prod
     Prod,
 
-    /// Floating point approximately equal
+    /// eq
+    Eq,
+
+    /// ne
+    Ne,
+
+    /// lt
+    Lt,
+
+    /// le
+    Le,
+
+    /// gt
+    Gt,
+
+    /// ge
+    Ge,
+
+    /// ni
+    Ni,
+
+    /// not-ni
+    NotNi,
+
+    /// and
+    And,
+
+    /// or
+    Or,
+
+    /// add
+    Add,
+
+    /// sub
+    Sub,
+
+    /// sub-from
+    SubFrom,
+
+    /// mul
+    Mul,
+
+    /// div
+    Div,
+
+    /// div-from
+    DivFrom,
+
+    /// pow
+    Pow,
+
+    /// pow-from
+    PowFrom,
+
+    /// log
+    Log,
+
+    /// log-from
+    LogFrom,
+
+    /// mod
+    Mod,
+
+    /// mod-from
+    ModFrom,
+
+    /// quot
+    Quot,
+
+    /// quot-from
+    QuotFrom,
+
+    /// b-and
+    BitAnd,
+
+    /// b-or
+    BitOr,
+
+    /// b-xor
+    BitXor,
+
+    /// b-lshift
+    BitLshift,
+
+    /// b-lshift-from
+    BitLshiftFrom,
+
+    /// b-rshift
+    BitRshift,
+
+    /// b-rshift-from
+    BitRshiftFrom,
+
+    /// slide
+    Slide,
+
+    /// stride
+    Stride,
+
+    /// repeat
+    Repeat,
+
+    /// re
+    Re,
+
+    /// at
+    At,
+
+    /// set-eq
+    SetEq,
+
+    /// subset
+    Subset,
+
+    /// superset
+    Superset,
+
+    /// p-subset
+    ProperSubset,
+
+    /// p-superset
+    ProperSuperset,
+
+    /// in
+    In,
+
+    /// not-in
+    NotIn,
+
+    /// map
+    Map,
+
+    /// filter
+    Filter,
+
+    /// count
+    Count,
+
+    /// sort
+    Sort,
+
+    /// min
+    Min,
+
+    /// max
+    Max,
+
+    /// argmin
+    Argmin,
+
+    /// argmax
+    Argmax,
+
+    /// recur
+    Recur,
+
+    /// apply
+    Apply,
+
+    /// bind
+    Bind,
+
+    /// reduce
+    Reduce,
+
+    /// any
+    Any,
+
+    /// all
+    All,
+
+    /// saturate
+    Saturate,
+
+    /// compose
+    Compose,
+
+    /// approx
     Approx,
 
     /// Internal utility value

@@ -38,7 +38,34 @@ struct Base : public Expression
 };
 
 template <Keyword K>
-struct OneParam : public Base<K>
+struct Const : public Base<K>
+{
+    using Base<K>::Base;
+};
+
+template <Keyword K>
+struct Unary : public Base<K>
+{
+    using Base<K>::Base;
+};
+
+template <Keyword K>
+struct Binary : public Base<K>
+{
+    using Base<K>::Base;
+    Expression operator()(boost::json::value const& param) const
+    {
+        return Expression(K, param);
+    }
+    template <class T>
+    Expression operator()(T&& param) const
+    {
+        return Expression(K, json_from(std::forward<T>(param)));
+    }
+};
+
+template <Keyword K>
+struct UnaryParam : public Base<K>
 {
     using Base<K>::Base;
     Expression operator()(boost::json::value const& param) const
@@ -54,7 +81,7 @@ struct OneParam : public Base<K>
 
 
 template <Keyword K>
-struct OneExpr : public Base<K>
+struct HiOrd : public Base<K>
 {
     using Base<K>::Base;
     Expression operator()(Expression const& expr) const
@@ -63,9 +90,24 @@ struct OneExpr : public Base<K>
     }
 };
 
+template <Keyword K>
+struct HiOrdParam : public Base<K>
+{
+    using Base<K>::Base;
+    Expression operator()(Expression const& expr, boost::json::value const& param) const
+    {
+        return Expression(K, boost::json::array{expr, param});
+    }
+    template <class T>
+    Expression operator()(Expression const& expr, T&& param) const
+    {
+        return Expression(K, boost::json::array{expr, json_from(std::forward<T>(param))});
+    }
+};
+
 
 template <Keyword K>
-struct ExprAndOptionalParam : public Base<K>
+struct HiOrdParamOpt : public Base<K>
 {
     using Base<K>::Base;
     Expression operator()(Expression const& expr) const
@@ -83,9 +125,10 @@ struct ExprAndOptionalParam : public Base<K>
     }
 };
 
+
 /// Expression with variadic parameters
 template <Keyword K>
-struct VariadicExpr : public Base<K>
+struct HiOrdVariadic : public Base<K>
 {
     using Base<K>::Base;
     using E = Expression;
@@ -120,7 +163,7 @@ struct VariadicExpr : public Base<K>
 };
 
 template <Keyword Kw>
-struct SetParam : public Base<Kw>
+struct BinarySetRhs : public Base<Kw>
 {
     using Base<Kw>::Base;
     Expression operator()(std::initializer_list<boost::json::value_ref> set) const

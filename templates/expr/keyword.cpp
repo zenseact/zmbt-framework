@@ -1,4 +1,5 @@
 @require(keyword_groups)
+@(from expr_helpers import Keyword)
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -33,9 +34,10 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
 {
     switch(kw)
     {
-@for group in keyword_groups.values():
-@for keyword in group:
-    case Keyword::@keyword.get('enum', keyword['name'].capitalize()): { v = ZMBT_KEYWORD_PREFIX "@keyword['name']"; break; }
+
+@for signature, group in keyword_groups.items():
+@for keyword in Keyword.map(signature, group):
+    case Keyword::@keyword.Enum: { v = ZMBT_KEYWORD_PREFIX "@keyword.Name"; break; }
 @end
 @end
         // TODO: throw

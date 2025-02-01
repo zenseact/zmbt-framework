@@ -29,7 +29,7 @@ SignalOperatorHandler::SignalOperatorHandler(
 }
 
 
-#define GENERIC_T1(OP) [](boost::json::value const& lhs) { return OP zmbt::GenericSignalOperator(lhs); }
+#define GENERIC_T1(OP) [](boost::json::value const& rhs) { return OP zmbt::GenericSignalOperator(rhs); }
 #define GENERIC_T2(OP) [](boost::json::value const& lhs, boost::json::value const& rhs) { return zmbt::GenericSignalOperator(lhs) OP zmbt::GenericSignalOperator(rhs); }
 
 SignalOperatorHandler::SignalOperatorHandler()
@@ -63,54 +63,54 @@ SignalOperatorHandler::SignalOperatorHandler()
 #undef GENERIC_T2
 
 
-boost::json::value SignalOperatorHandler::apply(Keyword const& keyword, boost::json::value const& x, boost::json::value const& y) const
+boost::json::value SignalOperatorHandler::apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
 {
     switch (keyword)
     {
-    case Keyword::Bool: return operators.is_truth_(x);
-    case Keyword::Nil: return !operators.is_truth_(x);
-    case Keyword::Not: return operators.not_(x);
-    case Keyword::And: return operators.land_(x, y);
-    case Keyword::Or: return operators.lor_(x, y);
+    case Keyword::Bool: return operators.is_truth_(rhs);
+    case Keyword::Nil: return !operators.is_truth_(rhs);
+    case Keyword::Not: return operators.not_(rhs);
+    case Keyword::And: return operators.land_(lhs, rhs);
+    case Keyword::Or: return operators.lor_(lhs, rhs);
 
-    case Keyword::Eq: return operators.is_equal_(x, y);
-    case Keyword::Ne: return !operators.is_equal_(x, y);
+    case Keyword::Eq: return operators.is_equal_(lhs, rhs);
+    case Keyword::Ne: return !operators.is_equal_(lhs, rhs);
 
-    case Keyword::Le: return operators.is_le_(x, y);
-    case Keyword::Gt: return !operators.is_le_(x, y);
-    case Keyword::Ge: return operators.is_le_(y, x);
-    case Keyword::Lt: return !operators.is_le_(y, x);
+    case Keyword::Le: return operators.is_le_(lhs, rhs);
+    case Keyword::Gt: return !operators.is_le_(lhs, rhs);
+    case Keyword::Ge: return operators.is_le_(rhs, lhs);
+    case Keyword::Lt: return !operators.is_le_(rhs, lhs);
 
-    case Keyword::Add: return operators.add_(x, y);
-    case Keyword::Sub: return operators.sub_(x, y);
-    case Keyword::Mul: return operators.mul_(x, y);
-    case Keyword::Div: return operators.div_(x, y);
-    case Keyword::Mod: return operators.mod_(x, y);
+    case Keyword::Add: return operators.add_(lhs, rhs);
+    case Keyword::Sub: return operators.sub_(lhs, rhs);
+    case Keyword::Mul: return operators.mul_(lhs, rhs);
+    case Keyword::Div: return operators.div_(lhs, rhs);
+    case Keyword::Mod: return operators.mod_(lhs, rhs);
 
-    case Keyword::Neg   : return operators.neg_(x);
-    case Keyword::BitNot: return operators.compl_(x);
-    case Keyword::BitAnd: return operators.conj_(x, y);
-    case Keyword::BitOr : return operators.disj_(x, y);
-    case Keyword::BitXor: return operators.bxor_(x, y);
+    case Keyword::Neg   : return operators.neg_(rhs);
+    case Keyword::BitNot: return operators.compl_(rhs);
+    case Keyword::BitAnd: return operators.conj_(lhs, rhs);
+    case Keyword::BitOr : return operators.disj_(lhs, rhs);
+    case Keyword::BitXor: return operators.bxor_(lhs, rhs);
 
     // case Keyword::BitLshift: return operators TODO
     // case Keyword::BitRshift: return operators TODO
 
-    case Keyword::SetEq: return is_subset(x, y) && is_subset(y, x); // TODO: optimize
-    case Keyword::Subset: return is_subset(x, y);
-    case Keyword::Superset: return is_subset(y, x);
-    case Keyword::ProperSubset  : return is_subset(x, y) && !is_subset(y, x); // TODO: optimize
-    case Keyword::ProperSuperset: return is_subset(y, x) && !is_subset(x, y); // TODO: optimize
+    case Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
+    case Keyword::Subset: return is_subset(lhs, rhs);
+    case Keyword::Superset: return is_subset(rhs, lhs);
+    case Keyword::ProperSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
+    case Keyword::ProperSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
 
-    case Keyword::In: return contains(y, x);
-    case Keyword::Ni: return contains(x, y);
-    case Keyword::NotIn: return !contains(y, x);
-    case Keyword::NotNi: return !contains(x, y);
-    case Keyword::Approx: return is_approx(x, y);
+    case Keyword::In: return contains(rhs, lhs);
+    case Keyword::Ni: return contains(lhs, rhs);
+    case Keyword::NotIn: return !contains(rhs, lhs);
+    case Keyword::NotNi: return !contains(lhs, rhs);
+    case Keyword::Approx: return is_approx(lhs, rhs);
 
     case Keyword::Pow:
     {
-        return GenericSignalOperator(x).pow(y);
+        return GenericSignalOperator(lhs).pow(rhs);
     }
     // case Keyword::Log: return TODO
     // case Keyword::Quot: return TODO

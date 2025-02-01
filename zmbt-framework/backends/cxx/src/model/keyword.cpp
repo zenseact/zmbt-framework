@@ -1,3 +1,4 @@
+
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -32,7 +33,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
 {
     switch(kw)
     {
-    case Keyword::Id: { v = ZMBT_KEYWORD_PREFIX "id"; break; }
+
     case Keyword::Noop: { v = ZMBT_KEYWORD_PREFIX "noop"; break; }
     case Keyword::True: { v = ZMBT_KEYWORD_PREFIX "true"; break; }
     case Keyword::False: { v = ZMBT_KEYWORD_PREFIX "false"; break; }
@@ -42,14 +43,15 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Inf: { v = ZMBT_KEYWORD_PREFIX "inf"; break; }
     case Keyword::Eps: { v = ZMBT_KEYWORD_PREFIX "eps"; break; }
     case Keyword::NaN: { v = ZMBT_KEYWORD_PREFIX "nan"; break; }
+    case Keyword::Id: { v = ZMBT_KEYWORD_PREFIX "id"; break; }
     case Keyword::Bool: { v = ZMBT_KEYWORD_PREFIX "bool"; break; }
     case Keyword::Nil: { v = ZMBT_KEYWORD_PREFIX "nil"; break; }
+    case Keyword::Not: { v = ZMBT_KEYWORD_PREFIX "not"; break; }
     case Keyword::Neg: { v = ZMBT_KEYWORD_PREFIX "neg"; break; }
     case Keyword::Abs: { v = ZMBT_KEYWORD_PREFIX "abs"; break; }
     case Keyword::Sign: { v = ZMBT_KEYWORD_PREFIX "sign"; break; }
     case Keyword::Ceil: { v = ZMBT_KEYWORD_PREFIX "ceil"; break; }
     case Keyword::Floor: { v = ZMBT_KEYWORD_PREFIX "floor"; break; }
-    case Keyword::Round: { v = ZMBT_KEYWORD_PREFIX "round"; break; }
     case Keyword::BitNot: { v = ZMBT_KEYWORD_PREFIX "b-not"; break; }
     case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
     case Keyword::Union: { v = ZMBT_KEYWORD_PREFIX "union"; break; }
@@ -61,29 +63,6 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::List: { v = ZMBT_KEYWORD_PREFIX "list"; break; }
     case Keyword::Card: { v = ZMBT_KEYWORD_PREFIX "card"; break; }
     case Keyword::Size: { v = ZMBT_KEYWORD_PREFIX "size"; break; }
-    case Keyword::Min: { v = ZMBT_KEYWORD_PREFIX "min"; break; }
-    case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
-    case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }
-    case Keyword::Argmax: { v = ZMBT_KEYWORD_PREFIX "argmax"; break; }
-    case Keyword::Not: { v = ZMBT_KEYWORD_PREFIX "not"; break; }
-    case Keyword::Eq: { v = ZMBT_KEYWORD_PREFIX "eq"; break; }
-    case Keyword::Ne: { v = ZMBT_KEYWORD_PREFIX "ne"; break; }
-    case Keyword::Lt: { v = ZMBT_KEYWORD_PREFIX "lt"; break; }
-    case Keyword::Le: { v = ZMBT_KEYWORD_PREFIX "le"; break; }
-    case Keyword::Gt: { v = ZMBT_KEYWORD_PREFIX "gt"; break; }
-    case Keyword::Ge: { v = ZMBT_KEYWORD_PREFIX "ge"; break; }
-    case Keyword::Ni: { v = ZMBT_KEYWORD_PREFIX "ni"; break; }
-    case Keyword::NotNi: { v = ZMBT_KEYWORD_PREFIX "not-ni"; break; }
-    case Keyword::And: { v = ZMBT_KEYWORD_PREFIX "and"; break; }
-    case Keyword::Or: { v = ZMBT_KEYWORD_PREFIX "or"; break; }
-    case Keyword::Add: { v = ZMBT_KEYWORD_PREFIX "add"; break; }
-    case Keyword::Sub: { v = ZMBT_KEYWORD_PREFIX "sub"; break; }
-    case Keyword::Mul: { v = ZMBT_KEYWORD_PREFIX "mul"; break; }
-    case Keyword::Div: { v = ZMBT_KEYWORD_PREFIX "div"; break; }
-    case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }
-    case Keyword::Log: { v = ZMBT_KEYWORD_PREFIX "log"; break; }
-    case Keyword::Mod: { v = ZMBT_KEYWORD_PREFIX "mod"; break; }
-    case Keyword::Quot: { v = ZMBT_KEYWORD_PREFIX "quot"; break; }
     case Keyword::Sqrt: { v = ZMBT_KEYWORD_PREFIX "sqrt"; break; }
     case Keyword::Sin: { v = ZMBT_KEYWORD_PREFIX "sin"; break; }
     case Keyword::Cos: { v = ZMBT_KEYWORD_PREFIX "cos"; break; }
@@ -101,23 +80,45 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Erf: { v = ZMBT_KEYWORD_PREFIX "erf"; break; }
     case Keyword::Erfc: { v = ZMBT_KEYWORD_PREFIX "erfc"; break; }
     case Keyword::Gamma: { v = ZMBT_KEYWORD_PREFIX "gamma"; break; }
+    case Keyword::Round: { v = ZMBT_KEYWORD_PREFIX "round"; break; }
+    case Keyword::Sum: { v = ZMBT_KEYWORD_PREFIX "sum"; break; }
+    case Keyword::Prod: { v = ZMBT_KEYWORD_PREFIX "prod"; break; }
+    case Keyword::Eq: { v = ZMBT_KEYWORD_PREFIX "eq"; break; }
+    case Keyword::Ne: { v = ZMBT_KEYWORD_PREFIX "ne"; break; }
+    case Keyword::Lt: { v = ZMBT_KEYWORD_PREFIX "lt"; break; }
+    case Keyword::Le: { v = ZMBT_KEYWORD_PREFIX "le"; break; }
+    case Keyword::Gt: { v = ZMBT_KEYWORD_PREFIX "gt"; break; }
+    case Keyword::Ge: { v = ZMBT_KEYWORD_PREFIX "ge"; break; }
+    case Keyword::Ni: { v = ZMBT_KEYWORD_PREFIX "ni"; break; }
+    case Keyword::NotNi: { v = ZMBT_KEYWORD_PREFIX "not-ni"; break; }
+    case Keyword::And: { v = ZMBT_KEYWORD_PREFIX "and"; break; }
+    case Keyword::Or: { v = ZMBT_KEYWORD_PREFIX "or"; break; }
+    case Keyword::Add: { v = ZMBT_KEYWORD_PREFIX "add"; break; }
+    case Keyword::Sub: { v = ZMBT_KEYWORD_PREFIX "sub"; break; }
+    case Keyword::SubFrom: { v = ZMBT_KEYWORD_PREFIX "sub-from"; break; }
+    case Keyword::Mul: { v = ZMBT_KEYWORD_PREFIX "mul"; break; }
+    case Keyword::Div: { v = ZMBT_KEYWORD_PREFIX "div"; break; }
+    case Keyword::DivFrom: { v = ZMBT_KEYWORD_PREFIX "div-from"; break; }
+    case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }
+    case Keyword::PowFrom: { v = ZMBT_KEYWORD_PREFIX "pow-from"; break; }
+    case Keyword::Log: { v = ZMBT_KEYWORD_PREFIX "log"; break; }
+    case Keyword::LogFrom: { v = ZMBT_KEYWORD_PREFIX "log-from"; break; }
+    case Keyword::Mod: { v = ZMBT_KEYWORD_PREFIX "mod"; break; }
+    case Keyword::ModFrom: { v = ZMBT_KEYWORD_PREFIX "mod-from"; break; }
+    case Keyword::Quot: { v = ZMBT_KEYWORD_PREFIX "quot"; break; }
+    case Keyword::QuotFrom: { v = ZMBT_KEYWORD_PREFIX "quot-from"; break; }
     case Keyword::BitAnd: { v = ZMBT_KEYWORD_PREFIX "b-and"; break; }
     case Keyword::BitOr: { v = ZMBT_KEYWORD_PREFIX "b-or"; break; }
     case Keyword::BitXor: { v = ZMBT_KEYWORD_PREFIX "b-xor"; break; }
     case Keyword::BitLshift: { v = ZMBT_KEYWORD_PREFIX "b-lshift"; break; }
+    case Keyword::BitLshiftFrom: { v = ZMBT_KEYWORD_PREFIX "b-lshift-from"; break; }
     case Keyword::BitRshift: { v = ZMBT_KEYWORD_PREFIX "b-rshift"; break; }
+    case Keyword::BitRshiftFrom: { v = ZMBT_KEYWORD_PREFIX "b-rshift-from"; break; }
     case Keyword::Slide: { v = ZMBT_KEYWORD_PREFIX "slide"; break; }
     case Keyword::Stride: { v = ZMBT_KEYWORD_PREFIX "stride"; break; }
-    case Keyword::Slice: { v = ZMBT_KEYWORD_PREFIX "slice"; break; }
-    case Keyword::Sort: { v = ZMBT_KEYWORD_PREFIX "sort"; break; }
     case Keyword::Repeat: { v = ZMBT_KEYWORD_PREFIX "repeat"; break; }
     case Keyword::Re: { v = ZMBT_KEYWORD_PREFIX "re"; break; }
     case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
-    case Keyword::Any: { v = ZMBT_KEYWORD_PREFIX "any"; break; }
-    case Keyword::All: { v = ZMBT_KEYWORD_PREFIX "all"; break; }
-    case Keyword::None: { v = ZMBT_KEYWORD_PREFIX "none"; break; }
-    case Keyword::Saturate: { v = ZMBT_KEYWORD_PREFIX "saturate"; break; }
-    case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
     case Keyword::SetEq: { v = ZMBT_KEYWORD_PREFIX "set-eq"; break; }
     case Keyword::Subset: { v = ZMBT_KEYWORD_PREFIX "subset"; break; }
     case Keyword::Superset: { v = ZMBT_KEYWORD_PREFIX "superset"; break; }
@@ -128,12 +129,19 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Map: { v = ZMBT_KEYWORD_PREFIX "map"; break; }
     case Keyword::Filter: { v = ZMBT_KEYWORD_PREFIX "filter"; break; }
     case Keyword::Count: { v = ZMBT_KEYWORD_PREFIX "count"; break; }
+    case Keyword::Sort: { v = ZMBT_KEYWORD_PREFIX "sort"; break; }
+    case Keyword::Min: { v = ZMBT_KEYWORD_PREFIX "min"; break; }
+    case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
+    case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }
+    case Keyword::Argmax: { v = ZMBT_KEYWORD_PREFIX "argmax"; break; }
     case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
     case Keyword::Apply: { v = ZMBT_KEYWORD_PREFIX "apply"; break; }
-    case Keyword::Partial: { v = ZMBT_KEYWORD_PREFIX "partial"; break; }
+    case Keyword::Bind: { v = ZMBT_KEYWORD_PREFIX "bind"; break; }
     case Keyword::Reduce: { v = ZMBT_KEYWORD_PREFIX "reduce"; break; }
-    case Keyword::Sum: { v = ZMBT_KEYWORD_PREFIX "sum"; break; }
-    case Keyword::Prod: { v = ZMBT_KEYWORD_PREFIX "prod"; break; }
+    case Keyword::Any: { v = ZMBT_KEYWORD_PREFIX "any"; break; }
+    case Keyword::All: { v = ZMBT_KEYWORD_PREFIX "all"; break; }
+    case Keyword::Saturate: { v = ZMBT_KEYWORD_PREFIX "saturate"; break; }
+    case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
     case Keyword::Approx: { v = ZMBT_KEYWORD_PREFIX "approx"; break; }
         // TODO: throw
         default: v = ":undefined";

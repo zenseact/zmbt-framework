@@ -1,6 +1,5 @@
 @require(keyword_groups)
 @(from expr_helpers import Keyword)
-
 /**
  * \file
  * \copyright (c) Copyright 2024-2025 Zenseact AB
@@ -33,9 +32,9 @@ namespace expr {
 /// @line
         @end
     @end
-static signature::@keyword.Class const @keyword.Name;
+static signature::@keyword.Class const @keyword.Enum;
 @for alias in keyword.Aliases:
-/// \brief Alias for @keyword.Name
+/// \brief Alias for @keyword.Enum
 static signature::@keyword.Class const @alias.capitalize();
 @end
 @end

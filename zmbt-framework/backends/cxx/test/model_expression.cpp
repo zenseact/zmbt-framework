@@ -571,18 +571,18 @@ BOOST_AUTO_TEST_CASE(TestComposeVsApplyPrecedence)
 
 BOOST_AUTO_TEST_CASE(NotImplemented)
 {
-    BOOST_CHECK_THROW(Quot(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Log(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Sin(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Cos(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Tan(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Asin(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Acos(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Atan(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Sinh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Cosh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Tanh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Asinh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Acosh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Atanh(1).eval(2), std::exception);
+    BOOST_CHECK_THROW(Quot.eval(2), std::exception);
+    BOOST_CHECK_THROW(Log.eval(2), std::exception);
+    BOOST_CHECK_THROW(Sin.eval(2), std::exception);
+    BOOST_CHECK_THROW(Cos.eval(2), std::exception);
+    BOOST_CHECK_THROW(Tan.eval(2), std::exception);
+    BOOST_CHECK_THROW(Asin.eval(2), std::exception);
+    BOOST_CHECK_THROW(Acos.eval(2), std::exception);
+    BOOST_CHECK_THROW(Atan.eval(2), std::exception);
+    BOOST_CHECK_THROW(Sinh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Cosh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Tanh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Asinh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Acosh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Atanh.eval(2), std::exception);
 }

@@ -412,13 +412,14 @@ V eval_impl<Keyword::Recur>(V const& expr, V const& value, O const& op)
 }
 
 
+} // namespace
 
-void handle_terminal_binary_args(bool const has_params, V const& params, V const& x, V const*& lhs, V const*& rhs)
+void zmbt::Expression::handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const
 {
-    if (has_params)
+    if (has_params())
     {
         lhs = &x;
-        rhs = &params;
+        rhs = params_ptr_;
     }
     else // treat x as argument pair
     {
@@ -433,9 +434,6 @@ void handle_terminal_binary_args(bool const has_params, V const& params, V const
         }
     }
 }
-
-} // namespace
-
 
 boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOperatorHandler const& op) const
 {
@@ -452,8 +450,10 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
         case Keyword::Bool:
         case Keyword::Nil:
         case Keyword::Not:
-            return op.apply(keyword(), x, nullptr);
+            return op.apply(keyword(), nullptr, x);
 
+        case Keyword::And:
+        case Keyword::Or:
         case Keyword::Eq:
         case Keyword::Ne:
         case Keyword::Lt:
@@ -479,15 +479,13 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
         case Keyword::BitOr:
         case Keyword::BitXor:
         case Keyword::Pow:
-        case Keyword::And:
-        case Keyword::Or:
 
         // case Keyword::Quot:
         // case Keyword::Log:
         {
             V const* lhs {nullptr}; // binary LHS or functor params
             V const* rhs {nullptr}; // binary RHS or functor arg
-            handle_terminal_binary_args(has_params(), params(), x, lhs, rhs);
+            handle_terminal_binary_args(x, lhs, rhs);
             ASSERT(lhs)
             ASSERT(rhs)
             // std::cerr << *lhs << " " <<  op.annotation() << " " << *rhs << std::endl;
@@ -502,24 +500,31 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
 
     #define ZMBT_EXPR_EVAL_IMPL_CASE(K) case Keyword::K: return eval_impl<Keyword::K>(params(), x, op);
 
+        // terms special
         ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Re)
+        ZMBT_EXPR_EVAL_IMPL_CASE(At)
+
+        // props
+        ZMBT_EXPR_EVAL_IMPL_CASE(Card)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Size)
+
+        // combo
         ZMBT_EXPR_EVAL_IMPL_CASE(All)
         ZMBT_EXPR_EVAL_IMPL_CASE(Any)
 
-        ZMBT_EXPR_EVAL_IMPL_CASE(Card)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Size)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Re)
-        ZMBT_EXPR_EVAL_IMPL_CASE(At)
+        // high-orded
+        ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
         ZMBT_EXPR_EVAL_IMPL_CASE(Count)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
-
-        ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
         ZMBT_EXPR_EVAL_IMPL_CASE(Map)
         ZMBT_EXPR_EVAL_IMPL_CASE(Filter)
         ZMBT_EXPR_EVAL_IMPL_CASE(Recur)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
         ZMBT_EXPR_EVAL_IMPL_CASE(Apply)
+
+        // vector ops
+        ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
 
         default:
         {
