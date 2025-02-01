@@ -106,6 +106,24 @@ static signature::Base<Keyword::Set> const Set;
 /// \brief Envelop value in array (equivalent to Repeat(1))
 static signature::Base<Keyword::List> const List;
 
+/// \brief Set cardinality (uniques count)
+static signature::Base<Keyword::Card> const Card;
+
+/// \brief Sequence size
+static signature::Base<Keyword::Size> const Size;
+
+/// \brief Min value
+static signature::Base<Keyword::Min> const Min;
+
+/// \brief Max value
+static signature::Base<Keyword::Max> const Max;
+
+/// \brief Min value index
+static signature::Base<Keyword::Argmin> const Argmin;
+
+/// \brief Max value index
+static signature::Base<Keyword::Argmax> const Argmax;
+
 /// \brief Logical complement
 static signature::OneParam<Keyword::Not> const Not;
 
@@ -245,6 +263,18 @@ static signature::OneParam<Keyword::Re> const Re;
 /// \brief Alias for Re
 static signature::OneParam<Keyword::Re> const Regex;
 
+/// \brief Transform value with query pseudo-language
+/// \details
+/// Evaluation rules:
+///   1. int    q |-> x |-> array x at index q (negative -> reverse)
+///   2. str    q |-> x |-> value x at JSON Pointer q
+///   3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
+///   4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
+/// 
+/// Optional second parameter - predicate P:
+///   At(q, P) <==> Compose(P, At(q))
+static signature::OneParam<Keyword::At> const At;
+
 /// \brief Logical conjunction
 static signature::VariadicExpr<Keyword::And> const And;
 
@@ -293,6 +323,9 @@ static signature::OneExpr<Keyword::Map> const Map;
 /// \brief Filter sequence by predicate param
 static signature::OneExpr<Keyword::Filter> const Filter;
 
+/// \brief Count matches
+static signature::OneExpr<Keyword::Count> const Count;
+
 /// \brief apply recursion to parameter fn
 static signature::ExprAndOptionalParam<Keyword::Recur> const Recur;
 
@@ -310,39 +343,6 @@ static signature::ExprAndOptionalParam<Keyword::Sum> const Sum;
 
 /// \brief Multiplication reduction, real param - initial value
 static signature::ExprAndOptionalParam<Keyword::Prod> const Prod;
-
-/// \brief Transform value with query pseudo-language
-/// \details
-/// Evaluation rules:
-///   1. int    q |-> x |-> array x at index q (negative -> reverse)
-///   2. str    q |-> x |-> value x at JSON Pointer q
-///   3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
-///   4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
-/// 
-/// Optional second parameter - predicate P:
-///   At(q, P) <==> Compose(P, At(q))
-static signature::ParamAndOptionalExpr<Keyword::At> const At;
-
-/// \brief Set cardinality (uniques count)
-static signature::ParamAndOptionalExpr<Keyword::Card> const Card;
-
-/// \brief Sequence size
-static signature::ParamAndOptionalExpr<Keyword::Size> const Size;
-
-/// \brief Count matches
-static signature::ParamAndOptionalExpr<Keyword::Count> const Count;
-
-/// \brief Min value
-static signature::ParamAndOptionalExpr<Keyword::Min> const Min;
-
-/// \brief Max value
-static signature::ParamAndOptionalExpr<Keyword::Max> const Max;
-
-/// \brief Min value index
-static signature::ParamAndOptionalExpr<Keyword::Argmin> const Argmin;
-
-/// \brief Max value index
-static signature::ParamAndOptionalExpr<Keyword::Argmax> const Argmax;
 
 /// \brief Floating point approximately equal
 /// \details

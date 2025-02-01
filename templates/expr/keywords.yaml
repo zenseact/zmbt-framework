@@ -72,6 +72,18 @@ keyword_groups:
     brief: Sequence to set
   - name: list
     brief: Envelop value in array (equivalent to Repeat(1))
+  - name: card
+    brief: Set cardinality (uniques count)
+  - name: size
+    brief: Sequence size
+  - name: min
+    brief: Min value
+  - name: max
+    brief: Max value
+  - name: argmin
+    brief: Min value index
+  - name: argmax
+    brief: Max value index
 
   OneParam:
   - name: not
@@ -194,6 +206,17 @@ keyword_groups:
   - name: re
     brief: Regular expression match
     aliases: [ 'regex' ]
+  - name: at
+    brief: Transform value with query pseudo-language
+    details: |-
+      Evaluation rules:
+        1. int    q |-> x |-> array x at index q (negative -> reverse)
+        2. str    q |-> x |-> value x at JSON Pointer q
+        3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
+        4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
+
+      Optional second parameter - predicate P:
+        At(q, P) <==> Compose(P, At(q))
 
   VariadicExpr:
   - name: and
@@ -247,6 +270,8 @@ keyword_groups:
     brief: Apply param fn to every element of sequence
   - name: filter
     brief: Filter sequence by predicate param
+  - name: count
+    brief: Count matches
 
   ExprAndOptionalParam:
   - name: recur
@@ -263,33 +288,6 @@ keyword_groups:
   - name: prod
     brief: Multiplication reduction, real param - initial value
     short: Π
-
-  ParamAndOptionalExpr:
-  - name: at
-    brief: Transform value with query pseudo-language
-    details: |-
-      Evaluation rules:
-        1. int    q |-> x |-> array x at index q (negative -> reverse)
-        2. str    q |-> x |-> value x at JSON Pointer q
-        3. array  [q1, q2, ...] |-> x |-> [x at q1, x at q2, ...]
-        4. object {"key": q1, "$q2": q3, ...} |-> x |-> {"key1": x at q1, "$(x at q2)": x at q3, ...}
-
-      Optional second parameter - predicate P:
-        At(q, P) <==> Compose(P, At(q))
-  - name: card
-    brief: Set cardinality (uniques count)
-  - name: size
-    brief: Sequence size
-  - name: count
-    brief: Count matches
-  - name: min
-    brief: Min value
-  - name: max
-    brief: Max value
-  - name: argmin
-    brief: Min value index
-  - name: argmax
-    brief: Max value index
 
   non-template:
   - name: approx

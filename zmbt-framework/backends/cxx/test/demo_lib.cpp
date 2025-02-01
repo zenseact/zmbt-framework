@@ -57,8 +57,8 @@ BOOST_AUTO_TEST_CASE(TestOrderWithMerge)
         .ObserveOn (&Mock::bar).Alias("b")
 
     .Test
-        ({"bar", "foo"}, Saturate(At(0, "b"), At(0, "f")))
-        ({"foo", "bar"}, Saturate(At(0, "f"), At(0, "b")))
+        ({"bar", "foo"}, Saturate(At(0)|"b", At(0)|"f"))
+        ({"foo", "bar"}, Saturate(At(0)|"f", At(0)|"b"))
     ;
 }
 
@@ -316,8 +316,8 @@ BOOST_AUTO_TEST_CASE(SetMatchExpression)
         .ObserveOn (sut)
     .Test
         ( {1,2,3}   , Eq({1,2,3})                   )
-        ( {1,1,1}   , Size(3)                       )
-        ( {1,1,1}   , Card(1)                       )
+        ( {1,1,1}   , Size|3                        )
+        ( {1,1,1}   , Card|1                        )
         ( {1,2,3}   , SetEq({1,1,2,2,3,3})          )
         ( {1,2,3}   , Subset({1,2,3})               )
         ( {1,2,3}   , Superset({1,2,3})             )
@@ -328,9 +328,9 @@ BOOST_AUTO_TEST_CASE(SetMatchExpression)
         ( {1,2,3}   , Contains(1)                   )
         ( {1,2,3}   , Not(Ni(42))                   )
         ( {1,2,3}   , Saturate(Ne(5), 2, 3)         )
-        ( {1,2,3}   , Count(Ne(5), 3)               )
-        ( {1,2,3}   , Count(2, Lt(3))               )
-        ( {1,2,3}   , And(At(0, 1), At("/1", 2))    )
+        ( {1,2,3}   , Count(Ne(5))|3                )
+        ( {1,2,3}   , Count(2)|Lt(3)                )
+        ( {1,2,3}   , And(At(0)|Eq(1), At("/1")|Eq(2))    )
         ( {1,2,3}   , Re("^\\[1,2,3\\]$")           )
     ;
 }
@@ -349,7 +349,7 @@ BOOST_AUTO_TEST_CASE(DeepParamExpression)
         .InjectTo  (sut)
         .ObserveOn (sut)
     .Test
-        (input, At(at_ptr, expect))
+        (input, At(at_ptr)|expect)
     .Zip
         (input , 42)
         (at_ptr, "")
@@ -520,12 +520,12 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         .InjectTo  (sut)
         .ObserveOn (&Mock::do_smth).CallRange()
     .Test
-        (  0, Nil                     )
-        ( 42, Not(Nil)                )
-        ( 42, Bool                  )
-        ( 42, Size(42)                  )
-        ( 42, Size(And(Gt(41), Lt(43))) )
-        ( 42, Size(Ne(13))              )
+        (  0, Nil                       )
+        ( 42, Not(Nil)                  )
+        ( 42, Bool                      )
+        ( 42, Size| 42                  )
+        ( 42, Size| And(Gt(41), Lt(43)) )
+        ( 42, Size| Ne(13)              )
     ;
 
     SignalMapping("Test Timestamp and ThreadId")
@@ -534,7 +534,7 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         .ObserveOn (&Mock::do_smth).ThreadId().CallRange().Alias("tid")
         .ObserveOn (&Mock::do_smth).Timestamp().CallRange().Alias("ts")
     .Test
-        ( 42, Count(Not(zmbt::get_tid()), 0), Count(Le(zmbt::get_ts()), 0) )
+        ( 42, Count(Not(zmbt::get_tid()))| 0, Count(Le(zmbt::get_ts()))| 0 )
     ;
 
     SignalMapping("Test CallRange with arg index")
@@ -544,13 +544,13 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         .ObserveOn (&Mock::do_smth).Args(1).CallRange() // all arguments at 1 (y)
     .Test
         ( 3, {2,1,0}               , Ni(42)      ) ["exact match on all captured calls"]
-        ( 5, {4,3,2,1,0}           , Size(Ge(3)) ) ["exact match on all captured calls"]
+        ( 5, {4,3,2,1,0}           , Size| Ge(3) ) ["exact match on all captured calls"]
         ( 5, Saturate(Eq(4), 2, Ge(0))        , _) ["elementwise saturation match"]
         ( 5, Not(Saturate(1, 1, 1))           , _) ["saturation negation"]
         ( 5, And(Saturate(3,2), Saturate(3,1)), _) ["DAG test"]
-        ( 5, Count(Ne(3), Eq(4))              , _) ["count not 3 matches"]
-        ( 5, At(0, 4)                         , _)
-        ( 5, Not(At("/foo", 0))               , _)
+        ( 5, Count(Ne(3))|Eq(4)               , _) ["count not 3 matches"]
+        ( 5, At(0)|4                          , _)
+        ( 5, Not(At("/foo")|0)                , _)
     ;
 
 
@@ -580,8 +580,8 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         .InjectTo  (sut)
         .ObserveOn (&Mock::do_smth).Args(0).CallRange(range)
     .Test
-        ( 3, Size(Ge(0)))
-        ( 5, Size(Ge(0)))
+        ( 3, Size|Ge(0))
+        ( 5, Size|Ge(0))
     .Zip
         (range, {-1, 1, -1}, {1, 42, 1})
     ;

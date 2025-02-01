@@ -231,24 +231,9 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
 template <>
 V eval_impl<Keyword::At>(V const& params, V const& sample, O const& op)
 {
-    ASSERT(params.is_array() and not params.get_array().empty())
+    ASSERT(not params.is_null())
 
-    auto const& q = params.get_array().at(0);
-    boost::json::value query = query_at(sample, q);
-
-    switch (params.get_array().size())
-    {
-    case 1:
-        return query;
-    case 2: // second param is optional transform
-    {
-        auto const e = E(params.as_array().at(1));
-        return e.eval(query, op);
-    }
-    default:
-        ASSERT(false);
-        return nullptr;
-    }
+    return query_at(sample, params);
 }
 
 template <>
@@ -281,37 +266,32 @@ V eval_impl<Keyword::Saturate>(V const& params, V const& samples, O const& op)
 template <>
 V eval_impl<Keyword::Count>(V const& params, V const& samples, O const& op)
 {
-    if (!samples.is_array())
-    {
-        return false;
-    }
-    ASSERT(params.is_array() and not params.get_array().empty())
-
-    auto const& filter_and_maybe_transform = params.get_array();
-    auto const& sample_list = samples.get_array();
-
-    auto const filter = E(filter_and_maybe_transform.at(0));
+    ASSERT(samples.is_array() || samples.is_object())
+    auto const filter = E(params);
     std::size_t count {0};
-    for (auto const& sample: sample_list)
+
+    if (samples.is_array())
     {
-        if (filter.match(sample, op))
+        for (auto const& sample: samples.get_array())
         {
-            count++;
+            if (filter.match(sample, op))
+            {
+                count++;
+            }
         }
     }
-    switch (filter_and_maybe_transform.size())
+    else if (samples.is_object())
     {
-    case 1:
-        return count;
-    case 2:
-    {
-        auto const transform = E(filter_and_maybe_transform.at(1));
-        return transform.eval(count); // count is number, no operator applied
+        for (auto const& kv: samples.get_object())
+        {
+            if (filter.match({kv.key(), kv.value()}, op))
+            {
+                count++;
+            }
+        }
     }
-    default:
-        ASSERT(false);
-        return nullptr;
-    }
+
+    return count;
 }
 
 template <>
@@ -336,7 +316,8 @@ V eval_impl<Keyword::Approx>(V const& params, V const& sample, O const&)
 template <>
 V eval_impl<Keyword::Size>(V const& params, V const& sample, O const&)
 {
-    std::size_t size {0};
+    ASSERT(params.is_null())
+    V size = nullptr;
     if (sample.is_array())
     {
         size = sample.get_array().size();
@@ -348,25 +329,16 @@ V eval_impl<Keyword::Size>(V const& params, V const& sample, O const&)
     else
     {
         ZMBT_LOG_JSON(warning) << "invalid Size application";
-        return nullptr;
     }
-
-    if (params.is_null()) // optional transform
-    {
-        return size;
-    }
-    else
-    {
-        ASSERT(params.is_array())
-        return E(params.get_array().at(0)).eval(size);
-    }
+    return size;
 }
 
 
 template <>
 V eval_impl<Keyword::Card>(V const& params, V const& sample, O const&)
 {
-    std::size_t card {0};
+    ASSERT(params.is_null())
+    V card = nullptr;
     if (sample.is_array())
     {
         boost::json::array counter_set {};
@@ -381,18 +353,8 @@ V eval_impl<Keyword::Card>(V const& params, V const& sample, O const&)
     else
     {
         ZMBT_LOG_JSON(warning) << "invalid Card application";
-        return nullptr;
     }
-
-    if (params.is_null()) // optional transform
-    {
-        return card;
-    }
-    else
-    {
-        ASSERT(params.is_array())
-        return E(params.get_array().at(0)).eval(card);
-    }
+    return card;
 }
 
 

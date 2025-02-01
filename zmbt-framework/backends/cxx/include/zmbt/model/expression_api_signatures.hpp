@@ -52,29 +52,6 @@ struct OneParam : public Base<K>
     }
 };
 
-template <Keyword K>
-struct ParamAndOptionalExpr: public Base<K>
-{
-    using Base<K>::Base;
-    Expression operator()(boost::json::value const& param) const
-    {
-        return Expression(K, boost::json::array{param});
-    }
-    template <class T>
-    Expression operator()(T&& param) const
-    {
-        return Expression(K, boost::json::array{json_from(std::forward<T>(param))});
-    }
-    Expression operator()(boost::json::value const& param, Expression const& expr) const
-    {
-        return Expression(K, boost::json::array{param, expr});
-    }
-    template <class T>
-    Expression operator()(T&& param, Expression const& expr) const
-    {
-        return Expression(K, boost::json::array{json_from(std::forward<T>(param)), expr});
-    }
-};
 
 template <Keyword K>
 struct OneExpr : public Base<K>

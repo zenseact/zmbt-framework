@@ -326,28 +326,28 @@ BOOST_AUTO_TEST_CASE(AtQueryMatch)
         }}
     };
 
-    BOOST_CHECK_MESSAGE(At("/home/user/Downloads/1", "kek").match(obj), obj);
-    BOOST_CHECK(At("/home/user/Desktop/2", "baz").match(obj));
-    BOOST_CHECK(At("/home/user/Desktop", At(1, "bar")).match(obj));
+    BOOST_CHECK_MESSAGE((At("/home/user/Downloads/1")| "kek").match(obj), obj);
+    BOOST_CHECK((At("/home/user/Desktop/2")|"baz").match(obj));
+    BOOST_CHECK((At("/home/user/Desktop") | At(1) | Eq("bar")).match(obj));
 
     // recursive At
-    BOOST_CHECK(At("/home", At("/user", At("/Desktop", At(0, Eq("foo"))))).match(obj));
-    BOOST_CHECK(At("/home", At("/user", At("/Downloads", Contains("kek")))).match(obj));
-    BOOST_CHECK(At("/undefined", nullptr).match(obj));
+    BOOST_CHECK((At("/home")|At("/user")|At("/Desktop")   | At(0) | Eq("foo")).match(obj));
+    BOOST_CHECK((At("/home")|At("/user")|At("/Downloads") | Contains("kek")).match(obj));
+    BOOST_CHECK((At("/undefined") | nullptr).match(obj));
 
 
     // joining At
     // query array
-    BOOST_CHECK(At({"/home/user/Downloads/1", "/home/user/Desktop/2"}, {"kek", "baz"}).match(obj));
+    BOOST_CHECK((At({"/home/user/Downloads/1", "/home/user/Desktop/2"}) | Eq({"kek", "baz"})).match(obj));
     // query nested array
-    BOOST_CHECK(At({{"/home/user/Downloads/1", "/home/user/Desktop/2"}, "/undefined" }, {{"kek", "baz"}, nullptr}).match(obj));
+    BOOST_CHECK((At({{"/home/user/Downloads/1", "/home/user/Desktop/2"}, "/undefined" }) | Eq({{"kek", "baz"}, nullptr})).match(obj));
     // query object
-    BOOST_CHECK(At({{"a", "/home/user/Downloads/1"}, {"b", "/home/user/Desktop/2"}}, {{"a", "kek"}, {"b", "baz"}}).match(obj));
+    BOOST_CHECK((At({{"a", "/home/user/Downloads/1"}, {"b", "/home/user/Desktop/2"}}) | Eq({{"a", "kek"}, {"b", "baz"}})).match(obj));
     // query nested structures, a: array, b: object
-    BOOST_CHECK(At({{"a", {"/home/user/Downloads/1", "/home/user/Desktop/2"}}, {"b", {{"null", "/undefined"}}}}, {{"a", {"kek", "baz"}}, {"b", {{"null", nullptr}}}}).match(obj));
+    BOOST_CHECK((At({{"a", {"/home/user/Downloads/1", "/home/user/Desktop/2"}}, {"b", {{"null", "/undefined"}}}}) | Eq({{"a", {"kek", "baz"}}, {"b", {{"null", nullptr}}}})).match(obj));
 
     // dynamic keys
-    BOOST_CHECK(At({{"$/home/user/Desktop/0", "/home/user/Desktop/1"}}, Eq({{"foo", "bar"}}) ).match(obj));
+    BOOST_CHECK((At({{"$/home/user/Desktop/0", "/home/user/Desktop/1"}}) | Eq({{"foo", "bar"}}) ).match(obj));
 
 }
 
@@ -502,7 +502,7 @@ BOOST_AUTO_TEST_CASE(TestComposeRepeat)
 
 BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 {
-    auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1, true)));
+    auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1)|true));
     auto const AllFalseFirst  = Filter(At(1) | Eq(false)) | Map(At(0));
 
     boost::json::array const pairs {
@@ -533,7 +533,7 @@ BOOST_AUTO_TEST_CASE(TestP)
     Param const p1 {1};
     Param const p2 {2};
 
-    auto const expr = Compose(Map(At(p1)), Filter(At(p2, false)));
+    auto const expr = Compose(Map(At(p1)), Filter(At(p2)|false));
     boost::json::array list{};
 
     JsonTraverse([&](boost::json::value const& v, std::string const jp){
