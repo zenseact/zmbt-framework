@@ -312,6 +312,22 @@ default:                                                \
     return nullptr;                                     \
 }
 
+
+// bool GenericSignalOperator::operator!() const
+// {
+//     return false;
+// }
+
+GenericSignalOperator GenericSignalOperator::operator&&(GenericSignalOperator const& rhs) const
+{
+    return static_cast<bool>(*this) ? rhs : *this;
+}
+
+GenericSignalOperator GenericSignalOperator::operator||(GenericSignalOperator const& rhs) const
+{
+    return not static_cast<bool>(*this) ? rhs : *this;
+}
+
 boost::json::value GenericSignalOperator::operator+(GenericSignalOperator const& rhs) const
 {
 #define X_OP            +

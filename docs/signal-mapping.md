@@ -306,13 +306,13 @@ that enables flexible matchers and more complex test data manipulation:
     (2,  2, Ne(5)            ) ["not equals 5"]
     (2,  2, Not(Eq(5))       ) ["same as above"]
     (2,  2, Gt(1)            ) ["greater than 1"]
-    (2,  2, And(Ge(0), Le(5))) ["between 0 and 5"]
+    (2,  2, All(Ge(0), Le(5))) ["between 0 and 5"]
     (2,  2, In({1,2,3,4})    ) ["is element of {1,2,3,4} set"]
     (2,  2, Near(3, .5)      ) ["approximation with relative tolerance"]
     (2,  2, Not(Nil())       ) ["bool(signal) resolves to true"]
 ```
 
-The predicate functions can be combined with `And`, `Or`, `Not`, and `Xor`.
+The predicate functions can be combined with `All`, `Any`, and `Not`.
 
 When the observed signal is set-like, we can apply set-specific expressions:
 
@@ -339,7 +339,7 @@ SignalMapping("Test set expressions")
     ( {1,2,3}   , Saturate(Ne(5), 2, 3)         )
     ( {1,2,3}   , Count(Ne(5))|3                )
     ( {1,2,3}   , Count(2)|Lt(3)                )
-    ( {1,2,3}   , And(At(0)|1, At("/1")|2)      )
+    ( {1,2,3}   , All(At(0)|1, At("/1")|2)      )
     ( {1,2,3}   , Re("^\\[1,2,3\\]$")           )
 ;
 ```

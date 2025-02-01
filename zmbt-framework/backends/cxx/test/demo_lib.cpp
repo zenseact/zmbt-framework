@@ -296,12 +296,13 @@ BOOST_FIXTURE_TEST_CASE(MatchExpressions, ModelTestFixture)
         (2,  2, 4                )
         (2,  2, Eq(4)            ) ["same as above"]
         (2,  2, Ne(5)            ) ["not equals 5"]
-        (2,  2, Not(Eq(5))       ) ["same as above"]
+        (2,  2, 5|Not            ) ["same as above"]
         (2,  2, Gt(1)            ) ["greater than 1"]
-        (2,  2, And(Ge(0), Le(5))) ["between 0 and 5"]
+        (2,  2, All(Ge(0), Le(5))) ["between 0 and 5"]
         (2,  2, In({1,2,3,4})    ) ["is element of {1,2,3,4} set"]
         (2,  2, Near(3, .5)      ) ["approximation with relative tolerance"]
-        (2,  2, Not(Nil)       ) ["bool(signal) resolves to true"]
+        (2,  2, Bool             ) ["bool(signal) resolves to true"]
+        (2,  2, Nil|Not          ) ["same as !!x"]
     ;
 }
 
@@ -323,14 +324,14 @@ BOOST_AUTO_TEST_CASE(SetMatchExpression)
         ( {1,2,3}   , Superset({1,2,3})             )
         ( {1,2,3}   , ProperSubset({1,2,3,4})       )
         ( {1,2,3}   , ProperSuperset({1,3})         )
-        ( {1,2,3}   , Not(ProperSubset({1,2,3}))    )
-        ( {1,2,3}   , Not(ProperSuperset({1,2,3}))  )
+        ( {1,2,3}   , ProperSubset({1,2,3})|Not     )
+        ( {1,2,3}   , ProperSuperset({1,2,3})|Not   )
         ( {1,2,3}   , Contains(1)                   )
-        ( {1,2,3}   , Not(Ni(42))                   )
+        ( {1,2,3}   , Ni(42)|Not                    )
         ( {1,2,3}   , Saturate(Ne(5), 2, 3)         )
         ( {1,2,3}   , Count(Ne(5))|3                )
         ( {1,2,3}   , Count(2)|Lt(3)                )
-        ( {1,2,3}   , And(At(0)|Eq(1), At("/1")|Eq(2))    )
+        ( {1,2,3}   , All(At(0)|1, At("/1")|2)      )
         ( {1,2,3}   , Re("^\\[1,2,3\\]$")           )
     ;
 }
@@ -394,7 +395,7 @@ BOOST_AUTO_TEST_CASE(DeepSetMatch)
     .Test
         (supersetSample, Superset(subsetSample)    )
         (subsetSample  , Subset(supersetSample)    )
-        (subsetSample  , Not(SetEq(supersetSample)))
+        (subsetSample  , SetEq(supersetSample)|Not )
     ;
 }
 
@@ -521,10 +522,10 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         .ObserveOn (&Mock::do_smth).CallRange()
     .Test
         (  0, Nil                       )
-        ( 42, Not(Nil)                  )
+        ( 42, Nil|Not                   )
         ( 42, Bool                      )
         ( 42, Size| 42                  )
-        ( 42, Size| And(Gt(41), Lt(43)) )
+        ( 42, Size| All(Gt(41), Lt(43)) )
         ( 42, Size| Ne(13)              )
     ;
 
@@ -534,7 +535,7 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         .ObserveOn (&Mock::do_smth).ThreadId().CallRange().Alias("tid")
         .ObserveOn (&Mock::do_smth).Timestamp().CallRange().Alias("ts")
     .Test
-        ( 42, Count(Not(zmbt::get_tid()))| 0, Count(Le(zmbt::get_ts()))| 0 )
+        ( 42, Count(Ne(zmbt::get_tid()))| 0, Count(Le(zmbt::get_ts()))| 0 )
     ;
 
     SignalMapping("Test CallRange with arg index")
@@ -546,11 +547,11 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         ( 3, {2,1,0}               , Ni(42)      ) ["exact match on all captured calls"]
         ( 5, {4,3,2,1,0}           , Size| Ge(3) ) ["exact match on all captured calls"]
         ( 5, Saturate(Eq(4), 2, Ge(0))        , _) ["elementwise saturation match"]
-        ( 5, Not(Saturate(1, 1, 1))           , _) ["saturation negation"]
-        ( 5, And(Saturate(3,2), Saturate(3,1)), _) ["DAG test"]
+        ( 5, Saturate(1, 1, 1)|Not            , _) ["saturation negation"]
+        ( 5, All(Saturate(3,2), Saturate(3,1)), _) ["DAG test"]
         ( 5, Count(Ne(3))|Eq(4)               , _) ["count not 3 matches"]
         ( 5, At(0)|4                          , _)
-        ( 5, Not(At("/foo")|0)                , _)
+        ( 5, At("/foo")|0|Not                 , _)
     ;
 
 

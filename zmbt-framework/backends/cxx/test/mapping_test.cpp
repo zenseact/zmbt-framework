@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(ModelExecutor)
     .Test
         (42    ,     42)
         (Eq(13), Ne(14))
-        (13    , And(Gt(12),Lt(14)))
+        (13    , All(Gt(12),Lt(14)))
     ;
 }
 

@@ -63,15 +63,6 @@ struct OneExpr : public Base<K>
     }
 };
 
-template <Keyword K>
-struct TwoExpr : public Base<K>
-{
-    using Base<K>::Base;
-    Expression operator()(Expression const& expr1, Expression  const& expr2) const
-    {
-        return Expression(K, boost::json::array{expr1, expr2});
-    }
-};
 
 template <Keyword K>
 struct ExprAndOptionalParam : public Base<K>

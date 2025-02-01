@@ -111,6 +111,24 @@ enum class Keyword
     /// Envelop value in array (equivalent to Repeat(1))
     List,
 
+    /// Set cardinality (uniques count)
+    Card,
+
+    /// Sequence size
+    Size,
+
+    /// Min value
+    Min,
+
+    /// Max value
+    Max,
+
+    /// Min value index
+    Argmin,
+
+    /// Max value index
+    Argmax,
+
     /// Logical complement
     Not,
 
@@ -137,6 +155,12 @@ enum class Keyword
 
     /// Not contains element
     NotNi,
+
+    /// Logical conjunction
+    And,
+
+    /// Logical disjunction
+    Or,
 
     /// Add
     Add,
@@ -246,11 +270,8 @@ enum class Keyword
     /// Regular expression match
     Re,
 
-    /// Logical conjunction
-    And,
-
-    /// Logical disjunction
-    Or,
+    /// Transform value with query pseudo-language
+    At,
 
     /// Match any predicate
     Any,
@@ -258,14 +279,14 @@ enum class Keyword
     /// Match all predicates
     All,
 
+    /// Match none of predicates
+    None,
+
     /// Saturate matches in order
     Saturate,
 
     /// Compose functions
     Compose,
-
-    /// Logical exclusive or
-    Xor,
 
     /// Equal as set
     SetEq,
@@ -294,6 +315,9 @@ enum class Keyword
     /// Filter sequence by predicate param
     Filter,
 
+    /// Count matches
+    Count,
+
     /// apply recursion to parameter fn
     Recur,
 
@@ -311,30 +335,6 @@ enum class Keyword
 
     /// Multiplication reduction, real param - initial value
     Prod,
-
-    /// Transform value with query pseudo-language
-    At,
-
-    /// Set cardinality (uniques count)
-    Card,
-
-    /// Sequence size
-    Size,
-
-    /// Count matches
-    Count,
-
-    /// Min value
-    Min,
-
-    /// Max value
-    Max,
-
-    /// Min value index
-    Argmin,
-
-    /// Max value index
-    Argmax,
 
     /// Floating point approximately equal
     Approx,

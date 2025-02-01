@@ -43,6 +43,7 @@ SignalOperatorHandler::SignalOperatorHandler()
             GENERIC_T2(<=), // generic_is_less_or_eq,
             GENERIC_T1(-), // generic_negate,
             GENERIC_T1(~), // generic_complement,
+            GENERIC_T1(!), // generic_logical_not,
             GENERIC_T2(+), // generic_add,
             GENERIC_T2(-), // generic_sub,
             GENERIC_T2(*), // generic_mul,
@@ -50,7 +51,9 @@ SignalOperatorHandler::SignalOperatorHandler()
             GENERIC_T2(%), // generic_mod,
             GENERIC_T2(&), // generic_band,
             GENERIC_T2(|), // generic_bor,
-            GENERIC_T2(^), // generic_bxor
+            GENERIC_T2(^), // generic_bxor,
+            GENERIC_T2(&&), // generic_land,
+            GENERIC_T2(||)  // generic_lor,
         }
     }
 {
@@ -66,6 +69,9 @@ boost::json::value SignalOperatorHandler::apply(Keyword const& keyword, boost::j
     {
     case Keyword::Bool: return operators.is_truth_(x);
     case Keyword::Nil: return !operators.is_truth_(x);
+    case Keyword::Not: return operators.not_(x);
+    case Keyword::And: return operators.land_(x, y);
+    case Keyword::Or: return operators.lor_(x, y);
 
     case Keyword::Eq: return operators.is_equal_(x, y);
     case Keyword::Ne: return !operators.is_equal_(x, y);

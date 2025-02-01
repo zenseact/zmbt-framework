@@ -125,7 +125,7 @@ static signature::Base<Keyword::Argmin> const Argmin;
 static signature::Base<Keyword::Argmax> const Argmax;
 
 /// \brief Logical complement
-static signature::OneParam<Keyword::Not> const Not;
+static signature::Base<Keyword::Not> const Not;
 
 /// \brief Is equal
 static signature::OneParam<Keyword::Eq> const Eq;
@@ -152,6 +152,12 @@ static signature::OneParam<Keyword::Ni> const Contains;
 
 /// \brief Not contains element
 static signature::OneParam<Keyword::NotNi> const NotNi;
+
+/// \brief Logical conjunction
+static signature::OneParam<Keyword::And> const And;
+
+/// \brief Logical disjunction
+static signature::OneParam<Keyword::Or> const Or;
 
 /// \brief Add
 static signature::OneParam<Keyword::Add> const Add;
@@ -275,26 +281,20 @@ static signature::OneParam<Keyword::Re> const Regex;
 ///   At(q, P) <==> Compose(P, At(q))
 static signature::OneParam<Keyword::At> const At;
 
-/// \brief Logical conjunction
-static signature::VariadicExpr<Keyword::And> const And;
-
-/// \brief Logical disjunction
-static signature::VariadicExpr<Keyword::Or> const Or;
-
 /// \brief Match any predicate
 static signature::VariadicExpr<Keyword::Any> const Any;
 
 /// \brief Match all predicates
 static signature::VariadicExpr<Keyword::All> const All;
 
+/// \brief Match none of predicates
+static signature::VariadicExpr<Keyword::None> const None;
+
 /// \brief Saturate matches in order
 static signature::VariadicExpr<Keyword::Saturate> const Saturate;
 
 /// \brief Compose functions
 static signature::VariadicExpr<Keyword::Compose> const Compose;
-
-/// \brief Logical exclusive or
-static signature::TwoExpr<Keyword::Xor> const Xor;
 
 /// \brief Equal as set
 static signature::SetParam<Keyword::SetEq> const SetEq;

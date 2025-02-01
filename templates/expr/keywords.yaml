@@ -84,11 +84,11 @@ keyword_groups:
     brief: Min value index
   - name: argmax
     brief: Max value index
-
-  OneParam:
   - name: not
     brief: Logical complement
     short: ¬
+
+  OneParam:
   - name: eq
     brief: Is equal
     short: '='
@@ -116,6 +116,12 @@ keyword_groups:
     brief: Not contains element
     enum: NotNi
     short: '∌'
+  - name: and
+    brief: Logical conjunction
+    short: ∧
+  - name: or
+    brief: Logical disjunction
+    short: ∨
   - name: add
     brief: Add
     short: '+'
@@ -219,25 +225,16 @@ keyword_groups:
         At(q, P) <==> Compose(P, At(q))
 
   VariadicExpr:
-  - name: and
-    brief: Logical conjunction
-    short: ∧
-  - name: or
-    brief: Logical disjunction
-    short: ∨
   - name: any
     brief: Match any predicate
   - name: all
     brief: Match all predicates
+  - name: none
+    brief: Match none of predicates
   - name: saturate
     brief: Saturate matches in order
   - name: compose
     brief: Compose functions
-
-  TwoExpr:
-  - name: xor
-    brief: Logical exclusive or
-    short: ⊕
 
   SetParam:
   - name: set-eq

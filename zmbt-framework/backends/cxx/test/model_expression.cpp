@@ -21,6 +21,25 @@ using namespace boost::json;
 
 using V = boost::json::value;
 
+
+BOOST_AUTO_TEST_CASE(GenericTernaryAndOr)
+{
+    using O = GenericSignalOperator;
+
+    BOOST_CHECK_EQUAL((O{true} and O{true}), O{true});
+    BOOST_CHECK_EQUAL((O{true} and O{false}), O{false});
+    BOOST_CHECK_EQUAL((O{false} and O{true}), O{false});
+
+    BOOST_CHECK_EQUAL((O{true} and O{42}), O{42});
+    BOOST_CHECK_EQUAL((O{42} or O{""}), O{42});
+
+    BOOST_CHECK_EQUAL((O{"foo"} and O{"bar"}) or O{"baz"}, O{"bar"});
+    BOOST_CHECK_EQUAL((O{""}    and O{"bar"}) or O{"baz"}, O{"baz"});
+
+    BOOST_CHECK_EQUAL((And(42)|Or(13)).eval(true), 42);
+    BOOST_CHECK_EQUAL((And(42)|Or(13)).eval(false), 13);
+}
+
 boost::json::object NF(Keyword const& kw, boost::json::value const& v)
 {
     return {{json_from(kw).as_string(), v}};
@@ -75,35 +94,21 @@ BOOST_AUTO_TEST_CASE(EqNoop)
     BOOST_CHECK_EQUAL(js, json_from(Keyword::Noop));
 }
 
-
-BOOST_AUTO_TEST_CASE(NormalFormXor)
-{
-    Expression xor1 = Xor(Gt(0), Lt(1));
-    Expression xor2 = And(Or(Gt(0), Lt(1)), Not(And(Gt(0), Lt(1))));
-    BOOST_CHECK_EQUAL(xor1.match(0), xor2.match(0));
-    BOOST_CHECK_EQUAL(xor1.match(1), xor2.match(1));
-    BOOST_CHECK_EQUAL(xor1.match(.5), xor2.match(.5));
-}
-
 BOOST_AUTO_TEST_CASE(Negation)
 {
-    // Not(Not(42));
-    BOOST_CHECK_NE(Not(42), Not(Eq(42)));
-    BOOST_CHECK_NE(Not(42), Ne(42));
-    BOOST_CHECK_NE(Eq(42), Not(42));
+    BOOST_CHECK_EQUAL(42|Not, Eq(42)|Not);
 
-    // TODO: resolve double negation
-    BOOST_CHECK_NE(Eq(42), Not(Ne(42)));
-    BOOST_CHECK_NE(Ne(42), Not(Not(Not(42))));
+    BOOST_CHECK_EQUAL((42|Not).eval(13), Ne(42).eval(13));
+    BOOST_CHECK_EQUAL((42|Not).eval(42), Ne(42).eval(42));
 
-    BOOST_CHECK_NE(Not(42), Not(Not(42)));
+    BOOST_CHECK_EQUAL((42|Not|Not).eval(13), Eq(42).eval(13));
+    BOOST_CHECK_EQUAL((42|Not|Not).eval(42), Eq(42).eval(42));
 }
-
 
 BOOST_AUTO_TEST_CASE(Conjunction)
 {
-    value expression = And(Gt(0), Lt(42));
-    value should_be = NF(Keyword::And, array{
+    value expression = All(Gt(0), Lt(42));
+    value should_be = NF(Keyword::All, array{
         NF(Keyword::Gt, 0),
         NF(Keyword::Lt, 42),
     });
@@ -114,8 +119,8 @@ BOOST_AUTO_TEST_CASE(Conjunction)
 
 BOOST_AUTO_TEST_CASE(Disjunction)
 {
-    value expression = Or(Gt(0), Lt(42));
-    value should_be = NF(Keyword::Or, array{
+    value expression = Any(Gt(0), Lt(42));
+    value should_be = NF(Keyword::Any, array{
         NF(Keyword::Gt, 0),
         NF(Keyword::Lt, 42),
     });
@@ -377,59 +382,7 @@ BOOST_AUTO_TEST_CASE(TestBool)
     BOOST_CHECK_EQUAL(false, Bool.eval(boost::json::array{}));
 }
 
-BOOST_AUTO_TEST_CASE(TestAndOr)
-{
 
-    BOOST_CHECK_EQUAL("42", And.eval({true, 1,1,1, "42"}));
-    BOOST_CHECK_EQUAL(42,   And.eval({true, 42}));
-
-    BOOST_CHECK_EQUAL(nullptr, And.eval({false, true}));
-    BOOST_CHECK_EQUAL(nullptr, And.eval({false, 42}));
-    BOOST_CHECK_EQUAL(nullptr, And.eval({nullptr, 42}));
-
-    BOOST_CHECK_EQUAL(nullptr, And.eval(boost::json::array{}));
-
-
-    BOOST_CHECK_EQUAL("42", Or.eval({false, nullptr, "", "42", true, false, 1}));
-    BOOST_CHECK_EQUAL(42  , Or.eval({false, 42}));
-
-    BOOST_CHECK_EQUAL(true, Or.eval({false, true}));
-    BOOST_CHECK_EQUAL(42  , Or.eval({false, 42}));
-    BOOST_CHECK_EQUAL(42  , Or.eval({nullptr, 42}));
-
-    BOOST_CHECK_EQUAL(nullptr, Or.eval(boost::json::array{}));
-
-
-    BOOST_CHECK_EQUAL(11, Or.eval({11, 22}));
-    BOOST_CHECK_EQUAL(22, Or.eval({And.eval({false, 11}), 22}));
-    BOOST_CHECK_EQUAL(11, Or.eval({And.eval({true , 11}), 22}));
-}
-
-BOOST_AUTO_TEST_CASE(TestNot)
-{
-
-    BOOST_CHECK_EQUAL(false, Not.eval(true));
-    BOOST_CHECK_EQUAL(false, Not.eval(42));
-    BOOST_CHECK_EQUAL(false, Not.eval("false"));
-    BOOST_CHECK_EQUAL(true , Not.eval(false));
-    BOOST_CHECK_EQUAL(true , Not.eval(""));
-    BOOST_CHECK_EQUAL(true , Not.eval(nullptr));
-
-
-
-
-    BOOST_CHECK_EQUAL(true , Not.eval(Not.eval(true )));
-    BOOST_CHECK_EQUAL(false, Not.eval(Not.eval(false)));
-
-    BOOST_CHECK_EQUAL(true, And(Not(Eq(13)), Not(Eq(11))).eval(42));
-    BOOST_CHECK_EQUAL(true, And(Not(13), Not(11)).eval(42));
-    BOOST_CHECK_EQUAL(false, Or(13, 11).eval(42));
-    BOOST_CHECK_EQUAL(true , Or(13, 11).eval(13));
-
-    BOOST_CHECK_EQUAL(false, Not(13).eval(13));
-    BOOST_CHECK_EQUAL(true , Not(Not(13)).eval(13));
-
-}
 
 BOOST_AUTO_TEST_CASE(TestAdd)
 {
@@ -465,6 +418,11 @@ BOOST_AUTO_TEST_CASE(TestReduce)
     BOOST_CHECK_EQUAL(10, Reduce(Add, 0).eval({1,2,3,4}));
     BOOST_CHECK_EQUAL(13, Reduce(Add, 3).eval({1,2,3,4}));
 
+    BOOST_CHECK_EQUAL("bar", Reduce(And, 42).eval({"foo", "bar"}));
+    BOOST_CHECK_EQUAL(0    , Reduce(And,  0).eval({"foo", "bar"}));
+
+    BOOST_CHECK_EQUAL(42   , Reduce(Or , 42).eval({"foo", "bar"}));
+    BOOST_CHECK_EQUAL("foo", Reduce(Or ,  0).eval({"foo", "bar"}));
 }
 
 
@@ -546,7 +504,7 @@ BOOST_AUTO_TEST_CASE(TestP)
 BOOST_AUTO_TEST_CASE(TestFilter)
 {
     BOOST_CHECK_EQUAL(Filter(Mod(2)).eval({1,2,3,4}), V({1,3}));
-    BOOST_CHECK_EQUAL(Filter(Not(Mod(2))).eval({1,2,3,4}), V({2,4}));
+    BOOST_CHECK_EQUAL(Filter(Mod(2)|Nil).eval({1,2,3,4}), V({2,4}));
 
     auto F = Compose(Eq(3), Mod(4));
     BOOST_CHECK_EQUAL(Filter(F).eval({7,8,10,11,13,15}), V({7,11,15}));
