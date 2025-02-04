@@ -21,6 +21,25 @@ using namespace boost::json;
 
 using V = boost::json::value;
 
+
+BOOST_AUTO_TEST_CASE(GenericTernaryAndOr)
+{
+    using O = GenericSignalOperator;
+
+    BOOST_CHECK_EQUAL((O{true} and O{true}), O{true});
+    BOOST_CHECK_EQUAL((O{true} and O{false}), O{false});
+    BOOST_CHECK_EQUAL((O{false} and O{true}), O{false});
+
+    BOOST_CHECK_EQUAL((O{true} and O{42}), O{42});
+    BOOST_CHECK_EQUAL((O{42} or O{""}), O{42});
+
+    BOOST_CHECK_EQUAL((O{"foo"} and O{"bar"}) or O{"baz"}, O{"bar"});
+    BOOST_CHECK_EQUAL((O{""}    and O{"bar"}) or O{"baz"}, O{"baz"});
+
+    BOOST_CHECK_EQUAL((And(42)|Or(13)).eval(true), 42);
+    BOOST_CHECK_EQUAL((And(42)|Or(13)).eval(false), 13);
+}
+
 boost::json::object NF(Keyword const& kw, boost::json::value const& v)
 {
     return {{json_from(kw).as_string(), v}};
@@ -75,35 +94,21 @@ BOOST_AUTO_TEST_CASE(EqNoop)
     BOOST_CHECK_EQUAL(js, json_from(Keyword::Noop));
 }
 
-
-BOOST_AUTO_TEST_CASE(NormalFormXor)
-{
-    Expression xor1 = Xor(Gt(0), Lt(1));
-    Expression xor2 = And(Or(Gt(0), Lt(1)), Not(And(Gt(0), Lt(1))));
-    BOOST_CHECK_EQUAL(xor1.match(0), xor2.match(0));
-    BOOST_CHECK_EQUAL(xor1.match(1), xor2.match(1));
-    BOOST_CHECK_EQUAL(xor1.match(.5), xor2.match(.5));
-}
-
 BOOST_AUTO_TEST_CASE(Negation)
 {
-    // Not(Not(42));
-    BOOST_CHECK_NE(Not(42), Not(Eq(42)));
-    BOOST_CHECK_NE(Not(42), Ne(42));
-    BOOST_CHECK_NE(Eq(42), Not(42));
+    BOOST_CHECK_EQUAL(42|Not, Eq(42)|Not);
 
-    // TODO: resolve double negation
-    BOOST_CHECK_NE(Eq(42), Not(Ne(42)));
-    BOOST_CHECK_NE(Ne(42), Not(Not(Not(42))));
+    BOOST_CHECK_EQUAL((42|Not).eval(13), Ne(42).eval(13));
+    BOOST_CHECK_EQUAL((42|Not).eval(42), Ne(42).eval(42));
 
-    BOOST_CHECK_NE(Not(42), Not(Not(42)));
+    BOOST_CHECK_EQUAL((42|Not|Not).eval(13), Eq(42).eval(13));
+    BOOST_CHECK_EQUAL((42|Not|Not).eval(42), Eq(42).eval(42));
 }
-
 
 BOOST_AUTO_TEST_CASE(Conjunction)
 {
-    value expression = And(Gt(0), Lt(42));
-    value should_be = NF(Keyword::And, array{
+    value expression = All(Gt(0), Lt(42));
+    value should_be = NF(Keyword::All, array{
         NF(Keyword::Gt, 0),
         NF(Keyword::Lt, 42),
     });
@@ -114,8 +119,8 @@ BOOST_AUTO_TEST_CASE(Conjunction)
 
 BOOST_AUTO_TEST_CASE(Disjunction)
 {
-    value expression = Or(Gt(0), Lt(42));
-    value should_be = NF(Keyword::Or, array{
+    value expression = Any(Gt(0), Lt(42));
+    value should_be = NF(Keyword::Any, array{
         NF(Keyword::Gt, 0),
         NF(Keyword::Lt, 42),
     });
@@ -326,28 +331,28 @@ BOOST_AUTO_TEST_CASE(AtQueryMatch)
         }}
     };
 
-    BOOST_CHECK_MESSAGE(At("/home/user/Downloads/1", "kek").match(obj), obj);
-    BOOST_CHECK(At("/home/user/Desktop/2", "baz").match(obj));
-    BOOST_CHECK(At("/home/user/Desktop", At(1, "bar")).match(obj));
+    BOOST_CHECK_MESSAGE((At("/home/user/Downloads/1")| "kek").match(obj), obj);
+    BOOST_CHECK((At("/home/user/Desktop/2")|"baz").match(obj));
+    BOOST_CHECK((At("/home/user/Desktop") | At(1) | Eq("bar")).match(obj));
 
     // recursive At
-    BOOST_CHECK(At("/home", At("/user", At("/Desktop", At(0, Eq("foo"))))).match(obj));
-    BOOST_CHECK(At("/home", At("/user", At("/Downloads", Contains("kek")))).match(obj));
-    BOOST_CHECK(At("/undefined", nullptr).match(obj));
+    BOOST_CHECK((At("/home")|At("/user")|At("/Desktop")   | At(0) | Eq("foo")).match(obj));
+    BOOST_CHECK((At("/home")|At("/user")|At("/Downloads") | Contains("kek")).match(obj));
+    BOOST_CHECK((At("/undefined") | nullptr).match(obj));
 
 
     // joining At
     // query array
-    BOOST_CHECK(At({"/home/user/Downloads/1", "/home/user/Desktop/2"}, {"kek", "baz"}).match(obj));
+    BOOST_CHECK((At({"/home/user/Downloads/1", "/home/user/Desktop/2"}) | Eq({"kek", "baz"})).match(obj));
     // query nested array
-    BOOST_CHECK(At({{"/home/user/Downloads/1", "/home/user/Desktop/2"}, "/undefined" }, {{"kek", "baz"}, nullptr}).match(obj));
+    BOOST_CHECK((At({{"/home/user/Downloads/1", "/home/user/Desktop/2"}, "/undefined" }) | Eq({{"kek", "baz"}, nullptr})).match(obj));
     // query object
-    BOOST_CHECK(At({{"a", "/home/user/Downloads/1"}, {"b", "/home/user/Desktop/2"}}, {{"a", "kek"}, {"b", "baz"}}).match(obj));
+    BOOST_CHECK((At({{"a", "/home/user/Downloads/1"}, {"b", "/home/user/Desktop/2"}}) | Eq({{"a", "kek"}, {"b", "baz"}})).match(obj));
     // query nested structures, a: array, b: object
-    BOOST_CHECK(At({{"a", {"/home/user/Downloads/1", "/home/user/Desktop/2"}}, {"b", {{"null", "/undefined"}}}}, {{"a", {"kek", "baz"}}, {"b", {{"null", nullptr}}}}).match(obj));
+    BOOST_CHECK((At({{"a", {"/home/user/Downloads/1", "/home/user/Desktop/2"}}, {"b", {{"null", "/undefined"}}}}) | Eq({{"a", {"kek", "baz"}}, {"b", {{"null", nullptr}}}})).match(obj));
 
     // dynamic keys
-    BOOST_CHECK(At({{"$/home/user/Desktop/0", "/home/user/Desktop/1"}}, Eq({{"foo", "bar"}}) ).match(obj));
+    BOOST_CHECK((At({{"$/home/user/Desktop/0", "/home/user/Desktop/1"}}) | Eq({{"foo", "bar"}}) ).match(obj));
 
 }
 
@@ -377,59 +382,7 @@ BOOST_AUTO_TEST_CASE(TestBool)
     BOOST_CHECK_EQUAL(false, Bool.eval(boost::json::array{}));
 }
 
-BOOST_AUTO_TEST_CASE(TestAndOr)
-{
 
-    BOOST_CHECK_EQUAL("42", And.eval({true, 1,1,1, "42"}));
-    BOOST_CHECK_EQUAL(42,   And.eval({true, 42}));
-
-    BOOST_CHECK_EQUAL(nullptr, And.eval({false, true}));
-    BOOST_CHECK_EQUAL(nullptr, And.eval({false, 42}));
-    BOOST_CHECK_EQUAL(nullptr, And.eval({nullptr, 42}));
-
-    BOOST_CHECK_EQUAL(nullptr, And.eval(boost::json::array{}));
-
-
-    BOOST_CHECK_EQUAL("42", Or.eval({false, nullptr, "", "42", true, false, 1}));
-    BOOST_CHECK_EQUAL(42  , Or.eval({false, 42}));
-
-    BOOST_CHECK_EQUAL(true, Or.eval({false, true}));
-    BOOST_CHECK_EQUAL(42  , Or.eval({false, 42}));
-    BOOST_CHECK_EQUAL(42  , Or.eval({nullptr, 42}));
-
-    BOOST_CHECK_EQUAL(nullptr, Or.eval(boost::json::array{}));
-
-
-    BOOST_CHECK_EQUAL(11, Or.eval({11, 22}));
-    BOOST_CHECK_EQUAL(22, Or.eval({And.eval({false, 11}), 22}));
-    BOOST_CHECK_EQUAL(11, Or.eval({And.eval({true , 11}), 22}));
-}
-
-BOOST_AUTO_TEST_CASE(TestNot)
-{
-
-    BOOST_CHECK_EQUAL(false, Not.eval(true));
-    BOOST_CHECK_EQUAL(false, Not.eval(42));
-    BOOST_CHECK_EQUAL(false, Not.eval("false"));
-    BOOST_CHECK_EQUAL(true , Not.eval(false));
-    BOOST_CHECK_EQUAL(true , Not.eval(""));
-    BOOST_CHECK_EQUAL(true , Not.eval(nullptr));
-
-
-
-
-    BOOST_CHECK_EQUAL(true , Not.eval(Not.eval(true )));
-    BOOST_CHECK_EQUAL(false, Not.eval(Not.eval(false)));
-
-    BOOST_CHECK_EQUAL(true, And(Not(Eq(13)), Not(Eq(11))).eval(42));
-    BOOST_CHECK_EQUAL(true, And(Not(13), Not(11)).eval(42));
-    BOOST_CHECK_EQUAL(false, Or(13, 11).eval(42));
-    BOOST_CHECK_EQUAL(true , Or(13, 11).eval(13));
-
-    BOOST_CHECK_EQUAL(false, Not(13).eval(13));
-    BOOST_CHECK_EQUAL(true , Not(Not(13)).eval(13));
-
-}
 
 BOOST_AUTO_TEST_CASE(TestAdd)
 {
@@ -465,6 +418,11 @@ BOOST_AUTO_TEST_CASE(TestReduce)
     BOOST_CHECK_EQUAL(10, Reduce(Add, 0).eval({1,2,3,4}));
     BOOST_CHECK_EQUAL(13, Reduce(Add, 3).eval({1,2,3,4}));
 
+    BOOST_CHECK_EQUAL("bar", Reduce(And, 42).eval({"foo", "bar"}));
+    BOOST_CHECK_EQUAL(0    , Reduce(And,  0).eval({"foo", "bar"}));
+
+    BOOST_CHECK_EQUAL(42   , Reduce(Or , 42).eval({"foo", "bar"}));
+    BOOST_CHECK_EQUAL("foo", Reduce(Or ,  0).eval({"foo", "bar"}));
 }
 
 
@@ -496,11 +454,13 @@ BOOST_AUTO_TEST_CASE(TestComposeRepeat)
         {42,42,42},
     };
     BOOST_CHECK_EQUAL(rep4x3, Compose(Repeat(4), Repeat(3)).eval(42));
+    BOOST_CHECK_EQUAL(rep4x3, (Repeat(3) | Repeat(4)).eval(42));
+    BOOST_CHECK_EQUAL(rep4x3, (Repeat(3) | Repeat(4) <<= 42).eval());
 }
 
 BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 {
-    auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1, true)));
+    auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1)|true));
     auto const AllFalseFirst  = Filter(At(1) | Eq(false)) | Map(At(0));
 
     boost::json::array const pairs {
@@ -531,7 +491,7 @@ BOOST_AUTO_TEST_CASE(TestP)
     Param const p1 {1};
     Param const p2 {2};
 
-    auto const expr = Compose(Map(At(p1)), Filter(At(p2, false)));
+    auto const expr = Compose(Map(At(p1)), Filter(At(p2)|false));
     boost::json::array list{};
 
     JsonTraverse([&](boost::json::value const& v, std::string const jp){
@@ -544,7 +504,7 @@ BOOST_AUTO_TEST_CASE(TestP)
 BOOST_AUTO_TEST_CASE(TestFilter)
 {
     BOOST_CHECK_EQUAL(Filter(Mod(2)).eval({1,2,3,4}), V({1,3}));
-    BOOST_CHECK_EQUAL(Filter(Not(Mod(2))).eval({1,2,3,4}), V({2,4}));
+    BOOST_CHECK_EQUAL(Filter(Mod(2)|Nil).eval({1,2,3,4}), V({2,4}));
 
     auto F = Compose(Eq(3), Mod(4));
     BOOST_CHECK_EQUAL(Filter(F).eval({7,8,10,11,13,15}), V({7,11,15}));
@@ -590,20 +550,39 @@ BOOST_AUTO_TEST_CASE(TestPow)
 
 }
 
+BOOST_AUTO_TEST_CASE(TestApply)
+{
+    BOOST_CHECK_EQUAL(Apply(Pow(2), 3).eval(), 9);
+
+    BOOST_CHECK_EQUAL((Pow(3) <<= 4).eval(), 64);
+}
+
+BOOST_AUTO_TEST_CASE(TestComposeVsApplyPrecedence)
+{
+    // <<= has lower precedence than |
+
+    // Invalid expression: Add(2) <<= 2 | Eq(4) is Add(2) <<= (2 | Eq(4))
+    BOOST_CHECK_NE(Add(2) <<= 2 | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
+
+    BOOST_CHECK_EQUAL((Add(2) <<= 2) | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
+    BOOST_CHECK_EQUAL(((Add(2) <<= 2) | Eq(4)).eval(), true);
+}
+
+
 BOOST_AUTO_TEST_CASE(NotImplemented)
 {
-    BOOST_CHECK_THROW(Quot(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Log(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Sin(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Cos(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Tan(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Asin(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Acos(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Atan(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Sinh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Cosh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Tanh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Asinh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Acosh(1).eval(2), std::exception);
-    BOOST_CHECK_THROW(Atanh(1).eval(2), std::exception);
+    BOOST_CHECK_THROW(Quot.eval(2), std::exception);
+    BOOST_CHECK_THROW(Log.eval(2), std::exception);
+    BOOST_CHECK_THROW(Sin.eval(2), std::exception);
+    BOOST_CHECK_THROW(Cos.eval(2), std::exception);
+    BOOST_CHECK_THROW(Tan.eval(2), std::exception);
+    BOOST_CHECK_THROW(Asin.eval(2), std::exception);
+    BOOST_CHECK_THROW(Acos.eval(2), std::exception);
+    BOOST_CHECK_THROW(Atan.eval(2), std::exception);
+    BOOST_CHECK_THROW(Sinh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Cosh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Tanh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Asinh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Acosh.eval(2), std::exception);
+    BOOST_CHECK_THROW(Atanh.eval(2), std::exception);
 }

@@ -25,6 +25,7 @@ class GenericSignalOperator
 
 public:
 
+    GenericSignalOperator() = default;
     explicit GenericSignalOperator(boost::json::value const& value);
     explicit GenericSignalOperator(boost::json::array const& value);
     explicit GenericSignalOperator(boost::json::object const& value);
@@ -48,8 +49,13 @@ public:
     bool operator>(GenericSignalOperator const& rhs) const;
     bool operator<=(GenericSignalOperator const& rhs) const;
 
+    GenericSignalOperator operator&&(GenericSignalOperator const& rhs) const;
+    GenericSignalOperator operator||(GenericSignalOperator const& rhs) const;
+    // boost::json::value operator!() const;
+
     boost::json::value operator-() const;
     boost::json::value operator~() const;
+
     boost::json::value operator+(GenericSignalOperator const& rhs) const;
     boost::json::value operator-(GenericSignalOperator const& rhs) const;
     boost::json::value operator*(GenericSignalOperator const& rhs) const;
@@ -58,6 +64,9 @@ public:
     boost::json::value operator&(GenericSignalOperator const& rhs) const;
     boost::json::value operator|(GenericSignalOperator const& rhs) const;
     boost::json::value operator^(GenericSignalOperator const& rhs) const;
+
+
+
 
 
     boost::json::value pow(GenericSignalOperator const& rhs) const;

@@ -27,7 +27,7 @@ def render(template_entry: str, data: dict):
         loader=FileLoader([TEMPLATES_DIR]),
         extensions=[CoreExtension(TOKEN_START, LINE_JOIN), CodeExtension(TOKEN_START)]
     )
-
+    sys.path.insert(0, TEMPLATES_DIR)
     return TEMPLATE_ENGINE.get_template(template_entry).render(data)
 
 

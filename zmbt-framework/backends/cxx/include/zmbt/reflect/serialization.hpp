@@ -308,7 +308,7 @@ template <class T, class TT = remove_cvref_t<T>>
 reflect::detail::disable_hermetic_serialization<TT, boost::json::value>
 json_from(T&& t)
 {
-    return boost::json::value_from(t);
+    return boost::json::value_from(std::forward<T>(t));
 }
 
 template <class T>

@@ -86,6 +86,7 @@ class SignalOperatorHandler
     ZMBT_SOH_HANDLE_RELATION(<=, has_less_equal)
     ZMBT_SOH_HANDLE_UNARY_TRANSFORM(-, has_negate)
     ZMBT_SOH_HANDLE_UNARY_TRANSFORM(~, has_complement)
+    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(!, has_logical_not)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(+, has_plus)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(-, has_minus)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(*, has_multiplies)
@@ -94,6 +95,8 @@ class SignalOperatorHandler
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(&, has_bit_and)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(|, has_bit_or)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(^, has_bit_xor)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(&&, has_logical_and)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(||, has_logical_or)
 
 #undef ZMBT_SOH_HANDLE_RELATION
 #undef ZMBT_SOH_HANDLE_UNARY_TRANSFORM
@@ -139,6 +142,7 @@ class SignalOperatorHandler
 
         unary_transform neg_;
         unary_transform compl_;
+        unary_transform not_;
 
         binary_transform add_;
         binary_transform sub_;
@@ -149,6 +153,8 @@ class SignalOperatorHandler
         binary_transform conj_;
         binary_transform disj_;
         binary_transform bxor_;
+        binary_transform land_;
+        binary_transform lor_;
     } operators;
 
 
@@ -175,6 +181,7 @@ public:
                 handle_if_has_less_equal<T>,
                 handle_if_has_negate<T>,
                 handle_if_has_complement<T>,
+                handle_if_has_logical_not<T>,
                 handle_if_has_plus<T>,
                 handle_if_has_minus<T>,
                 handle_if_has_multiplies<T>,
@@ -182,7 +189,9 @@ public:
                 handle_if_has_modulus<T>,
                 handle_if_has_bit_and<T>,
                 handle_if_has_bit_or<T>,
-                handle_if_has_bit_xor<T>
+                handle_if_has_bit_xor<T>,
+                handle_if_has_logical_and<T>,
+                handle_if_has_logical_or<T>
             }
         }
     {
@@ -207,12 +216,14 @@ public:
         return operators.decorate_(a);
     }
 
-    boost::json::value apply(Keyword const& keyword, boost::json::value const& x, boost::json::value const& y = nullptr) const;
+    /// \brief Apply operands
+    /// \details For unary operators, lhs is nullptr
+    boost::json::value apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
 
     /// Is true
     bool is_truth(boost::json::value const& a) const
     {
-        return apply(Keyword::Bool, a, nullptr).get_bool();
+        return apply(Keyword::Bool, nullptr, a).get_bool();
     }
 
 private:

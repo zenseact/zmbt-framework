@@ -7,16 +7,18 @@ load("//tools/codegen:rules.bzl", "wheezy_template_codegen")
 filegroup(
     name = "data",
     srcs = [
-        "data.yaml",
+        "keywords.yaml",
     ],
     visibility = ["//visibility:public"],
 )
+
 
 wheezy_template_codegen(
     name = "keyword_hpp",
     data = ":data",
     entry_template = "keyword.hpp",
     extra_templates = [
+        "expr_helpers.py",
     ],
     visibility = ["//visibility:public"],
 )
@@ -26,6 +28,7 @@ wheezy_template_codegen(
     data = ":data",
     entry_template = "keyword.cpp",
     extra_templates = [
+        "expr_helpers.py",
     ],
     visibility = ["//visibility:public"],
 )
@@ -35,6 +38,7 @@ wheezy_template_codegen(
     data = ":data",
     entry_template = "keyword_grammar.cpp",
     extra_templates = [
+        "expr_helpers.py",
     ],
     visibility = ["//visibility:public"],
 )
@@ -44,6 +48,17 @@ wheezy_template_codegen(
     data = ":data",
     entry_template = "expression_api.hpp",
     extra_templates = [
+        "expr_helpers.py",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+wheezy_template_codegen(
+    name = "expression_api_cpp",
+    data = ":data",
+    entry_template = "expression_api.cpp",
+    extra_templates = [
+        "expr_helpers.py",
     ],
     visibility = ["//visibility:public"],
 )

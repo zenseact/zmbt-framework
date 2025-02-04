@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE(TestJoin)
         .ObserveOn (test_pair) .Return(0)
 
     .Test
-        (  _ ,  _ ,  Size(2) ,  Size(2) )
+        (  _ ,  _ ,  Size|2  ,  Size|2  )
         (  0 ,  0 , { 0,  0} , { 0,  0} )
         ( 42 , 13 , {42, 13} , {13, 42} )
         ( 42 , 13 , Gt       , Lt       )

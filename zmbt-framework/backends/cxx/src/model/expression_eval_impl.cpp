@@ -28,121 +28,45 @@ template <Keyword keyword>
 V eval_impl(V const& params, V const& x, O const& op);
 
 
-
 template <>
-V eval_impl<Keyword::Not>(V const& param, V const& x, O const& op)
+V eval_impl<Keyword::Apply>(V const& param, V const& x, O const& op)
 {
-    if (param.is_null())
-    {
-        return !op.is_truth(x);
-    }
-    else
-    {
-        return !op.is_truth(E(param).eval(x));
-    }
+    ASSERT(param.is_array());
+    ASSERT(x.is_null());
+    auto const& expr = param.get_array().at(0);
+    auto const& args = param.get_array().at(1);
+    return E(expr).eval(args, op);
 }
 
 
 template <>
-V eval_impl<Keyword::And>(V const& param, V const& x, O const& op)
+V eval_impl<Keyword::All>(V const& param, V const& x, O const& op)
 {
-    if (param.is_null())
+    ASSERT(param.is_array());
+    for (auto const& e: param.get_array())
     {
-        ASSERT(x.is_array());
-        auto const& terms = x.get_array();
-        if(terms.empty())
+        if (not op.is_truth(E(e).eval(x)))
         {
-            return nullptr;
+            return false;
         }
-
-        auto term = terms.cbegin();
-        auto ret = term;
-        while (term != terms.cend())
-        {
-            if (not op.is_truth(*term))
-            {
-                return nullptr;
-            }
-            ret = term++;
-        }
-        return *ret;
     }
-    else
-    {
-        ASSERT(param.is_array());
-        for (auto const& e: param.get_array())
-        {
-            if (not op.is_truth(E(e).eval(x)))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    return true;
 }
+
+
 template <>
-V eval_impl<Keyword::Or>(V const& param, V const& x, O const& op)
+V eval_impl<Keyword::Any>(V const& param, V const& x, O const& op)
 {
-    if (param.is_null())
+    ASSERT(param.is_array());
+    for (auto const& e: param.get_array())
     {
-        ASSERT(x.is_array());
-        auto const& terms = x.get_array();
-        if(terms.empty())
+        if (op.is_truth(E(e).eval(x)))
         {
-            return nullptr;
+            return true;
         }
-
-        auto term = terms.cbegin();
-        while (term != terms.cend())
-        {
-            if (op.is_truth(*term))
-            {
-                return *term;
-            }
-            term++;
-        }
-        return nullptr;
     }
-    else
-    {
-        ASSERT(param.is_array());
-        for (auto const& e: param.get_array())
-        {
-            if (op.is_truth(E(e).eval(x)))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    return false;
 }
-template <>
-V eval_impl<Keyword::Xor>(V const& param, V const& x, O const& op)
-{
-    bool L, R;
-
-    if (param.is_null())
-    {
-        ASSERT(x.is_array() and (x.get_array().size() == 2));
-        auto const& lhs = x.get_array().at(0);
-        auto const& rhs = x.get_array().at(1);
-
-        L = op.is_truth(lhs);
-        R = op.is_truth(rhs);
-    }
-    else
-    {
-        ASSERT(param.is_array() and (param.get_array().size() == 2));
-        auto const& predicates = param.get_array();
-        auto const p1 = E(predicates.at(0));
-        auto const p2 = E(predicates.at(1));
-
-        L = op.is_truth(p1.eval(x));
-        R = op.is_truth(p2.eval(x));
-    }
-    return (L || R) && !(L && R);
-}
-
 
 
 template <>
@@ -221,24 +145,9 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
 template <>
 V eval_impl<Keyword::At>(V const& params, V const& sample, O const& op)
 {
-    ASSERT(params.is_array() and not params.get_array().empty())
+    ASSERT(not params.is_null())
 
-    auto const& q = params.get_array().at(0);
-    boost::json::value query = query_at(sample, q);
-
-    switch (params.get_array().size())
-    {
-    case 1:
-        return query;
-    case 2: // second param is optional transform
-    {
-        auto const e = E(params.as_array().at(1));
-        return e.eval(query, op);
-    }
-    default:
-        ASSERT(false);
-        return nullptr;
-    }
+    return query_at(sample, params);
 }
 
 template <>
@@ -271,37 +180,32 @@ V eval_impl<Keyword::Saturate>(V const& params, V const& samples, O const& op)
 template <>
 V eval_impl<Keyword::Count>(V const& params, V const& samples, O const& op)
 {
-    if (!samples.is_array())
-    {
-        return false;
-    }
-    ASSERT(params.is_array() and not params.get_array().empty())
-
-    auto const& filter_and_maybe_transform = params.get_array();
-    auto const& sample_list = samples.get_array();
-
-    auto const filter = E(filter_and_maybe_transform.at(0));
+    ASSERT(samples.is_array() || samples.is_object())
+    auto const filter = E(params);
     std::size_t count {0};
-    for (auto const& sample: sample_list)
+
+    if (samples.is_array())
     {
-        if (filter.match(sample, op))
+        for (auto const& sample: samples.get_array())
         {
-            count++;
+            if (filter.match(sample, op))
+            {
+                count++;
+            }
         }
     }
-    switch (filter_and_maybe_transform.size())
+    else if (samples.is_object())
     {
-    case 1:
-        return count;
-    case 2:
-    {
-        auto const transform = E(filter_and_maybe_transform.at(1));
-        return transform.eval(count); // count is number, no operator applied
+        for (auto const& kv: samples.get_object())
+        {
+            if (filter.match({kv.key(), kv.value()}, op))
+            {
+                count++;
+            }
+        }
     }
-    default:
-        ASSERT(false);
-        return nullptr;
-    }
+
+    return count;
 }
 
 template <>
@@ -326,7 +230,8 @@ V eval_impl<Keyword::Approx>(V const& params, V const& sample, O const&)
 template <>
 V eval_impl<Keyword::Size>(V const& params, V const& sample, O const&)
 {
-    std::size_t size {0};
+    ASSERT(params.is_null())
+    V size = nullptr;
     if (sample.is_array())
     {
         size = sample.get_array().size();
@@ -338,25 +243,16 @@ V eval_impl<Keyword::Size>(V const& params, V const& sample, O const&)
     else
     {
         ZMBT_LOG_JSON(warning) << "invalid Size application";
-        return nullptr;
     }
-
-    if (params.is_null()) // optional transform
-    {
-        return size;
-    }
-    else
-    {
-        ASSERT(params.is_array())
-        return E(params.get_array().at(0)).eval(size);
-    }
+    return size;
 }
 
 
 template <>
 V eval_impl<Keyword::Card>(V const& params, V const& sample, O const&)
 {
-    std::size_t card {0};
+    ASSERT(params.is_null())
+    V card = nullptr;
     if (sample.is_array())
     {
         boost::json::array counter_set {};
@@ -371,18 +267,8 @@ V eval_impl<Keyword::Card>(V const& params, V const& sample, O const&)
     else
     {
         ZMBT_LOG_JSON(warning) << "invalid Card application";
-        return nullptr;
     }
-
-    if (params.is_null()) // optional transform
-    {
-        return card;
-    }
-    else
-    {
-        ASSERT(params.is_array())
-        return E(params.get_array().at(0)).eval(card);
-    }
+    return card;
 }
 
 
@@ -526,13 +412,14 @@ V eval_impl<Keyword::Recur>(V const& expr, V const& value, O const& op)
 }
 
 
+} // namespace
 
-void handle_terminal_binary_args(bool const has_params, V const& params, V const& x, V const*& lhs, V const*& rhs)
+void zmbt::Expression::handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const
 {
-    if (has_params)
+    if (has_params())
     {
         lhs = &x;
-        rhs = &params;
+        rhs = params_ptr_;
     }
     else // treat x as argument pair
     {
@@ -548,9 +435,6 @@ void handle_terminal_binary_args(bool const has_params, V const& params, V const
     }
 }
 
-} // namespace
-
-
 boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOperatorHandler const& op) const
 {
     switch(keyword())
@@ -565,8 +449,11 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
         case Keyword::BitNot:
         case Keyword::Bool:
         case Keyword::Nil:
-            return op.apply(keyword(), x, nullptr);
+        case Keyword::Not:
+            return op.apply(keyword(), nullptr, x);
 
+        case Keyword::And:
+        case Keyword::Or:
         case Keyword::Eq:
         case Keyword::Ne:
         case Keyword::Lt:
@@ -592,40 +479,52 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
         case Keyword::BitOr:
         case Keyword::BitXor:
         case Keyword::Pow:
+
         // case Keyword::Quot:
         // case Keyword::Log:
         {
             V const* lhs {nullptr}; // binary LHS or functor params
             V const* rhs {nullptr}; // binary RHS or functor arg
-            handle_terminal_binary_args(has_params(), params(), x, lhs, rhs);
+            handle_terminal_binary_args(x, lhs, rhs);
             ASSERT(lhs)
             ASSERT(rhs)
+            // std::cerr << *lhs << " " <<  op.annotation() << " " << *rhs << std::endl;
+            // auto const rhs_maybe_apply = E(*rhs);
+            // if (rhs_maybe_apply.is(Keyword::Apply))
+            // {
+            //     return op.apply(keyword(), *lhs, rhs_maybe_apply.eval(nullptr, op));
+            // }
             return op.apply(keyword(), *lhs, *rhs);
         }
 
 
     #define ZMBT_EXPR_EVAL_IMPL_CASE(K) case Keyword::K: return eval_impl<Keyword::K>(params(), x, op);
 
+        // terms special
         ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Not)
-        ZMBT_EXPR_EVAL_IMPL_CASE(And)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Or)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Xor)
-
-        ZMBT_EXPR_EVAL_IMPL_CASE(Card)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Size)
         ZMBT_EXPR_EVAL_IMPL_CASE(Re)
         ZMBT_EXPR_EVAL_IMPL_CASE(At)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Count)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
 
-        ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
+        // props
+        ZMBT_EXPR_EVAL_IMPL_CASE(Card)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Size)
+
+        // combo
+        ZMBT_EXPR_EVAL_IMPL_CASE(All)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Any)
+
+        // high-orded
+        ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Count)
         ZMBT_EXPR_EVAL_IMPL_CASE(Map)
         ZMBT_EXPR_EVAL_IMPL_CASE(Filter)
         ZMBT_EXPR_EVAL_IMPL_CASE(Recur)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Apply)
 
+        // vector ops
+        ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
 
         default:
         {
