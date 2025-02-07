@@ -1,20 +1,24 @@
 from functools import cached_property
 
+
 class Keyword:
-    def __init__(self, signature: str, definition: dict):
-        self._signature = signature
+    def __init__(self, definition: dict):
         self._definition = definition
 
     @staticmethod
     def map(signature, definitions):
         return map(lambda d: Keyword(signature, d), definitions)
 
+    @property
+    def Signature(self) -> str:
+        return self._definition.get('signature', None)
+
     @cached_property
     def Class(self):
-        if self._signature == 'non-template':
-            return f"{self.Enum}"
+        if self.Signature:
+            return f"{self.Signature}<Keyword::{self.Enum}>"
         else:
-            return f"{self._signature}<Keyword::{self.Enum}>"
+            return f"{self.Enum}"
 
     @property
     def Name(self) -> str:
@@ -51,3 +55,28 @@ class Keyword:
     @property
     def Params(self) -> list:
         return self._definition.get('params', 'any')
+
+
+class KeywordGrammar:
+    def __init__(self, data: dict):
+        keyword_groups: list = data['keyword_groups']
+        self._keywords = tuple(Keyword({**group['common'], **keyword}) for group in keyword_groups for keyword in group['keywords'])
+
+        # check unique names
+        names = [k.Name for k in self._keywords]
+        for k in self._keywords:
+            names.extend(k.Aliases)
+        for name in names:
+            if names.count(name) > 1:
+                raise ValueError(f"Duplicate keyword name: {name}")
+
+    @property
+    def Keywords(self) -> tuple[Keyword]:
+        return self._keywords
+
+    @property
+    def Signatures(self) -> tuple[str]:
+        return tuple(k.Signature for k in self._keywords)
+
+    def filterSignature(self, signature: str) -> list[Keyword]:
+        return list(filter(lambda k: k.Signature == signature, self._keywords))
