@@ -4,6 +4,17 @@
 keyword_groups:
 
   - common:
+      internal: true
+    keywords:
+      - name: literal
+        brief: Literal value
+        details: |-
+          Literal value keyword with no expression API.
+          in evaluation context works as Eq(x)
+      - name: void
+        brief: empty value
+
+  - common:
       cat: Stub
       signature: Const
       domain: any
@@ -492,13 +503,19 @@ keyword_groups:
         signature: null
         brief: Floating point approximately equal
         details: |-
-          Based on numpy.isclose: abs(a - ref) <= (atol + rtol * abs(ref))
+          Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
         aliases: [ 'near' ]
         domain: real
         codomain: bool
         commutative: false
         tags: null
-        params: [ real, real ]
+        params:
+          - label: ref
+            type: real
+          - label: rtol
+            type: real
+          - label: atol
+            type: real
 
   - common:
       cat: Logic

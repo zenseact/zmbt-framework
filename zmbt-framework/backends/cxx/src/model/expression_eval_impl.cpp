@@ -435,11 +435,17 @@ void zmbt::Expression::handle_terminal_binary_args(V const& x, V const*& lhs, V 
     }
 }
 
+
 boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOperatorHandler const& op) const
 {
     switch(keyword())
     {
-        case Keyword::Id:    return x;
+        case Keyword::Id: return x;
+        case Keyword::Literal:
+        {
+            return Expression(Keyword::Eq, params()).eval(x, op);
+        }
+
         case Keyword::True:  return true;
         case Keyword::False: return false;
         case Keyword::Null:  return nullptr;
@@ -488,7 +494,6 @@ boost::json::value zmbt::Expression::eval(boost::json::value const& x, SignalOpe
             handle_terminal_binary_args(x, lhs, rhs);
             ASSERT(lhs)
             ASSERT(rhs)
-            // std::cerr << *lhs << " " <<  op.annotation() << " " << *rhs << std::endl;
             // auto const rhs_maybe_apply = E(*rhs);
             // if (rhs_maybe_apply.is(Keyword::Apply))
             // {

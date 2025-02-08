@@ -151,15 +151,7 @@ public:
     }
 
 
-    bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const
-    {
-        auto result = eval(observed, op);
-        if (!result.is_bool())
-        {
-            throw zmbt::model_error("expr is not a predicate: `%s`", underlying_);
-        }
-        return result.get_bool();
-    }
+    bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const;
 
     boost::json::value eval(boost::json::value const& x = nullptr, SignalOperatorHandler const& op = {}) const;
 
