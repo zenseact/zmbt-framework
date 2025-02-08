@@ -27,11 +27,22 @@ BOOST_AUTO_TEST_CASE(LiteralExpr)
     BOOST_CHECK_EQUAL(Expression(42).eval(42), true);
     BOOST_CHECK_EQUAL((Size|2).eval({1,2}), true);
     BOOST_CHECK_EQUAL(Expression(nullptr).eval(nullptr), true);
+    BOOST_CHECK_EQUAL(Expression({1,2,3}).eval({1,2,3}), true);
+
 
     BOOST_CHECK_EQUAL(Expression(42).underlying(), 42);
     BOOST_CHECK_EQUAL(Expression(42).params(), 42);
+    BOOST_CHECK_EQUAL(Expression(42).subexpr(), 42);
+
     BOOST_CHECK_EQUAL(Expression("Lol").underlying(), "Lol");
     BOOST_CHECK_EQUAL(Expression("Lol").params(), "Lol");
+    BOOST_CHECK_EQUAL(Expression("Lol").subexpr(), "Lol");
+
+    BOOST_CHECK_EQUAL(Expression({1,2,3}).underlying(), V({1,2,3}));
+    BOOST_CHECK_EQUAL(Expression({1,2,3}).params(), V({1,2,3}));
+    BOOST_CHECK_EQUAL(Expression({1,2,3}).subexpr(), V({1,2,3}));
+    BOOST_CHECK(Expression({1,2,3}).keyword() == Keyword::Literal);
+
 }
 
 BOOST_AUTO_TEST_CASE(GenericTernaryAndOr)

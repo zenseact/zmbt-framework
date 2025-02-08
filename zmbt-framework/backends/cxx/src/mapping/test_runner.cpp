@@ -140,25 +140,27 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
         {
             continue;
         }
-        auto expr = Expression(test_value);
+        auto const expr = Expression(test_value);
         if (expr.keyword() == Keyword::Noop)
         {
             continue;
         }
-        else if (expr.keyword() != Keyword::Literal)
+        else if (!(expr.is(Keyword::Literal) or expr.is(Keyword::Apply)))
         {
             // TODO: warn
             report_failure(diagnostics
                 .Error(
                     "sample injection",
-                    "expression other than literal are not allowed on input channels"
+                    "only literals and Apply expressions are allowed on input channels"
                 )
                 .ChannelIdx(n)
             );
         }
 
         try {
-            channel_group.cbegin()->inject(expr.subexpr());
+            channel_group.cbegin()->inject(
+                expr.is(Keyword::Literal) ? expr.underlying() : expr.eval()
+            );
         }
         catch (std::exception const& error) {
             report_failure(diagnostics
