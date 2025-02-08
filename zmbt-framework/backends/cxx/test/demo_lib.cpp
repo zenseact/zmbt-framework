@@ -369,6 +369,21 @@ BOOST_AUTO_TEST_CASE(DeepParamExpression)
     ;
 }
 
+BOOST_AUTO_TEST_CASE(ApplyExpression)
+{
+    auto id = [](boost::json::value const& x){ return x; };
+
+    SignalMapping("Use")
+    .OnTrigger(id)
+        .InjectTo  (id)
+        .ObserveOn (id)
+    .Test
+        (Apply(Add(2), 2), 4         )
+        (Add(2)    <<=  2, 4         ) ["same as above using operator <<="]
+        (Repeat(3) <<= 42, {42,42,42})
+    ;
+}
+
 BOOST_AUTO_TEST_CASE(DeepSetMatch)
 {
     auto sut = [](boost::json::value const& x){ return x; };
