@@ -145,12 +145,13 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
         {
             continue;
         }
-        else if (expr.keyword() != Keyword::Eq)
+        else if (expr.keyword() != Keyword::Literal)
         {
+            // TODO: warn
             report_failure(diagnostics
                 .Error(
                     "sample injection",
-                    "expression other than EQ are not allowed on input channels"
+                    "expression other than literal are not allowed on input channels"
                 )
                 .ChannelIdx(n)
             );

@@ -105,9 +105,9 @@ BOOST_AUTO_TEST_CASE(ModelExecutor)
         .InjectTo  (foo)
         .ObserveOn (foo)
     .Test
-        (42    ,     42)
-        (Eq(13), Ne(14))
-        (13    , All(Gt(12),Lt(14)))
+        (42,     42)
+        (13, Ne(14))
+        (13, All(Gt(12),Lt(14)))
     ;
 }
 

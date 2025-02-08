@@ -1,4 +1,5 @@
 from functools import cached_property
+from typing import Generator
 
 
 class Keyword:
@@ -10,12 +11,18 @@ class Keyword:
         return map(lambda d: Keyword(signature, d), definitions)
 
     @property
+    def Internal(self) -> str:
+        return self._definition.get('internal', False)
+
+    @property
     def Signature(self) -> str:
         return self._definition.get('signature', None)
 
     @cached_property
     def Class(self):
-        if self.Signature:
+        if self.Internal:
+            return None
+        elif self.Signature:
             return f"{self.Signature}<Keyword::{self.Enum}>"
         else:
             return f"{self.Enum}"
@@ -60,7 +67,9 @@ class Keyword:
 class KeywordGrammar:
     def __init__(self, data: dict):
         keyword_groups: list = data['keyword_groups']
-        self._keywords = tuple(Keyword({**group['common'], **keyword}) for group in keyword_groups for keyword in group['keywords'])
+        self._keywords = tuple(Keyword(
+            {**group.get('common', {}), **keyword}
+        ) for group in keyword_groups for keyword in group['keywords'])
 
         # check unique names
         names = [k.Name for k in self._keywords]
@@ -73,6 +82,10 @@ class KeywordGrammar:
     @property
     def Keywords(self) -> tuple[Keyword]:
         return self._keywords
+
+    @property
+    def ApiKeywords(self) -> Generator[Keyword, None, None]:
+        return (k for k in self._keywords if not k.Internal)
 
     @property
     def Signatures(self) -> tuple[str]:

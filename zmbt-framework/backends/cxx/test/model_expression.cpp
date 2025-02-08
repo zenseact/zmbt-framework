@@ -22,6 +22,18 @@ using namespace boost::json;
 using V = boost::json::value;
 
 
+BOOST_AUTO_TEST_CASE(LiteralExpr)
+{
+    BOOST_CHECK_EQUAL(Expression(42).eval(42), true);
+    BOOST_CHECK_EQUAL((Size|2).eval({1,2}), true);
+    BOOST_CHECK_EQUAL(Expression(nullptr).eval(nullptr), true);
+
+    BOOST_CHECK_EQUAL(Expression(42).underlying(), 42);
+    BOOST_CHECK_EQUAL(Expression(42).params(), 42);
+    BOOST_CHECK_EQUAL(Expression("Lol").underlying(), "Lol");
+    BOOST_CHECK_EQUAL(Expression("Lol").params(), "Lol");
+}
+
 BOOST_AUTO_TEST_CASE(GenericTernaryAndOr)
 {
     using O = GenericSignalOperator;
@@ -73,21 +85,6 @@ BOOST_AUTO_TEST_CASE(ImplicitSerializationBijection)
     BOOST_CHECK(original == converted);
 }
 
-
-BOOST_AUTO_TEST_CASE(EqInt)
-{
-    value js = Expression(42);
-    BOOST_CHECK_EQUAL(js, NF(Keyword::Eq, 42));
-}
-
-
-BOOST_AUTO_TEST_CASE(EqString)
-{
-    value js = Expression("Lol");
-    BOOST_CHECK_EQUAL(js, NF(Keyword::Eq, "Lol"));
-}
-
-
 BOOST_AUTO_TEST_CASE(EqNoop)
 {
     value js = Noop;
@@ -96,7 +93,7 @@ BOOST_AUTO_TEST_CASE(EqNoop)
 
 BOOST_AUTO_TEST_CASE(Negation)
 {
-    BOOST_CHECK_EQUAL(42|Not, Eq(42)|Not);
+    BOOST_CHECK_NE(42|Not, Eq(42)|Not);
 
     BOOST_CHECK_EQUAL((42|Not).eval(13), Ne(42).eval(13));
     BOOST_CHECK_EQUAL((42|Not).eval(42), Ne(42).eval(42));
@@ -129,11 +126,7 @@ BOOST_AUTO_TEST_CASE(Disjunction)
 
 BOOST_AUTO_TEST_CASE(CustomOperator)
 {
-    Expression x {42};
-    BOOST_CHECK(x.is(Keyword::Eq));
-    BOOST_CHECK_EQUAL(x.params(), 42);
-    BOOST_CHECK(x.match(42));
-    BOOST_CHECK(x.match(42, SignalOperatorHandler(type<int>)));
+    BOOST_CHECK(Eq(42).match(42, SignalOperatorHandler(type<int>)));
 }
 
 // SET OPS
