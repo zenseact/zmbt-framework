@@ -12,6 +12,7 @@
 #include "zmbt/reflect.hpp"
 #include "signal_operator_handler.hpp"
 #include "keyword.hpp"
+#include "keyword_grammar.hpp"
 #include "exceptions.hpp"
 
 

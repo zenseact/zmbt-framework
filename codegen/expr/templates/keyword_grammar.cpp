@@ -60,5 +60,37 @@ KeywordGrammar::KeywordGrammar()
     ;
 }
 
+
+void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keyword const& kw)
+{
+    switch(kw)
+    {
+
+@for keyword in data.Keywords:
+    case Keyword::@keyword.Enum: { v = ZMBT_KEYWORD_PREFIX "@keyword.Name"; break; }
+@end
+        // TODO: throw
+        default: v = ":undefined";
+    }
+}
+
+
+Keyword tag_invoke(boost::json::value_to_tag<Keyword> const&, boost::json::value const& v)
+{
+    if (not v.is_string())
+    {
+        return Keyword::Undefined;
+    }
+
+    static KeywordGrammar const keyword_parser {};
+
+    auto const& str = v.as_string();
+    auto iter = str.cbegin();
+    auto end = str.cend();
+    Keyword keyword_out {Keyword::Undefined};
+    static_cast<void>(boost::spirit::qi::parse(iter, end, keyword_parser, keyword_out));
+    return keyword_out;
+}
+
 } // namespace expr
 } // namespace zmbt
