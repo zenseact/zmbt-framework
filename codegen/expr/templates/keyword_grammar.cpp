@@ -20,9 +20,6 @@
 #include "zmbt/model/keyword.hpp"
 #include "zmbt/model/keyword_grammar.hpp"
 
-#ifndef ZMBT_KEYWORD_PREFIX
-    #define ZMBT_KEYWORD_PREFIX ":"
-#endif
 
 namespace qi = boost::spirit::qi;
 

@@ -500,7 +500,7 @@ keyword_groups:
         commutative-dual: lt
 
       - name: approx
-        signature: null
+        signature: Special
         brief: Floating point approximately equal
         details: |-
           Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
