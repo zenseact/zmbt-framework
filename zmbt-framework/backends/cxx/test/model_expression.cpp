@@ -16,11 +16,11 @@ namespace utf = boost::unit_test;
 using namespace zmbt;
 using namespace zmbt::reflect;
 
-using namespace zmbt::expr;
+using namespace zmbt::api;
 using namespace boost::json;
 
 using V = boost::json::value;
-
+using zmbt::expr::Keyword;
 
 BOOST_AUTO_TEST_CASE(LiteralExpr)
 {
@@ -521,8 +521,8 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 {
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = dejsonize<zmbt::Keyword>(":ArbitraryStringNotPresentInKeywords");
-        if (kw != zmbt::Keyword::Undefined)
+        auto const kw = dejsonize<Keyword>(":ArbitraryStringNotPresentInKeywords");
+        if (kw != Keyword::Undefined)
         {
             BOOST_FAIL("ITER FAILED = " << i);
             break;
@@ -532,11 +532,11 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 
 BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
 {
-    boost::json::string const test_kw = json_from(zmbt::Keyword::ProperSuperset).as_string();
+    boost::json::string const test_kw = json_from(Keyword::ProperSuperset).as_string();
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = dejsonize<zmbt::Keyword>(test_kw);
-        if (kw != zmbt::Keyword::ProperSuperset)
+        auto const kw = dejsonize<Keyword>(test_kw);
+        if (kw != Keyword::ProperSuperset)
         {
             BOOST_FAIL("ITER FAILED = " << i);
             break;

@@ -20,6 +20,11 @@ namespace zmbt {
 /// JSON transformation expression base
 class Expression
 {
+public:
+    using V = boost::json::value;
+    using Keyword = expr::Keyword;
+
+private:
     Keyword keyword_;
     boost::json::value underlying_;
     boost::json::value const* params_ptr_;
@@ -31,7 +36,6 @@ class Expression
     struct json_ctor_params;
     Expression(json_ctor_params&&);
 
-    using V = boost::json::value;
     void handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
 
 public:

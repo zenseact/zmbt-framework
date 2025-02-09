@@ -28,12 +28,12 @@ namespace detail
 
 Expression operator|(Expression const& lhs, Expression const& rhs)
 {
-    return expr::Compose(rhs, lhs);
+    return api::Compose(rhs, lhs);
 }
 
 Expression operator<<=(Expression const& lhs, boost::json::value const& rhs)
 {
-    return expr::Apply(lhs, rhs);
+    return api::Apply(lhs, rhs);
 }
 
 } // namespace zmbt

@@ -22,7 +22,7 @@ namespace
 using V = boost::json::value;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
-using Keyword = zmbt::Keyword;
+using Keyword = zmbt::expr::Keyword;
 
 template <Keyword keyword>
 V eval_impl(V const& params, V const& x, O const& op);

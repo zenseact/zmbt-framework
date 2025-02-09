@@ -21,7 +21,7 @@
 #include "expression_api_signatures.hpp"
 
 namespace zmbt {
-namespace expr {
+namespace api {
 
 @for keyword in data.ApiKeywords:
 
@@ -32,14 +32,14 @@ namespace expr {
 /// @line
         @end
     @end
-static signature::@keyword.Class const @keyword.Enum;
+extern expr::@keyword.Class const @keyword.Enum;
 @for alias in keyword.Aliases:
 /// \brief Alias for @keyword.Enum
-static signature::@keyword.Class const @alias.capitalize();
+extern expr::@keyword.Class const @alias.capitalize();
 @end
 @end
 
-} // namespace expr
+} // namespace api
 } // namespace zmbt
 
 #endif // ZMBT_MAPPING_EXPRESSION_HPP_

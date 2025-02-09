@@ -14,7 +14,7 @@
 
 namespace
 {
-using Keyword = zmbt::Keyword;
+using Keyword = zmbt::expr::Keyword;
 
 
 boost::json::value const* ptrToParams(Keyword const& keyword, boost::json::value const& underlying)
@@ -28,7 +28,7 @@ boost::json::value const* ptrToParams(Keyword const& keyword, boost::json::value
 
 boost::json::value get_underlying(Keyword const& keyword, boost::json::value const& params)
 {
-    return keyword == Keyword::Literal ? params : boost::json::value{{json_from(keyword).get_string(), params}};
+    return keyword == Keyword::Literal ? params : boost::json::value{{zmbt::json_from(keyword).get_string(), params}};
 }
 
 } // namespace

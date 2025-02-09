@@ -15,7 +15,7 @@ using namespace zmbt::mapping;
 using namespace zmbt::reflect;
 
 using namespace zmbt;
-using namespace zmbt::expr;
+using namespace zmbt::api;
 
 namespace
 {
