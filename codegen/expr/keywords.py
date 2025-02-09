@@ -23,9 +23,9 @@ class Keyword:
         if self.Internal:
             return None
         elif self.Signature:
-            return f"{self.Signature}<Keyword::{self.Enum}>"
+            return f"Signature{self.Signature}<::zmbt::expr::Keyword::{self.Enum}>"
         else:
-            return f"{self.Enum}"
+            return f"Signature{self.Enum}"
 
     @property
     def Name(self) -> str:

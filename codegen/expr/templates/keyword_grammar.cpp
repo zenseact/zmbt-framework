@@ -26,19 +26,20 @@
 
 namespace qi = boost::spirit::qi;
 
-namespace zmbt
-{
+namespace zmbt {
+namespace expr {
+
 
 KeywordSymbol::KeywordSymbol()
 {
     add
 @for keyword in data.Keywords:
-    (ZMBT_KEYWORD_PREFIX "@keyword.Name", zmbt::Keyword::@keyword.Enum)
+    (ZMBT_KEYWORD_PREFIX "@keyword.Name", Keyword::@keyword.Enum)
     @if short := keyword.Short:
-    (ZMBT_KEYWORD_PREFIX "@short", zmbt::Keyword::@keyword.Enum)
+    (ZMBT_KEYWORD_PREFIX "@short", Keyword::@keyword.Enum)
     @end
     @for alias in keyword.Aliases:
-    (ZMBT_KEYWORD_PREFIX "@alias", zmbt::Keyword::@keyword.Enum)
+    (ZMBT_KEYWORD_PREFIX "@alias", Keyword::@keyword.Enum)
     @end
 @end
     ;
@@ -59,4 +60,5 @@ KeywordGrammar::KeywordGrammar()
     ;
 }
 
+} // namespace expr
 } // namespace zmbt

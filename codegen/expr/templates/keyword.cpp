@@ -31,6 +31,8 @@
 
 
 namespace zmbt {
+namespace expr {
+
 void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keyword const& kw)
 {
     switch(kw)
@@ -61,4 +63,6 @@ tag_invoke(boost::json::value_to_tag<Keyword> const&, boost::json::value const& 
     static_cast<void>(boost::spirit::qi::parse(iter, end, keyword_parser, keyword_out));
     return keyword_out;
 }
+
+} // namespace expr
 } // namespace zmbt
