@@ -1,0 +1,16 @@
+FROM gcr.io/bazel-public/bazel:7.4.1
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y wget xz-utils lsb-release software-properties-common gnupg && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod u+x llvm.sh
+RUN ./llvm.sh 17
+RUN clang-17 --version
+
+USER ubuntu
+
+CMD ["bazel"]

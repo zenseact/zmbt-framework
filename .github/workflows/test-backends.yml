@@ -2,16 +2,19 @@ name: Run Tests
 
 on:
   push:
+    tags: [ "*" ]
     branches: [ "main", "dev" ]
   pull_request:
     branches: [ "main", "dev" ]
 
 jobs:
   test:
-    name: Build and test backends/${{ matrix.backend }}
+    name: Build and test backends/${{ matrix.backend }} with ${{ matrix.compiler }}
     runs-on: ubuntu-latest
 
     permissions:
+      checks: write
+      pull-requests: write
       security-events: write
       packages: read
       actions: read
@@ -23,6 +26,10 @@ jobs:
         include:
         - backend: cxx
           script: ci/linux-test-backend-cxx.sh
+          compiler: gcc
+        - backend: cxx
+          script: ci/linux-test-backend-cxx.sh
+          compiler: clang-17
 
     steps:
       - name: Checkout code
@@ -33,4 +40,38 @@ jobs:
         run: |
             mkdir -p /tmp/build_output/
             chmod +x ${{ matrix.script }}
-            ${{ matrix.script }}
+            ${{ matrix.script }} ${{ matrix.compiler }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-backends-${{ matrix.backend }}-${{ matrix.compiler }}
+          path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.xml
+      - name: Upload test logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-backends-${{ matrix.backend }}-${{ matrix.compiler }}
+          path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.log
+
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: test-results-backends-cxx-clang-17
+          path: cxx-clang-17
+      - uses: actions/download-artifact@v4
+        with:
+          name: test-results-backends-cxx-gcc
+          path: cxx-gcc
+      - name: List downloaded files
+        run: ls -R
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          action_fail_on_inconclusive: true
+          junit_files: |
+            cxx-clang-17/**/*.xml
+            cxx-gcc/**/*.xml

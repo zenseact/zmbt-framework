@@ -2,11 +2,11 @@
 
 set -euox pipefail
 
-readonly BAZEL_7_CONTAINER="gcr.io/bazel-public/bazel:7.4.1"
-readonly BAZEL_LATEST_CONTAINER="gcr.io/bazel-public/bazel:latest"
-ROOT_DIR="$(realpath $(dirname ${0})/..)"
+readonly COMPILER=${1:-"gcc"}
+readonly TESTING_CONTAINER="horolsky/testing-zmbt:latest"
+readonly ROOT_DIR="$(realpath $(dirname ${0})/..)"
 
-echo "Test the Bazel 7.4.1 build with GCC"
+echo "Testing ZMBT build with $COMPILER"
 
 time docker run \
   -e USER="$(id -u)" \
@@ -15,8 +15,8 @@ time docker run \
   -v="/tmp/build_output:/tmp/build_output" \
   -w="/src" \
   --rm \
-  --env="CC=/usr/bin/gcc" \
+  --env="CC=/usr/bin/$COMPILER" \
   --env=CXXFLAGS="-Werror -Wdeprecated" \
-  ${BAZEL_7_CONTAINER} \
+  ${TESTING_CONTAINER} \
   --output_user_root=/tmp/build_output \
   test //...
