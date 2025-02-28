@@ -1,5 +1,5 @@
 from functools import cached_property
-from typing import Generator
+from typing import Callable, Generator
 
 
 class Keyword:
@@ -12,7 +12,7 @@ class Keyword:
         return map(lambda d: Keyword(signature, d), definitions)
 
     @property
-    def Internal(self) -> bool:
+    def IsInternal(self) -> bool:
         return self._definition.get('internal', False)
 
     @property
@@ -27,17 +27,40 @@ class Keyword:
     def Tags(self) -> tuple[str]:
         return self._definition.get('tags', tuple())
 
+
     @property
-    def Operator(self) -> bool:
+    def IsConst(self) -> bool:
+        return self.Signature == 'Const'
+
+    @property
+    def IsOperator(self) -> bool:
         return 'operator' in self.Tags
 
     @property
     def CodegenValue(self) -> str:
         return self._definition.get('codegen-value', {}).get(self._backend, None)
 
+    @property
+    def Arity(self) -> str:
+        domain = self._definition.get('domain', None)
+        if domain is None:
+            return 0
+        elif type(domain) is list:
+            return len(domain)
+        elif domain.startswith('list['):
+            return '*'
+        else:
+            return 1
+
+    @property
+
+    @property
+    def Imports(self) -> list[str]:
+        return self._definition.get('imports', {}).get(self._backend, [])
+
     @cached_property
     def Class(self):
-        if self.Internal:
+        if self.IsInternal:
             return None
         elif self.Signature != 'Special':
             return f"Signature{self.Signature}<::zmbt::expr::Keyword::{self.Enum}>"
@@ -103,15 +126,42 @@ class KeywordGrammar:
 
     @property
     def ApiKeywords(self) -> Generator[Keyword, None, None]:
-        return (k for k in self._keywords if not k.Internal)
+        return (k for k in self._keywords if not k.IsInternal)
 
     @property
     def Signatures(self) -> tuple[str]:
         return tuple(k.Signature for k in self._keywords)
 
-    def filter_by_signature(self, signature: str) -> list[Keyword]:
-        return list(filter(lambda k: k.Signature == signature, self._keywords))
-
-    def where(self, **attrs) -> list[Keyword]:
+    def where(self, pred: Callable) -> list[Keyword]:
         "filter Keywords by attributes conjunction"
-        return list(filter(lambda k: all(getattr(k, attr) == val for attr, val in attrs.items()), self._keywords))
+        return list(filter(pred, self._keywords))
+
+    def imports_where(self, pred: Callable) -> list[str]:
+        "get imports for Keywords by attributes"
+        imports = list(set(k.Imports for k in self.where(pred)))
+        imports.sort(key=lambda x: chr(255) + x if '/' in x else x)
+        return imports
+
+    @property
+    def Internals(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsInternal)
+
+    @property
+    def Constants(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsConst)
+
+    @property
+    def Operators(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsOperator)
+
+    @property
+    def UnaryOperators(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsOperator and x.Arity == 1)
+
+    @property
+    def BinaryOperators(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsOperator and x.Arity == 2)
+
+    @property
+    def UnaryMathFns(self) -> list[Keyword]:
+        return self.where(lambda x: x.CodegenValue and not x.IsOperator and not x.IsConst)

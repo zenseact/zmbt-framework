@@ -593,7 +593,6 @@ BOOST_AUTO_TEST_CASE(NotImplemented)
 
 BOOST_AUTO_TEST_CASE(Classifier)
 {
-    auto const test = zmbt::expr::getKeywordClassifier(Keyword::Abs);
-    BOOST_CHECK(std::get<0>(test) == zmbt::expr::Category::Math);
-    BOOST_CHECK(std::get<1>(test) == zmbt::expr::Signature::Unary);
+    auto const test = zmbt::expr::detail::getKeywordClassifier(Keyword::Abs);
+    BOOST_CHECK(test == zmbt::expr::detail::Classifier::UnaryMathFn);
 }

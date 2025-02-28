@@ -19,127 +19,105 @@
 
 namespace zmbt {
 namespace expr {
+namespace detail {
 
-KeywordClassifier getKeywordClassifier(Keyword const& k)
+
+Classifier getKeywordClassifier(Keyword const& k)
 {
     switch (k)
     {
-    case Keyword::Literal: return {Category::Internal, Signature::Special};
-    case Keyword::Void: return {Category::Internal, Signature::Special};
-    case Keyword::Noop: return {Category::Stub, Signature::Const};
-    case Keyword::Null: return {Category::Stub, Signature::Const};
-    case Keyword::True: return {Category::Logic, Signature::Const};
-    case Keyword::False: return {Category::Logic, Signature::Const};
-    case Keyword::Pi: return {Category::Math, Signature::Const};
-    case Keyword::E: return {Category::Math, Signature::Const};
-    case Keyword::Inf: return {Category::Math, Signature::Const};
-    case Keyword::Eps: return {Category::Math, Signature::Const};
-    case Keyword::NaN: return {Category::Math, Signature::Const};
-    case Keyword::Bool: return {Category::Logic, Signature::Unary};
-    case Keyword::Nil: return {Category::Logic, Signature::Unary};
-    case Keyword::Not: return {Category::Logic, Signature::Unary};
-    case Keyword::Neg: return {Category::Math, Signature::Unary};
-    case Keyword::BitNot: return {Category::Math, Signature::Unary};
-    case Keyword::Sqrt: return {Category::Math, Signature::Unary};
-    case Keyword::Sin: return {Category::Math, Signature::Unary};
-    case Keyword::Cos: return {Category::Math, Signature::Unary};
-    case Keyword::Tan: return {Category::Math, Signature::Unary};
-    case Keyword::Asin: return {Category::Math, Signature::Unary};
-    case Keyword::Acos: return {Category::Math, Signature::Unary};
-    case Keyword::Atan: return {Category::Math, Signature::Unary};
-    case Keyword::Sinh: return {Category::Math, Signature::Unary};
-    case Keyword::Cosh: return {Category::Math, Signature::Unary};
-    case Keyword::Tanh: return {Category::Math, Signature::Unary};
-    case Keyword::Asinh: return {Category::Math, Signature::Unary};
-    case Keyword::Acosh: return {Category::Math, Signature::Unary};
-    case Keyword::Atanh: return {Category::Math, Signature::Unary};
-    case Keyword::Exp: return {Category::Math, Signature::Unary};
-    case Keyword::Erf: return {Category::Math, Signature::Unary};
-    case Keyword::Erfc: return {Category::Math, Signature::Unary};
-    case Keyword::Gamma: return {Category::Math, Signature::Unary};
-    case Keyword::Abs: return {Category::Math, Signature::Unary};
-    case Keyword::Ceil: return {Category::Math, Signature::Unary};
-    case Keyword::Floor: return {Category::Math, Signature::Unary};
-    case Keyword::Sign: return {Category::Math, Signature::Unary};
-    case Keyword::Sum: return {Category::Math, Signature::UnaryParam};
-    case Keyword::Prod: return {Category::Math, Signature::UnaryParam};
-    case Keyword::Round: return {Category::Math, Signature::UnaryParam};
-    case Keyword::Add: return {Category::Math, Signature::Binary};
-    case Keyword::Sub: return {Category::Math, Signature::Binary};
-    case Keyword::SubFrom: return {Category::Math, Signature::Binary};
-    case Keyword::Mul: return {Category::Math, Signature::Binary};
-    case Keyword::Div: return {Category::Math, Signature::Binary};
-    case Keyword::DivFrom: return {Category::Math, Signature::Binary};
-    case Keyword::Pow: return {Category::Math, Signature::Binary};
-    case Keyword::PowFrom: return {Category::Math, Signature::Binary};
-    case Keyword::Log: return {Category::Math, Signature::Binary};
-    case Keyword::LogFrom: return {Category::Math, Signature::Binary};
-    case Keyword::Mod: return {Category::Math, Signature::Binary};
-    case Keyword::ModFrom: return {Category::Math, Signature::Binary};
-    case Keyword::Quot: return {Category::Math, Signature::Binary};
-    case Keyword::QuotFrom: return {Category::Math, Signature::Binary};
-    case Keyword::BitAnd: return {Category::Math, Signature::Binary};
-    case Keyword::BitOr: return {Category::Math, Signature::Binary};
-    case Keyword::BitXor: return {Category::Math, Signature::Binary};
-    case Keyword::BitLshift: return {Category::Math, Signature::Binary};
-    case Keyword::BitLshiftFrom: return {Category::Math, Signature::Binary};
-    case Keyword::BitRshift: return {Category::Math, Signature::Binary};
-    case Keyword::BitRshiftFrom: return {Category::Math, Signature::Binary};
-    case Keyword::Eq: return {Category::Relation, Signature::Binary};
-    case Keyword::Ne: return {Category::Relation, Signature::Binary};
-    case Keyword::Lt: return {Category::Relation, Signature::Binary};
-    case Keyword::Le: return {Category::Relation, Signature::Binary};
-    case Keyword::Gt: return {Category::Relation, Signature::Binary};
-    case Keyword::Ge: return {Category::Relation, Signature::Binary};
-    case Keyword::Approx: return {Category::Relation, Signature::Special};
-    case Keyword::And: return {Category::Logic, Signature::Binary};
-    case Keyword::Or: return {Category::Logic, Signature::Binary};
-    case Keyword::SetEq: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::Subset: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::Superset: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::ProperSubset: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::ProperSuperset: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::In: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::NotIn: return {Category::Relation, Signature::BinarySetRhs};
-    case Keyword::Ni: return {Category::Relation, Signature::Binary};
-    case Keyword::NotNi: return {Category::Relation, Signature::Binary};
-    case Keyword::Union: return {Category::Set, Signature::BinarySetRhs};
-    case Keyword::Intersect: return {Category::Set, Signature::BinarySetRhs};
-    case Keyword::Diff: return {Category::Set, Signature::BinarySetRhs};
-    case Keyword::DiffFrom: return {Category::Set, Signature::BinarySetRhs};
-    case Keyword::Concat: return {Category::Transform, Signature::Variadic};
-    case Keyword::Cartesian: return {Category::Transform, Signature::Variadic};
-    case Keyword::List: return {Category::Transform, Signature::Variadic};
-    case Keyword::Transp: return {Category::Transform, Signature::Unary};
-    case Keyword::Uniques: return {Category::Transform, Signature::Unary};
-    case Keyword::Id: return {Category::Transform, Signature::Unary};
-    case Keyword::Card: return {Category::Property, Signature::Unary};
-    case Keyword::Size: return {Category::Property, Signature::Unary};
-    case Keyword::Slide: return {Category::Transform, Signature::Binary};
-    case Keyword::Stride: return {Category::Transform, Signature::Binary};
-    case Keyword::Repeat: return {Category::Transform, Signature::Binary};
-    case Keyword::Re: return {Category::Transform, Signature::Binary};
-    case Keyword::At: return {Category::Transform, Signature::Binary};
-    case Keyword::Map: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Filter: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Count: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Sort: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Min: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Max: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Argmin: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Argmax: return {Category::HiOrd, Signature::HiOrd};
-    case Keyword::Recur: return {Category::HiOrd, Signature::HiOrdParam};
-    case Keyword::Apply: return {Category::HiOrd, Signature::HiOrdParam};
-    case Keyword::Bind: return {Category::HiOrd, Signature::HiOrdParam};
-    case Keyword::Reduce: return {Category::HiOrd, Signature::HiOrdParamOpt};
-    case Keyword::Any: return {Category::HiOrd, Signature::HiOrdVariadic};
-    case Keyword::All: return {Category::HiOrd, Signature::HiOrdVariadic};
-    case Keyword::Saturate: return {Category::HiOrd, Signature::HiOrdVariadic};
-    case Keyword::Compose: return {Category::HiOrd, Signature::HiOrdVariadic};
+    case Keyword::Literal:
+    case Keyword::Void:
+        return Classifier::Internal;
+    case Keyword::Noop:
+    case Keyword::Null:
+    case Keyword::True:
+    case Keyword::False:
+    case Keyword::Pi:
+    case Keyword::E:
+    case Keyword::Inf:
+    case Keyword::Eps:
+    case Keyword::NaN:
+        return Classifier::Const;
+    case Keyword::Bool:
+    case Keyword::Nil:
+    case Keyword::Not:
+    case Keyword::Neg:
+    case Keyword::BitNot:
+    case Keyword::Approx:
+        return Classifier::UnaryOp;
+    case Keyword::Sqrt:
+    case Keyword::Sin:
+    case Keyword::Cos:
+    case Keyword::Tan:
+    case Keyword::Asin:
+    case Keyword::Acos:
+    case Keyword::Atan:
+    case Keyword::Sinh:
+    case Keyword::Cosh:
+    case Keyword::Tanh:
+    case Keyword::Asinh:
+    case Keyword::Acosh:
+    case Keyword::Atanh:
+    case Keyword::Exp:
+    case Keyword::Erf:
+    case Keyword::Erfc:
+    case Keyword::Gamma:
+    case Keyword::Abs:
+    case Keyword::Ceil:
+    case Keyword::Floor:
+    case Keyword::Sign:
+    case Keyword::Id:
+        return Classifier::UnaryMathFn;
+    case Keyword::Add:
+    case Keyword::Sub:
+    case Keyword::SubFrom:
+    case Keyword::Mul:
+    case Keyword::Div:
+    case Keyword::DivFrom:
+    case Keyword::Pow:
+    case Keyword::PowFrom:
+    case Keyword::Log:
+    case Keyword::LogFrom:
+    case Keyword::Mod:
+    case Keyword::ModFrom:
+    case Keyword::Quot:
+    case Keyword::QuotFrom:
+    case Keyword::BitAnd:
+    case Keyword::BitOr:
+    case Keyword::BitXor:
+    case Keyword::BitLshift:
+    case Keyword::BitLshiftFrom:
+    case Keyword::BitRshift:
+    case Keyword::BitRshiftFrom:
+    case Keyword::Eq:
+    case Keyword::Ne:
+    case Keyword::Lt:
+    case Keyword::Le:
+    case Keyword::Gt:
+    case Keyword::Ge:
+    case Keyword::And:
+    case Keyword::Or:
+    case Keyword::SetEq:
+    case Keyword::Subset:
+    case Keyword::Superset:
+    case Keyword::ProperSubset:
+    case Keyword::ProperSuperset:
+    case Keyword::In:
+    case Keyword::NotIn:
+    case Keyword::Ni:
+    case Keyword::NotNi:
+    case Keyword::Union:
+    case Keyword::Intersect:
+    case Keyword::Diff:
+    case Keyword::DiffFrom:
+        return Classifier::BinaryOp;
     default:
-        return {Category::Undefined, Signature::Undefined};
+        return Classifier::Special;
     }
+
 }
 
+} // namespace detail
 } // namespace expr
 } // namespace zmbt

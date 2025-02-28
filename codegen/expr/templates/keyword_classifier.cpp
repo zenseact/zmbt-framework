@@ -20,18 +20,39 @@
 
 namespace zmbt {
 namespace expr {
+namespace detail {
 
-KeywordClassifier getKeywordClassifier(Keyword const& k)
+
+Classifier getKeywordClassifier(Keyword const& k)
 {
     switch (k)
     {
-@for keyword in data.Keywords:
-    case Keyword::@keyword.Enum: return {Category::@keyword.Category, Signature::@keyword.Signature};
+@for keyword in data.Internals:
+    case Keyword::@keyword.Enum:
 @end
+        return Classifier::Internal;
+@for keyword in data.Constants:
+    case Keyword::@keyword.Enum:
+@end
+        return Classifier::Const;
+@for keyword in data.UnaryOperators:
+    case Keyword::@keyword.Enum:
+@end
+        return Classifier::UnaryOp;
+@for keyword in data.UnaryMathFns:
+    case Keyword::@keyword.Enum:
+@end
+        return Classifier::UnaryMathFn;
+@for keyword in data.BinaryOperators:
+    case Keyword::@keyword.Enum:
+@end
+        return Classifier::BinaryOp;
     default:
-        return {Category::Undefined, Signature::Undefined};
+        return Classifier::Special;
     }
+
 }
 
+} // namespace detail
 } // namespace expr
 } // namespace zmbt

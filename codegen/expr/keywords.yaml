@@ -508,7 +508,6 @@ keyword_groups:
         domain: real
         codomain: bool
         commutative: false
-        tags: null
         params:
           - label: ref
             type: real
