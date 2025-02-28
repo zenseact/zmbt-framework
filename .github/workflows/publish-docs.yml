@@ -1,0 +1,61 @@
+name: Generate API Reference
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Test and Scan Backends, Test and Scan Python]
+    types:
+      - completed
+  push:
+    tags: [ "*" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  setup:
+    name: initial-setup
+
+    runs-on: ubuntu-latest
+    outputs:
+        releaseTags: ${{ steps.get_latest_release.outputs.data }}
+        latestTag: ${{ steps.get_latest_release.outputs.latest }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all history
+
+      - name: Get all tags for upcoming matrix
+        id: get_latest_release
+        run: |
+          echo "DATA=[\"$(echo $(git tag --sort=-creatordate ) | sed 's/ /\", \"/g')\"]" >> "$GITHUB_OUTPUT"
+          echo "LATEST=$(echo $(git tag -l --sort=-creatordate | head -n 1 ))" >> "$GITHUB_OUTPUT"
+
+  doxygen:
+    needs: setup
+
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Documentation
+        uses: mattnotmitt/doxygen-action@v1.12
+        with:
+          working-directory: "./docs/doxygen/"
+          enable-latex: false
+
+      - name: Upload these docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ needs.setup.outputs.latestTag }}
+          path: './docs/doxygen'

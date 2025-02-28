@@ -3,9 +3,9 @@ name: Test and Scan Backends
 on:
   push:
     tags: [ "*" ]
-    branches: [ "main", "dev" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: [ "main" ]
 
 jobs:
   setup-cxx:

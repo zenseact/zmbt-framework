@@ -3,9 +3,9 @@ name: Test and Scan Python
 on:
   push:
     tags: [ "*" ]
-    branches: [ "main", "dev" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: [ "main" ]
 
 jobs:
   codeql-scan-python:

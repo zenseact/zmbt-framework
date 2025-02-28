@@ -10,6 +10,10 @@ The framework conceptualizes a software test as a mathematical problem.
 It enables users to define test parameters and goals using a declarative
 modeling syntax, upon which automated verification procedures are applied.
 
+[![Test and Scan Backends](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-backends.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-backends.yml)
+[![Test and Scan Python](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-python.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-python.yml)
+[![Generate API Reference](https://github.com/zenseact/zmbt-framework/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/publish-docs.yml)
+
 
 ## Model-Based testing
 
@@ -48,10 +52,12 @@ In the long term, we plan to introduce Finite-State Automata test models that wi
 4. Run `bazel test //...` to compile and run tests
 5. (Linux) Run `./docs/generate_doxy.sh` to generate API Reference with Doxygen (see also: [#6](https://github.com/zenseact/zmbt-framework/issues/6))
 
+Alternatively, run tests in Docker with `test/linux-test-backend-cxx.sh <compiler>`
+(supported compiler options - `gcc`, `clang-17`).
 
 ### Linux setup
 
-The build is not yet hermetic and you may face errors related to ccache, depending on it's configuration (see `cchache -p`).
+With local builds you may face errors related to ccache, depending on it's configuration (see `cchache -p`).
 It can be solved by setting the ccache `temporary_dir` to `/run/user/1000/ccache-tmp` (check the permissions)
 to enable local ccache in Bazel sandbox mode, or by passing `--spawn_strategy=standalone` to bazel commands to turn off the sandboxing. The problem should be addressed in [#5 issue](https://github.com/zenseact/zmbt-framework/issues/5).
 
@@ -66,7 +72,6 @@ zmbt_tag = ...
 
 http_archive(
     name = "zmbt",
-    netrc = NETRC_PATH,
     sha256 = ...,
     strip_prefix = "zmbt-framework-{}".format(zmbt_tag),
     urls = [
