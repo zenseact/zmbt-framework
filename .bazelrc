@@ -1,7 +1,8 @@
 common --enable_bzlmod=false --enable_platform_specific_config
+startup --output_user_root=/tmp/build_output
 
 build:linux --sandbox_add_mount_pair=/tmp
-# build:linux --sandbox_writable_path=/run/user/1000/ccache-tmp
+
 build:macos --sandbox_add_mount_pair=/var/tmp
 build:windows --sandbox_add_mount_pair=C:\Temp
 

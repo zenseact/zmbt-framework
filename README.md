@@ -45,21 +45,10 @@ In the long term, we plan to introduce Finite-State Automata test models that wi
 
 ## Build and test
 
-1. [Install Bazel](https://github.com/bazelbuild/bazel/releases/tag/7.4.1)
-2. (optional) Install ccache and doxygen: `sudo apt update && sudo install ccache doxygen`
-3. (optional) Install codegen dependencies: `python -m pip install wheezy.template ruamel.yaml`
-3. Run `bazel query //...` to list the targets
-4. Run `bazel test //...` to compile and run tests
-5. (Linux) Run `./docs/generate_doxy.sh` to generate API Reference with Doxygen (see also: [#6](https://github.com/zenseact/zmbt-framework/issues/6))
-
-Alternatively, run tests in Docker with `test/linux-test-backend-cxx.sh <compiler>`
-(supported compiler options - `gcc`, `clang-17`).
-
-### Linux setup
-
-With local builds you may face errors related to ccache, depending on it's configuration (see `cchache -p`).
-It can be solved by setting the ccache `temporary_dir` to `/run/user/1000/ccache-tmp` (check the permissions)
-to enable local ccache in Bazel sandbox mode, or by passing `--spawn_strategy=standalone` to bazel commands to turn off the sandboxing. The problem should be addressed in [#5 issue](https://github.com/zenseact/zmbt-framework/issues/5).
+ - `./run-dev-container.sh <compiler>` - run dev container shell. Supported options - `clang-17` (default), `gcc`.
+ - `python -m codegen` - run code autogeneration
+ - `bazel test //...` - compile and run tests
+ - `./docs/generate_doxy.sh` - generate docs
 
 
 ## How to use

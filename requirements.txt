@@ -1,0 +1,10 @@
+ruamel.yaml>=0.18
+wheezy.template>=3.2
+tox>=4.3
+pytest>=8.3
+pytest-cov>=6.0
+mkdocs>=1.6
+click >= 8.1
+jsonschema >= 4.15
+progress>=1.6
+flit_core>=3.2,<4
