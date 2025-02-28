@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE(JsonProdIterEmpty)
 
 BOOST_AUTO_TEST_CASE(JsonIterUnary)
 {
-    JsonZipIter zip {boost::json::array{boost::json::array{42, 13}}};
+    JsonZipIter zip {boost::json::array{{42, 13}}};
     BOOST_CHECK(!zip.halt());
     BOOST_CHECK_EQUAL(*zip, (boost::json::array{42}));
     BOOST_CHECK_EQUAL(*zip++, (boost::json::array{13}));

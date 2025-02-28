@@ -88,7 +88,11 @@ public:
         init_iters(owned_sequences_);
     }
 
-    JsonIterZipProdBase() : JsonIterZipProdBase(boost::json::array{boost::json::array{}}) // default iter yields empty set
+    JsonIterZipProdBase() : JsonIterZipProdBase([]{
+            boost::json::array arr {};
+            arr.push_back(boost::json::array{});
+            return arr;
+        }()) // default iter yields empty set
     {
     }
 

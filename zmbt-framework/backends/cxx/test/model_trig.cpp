@@ -202,8 +202,8 @@ struct Final final : public virtual Base
 
 BOOST_FIXTURE_TEST_CASE(TriggerObjCtor, TestMappingTrigger, *boost::unit_test::disabled())
 {
-    TriggerObj(&Base::test_method);
-    TriggerObj(&Base::test_field);
+    auto const trig_test_method = TriggerObj(&Base::test_method);
+    auto const trig_test_field = TriggerObj(&Base::test_field);
     using free_fn_ptr = decltype(&return_int);
     using free_fn_ref = decltype(return_int);
 
