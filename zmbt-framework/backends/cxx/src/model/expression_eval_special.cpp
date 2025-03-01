@@ -5,7 +5,6 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include "zmbt/logging.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
@@ -215,7 +214,8 @@ V eval_impl<Keyword::Approx>(V const& params, V const& sample, O const&)
     // Based on numpy.isclose
     // absolute(a - b) <= (atol + rtol * absolute(b))
 
-    // TODO: handle invalid expr
+    ASSERT(params.is_array() || sample.is_number());
+
     auto const& args = params.get_array();
 
     double ref_value = args.at(0).as_double();
@@ -243,7 +243,7 @@ V eval_impl<Keyword::Size>(V const& params, V const& sample, O const&)
     }
     else
     {
-        ZMBT_LOG_JSON(warning) << "invalid Size application";
+        throw zmbt::expression_error("invalid Size operand: %s", sample);
     }
     return size;
 }
@@ -267,7 +267,7 @@ V eval_impl<Keyword::Card>(V const& params, V const& sample, O const&)
     }
     else
     {
-        ZMBT_LOG_JSON(warning) << "invalid Card application";
+        throw zmbt::expression_error("invalid Card operand: %s", sample);
     }
     return card;
 }
@@ -456,7 +456,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         default:
         {
             // TODO: throw
-            throw zmbt::expression_error("%s keyword not implemented", json_from(keyword()));
+            throw zmbt::expression_not_implemented("%s keyword not implemented", json_from(keyword()));
             return nullptr;
         }
     }

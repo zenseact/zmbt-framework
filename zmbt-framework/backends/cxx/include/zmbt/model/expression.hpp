@@ -60,35 +60,10 @@ public:
     template <class T>
     Expression(T const& sample) : Expression(json_from(sample)) {}
 
-    Expression(Expression const& o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = o.underlying_;
-        params_ptr_ = o.params_ptr_;
-    }
-
-    Expression(Expression && o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = std::move(o.underlying_);
-        params_ptr_ = o.params_ptr_;
-    }
-
-    Expression& operator=(Expression const& o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = o.underlying_;
-        params_ptr_ = o.params_ptr_;
-        return *this;
-    }
-
-    Expression& operator=(Expression && o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = std::move(o.underlying_);
-        params_ptr_ = o.params_ptr_;
-        return *this;
-    }
+    Expression(Expression const& o);
+    Expression(Expression && o);
+    Expression& operator=(Expression const& o);
+    Expression& operator=(Expression && o);
 
     /// \brief Compose expressions left-to-right
     /// \details Pipe functional expressions in composition,

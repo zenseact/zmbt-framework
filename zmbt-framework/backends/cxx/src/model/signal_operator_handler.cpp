@@ -83,9 +83,12 @@ boost::json::value SignalOperatorHandler::apply(expr::Keyword const& keyword, bo
 
     case expr::Keyword::Add: return operators.add_(lhs, rhs);
     case expr::Keyword::Sub: return operators.sub_(lhs, rhs);
+    case expr::Keyword::SubFrom: return operators.sub_(rhs, lhs);
     case expr::Keyword::Mul: return operators.mul_(lhs, rhs);
     case expr::Keyword::Div: return operators.div_(lhs, rhs);
+    case expr::Keyword::DivFrom: return operators.div_(rhs, lhs);
     case expr::Keyword::Mod: return operators.mod_(lhs, rhs);
+    case expr::Keyword::ModFrom: return operators.mod_(rhs, lhs);
 
     case expr::Keyword::Neg   : return operators.neg_(rhs);
     case expr::Keyword::BitNot: return operators.compl_(rhs);
@@ -108,15 +111,15 @@ boost::json::value SignalOperatorHandler::apply(expr::Keyword const& keyword, bo
     case expr::Keyword::NotNi: return !contains(lhs, rhs);
     case expr::Keyword::Approx: return is_approx(lhs, rhs);
 
-    case expr::Keyword::Pow:
-    {
-        return GenericSignalOperator(lhs).pow(rhs);
-    }
-    // case expr::Keyword::Log: return TODO
-    // case expr::Keyword::Quot: return TODO
+    case expr::Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
+    case expr::Keyword::PowFrom:  return GenericSignalOperator(rhs).pow(lhs);
+    case expr::Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
+    case expr::Keyword::LogFrom:  return GenericSignalOperator(rhs).log(lhs);
+    case expr::Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
+    case expr::Keyword::QuotFrom: return GenericSignalOperator(rhs).quot(lhs);
 
     default:
-        throw expression_error("invalid operand");
+        throw expression_not_implemented("unsupported operator");
         return nullptr;
     }
 }

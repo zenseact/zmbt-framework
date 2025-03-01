@@ -45,10 +45,6 @@ inline bool operator<(const TestStruct& lhs, const TestStruct& rhs)
     return (lhs.x < rhs.x) or (lhs.y < rhs.y);
 }
 
-inline bool operator==(const TestStruct& lhs, const TestStruct& rhs)
-{
-    return (lhs.x == rhs.x) and (lhs.y == rhs.y);
-}
 }
 
 template<> struct std::hash<TestStruct>
@@ -123,21 +119,6 @@ using UmapStr2VectorEnum   = std::unordered_map<TestString, VectorEnum>  ;  DEF_
 using UmapStr2VectorStruct = std::unordered_map<TestString, VectorStruct>;  DEF_TEST_VAL(UmapStr2VectorStruct, TEST_KV_PAIR_S(VectorStruct))
 using UmapStr2VectorString = std::unordered_map<TestString, VectorString>;  DEF_TEST_VAL(UmapStr2VectorString, TEST_KV_PAIR_S(VectorString))
 
-
-using TestTuple = std::tuple<
-    ArrayInt,
-    ArrayDouble,
-    ArrayEnum,
-    ArrayStruct,
-    ArrayString
->;
-DEF_TEST_VAL(TestTuple, {
-    test_value_for<ArrayInt>(),
-    test_value_for<ArrayDouble>(),
-    test_value_for<ArrayEnum>(),
-    test_value_for<ArrayStruct>(),
-    test_value_for<ArrayString>()
-})
 
 
 using SmokeTestTypes = mp_list<

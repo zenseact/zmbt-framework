@@ -43,6 +43,35 @@ Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&
 {
 }
 
+Expression::Expression(Expression const& o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = o.underlying_;
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+}
+
+Expression::Expression(Expression && o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = std::move(o.underlying_);
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+}
+
+Expression& Expression::operator=(Expression const& o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = o.underlying_;
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+    return *this;
+}
+
+Expression& Expression::operator=(Expression && o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = std::move(o.underlying_);
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+    return *this;
+}
 
 Expression::Expression(Keyword const& keyword, boost::json::value const& params)
     : Expression(internal_tag{}, keyword, get_underlying(keyword, params))

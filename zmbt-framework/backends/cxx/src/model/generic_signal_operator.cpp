@@ -292,6 +292,8 @@ boost::json::kind common_arithmetic_kind(boost::json::value const& a, boost::jso
 #define CASE_INT64  case boost::json::kind::int64:   return boost::json::value_to<std::int64_t>(value_) X_OP boost::json::value_to<std::int64_t>(rhs.value_);
 #define CASE_UINT64 case boost::json::kind::uint64:  return boost::json::value_to<std::size_t>(value_)  X_OP boost::json::value_to<std::size_t>(rhs.value_);
 #define STR(a) #a
+
+
 #define BINOP_IMPL                                      \
 if (value_.is_null() || rhs.value_.is_null())           \
 {                                                       \
@@ -312,11 +314,6 @@ default:                                                \
     return nullptr;                                     \
 }
 
-
-// bool GenericSignalOperator::operator!() const
-// {
-//     return false;
-// }
 
 GenericSignalOperator GenericSignalOperator::operator&&(GenericSignalOperator const& rhs) const
 {
@@ -361,16 +358,6 @@ boost::json::value GenericSignalOperator::operator*(GenericSignalOperator const&
 #undef X_BINOP_CASES
 }
 
-boost::json::value GenericSignalOperator::operator/(GenericSignalOperator const& rhs) const
-{
-#define X_OP            /
-#define X_ZERO_DIV      true
-#define X_BINOP_CASES   CASE_INT64 CASE_UINT64 CASE_DOUBLE
-    BINOP_IMPL
-#undef X_OP
-#undef X_ZERO_DIV
-#undef X_BINOP_CASES
-}
 
 boost::json::value GenericSignalOperator::operator%(GenericSignalOperator const& rhs) const
 {
@@ -421,6 +408,56 @@ boost::json::value GenericSignalOperator::operator^(GenericSignalOperator const&
 #undef CASE_DOUBLE
 #undef ZMBT_GSO_BIN_OP
 
+boost::json::value GenericSignalOperator::operator/(GenericSignalOperator const& rhs) const
+{
+    if (value_.is_null() || rhs.value_.is_null())
+    {
+        return nullptr;
+    }
+    boost::json::kind result_kind =
+        common_arithmetic_kind(value_, rhs.value_);
+
+    if (result_kind == boost::json::kind::null)
+    {
+        throw expression_error("invalid division operands");
+    }
+    if(boost::json::value_to<double>(rhs.value_) == 0)
+    {
+        throw expression_error("zero division");
+    }
+
+    double const result_double = boost::json::value_to<double>(value_) / boost::json::value_to<double>(rhs.value_);
+
+    switch (result_kind)
+    {
+    case boost::json::kind::double_:
+        return result_double;
+    case boost::json::kind::uint64:
+    {
+        if(0 == boost::json::value_to<std::uint64_t>(value_) % boost::json::value_to<std::uint64_t>(rhs.value_))
+        {
+            return boost::json::value_to<std::uint64_t>(value_) / boost::json::value_to<std::uint64_t>(rhs.value_);
+        }
+        else
+        {
+            return result_double;
+        }
+    }
+    case boost::json::kind::int64:
+    {
+        if(0 == boost::json::value_to<std::int64_t>(value_) % boost::json::value_to<std::int64_t>(rhs.value_))
+        {
+            return boost::json::value_to<std::int64_t>(value_) / boost::json::value_to<std::int64_t>(rhs.value_);
+        }
+        else
+        {
+            return result_double;
+        }
+    }
+    default:
+        return 0;
+    }
+}
 
 boost::json::value GenericSignalOperator::pow(GenericSignalOperator const& rhs) const
 {
@@ -436,9 +473,9 @@ boost::json::value GenericSignalOperator::pow(GenericSignalOperator const& rhs) 
         throw expression_error("invalid power operands");
     }
 
-    double result_double = std::pow(boost::json::value_to<double>(value_),boost::json::value_to<double>(rhs.value_));
-    std::int64_t result_int64 = static_cast<std::int64_t>(result_double);
-    std::int64_t result_uint64 = static_cast<std::size_t>(result_double);
+    double const result_double = std::pow(boost::json::value_to<double>(value_), boost::json::value_to<double>(rhs.value_));
+    std::int64_t const result_int64 = static_cast<std::int64_t>(result_double);
+    std::int64_t const result_uint64 = static_cast<std::size_t>(result_double);
 
     if (result_double == result_uint64)
     {
@@ -450,6 +487,68 @@ boost::json::value GenericSignalOperator::pow(GenericSignalOperator const& rhs) 
     }
     else {
         return result_double;
+    }
+}
+
+boost::json::value GenericSignalOperator::log(GenericSignalOperator const& rhs) const
+{
+    if (value_.is_null() || rhs.value_.is_null())
+    {
+        return nullptr;
+    }
+    boost::json::kind result_kind =
+        common_arithmetic_kind(value_, rhs.value_);
+
+    if (result_kind == boost::json::kind::null)
+    {
+        throw expression_error("invalid power operands");
+    }
+
+    double const result_double = std::log(boost::json::value_to<double>(value_)) / std::log(boost::json::value_to<double>(rhs.value_));
+    std::int64_t const result_int64 = static_cast<std::int64_t>(result_double);
+    std::int64_t const result_uint64 = static_cast<std::size_t>(result_double);
+
+    if (result_double == result_uint64)
+    {
+        return result_uint64;
+    }
+    else if (result_double == result_int64)
+    {
+        return result_int64;
+    }
+    else {
+        return result_double;
+    }
+}
+
+boost::json::value GenericSignalOperator::quot(GenericSignalOperator const& rhs) const
+{
+    if (value_.is_null() || rhs.value_.is_null())
+    {
+        return nullptr;
+    }
+    boost::json::kind result_kind =
+        common_arithmetic_kind(value_, rhs.value_);
+
+    if (result_kind == boost::json::kind::null)
+    {
+        throw expression_error("invalid division operands");
+    }
+
+    if(boost::json::value_to<double>(rhs.value_) == 0)
+    {
+        throw expression_error("zero division");
+    }
+
+    switch (result_kind)
+    {
+    case boost::json::kind::double_:
+    case boost::json::kind::int64:
+        return boost::json::value_to<std::int64_t>(value_) / boost::json::value_to<std::int64_t>(rhs.value_);
+    case boost::json::kind::uint64:
+        return boost::json::value_to<std::uint64_t>(value_) / boost::json::value_to<std::uint64_t>(rhs.value_);
+    default:
+        return 0;
     }
 }
 
