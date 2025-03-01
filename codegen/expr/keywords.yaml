@@ -222,7 +222,7 @@ keyword_groups:
       - name: gamma
         brief: Gamma function
         codegen-value:
-          cxx: std::gamma(boost::json::value_to<double>(x))
+          cxx: std::tgamma(boost::json::value_to<double>(x))
 
       - name: abs
         brief: Absolute value
@@ -501,6 +501,7 @@ keyword_groups:
 
       - name: approx
         signature: Special
+        tags: []
         brief: Floating point approximately equal
         details: |-
           Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))

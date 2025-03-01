@@ -9,9 +9,8 @@
 #include "zmbt/model/expression_api.hpp"
 
 namespace zmbt {
-
-namespace detail
-{
+namespace expr {
+namespace detail {
     boost::json::value as_set(std::initializer_list<boost::json::value_ref> set)
     {
         boost::json::value val(set);
@@ -24,7 +23,8 @@ namespace detail
             return boost::json::array{val};
         }
     }
-}
+} // namespace detail
+} // namespace expr
 
 Expression operator|(Expression const& lhs, Expression const& rhs)
 {

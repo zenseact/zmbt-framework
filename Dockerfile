@@ -4,7 +4,7 @@ USER root
 
 RUN apt-get update && \
     apt-get install -y \
-    gcc make cmake git \
+    gcc make cmake git gdb \
     doxygen graphviz \
     git cmake python3.12 python3-pip python-is-python3 \
     unzip zip wget xz-utils lsb-release \

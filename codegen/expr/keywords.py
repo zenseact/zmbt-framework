@@ -53,8 +53,6 @@ class Keyword:
             return 1
 
     @property
-
-    @property
     def Imports(self) -> list[str]:
         return self._definition.get('imports', {}).get(self._backend, [])
 
@@ -136,9 +134,9 @@ class KeywordGrammar:
         "filter Keywords by attributes conjunction"
         return list(filter(pred, self._keywords))
 
-    def imports_where(self, pred: Callable) -> list[str]:
-        "get imports for Keywords by attributes"
-        imports = list(set(k.Imports for k in self.where(pred)))
+    def imports_for(self, keywords: list[Keyword]) -> list[str]:
+        "get imports for Keywords"
+        imports = list(set(lib for k in keywords for lib in k.Imports))
         imports.sort(key=lambda x: chr(255) + x if '/' in x else x)
         return imports
 

@@ -16,16 +16,10 @@
 #include "expression.hpp"
 
 namespace zmbt {
-
-
-
-namespace detail
-{
+namespace expr {
+namespace detail {
     boost::json::value as_set(std::initializer_list<boost::json::value_ref> set);
 }
-
-namespace expr
-{
 
 template <Keyword K>
 struct SignatureBase : public Expression

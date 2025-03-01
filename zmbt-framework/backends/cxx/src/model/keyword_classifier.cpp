@@ -44,7 +44,6 @@ Classifier getKeywordClassifier(Keyword const& k)
     case Keyword::Not:
     case Keyword::Neg:
     case Keyword::BitNot:
-    case Keyword::Approx:
         return Classifier::UnaryOp;
     case Keyword::Sqrt:
     case Keyword::Sin:
