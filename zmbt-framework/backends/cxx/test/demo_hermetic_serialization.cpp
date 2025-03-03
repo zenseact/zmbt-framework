@@ -27,7 +27,7 @@ boost::json::value test_conversion(T&& t)
 // SUT defines template serialization
 template <class T>
 std::enable_if_t<std::is_base_of<Foo, T>::value>
-tag_invoke(boost::json::value_from_tag, boost::json::value& v, T const& t)
+tag_invoke(boost::json::value_from_tag, boost::json::value& v, T const&)
 {
     v = zmbt::type_name<T>();
 }
@@ -49,7 +49,7 @@ tag_invoke(boost::json::value_from_tag, boost::json::value& v, T const& t)
     template <>
     struct zmbt::reflect::custom_serialization<sut::Bar>
     {
-        static boost::json::value json_from(sut::Bar const& t)
+        static boost::json::value json_from(sut::Bar const&)
         {
             return "Lol";
         }

@@ -195,14 +195,10 @@ struct default_serialization<T, first_if_t<void,
 
     static boost::json::value json_from(T const& t)
     {
-        using FuncDescr = boost::describe::describe_members<T, boost::describe::mod_public | boost::describe::mod_protected | boost::describe::mod_function>;
-        using PrivateDescr = boost::describe::describe_members<T, boost::describe::mod_private>;
 
-        static_assert(boost::mp11::mp_empty<FuncDescr>::value, "member functions are not supported by default, provide a specialization");
-        static_assert(boost::mp11::mp_empty<PrivateDescr>::value, "private members are not supported by default, provide a specialization");
         static_assert(not std::is_union<T>::value, "union types are not supported by default, provide a specialization");
 
-        using Descr = boost::describe::describe_members<T, boost::describe::mod_public | boost::describe::mod_inherited | boost::describe::mod_protected>;
+        using Descr = boost::describe::describe_members<T, boost::describe::mod_public | boost::describe::mod_inherited | boost::describe::mod_protected | boost::describe::mod_private>;
 
         boost::json::value v;
 
@@ -217,14 +213,10 @@ struct default_serialization<T, first_if_t<void,
 
     static T dejsonize(boost::json::value const& v)
     {
-        using FuncDescr = boost::describe::describe_members<T, boost::describe::mod_public | boost::describe::mod_protected | boost::describe::mod_function>;
-        using PrivateDescr = boost::describe::describe_members<T, boost::describe::mod_private>;
 
-        static_assert(boost::mp11::mp_empty<FuncDescr>::value, "member functions are not supported by default, provide a specialization");
-        static_assert(boost::mp11::mp_empty<PrivateDescr>::value, "private members are not supported by default, provide a specialization");
         static_assert(not std::is_union<T>::value, "union types are not supported by default, provide a specialization");
 
-        using Descr = boost::describe::describe_members<T, boost::describe::mod_public | boost::describe::mod_inherited | boost::describe::mod_protected>;
+        using Descr = boost::describe::describe_members<T, boost::describe::mod_public | boost::describe::mod_inherited | boost::describe::mod_protected | boost::describe::mod_private>;
 
         auto const& obj = v.as_object();
 

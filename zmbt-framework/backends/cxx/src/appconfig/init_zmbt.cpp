@@ -9,6 +9,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <string>
 
 #include <boost/json.hpp>
 #include <boost/log/core.hpp>

@@ -195,8 +195,8 @@ struct Final final : public virtual Base
 
 ZMBT_INJECT_JSON_TAG_INVOKE
 
-BOOST_DESCRIBE_STRUCT(Base, (), (test_field, another_field))
-BOOST_DESCRIBE_STRUCT(Final, (Base), ())
+BOOST_DESCRIBE_STRUCT(Base, (void), (test_field, another_field))
+BOOST_DESCRIBE_STRUCT(Final, (Base), ((Final&(Final const&))operator=))
 
 } // namespace s
 

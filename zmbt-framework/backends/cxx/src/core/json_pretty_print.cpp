@@ -16,6 +16,7 @@
 std::ostream& zmbt::pretty_print(std::ostream& os, boost::json::value const& jv, std::string indent)
 {
     // TODO: implement pretty print
+    static_cast<void>(indent);
     os << boost::json::serialize(jv);
     return os;
 }

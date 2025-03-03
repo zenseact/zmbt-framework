@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE(PrecisionLossError)
 
 namespace {
     struct Point { double x, y; };
-    BOOST_DESCRIBE_STRUCT(Point, (), (x, y))
+    BOOST_DESCRIBE_STRUCT(Point, (void), (x, y))
 }
 
 

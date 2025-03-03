@@ -204,7 +204,7 @@ std::vector<TestEvalSample> const TestSamples
     {BitNot                     , 42U                   , ~42U                  },
     {BitAnd                     , {1U, 2U}              , 2U & 1U               },
     {BitOr                      , {1U, 2U}              , 2U | 1U               },
-    {BitXor                     , {1U, 2U}              , 2U ^ 1U               },
+    {BitXor                     , {1U, 2U}              , 2U xor 1U             },
 
     {Add                        , {3,  2}               , 5                     },
     {Add                        , {3, -2}               , 1                     },
@@ -390,7 +390,7 @@ std::set<Keyword> const CoveredInTestEval = []{
     {
         std::set<Keyword> covered_here;
         std::cerr << "--traversing " << sample.expr << '\n';
-        JsonTraverse([&](boost::json::value const& v, std::string const jp){
+        JsonTraverse([&](boost::json::value const& v, std::string const){
             Expression expr(v);
             covered.insert(expr.keyword());
             covered_here.insert(expr.keyword());

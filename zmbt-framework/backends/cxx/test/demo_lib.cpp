@@ -447,7 +447,7 @@ struct Bar {
 
 // define serialization with Boost Describe lib
 BOOST_DESCRIBE_ENUM(Foo, A, B, C)
-BOOST_DESCRIBE_STRUCT(Bar, (), (foo, x))
+BOOST_DESCRIBE_STRUCT(Bar, (void), (foo, x))
 ZMBT_INJECT_JSON_TAG_INVOKE
 }
 

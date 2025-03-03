@@ -61,7 +61,7 @@ namespace logging {
 
 /// Update and return boost::log attribute value
 template <class T>
-T upd_attr(char* const name, T value) {
+T upd_attr(std::string const name, T value) {
     auto attr = boost::log::attribute_cast<boost::log::attributes::mutable_constant<T>>(boost::log::core::get()->get_thread_attributes()[name]);
     attr.set(value);
     return attr.get();

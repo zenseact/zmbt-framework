@@ -143,7 +143,7 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
 }
 
 template <>
-V eval_impl<Keyword::At>(V const& params, V const& sample, O const& op)
+V eval_impl<Keyword::At>(V const& params, V const& sample, O const&)
 {
     ASSERT(not params.is_null())
 
