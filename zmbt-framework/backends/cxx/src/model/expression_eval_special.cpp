@@ -129,10 +129,19 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
     }
     else if (at.is_string())
     {
-        boost::json::error_code ec;
-        if (boost::json::value const* ptr = value.find_pointer(at.get_string(), ec))
+        auto const& token = at.get_string();
+        if (token.starts_with("/") or token.empty())
         {
-            query = *ptr;
+            boost::json::error_code ec;
+            if (boost::json::value const* ptr = value.find_pointer(at.get_string(), ec))
+            {
+                query = *ptr;
+            }
+        }
+        else if (value.is_array())
+        {
+            auto const slice_idx = zmbt::detail::str_to_slice_idx(token);
+            query = zmbt::slice(value.get_array(), slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
         }
     }
     else

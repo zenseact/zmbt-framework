@@ -4,11 +4,16 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include <boost/json.hpp>
+#include <iostream>
+
+
 #include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <tuple>
+
+#include <boost/json.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "zmbt/core/exceptions.hpp"
 #include "zmbt/core/slice.hpp"
@@ -146,5 +151,52 @@ js_array_slice_gen make_slice_generator(boost::json::array& src, std::int64_t co
     return make_slice_generator_impl<js_array_slice_gen>(src.begin(), src.end(), get_safe_slice(src.size(), {start, stop, step}));
 }
 
+
+
+namespace detail
+{
+std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr)
+{
+    std::array<std::int64_t, 3> out {0,-1,1};
+    std::int64_t& start = out.at(0);
+    std::int64_t& stop = out.at(1);
+    std::int64_t& step = out.at(2);
+
+    std::vector<boost::json::string> tokens;
+    boost::split(
+        tokens,
+        slice_expr,
+        boost::is_any_of(":")
+    );
+
+    if (tokens.size() < 2 || tokens.size() > 3)
+    {
+        throw zmbt::base_error("invalid str_to_slice_idx(%s)", slice_expr);
+    }
+
+    try
+    {
+        if (!tokens[0].empty())
+        {
+            start = boost::json::value_to<std::int64_t>(boost::json::parse(tokens[0]));
+        }
+        if (!tokens[1].empty())
+        {
+            stop = boost::json::value_to<std::int64_t>(boost::json::parse(tokens[1]));
+        }
+        if (3 == tokens.size() && !tokens[2].empty())
+        {
+            step = boost::json::value_to<std::int64_t>(boost::json::parse(tokens[2]));
+        }
+    }
+    catch (std::exception const& e)
+    {
+        throw zmbt::base_error("invalid str_to_slice_idx(%s)", slice_expr);
+    }
+
+    return out;
 }
+} // namespace detail
+
+} // namespace zmbt
 
