@@ -201,10 +201,10 @@ std::vector<TestEvalSample> const TestSamples
     {Floor                      , 42.9                  ,  42.0                 },
     {Floor                      , -42.1                 , -43.0                 },
 
-    {BitNot                     , 42U                   , ~42U                  },
-    {BitAnd                     , {1U, 2U}              , 2U & 1U               },
-    {BitOr                      , {1U, 2U}              , 2U | 1U               },
-    {BitXor                     , {1U, 2U}              , 2U xor 1U             },
+    {BitNot                     , 42ul                  , ~42ul                 },
+    {BitAnd                     , {1ul, 2ul}            , 2ul & 1ul             },
+    {BitOr                      , {1ul, 2ul}            , 2ul | 1ul             },
+    {BitXor                     , {1ul, 2ul}            , 2ul xor 1ul           },
 
     {Add                        , {3,  2}               , 5                     },
     {Add                        , {3, -2}               , 1                     },
@@ -288,7 +288,11 @@ std::vector<TestEvalSample> const TestSamples
     {Asinh                      , 0                     , 0.0                   },
     {Acosh                      , 1                     , 0.0                   },
     {Atanh                      , 0                     , 0.0                   },
-    {Exp                        , 0                     , 1.0                   },
+
+    {Exp                        , 1.0/3                 , std::exp(1.0/3)       },
+    {Erf                        , 1.0/3                 , std::erf(1.0/3)       },
+    {Erfc                       , 1.0/3                 , std::erfc(1.0/3)      },
+    {Gamma                      , 1.0/3                 , std::tgamma(1.0/3)    },
 
     // apply fn
     {Apply(Add(2), 3)           , {}                    , 5                     },
@@ -327,34 +331,53 @@ std::vector<TestEvalSample> const TestSamples
     {At(2)                      , {1,2,3}               , 3                     },
     {At(3)                      , {1,2,3}               , nullptr               },
     {At("")                     , "foo"                 , "foo"                 },
-
-    // {At(0)                      , "foo"                 , 'f'                   },
-    // {At(1)                      , "foo"                 , 'o'                   },
-    // {At(2)                      , "foo"                 , 'o'                   },
-    // {At(3)                      , "foo"                 , '\n'                  },
     {At(0)                      , 42                    , nullptr               },
-
     {At("/a")                   , {{"a",42}, {"b",13}}   , 42                   },
     {At("/b")                   , {{"a",42}, {"b",13}}   , 13                   },
     {At({"/a", "/b"})           , {{"a",42}, {"b",13}}   , {42, 13}             },
     {At({"/a", "/b"})           , {{"a",42}, {"b",13}}   , {42, 13}             },
-
     {At({{"f","/a"},{"g","/b"}}), {{"a",42}, {"b",13}}   , {{"f",42},{"g",13}}  },
     {At({{"$/b","/a"}})         , {{"a",42}, {"b",13}}   , {{"13",42}}          },
+    // TODO: string indexation
+    // {At(0)                   , "foo"                 , "f"                   },
+    // TODO: sequence slice
+    // {At("1:2:-1")
 
-    /*
-    :erf
-    :erfc
-    :gamma
-    :map
-    :filter
-    :recur
-    :any
-    :count
-    :saturate
-    */
+    {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
+    {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },
+    {Map(Pow(0.5))              , {1,4,9,16}             , {1,2,3,4}            },
+    {Map(PowFrom(2))            , {1,2,3,4}              , {2,4,8,16}           },
+    {Map(PowFrom(0.5))          , {1,2,3,4}              , {.5,.25,.125,.0625}  },
+
+    {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
+    {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
+
+    {Recur(Add(1), 4)           , 0                      , 4                    },
+    {Recur(Add(-1), 41)         , 42                     , 1                    },
+    {Recur(Sub(1) , 41)         , 42                     , 1                    },
+    {Recur(Pow(2), 4)           , 2                      , 65536                },
+
+    {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
+    {All(Gt(5), Mod(2)|0)       , 7                      , false                },
+    {All(Gt(5), Mod(2)|0)       , 5                      , false                },
+
+    {Any(Gt(5), Mod(2)|0)       , 6                      , true                 },
+    {Any(Gt(5), Mod(2)|0)       , 7                      , true                 },
+    {Any(Gt(5), Mod(2)|0)       , 5                      , false                },
+
+    {Any(Eq(42),Eq(13))         , 42                     , true                 },
+    {Any(42,13)                 , 42                     , true                 },
+    {Any(42,13)                 , 13                     , true                 },
+    {Any(42,13)                 , 2                      , false                },
+
+    {Count(Mod(2)|0)            , {1,2,3,4,5}            , 2                    },
+    {Count(Mod(2)|1)            , {1,2,3,4,5}            , 3                    },
+
+    {Saturate(Eq(42), Mod(2)|0) , {2,4,8,42,1,2}         , true                 },
+    {Saturate(42, Mod(2)|0)     , {2,4,8,42,1,2}         , true                 },
+    {Saturate(42, Mod(2)|0)     , {2,4,8,41,2}           , false                },
+    {Saturate(42, Mod(2)|0)     , {2,4,8,42}             , false                },
 };
-}
 
 std::set<Keyword> const NotImplemented {
     Keyword::Void,
@@ -389,18 +412,18 @@ std::set<Keyword> const CoveredInTestEval = []{
     for (auto const& sample : TestSamples)
     {
         std::set<Keyword> covered_here;
-        std::cerr << "--traversing " << sample.expr << '\n';
         JsonTraverse([&](boost::json::value const& v, std::string const){
             Expression expr(v);
             covered.insert(expr.keyword());
             covered_here.insert(expr.keyword());
             return false;
         })(sample.expr.underlying());
-        std::cerr << "--covered_here: " << json_from(covered_here) << '\n';
     }
-    std::cout << "Covered in TestEval: " << json_from(covered) << '\n';
     return covered;
 }();
+
+} // namespace
+
 
 BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
@@ -566,13 +589,6 @@ BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 }
 
 
-BOOST_AUTO_TEST_CASE(TestMap)
-{
-    BOOST_CHECK_EQUAL(Map(Add(10)).eval({1,2,3,4}), V({11,12,13,14}));
-    BOOST_CHECK_EQUAL(Map(Mod(2)).eval({1,2,3,4}), V({1,0,1,0}));
-
-    BOOST_CHECK_EQUAL(Map(Pow(0.5)).eval({4,9,16,25}), V({2,3,4,5}));
-}
 
 
 BOOST_AUTO_TEST_CASE(TestNestedParam)
@@ -590,15 +606,6 @@ BOOST_AUTO_TEST_CASE(TestNestedParam)
     BOOST_CHECK_EQUAL(list.size(), 2);
 }
 
-
-BOOST_AUTO_TEST_CASE(TestFilter)
-{
-    BOOST_CHECK_EQUAL(Filter(Mod(2)).eval({1,2,3,4}), V({1,3}));
-    BOOST_CHECK_EQUAL(Filter(Mod(2)|Nil).eval({1,2,3,4}), V({2,4}));
-
-    auto F = Compose(Eq(3), Mod(4));
-    BOOST_CHECK_EQUAL(Filter(F).eval({7,8,10,11,13,15}), V({7,11,15}));
-}
 
 
 BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))

@@ -45,7 +45,7 @@ V eval_impl<Keyword::All>(V const& param, V const& x, O const& op)
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (not op.is_truth(E(e).eval(x)))
+        if (not E(e).match(x, op))
         {
             return false;
         }
@@ -60,7 +60,7 @@ V eval_impl<Keyword::Any>(V const& param, V const& x, O const& op)
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (op.is_truth(E(e).eval(x)))
+        if (E(e).match(x, op))
         {
             return true;
         }
@@ -343,7 +343,7 @@ V eval_impl<Keyword::Filter>(V const& expr, V const& value, O const& op)
     auto F = E(expr_as_object);
     for (auto const& el: value_as_array)
     {
-        if (op.is_truth(F.eval(el, op)))
+        if (F.match(el, op))
         {
             ret.push_back(el);
         }
@@ -393,17 +393,10 @@ template <>
 V eval_impl<Keyword::Recur>(V const& expr, V const& value, O const& op)
 {
     ASSERT(expr.is_array());
-    ASSERT(value.is_array());
-    auto const& value_as_array = value.get_array();
     auto const& expr_as_array = expr.get_array();
     ASSERT(expr_as_array.size() >= 1 && expr_as_array.size() <= 2);
-    if (value_as_array.empty())
-    {
-        return nullptr;
-    }
     auto F = E(expr_as_array.at(0));
     std::uint64_t count = boost::json::value_to<std::uint64_t>(expr_as_array.at(1));
-
     boost::json::value ret {value};
     for (std::uint64_t i = 0; i < count; i++)
     {
