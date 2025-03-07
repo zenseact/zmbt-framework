@@ -12,6 +12,8 @@
 #include "zmbt/reflect.hpp"
 #include "signal_operator_handler.hpp"
 #include "keyword.hpp"
+#include "keyword_grammar.hpp"
+#include "keyword_classifier.hpp"
 #include "exceptions.hpp"
 
 
@@ -20,6 +22,11 @@ namespace zmbt {
 /// JSON transformation expression base
 class Expression
 {
+public:
+    using V = boost::json::value;
+    using Keyword = expr::Keyword;
+
+private:
     Keyword keyword_;
     boost::json::value underlying_;
     boost::json::value const* params_ptr_;
@@ -31,8 +38,13 @@ class Expression
     struct json_ctor_params;
     Expression(json_ctor_params&&);
 
-    using V = boost::json::value;
     void handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
+
+    boost::json::value eval_Const(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_UnaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_UnaryMathFn(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_BinaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_Special(boost::json::value const&, SignalOperatorHandler const&) const;
 
 public:
 
@@ -48,35 +60,10 @@ public:
     template <class T>
     Expression(T const& sample) : Expression(json_from(sample)) {}
 
-    Expression(Expression const& o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = o.underlying_;
-        params_ptr_ = o.params_ptr_;
-    }
-
-    Expression(Expression && o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = std::move(o.underlying_);
-        params_ptr_ = o.params_ptr_;
-    }
-
-    Expression& operator=(Expression const& o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = o.underlying_;
-        params_ptr_ = o.params_ptr_;
-        return *this;
-    }
-
-    Expression& operator=(Expression && o)
-    {
-        keyword_ = o.keyword_;
-        underlying_ = std::move(o.underlying_);
-        params_ptr_ = o.params_ptr_;
-        return *this;
-    }
+    Expression(Expression const& o);
+    Expression(Expression && o);
+    Expression& operator=(Expression const& o);
+    Expression& operator=(Expression && o);
 
     /// \brief Compose expressions left-to-right
     /// \details Pipe functional expressions in composition,
@@ -151,15 +138,7 @@ public:
     }
 
 
-    bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const
-    {
-        auto result = eval(observed, op);
-        if (!result.is_bool())
-        {
-            throw zmbt::model_error("expr is not a predicate: `%s`", underlying_);
-        }
-        return result.get_bool();
-    }
+    bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const;
 
     boost::json::value eval(boost::json::value const& x = nullptr, SignalOperatorHandler const& op = {}) const;
 

@@ -15,6 +15,10 @@ http_archive(
     url = "https://github.com/nelhage/rules_boost/archive/{}.tar.gz".format(
         rules_boost_version,
     ),
+    patch_args = ["-p1"],
+    patches = [
+        "//patches/rules_boost:0001-Fix-Wgnu-zero-variadic-macro-arguments-in-BOOST_DESC.patch"
+    ],
     strip_prefix = "rules_boost-{}".format(rules_boost_version),
     sha256 = rules_boost_sha256,
 )

@@ -15,7 +15,7 @@ using namespace zmbt::mapping;
 using namespace zmbt::reflect;
 
 using namespace zmbt;
-using namespace zmbt::expr;
+using namespace zmbt::api;
 
 namespace
 {
@@ -105,9 +105,9 @@ BOOST_AUTO_TEST_CASE(ModelExecutor)
         .InjectTo  (foo)
         .ObserveOn (foo)
     .Test
-        (42    ,     42)
-        (Eq(13), Ne(14))
-        (13    , All(Gt(12),Lt(14)))
+        (42,     42)
+        (13, Ne(14))
+        (13, All(Gt(12),Lt(14)))
     ;
 }
 
@@ -195,8 +195,8 @@ struct Final final : public virtual Base
 
 ZMBT_INJECT_JSON_TAG_INVOKE
 
-BOOST_DESCRIBE_STRUCT(Base, (), (test_field, another_field))
-BOOST_DESCRIBE_STRUCT(Final, (Base), ())
+BOOST_DESCRIBE_STRUCT(Base, (void), (test_field, another_field))
+BOOST_DESCRIBE_STRUCT(Final, (Base), ((Final&(Final const&))operator=))
 
 } // namespace s
 

@@ -16,43 +16,34 @@
 #include "expression.hpp"
 
 namespace zmbt {
-
-
-
-namespace detail
-{
+namespace expr {
+namespace detail {
     boost::json::value as_set(std::initializer_list<boost::json::value_ref> set);
 }
 
-namespace expr
-{
-
-namespace signature
-{
-
 template <Keyword K>
-struct Base : public Expression
+struct SignatureBase : public Expression
 {
-    Base() : Expression(K)
+    SignatureBase() : Expression(K)
     {}
 };
 
 template <Keyword K>
-struct Const : public Base<K>
+struct SignatureConst : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
 };
 
 template <Keyword K>
-struct Unary : public Base<K>
+struct SignatureUnary : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
 };
 
 template <Keyword K>
-struct Binary : public Base<K>
+struct SignatureBinary : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
     Expression operator()(boost::json::value const& param) const
     {
         return Expression(K, param);
@@ -65,9 +56,9 @@ struct Binary : public Base<K>
 };
 
 template <Keyword K>
-struct UnaryParam : public Base<K>
+struct SignatureUnaryParam : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
     Expression operator()(boost::json::value const& param) const
     {
         return Expression(K, param);
@@ -79,11 +70,46 @@ struct UnaryParam : public Base<K>
     }
 };
 
+/// Expression with variadic parameters
+template <Keyword K>
+struct SignatureVariadic : public SignatureBase<K>
+{
+    using SignatureBase<K>::SignatureBase;
+    using V = boost::json::value;
+    Expression operator()(V const& p0) const {
+        return Expression(K, boost::json::array{p0});
+    }
+    Expression operator()(V const& p0, V const& p1) const {
+        return Expression(K, {p0, p1});
+    }
+    Expression operator()(V const& p0, V const& p1, V const& p2) const {
+        return Expression(K, {p0, p1, p2});
+    }
+    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3) const {
+        return Expression(K, {p0, p1, p2, p3});
+    }
+    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4) const {
+        return Expression(K, {p0, p1, p2, p3, p4});
+    }
+    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5) const {
+        return Expression(K, {p0, p1, p2, p3, p4, p5});
+    }
+    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5, V const& p6) const {
+        return Expression(K, {p0, p1, p2, p3, p4, p5, p6});
+    }
+    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5, V const& p6, V const& p7) const {
+        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7});
+    }
+    template <class... T>
+    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5, V const& p6, V const& p7, T&&... rest) const {
+        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7, boost::json::value_from(rest)...});
+    }
+};
 
 template <Keyword K>
-struct HiOrd : public Base<K>
+struct SignatureHiOrd : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
     Expression operator()(Expression const& expr) const
     {
         return Expression(K, expr);
@@ -91,9 +117,9 @@ struct HiOrd : public Base<K>
 };
 
 template <Keyword K>
-struct HiOrdParam : public Base<K>
+struct SignatureHiOrdParam : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
     Expression operator()(Expression const& expr, boost::json::value const& param) const
     {
         return Expression(K, boost::json::array{expr, param});
@@ -107,9 +133,9 @@ struct HiOrdParam : public Base<K>
 
 
 template <Keyword K>
-struct HiOrdParamOpt : public Base<K>
+struct SignatureHiOrdParamOpt : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
     Expression operator()(Expression const& expr) const
     {
         return Expression(K, boost::json::array{expr});
@@ -126,11 +152,11 @@ struct HiOrdParamOpt : public Base<K>
 };
 
 
-/// Expression with variadic parameters
+/// Expression with variadic expression parameters
 template <Keyword K>
-struct HiOrdVariadic : public Base<K>
+struct SignatureHiOrdVariadic : public SignatureBase<K>
 {
-    using Base<K>::Base;
+    using SignatureBase<K>::SignatureBase;
     using E = Expression;
     Expression operator()(E const& p0) const {
         return Expression(K, boost::json::array{p0});
@@ -163,9 +189,9 @@ struct HiOrdVariadic : public Base<K>
 };
 
 template <Keyword Kw>
-struct BinarySetRhs : public Base<Kw>
+struct SignatureBinarySetRhs : public SignatureBase<Kw>
 {
-    using Base<Kw>::Base;
+    using SignatureBase<Kw>::SignatureBase;
     Expression operator()(std::initializer_list<boost::json::value_ref> set) const
     {
         return Expression(Kw, detail::as_set(set));
@@ -181,9 +207,9 @@ struct BinarySetRhs : public Base<Kw>
     }
 };
 
-struct Approx : public Base<Keyword::Approx>
+struct SignatureApprox : public SignatureBase<Keyword::Approx>
 {
-    using Base<Keyword::Approx>::Base;
+    using SignatureBase<Keyword::Approx>::SignatureBase;
 
     Expression operator()(double reference, double rtol, double atol = std::numeric_limits<double>::epsilon()) const
     {
@@ -191,10 +217,7 @@ struct Approx : public Base<Keyword::Approx>
     }
 };
 
-} // namespace signature
 } // namespace expr
-
-
 } // namespace zmbt
 
 #endif // ZMBT_MODEL_EXPRESSION_API_SIGNATURES_HPP_

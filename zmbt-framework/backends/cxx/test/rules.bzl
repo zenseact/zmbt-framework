@@ -9,6 +9,14 @@ def unit_test_group(lib, srcs):
                 lib,
                 "//zmbt-framework/backends/cxx:main_boost",
             ],
+            copts = [
+                "-std=c++14",
+                # "-Wgnu-zero-variadic-macro-arguments",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+            ],
             linkopts = [
                 '-lm'
             ],

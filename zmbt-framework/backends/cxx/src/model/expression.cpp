@@ -14,12 +14,21 @@
 
 namespace
 {
-using Keyword = zmbt::Keyword;
+using Keyword = zmbt::expr::Keyword;
 
 
-boost::json::value const* ptrToParams(boost::json::value const& underlying)
+boost::json::value const* ptrToParams(Keyword const& keyword, boost::json::value const& underlying)
 {
+    if (keyword == Keyword::Literal)
+    {
+        return &underlying;
+    }
     return underlying.is_object() ? &(underlying.get_object().cbegin()->value()) : nullptr;
+}
+
+boost::json::value get_underlying(Keyword const& keyword, boost::json::value const& params)
+{
+    return keyword == Keyword::Literal ? params : boost::json::value{{zmbt::json_from(keyword).get_string(), params}};
 }
 
 } // namespace
@@ -30,13 +39,42 @@ namespace zmbt {
 Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying)
     : keyword_{keyword}
     , underlying_{std::move(underlying)}
-    , params_ptr_{ptrToParams(underlying_)}
+    , params_ptr_{ptrToParams(keyword, underlying_)}
 {
 }
 
+Expression::Expression(Expression const& o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = o.underlying_;
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+}
+
+Expression::Expression(Expression && o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = std::move(o.underlying_);
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+}
+
+Expression& Expression::operator=(Expression const& o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = o.underlying_;
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+    return *this;
+}
+
+Expression& Expression::operator=(Expression && o)
+{
+    keyword_ = o.keyword_;
+    underlying_ = std::move(o.underlying_);
+    params_ptr_ = ptrToParams(keyword_, underlying_);
+    return *this;
+}
 
 Expression::Expression(Keyword const& keyword, boost::json::value const& params)
-    : Expression(internal_tag{}, keyword, boost::json::object{{json_from(keyword).get_string(), params}})
+    : Expression(internal_tag{}, keyword, get_underlying(keyword, params))
 {
 }
 
@@ -44,6 +82,10 @@ Expression::Expression(Keyword const& keyword, boost::json::value const& params)
 Expression::Expression(Keyword const& keyword)
     : Expression(internal_tag{}, keyword, json_from(keyword))
 {
+    if (keyword == Keyword::Literal)
+    {
+        throw zmbt::model_error("Lit expression requires a value");
+    }
 }
 
 
@@ -72,8 +114,8 @@ struct Expression::json_ctor_params
         }
         else
         {
-            keyword = Keyword::Eq;
-            underlying = boost::json::object{{json_from(Keyword::Eq).get_string(), std::move(expr)}};
+            keyword = Keyword::Literal;
+            underlying = expr;
         }
     }
 
@@ -95,14 +137,14 @@ struct Expression::json_ctor_params
         }
         else
         {
-            keyword = Keyword::Eq;
-            underlying = boost::json::object{{json_from(Keyword::Eq).get_string(), expr}};
+            keyword = Keyword::Literal;
+            underlying = expr;
         }
     }
 };
 
-Expression::Expression(json_ctor_params&& helper)
-    : Expression(internal_tag{}, helper.keyword, std::move(helper.underlying))
+Expression::Expression(json_ctor_params&& params)
+    : Expression(internal_tag{}, params.keyword, std::move(params.underlying))
 {
 }
 
@@ -112,23 +154,30 @@ Expression::Expression()
 {
 }
 
-
-Expression::Expression(std::initializer_list<boost::json::value_ref> items)
-    : Expression(Keyword::Eq, boost::json::value(items))
-{
-}
-
-
 Expression::Expression(boost::json::value const& expr)
     : Expression(json_ctor_params{std::move(expr)})
 {
 }
 
+Expression::Expression(std::initializer_list<boost::json::value_ref> items)
+    : Expression(Keyword::Literal, boost::json::value(items))
+{
+}
 
 boost::json::array Expression::toArray(std::initializer_list<Expression> const& list) {
     boost::json::array arr(list.size());
     std::transform(list.begin(), list.end(), arr.begin(), [](Expression const& e) {return e.underlying_;});
     return arr;
+}
+
+bool Expression::match(boost::json::value const& observed, SignalOperatorHandler const& op) const
+{
+    auto result = eval(observed, op);
+    if (!result.is_bool())
+    {
+        throw zmbt::model_error("expr is not a predicate: `%s`", underlying_);
+    }
+    return result.get_bool();
 }
 
 }  // namespace zmbt

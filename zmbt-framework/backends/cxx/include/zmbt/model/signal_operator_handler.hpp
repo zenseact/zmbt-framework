@@ -218,12 +218,12 @@ public:
 
     /// \brief Apply operands
     /// \details For unary operators, lhs is nullptr
-    boost::json::value apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
+    boost::json::value apply(expr::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
 
     /// Is true
     bool is_truth(boost::json::value const& a) const
     {
-        return apply(Keyword::Bool, nullptr, a).get_bool();
+        return apply(expr::Keyword::Bool, nullptr, a).get_bool();
     }
 
 private:

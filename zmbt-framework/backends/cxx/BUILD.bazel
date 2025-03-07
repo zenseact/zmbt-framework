@@ -9,7 +9,13 @@ config_setting(
 
 ZMBT_COPTS = select({
     ":debug": ["-g"],
-    "//conditions:default": ["-O2"]
+    "//conditions:default": [
+        "-O2",
+        "-Werror",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+    ]
 })
 
 BOOST_LIBS = [

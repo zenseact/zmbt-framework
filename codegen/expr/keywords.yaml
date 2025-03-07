@@ -1,0 +1,915 @@
+# (c) Copyright 2024-2025 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+keyword_groups:
+
+  - common:
+      internal: true
+    keywords:
+      - name: literal
+        brief: Literal value
+        details: |-
+          Literal value keyword with no expression API.
+          in evaluation context works as Eq(x)
+      - name: void
+        brief: empty value
+
+  - common:
+      cat: Stub
+      signature: Const
+      domain: any
+      codomain: any
+    keywords:
+      - name: noop
+        brief: No operation
+        short: n/a
+        aliases: [ '_' ]
+        codegen-value:
+          cxx: 'true'
+      - name: 'null'
+        brief: Null value
+        codegen-value:
+          cxx: 'nullptr'
+
+
+  - common:
+      cat: Logic
+      signature: Const
+      domain: null
+      codomain: bool
+      imports:
+        cxx:
+          - limits
+          - boost/math/constants/constants.hpp
+    keywords:
+      - name: 'true'
+        brief: Logical true
+        short: T
+        codegen-value:
+          cxx: 'true'
+
+      - name: 'false'
+        brief: Logical false
+        short: ⊥
+        codegen-value:
+          cxx: 'false'
+
+
+  - common:
+      cat: Math
+      signature: Const
+      domain: null
+      codomain: real
+      imports:
+        cxx:
+          - limits
+          - boost/math/constants/constants.hpp
+    keywords:
+      - name: pi
+        brief: Pi constant
+        short: π
+        codegen-value:
+          cxx: boost::math::constants::pi<double>()
+
+      - name: e
+        brief: Euler's number
+        codegen-value:
+          cxx: boost::math::constants::e<double>()
+
+      - name: inf
+        brief: Infinity
+        codegen-value:
+          cxx: std::numeric_limits<double>::infinity()
+
+      - name: eps
+        brief: Machine epsilon
+        codegen-value:
+          cxx: std::numeric_limits<double>::epsilon()
+
+      - name: nan
+        enum: NaN
+        brief: Not a number
+        codegen-value:
+          cxx: std::numeric_limits<double>::quiet_NaN()
+
+
+  - common:
+      cat: Logic
+      signature: Unary
+      domain: any
+      codomain: bool
+      tags: [operator]
+    keywords:
+      - name: bool
+        brief: Predicate on boolean transform (aka Truthy)
+        short: '?'
+        alias: [ 'truthy' ]
+
+      - name: nil
+        brief: Predicate on boolean transform (aka Falsy)
+        alias: [ 'falsy' ]
+
+      - name: not
+        brief: Logical complement
+        short: ¬
+
+  - common:
+      cat: Math
+      signature: Unary
+      domain: real
+      codomain: real
+      imports:
+        cxx:
+          - cmath
+    keywords:
+
+      - name: neg
+        brief: Negate
+        domain: real
+        codomain: real
+        signature: Unary
+        tags: [operator]
+
+      - name: b-not
+        brief: Bitwise not
+        enum: BitNot
+        short: '~'
+        domain: uint
+        codomain: uint
+        signature: Unary
+        tags: [operator]
+
+      - name: sqrt
+        brief: Square root
+        codegen-value:
+          cxx: std::sqrt(boost::json::value_to<double>(x))
+
+      - name: sin
+        brief: Sinus
+        codegen-value:
+          cxx: std::sin(boost::json::value_to<double>(x))
+
+      - name: cos
+        brief: Cosinus
+        codegen-value:
+          cxx: std::cos(boost::json::value_to<double>(x))
+
+      - name: tan
+        brief: Tangens
+        codegen-value:
+          cxx: std::tan(boost::json::value_to<double>(x))
+
+      - name: asin
+        brief: Arcsin
+        codegen-value:
+          cxx: std::asin(boost::json::value_to<double>(x))
+
+      - name: acos
+        brief: Arccos
+        codegen-value:
+          cxx: std::acos(boost::json::value_to<double>(x))
+
+      - name: atan
+        brief: Arctan
+        codegen-value:
+          cxx: std::atan(boost::json::value_to<double>(x))
+
+      - name: sinh
+        brief: Hyperbolic sin
+        codegen-value:
+          cxx: std::sinh(boost::json::value_to<double>(x))
+
+      - name: cosh
+        brief: Hyperbolic cos
+        codegen-value:
+          cxx: std::cosh(boost::json::value_to<double>(x))
+
+      - name: tanh
+        brief: Hyperbolic tan
+        codegen-value:
+          cxx: std::tanh(boost::json::value_to<double>(x))
+
+      - name: asinh
+        brief: Hyperbolic arcsin
+        codegen-value:
+          cxx: std::asinh(boost::json::value_to<double>(x))
+
+      - name: acosh
+        brief: Hyperbolic arccos
+        codegen-value:
+          cxx: std::acosh(boost::json::value_to<double>(x))
+
+      - name: atanh
+        brief: Hyperbolic arctan
+        codegen-value:
+          cxx: std::atanh(boost::json::value_to<double>(x))
+
+      - name: exp
+        brief: Exponential (e^x)
+        codegen-value:
+          cxx: std::exp(boost::json::value_to<double>(x))
+
+      - name: erf
+        brief: Error function
+        codegen-value:
+          cxx: std::erf(boost::json::value_to<double>(x))
+
+      - name: erfc
+        brief: Error function complement
+        codegen-value:
+          cxx: std::erfc(boost::json::value_to<double>(x))
+
+      - name: gamma
+        brief: Gamma function
+        codegen-value:
+          cxx: std::tgamma(boost::json::value_to<double>(x))
+
+      - name: abs
+        brief: Absolute value
+        codegen-value:
+          cxx: std::abs(boost::json::value_to<double>(x))
+
+      - name: ceil
+        codegen-value:
+          cxx: 'std::ceil(boost::json::value_to<double>(x))'
+
+      - name: floor
+        codegen-value:
+          cxx: 'std::floor(boost::json::value_to<double>(x))'
+
+      - name: sign
+        domain: real
+        codomain: int
+        codegen-value:
+          cxx: '(boost::json::value_to<double>(x) >= 0 ? 1 : -1)'
+
+  - common:
+      cat: Math
+      signature: UnaryParam
+    keywords:
+
+      - name: sum
+        brief: Summation reduction, real param - initial value
+        details: Equivalent to Reduce(Add, ...)
+        short: Σ
+        domain: list
+        codomain: real
+        params:
+          - label: initial value
+            default: 0
+
+      - name: prod
+        brief: Multiplication reduction, real param - initial value
+        details: Equivalent to Reduce(Mul, ...)
+        short: Π
+        domain: list
+        codomain: real
+        params:
+          - label: initial value
+            default: 1
+
+      - name: round
+        brief: Round to nearest integer with optional precision
+        commutative: false
+        domain: real
+        codomain: real
+        params:
+          - label: precision
+            type: int
+            default: 0
+
+  - common:
+      cat: Math
+      signature: Binary
+      tags: [operator]
+      domain: [real, real]
+      codomain: real
+      params:
+        - label: rhs
+          partial: domain/1
+    keywords:
+      - name: add
+        brief: Addition
+        short: '+'
+
+      - name: sub
+        brief: Subtraction
+        short: '-'
+        commutative-dual: sub-from
+
+      - name: sub-from
+        brief: Reverse subtraction
+        details: |-
+          Subtraction with reverse arguments, i. e.
+            1. [ ] |-> [y, x] |-> x - y
+            2. [x] |-> [y]    |-> x - y
+        commutative-dual: sub
+
+      - name: mul
+        brief: Multiplication
+        short: '*'
+
+      - name: div
+        brief: Division
+        short: '/'
+        details: |-
+          1. [ ] |-> [x, y] |-> x / y
+          2. [y] |-> [x]    |-> x / y
+        commutative-dual: div-from
+
+      - name: div-from
+        brief: Reverse division
+        details: |-
+          Division with reverse arguments, i. e.
+            1. [ ] |-> [y, x] |-> x / y
+            2. [x] |-> [y]    |-> x / y
+        commutative-dual: div
+
+      - name: pow
+        brief: To power
+        short: '**'
+        details: |-
+          X to power p
+            1. [ ] |-> [x, p] |-> x^p
+            2. [p] |-> [x]    |-> x^p
+        commutative-dual: pow-from
+
+      - name: pow-from
+        brief: Reverse power
+        details: |-
+          Pow with reverse arguments, i. e.
+            1. [ ] |-> [p, x] |-> x^p
+            2. [x] |-> [p]    |-> x^p
+        commutative-dual: pow
+
+      - name: log
+        brief: Logarithm
+        short: 'log'
+        details: |-
+          Logarithm with base b:
+            1. [ ] |-> [x, b] |-> log_b(x)
+            2. [b] |-> [x]    |-> log_b(x)
+        commutative-dual: log-from
+
+      - name: log-from
+        brief: Reverse logarithm
+        details: |-
+          Log with reverse arguments, i. e.
+            1. [ ] |-> [b, x] |-> log_b(x)
+            2. [b] |-> [b]    |-> log_b(x)
+        commutative-dual: log
+
+      - name: mod
+        brief: Modulo
+        short: '%'
+        details: |-
+          Modulo of x:
+            1. [ ] |-> [x, m] |-> x % m
+            2. [m] |-> [x]    |-> x % m
+        commutative-dual: mod-from
+
+      - name: mod-from
+        brief: Reverse modulo
+        details: |-
+          Modulo with reverse arguments, i. e.
+            1. [ ] |-> [b, x] |-> log_b(x)
+            2. [b] |-> [b]    |-> log_b(x)
+        commutative-dual: mod
+
+      - name: quot
+        brief: Quotient
+        short: '//'
+        details: |-
+          Quotient of x:
+            1. [ ] |-> [x, d] |-> x // d
+            2. [d] |-> [x]    |-> x // d
+        commutative-dual: quot-from
+
+      - name: quot-from
+        brief: Reverse quotient
+        details: |-
+          Quotient with reverse arguments, i. e.
+            1. [ ] |-> [d, x] |-> x // d
+            2. [x] |-> [d]    |-> x // d
+        commutative-dual: quot
+
+      - name: b-and
+        brief: Bitwise and
+        enum: BitAnd
+        short: '&'
+        domain: [uint, uint]
+        codomain: uint
+
+      - name: b-or
+        brief: Bitwise or
+        enum: BitOr
+        short: '|'
+        domain: [uint, uint]
+        codomain: uint
+
+      - name: b-xor
+        brief: Bitwise xor
+        enum: BitXor
+        short: '^'
+        domain: [uint, uint]
+        codomain: uint
+
+      - name: b-lshift
+        brief: Bitwise left shift
+        enum: BitLshift
+        short: '<<'
+        details: |-
+          1. [ ] |-> [x, s] |-> x << s
+          2. [s] |-> [x]    |-> x << s
+        commutative-dual: b-lshift-from
+        domain: [uint, uint]
+        codomain: uint
+
+      - name: b-lshift-from
+        brief: Reverse bitwise left shift
+        enum: BitLshiftFrom
+        details: |-
+          Bitwise left shift with reverse arguments, i. e.
+            1. [ ] |-> [s, x] |-> x << s
+            2. [x] |-> [s]    |-> x << s
+        commutative-dual: b-lshift
+        domain: [uint, uint]
+        codomain: uint
+
+      - name: b-rshift
+        brief: Bitwise right shift
+        enum: BitRshift
+        short: '>>'
+        details: |-
+          1. [ ] |-> [x, s] |-> x >> s
+          2. [s] |-> [x]    |-> x >> s
+        commutative-dual: b-rshift-from
+        domain: [uint, uint]
+        codomain: uint
+
+      - name: b-rshift-from
+        brief: Reverse bitwise right shift
+        enum: BitRshiftFrom
+        details: |-
+          Bitwise right shift with reverse arguments, i. e.
+            1. [ ] |-> [s, x] |-> x >> s
+            2. [x] |-> [s]    |-> x >> s
+        commutative-dual: b-rshift
+        domain: [uint, uint]
+        codomain: uint
+
+
+  - common:
+      cat: Relation
+      signature: Binary
+      tags: [operator]
+      domain: [any, any]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+
+    keywords:
+
+      - name: eq
+        brief: Is equal
+        short: '='
+
+      - name: ne
+        brief: Not equal
+        short: '≠'
+
+      - name: lt
+        brief: Lesser than
+        short: '<'
+        commutative-dual: ge
+
+      - name: le
+        brief: Lesser or equal
+        short: '≤'
+        commutative-dual: gt
+
+      - name: gt
+        brief: Greater than
+        short: '>'
+        commutative-dual: le
+
+      - name: ge
+        brief: Greater or equal
+        short: '≥'
+        commutative-dual: lt
+
+      - name: approx
+        signature: Special
+        tags: []
+        brief: Floating point approximately equal
+        details: |-
+          Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
+        aliases: [ 'near' ]
+        domain: real
+        codomain: bool
+        commutative: false
+        params:
+          - label: ref
+            type: real
+          - label: rtol
+            type: real
+          - label: atol
+            type: real
+
+  - common:
+      cat: Logic
+      signature: Binary
+      domain: [any, any]
+      codomain: bool
+      tags: [operator]
+      params:
+        - label: rhs
+          partial: domain/1
+    keywords:
+      - name: and
+        brief: Logical and
+        details: |-
+          Generic behavior:
+            if first operand is truthy, returns second operand, otherwise first
+        short: ∧
+
+      - name: or
+        brief: Logical or
+        short: ∨
+        details: |-
+          Generic behavior:
+            if first operand is truthy, returns first operand, second otherwise
+
+  - common:
+      cat: Relation
+      signature: BinarySetRhs
+      tags: [operator]
+      domain: [set, set]
+      codomain: bool
+      params:
+        - label: rhs
+          partial: domain/1
+    keywords:
+
+      - name: set-eq
+        enum: SetEq
+        brief: Equal as set
+        short: '≡'
+
+      - name: subset
+        brief: Is subset
+        short: '⊆'
+        commutative-dual: p-superset
+
+      - name: superset
+        brief: is superset
+        short: '⊇'
+        commutative-dual: p-subset
+
+      - name: p-subset
+        enum: ProperSubset
+        brief: Is proper subset
+        short: '⊂'
+        commutative-dual: superset
+
+      - name: p-superset
+        enum: ProperSuperset
+        brief: Is proper superset
+        short: '⊃'
+        commutative-dual: subset
+
+      - name: in
+        brief: Element is in
+        short: '∈'
+        domain: [any, set]
+        commutative-dual: ni
+
+      - name: not-in
+        enum: NotIn
+        brief: Element is not in
+        short: '∉'
+        domain: [any, set]
+        commutative-dual: not-ni
+
+      - name: ni
+        signature: Binary
+        brief: Contains element
+        enum: Ni
+        short: '∋'
+        aliases: [ 'contains' ]
+        commutative-dual: in
+        domain: [set, any]
+
+      - name: not-ni
+        signature: Binary
+        brief: Not contains element
+        enum: NotNi
+        short: '∌'
+        commutative-dual: not-in
+        domain: [set, any]
+
+  - common:
+      cat: Set
+      signature: BinarySetRhs
+      tags: [operator]
+      domain: [set, set]
+      codomain: set
+      params:
+        - label: rhs
+          partial: domain/1
+    keywords:
+
+      - name: union
+        brief: Set union
+        short: '∪'
+
+      - name: intersect
+        brief: Set intersection
+        short: '∩'
+
+      - name: set-diff
+        enum: Diff
+        brief: Set difference
+        commutative-dual: set-diff-from
+
+      - name: set-diff-from
+        enum: DiffFrom
+        brief: Reverse set difference
+        commutative-dual: set-diff
+
+  - common:
+      cat: Transform
+      signature: Variadic
+    keywords:
+      - name: concat
+        brief: Concatenate sequences
+        domain: list[list]
+        codomain: list
+
+      - name: cartesian
+        brief: Cartesian product
+        short: '×'
+        domain: list[set]
+        codomain: list[list]
+
+      - name: list
+        brief: Envelop zero or more values in list
+        domain: list
+        codomain: list
+
+
+  - common:
+      cat: Transform
+      signature: Unary
+    keywords:
+      - name: transp
+        brief: Transpose multidimensional list, turning rows into columns
+        details: |-
+          May be used to zip sequences of equal length.
+          Example:
+            [[1, 2, 3], [4, 5, 6]] -> [[1, 4], [2, 5], [3, 6]]
+        domain: list[list]
+        codomain: list[list]
+
+      - name: uniques
+        brief: Filter unique elements
+        domain: list
+        codomain: set
+
+      - name: id
+        brief: Identity function
+        domain: any
+        codomain: any
+        codegen-value:
+          cxx: x
+
+
+  - common:
+      cat: Property
+      signature: Unary
+    keywords:
+      - name: card
+        brief: Set cardinality (uniques count)
+        domain: union[list, object]
+        codomain: uint
+
+      - name: size
+        brief: Sequence size
+        domain: union[list, object]
+        codomain: uint
+
+  - common:
+      cat: Transform
+      signature: Binary
+    keywords:
+
+      - name: slide
+        cat: Transform
+        brief: Sliding-window iteration
+        details: |-
+          Sliding window iteration by specified window width.
+        commutative: false
+        domain: [list, int]
+        codomain: list[list]
+        params:
+          - label: window width
+            partial: domain/1
+
+      - name: stride
+        cat: Transform
+        brief: Striding iteration
+        details: |-
+          Striding iteration by specified step width.
+        commutative: false
+        domain: [list, int]
+        codomain: list[list]
+        params:
+          - label: step width
+            partial: domain/1
+
+      - name: repeat
+        brief: Repeat value in list
+        commutative: false
+        domain: [any, int]
+        codomain: list
+        params:
+          - label: count
+            partial: domain/1
+
+      - name: re
+        brief: Regular expression match
+        details: If input is not a string, match it's serialized form.
+        aliases: [ 'regex' ]
+        commutative: false
+        domain: [any, str]
+        codomain: bool
+        params:
+          - label: pattern
+            partial: domain/1
+
+      - name: at
+        brief: Transform JSON value with given query
+        details: |-
+          Query evaluation rules:
+          ```
+            1. q: int  |-> x: list  |-> x at index q (negative -> reverse)
+            2. q: str  |-> x: any   |-> x at JSON Pointer q
+            3. q: list |-> x: any   |-> [x at q1, x at q2, ...]
+            4. {"key": q1, "$q2": q3, ...} |-> x: any |->
+                { "key1": x at q1, "$(x at q2)": x at q3, ...}
+          ```
+        # TODO: add slice support (start:stop:step)
+        commutative: false
+        domain: [any, union: [int, str, list, object]]
+        codomain: any
+        params:
+          - label: query
+            partial: domain/1
+
+
+  - common:
+      cat: HiOrd
+      signature: HiOrd
+    keywords:
+      - name: map
+        brief: Apply param expr to every element of sequence
+        domain: list
+        codomain: list
+        params:
+          - type: fn
+
+      - name: filter
+        brief: Filter sequence by predicate param
+        domain: list
+        codomain: list
+        params:
+          - type: predicate
+
+      - name: count
+        brief: Count matches by predicate param
+        domain: list
+        codomain: uint
+        params:
+          - type: predicate
+
+      - name: sort
+        brief: Sort list by comparison parameter expr
+        domain: list
+        codomain: list
+        params:
+          - label: lesser than
+            type: relation
+
+      - name: min
+        brief: Min value
+        domain: list
+        codomain: any
+        params:
+          - label: lesser than
+            type: relation
+
+      - name: max
+        brief: Max value
+        domain: list
+        codomain: any
+        params:
+          - label: lesser than
+            type: relation
+
+      - name: argmin
+        brief: Min value index
+        domain: list
+        codomain: uint
+        params:
+          - label: lesser than
+            type: relation
+
+      - name: argmax
+        brief: Max value index
+        domain: list
+        codomain: uint
+        params:
+          - label: lesser than
+            type: relation
+
+  - common:
+      cat: HiOrd
+      signature: HiOrdParam
+    keywords:
+      - name: recur
+        brief: apply recursion to parameter expr
+        domain: any
+        codomain: any
+        params:
+          - type: fn
+          - label: depth
+            type: int
+
+      - name: apply
+        brief: Apply expr to literal param
+        domain: null
+        codomain: any
+        params:
+          - type: fn
+          - label: argument
+            type: any
+
+      - name: bind
+        brief: Bind parameters
+        params:
+          - type: fn
+          - label: params
+            type: object
+
+  - common:
+      cat: HiOrd
+      signature: HiOrdParamOpt
+    keywords:
+      - name: reduce
+        brief: Reduce sequence with binary operator and optional initial value
+        details: |-
+          If initial value is not provided, first element is used.
+          If sequence is empty and initial value is not provided, error is raised.
+        domain: list
+        codomain: any
+        params:
+          - type: fn
+          - label: initial value
+            default: domain/0
+
+  - common:
+      cat: HiOrd
+      signature: HiOrdVariadic
+    keywords:
+      - name: any
+        brief: Match any predicate
+        domain: any
+        codomain: bool
+        params:
+          - label: predicates
+            type: list[expr]
+
+      - name: all
+        brief: Match all predicates
+        domain: any
+        codomain: bool
+        params:
+          - label: predicates
+            type: list[expr]
+
+      - name: saturate
+        brief: Saturate matches in order
+        domain: list
+        codomain: bool
+        params:
+          - label: predicates
+            type: list[expr]
+
+      - name: compose
+        brief: Compose functions
+        domain: any
+        codomain: any
+        params:
+          - label: functions
+            type: list[expr]
