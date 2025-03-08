@@ -131,10 +131,10 @@ expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Recur> const Recur = {};
 expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Apply> const Apply = {};
 expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Bind> const Bind = {};
 expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce = {};
-expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::Any> const Any = {};
-expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::All> const All = {};
-expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::Saturate> const Saturate = {};
-expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::Compose> const Compose = {};
+expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any = {};
+expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All = {};
+expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate = {};
+expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose = {};
 
 } // namespace api
 } // namespace zmbt

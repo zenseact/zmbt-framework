@@ -347,7 +347,7 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::Concat> const Concat;
 /// \brief Cartesian product
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Cartesian> const Cartesian;
 
-/// \brief Envelop zero or more values in list
+/// \brief Envelop zero or more parameters in list
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
 
 /// \brief Transpose multidimensional list, turning rows into columns
@@ -444,16 +444,16 @@ extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Bind> const Bind;
 extern expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce;
 
 /// \brief Match any predicate
-extern expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::Any> const Any;
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any;
 
 /// \brief Match all predicates
-extern expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::All> const All;
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All;
 
 /// \brief Saturate matches in order
-extern expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
 
 /// \brief Compose functions
-extern expr::SignatureHiOrdVariadic<::zmbt::expr::Keyword::Compose> const Compose;
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
 
 } // namespace api
 } // namespace zmbt

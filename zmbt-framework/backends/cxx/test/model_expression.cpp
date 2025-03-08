@@ -22,7 +22,36 @@ using namespace zmbt::api;
 using namespace boost::json;
 
 using V = boost::json::value;
+using L = boost::json::array;
 using zmbt::expr::Keyword;
+
+namespace {
+
+std::set<Keyword> const NotImplemented {
+    Keyword::Concat,
+    Keyword::Slide,
+    Keyword::Stride,
+    Keyword::Uniques,
+    Keyword::Diff,
+    Keyword::DiffFrom,
+    Keyword::Union,
+    Keyword::Intersect,
+    Keyword::Sort,
+    Keyword::Min,
+    Keyword::Max,
+    Keyword::Argmin,
+    Keyword::Argmax,
+    Keyword::Bind,
+    Keyword::Void,
+    Keyword::Round,
+    Keyword::Sum,
+    Keyword::Prod,
+    Keyword::BitLshift,
+    Keyword::BitRshift,
+    Keyword::BitLshiftFrom,
+    Keyword::BitRshiftFrom,
+};
+
 
 double const pi = boost::math::constants::pi<double>();
 double const e = boost::math::constants::e<double>();
@@ -41,9 +70,9 @@ struct TestEvalSample
     }
 };
 
-namespace { // expr             , x                     , expected
+
 std::vector<TestEvalSample> const TestSamples
-{
+{ // expr             , x                     , expected
     // identity
     {Id                         , 42                    , 42                    },
     {Id                         , ""                    , ""                    },
@@ -65,10 +94,10 @@ std::vector<TestEvalSample> const TestSamples
     {Bool                       , 0                     , false                 },
     {Bool                       , 0.0                   , false                 },
     {Bool                       , ""                    , false                 },
-    {Bool                       , array()               , false                 },
+    {Bool                       , L()                   , false                 },
 
     {Nil                       , ""                    , true                   },
-    {Nil                       , array()               , true                   },
+    {Nil                       , L()                   , true                   },
     {Nil                       , "false"               , false                  },
     {Nil                       , {1,2  }               , false                  },
 
@@ -383,35 +412,21 @@ std::vector<TestEvalSample> const TestSamples
     {Saturate(42, Mod(2)|0)     , {2,4,8,42,1,2}         , true                 },
     {Saturate(42, Mod(2)|0)     , {2,4,8,41,2}           , false                },
     {Saturate(42, Mod(2)|0)     , {2,4,8,42}             , false                },
+
+    {List(42)                   , nullptr                , L{42}                },
+    {List(1,2,3)                , nullptr                , {1,2,3}              },
+
+    {Transp                     , L{}                    , L{}                  },
+    {Transp                     , L{{1,2}}               , {L{1},L{2}}          },
+    {Transp                     , {{1,2},{3,4},{5,6}}    , {{1,3,5},{2,4,6}}    },
+    {Transp                     , {{1,2},L{"a", "b"}}    , {{1, "a"},{2, "b"}}  },
+
+
+    {Cartesian                  , L{}                   , L{}                   },
+    {Cartesian                  , L{{1,2}}              , {L{1},L{2}}           },
+    {Cartesian                  , {{1,2},L{"a", "b"}}   , {{1, "a"},{1, "b"},{2, "a"},{2, "b"}} },
 };
 
-std::set<Keyword> const NotImplemented {
-    Keyword::Void,
-    Keyword::Round,
-    Keyword::Sum,
-    Keyword::Prod,
-    Keyword::List,
-    Keyword::Transp,
-    Keyword::Cartesian,
-    Keyword::Concat,
-    Keyword::Slide,
-    Keyword::Stride,
-    Keyword::Uniques,
-    Keyword::Diff,
-    Keyword::DiffFrom,
-    Keyword::Union,
-    Keyword::Intersect,
-    Keyword::Sort,
-    Keyword::Bind,
-    Keyword::Min,
-    Keyword::Max,
-    Keyword::Argmin,
-    Keyword::Argmax,
-    Keyword::BitLshift,
-    Keyword::BitRshift,
-    Keyword::BitLshiftFrom,
-    Keyword::BitRshiftFrom,
-};
 
 std::set<Keyword> const CoveredInTestEval = []{
     std::set<Keyword> covered;

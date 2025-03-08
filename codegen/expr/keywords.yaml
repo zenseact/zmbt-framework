@@ -654,8 +654,8 @@ keyword_groups:
         codomain: list[list]
 
       - name: list
-        brief: Envelop zero or more values in list
-        domain: list
+        brief: Envelop zero or more parameters in list
+        domain: null
         codomain: list
 
 
@@ -891,7 +891,7 @@ keyword_groups:
 
   - common:
       cat: HiOrd
-      signature: HiOrdVariadic
+      signature: Variadic
     keywords:
       - name: any
         brief: Match any predicate

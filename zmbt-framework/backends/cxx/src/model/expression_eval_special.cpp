@@ -5,6 +5,9 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <algorithm>
+#include <boost/regex.hpp>
+
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
@@ -12,7 +15,6 @@
 #include "zmbt/model/exceptions.hpp"
 
 
-#include <boost/regex.hpp>
 
 #define ASSERT(E)      if (!(E)) { throw zmbt::expression_error("%s#%d - " #E, __FILE__, __LINE__);}
 
@@ -414,6 +416,66 @@ V eval_impl<Keyword::Recur>(V const& expr, V const& value, O const& op)
     return ret;
 }
 
+template <>
+V eval_impl<Keyword::List>(V const& params, V const& x, O const&)
+{
+    ASSERT(params.is_array());
+    ASSERT(x.is_null());
+    return params;
+}
+
+
+template <>
+V eval_impl<Keyword::Transp>(V const& params, V const& x, O const&)
+{
+    ASSERT(params.is_null());
+    ASSERT(x.is_array());
+    auto const& arr = x.get_array();
+    if (arr.empty()) return arr;
+    auto const N = arr.at(0).as_array().size();
+    ASSERT(std::all_of(arr.cbegin(), arr.cend(), [N](auto const& el) -> bool { return el.is_array() && el.as_array().size() == N;}));
+
+    zmbt::JsonZipIter zip {arr};
+    boost::json::array out {};
+    out.reserve(N);
+    while(!zip.halt())
+    {
+        out.push_back(*zip);
+        zip++;
+    }
+    return out;
+}
+
+
+template <>
+V eval_impl<Keyword::Cartesian>(V const& params, V const& x, O const&)
+{
+    ASSERT(params.is_null());
+    ASSERT(x.is_array());
+    auto const& arr = x.get_array();
+    if (arr.empty()) return arr;
+    std::size_t n {1};
+
+    ASSERT(std::all_of(arr.cbegin(), arr.cend(), [&n](auto const& el) -> bool {
+        if (el.is_array())
+        {
+            n *= el.get_array().size();
+            return true;
+        }
+        return false;
+    }));
+
+    zmbt::JsonProdIter zip {arr};
+    boost::json::array out {};
+    out.reserve(n);
+    while(!zip.halt())
+    {
+        out.push_back(*zip);
+        zip++;
+    }
+    return out;
+}
+
 
 } // namespace
 
@@ -454,6 +516,9 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
 
         // vector ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
+        ZMBT_EXPR_EVAL_IMPL_CASE(List)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Transp)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
 
         default:
         {

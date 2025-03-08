@@ -70,42 +70,6 @@ struct SignatureUnaryParam : public SignatureBase<K>
     }
 };
 
-/// Expression with variadic parameters
-template <Keyword K>
-struct SignatureVariadic : public SignatureBase<K>
-{
-    using SignatureBase<K>::SignatureBase;
-    using V = boost::json::value;
-    Expression operator()(V const& p0) const {
-        return Expression(K, boost::json::array{p0});
-    }
-    Expression operator()(V const& p0, V const& p1) const {
-        return Expression(K, {p0, p1});
-    }
-    Expression operator()(V const& p0, V const& p1, V const& p2) const {
-        return Expression(K, {p0, p1, p2});
-    }
-    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3) const {
-        return Expression(K, {p0, p1, p2, p3});
-    }
-    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4) const {
-        return Expression(K, {p0, p1, p2, p3, p4});
-    }
-    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5});
-    }
-    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5, V const& p6) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6});
-    }
-    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5, V const& p6, V const& p7) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7});
-    }
-    template <class... T>
-    Expression operator()(V const& p0, V const& p1, V const& p2, V const& p3, V const& p4, V const& p5, V const& p6, V const& p7, T&&... rest) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7, boost::json::value_from(rest)...});
-    }
-};
-
 template <Keyword K>
 struct SignatureHiOrd : public SignatureBase<K>
 {
@@ -154,7 +118,7 @@ struct SignatureHiOrdParamOpt : public SignatureBase<K>
 
 /// Expression with variadic expression parameters
 template <Keyword K>
-struct SignatureHiOrdVariadic : public SignatureBase<K>
+struct SignatureVariadic : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
     using E = Expression;
