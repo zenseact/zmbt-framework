@@ -39,7 +39,7 @@ Classifier getKeywordClassifier(Keyword const& k)
     case Keyword::@keyword.Enum:
 @end
         return Classifier::UnaryOp;
-@for keyword in data.UnaryMathFns:
+@for keyword in data.CodegenFns:
     case Keyword::@keyword.Enum:
 @end
         return Classifier::UnaryMathFn;

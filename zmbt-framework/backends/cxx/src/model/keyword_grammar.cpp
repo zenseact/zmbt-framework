@@ -163,6 +163,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "transp", Keyword::Transp)
     (ZMBT_KEYWORD_PREFIX "uniques", Keyword::Uniques)
     (ZMBT_KEYWORD_PREFIX "id", Keyword::Id)
+    (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
     (ZMBT_KEYWORD_PREFIX "card", Keyword::Card)
     (ZMBT_KEYWORD_PREFIX "size", Keyword::Size)
     (ZMBT_KEYWORD_PREFIX "slide", Keyword::Slide)
@@ -300,6 +301,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Transp: { v = ZMBT_KEYWORD_PREFIX "transp"; break; }
     case Keyword::Uniques: { v = ZMBT_KEYWORD_PREFIX "uniques"; break; }
     case Keyword::Id: { v = ZMBT_KEYWORD_PREFIX "id"; break; }
+    case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
     case Keyword::Card: { v = ZMBT_KEYWORD_PREFIX "card"; break; }
     case Keyword::Size: { v = ZMBT_KEYWORD_PREFIX "size"; break; }
     case Keyword::Slide: { v = ZMBT_KEYWORD_PREFIX "slide"; break; }

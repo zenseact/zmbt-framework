@@ -44,7 +44,7 @@ boost::json::value Expression::eval(boost::json::value const& x, SignalOperatorH
     {
     case Classifier::Const:         return eval_Const(x, op);
     case Classifier::UnaryOp:       return eval_UnaryOp(x, op);
-    case Classifier::UnaryMathFn:   return eval_UnaryMathFn(x, op);
+    case Classifier::UnaryMathFn:   return eval_CodegenFn(x, op);
     case Classifier::BinaryOp:      return eval_BinaryOp(x, op);
     case Classifier::Special:
     default:

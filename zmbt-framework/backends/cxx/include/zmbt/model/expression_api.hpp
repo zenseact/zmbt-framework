@@ -363,6 +363,9 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Uniques> const Uniques;
 /// \brief Identity function
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id;
 
+/// \brief Evaluate enveloped fn and return result or default value if result is null
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default;
+
 /// \brief Set cardinality (uniques count)
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card;
 

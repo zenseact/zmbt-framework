@@ -110,6 +110,7 @@ expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Transp> const Transp = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Uniques> const Uniques = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id = {};
+expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size = {};
 expr::SignatureBinary<::zmbt::expr::Keyword::Slide> const Slide = {};

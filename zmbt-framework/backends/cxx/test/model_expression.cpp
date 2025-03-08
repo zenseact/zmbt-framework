@@ -50,6 +50,11 @@ std::vector<TestEvalSample> const TestSamples
     {Id                         , nullptr               , nullptr               },
     {Id                         , {1,2,3}               , {1,2,3}               },
 
+
+    {Default(42)                , nullptr               , 42                    },
+    {Default(42)                , ""                    , ""                    },
+    {Default(42)                , {1,2,3}               , {1,2,3}               },
+
     // boolean cast
     {Bool                       , true                  , true                  },
     {Bool                       , 42                    , true                  },
@@ -438,7 +443,7 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     BOOST_CHECK_EQUAL(sample.expr, converted_implicitly);
 }
 
-BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(static_cast<std::size_t>(Keyword::Undefined)))
+BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, static_cast<std::size_t>(Keyword::_count)))
 {
     Keyword const keyword = static_cast<Keyword>(sample);
     if (NotImplemented.count(keyword) == 0 && CoveredInTestEval.count(keyword) == 0)
@@ -447,7 +452,7 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(static_cast<std::size_t
     }
 }
 
-BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(static_cast<std::size_t>(Keyword::Undefined)))
+BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul}, static_cast<std::size_t>(Keyword::_count)))
 {
     Keyword const keyword = static_cast<Keyword>(sample);
     Expression const expr(keyword, {});

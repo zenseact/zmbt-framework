@@ -15,7 +15,7 @@
  * 3. Commit changes
  */
 
-@for library in data.imports_for(data.UnaryMathFns):
+@for library in data.imports_for(data.CodegenFns):
 #include <@library>
 @end
 
@@ -25,11 +25,11 @@
 
 namespace zmbt {
 
-boost::json::value zmbt::Expression::eval_UnaryMathFn(boost::json::value const& x, SignalOperatorHandler const&) const
+boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x, SignalOperatorHandler const&) const
 {
     switch(keyword())
     {
-@for keyword in data.UnaryMathFns:
+@for keyword in data.CodegenFns:
     case Keyword::@keyword.Enum: return @keyword.CodegenValue;
 @end
     default:

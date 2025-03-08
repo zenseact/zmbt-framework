@@ -34,14 +34,14 @@ namespace expr {
 /// ZMBT Expression keyword
 enum class Keyword
 {
+    Undefined,
 @for keyword in data.Keywords:
 
     /// @keyword.Name
     @keyword.Enum,
 @end
 
-    /// Internal utility value
-    Undefined
+    _count
 };
 
 } // namespace expr

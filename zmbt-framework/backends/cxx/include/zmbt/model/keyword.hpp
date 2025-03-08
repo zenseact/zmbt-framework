@@ -33,6 +33,7 @@ namespace expr {
 /// ZMBT Expression keyword
 enum class Keyword
 {
+    Undefined,
 
     /// literal
     Literal,
@@ -301,6 +302,9 @@ enum class Keyword
     /// id
     Id,
 
+    /// default
+    Default,
+
     /// card
     Card,
 
@@ -370,8 +374,7 @@ enum class Keyword
     /// compose
     Compose,
 
-    /// Internal utility value
-    Undefined
+    _count
 };
 
 } // namespace expr

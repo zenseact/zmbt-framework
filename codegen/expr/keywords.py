@@ -161,5 +161,5 @@ class KeywordGrammar:
         return self.where(lambda x: x.IsOperator and x.Arity == 2)
 
     @property
-    def UnaryMathFns(self) -> list[Keyword]:
+    def CodegenFns(self) -> list[Keyword]:
         return self.where(lambda x: x.CodegenValue and not x.IsOperator and not x.IsConst)

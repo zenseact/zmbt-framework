@@ -67,6 +67,7 @@ Classifier getKeywordClassifier(Keyword const& k)
     case Keyword::Floor:
     case Keyword::Sign:
     case Keyword::Id:
+    case Keyword::Default:
         return Classifier::UnaryMathFn;
     case Keyword::Add:
     case Keyword::Sub:

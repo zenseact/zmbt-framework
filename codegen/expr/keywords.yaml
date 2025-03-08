@@ -684,6 +684,17 @@ keyword_groups:
         codegen-value:
           cxx: x
 
+      - name: default
+        brief: Evaluate enveloped fn and return result or default value if result is null
+        signature: Binary
+        domain: any
+        codomain: any
+        codegen-value:
+          cxx: 'x.is_null() ? params() : x'
+        params:
+          - label: default value
+            type: any
+
 
   - common:
       cat: Property

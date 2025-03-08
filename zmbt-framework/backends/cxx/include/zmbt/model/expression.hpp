@@ -42,7 +42,7 @@ private:
 
     boost::json::value eval_Const(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_UnaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
-    boost::json::value eval_UnaryMathFn(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_CodegenFn(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_BinaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_Special(boost::json::value const&, SignalOperatorHandler const&) const;
 
