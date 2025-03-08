@@ -300,7 +300,7 @@ BOOST_FIXTURE_TEST_CASE(MatchExpressions, ModelTestFixture)
         (2,  2, Gt(1)            ) ["greater than 1"]
         (2,  2, All(Ge(0), Le(5))) ["between 0 and 5"]
         (2,  2, In({1,2,3,4})    ) ["is element of {1,2,3,4} set"]
-        (2,  2, Near(3, .5)      ) ["approximation with relative tolerance"]
+        (2,  2, Near({3, .5})    ) ["approximation with relative tolerance"]
         (2,  2, Bool             ) ["bool(signal) resolves to true"]
         (2,  2, Nil|Not          ) ["same as !!x"]
     ;

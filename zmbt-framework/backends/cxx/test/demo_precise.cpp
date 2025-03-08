@@ -207,38 +207,37 @@ BOOST_AUTO_TEST_CASE(FloatToDouble)
         // will fail: "1.1f" is parsed py strtod, not strtof
         // ("1.1f"          , Expect::EQ("1.1f")     )
         // correct: hexadecimal notation is safe regardless of type
-        (1.1f          , "0x1.19999ap+0")
+        (1.1f            , "0x1.19999ap+0"   )
 
-        (0.f             , 0.f                      )
-        (1.f             , 1.f                      )
-        (1.f             , "1.f"                    )
-        ("0x1.19999ap+0" , "0x1.19999ap+0"          ) // 1.1f
-        ("0x1.555556p-2" , "0x1.555556p-2"          ) // 1.f / 3
+        (0.f             , 0.f               )
+        (1.f             , 1.f               )
+        (1.f             , "1.f"             )
+        ("0x1.19999ap+0" , "0x1.19999ap+0"   ) // 1.1f
+        ("0x1.555556p-2" , "0x1.555556p-2"   ) // 1.f / 3
 
-        (1.f           , Eq(1.f )         )
-        (1.f           , Le(1.5f)         )
-        (1.f           , Ge( .5f)         )
+        (1.f           , Eq(1.f )            )
+        (1.f           , Le(1.5f)            )
+        (1.f           , Ge( .5f)            )
 
-        (1.f           , Near(1.1f, 0.2)   )
-        (1             , In({1.1f, 0.2, 1E0})   )
-        (1             , In({1.1f, 0.2, 1})   )
+        (1.f           , Near({1.1f, 0.2})   )
+        (1             , In({1.1f, 0.2, 1E0}))
+        (1             , In({1.1f, 0.2, 1})  )
 
-        (  0         , 0          )
-        (  1         , 1          )
-        (  "0"       , "0"        )
-        (  "1"       , "1"        )
-        ( "-1"       , "-1"       )
-        (  "0.25"    , "0.25"     )
-        (  "0x1.4p3" , "0x1.4p3"  )
+        (  0           , 0                   )
+        (  1           , 1                   )
+        (  "0"         , "0"                 )
+        (  "1"         , "1"                 )
+        ( "-1"         , "-1"                )
+        (  "0.25"      , "0.25"              )
+        (  "0x1.4p3"   , "0x1.4p3"           )
 
-        (1.5f          , Near(1.f, 0.5)   )
-        (1.5f          , Near(2.f, 0.5)   )
-        (1.5f          , Near(1  , 0.5)   )
-        (1.5f          , Near(2  , 0.5)   )
-        (1.f           , Near(precise<double> ("1.f"), 0.1) )
-        (1.5f          , Near(precise<double> ("1.f"), 0.5) )
-        (1.5f          , Near(precise<double> ("2.f"), 0.5) )
-        // (1.5f          , Near(precise<double> ("0x1.8p+0")) )
+        (1.5f          , Near({1.f, 0.5})    )
+        (1.5f          , Near({2.f, 0.5})    )
+        (1.5f          , Near({1  , 0.5})    )
+        (1.5f          , Near({2  , 0.5})    )
+        (1.f           , Near({precise<double> ("1.f"), 0.1}) )
+        (1.5f          , Near({precise<double> ("1.f"), 0.5}) )
+        (1.5f          , Near({precise<double> ("2.f"), 0.5}) )
     ;
 }
 

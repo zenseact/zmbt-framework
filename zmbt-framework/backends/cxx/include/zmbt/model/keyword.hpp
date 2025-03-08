@@ -35,176 +35,56 @@ enum class Keyword
 {
     Undefined,
 
-    /// literal
-    Literal,
-
-    /// void
-    Void,
-
-    /// noop
-    Noop,
-
-    /// null
-    Null,
-
-    /// true
-    True,
-
-    /// false
-    False,
-
-    /// pi
-    Pi,
-
-    /// e
-    E,
-
-    /// inf
-    Inf,
-
-    /// eps
-    Eps,
-
-    /// nan
-    NaN,
-
-    /// bool
-    Bool,
-
-    /// nil
-    Nil,
-
-    /// not
-    Not,
-
-    /// neg
-    Neg,
-
-    /// b-not
-    BitNot,
-
-    /// sqrt
-    Sqrt,
-
-    /// sin
-    Sin,
-
-    /// cos
-    Cos,
-
-    /// tan
-    Tan,
-
-    /// asin
-    Asin,
+    /// abs
+    Abs,
 
     /// acos
     Acos,
 
-    /// atan
-    Atan,
-
-    /// sinh
-    Sinh,
-
-    /// cosh
-    Cosh,
-
-    /// tanh
-    Tanh,
-
-    /// asinh
-    Asinh,
-
     /// acosh
     Acosh,
-
-    /// atanh
-    Atanh,
-
-    /// exp
-    Exp,
-
-    /// erf
-    Erf,
-
-    /// erfc
-    Erfc,
-
-    /// gamma
-    Gamma,
-
-    /// abs
-    Abs,
-
-    /// ceil
-    Ceil,
-
-    /// floor
-    Floor,
-
-    /// sign
-    Sign,
-
-    /// sum
-    Sum,
-
-    /// prod
-    Prod,
-
-    /// round
-    Round,
 
     /// add
     Add,
 
-    /// sub
-    Sub,
+    /// all
+    All,
 
-    /// sub-from
-    SubFrom,
+    /// and
+    And,
 
-    /// mul
-    Mul,
+    /// any
+    Any,
 
-    /// div
-    Div,
+    /// apply
+    Apply,
 
-    /// div-from
-    DivFrom,
+    /// approx
+    Approx,
 
-    /// pow
-    Pow,
+    /// argmax
+    Argmax,
 
-    /// pow-from
-    PowFrom,
+    /// argmin
+    Argmin,
 
-    /// log
-    Log,
+    /// asin
+    Asin,
 
-    /// log-from
-    LogFrom,
+    /// asinh
+    Asinh,
 
-    /// mod
-    Mod,
+    /// at
+    At,
 
-    /// mod-from
-    ModFrom,
+    /// atan
+    Atan,
 
-    /// quot
-    Quot,
-
-    /// quot-from
-    QuotFrom,
+    /// atanh
+    Atanh,
 
     /// b-and
     BitAnd,
-
-    /// b-or
-    BitOr,
-
-    /// b-xor
-    BitXor,
 
     /// b-lshift
     BitLshift,
@@ -212,47 +92,176 @@ enum class Keyword
     /// b-lshift-from
     BitLshiftFrom,
 
+    /// b-not
+    BitNot,
+
+    /// b-or
+    BitOr,
+
     /// b-rshift
     BitRshift,
 
     /// b-rshift-from
     BitRshiftFrom,
 
+    /// b-xor
+    BitXor,
+
+    /// bind
+    Bind,
+
+    /// bool
+    Bool,
+
+    /// card
+    Card,
+
+    /// cartesian
+    Cartesian,
+
+    /// ceil
+    Ceil,
+
+    /// compose
+    Compose,
+
+    /// concat
+    Concat,
+
+    /// cos
+    Cos,
+
+    /// cosh
+    Cosh,
+
+    /// count
+    Count,
+
+    /// default
+    Default,
+
+    /// div
+    Div,
+
+    /// div-from
+    DivFrom,
+
+    /// e
+    E,
+
+    /// eps
+    Eps,
+
     /// eq
     Eq,
 
-    /// ne
-    Ne,
+    /// erf
+    Erf,
 
-    /// lt
-    Lt,
+    /// erfc
+    Erfc,
 
-    /// le
-    Le,
+    /// exp
+    Exp,
 
-    /// gt
-    Gt,
+    /// false
+    False,
+
+    /// filter
+    Filter,
+
+    /// floor
+    Floor,
+
+    /// gamma
+    Gamma,
 
     /// ge
     Ge,
 
-    /// approx
-    Approx,
+    /// gt
+    Gt,
 
-    /// and
-    And,
+    /// id
+    Id,
+
+    /// in
+    In,
+
+    /// inf
+    Inf,
+
+    /// intersect
+    Intersect,
+
+    /// le
+    Le,
+
+    /// list
+    List,
+
+    /// literal
+    Literal,
+
+    /// log
+    Log,
+
+    /// log-from
+    LogFrom,
+
+    /// lt
+    Lt,
+
+    /// map
+    Map,
+
+    /// max
+    Max,
+
+    /// min
+    Min,
+
+    /// mod
+    Mod,
+
+    /// mod-from
+    ModFrom,
+
+    /// mul
+    Mul,
+
+    /// nan
+    NaN,
+
+    /// ne
+    Ne,
+
+    /// neg
+    Neg,
+
+    /// ni
+    Ni,
+
+    /// nil
+    Nil,
+
+    /// noop
+    Noop,
+
+    /// not
+    Not,
+
+    /// not-in
+    NotIn,
+
+    /// not-ni
+    NotNi,
+
+    /// null
+    Null,
 
     /// or
     Or,
-
-    /// set-eq
-    SetEq,
-
-    /// subset
-    Subset,
-
-    /// superset
-    Superset,
 
     /// p-subset
     ProperSubset,
@@ -260,23 +269,41 @@ enum class Keyword
     /// p-superset
     ProperSuperset,
 
-    /// in
-    In,
+    /// pi
+    Pi,
 
-    /// not-in
-    NotIn,
+    /// pow
+    Pow,
 
-    /// ni
-    Ni,
+    /// pow-from
+    PowFrom,
 
-    /// not-ni
-    NotNi,
+    /// prod
+    Prod,
 
-    /// union
-    Union,
+    /// quot
+    Quot,
 
-    /// intersect
-    Intersect,
+    /// quot-from
+    QuotFrom,
+
+    /// re
+    Re,
+
+    /// recur
+    Recur,
+
+    /// reduce
+    Reduce,
+
+    /// repeat
+    Repeat,
+
+    /// round
+    Round,
+
+    /// saturate
+    Saturate,
 
     /// set-diff
     Diff,
@@ -284,29 +311,17 @@ enum class Keyword
     /// set-diff-from
     DiffFrom,
 
-    /// concat
-    Concat,
+    /// set-eq
+    SetEq,
 
-    /// cartesian
-    Cartesian,
+    /// sign
+    Sign,
 
-    /// list
-    List,
+    /// sin
+    Sin,
 
-    /// transp
-    Transp,
-
-    /// uniques
-    Uniques,
-
-    /// id
-    Id,
-
-    /// default
-    Default,
-
-    /// card
-    Card,
+    /// sinh
+    Sinh,
 
     /// size
     Size,
@@ -314,68 +329,65 @@ enum class Keyword
     /// slide
     Slide,
 
-    /// stride
-    Stride,
-
-    /// repeat
-    Repeat,
-
-    /// re
-    Re,
-
-    /// at
-    At,
-
-    /// map
-    Map,
-
-    /// filter
-    Filter,
-
-    /// count
-    Count,
-
     /// sort
     Sort,
 
-    /// min
-    Min,
+    /// sqrt
+    Sqrt,
 
-    /// max
-    Max,
+    /// stride
+    Stride,
 
-    /// argmin
-    Argmin,
+    /// sub
+    Sub,
 
-    /// argmax
-    Argmax,
+    /// sub-from
+    SubFrom,
 
-    /// recur
-    Recur,
+    /// subset
+    Subset,
 
-    /// apply
-    Apply,
+    /// sum
+    Sum,
 
-    /// bind
-    Bind,
+    /// superset
+    Superset,
 
-    /// reduce
-    Reduce,
+    /// tan
+    Tan,
 
-    /// any
-    Any,
+    /// tanh
+    Tanh,
 
-    /// all
-    All,
+    /// transp
+    Transp,
 
-    /// saturate
-    Saturate,
+    /// true
+    True,
 
-    /// compose
-    Compose,
+    /// try
+    Try,
+
+    /// try-catch
+    TryCatch,
+
+    /// union
+    Union,
+
+    /// uniques
+    Uniques,
+
+    /// void
+    Void,
 
     _count
 };
+
+namespace detail
+{
+bool isBinary(Keyword const& k);
+} // namespace detail
+
 
 } // namespace expr
 } // namespace zmbt

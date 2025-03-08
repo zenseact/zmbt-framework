@@ -15,44 +15,26 @@
  * 3. Commit changes
  */
 
-#ifndef ZMBT_MODEL_KEYWORD_HPP_
-#define ZMBT_MODEL_KEYWORD_HPP_
-
-#include <boost/json.hpp>
-
-#include "zmbt/reflect.hpp"
-
-#ifndef ZMBT_KEYWORD_PREFIX
-    #define ZMBT_KEYWORD_PREFIX ":"
-#endif
+#include "zmbt/model/keyword.hpp"
 
 
 namespace zmbt {
 namespace expr {
+namespace detail {
 
-
-/// ZMBT Expression keyword
-enum class Keyword
+bool isBinary(Keyword const& k)
 {
-    Undefined,
-@for keyword in data.Keywords:
-
-    /// @keyword.Name
-    @keyword.Enum,
+    switch (k)
+    {
+@for keyword in data.BinarySignatures:
+    case Keyword::@keyword.Enum:
 @end
+        return true;
+    default:
+        return false;
+    }
+}
 
-    _count
-};
-
-namespace detail
-{
-bool isBinary(Keyword const& k);
 } // namespace detail
-
-
 } // namespace expr
 } // namespace zmbt
-
-
-
-#endif // ZMBT_MODEL_KEYWORD_HPP_

@@ -308,7 +308,7 @@ that enables flexible matchers and more complex test data manipulation:
     (2,  2, Gt(1)            ) ["greater than 1"]
     (2,  2, All(Ge(0), Le(5))) ["between 0 and 5"]
     (2,  2, In({1,2,3,4})    ) ["is element of {1,2,3,4} set"]
-    (2,  2, Near(3, .5)      ) ["approximation with relative tolerance"]
+    (2,  2, Near({3, .5})    ) ["approximation with relative tolerance"]
     (2,  2, Not(Nil())       ) ["bool(signal) resolves to true"]
 ```
 

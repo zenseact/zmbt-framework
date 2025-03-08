@@ -134,11 +134,12 @@ std::vector<TestEvalSample> const TestSamples
     {Expression(42)|Not|Not     , 42                    , true                  },
     {Expression(42)|Not|Not     , 13                    , false                 },
 
-    {Approx(3.14, 0.001)         , pi                    , true                 },
-    {Approx(2.71, 0.005)         , e                     , true                 },
-    {Approx(3.14, 0     , 0.01)  , pi                    , true                 },
-    {Approx(2.71, 0     , 0.01)  , e                     , true                 },
-    {All(Gt(3.14), Lt(3.15))     , pi                    , true                 },
+    {Approx({3.14, 0.001})      , pi                    , true                 },
+    {Approx({2.71, 0.005})      , e                     , true                 },
+    {Approx({3.14, 0, 0.01})    , pi                    , true                 },
+    {Approx({2.71, 0, 0.01})    , e                     , true                 },
+    {Approx                     , {pi, {3.14, 0.001}}   , true                 },
+    {All(Gt(3.14), Lt(3.15))    , pi                    , true                 },
 
     // order relation
     {Lt(42)                     , 41                    , true                  },
@@ -359,6 +360,9 @@ std::vector<TestEvalSample> const TestSamples
     {Re("^.{3}$")               , "1234"                , false                 },
     {Re("\\[1,2\\]")            , {1,2}                 , true                  },
     {Re("42")                   , 42                    , true                  },
+    {Re                         , {42, "42"}            , true                  },
+    {Re                         , {{1,2}, "\\[1,2\\]"}  , true                  },
+
 
     {At(0)                      , {1,2,3}               , 1                     },
     {At(1)                      , {1,2,3}               , 2                     },
@@ -375,6 +379,9 @@ std::vector<TestEvalSample> const TestSamples
     {At("::2")                  , {1,2,3,4,5,6,7,8}      , {1,3,5,7}            },
     {At("4:")                   , {1,2,3,4,5,6,7,8}      , {5,6,7,8}            },
     {At("-1:0:-1")              , {1,2,3,4,5,6,7,8}      , {8,7,6,5,4,3,2,1}    },
+
+    {At                         , {{1,2,3}, 0}           , 1                    },
+
     // TODO: string query
     // {At(0)                   , "foo"                 , "f"                   },
 
@@ -421,10 +428,25 @@ std::vector<TestEvalSample> const TestSamples
     {Transp                     , {{1,2},{3,4},{5,6}}    , {{1,3,5},{2,4,6}}    },
     {Transp                     , {{1,2},L{"a", "b"}}    , {{1, "a"},{2, "b"}}  },
 
-
     {Cartesian                  , L{}                   , L{}                   },
     {Cartesian                  , L{{1,2}}              , {L{1},L{2}}           },
-    {Cartesian                  , {{1,2},L{"a", "b"}}   , {{1, "a"},{1, "b"},{2, "a"},{2, "b"}} },
+
+    {Cartesian                  , {{1,2},L{"a", "b"}}   ,
+                                                            {{1, "a"},
+                                                             {1, "b"},
+                                                             {2, "a"},
+                                                             {2, "b"}}          },
+
+    {Try(Div(2))                , 42                    , 21                    },
+    {Try(Div(0))                , 42                    , nullptr               },
+    {Try                        , {42, Div(0)}          , nullptr               },
+
+    {TryCatch(Div(2))           , 42                    , 21                    },
+    {TryCatch(Div(0))           , 42                    ,
+                                        {{"err", "zero division"},
+                                         {"fn" , {{":div",0}}   },
+                                         {"x"  , 42              },
+                                         {"op" , "zmbt::GenericSignalOperator"}}},
 };
 
 
@@ -670,8 +692,8 @@ BOOST_AUTO_TEST_CASE(TestComposeVsApplyPrecedence)
 }
 
 
-BOOST_AUTO_TEST_CASE(Classifier)
+BOOST_AUTO_TEST_CASE(CodegenType)
 {
-    auto const test = zmbt::expr::detail::getKeywordClassifier(Keyword::Abs);
-    BOOST_CHECK(test == zmbt::expr::detail::Classifier::UnaryMathFn);
+    auto const test = zmbt::expr::detail::getCodegenType(Keyword::Abs);
+    BOOST_CHECK(test == zmbt::expr::detail::CodegenType::CodegenFn);
 }

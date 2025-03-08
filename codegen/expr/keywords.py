@@ -20,8 +20,8 @@ class Keyword:
         return self._definition.get('signature', 'Special')
 
     @property
-    def Category(self) -> str:
-        return self._definition.get('cat', 'Internal')
+    def IsBinary(self) -> str:
+        return self.Arity == 2
 
     @property
     def Tags(self) -> tuple[str]:
@@ -106,10 +106,10 @@ class Keyword:
 class KeywordGrammar:
     def __init__(self, data: dict):
         keyword_groups: list = data['keyword_groups']
-        self._keywords = tuple(Keyword(
-            {**group.get('common', {}), **keyword}
-        ) for group in keyword_groups for keyword in group['keywords'])
-
+        self._keywords = tuple(sorted(
+            (Keyword({**group.get('common', {}), **keyword}) for group in keyword_groups for keyword in group['keywords']),
+            key=lambda item: item.Name
+        ))
         # check unique names
         names = [k.Name for k in self._keywords]
         for k in self._keywords:
@@ -159,6 +159,10 @@ class KeywordGrammar:
     @property
     def BinaryOperators(self) -> list[Keyword]:
         return self.where(lambda x: x.IsOperator and x.Arity == 2)
+
+    @property
+    def BinarySignatures(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsBinary)
 
     @property
     def CodegenFns(self) -> list[Keyword]:

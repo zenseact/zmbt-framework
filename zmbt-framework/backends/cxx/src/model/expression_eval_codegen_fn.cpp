@@ -26,29 +26,29 @@ boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x,
 {
     switch(keyword())
     {
-    case Keyword::Sqrt: return std::sqrt(boost::json::value_to<double>(x));
-    case Keyword::Sin: return std::sin(boost::json::value_to<double>(x));
-    case Keyword::Cos: return std::cos(boost::json::value_to<double>(x));
-    case Keyword::Tan: return std::tan(boost::json::value_to<double>(x));
-    case Keyword::Asin: return std::asin(boost::json::value_to<double>(x));
+    case Keyword::Abs: return std::abs(boost::json::value_to<double>(x));
     case Keyword::Acos: return std::acos(boost::json::value_to<double>(x));
-    case Keyword::Atan: return std::atan(boost::json::value_to<double>(x));
-    case Keyword::Sinh: return std::sinh(boost::json::value_to<double>(x));
-    case Keyword::Cosh: return std::cosh(boost::json::value_to<double>(x));
-    case Keyword::Tanh: return std::tanh(boost::json::value_to<double>(x));
-    case Keyword::Asinh: return std::asinh(boost::json::value_to<double>(x));
     case Keyword::Acosh: return std::acosh(boost::json::value_to<double>(x));
+    case Keyword::Asin: return std::asin(boost::json::value_to<double>(x));
+    case Keyword::Asinh: return std::asinh(boost::json::value_to<double>(x));
+    case Keyword::Atan: return std::atan(boost::json::value_to<double>(x));
     case Keyword::Atanh: return std::atanh(boost::json::value_to<double>(x));
-    case Keyword::Exp: return std::exp(boost::json::value_to<double>(x));
+    case Keyword::Ceil: return std::ceil(boost::json::value_to<double>(x));
+    case Keyword::Cos: return std::cos(boost::json::value_to<double>(x));
+    case Keyword::Cosh: return std::cosh(boost::json::value_to<double>(x));
+    case Keyword::Default: return x.is_null() ? params() : x;
     case Keyword::Erf: return std::erf(boost::json::value_to<double>(x));
     case Keyword::Erfc: return std::erfc(boost::json::value_to<double>(x));
-    case Keyword::Gamma: return std::tgamma(boost::json::value_to<double>(x));
-    case Keyword::Abs: return std::abs(boost::json::value_to<double>(x));
-    case Keyword::Ceil: return std::ceil(boost::json::value_to<double>(x));
+    case Keyword::Exp: return std::exp(boost::json::value_to<double>(x));
     case Keyword::Floor: return std::floor(boost::json::value_to<double>(x));
-    case Keyword::Sign: return (boost::json::value_to<double>(x) >= 0 ? 1 : -1);
+    case Keyword::Gamma: return std::tgamma(boost::json::value_to<double>(x));
     case Keyword::Id: return x;
-    case Keyword::Default: return x.is_null() ? params() : x;
+    case Keyword::Sign: return (boost::json::value_to<double>(x) >= 0 ? 1 : -1);
+    case Keyword::Sin: return std::sin(boost::json::value_to<double>(x));
+    case Keyword::Sinh: return std::sinh(boost::json::value_to<double>(x));
+    case Keyword::Sqrt: return std::sqrt(boost::json::value_to<double>(x));
+    case Keyword::Tan: return std::tan(boost::json::value_to<double>(x));
+    case Keyword::Tanh: return std::tanh(boost::json::value_to<double>(x));
     default:
         throw expression_error("got invalid unary math expression: %s", underlying());
         return nullptr;

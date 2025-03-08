@@ -4,8 +4,8 @@
  * \license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_MODEL_KEYWORD_CLASSIFIER_HPP_
-#define ZMBT_MODEL_KEYWORD_CLASSIFIER_HPP_
+#ifndef ZMBT_MODEL_KEYWORD_CODEGEN_TYPE_HPP_
+#define ZMBT_MODEL_KEYWORD_CODEGEN_TYPE_HPP_
 
 #include <boost/json.hpp>
 #include <tuple>
@@ -17,17 +17,16 @@ namespace expr {
 namespace detail {
 
 /// Keyword classifier, allows to select eval implementation
-enum class Classifier
+enum class CodegenType
 {
-    Internal,
+    None,
     Const,
     UnaryOp,
-    UnaryMathFn,
     BinaryOp,
-    Special
+    CodegenFn,
 };
 
-Classifier getKeywordClassifier(Keyword const& k);
+CodegenType getCodegenType(Keyword const& k);
 
 } // namespace detail
 } // namespace expr
@@ -35,4 +34,4 @@ Classifier getKeywordClassifier(Keyword const& k);
 
 
 
-#endif // ZMBT_MODEL_KEYWORD_CLASSIFIER_HPP_
+#endif // ZMBT_MODEL_KEYWORD_CODEGEN_TYPE_HPP_

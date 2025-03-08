@@ -85,6 +85,10 @@ void zmbt::JsonZipIter::step()
         if (*iter == *end)
         {
             halt_ = true;
+            // if (its_ != ends_)
+            // {
+                
+            // }
         }
         iter++;
         end++;

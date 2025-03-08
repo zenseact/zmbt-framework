@@ -44,31 +44,32 @@ template <Keyword K>
 struct SignatureBinary : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
-    Expression operator()(boost::json::value const& param) const
+    Expression operator()(Expression const& param) const
     {
         return Expression(K, param);
-    }
-    template <class T>
-    Expression operator()(T&& param) const
-    {
-        return Expression(K, json_from(std::forward<T>(param)));
     }
 };
 
-template <Keyword K>
-struct SignatureUnaryParam : public SignatureBase<K>
+
+template <Keyword Kw>
+struct SignatureBinarySetRhs : public SignatureBase<Kw>
 {
-    using SignatureBase<K>::SignatureBase;
-    Expression operator()(boost::json::value const& param) const
+    using SignatureBase<Kw>::SignatureBase;
+    Expression operator()(std::initializer_list<boost::json::value_ref> set) const
     {
-        return Expression(K, param);
+        return Expression(Kw, detail::as_set(set));
     }
-    template <class T>
-    Expression operator()(T&& param) const
+
+    Expression operator()(boost::json::array const& set) const
     {
-        return Expression(K, json_from(std::forward<T>(param)));
+        return Expression(Kw, set);
+    }
+    Expression operator()(boost::json::object const& set) const
+    {
+        return Expression(Kw, set);
     }
 };
+
 
 template <Keyword K>
 struct SignatureHiOrd : public SignatureBase<K>
@@ -152,34 +153,7 @@ struct SignatureVariadic : public SignatureBase<K>
     }
 };
 
-template <Keyword Kw>
-struct SignatureBinarySetRhs : public SignatureBase<Kw>
-{
-    using SignatureBase<Kw>::SignatureBase;
-    Expression operator()(std::initializer_list<boost::json::value_ref> set) const
-    {
-        return Expression(Kw, detail::as_set(set));
-    }
 
-    Expression operator()(boost::json::array const& set) const
-    {
-        return Expression(Kw, set);
-    }
-    Expression operator()(boost::json::object const& set) const
-    {
-        return Expression(Kw, set);
-    }
-};
-
-struct SignatureApprox : public SignatureBase<Keyword::Approx>
-{
-    using SignatureBase<Keyword::Approx>::SignatureBase;
-
-    Expression operator()(double reference, double rtol, double atol = std::numeric_limits<double>::epsilon()) const
-    {
-        return Expression(Keyword::Approx, boost::json::array {reference, rtol, atol});
-    }
-};
 
 } // namespace expr
 } // namespace zmbt

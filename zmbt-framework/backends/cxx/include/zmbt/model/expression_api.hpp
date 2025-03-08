@@ -23,141 +23,142 @@ namespace zmbt {
 namespace api {
 
 
-/// \brief No operation
-extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const Noop;
-/// \brief Alias for Noop
-extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const _;
-
-/// \brief Null value
-extern expr::SignatureConst<::zmbt::expr::Keyword::Null> const Null;
-
-/// \brief Logical true
-extern expr::SignatureConst<::zmbt::expr::Keyword::True> const True;
-
-/// \brief Logical false
-extern expr::SignatureConst<::zmbt::expr::Keyword::False> const False;
-
-/// \brief Pi constant
-extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
-
-/// \brief Euler's number
-extern expr::SignatureConst<::zmbt::expr::Keyword::E> const E;
-
-/// \brief Infinity
-extern expr::SignatureConst<::zmbt::expr::Keyword::Inf> const Inf;
-
-/// \brief Machine epsilon
-extern expr::SignatureConst<::zmbt::expr::Keyword::Eps> const Eps;
-
-/// \brief Not a number
-extern expr::SignatureConst<::zmbt::expr::Keyword::NaN> const NaN;
-
-/// \brief Predicate on boolean transform (aka truthy)
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Bool> const Bool;
-
-/// \brief Predicate on boolean transform (aka falsy)
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Nil> const Nil;
-
-/// \brief Logical complement
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Not> const Not;
-
-/// \brief Negate
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Neg> const Neg;
-
-/// \brief Bitwise not
-extern expr::SignatureUnary<::zmbt::expr::Keyword::BitNot> const BitNot;
-
-/// \brief Square root
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sqrt> const Sqrt;
-
-/// \brief Sinus
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sin> const Sin;
-
-/// \brief Cosinus
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Cos> const Cos;
-
-/// \brief Tangens
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Tan> const Tan;
-
-/// \brief Arcsin
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Asin> const Asin;
+/// \brief Absolute value
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Abs> const Abs;
 
 /// \brief Arccos
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Acos> const Acos;
 
-/// \brief Arctan
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Atan> const Atan;
-
-/// \brief Hyperbolic sin
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sinh> const Sinh;
-
-/// \brief Hyperbolic cos
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Cosh> const Cosh;
-
-/// \brief Hyperbolic tan
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Tanh> const Tanh;
-
-/// \brief Hyperbolic arcsin
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Asinh> const Asinh;
-
 /// \brief Hyperbolic arccos
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Acosh> const Acosh;
-
-/// \brief Hyperbolic arctan
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Atanh> const Atanh;
-
-/// \brief Exponential (e^x)
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Exp> const Exp;
-
-/// \brief Error function
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Erf> const Erf;
-
-/// \brief Error function complement
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Erfc> const Erfc;
-
-/// \brief Gamma function
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Gamma> const Gamma;
-
-/// \brief Absolute value
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Abs> const Abs;
-
-/// \brief Ceil
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Ceil> const Ceil;
-
-/// \brief Floor
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Floor> const Floor;
-
-/// \brief Sign
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sign> const Sign;
-
-/// \brief Summation reduction, real param - initial value
-/// \details
-/// Equivalent to Reduce(Add, ...)
-extern expr::SignatureUnaryParam<::zmbt::expr::Keyword::Sum> const Sum;
-
-/// \brief Multiplication reduction, real param - initial value
-/// \details
-/// Equivalent to Reduce(Mul, ...)
-extern expr::SignatureUnaryParam<::zmbt::expr::Keyword::Prod> const Prod;
-
-/// \brief Round to nearest integer with optional precision
-extern expr::SignatureUnaryParam<::zmbt::expr::Keyword::Round> const Round;
 
 /// \brief Addition
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Add> const Add;
 
-/// \brief Subtraction
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Sub> const Sub;
+/// \brief Match all predicates
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All;
 
-/// \brief Reverse subtraction
+/// \brief Logical and
 /// \details
-/// Subtraction with reverse arguments, i. e.
-///   1. [ ] |-> [y, x] |-> x - y
-///   2. [x] |-> [y]    |-> x - y
-extern expr::SignatureBinary<::zmbt::expr::Keyword::SubFrom> const SubFrom;
+/// Generic behavior:
+///   if first operand is truthy, returns second operand, otherwise first
+extern expr::SignatureBinary<::zmbt::expr::Keyword::And> const And;
 
-/// \brief Multiplication
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Mul> const Mul;
+/// \brief Match any predicate
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any;
+
+/// \brief Apply expr to literal param
+extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Apply> const Apply;
+
+/// \brief Floating point approximately equal
+/// \details
+/// Params: [ref, rtol[, atol]]
+/// Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Approx;
+/// \brief Alias for Approx
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Near;
+
+/// \brief Max value index
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Argmax> const Argmax;
+
+/// \brief Min value index
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Argmin> const Argmin;
+
+/// \brief Arcsin
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Asin> const Asin;
+
+/// \brief Hyperbolic arcsin
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Asinh> const Asinh;
+
+/// \brief Transform json value with given query
+/// \details
+/// Query evaluation rules:
+/// ```
+///   1. q: int   |-> x: list  |-> x at index q (negative -> reverse)
+///   2. q: slice |-> x: list  |-> x[start:stop:step]
+///   3. q: str   |-> x: any   |-> x at JSON Pointer q
+///   4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
+///   5. {"key": q1, "$q2": q3, ...} |-> x: any |->
+///       { "key1": x at q1, "$(x at q2)": x at q3, ...}
+/// ```
+extern expr::SignatureBinary<::zmbt::expr::Keyword::At> const At;
+
+/// \brief Arctan
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Atan> const Atan;
+
+/// \brief Hyperbolic arctan
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Atanh> const Atanh;
+
+/// \brief Bitwise and
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitAnd> const BitAnd;
+
+/// \brief Bitwise left shift
+/// \details
+/// 1. [ ] |-> [x, s] |-> x << s
+/// 2. [s] |-> [x]    |-> x << s
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshift> const BitLshift;
+
+/// \brief Reverse bitwise left shift
+/// \details
+/// Bitwise left shift with reverse arguments, i. e.
+///   1. [ ] |-> [s, x] |-> x << s
+///   2. [x] |-> [s]    |-> x << s
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshiftFrom> const BitLshiftFrom;
+
+/// \brief Bitwise not
+extern expr::SignatureUnary<::zmbt::expr::Keyword::BitNot> const BitNot;
+
+/// \brief Bitwise or
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitOr> const BitOr;
+
+/// \brief Bitwise right shift
+/// \details
+/// 1. [ ] |-> [x, s] |-> x >> s
+/// 2. [s] |-> [x]    |-> x >> s
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshift> const BitRshift;
+
+/// \brief Reverse bitwise right shift
+/// \details
+/// Bitwise right shift with reverse arguments, i. e.
+///   1. [ ] |-> [s, x] |-> x >> s
+///   2. [x] |-> [s]    |-> x >> s
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshiftFrom> const BitRshiftFrom;
+
+/// \brief Bitwise xor
+extern expr::SignatureBinary<::zmbt::expr::Keyword::BitXor> const BitXor;
+
+/// \brief Bind parameters
+extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Bind> const Bind;
+
+/// \brief Predicate on boolean transform (aka truthy)
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Bool> const Bool;
+
+/// \brief Set cardinality (uniques count)
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card;
+
+/// \brief Cartesian product
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Cartesian> const Cartesian;
+
+/// \brief Ceil
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Ceil> const Ceil;
+
+/// \brief Compose functions
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
+
+/// \brief Concatenate sequences
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Concat> const Concat;
+
+/// \brief Cosinus
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Cos> const Cos;
+
+/// \brief Hyperbolic cos
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Cosh> const Cosh;
+
+/// \brief Count matches by predicate param
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Count> const Count;
+
+/// \brief Return x if not null, else return default value
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default;
 
 /// \brief Division
 /// \details
@@ -172,19 +173,59 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Div> const Div;
 ///   2. [x] |-> [y]    |-> x / y
 extern expr::SignatureBinary<::zmbt::expr::Keyword::DivFrom> const DivFrom;
 
-/// \brief To power
-/// \details
-/// X to power p
-///   1. [ ] |-> [x, p] |-> x^p
-///   2. [p] |-> [x]    |-> x^p
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
+/// \brief Euler's number
+extern expr::SignatureConst<::zmbt::expr::Keyword::E> const E;
 
-/// \brief Reverse power
-/// \details
-/// Pow with reverse arguments, i. e.
-///   1. [ ] |-> [p, x] |-> x^p
-///   2. [x] |-> [p]    |-> x^p
-extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
+/// \brief Machine epsilon
+extern expr::SignatureConst<::zmbt::expr::Keyword::Eps> const Eps;
+
+/// \brief Is equal
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Eq> const Eq;
+
+/// \brief Error function
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Erf> const Erf;
+
+/// \brief Error function complement
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Erfc> const Erfc;
+
+/// \brief Exponential (e^x)
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Exp> const Exp;
+
+/// \brief Logical false
+extern expr::SignatureConst<::zmbt::expr::Keyword::False> const False;
+
+/// \brief Filter sequence by predicate param
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Filter> const Filter;
+
+/// \brief Floor
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Floor> const Floor;
+
+/// \brief Gamma function
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Gamma> const Gamma;
+
+/// \brief Greater or equal
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Ge> const Ge;
+
+/// \brief Greater than
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Gt> const Gt;
+
+/// \brief Identity function
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id;
+
+/// \brief Element is in
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::In> const In;
+
+/// \brief Infinity
+extern expr::SignatureConst<::zmbt::expr::Keyword::Inf> const Inf;
+
+/// \brief Set intersection
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Intersect> const Intersect;
+
+/// \brief Lesser or equal
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Le> const Le;
+
+/// \brief Envelop zero or more parameters in list
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
 
 /// \brief Logarithm
 /// \details
@@ -200,6 +241,18 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Log> const Log;
 ///   2. [b] |-> [b]    |-> log_b(x)
 extern expr::SignatureBinary<::zmbt::expr::Keyword::LogFrom> const LogFrom;
 
+/// \brief Lesser than
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Lt> const Lt;
+
+/// \brief Apply param expr to every element of sequence
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Map> const Map;
+
+/// \brief Max value
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Max> const Max;
+
+/// \brief Min value
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Min> const Min;
+
 /// \brief Modulo
 /// \details
 /// Modulo of x:
@@ -213,6 +266,77 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Mod> const Mod;
 ///   1. [ ] |-> [b, x] |-> log_b(x)
 ///   2. [b] |-> [b]    |-> log_b(x)
 extern expr::SignatureBinary<::zmbt::expr::Keyword::ModFrom> const ModFrom;
+
+/// \brief Multiplication
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Mul> const Mul;
+
+/// \brief Not a number
+extern expr::SignatureConst<::zmbt::expr::Keyword::NaN> const NaN;
+
+/// \brief Not equal
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Ne> const Ne;
+
+/// \brief Negate
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Neg> const Neg;
+
+/// \brief Contains element
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Ni;
+/// \brief Alias for Ni
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Contains;
+
+/// \brief Predicate on boolean transform (aka falsy)
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Nil> const Nil;
+
+/// \brief No operation
+extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const Noop;
+/// \brief Alias for Noop
+extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const _;
+
+/// \brief Logical complement
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Not> const Not;
+
+/// \brief Element is not in
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::NotIn> const NotIn;
+
+/// \brief Not contains element
+extern expr::SignatureBinary<::zmbt::expr::Keyword::NotNi> const NotNi;
+
+/// \brief Null value
+extern expr::SignatureConst<::zmbt::expr::Keyword::Null> const Null;
+
+/// \brief Logical or
+/// \details
+/// Generic behavior:
+///   if first operand is truthy, returns first operand, second otherwise
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Or> const Or;
+
+/// \brief Is proper subset
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSubset> const ProperSubset;
+
+/// \brief Is proper superset
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
+
+/// \brief Pi constant
+extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
+
+/// \brief To power
+/// \details
+/// X to power p
+///   1. [ ] |-> [x, p] |-> x^p
+///   2. [p] |-> [x]    |-> x^p
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
+
+/// \brief Reverse power
+/// \details
+/// Pow with reverse arguments, i. e.
+///   1. [ ] |-> [p, x] |-> x^p
+///   2. [x] |-> [p]    |-> x^p
+extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
+
+/// \brief Multiplication reduction, real param - initial value
+/// \details
+/// Equivalent to Reduce(Mul, ...)
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Prod> const Prod;
 
 /// \brief Quotient
 /// \details
@@ -228,112 +352,30 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Quot> const Quot;
 ///   2. [x] |-> [d]    |-> x // d
 extern expr::SignatureBinary<::zmbt::expr::Keyword::QuotFrom> const QuotFrom;
 
-/// \brief Bitwise and
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitAnd> const BitAnd;
-
-/// \brief Bitwise or
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitOr> const BitOr;
-
-/// \brief Bitwise xor
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitXor> const BitXor;
-
-/// \brief Bitwise left shift
+/// \brief Regular expression match
 /// \details
-/// 1. [ ] |-> [x, s] |-> x << s
-/// 2. [s] |-> [x]    |-> x << s
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshift> const BitLshift;
+/// If input is not a string, match it's serialized form.
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Re;
+/// \brief Alias for Re
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex;
 
-/// \brief Reverse bitwise left shift
+/// \brief Apply recursion to parameter expr
+extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Recur> const Recur;
+
+/// \brief Reduce sequence with binary operator and optional initial value
 /// \details
-/// Bitwise left shift with reverse arguments, i. e.
-///   1. [ ] |-> [s, x] |-> x << s
-///   2. [x] |-> [s]    |-> x << s
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshiftFrom> const BitLshiftFrom;
+/// If initial value is not provided, first element is used.
+/// If sequence is empty and initial value is not provided, error is raised.
+extern expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce;
 
-/// \brief Bitwise right shift
-/// \details
-/// 1. [ ] |-> [x, s] |-> x >> s
-/// 2. [s] |-> [x]    |-> x >> s
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshift> const BitRshift;
+/// \brief Repeat value in list
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;
 
-/// \brief Reverse bitwise right shift
-/// \details
-/// Bitwise right shift with reverse arguments, i. e.
-///   1. [ ] |-> [s, x] |-> x >> s
-///   2. [x] |-> [s]    |-> x >> s
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshiftFrom> const BitRshiftFrom;
+/// \brief Round to nearest integer with optional precision
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Round> const Round;
 
-/// \brief Is equal
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Eq> const Eq;
-
-/// \brief Not equal
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ne> const Ne;
-
-/// \brief Lesser than
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Lt> const Lt;
-
-/// \brief Lesser or equal
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Le> const Le;
-
-/// \brief Greater than
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Gt> const Gt;
-
-/// \brief Greater or equal
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ge> const Ge;
-
-/// \brief Floating point approximately equal
-/// \details
-/// Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
-extern expr::SignatureApprox const Approx;
-/// \brief Alias for Approx
-extern expr::SignatureApprox const Near;
-
-/// \brief Logical and
-/// \details
-/// Generic behavior:
-///   if first operand is truthy, returns second operand, otherwise first
-extern expr::SignatureBinary<::zmbt::expr::Keyword::And> const And;
-
-/// \brief Logical or
-/// \details
-/// Generic behavior:
-///   if first operand is truthy, returns first operand, second otherwise
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Or> const Or;
-
-/// \brief Equal as set
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::SetEq> const SetEq;
-
-/// \brief Is subset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Subset> const Subset;
-
-/// \brief Is superset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Superset> const Superset;
-
-/// \brief Is proper subset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSubset> const ProperSubset;
-
-/// \brief Is proper superset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
-
-/// \brief Element is in
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::In> const In;
-
-/// \brief Element is not in
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::NotIn> const NotIn;
-
-/// \brief Contains element
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Ni;
-/// \brief Alias for Ni
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Contains;
-
-/// \brief Not contains element
-extern expr::SignatureBinary<::zmbt::expr::Keyword::NotNi> const NotNi;
-
-/// \brief Set union
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Union> const Union;
-
-/// \brief Set intersection
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Intersect> const Intersect;
+/// \brief Saturate matches in order
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
 
 /// \brief Set difference
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Diff> const Diff;
@@ -341,33 +383,17 @@ extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Diff> const Diff;
 /// \brief Reverse set difference
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::DiffFrom> const DiffFrom;
 
-/// \brief Concatenate sequences
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Concat> const Concat;
+/// \brief Equal as set
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::SetEq> const SetEq;
 
-/// \brief Cartesian product
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Cartesian> const Cartesian;
+/// \brief Sign
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Sign> const Sign;
 
-/// \brief Envelop zero or more parameters in list
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
+/// \brief Sinus
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Sin> const Sin;
 
-/// \brief Transpose multidimensional list, turning rows into columns
-/// \details
-/// May be used to zip sequences of equal length.
-/// Example:
-///   [[1, 2, 3], [4, 5, 6]] -> [[1, 4], [2, 5], [3, 6]]
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Transp> const Transp;
-
-/// \brief Filter unique elements
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Uniques> const Uniques;
-
-/// \brief Identity function
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id;
-
-/// \brief Evaluate enveloped fn and return result or default value if result is null
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default;
-
-/// \brief Set cardinality (uniques count)
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card;
+/// \brief Hyperbolic sin
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Sinh> const Sinh;
 
 /// \brief Sequence size
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size;
@@ -377,83 +403,65 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size;
 /// Sliding window iteration by specified window width.
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Slide> const Slide;
 
+/// \brief Sort list by comparison parameter expr
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Sort> const Sort;
+
+/// \brief Square root
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Sqrt> const Sqrt;
+
 /// \brief Striding iteration
 /// \details
 /// Striding iteration by specified step width.
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Stride> const Stride;
 
-/// \brief Repeat value in list
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;
+/// \brief Subtraction
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Sub> const Sub;
 
-/// \brief Regular expression match
+/// \brief Reverse subtraction
 /// \details
-/// If input is not a string, match it's serialized form.
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Re;
-/// \brief Alias for Re
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex;
+/// Subtraction with reverse arguments, i. e.
+///   1. [ ] |-> [y, x] |-> x - y
+///   2. [x] |-> [y]    |-> x - y
+extern expr::SignatureBinary<::zmbt::expr::Keyword::SubFrom> const SubFrom;
 
-/// \brief Transform json value with given query
+/// \brief Is subset
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Subset> const Subset;
+
+/// \brief Summation reduction, real param - initial value
 /// \details
-/// Query evaluation rules:
-/// ```
-///   1. q: int  |-> x: list  |-> x at index q (negative -> reverse)
-///   2. q: str  |-> x: any   |-> x at JSON Pointer q
-///   3. q: list |-> x: any   |-> [x at q1, x at q2, ...]
-///   4. {"key": q1, "$q2": q3, ...} |-> x: any |->
-///       { "key1": x at q1, "$(x at q2)": x at q3, ...}
-/// ```
-extern expr::SignatureBinary<::zmbt::expr::Keyword::At> const At;
+/// Equivalent to Reduce(Add, ...)
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Sum> const Sum;
 
-/// \brief Apply param expr to every element of sequence
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Map> const Map;
+/// \brief Is superset
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Superset> const Superset;
 
-/// \brief Filter sequence by predicate param
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Filter> const Filter;
+/// \brief Tangens
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Tan> const Tan;
 
-/// \brief Count matches by predicate param
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Count> const Count;
+/// \brief Hyperbolic tan
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Tanh> const Tanh;
 
-/// \brief Sort list by comparison parameter expr
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Sort> const Sort;
-
-/// \brief Min value
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Min> const Min;
-
-/// \brief Max value
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Max> const Max;
-
-/// \brief Min value index
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Argmin> const Argmin;
-
-/// \brief Max value index
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Argmax> const Argmax;
-
-/// \brief Apply recursion to parameter expr
-extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Recur> const Recur;
-
-/// \brief Apply expr to literal param
-extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Apply> const Apply;
-
-/// \brief Bind parameters
-extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Bind> const Bind;
-
-/// \brief Reduce sequence with binary operator and optional initial value
+/// \brief Transpose multidimensional list, turning rows into columns
 /// \details
-/// If initial value is not provided, first element is used.
-/// If sequence is empty and initial value is not provided, error is raised.
-extern expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce;
+/// May be used to zip sequences of equal length.
+/// Example:
+///   [[1, 2, 3], [4, 5, 6]] -> [[1, 4], [2, 5], [3, 6]]
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Transp> const Transp;
 
-/// \brief Match any predicate
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any;
+/// \brief Logical true
+extern expr::SignatureConst<::zmbt::expr::Keyword::True> const True;
 
-/// \brief Match all predicates
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All;
+/// \brief Evaluate enveloped function and return result or null if it throws
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Try> const Try;
 
-/// \brief Saturate matches in order
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
+/// \brief Evaluate enveloped function and return result or error info if it throws
+extern expr::SignatureBinary<::zmbt::expr::Keyword::TryCatch> const TryCatch;
 
-/// \brief Compose functions
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
+/// \brief Set union
+extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Union> const Union;
+
+/// \brief Filter unique elements
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Uniques> const Uniques;
 
 } // namespace api
 } // namespace zmbt

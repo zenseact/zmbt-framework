@@ -17,7 +17,7 @@
 #include "model/expression.hpp"
 #include "model/keyword.hpp"
 #include "model/keyword_grammar.hpp"
-#include "model/keyword_classifier.hpp"
+#include "model/keyword_codegen_type.hpp"
 #include "model/signal_operator_handler.hpp"
 #include "model/trigger.hpp"
 #include "model/param_transform.hpp"

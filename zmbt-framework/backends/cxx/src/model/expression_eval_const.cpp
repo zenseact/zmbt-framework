@@ -27,15 +27,15 @@ boost::json::value zmbt::Expression::eval_Const(boost::json::value const&, Signa
 {
     switch(keyword())
     {
+    case Keyword::E: return boost::math::constants::e<double>();
+    case Keyword::Eps: return std::numeric_limits<double>::epsilon();
+    case Keyword::False: return false;
+    case Keyword::Inf: return std::numeric_limits<double>::infinity();
+    case Keyword::NaN: return std::numeric_limits<double>::quiet_NaN();
     case Keyword::Noop: return true;
     case Keyword::Null: return nullptr;
-    case Keyword::True: return true;
-    case Keyword::False: return false;
     case Keyword::Pi: return boost::math::constants::pi<double>();
-    case Keyword::E: return boost::math::constants::e<double>();
-    case Keyword::Inf: return std::numeric_limits<double>::infinity();
-    case Keyword::Eps: return std::numeric_limits<double>::epsilon();
-    case Keyword::NaN: return std::numeric_limits<double>::quiet_NaN();
+    case Keyword::True: return true;
     default:
         throw expression_error("got invalid const expression: %s", underlying());
         return nullptr;

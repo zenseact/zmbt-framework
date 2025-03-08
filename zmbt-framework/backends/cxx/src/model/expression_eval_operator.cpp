@@ -11,7 +11,7 @@
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
 #include "zmbt/model/exceptions.hpp"
-#include "zmbt/model/keyword_classifier.hpp"
+#include "zmbt/model/keyword_codegen_type.hpp"
 
 
 #include <boost/regex.hpp>
@@ -34,32 +34,11 @@ boost::json::value Expression::eval_UnaryOp(boost::json::value const& x, SignalO
     return op.apply(keyword(), nullptr, x);
 }
 
-void Expression::handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const
-{
-    if (has_params())
-    {
-        lhs = &x;
-        rhs = params_ptr_;
-    }
-    else // treat x as argument pair
-    {
-        if (x.is_array() && x.get_array().size() == 2)
-        {
-            lhs = x.get_array().cbegin();
-            rhs = lhs + 1;
-        }
-        else
-        {
-            throw expression_error("got invalid params for binary operator, should be pair");
-        }
-    }
-}
-
 boost::json::value Expression::eval_BinaryOp(boost::json::value const& x, SignalOperatorHandler const& op) const
 {
     V const* lhs {nullptr}; // binary LHS or functor params
     V const* rhs {nullptr}; // binary RHS or functor arg
-    handle_terminal_binary_args(x, lhs, rhs);
+    handle_binary_args(x, lhs, rhs);
     ASSERT(lhs)
     ASSERT(rhs)
     return op.apply(keyword(), *lhs, *rhs);

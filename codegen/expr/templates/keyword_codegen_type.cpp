@@ -15,7 +15,7 @@
  * 3. Commit changes
  */
 
-#include "zmbt/model/keyword_classifier.hpp"
+#include "zmbt/model/keyword_codegen_type.hpp"
 
 
 namespace zmbt {
@@ -23,32 +23,28 @@ namespace expr {
 namespace detail {
 
 
-Classifier getKeywordClassifier(Keyword const& k)
+CodegenType getCodegenType(Keyword const& k)
 {
     switch (k)
     {
-@for keyword in data.Internals:
-    case Keyword::@keyword.Enum:
-@end
-        return Classifier::Internal;
 @for keyword in data.Constants:
     case Keyword::@keyword.Enum:
 @end
-        return Classifier::Const;
+        return CodegenType::Const;
 @for keyword in data.UnaryOperators:
     case Keyword::@keyword.Enum:
 @end
-        return Classifier::UnaryOp;
-@for keyword in data.CodegenFns:
-    case Keyword::@keyword.Enum:
-@end
-        return Classifier::UnaryMathFn;
+        return CodegenType::UnaryOp;
 @for keyword in data.BinaryOperators:
     case Keyword::@keyword.Enum:
 @end
-        return Classifier::BinaryOp;
+        return CodegenType::BinaryOp;
+@for keyword in data.CodegenFns:
+    case Keyword::@keyword.Enum:
+@end
+        return CodegenType::CodegenFn;
     default:
-        return Classifier::Special;
+        return CodegenType::None;
     }
 
 }

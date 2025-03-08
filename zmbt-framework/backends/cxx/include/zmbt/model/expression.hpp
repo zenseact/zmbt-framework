@@ -13,7 +13,7 @@
 #include "signal_operator_handler.hpp"
 #include "keyword.hpp"
 #include "keyword_grammar.hpp"
-#include "keyword_classifier.hpp"
+#include "keyword_codegen_type.hpp"
 #include "exceptions.hpp"
 
 
@@ -38,14 +38,13 @@ private:
     struct json_ctor_params;
     Expression(json_ctor_params&&);
 
-    void handle_terminal_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
+    void handle_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
 
     boost::json::value eval_Const(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_UnaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_CodegenFn(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_BinaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_Special(boost::json::value const&, SignalOperatorHandler const&) const;
-
 public:
 
     static boost::json::array toArray(std::initializer_list<Expression> const& list);

@@ -15,48 +15,6 @@ keyword_groups:
         brief: empty value
 
   - common:
-      cat: Stub
-      signature: Const
-      domain: any
-      codomain: any
-    keywords:
-      - name: noop
-        brief: No operation
-        short: n/a
-        aliases: [ '_' ]
-        codegen-value:
-          cxx: 'true'
-      - name: 'null'
-        brief: Null value
-        codegen-value:
-          cxx: 'nullptr'
-
-
-  - common:
-      cat: Logic
-      signature: Const
-      domain: null
-      codomain: bool
-      imports:
-        cxx:
-          - limits
-          - boost/math/constants/constants.hpp
-    keywords:
-      - name: 'true'
-        brief: Logical true
-        short: T
-        codegen-value:
-          cxx: 'true'
-
-      - name: 'false'
-        brief: Logical false
-        short: ⊥
-        codegen-value:
-          cxx: 'false'
-
-
-  - common:
-      cat: Math
       signature: Const
       domain: null
       codomain: real
@@ -65,6 +23,36 @@ keyword_groups:
           - limits
           - boost/math/constants/constants.hpp
     keywords:
+      - name: noop
+        brief: No operation
+        short: n/a
+        domain: any
+        codomain: any
+        aliases: [ '_' ]
+        codegen-value:
+          cxx: 'true'
+
+      - name: 'null'
+        brief: Null value
+        domain: any
+        codomain: any
+        codegen-value:
+          cxx: 'nullptr'
+
+      - name: 'true'
+        brief: Logical true
+        short: T
+        codomain: bool
+        codegen-value:
+          cxx: 'true'
+
+      - name: 'false'
+        brief: Logical false
+        short: ⊥
+        codomain: bool
+        codegen-value:
+          cxx: 'false'
+
       - name: pi
         brief: Pi constant
         short: π
@@ -94,41 +82,33 @@ keyword_groups:
 
 
   - common:
-      cat: Logic
       signature: Unary
-      domain: any
-      codomain: bool
       tags: [operator]
     keywords:
       - name: bool
         brief: Predicate on boolean transform (aka Truthy)
         short: '?'
+        domain: any
+        codomain: bool
         alias: [ 'truthy' ]
 
       - name: nil
         brief: Predicate on boolean transform (aka Falsy)
+        domain: any
+        codomain: bool
         alias: [ 'falsy' ]
 
       - name: not
         brief: Logical complement
+        domain: any
+        codomain: bool
         short: ¬
-
-  - common:
-      cat: Math
-      signature: Unary
-      domain: real
-      codomain: real
-      imports:
-        cxx:
-          - cmath
-    keywords:
 
       - name: neg
         brief: Negate
         domain: real
         codomain: real
         signature: Unary
-        tags: [operator]
 
       - name: b-not
         brief: Bitwise not
@@ -137,7 +117,16 @@ keyword_groups:
         domain: uint
         codomain: uint
         signature: Unary
-        tags: [operator]
+
+
+  - common:
+      signature: Unary
+      domain: real
+      codomain: real
+      imports:
+        cxx:
+          - cmath
+    keywords:
 
       - name: sqrt
         brief: Square root
@@ -243,50 +232,12 @@ keyword_groups:
         codegen-value:
           cxx: '(boost::json::value_to<double>(x) >= 0 ? 1 : -1)'
 
-  - common:
-      cat: Math
-      signature: UnaryParam
-    keywords:
-
-      - name: sum
-        brief: Summation reduction, real param - initial value
-        details: Equivalent to Reduce(Add, ...)
-        short: Σ
-        domain: list
-        codomain: real
-        params:
-          - label: initial value
-            default: 0
-
-      - name: prod
-        brief: Multiplication reduction, real param - initial value
-        details: Equivalent to Reduce(Mul, ...)
-        short: Π
-        domain: list
-        codomain: real
-        params:
-          - label: initial value
-            default: 1
-
-      - name: round
-        brief: Round to nearest integer with optional precision
-        commutative: false
-        domain: real
-        codomain: real
-        params:
-          - label: precision
-            type: int
-            default: 0
 
   - common:
-      cat: Math
       signature: Binary
       tags: [operator]
       domain: [real, real]
       codomain: real
-      params:
-        - label: rhs
-          partial: domain/1
     keywords:
       - name: add
         brief: Addition
@@ -460,15 +411,10 @@ keyword_groups:
 
 
   - common:
-      cat: Relation
       signature: Binary
-      tags: [operator]
       domain: [any, any]
       codomain: bool
-      params:
-        - label: rhs
-          partial: domain/1
-
+      tags: [operator]
     keywords:
 
       - name: eq
@@ -500,33 +446,16 @@ keyword_groups:
         commutative-dual: lt
 
       - name: approx
-        signature: Special
-        tags: []
+        tags: [] # not suitable for codegen
         brief: Floating point approximately equal
         details: |-
+          Params: [ref, rtol[, atol]]
           Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
         aliases: [ 'near' ]
-        domain: real
+        domain: [real, list]
         codomain: bool
         commutative: false
-        params:
-          - label: ref
-            type: real
-          - label: rtol
-            type: real
-          - label: atol
-            type: real
 
-  - common:
-      cat: Logic
-      signature: Binary
-      domain: [any, any]
-      codomain: bool
-      tags: [operator]
-      params:
-        - label: rhs
-          partial: domain/1
-    keywords:
       - name: and
         brief: Logical and
         details: |-
@@ -541,15 +470,12 @@ keyword_groups:
           Generic behavior:
             if first operand is truthy, returns first operand, second otherwise
 
+
   - common:
-      cat: Relation
       signature: BinarySetRhs
       tags: [operator]
       domain: [set, set]
       codomain: bool
-      params:
-        - label: rhs
-          partial: domain/1
     keywords:
 
       - name: set-eq
@@ -609,15 +535,12 @@ keyword_groups:
         commutative-dual: not-in
         domain: [set, any]
 
+
   - common:
-      cat: Set
       signature: BinarySetRhs
       tags: [operator]
       domain: [set, set]
       codomain: set
-      params:
-        - label: rhs
-          partial: domain/1
     keywords:
 
       - name: union
@@ -638,29 +561,50 @@ keyword_groups:
         brief: Reverse set difference
         commutative-dual: set-diff
 
+
   - common:
-      cat: Transform
       signature: Variadic
     keywords:
-      - name: concat
-        brief: Concatenate sequences
-        domain: list[list]
-        codomain: list
-
-      - name: cartesian
-        brief: Cartesian product
-        short: '×'
-        domain: list[set]
-        codomain: list[list]
 
       - name: list
         brief: Envelop zero or more parameters in list
         domain: null
         codomain: list
 
+      - name: any
+        brief: Match any predicate
+        domain: any
+        codomain: bool
+        params:
+          - label: predicates
+            type: list[expr]
+
+      - name: all
+        brief: Match all predicates
+        domain: any
+        codomain: bool
+        params:
+          - label: predicates
+            type: list[expr]
+
+      - name: saturate
+        brief: Saturate matches in order
+        domain: list
+        codomain: bool
+        params:
+          - label: predicates
+            type: list[expr]
+
+      - name: compose
+        brief: Compose functions
+        domain: any
+        codomain: any
+        params:
+          - label: functions
+            type: list[expr]
+
 
   - common:
-      cat: Transform
       signature: Unary
     keywords:
       - name: transp
@@ -671,6 +615,17 @@ keyword_groups:
             [[1, 2, 3], [4, 5, 6]] -> [[1, 4], [2, 5], [3, 6]]
         domain: list[list]
         codomain: list[list]
+
+      - name: cartesian
+        brief: Cartesian product
+        short: '×'
+        domain: list[set]
+        codomain: list[list]
+
+      - name: concat
+        brief: Concatenate sequences
+        domain: list[list]
+        codomain: list
 
       - name: uniques
         brief: Filter unique elements
@@ -685,21 +640,25 @@ keyword_groups:
           cxx: x
 
       - name: default
-        brief: Evaluate enveloped fn and return result or default value if result is null
+        brief: Return x if not null, else return default value
         signature: Binary
-        domain: any
+        domain: [any, any]
         codomain: any
         codegen-value:
           cxx: 'x.is_null() ? params() : x'
-        params:
-          - label: default value
-            type: any
 
+      - name: try
+        brief: Evaluate enveloped function and return result or null if it throws
+        signature: Binary
+        domain: [fn, any]
+        codomain: any
 
-  - common:
-      cat: Property
-      signature: Unary
-    keywords:
+      - name: try-catch
+        brief: Evaluate enveloped function and return result or error info if it throws
+        signature: Binary
+        domain: [fn, any]
+        codomain: any
+
       - name: card
         brief: Set cardinality (uniques count)
         domain: union[list, object]
@@ -710,13 +669,12 @@ keyword_groups:
         domain: union[list, object]
         codomain: uint
 
+
   - common:
-      cat: Transform
       signature: Binary
     keywords:
 
       - name: slide
-        cat: Transform
         brief: Sliding-window iteration
         details: |-
           Sliding window iteration by specified window width.
@@ -725,10 +683,8 @@ keyword_groups:
         codomain: list[list]
         params:
           - label: window width
-            partial: domain/1
 
       - name: stride
-        cat: Transform
         brief: Striding iteration
         details: |-
           Striding iteration by specified step width.
@@ -737,7 +693,6 @@ keyword_groups:
         codomain: list[list]
         params:
           - label: step width
-            partial: domain/1
 
       - name: repeat
         brief: Repeat value in list
@@ -746,7 +701,6 @@ keyword_groups:
         codomain: list
         params:
           - label: count
-            partial: domain/1
 
       - name: re
         brief: Regular expression match
@@ -757,32 +711,60 @@ keyword_groups:
         codomain: bool
         params:
           - label: pattern
-            partial: domain/1
 
       - name: at
         brief: Transform JSON value with given query
         details: |-
           Query evaluation rules:
           ```
-            1. q: int  |-> x: list  |-> x at index q (negative -> reverse)
-            2. q: str  |-> x: any   |-> x at JSON Pointer q
-            3. q: list |-> x: any   |-> [x at q1, x at q2, ...]
-            4. {"key": q1, "$q2": q3, ...} |-> x: any |->
+            1. q: int   |-> x: list  |-> x at index q (negative -> reverse)
+            2. q: slice |-> x: list  |-> x[start:stop:step]
+            3. q: str   |-> x: any   |-> x at JSON Pointer q
+            4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
+            5. {"key": q1, "$q2": q3, ...} |-> x: any |->
                 { "key1": x at q1, "$(x at q2)": x at q3, ...}
           ```
-        # TODO: add slice support (start:stop:step)
         commutative: false
         domain: [any, union: [int, str, list, object]]
         codomain: any
         params:
           - label: query
-            partial: domain/1
 
 
   - common:
-      cat: HiOrd
       signature: HiOrd
     keywords:
+
+      - name: sum
+        brief: Summation reduction, real param - initial value
+        details: Equivalent to Reduce(Add, ...)
+        short: Σ
+        domain: list
+        codomain: real
+        params:
+          - label: initial value
+            default: 0
+
+      - name: prod
+        brief: Multiplication reduction, real param - initial value
+        details: Equivalent to Reduce(Mul, ...)
+        short: Π
+        domain: list
+        codomain: real
+        params:
+          - label: initial value
+            default: 1
+
+      - name: round
+        brief: Round to nearest integer with optional precision
+        commutative: false
+        domain: real
+        codomain: real
+        params:
+          - label: precision
+            type: int
+            default: 0
+
       - name: map
         brief: Apply param expr to every element of sequence
         domain: list
@@ -816,36 +798,24 @@ keyword_groups:
         brief: Min value
         domain: list
         codomain: any
-        params:
-          - label: lesser than
-            type: relation
 
       - name: max
         brief: Max value
         domain: list
         codomain: any
-        params:
-          - label: lesser than
-            type: relation
 
       - name: argmin
         brief: Min value index
         domain: list
         codomain: uint
-        params:
-          - label: lesser than
-            type: relation
 
       - name: argmax
         brief: Max value index
         domain: list
         codomain: uint
-        params:
-          - label: lesser than
-            type: relation
+
 
   - common:
-      cat: HiOrd
       signature: HiOrdParam
     keywords:
       - name: recur
@@ -873,8 +843,8 @@ keyword_groups:
           - label: params
             type: object
 
+
   - common:
-      cat: HiOrd
       signature: HiOrdParamOpt
     keywords:
       - name: reduce
@@ -888,39 +858,3 @@ keyword_groups:
           - type: fn
           - label: initial value
             default: domain/0
-
-  - common:
-      cat: HiOrd
-      signature: Variadic
-    keywords:
-      - name: any
-        brief: Match any predicate
-        domain: any
-        codomain: bool
-        params:
-          - label: predicates
-            type: list[expr]
-
-      - name: all
-        brief: Match all predicates
-        domain: any
-        codomain: bool
-        params:
-          - label: predicates
-            type: list[expr]
-
-      - name: saturate
-        brief: Saturate matches in order
-        domain: list
-        codomain: bool
-        params:
-          - label: predicates
-            type: list[expr]
-
-      - name: compose
-        brief: Compose functions
-        domain: any
-        codomain: any
-        params:
-          - label: functions
-            type: list[expr]
