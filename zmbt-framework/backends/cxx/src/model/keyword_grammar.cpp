@@ -48,6 +48,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "at", Keyword::At)
     (ZMBT_KEYWORD_PREFIX "atan", Keyword::Atan)
     (ZMBT_KEYWORD_PREFIX "atanh", Keyword::Atanh)
+    (ZMBT_KEYWORD_PREFIX "avg", Keyword::Avg)
     (ZMBT_KEYWORD_PREFIX "b-and", Keyword::BitAnd)
     (ZMBT_KEYWORD_PREFIX "&", Keyword::BitAnd)
     (ZMBT_KEYWORD_PREFIX "b-lshift", Keyword::BitLshift)
@@ -236,6 +237,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
     case Keyword::Atan: { v = ZMBT_KEYWORD_PREFIX "atan"; break; }
     case Keyword::Atanh: { v = ZMBT_KEYWORD_PREFIX "atanh"; break; }
+    case Keyword::Avg: { v = ZMBT_KEYWORD_PREFIX "avg"; break; }
     case Keyword::BitAnd: { v = ZMBT_KEYWORD_PREFIX "b-and"; break; }
     case Keyword::BitLshift: { v = ZMBT_KEYWORD_PREFIX "b-lshift"; break; }
     case Keyword::BitLshiftFrom: { v = ZMBT_KEYWORD_PREFIX "b-lshift-from"; break; }

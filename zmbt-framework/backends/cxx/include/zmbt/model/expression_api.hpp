@@ -89,6 +89,9 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Atan> const Atan;
 /// \brief Hyperbolic arctan
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Atanh> const Atanh;
 
+/// \brief Arythmetic average
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Avg> const Avg;
+
 /// \brief Bitwise and
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitAnd> const BitAnd;
 
@@ -341,10 +344,10 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
 ///   2. [x] |-> [p]    |-> x^p
 extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
 
-/// \brief Multiplication reduction, real param - initial value
+/// \brief Multiplication reduction
 /// \details
-/// Equivalent to Reduce(Mul, ...)
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Prod> const Prod;
+/// Equivalent to Reduce(Mul)
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Prod> const Prod;
 
 /// \brief Quotient
 /// \details
@@ -443,10 +446,10 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::SubFrom> const SubFrom;
 /// \brief Is subset
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Subset> const Subset;
 
-/// \brief Summation reduction, real param - initial value
+/// \brief Summation reduction
 /// \details
-/// Equivalent to Reduce(Add, ...)
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Sum> const Sum;
+/// Equivalent to Reduce(Add)
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Sum> const Sum;
 
 /// \brief Is superset
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Superset> const Superset;

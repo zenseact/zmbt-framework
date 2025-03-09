@@ -6,6 +6,7 @@
  */
 
 #include <algorithm>
+#include <deque>
 #include <boost/regex.hpp>
 #include <boost/format.hpp>
 
@@ -14,6 +15,7 @@
 #include "zmbt/model/generic_signal_operator.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
+#include "zmbt/model/expression_api.hpp"
 #include "zmbt/model/exceptions.hpp"
 
 
@@ -315,15 +317,14 @@ V eval_impl<Keyword::Reduce>(V const& x, V const& param, O const& op)
 template <>
 V eval_impl<Keyword::Map>(V const& x, V const& param, O const& op)
 {
-    ASSERT(param.is_object());
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
+    auto const F = E(param);
     boost::json::array ret {};
     if (samples.empty())
     {
         return ret;
     }
-    auto F = E(param);
 
     ret.reserve(samples.size());
 
@@ -574,6 +575,100 @@ V eval_impl<Keyword::Reverse>(V const& x, V const&, O const&)
     return out;
 }
 
+template <>
+V eval_impl<Keyword::Slide>(V const& x, V const& param, O const&)
+{
+    ASSERT(x.is_array());
+    ASSERT(param.is_number());
+    auto const W = boost::json::value_to<std::uint64_t>(param);
+    auto const& samples = x.get_array();
+    boost::json::array out {};
+    if (samples.empty() || (0 == W))
+    {
+        return out;
+    }
+    if (samples.size() <= W)
+    {
+        out.push_back(samples);
+        return out;
+    }
+    out.reserve(samples.size() - W);
+    auto window_begin = samples.cbegin();
+    auto window_end = window_begin + W;
+    while (window_end <= samples.cend())
+    {
+        out.push_back(boost::json::array(window_begin, window_end));
+        window_begin++;
+        window_end++;
+    }
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Stride>(V const& x, V const& param, O const&)
+{
+    ASSERT(x.is_array());
+    ASSERT(param.is_number());
+    auto const& samples = x.get_array();
+    auto const W = boost::json::value_to<std::uint64_t>(param);
+    auto const N = samples.size();
+    boost::json::array out {};
+    if (samples.empty() || (0 == W))
+    {
+        return out;
+    }
+    if (samples.size() <= W)
+    {
+        out.push_back(samples);
+        return out;
+    }
+    auto stride_begin = samples.cbegin();
+    auto stride_end = stride_begin + W;
+    auto stride_boundary = samples.cbegin() + (N - (N % W));
+
+    while (stride_end <= stride_boundary)
+    {
+        out.push_back(boost::json::array(stride_begin, stride_end));
+        stride_begin += W;
+        stride_end += W;
+    }
+    if (stride_boundary != samples.cend())
+    {
+        out.push_back(boost::json::array(stride_boundary, samples.cend()));
+    }
+    return out;
+}
+
+
+template <>
+V eval_impl<Keyword::Sum>(V const& x, V const&, O const& op)
+{
+    ASSERT(x.is_array());
+    using zmbt::api::Reduce;
+    using zmbt::api::Add;
+    return Reduce(Add).eval(x, op);
+}
+
+template <>
+V eval_impl<Keyword::Prod>(V const& x, V const&, O const& op)
+{
+    ASSERT(x.is_array());
+    using zmbt::api::Reduce;
+    using zmbt::api::Mul;
+    return Reduce(Mul).eval(x, op);
+}
+
+template <>
+V eval_impl<Keyword::Avg>(V const& x, V const&, O const& op)
+{
+    ASSERT(x.is_array());
+    auto const N = x.get_array().size();
+    using zmbt::api::Reduce;
+    using zmbt::api::Add;
+    using zmbt::api::Div;
+    return (Reduce(Add)|Div(N)).eval(x, op);
+}
+
 } // namespace
 
 
@@ -610,6 +705,10 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         // props
         ZMBT_EXPR_EVAL_IMPL_CASE(Card)
         ZMBT_EXPR_EVAL_IMPL_CASE(Size)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Sum)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Prod)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Avg)
+
 
         // combo
         ZMBT_EXPR_EVAL_IMPL_CASE(All)
@@ -636,6 +735,8 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Uniques)
         ZMBT_EXPR_EVAL_IMPL_CASE(Sort)
         ZMBT_EXPR_EVAL_IMPL_CASE(Reverse)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Slide)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Stride)
 
 
         // string ops

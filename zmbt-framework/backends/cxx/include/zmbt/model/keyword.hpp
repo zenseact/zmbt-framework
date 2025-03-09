@@ -83,6 +83,9 @@ enum class Keyword
     /// atanh
     Atanh,
 
+    /// avg
+    Avg,
+
     /// b-and
     BitAnd,
 

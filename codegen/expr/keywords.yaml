@@ -704,6 +704,25 @@ keyword_groups:
         domain: union[list, object]
         codomain: uint
 
+      - name: sum
+        brief: Summation reduction
+        details: Equivalent to Reduce(Add)
+        short: Σ
+        domain: list
+        codomain: any
+
+      - name: prod
+        brief: Multiplication reduction
+        details: Equivalent to Reduce(Mul)
+        short: Π
+        domain: list
+        codomain: any
+
+      - name: avg
+        brief: Arythmetic average
+        domain: list
+        codomain: any
+
 
   - common:
       signature: Binary
@@ -769,26 +788,6 @@ keyword_groups:
   - common:
       signature: HiOrd
     keywords:
-
-      - name: sum
-        brief: Summation reduction, real param - initial value
-        details: Equivalent to Reduce(Add, ...)
-        short: Σ
-        domain: list
-        codomain: real
-        params:
-          - label: initial value
-            default: 0
-
-      - name: prod
-        brief: Multiplication reduction, real param - initial value
-        details: Equivalent to Reduce(Mul, ...)
-        short: Π
-        domain: list
-        codomain: real
-        params:
-          - label: initial value
-            default: 1
 
       - name: round
         brief: Round to nearest integer with optional precision

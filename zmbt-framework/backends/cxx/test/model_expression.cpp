@@ -28,8 +28,6 @@ using zmbt::expr::Keyword;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Slide,
-    Keyword::Stride,
     Keyword::Diff,
     Keyword::DiffFrom,
     Keyword::Union,
@@ -40,8 +38,6 @@ std::set<Keyword> const NotImplemented {
     Keyword::Argmax,
     Keyword::Bind,
     Keyword::Round,
-    Keyword::Sum,
-    Keyword::Prod,
     Keyword::BitLshift,
     Keyword::BitRshift,
     Keyword::BitLshiftFrom,
@@ -223,6 +219,20 @@ std::vector<TestEvalSample> const TestSamples
 
     {Sort                       , L{}                   , L{}                   },
     {Reverse                    , L{}                   , L{}                   },
+
+    {Slide(3)                   , {1,2,3,4,5}           , {{1,2,3},{2,3,4},{3,4,5}}},
+    {Slide(3)|Map(Sum)          , {1,2,3,4,5}           , {6      , 9      , 12}},
+    {Slide(3)|Map(Prod)         , {1,2,3,4,5}           , {6      , 24     , 60}},
+    {Slide(3)|Map(Avg)          , {1,2,3,4,5}           , {2      , 3      ,  4}},
+    {Slide(42)                  , {1,2,3}               , L{{1,2,3}}            },
+    {Slide(42)                  , L{}                   , L{}                   },
+    {Try(Slide(-1))             , L{}                   , nullptr               },
+
+
+    {Stride(2)                  , {1,2,3,4,5,6}         , {{1,2},{3,4},{5,6}}   },
+    {Stride(3)                  , {1,2,3,4,5}           , {{1,2,3},{4,5}}       },
+    {Stride(42)                 , {1,2,3}               , L{{1,2,3}}            },
+    {Stride(42)                 , L{}                   , L{}                   },
 
 
     // composition
