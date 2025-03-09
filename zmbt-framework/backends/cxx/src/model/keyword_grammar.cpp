@@ -159,6 +159,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "recur", Keyword::Recur)
     (ZMBT_KEYWORD_PREFIX "reduce", Keyword::Reduce)
     (ZMBT_KEYWORD_PREFIX "repeat", Keyword::Repeat)
+    (ZMBT_KEYWORD_PREFIX "reverse", Keyword::Reverse)
     (ZMBT_KEYWORD_PREFIX "round", Keyword::Round)
     (ZMBT_KEYWORD_PREFIX "saturate", Keyword::Saturate)
     (ZMBT_KEYWORD_PREFIX "serialize", Keyword::Serialize)
@@ -309,6 +310,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
     case Keyword::Reduce: { v = ZMBT_KEYWORD_PREFIX "reduce"; break; }
     case Keyword::Repeat: { v = ZMBT_KEYWORD_PREFIX "repeat"; break; }
+    case Keyword::Reverse: { v = ZMBT_KEYWORD_PREFIX "reverse"; break; }
     case Keyword::Round: { v = ZMBT_KEYWORD_PREFIX "round"; break; }
     case Keyword::Saturate: { v = ZMBT_KEYWORD_PREFIX "saturate"; break; }
     case Keyword::Serialize: { v = ZMBT_KEYWORD_PREFIX "serialize"; break; }

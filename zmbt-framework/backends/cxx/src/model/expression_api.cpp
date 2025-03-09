@@ -114,6 +114,7 @@ expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex = Re;
 expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Recur> const Recur = {};
 expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce = {};
 expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat = {};
+expr::SignatureUnary<::zmbt::expr::Keyword::Reverse> const Reverse = {};
 expr::SignatureHiOrd<::zmbt::expr::Keyword::Round> const Round = {};
 expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Serialize = {};

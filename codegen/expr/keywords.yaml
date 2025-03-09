@@ -622,6 +622,12 @@ keyword_groups:
         domain: list[set]
         codomain: list[list]
 
+      - name: reverse
+        brief: Reverse sequence
+        domain: list[set]
+        codomain: list[list]
+
+
       - name: parse
         brief: Parse string as JSON
         domain: str
@@ -816,12 +822,9 @@ keyword_groups:
           - type: predicate
 
       - name: sort
-        brief: Sort list by comparison parameter expr
+        brief: 'Sort list by key function (default: Id)'
         domain: list
         codomain: list
-        params:
-          - label: lesser than
-            type: relation
 
       - name: min
         brief: Min value

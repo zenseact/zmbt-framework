@@ -11,6 +11,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
+#include "zmbt/model/generic_signal_operator.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
 #include "zmbt/model/exceptions.hpp"
@@ -551,6 +552,28 @@ V eval_impl<Keyword::Format>(V const& x, V const& param, O const&)
 }
 
 
+template <>
+V eval_impl<Keyword::Sort>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.is_array());
+    auto const key_fn = param.is_null() ? E(Keyword::Id) : E(param);
+    std::function<bool(V const&, V const&)> is_less = [key_fn, op](V const& lhs, V const& rhs) ->bool {
+        return op.apply(Keyword::Lt, key_fn.eval(lhs), key_fn.eval(rhs)).as_bool();
+    };
+    boost::json::array out = x.get_array();
+    std::stable_sort(out.begin(), out.end(), is_less);
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Reverse>(V const& x, V const&, O const&)
+{
+    ASSERT(x.is_array());
+    boost::json::array out = x.get_array();
+    std::reverse(out.begin(), out.end());
+    return out;
+}
+
 } // namespace
 
 
@@ -611,6 +634,9 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
         ZMBT_EXPR_EVAL_IMPL_CASE(Concat)
         ZMBT_EXPR_EVAL_IMPL_CASE(Uniques)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Sort)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Reverse)
+
 
         // string ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Format)

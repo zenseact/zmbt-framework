@@ -34,13 +34,11 @@ std::set<Keyword> const NotImplemented {
     Keyword::DiffFrom,
     Keyword::Union,
     Keyword::Intersect,
-    Keyword::Sort,
     Keyword::Min,
     Keyword::Max,
     Keyword::Argmin,
     Keyword::Argmax,
     Keyword::Bind,
-    Keyword::Void,
     Keyword::Round,
     Keyword::Sum,
     Keyword::Prod,
@@ -48,6 +46,7 @@ std::set<Keyword> const NotImplemented {
     Keyword::BitRshift,
     Keyword::BitLshiftFrom,
     Keyword::BitRshiftFrom,
+    Keyword::Void,
 };
 
 
@@ -214,6 +213,16 @@ std::vector<TestEvalSample> const TestSamples
     {Size                       , {1,2,2,2}             , 4                     },
     {Card                       , {1,2,2,2}             , 2                     },
     {Card                       , {1,2,2,4,3,4}         , 4                     },
+    {Sort                       , {4,1,3,1,2,1}         , {1,1,1,2,3,4}         },
+    {Sort|Reverse               , {4,1,3,1,2,1}         , {4,3,2,1,1,1}         },
+    {Sort(Neg)                  , {4,1,3,1,2,1}         , {4,3,2,1,1,1}         },
+    {Sort                       , {{1, 3},{2, 1},{3, 2}}, {{1, 3},{2, 1},{3, 2}}},
+    {Sort                       , {{3, 2},{2, 1},{1, 3}}, {{1, 3},{2, 1},{3, 2}}},
+    {Sort(At(1))                , {{1, 3},{2, 1},{3, 2}}, {{2, 1},{3, 2},{1, 3}}},
+    {Sort(At(1))                , {{3, 2},{2, 1},{1, 3}}, {{2, 1},{3, 2},{1, 3}}},
+
+    {Sort                       , L{}                   , L{}                   },
+    {Reverse                    , L{}                   , L{}                   },
 
 
     // composition

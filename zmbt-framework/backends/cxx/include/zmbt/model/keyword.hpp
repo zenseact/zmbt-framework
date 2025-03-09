@@ -305,6 +305,9 @@ enum class Keyword
     /// repeat
     Repeat,
 
+    /// reverse
+    Reverse,
+
     /// round
     Round,
 

@@ -379,6 +379,9 @@ extern expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce;
 /// \brief Repeat value in list
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;
 
+/// \brief Reverse sequence
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Reverse> const Reverse;
+
 /// \brief Round to nearest integer with optional precision
 extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Round> const Round;
 
@@ -416,7 +419,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size;
 /// Sliding window iteration by specified window width.
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Slide> const Slide;
 
-/// \brief Sort list by comparison parameter expr
+/// \brief Sort list by key function (default: id)
 extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Sort> const Sort;
 
 /// \brief Square root
