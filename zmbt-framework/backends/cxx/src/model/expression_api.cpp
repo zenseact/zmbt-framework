@@ -103,6 +103,7 @@ expr::SignatureConst<::zmbt::expr::Keyword::Null> const Null = {};
 expr::SignatureBinary<::zmbt::expr::Keyword::Or> const Or = {};
 expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSubset> const ProperSubset = {};
 expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset = {};
+expr::SignatureVariadic<::zmbt::expr::Keyword::Pack> const Pack = {};
 expr::SignatureUnary<::zmbt::expr::Keyword::Parse> const Parse = {};
 expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi = {};
 expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow = {};

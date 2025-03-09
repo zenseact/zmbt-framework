@@ -603,6 +603,18 @@ keyword_groups:
           - label: functions
             type: list[expr]
 
+      - name: pack
+        brief: Pack results from enveloped functions into an array
+        details: |-
+          Allows to combine different properties in a single expression,
+          e.g. `Pack(Reduce(Add), Size)` on [1,2,3] evaluates to [6,3].
+
+        domain: any
+        codomain: list
+        params:
+          - label: functions
+            type: list[expr]
+
 
   - common:
       signature: Unary

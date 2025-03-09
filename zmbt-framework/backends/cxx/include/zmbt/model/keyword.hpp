@@ -275,6 +275,9 @@ enum class Keyword
     /// p-superset
     ProperSuperset,
 
+    /// pack
+    Pack,
+
     /// parse
     Parse,
 

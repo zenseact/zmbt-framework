@@ -669,6 +669,20 @@ V eval_impl<Keyword::Avg>(V const& x, V const&, O const& op)
     return (Reduce(Add)|Div(N)).eval(x, op);
 }
 
+template <>
+V eval_impl<Keyword::Pack>(V const& x, V const& param, O const& op)
+{
+    ASSERT(param.is_array());
+    auto const& funcs = param.get_array();
+    boost::json::array out {};
+    out.reserve(funcs.size());
+    for (auto const& fn: funcs)
+    {
+        out.push_back(E(fn).eval(x, op));
+    }
+    return out;
+}
+
 } // namespace
 
 
@@ -725,6 +739,8 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Apply)
         ZMBT_EXPR_EVAL_IMPL_CASE(Try)
         ZMBT_EXPR_EVAL_IMPL_CASE(TryCatch)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Pack)
+
 
         // vector ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)

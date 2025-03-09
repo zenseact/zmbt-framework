@@ -144,6 +144,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "⊂", Keyword::ProperSubset)
     (ZMBT_KEYWORD_PREFIX "p-superset", Keyword::ProperSuperset)
     (ZMBT_KEYWORD_PREFIX "⊃", Keyword::ProperSuperset)
+    (ZMBT_KEYWORD_PREFIX "pack", Keyword::Pack)
     (ZMBT_KEYWORD_PREFIX "parse", Keyword::Parse)
     (ZMBT_KEYWORD_PREFIX "pi", Keyword::Pi)
     (ZMBT_KEYWORD_PREFIX "π", Keyword::Pi)
@@ -301,6 +302,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Or: { v = ZMBT_KEYWORD_PREFIX "or"; break; }
     case Keyword::ProperSubset: { v = ZMBT_KEYWORD_PREFIX "p-subset"; break; }
     case Keyword::ProperSuperset: { v = ZMBT_KEYWORD_PREFIX "p-superset"; break; }
+    case Keyword::Pack: { v = ZMBT_KEYWORD_PREFIX "pack"; break; }
     case Keyword::Parse: { v = ZMBT_KEYWORD_PREFIX "parse"; break; }
     case Keyword::Pi: { v = ZMBT_KEYWORD_PREFIX "pi"; break; }
     case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }

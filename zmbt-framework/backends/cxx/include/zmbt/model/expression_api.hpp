@@ -324,6 +324,12 @@ extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSubset> const Pr
 /// \brief Is proper superset
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
 
+/// \brief Pack results from enveloped functions into an array
+/// \details
+/// Allows to combine different properties in a single expression,
+/// e.g. `Pack(Reduce(Add), Size)` on [1,2,3] evaluates to [6,3].
+extern expr::SignatureVariadic<::zmbt::expr::Keyword::Pack> const Pack;
+
 /// \brief Parse string as json
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Parse> const Parse;
 
