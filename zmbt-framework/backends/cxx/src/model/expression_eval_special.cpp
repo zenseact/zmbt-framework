@@ -238,25 +238,30 @@ V eval_impl<Keyword::Approx>(V const& x, V const& param, O const&)
     return std::abs(value - ref_value) <= (atol + rtol * std::abs(ref_value));
 }
 
+template <>
+V eval_impl<Keyword::Uniques>(V const& x, V const&, O const&)
+{
+    ASSERT(x.is_array());
+    return boost::json::value_from(
+        boost::json::value_to<std::unordered_set<V>>(x)
+    );
+}
+
 
 template <>
 V eval_impl<Keyword::Size>(V const& x, V const& param, O const&)
 {
     ASSERT(param.is_null())
+    ASSERT(x.is_structured())
     V size = nullptr;
     if (x.is_array())
     {
-        size = x.get_array().size();
-    }
-    else if (x.is_object())
-    {
-        size = x.get_object().size();
+        return x.get_array().size();
     }
     else
     {
-        throw zmbt::expression_error("invalid Size operand: %s", x);
+        return x.get_object().size();
     }
-    return size;
 }
 
 
@@ -264,23 +269,16 @@ template <>
 V eval_impl<Keyword::Card>(V const& x, V const& param, O const&)
 {
     ASSERT(param.is_null())
-    V card = nullptr;
+    ASSERT(x.is_structured())
+
     if (x.is_array())
     {
-        boost::json::array counter_set {};
-        boost::json::array const& observed_as_array {x.get_array()};
-        std::unique_copy(observed_as_array.cbegin(), observed_as_array.cend(), std::back_inserter(counter_set));
-        card = counter_set.size();
-    }
-    else if (x.is_object())
-    {
-        card = x.get_object().size();
+        return eval_impl<Keyword::Uniques>(x, {}, {}).as_array().size();
     }
     else
     {
-        throw zmbt::expression_error("invalid Card operand: %s", x);
+        return x.get_object().size();
     }
-    return card;
 }
 
 
@@ -612,6 +610,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Transp)
         ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
         ZMBT_EXPR_EVAL_IMPL_CASE(Concat)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Uniques)
 
         // string ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Format)

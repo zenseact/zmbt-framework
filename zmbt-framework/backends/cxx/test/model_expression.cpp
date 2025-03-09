@@ -30,7 +30,6 @@ namespace {
 std::set<Keyword> const NotImplemented {
     Keyword::Slide,
     Keyword::Stride,
-    Keyword::Uniques,
     Keyword::Diff,
     Keyword::DiffFrom,
     Keyword::Union,
@@ -190,6 +189,9 @@ std::vector<TestEvalSample> const TestSamples
     {SetEq({1,2,3})             , {1,3,2}               , true                  },
     {SetEq({1,2,3})             , {1,2}                 , false                 },
 
+    {Uniques                    , {1,2,2,4,3,4}         , {3,4,2,1}             },
+
+
     // element in set
     {In({1, 2})                 , 2                     , true                  },
     {In({1, 2})                 , 3                     , false                 },
@@ -211,6 +213,8 @@ std::vector<TestEvalSample> const TestSamples
 
     {Size                       , {1,2,2,2}             , 4                     },
     {Card                       , {1,2,2,2}             , 2                     },
+    {Card                       , {1,2,2,4,3,4}         , 4                     },
+
 
     // composition
     {Compose(Eq(2), Size)       , {1,2}                 , true                  },
