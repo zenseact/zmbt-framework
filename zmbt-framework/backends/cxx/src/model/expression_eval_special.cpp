@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <boost/regex.hpp>
+#include <boost/format.hpp>
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
@@ -506,6 +507,51 @@ V eval_impl<Keyword::TryCatch>(V const& x, V const& param, O const& op)
     }
 }
 
+template <>
+V eval_impl<Keyword::Concat>(V const& x, V const& param, O const&)
+{
+    ASSERT(x.kind() == param.kind());
+    ASSERT(x.is_string() || x.is_array());
+
+    if (x.is_string())
+    {
+        return {zmbt::format("%s%s", x, param)};
+    }
+    else if (x.is_array())
+    {
+        boost::json::array out = x.get_array();
+        out.reserve(out.size() + param.get_array().size());
+        for (auto const& el: param.get_array())
+        {
+            out.push_back(el);
+        }
+        return out;
+    }
+    return nullptr;
+}
+
+template <>
+V eval_impl<Keyword::Format>(V const& x, V const& param, O const&)
+{
+    ASSERT(x.is_string());
+    boost::format fmt {x.get_string().c_str()};
+    auto const N = fmt.expected_args();
+    ASSERT(param.is_array() || (N == 1));
+
+    if (!param.is_array() && N == 1)
+    {
+        fmt = param.is_string() ? (fmt % param.get_string().c_str()) : (fmt % param);
+    }
+    else
+    {
+        for (auto const& item: param.get_array())
+        {
+            fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
+        }
+    }
+    return {fmt.str()};
+}
+
 
 } // namespace
 
@@ -557,15 +603,18 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
         ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
         ZMBT_EXPR_EVAL_IMPL_CASE(Apply)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Try)
+        ZMBT_EXPR_EVAL_IMPL_CASE(TryCatch)
 
         // vector ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
         ZMBT_EXPR_EVAL_IMPL_CASE(List)
         ZMBT_EXPR_EVAL_IMPL_CASE(Transp)
         ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Concat)
 
-        ZMBT_EXPR_EVAL_IMPL_CASE(Try)
-        ZMBT_EXPR_EVAL_IMPL_CASE(TryCatch)
+        // string ops
+        ZMBT_EXPR_EVAL_IMPL_CASE(Format)
 
         default:
         {

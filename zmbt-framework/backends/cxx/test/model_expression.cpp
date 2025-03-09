@@ -28,7 +28,6 @@ using zmbt::expr::Keyword;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Concat,
     Keyword::Slide,
     Keyword::Stride,
     Keyword::Uniques,
@@ -422,6 +421,19 @@ std::vector<TestEvalSample> const TestSamples
 
     {List(42)                   , nullptr                , L{42}                },
     {List(1,2,3)                , nullptr                , {1,2,3}              },
+
+    {Concat("World!")           , "Hello, "              , "Hello, World!"      },
+    {Concat                     , L{"Hello, ", "World!"} , "Hello, World!"      },
+    {Concat({3,4})              , {1,2}                  , {1,2,3,4}            },
+
+    {Format({"Hello", "World"}) , "%s, %s!"              , "Hello, World!"      },
+    {Format("World")            , "Hello, %s!"           , "Hello, World!"      },
+    {Format                     , {"Hello, %s!", "World"}, "Hello, World!"      },
+    {Format({2,2,4})            , "%d + %d = %d"         , "2 + 2 = 4"          },
+    {Format(L{{1,2,3}})         , "list: %s"             , "list: [1,2,3]"      },
+
+    {Parse                      , "[1,2,3]"              , {1,2,3}              },
+    {Serialize                  , {1,2,3}                , "[1,2,3]"            },
 
     {Transp                     , L{}                    , L{}                  },
     {Transp                     , L{{1,2}}               , {L{1},L{2}}          },

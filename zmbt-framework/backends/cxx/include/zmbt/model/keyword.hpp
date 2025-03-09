@@ -173,6 +173,9 @@ enum class Keyword
     /// floor
     Floor,
 
+    /// format
+    Format,
+
     /// gamma
     Gamma,
 
@@ -269,6 +272,9 @@ enum class Keyword
     /// p-superset
     ProperSuperset,
 
+    /// parse
+    Parse,
+
     /// pi
     Pi,
 
@@ -304,6 +310,9 @@ enum class Keyword
 
     /// saturate
     Saturate,
+
+    /// serialize
+    Serialize,
 
     /// set-diff
     Diff,

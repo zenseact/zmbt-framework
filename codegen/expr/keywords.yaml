@@ -622,10 +622,33 @@ keyword_groups:
         domain: list[set]
         codomain: list[list]
 
-      - name: concat
-        brief: Concatenate sequences
-        domain: list[list]
-        codomain: list
+      - name: parse
+        brief: Parse string as JSON
+        domain: str
+        codomain: any
+        codegen-value:
+          cxx: boost::json::parse(x.as_string())
+        imports:
+          cxx:
+            - boost/json.hpp
+
+      - name: serialize
+        aliases: [ str ]
+        brief: Serialize JSON as string
+        domain: any
+        codomain: str
+        codegen-value:
+          cxx: '{boost::json::serialize(x)}'
+        imports:
+          cxx:
+            - boost/json.hpp
+
+      - name: format
+        aliases: [ fmt ]
+        brief: format string with given parameter list
+        signature: Binary
+        domain: [str, list]
+        codomain: str
 
       - name: uniques
         brief: Filter unique elements
@@ -638,6 +661,12 @@ keyword_groups:
         codomain: any
         codegen-value:
           cxx: x
+
+      - name: concat
+        brief: Concatenate sequences
+        signature: Binary
+        domain: [any, any]
+        codomain: any
 
       - name: default
         brief: Return x if not null, else return default value

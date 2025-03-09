@@ -36,10 +36,12 @@ bool isBinary(Keyword const& k)
     case Keyword::BitRshift:
     case Keyword::BitRshiftFrom:
     case Keyword::BitXor:
+    case Keyword::Concat:
     case Keyword::Default:
     case Keyword::Div:
     case Keyword::DivFrom:
     case Keyword::Eq:
+    case Keyword::Format:
     case Keyword::Ge:
     case Keyword::Gt:
     case Keyword::In:

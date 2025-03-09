@@ -102,6 +102,8 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Floor:
     case Keyword::Gamma:
     case Keyword::Id:
+    case Keyword::Parse:
+    case Keyword::Serialize:
     case Keyword::Sign:
     case Keyword::Sin:
     case Keyword::Sinh:

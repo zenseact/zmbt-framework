@@ -15,6 +15,7 @@
  */
 
 #include <cmath>
+#include <boost/json.hpp>
 
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
@@ -43,6 +44,8 @@ boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x,
     case Keyword::Floor: return std::floor(boost::json::value_to<double>(x));
     case Keyword::Gamma: return std::tgamma(boost::json::value_to<double>(x));
     case Keyword::Id: return x;
+    case Keyword::Parse: return boost::json::parse(x.as_string());
+    case Keyword::Serialize: return {boost::json::serialize(x)};
     case Keyword::Sign: return (boost::json::value_to<double>(x) >= 0 ? 1 : -1);
     case Keyword::Sin: return std::sin(boost::json::value_to<double>(x));
     case Keyword::Sinh: return std::sinh(boost::json::value_to<double>(x));

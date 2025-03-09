@@ -146,7 +146,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Ceil> const Ceil;
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
 
 /// \brief Concatenate sequences
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Concat> const Concat;
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Concat> const Concat;
 
 /// \brief Cosinus
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Cos> const Cos;
@@ -199,6 +199,11 @@ extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Filter> const Filter;
 
 /// \brief Floor
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Floor> const Floor;
+
+/// \brief Format string with given parameter list
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Format;
+/// \brief Alias for Format
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Fmt;
 
 /// \brief Gamma function
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Gamma> const Gamma;
@@ -316,6 +321,9 @@ extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSubset> const Pr
 /// \brief Is proper superset
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
 
+/// \brief Parse string as json
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Parse> const Parse;
+
 /// \brief Pi constant
 extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
 
@@ -376,6 +384,11 @@ extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Round> const Round;
 
 /// \brief Saturate matches in order
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
+
+/// \brief Serialize json as string
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Serialize;
+/// \brief Alias for Serialize
+extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Str;
 
 /// \brief Set difference
 extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Diff> const Diff;
