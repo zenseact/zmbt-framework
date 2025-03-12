@@ -63,6 +63,8 @@ public:
     boost::json::value operator&(GenericSignalOperator const& rhs) const;
     boost::json::value operator|(GenericSignalOperator const& rhs) const;
     boost::json::value operator^(GenericSignalOperator const& rhs) const;
+    boost::json::value operator<<(GenericSignalOperator const& rhs) const;
+    boost::json::value operator>>(GenericSignalOperator const& rhs) const;
 
     boost::json::value pow(GenericSignalOperator const& rhs) const;
     boost::json::value log(GenericSignalOperator const& rhs) const;

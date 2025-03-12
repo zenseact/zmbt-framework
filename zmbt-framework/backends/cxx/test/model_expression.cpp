@@ -28,20 +28,7 @@ using zmbt::expr::Keyword;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Diff,
-    Keyword::DiffFrom,
-    Keyword::Union,
-    Keyword::Intersect,
-    Keyword::Min,
-    Keyword::Max,
-    Keyword::Argmin,
-    Keyword::Argmax,
     Keyword::Bind,
-    Keyword::Round,
-    Keyword::BitLshift,
-    Keyword::BitRshift,
-    Keyword::BitLshiftFrom,
-    Keyword::BitRshiftFrom,
     Keyword::Void,
 };
 
@@ -127,12 +114,24 @@ std::vector<TestEvalSample> const TestSamples
     {Expression(42)|Not|Not     , 42                    , true                  },
     {Expression(42)|Not|Not     , 13                    , false                 },
 
-    {Approx({3.14, 0.001})      , pi                    , true                 },
-    {Approx({2.71, 0.005})      , e                     , true                 },
-    {Approx({3.14, 0, 0.01})    , pi                    , true                 },
-    {Approx({2.71, 0, 0.01})    , e                     , true                 },
-    {Approx                     , {pi, {3.14, 0.001}}   , true                 },
-    {All(Gt(3.14), Lt(3.15))    , pi                    , true                 },
+    {Approx({3.14, 0.001})      , pi                    , true                  },
+    {Approx({2.71, 0.005})      , e                     , true                  },
+    {Approx({3.14, 0, 0.01})    , pi                    , true                  },
+    {Approx({2.71, 0, 0.01})    , e                     , true                  },
+    {Approx                     , {pi, {3.14, 0.001}}   , true                  },
+    {All(Gt(3.14), Lt(3.15))    , pi                    , true                  },
+
+    {Round                      ,  1.49999               ,  1                   },
+    {Round                      ,  1.5                   ,  2                   },
+    {Round                      ,  0.49999               ,  0                   },
+    {Round                      , -0.49999               ,  0                   },
+    {Round                      , -0.5                   , -1                   },
+    {Round                      , -1.49999               , -1                   },
+    {Round                      , -1.5                   , -2                   },
+
+    {Round(2)                   ,  1.49999               ,  1.5                 },
+    {Round(2)                   , -1.49999               , -1.5                 },
+
 
     // order relation
     {Lt(42)                     , 41                    , true                  },
@@ -186,6 +185,19 @@ std::vector<TestEvalSample> const TestSamples
 
     {Uniques                    , {1,2,2,4,3,4}         , {3,4,2,1}             },
 
+    {Union|Sort                 , {{1,2,3},{2,3,4}}     , {1,2,3,4}             },
+    {Intersect|Sort             , {{1,2,3},{2,3,4}}     , {2,3}                 },
+    {Diff                       , {{1,2,3},{2,3,4}}     , L{1}                  },
+    {DiffFrom                   , {{1,2,3},{2,3,4}}     , L{4}                  },
+    {Union({2,3,4})|Sort        , L{1,2,3}              , {1,2,3,4}             },
+    {Intersect({2,3,4})|Sort    , L{1,2,3}              , {2,3}                 },
+    {Diff({2,3,4})              , L{1,2,3}              , L{1}                  },
+    {DiffFrom({2,3,4})          , L{1,2,3}              , L{4}                  },
+
+    {Union                      , {L{},L{}}             , L{}                   },
+    {Intersect                  , {L{},L{}}             , L{}                   },
+    {Diff                       , {L{},L{}}             , L{}                   },
+    {DiffFrom                   , {L{},L{}}             , L{}                   },
 
     // element in set
     {In({1, 2})                 , 2                     , true                  },
@@ -212,10 +224,26 @@ std::vector<TestEvalSample> const TestSamples
     {Sort                       , {4,1,3,1,2,1}         , {1,1,1,2,3,4}         },
     {Sort|Reverse               , {4,1,3,1,2,1}         , {4,3,2,1,1,1}         },
     {Sort(Neg)                  , {4,1,3,1,2,1}         , {4,3,2,1,1,1}         },
-    {Sort                       , {{1, 3},{2, 1},{3, 2}}, {{1, 3},{2, 1},{3, 2}}},
-    {Sort                       , {{3, 2},{2, 1},{1, 3}}, {{1, 3},{2, 1},{3, 2}}},
-    {Sort(At(1))                , {{1, 3},{2, 1},{3, 2}}, {{2, 1},{3, 2},{1, 3}}},
-    {Sort(At(1))                , {{3, 2},{2, 1},{1, 3}}, {{2, 1},{3, 2},{1, 3}}},
+    {Sort                       , {{1,3},{2,1},{3,2}}   , {{1,3},{2,1},{3,2}}   },
+    {Sort                       , {{3,2},{2,1},{1,3}}   , {{1,3},{2,1},{3,2}}   },
+    {Sort(At(1))                , {{1,3},{2,1},{3,2}}   , {{2,1},{3,2},{1,3}}   },
+    {Sort(At(1))                , {{3,2},{2,1},{1,3}}   , {{2,1},{3,2},{1,3}}   },
+
+    {Min                        , {1,2,2,4,3,4,-1}      , -1                    },
+    {Max                        , {1,2,2,4,3,4,-1}      , 4                     },
+    {Argmin                     , {1,2,2,4,3,4,-1}      , 6                     },
+    {Argmax                     , {1,2,2,4,3,4,-1}      , 3                     },
+    {Min                        , {{3, 2},{2, 1},{1, 3}}, {1,3}                 },
+    {Max                        , {{3, 2},{2, 1},{1, 3}}, {3,2}                 },
+    {Min(At(1))                 , {{3, 2},{2, 1},{1, 3}}, {2,1}                 },
+    {Max(At(1))                 , {{3, 2},{2, 1},{1, 3}}, {1,3}                 },
+    {Argmin(At(1))              , {{3, 2},{2, 1},{1, 3}}, 1                     },
+    {Argmax(At(1))              , {{3, 2},{2, 1},{1, 3}}, 2                     },
+    {Min                        , L{}                   , nullptr               },
+    {Max                        , L{}                   , nullptr               },
+    {Argmin                     , L{}                   , nullptr               },
+    {Argmax                     , L{}                   , nullptr               },
+
 
     {Sort                       , L{}                   , L{}                   },
     {Reverse                    , L{}                   , L{}                   },
@@ -267,6 +295,11 @@ std::vector<TestEvalSample> const TestSamples
     {BitAnd                     , {1ul, 2ul}            , 2ul & 1ul             },
     {BitOr                      , {1ul, 2ul}            , 2ul | 1ul             },
     {BitXor                     , {1ul, 2ul}            , 2ul xor 1ul           },
+
+    {BitLshift                  , {1, 1}                , 2                   },
+    {BitRshift                  , {2, 1}                , 1                   },
+    {BitLshiftFrom              , {1, 1}                , 2                   },
+    {BitRshiftFrom              , {1, 2}                , 1                   },
 
     {Add                        , {3,  2}               , 5                     },
     {Add                        , {3, -2}               , 1                     },

@@ -95,8 +95,11 @@ class SignalOperatorHandler
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(&, has_bit_and)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(|, has_bit_or)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(^, has_bit_xor)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<<, has_left_shift)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(>>, has_right_shift)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(&&, has_logical_and)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(||, has_logical_or)
+
 
 #undef ZMBT_SOH_HANDLE_RELATION
 #undef ZMBT_SOH_HANDLE_UNARY_TRANSFORM
@@ -153,6 +156,8 @@ class SignalOperatorHandler
         binary_transform conj_;
         binary_transform disj_;
         binary_transform bxor_;
+        binary_transform blshift_;
+        binary_transform brshift_;
         binary_transform land_;
         binary_transform lor_;
     } operators;
@@ -190,6 +195,8 @@ public:
                 handle_if_has_bit_and<T>,
                 handle_if_has_bit_or<T>,
                 handle_if_has_bit_xor<T>,
+                handle_if_has_left_shift<T>,
+                handle_if_has_right_shift<T>,
                 handle_if_has_logical_and<T>,
                 handle_if_has_logical_or<T>
             }

@@ -538,7 +538,6 @@ keyword_groups:
 
   - common:
       signature: BinarySetRhs
-      tags: [operator]
       domain: [set, set]
       codomain: set
     keywords:

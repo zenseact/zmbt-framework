@@ -57,7 +57,6 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Ge:
     case Keyword::Gt:
     case Keyword::In:
-    case Keyword::Intersect:
     case Keyword::Le:
     case Keyword::Log:
     case Keyword::LogFrom:
@@ -76,14 +75,11 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::PowFrom:
     case Keyword::Quot:
     case Keyword::QuotFrom:
-    case Keyword::Diff:
-    case Keyword::DiffFrom:
     case Keyword::SetEq:
     case Keyword::Sub:
     case Keyword::SubFrom:
     case Keyword::Subset:
     case Keyword::Superset:
-    case Keyword::Union:
         return CodegenType::BinaryOp;
     case Keyword::Abs:
     case Keyword::Acos:

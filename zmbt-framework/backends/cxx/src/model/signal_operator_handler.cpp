@@ -52,6 +52,8 @@ SignalOperatorHandler::SignalOperatorHandler()
             GENERIC_T2(&), // generic_band,
             GENERIC_T2(|), // generic_bor,
             GENERIC_T2(^), // generic_bxor,
+            GENERIC_T2(<<),  // generic_lsift,
+            GENERIC_T2(>>),  // generic_rshift,
             GENERIC_T2(&&), // generic_land,
             GENERIC_T2(||)  // generic_lor,
         }
@@ -95,9 +97,10 @@ boost::json::value SignalOperatorHandler::apply(expr::Keyword const& keyword, bo
     case expr::Keyword::BitAnd: return operators.conj_(lhs, rhs);
     case expr::Keyword::BitOr : return operators.disj_(lhs, rhs);
     case expr::Keyword::BitXor: return operators.bxor_(lhs, rhs);
-
-    // case expr::Keyword::BitLshift: return operators TODO
-    // case expr::Keyword::BitRshift: return operators TODO
+    case expr::Keyword::BitLshift: return operators.blshift_(lhs, rhs);
+    case expr::Keyword::BitRshift: return operators.brshift_(lhs, rhs);
+    case expr::Keyword::BitLshiftFrom: return operators.blshift_(rhs, lhs);
+    case expr::Keyword::BitRshiftFrom: return operators.brshift_(rhs, lhs);
 
     case expr::Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
     case expr::Keyword::Subset: return is_subset(lhs, rhs);

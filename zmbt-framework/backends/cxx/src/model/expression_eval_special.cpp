@@ -26,6 +26,7 @@ namespace
 {
 
 using V = boost::json::value;
+using L = boost::json::array;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
 using Keyword = zmbt::expr::Keyword;
@@ -683,6 +684,166 @@ V eval_impl<Keyword::Pack>(V const& x, V const& param, O const& op)
     return out;
 }
 
+using compare_fn_t = std::function<bool(V const&, V const&)>;
+
+using get_element_fn_t =
+std::function<L::const_iterator(L::const_iterator, L::const_iterator, compare_fn_t const&)>;
+
+L::const_iterator find_argminmax(L const& samples, V const& param, O const& op, get_element_fn_t const& get_element)
+{
+    E const key_fn = param.is_null() ? E(Keyword::Id) : E(param);
+    std::function<bool(V const&, V const&)> is_less = [key_fn, op](V const& lhs, V const& rhs) ->bool {
+        return op.apply(Keyword::Lt, key_fn.eval(lhs), key_fn.eval(rhs)).as_bool();
+    };
+    return get_element(samples.cbegin(), samples.cend(), is_less);
+}
+
+template <>
+V eval_impl<Keyword::Argmin>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.is_array());
+    auto const& samples = x.get_array();
+    if (samples.empty()) return nullptr;
+    return find_argminmax(samples, param, op, &std::min_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
+}
+
+template <>
+V eval_impl<Keyword::Argmax>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.is_array());
+    auto const& samples = x.get_array();
+    if (samples.empty()) return nullptr;
+    return find_argminmax(samples, param, op, &std::max_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
+}
+
+template <>
+V eval_impl<Keyword::Min>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.is_array());
+    auto const& samples = x.get_array();
+    if (samples.empty()) return nullptr;
+    return *find_argminmax(samples, param, op, &std::min_element<L::const_iterator, compare_fn_t>);
+}
+
+template <>
+V eval_impl<Keyword::Max>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.is_array());
+    auto const& samples = x.get_array();
+    if (samples.empty()) return nullptr;
+    return *find_argminmax(samples, param, op, &std::max_element<L::const_iterator, compare_fn_t>);
+}
+
+template <>
+V eval_impl<Keyword::Round>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.is_number());
+    ASSERT(param.is_null() || param.is_uint64() || param.is_int64());
+    auto const ndigits = param.is_null() ? 0UL : boost::json::value_to<std::size_t>(param);
+    auto const sample = boost::json::value_to<double>(op.decorate(x));
+    auto const factor = std::pow(10, ndigits);
+    auto const result = std::round(sample * factor) / factor;
+    if (ndigits == 0)
+    {
+        return result >= 0 ? V{static_cast<std::uint64_t>(result)} : V{static_cast<std::int64_t>(result)};
+    }
+    return result;
+}
+
+template <>
+V eval_impl<Keyword::Intersect>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.kind() == param.kind());
+    ASSERT(x.is_array());
+
+    auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
+    auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
+    L intersection {};
+    intersection.reserve(std::max(lhs.size(), rhs.size()));
+    auto out_it = std::back_inserter(intersection);
+
+    auto lhs_it = lhs.cbegin();
+    while (lhs_it != lhs.cend())
+    {
+        if (std::find_if(rhs.cbegin(), rhs.cend(), [&op, lhs_it](V const& v){ return op.apply(Keyword::Eq, v, *lhs_it).as_bool();}) != rhs.cend())
+        {
+            *out_it = *lhs_it;
+            out_it++;
+        }
+        lhs_it++;
+    }
+    intersection.shrink_to_fit();
+    return intersection;
+}
+
+template <>
+V eval_impl<Keyword::Diff>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.kind() == param.kind());
+    ASSERT(x.is_structured());
+
+    auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
+    auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
+    L difference {};
+    difference.reserve(std::max(lhs.size(), rhs.size()));
+    auto out_it = std::back_inserter(difference);
+
+    auto lhs_it = lhs.cbegin();
+    while (lhs_it != lhs.cend())
+    {
+        if (std::find_if(rhs.cbegin(), rhs.cend(), [&op, lhs_it](V const& v){ return op.apply(Keyword::Eq, v, *lhs_it).as_bool();}) == rhs.cend())
+        {
+            *out_it = *lhs_it;
+            out_it++;
+        }
+        lhs_it++;
+    }
+    difference.shrink_to_fit();
+    return difference;
+}
+
+template <>
+V eval_impl<Keyword::DiffFrom>(V const& x, V const& param, O const& op)
+{
+    return eval_impl<Keyword::Diff>(param, x, op);
+}
+
+template <>
+V eval_impl<Keyword::Union>(V const& x, V const& param, O const& op)
+{
+    ASSERT(x.kind() == param.kind());
+    ASSERT(x.is_structured());
+
+    auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
+    auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
+    L set_union {};
+    set_union.reserve(lhs.size() + rhs.size());
+
+    auto out_it = std::back_inserter(set_union);
+    std::copy(lhs.cbegin(), lhs.cend(), out_it);
+    std::copy_if(
+        rhs.cbegin(),
+        rhs.cend(),
+        out_it,
+        [&op, &lhs](V const& relem){
+            return std::find_if(
+                lhs.cbegin(),
+                lhs.cend(),
+                [&op, &relem](V const& lelem){
+                    return op.apply(Keyword::Eq, lelem, relem).as_bool();
+                }
+            ) == lhs.cend();
+        }
+    );
+
+    return set_union;
+}
+
+// Keyword::Union,
+// Keyword::Intersect,
+// Keyword::Diff,
+// Keyword::DiffFrom,
+
 } // namespace
 
 
@@ -713,6 +874,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
 
         // terms special
         ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Round)
         ZMBT_EXPR_EVAL_IMPL_CASE(Re)
         ZMBT_EXPR_EVAL_IMPL_CASE(At)
 
@@ -754,6 +916,16 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Slide)
         ZMBT_EXPR_EVAL_IMPL_CASE(Stride)
 
+        ZMBT_EXPR_EVAL_IMPL_CASE(Argmin)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Argmax)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Min)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Max)
+
+        // set ops
+        ZMBT_EXPR_EVAL_IMPL_CASE(Union)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Intersect)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Diff)
+        ZMBT_EXPR_EVAL_IMPL_CASE(DiffFrom)
 
         // string ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Format)

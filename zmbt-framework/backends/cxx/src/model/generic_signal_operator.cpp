@@ -217,6 +217,20 @@ bool GenericSignalOperator::operator<=(GenericSignalOperator const& rhs) const
     return not rhs.operator<(*this);
 }
 
+boost::json::value GenericSignalOperator::operator<<(GenericSignalOperator const& other) const
+{
+    auto const v = boost::json::value_to<std::uint64_t>(value());
+    auto const shift = boost::json::value_to<std::uint64_t>(other.value());
+    return v << shift;
+}
+
+boost::json::value GenericSignalOperator::operator>>(GenericSignalOperator const& other) const
+{
+    auto const v = boost::json::value_to<std::uint64_t>(value());
+    auto const shift = boost::json::value_to<std::uint64_t>(other.value());
+    return v >> shift;
+}
+
 
 boost::json::value GenericSignalOperator::operator-() const
 {
