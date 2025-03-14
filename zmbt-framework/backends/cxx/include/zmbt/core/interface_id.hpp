@@ -7,7 +7,12 @@
 #ifndef ZMBT_CORE_INTERFACE_ID_HPP_
 #define ZMBT_CORE_INTERFACE_ID_HPP_
 
+#include <iostream>
+
+
 #include <cstdint>
+#include <iomanip>
+#include <sstream>
 
 #include "aliases.hpp"
 
@@ -20,26 +25,24 @@ namespace zmbt {
 
 /// Pointer-based interface id with type annotation
 class interface_id : public entity_id {
-    struct dummy {
-        virtual void f() = 0;
-        virtual ~dummy() = default;
-    };
-
-    static constexpr size_t mfp_size = sizeof(&dummy::f);
-
-    static boost::json::string bytes_to_str(std::uint8_t (&dat)[mfp_size]);
 
     template <class T>
-    static boost::json::string ifc_addr(T const& ifc)
+    boost::json::string ifc_addr(T const& ifc)
     {
-        union {
+        struct {
             ifc_pointer_t<T const&> ptr;
-            std::uint8_t bytes[mfp_size];
-        } u;
-        std::memset(u.bytes, 0, mfp_size);
+        } wrapper {get_ifc_pointer(ifc)};
 
-        u.ptr = get_ifc_pointer(ifc);
-        return bytes_to_str(u.bytes);
+        std::array<char, sizeof(wrapper)> repr {};
+        std::memcpy(repr.data(), &wrapper, sizeof(wrapper));
+
+        std::stringstream ss;
+        ss << std::uppercase << std::hex << std::setfill('0') << "0x";
+        for (auto const c: repr)
+        {
+            ss  << std::setw(2) << (0xFFU & static_cast<std::uint32_t>(c));
+        }
+        return ss.str().c_str();
     }
 
 
@@ -63,6 +66,7 @@ class interface_id : public entity_id {
             >()
         )
     {
+        std::cerr << "interface_id<" << type_name<T const&>() << ">(" << key() << ")\n";
     }
 };
 

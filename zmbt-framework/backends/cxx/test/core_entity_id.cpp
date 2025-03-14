@@ -27,7 +27,7 @@ void increment_args(int& x, int& y) { ++x; ++y; }
 }
 
 
-BOOST_AUTO_TEST_CASE(GetIfcPointer)
+BOOST_AUTO_TEST_CASE(GetIfcPointerGetIfcHandle)
 {
     BOOST_CHECK_EQUAL(get_ifc_pointer(&return_int)    , get_ifc_pointer(return_int)    );
     BOOST_CHECK_EQUAL(get_ifc_pointer(&increment_args), get_ifc_pointer(increment_args));
@@ -41,21 +41,38 @@ BOOST_AUTO_TEST_CASE(GetIfcHandle)
 }
 
 
-BOOST_AUTO_TEST_CASE(PtrVsRef)
+BOOST_AUTO_TEST_CASE(PtrVsRefFn)
 {
-    auto lambda = [](){};
-    O functor {};
-
-    BOOST_CHECK_EQUAL(interface_id(&lambda)        , interface_id(lambda)        );
-    BOOST_CHECK_EQUAL(interface_id(&functor)       , interface_id(functor)       );
     BOOST_CHECK_EQUAL(interface_id(&return_int)    , interface_id(return_int)    );
     BOOST_CHECK_EQUAL(interface_id(&increment_args), interface_id(increment_args));
 
-    BOOST_CHECK_EQUAL(interface_id(&lambda)         .annotation(), interface_id(lambda)         .annotation());
-    BOOST_CHECK_EQUAL(interface_id(&functor)        .annotation(), interface_id(functor)        .annotation());
     BOOST_CHECK_EQUAL(interface_id(&return_int)     .annotation(), interface_id(return_int)     .annotation());
     BOOST_CHECK_EQUAL(interface_id(&increment_args) .annotation(), interface_id(increment_args) .annotation());
 }
+
+
+BOOST_AUTO_TEST_CASE(PtrVsRefObj)
+{
+    auto lambda1 = [](){};
+    auto lambda2 = [&](){ return 1;};
+    auto lambda3 = [&](){ return 2; };
+    O functor1 {};
+    O functor2 {};
+    O functor3 {};
+
+    BOOST_CHECK_EQUAL(interface_id(&lambda1) , interface_id(lambda1));
+    BOOST_CHECK_EQUAL(interface_id(&lambda2) , interface_id(lambda2));
+    BOOST_CHECK_EQUAL(interface_id(&lambda3) , interface_id(lambda3));
+    BOOST_CHECK_NE(   interface_id(&lambda1) , interface_id(lambda2));
+    BOOST_CHECK_NE(   interface_id(&lambda1) , interface_id(lambda3));
+
+    BOOST_CHECK_EQUAL(interface_id(&functor1), interface_id(functor1));
+    BOOST_CHECK_EQUAL(interface_id(&functor2), interface_id(functor2));
+    BOOST_CHECK_EQUAL(interface_id(&functor3), interface_id(functor3));
+    BOOST_CHECK_NE(   interface_id(&functor1), interface_id(functor2));
+    BOOST_CHECK_NE(   interface_id(&functor1), interface_id(functor3));
+}
+
 
 
 BOOST_AUTO_TEST_CASE(Functor)
