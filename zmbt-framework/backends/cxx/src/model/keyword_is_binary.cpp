@@ -28,6 +28,8 @@ bool isBinary(Keyword const& k)
     case Keyword::Add:
     case Keyword::And:
     case Keyword::Approx:
+    case Keyword::Argmax:
+    case Keyword::Argmin:
     case Keyword::At:
     case Keyword::BitAnd:
     case Keyword::BitLshift:
@@ -37,10 +39,12 @@ bool isBinary(Keyword const& k)
     case Keyword::BitRshiftFrom:
     case Keyword::BitXor:
     case Keyword::Concat:
+    case Keyword::Count:
     case Keyword::Default:
     case Keyword::Div:
     case Keyword::DivFrom:
     case Keyword::Eq:
+    case Keyword::Filter:
     case Keyword::Format:
     case Keyword::Ge:
     case Keyword::Gt:
@@ -50,6 +54,9 @@ bool isBinary(Keyword const& k)
     case Keyword::Log:
     case Keyword::LogFrom:
     case Keyword::Lt:
+    case Keyword::Map:
+    case Keyword::Max:
+    case Keyword::Min:
     case Keyword::Mod:
     case Keyword::ModFrom:
     case Keyword::Mul:
@@ -66,11 +73,14 @@ bool isBinary(Keyword const& k)
     case Keyword::Quot:
     case Keyword::QuotFrom:
     case Keyword::Re:
+    case Keyword::Reduce:
     case Keyword::Repeat:
+    case Keyword::Round:
     case Keyword::Diff:
     case Keyword::DiffFrom:
     case Keyword::SetEq:
     case Keyword::Slide:
+    case Keyword::Sort:
     case Keyword::Stride:
     case Keyword::Sub:
     case Keyword::SubFrom:

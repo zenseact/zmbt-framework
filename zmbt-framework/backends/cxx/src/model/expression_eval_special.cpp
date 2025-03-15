@@ -97,8 +97,9 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
         {
             query = value.get_array().at(boost::json::value_to<std::size_t>(at));
         }
-        catch(...)
+        catch(std::exception const&)
         {
+            // ignore and return default
         }
     }
     else if (at.is_array())
@@ -126,8 +127,9 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
                     }
                     as_object.emplace(dynamic_key.as_string(), query_at(value, kv.value()));
                 }
-                catch(...)
+                catch(std::exception const&)
                 {
+                    // ignore and return default
                 }
             }
             else
@@ -223,7 +225,7 @@ V eval_impl<Keyword::Count>(V const& x, V const& param, O const& op)
 }
 
 template <>
-V eval_impl<Keyword::Approx>(V const& x, V const& param, O const&)
+V eval_impl<Keyword::Approx>(V const& x, V const& param, O const& op)
 {
     // Based on numpy.isclose
     // absolute(a - b) <= (atol + rtol * absolute(b))
@@ -232,13 +234,13 @@ V eval_impl<Keyword::Approx>(V const& x, V const& param, O const&)
     auto const& params = param.get_array();
     ASSERT(params.size() >= 2 && params.size() <= 3);
 
-    double ref_value = boost::json::value_to<double>(params.at(0));
+    double ref_value = boost::json::value_to<double>(op.decorate(params.at(0)));
     double rtol      = boost::json::value_to<double>(params.at(1));
     double atol      = params.size() == 3
         ? boost::json::value_to<double>(params.at(2))
         : std::numeric_limits<double>::epsilon();
 
-    double value = boost::json::value_to<double>(x);
+    double value = boost::json::value_to<double>(op.decorate(x));
     return std::abs(value - ref_value) <= (atol + rtol * std::abs(ref_value));
 }
 

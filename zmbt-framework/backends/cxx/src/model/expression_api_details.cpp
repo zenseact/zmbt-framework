@@ -8,21 +8,52 @@
 
 #include "zmbt/model/expression_api.hpp"
 
+namespace
+{
+    bool maybe_kv_pair(boost::json::value const& val)
+    {
+        if (!val.is_array())
+        {
+            return false;
+        }
+        auto const& pair = val.get_array();
+        if (pair.size() != 2)
+        {
+            return false;
+        }
+        return pair.at(0).is_string();
+    }
+
+    bool maybe_object(boost::json::array const& value_list)
+    {
+        return value_list.cend() == std::find_if_not(value_list.cbegin(), value_list.cend(), maybe_kv_pair);
+    }
+} // namespace
+
+
 namespace zmbt {
 namespace expr {
 namespace detail {
-    boost::json::value as_set(std::initializer_list<boost::json::value_ref> set)
+boost::json::value handle_list_init(std::initializer_list<Expression> set)
+{
+    auto const value_list = boost::json::value_from(set).as_array();
+
+    if (maybe_object(value_list))
     {
-        boost::json::value val(set);
-        if (set.size() != 1 || val.is_object())
+        boost::json::object out{};
+        out.reserve(value_list.size());
+        for (auto const& pair: value_list)
         {
-            return val;
+            auto const& kv = pair.get_array();
+            out.insert_or_assign(kv.at(0).as_string(), kv.at(1));
         }
-        else
-        {
-            return boost::json::array{val};
-        }
+        return out;
     }
+    else
+    {
+        return value_list;
+    }
+}
 } // namespace detail
 } // namespace expr
 

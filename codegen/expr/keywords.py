@@ -41,6 +41,13 @@ class Keyword:
         return self._definition.get('codegen-value', {}).get(self._backend, None)
 
     @property
+    def DefaultValue(self) -> str:
+        default = self._definition.get('default', None)
+        if default and not self.IsBinary:
+            raise Exception("Default value is only handled for binary expressions")
+        return default
+
+    @property
     def Arity(self) -> str:
         domain = self._definition.get('domain', None)
         if domain is None:
@@ -80,8 +87,25 @@ class Keyword:
 
     @property
     def DocDetails(self) -> str:
-        return self._definition.get('details', None)
+        details = self._definition.get('details', "")
+        if details:
+            details = f"{details}\n\n"
 
+        domain = self.Domain
+        default = self.DefaultValue
+        if default and self.IsBinary:
+            domain = f"[{domain[0]} [,{domain[1]} = {default}]]"
+        else:
+            domain = str(domain).replace("'", "")
+        domain = f"Domain: {domain}\n\n"
+        codomain = f"Codomain: {self.Codomain}\n\n"
+
+        signature_ref = ""
+        if self.Signature != 'Special':
+            signature_ref = f'\see \\ref {self.Signature.lower()}-syntactic-forms "{self.Signature} Syntatic Forms"'
+
+        complete_doc = details + domain + codomain + signature_ref
+        return complete_doc
     @property
     def Short(self) -> str:
         return self._definition.get('short', None)

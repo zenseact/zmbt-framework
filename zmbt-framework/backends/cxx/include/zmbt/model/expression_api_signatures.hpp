@@ -18,7 +18,7 @@
 namespace zmbt {
 namespace expr {
 namespace detail {
-    boost::json::value as_set(std::initializer_list<boost::json::value_ref> set);
+    boost::json::value handle_list_init(std::initializer_list<Expression> set);
 }
 
 template <Keyword K>
@@ -28,61 +28,71 @@ struct SignatureBase : public Expression
     {}
 };
 
+/// @brief Const expression
+/// @tparam K keyword
+/// \anchor const-syntactic-forms
+/// \paragraph par-const-syntactic-forms Syntactic forms
+/// Syntatic form over constant C: \f$E \mapsto (x \mapsto C)\f$
 template <Keyword K>
 struct SignatureConst : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
 };
 
+/// @brief Unary expression
+/// @tparam K keyword
+/// \anchor unary-syntactic-forms
+/// \paragraph par-unary-syntactic-forms Syntactic forms
+/// Syntatic form over function f: \f$E \mapsto (x \mapsto f(x))\f$
 template <Keyword K>
 struct SignatureUnary : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
 };
 
+/// @brief Binary expression
+/// @tparam K keyword
+/// \anchor binary-syntactic-forms
+/// \paragraph par-binary-syntactic-forms Syntactic forms
+/// Syntatic forms over operator `*`:
+/// 1. \f$E    \mapsto ([x, y] \mapsto x * y      )\f$
+/// 2. \f$E    \mapsto (x      \mapsto x * default)\f$
+/// 3. \f$E(y) \mapsto (x      \mapsto x * y      )\f$
+///
+/// The second form is used in place of first for expressions that have default value defined,
+/// see documentation for specific expression.
+///
+/// In the third form the expression parameter is used as the right-hand side operand.
+///
+/// Most of the non-commutative terminal operators has a counterpart expression `*From`,
+/// which is evaluated under the same rules but with operands swapped. For other cases,
+/// the composition with Reverse can be utilized in the first form.
 template <Keyword K>
 struct SignatureBinary : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
+
+    /// \brief Make parametrized expression
     Expression operator()(Expression const& param) const
     {
         return Expression(K, param);
     }
-};
 
-
-template <Keyword Kw>
-struct SignatureBinarySetRhs : public SignatureBase<Kw>
-{
-    using SignatureBase<Kw>::SignatureBase;
-    Expression operator()(std::initializer_list<boost::json::value_ref> set) const
+    /// \brief Make parametrized expression with initializer list
+    /// \details Interpret {x} as single-element array instead of using default boost::json::value ctor
+    Expression operator()(std::initializer_list<Expression> param) const
     {
-        return Expression(Kw, detail::as_set(set));
-    }
-
-    Expression operator()(boost::json::array const& set) const
-    {
-        return Expression(Kw, set);
-    }
-    Expression operator()(boost::json::object const& set) const
-    {
-        return Expression(Kw, set);
+        return Expression(K, detail::handle_list_init(param));
     }
 };
 
-
+/// @brief Ternary expression
+/// @tparam K keyword
+/// \anchor ternary-syntactic-forms
+/// \paragraph par-ternary-syntactic-forms Syntactic forms
+/// Syntatic form over function f: \f$E(a, b) \mapsto (x \mapsto f(a, b)(x))\f$
 template <Keyword K>
-struct SignatureHiOrd : public SignatureBase<K>
-{
-    using SignatureBase<K>::SignatureBase;
-    Expression operator()(Expression const& expr) const
-    {
-        return Expression(K, expr);
-    }
-};
-
-template <Keyword K>
-struct SignatureHiOrdParam : public SignatureBase<K>
+struct SignatureTernary : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
     Expression operator()(Expression const& expr, Expression const& param) const
@@ -92,7 +102,11 @@ struct SignatureHiOrdParam : public SignatureBase<K>
 };
 
 
-/// Expression with variadic expression parameters
+/// @brief Variadic expression
+/// @tparam K keyword
+/// \anchor variadic-syntactic-forms
+/// \paragraph par-variadic-syntactic-forms Syntactic forms
+/// Syntatic form over function f: \f$E(a,b,c,...) \mapsto (x \mapsto f(a,b,c,...)(x))\f$
 template <Keyword K>
 struct SignatureVariadic : public SignatureBase<K>
 {

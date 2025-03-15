@@ -472,7 +472,7 @@ keyword_groups:
 
 
   - common:
-      signature: BinarySetRhs
+      signature: Binary
       tags: [operator]
       domain: [set, set]
       codomain: bool
@@ -537,7 +537,7 @@ keyword_groups:
 
 
   - common:
-      signature: BinarySetRhs
+      signature: Binary
       domain: [set, set]
       codomain: set
     keywords:
@@ -803,7 +803,7 @@ keyword_groups:
 
 
   - common:
-      signature: HiOrd
+      signature: Binary
     keywords:
 
       - name: reduce
@@ -811,71 +811,64 @@ keyword_groups:
         details: |-
           To set specific initial value, use composition with Push, e.g.
           `Push(0)|Reduce(Add)`
-        domain: list
+        domain: [list, fn]
         codomain: any
-        params:
-          - type: fn
 
 
       - name: round
         brief: Round to nearest integer with optional precision
         commutative: false
-        domain: real
+        domain: [real, int]
         codomain: real
-        params:
-          - label: precision
-            type: int
-            default: 0
 
       - name: map
         brief: Apply param expr to every element of sequence
-        domain: list
+        domain: [list, fn]
         codomain: list
-        params:
-          - type: fn
 
       - name: filter
         brief: Filter sequence by predicate param
-        domain: list
+        domain: [list, predicate]
         codomain: list
-        params:
-          - type: predicate
 
       - name: count
         brief: Count matches by predicate param
-        domain: list
+        domain: [list, predicate]
         codomain: uint
-        params:
-          - type: predicate
 
       - name: sort
-        brief: 'Sort list by key function (default: Id)'
-        domain: list
+        brief: 'Sort list by key function'
+        domain: [list, fn]
+        default: Id
         codomain: list
 
       - name: min
-        brief: Min value
-        domain: list
+        brief: 'Min value by key function'
+        domain: [list, fn]
+        default: Id
         codomain: any
 
       - name: max
-        brief: Max value
-        domain: list
+        brief: 'Max value by key function'
+        domain: [list, fn]
+        default: Id
         codomain: any
 
       - name: argmin
-        brief: Min value index
-        domain: list
+        brief: 'Min value index by key function'
+        domain: [list, fn]
+        default: Id
         codomain: uint
 
       - name: argmax
-        brief: Max value index
-        domain: list
+        brief: 'Max value index by key function'
+        domain: [list, fn]
+        default: Id
         codomain: uint
 
 
   - common:
-      signature: HiOrdParam
+      signature: Ternary
     keywords:
       - name: recur
         brief: apply recursion to parameter expr

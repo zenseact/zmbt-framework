@@ -66,7 +66,6 @@ class interface_id : public entity_id {
             >()
         )
     {
-        std::cerr << "interface_id<" << type_name<T const&>() << ">(" << key() << ")\n";
     }
 };
 

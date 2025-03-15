@@ -25,6 +25,31 @@ using V = boost::json::value;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
 using Keyword = zmbt::expr::Keyword;
+
+static V const kNullValue = nullptr;
+static V const kDefaultKeyFn = E(Keyword::Id);
+
+// TODO: handle it in codegen
+void set_default_param(Keyword const& keyword, V const*& param)
+{
+    switch(keyword)
+    {
+    case Keyword::Sort:
+    case Keyword::Min:
+    case Keyword::Max:
+    case Keyword::Argmin:
+    case Keyword::Argmax:
+        {
+            param = &kDefaultKeyFn;
+            break;
+        }
+    default:
+        {
+            break;
+        }
+    }
+}
+
 }
 
 namespace zmbt {
@@ -36,6 +61,10 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
         lhs = &x;
         rhs = params_ptr_;
     }
+    else if (set_default_param(keyword(), rhs), rhs != nullptr)
+    {
+        lhs = &x;
+    }
     else // treat x as argument pair
     {
         if (x.is_array() && x.get_array().size() == 2)
@@ -45,7 +74,9 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
         }
         else
         {
-            throw expression_error("got invalid params for binary operator, should be pair");
+            lhs = &x;
+            rhs = &kNullValue;
+            // throw expression_error("got invalid params for binary operator, should be pair");
         }
     }
 }

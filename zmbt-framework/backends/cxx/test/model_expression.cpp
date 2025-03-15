@@ -19,6 +19,7 @@ namespace utf = boost::unit_test;
 using namespace zmbt;
 using namespace zmbt::reflect;
 using namespace zmbt::api;
+using namespace zmbt::decor;
 using namespace boost::json;
 
 using V = boost::json::value;
@@ -259,7 +260,7 @@ std::vector<TestEvalSample> const TestSamples
     {Pack(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
     {(Size|4) & Size & Card     , {2,2,3,3}             , {true, 4, 2}          },
     {At(0) & At(1) & At(2)      , {1,2,3}               , {1,2,3}               },
-    {(Reduce(Add) & Size) | Div , {2,2,3,3}             , 2.5                   },
+    {Reduce(Add) & Size | Div   , {2,2,3,3}             , 2.5                   },
 
 
     {Stride(2)                  , {1,2,3,4,5,6}         , {{1,2},{3,4},{5,6}}   },
@@ -326,6 +327,8 @@ std::vector<TestEvalSample> const TestSamples
     {Div(-2)                    , 3                     , -1.5                  },
     {DivFrom                    , { 2, 3}               ,  1.5                  },
     {DivFrom                    , {-2, 3}               , -1.5                  },
+    {Reverse|Div                , {-2, 3}               , -1.5                  },
+
 
     {Mod                        , {4,  2}               ,  0                    },
     {Mod                        , {7,  4}               ,  3                    },
@@ -404,6 +407,8 @@ std::vector<TestEvalSample> const TestSamples
     {Push(3)|Reduce(Add)        , {1,2,3,4}             , 13                    },
     {Reduce(Add)                , L{42}                 , 42                    },
     {Reduce(Add)                , L{}                   , nullptr               },
+    {Reduce                     , {{2,2,2,2},Add}       ,  8                    },
+
 
 
     // ternary and or
@@ -523,6 +528,15 @@ std::vector<TestEvalSample> const TestSamples
                                          {"fn" , {{":div",0}}   },
                                          {"x"  , 42              },
                                          {"op" , "zmbt::GenericSignalOperator"}}},
+
+    {Keyword::Noop              , nullptr                , true                 },
+    // test heterogeneous init lists in params
+    // Binary
+    {Serialize                  , Concat({Keyword::At})  , R"({":concat":[":at"]})"},
+    {Serialize                  , Concat({42, Keyword::At, precise<float>()})
+                                , R"({":concat":[42,":at","0x0p+0"]})"          },
+    // HiOrd
+    {Serialize                  , Max({Keyword::At})     , R"({":max":[":at"]})"},
 };
 
 
@@ -546,14 +560,21 @@ std::set<Keyword> const CoveredInTestEval = []{
 
 BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
-    BOOST_CHECK_EQUAL(sample.expr.eval(sample.x), sample.expected);
+    try
+    {
+        BOOST_CHECK_EQUAL(sample.expr.eval(sample.x), sample.expected);
 
-    V js = json_from(sample.expr);
-    Expression converted_implicitly = js;
-    Expression converted_explicitly = dejsonize<Expression>(js);
+        V js = json_from(sample.expr);
+        Expression converted_implicitly = js;
+        Expression converted_explicitly = dejsonize<Expression>(js);
 
-    BOOST_CHECK_EQUAL(sample.expr, converted_explicitly);
-    BOOST_CHECK_EQUAL(sample.expr, converted_implicitly);
+        BOOST_CHECK_EQUAL(sample.expr, converted_explicitly);
+        BOOST_CHECK_EQUAL(sample.expr, converted_implicitly);
+    }
+    catch(const std::exception& e)
+    {
+        BOOST_FAIL("Exception thrown: " << e.what());
+    }
 }
 
 BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, static_cast<std::size_t>(Keyword::_count)))

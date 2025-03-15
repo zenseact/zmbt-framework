@@ -24,50 +24,128 @@ namespace api {
 
 
 /// \brief Absolute value
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Abs> const Abs;
 
 /// \brief Arccos
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Acos> const Acos;
 
 /// \brief Hyperbolic arccos
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Acosh> const Acosh;
 
 /// \brief Addition
+/// \details
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Add> const Add;
 
 /// \brief Match all predicates
+/// \details
+/// Domain: any
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All;
 
 /// \brief Logical and
 /// \details
 /// Generic behavior:
 ///   if first operand is truthy, returns second operand, otherwise first
+/// 
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::And> const And;
 
 /// \brief Match any predicate
+/// \details
+/// Domain: any
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any;
 
 /// \brief Apply expr to literal param
-extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Apply> const Apply;
+/// \details
+/// Domain: None
+/// 
+/// Codomain: any
+/// 
+/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+extern expr::SignatureTernary<::zmbt::expr::Keyword::Apply> const Apply;
 
 /// \brief Floating point approximately equal
 /// \details
 /// Params: [ref, rtol[, atol]]
 /// Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
+/// 
+/// Domain: [real, list]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Approx;
 /// \brief Alias for Approx
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Near;
 
-/// \brief Max value index
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Argmax> const Argmax;
+/// \brief Max value index by key function
+/// \details
+/// Domain: [list [,fn = Id]]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Argmax> const Argmax;
 
-/// \brief Min value index
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Argmin> const Argmin;
+/// \brief Min value index by key function
+/// \details
+/// Domain: [list [,fn = Id]]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Argmin> const Argmin;
 
 /// \brief Arcsin
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Asin> const Asin;
 
 /// \brief Hyperbolic arcsin
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Asinh> const Asinh;
 
 /// \brief Transform json value with given query
@@ -81,24 +159,60 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Asinh> const Asinh;
 ///   5. {"key": q1, "$q2": q3, ...} |-> x: any |->
 ///       { "key1": x at q1, "$(x at q2)": x at q3, ...}
 /// ```
+/// 
+/// Domain: [any, {union: [int, str, list, object]}]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::At> const At;
 
 /// \brief Arctan
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Atan> const Atan;
 
 /// \brief Hyperbolic arctan
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Atanh> const Atanh;
 
 /// \brief Arythmetic average
+/// \details
+/// Domain: list
+/// 
+/// Codomain: any
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Avg> const Avg;
 
 /// \brief Bitwise and
+/// \details
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitAnd> const BitAnd;
 
 /// \brief Bitwise left shift
 /// \details
 /// 1. [ ] |-> [x, s] |-> x << s
 /// 2. [s] |-> [x]    |-> x << s
+/// 
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshift> const BitLshift;
 
 /// \brief Reverse bitwise left shift
@@ -106,18 +220,42 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshift> const BitLshift;
 /// Bitwise left shift with reverse arguments, i. e.
 ///   1. [ ] |-> [s, x] |-> x << s
 ///   2. [x] |-> [s]    |-> x << s
+/// 
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshiftFrom> const BitLshiftFrom;
 
 /// \brief Bitwise not
+/// \details
+/// Domain: uint
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::BitNot> const BitNot;
 
 /// \brief Bitwise or
+/// \details
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitOr> const BitOr;
 
 /// \brief Bitwise right shift
 /// \details
 /// 1. [ ] |-> [x, s] |-> x >> s
 /// 2. [s] |-> [x]    |-> x >> s
+/// 
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshift> const BitRshift;
 
 /// \brief Reverse bitwise right shift
@@ -125,48 +263,132 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshift> const BitRshift;
 /// Bitwise right shift with reverse arguments, i. e.
 ///   1. [ ] |-> [s, x] |-> x >> s
 ///   2. [x] |-> [s]    |-> x >> s
+/// 
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshiftFrom> const BitRshiftFrom;
 
 /// \brief Bitwise xor
+/// \details
+/// Domain: [uint, uint]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::BitXor> const BitXor;
 
 /// \brief Bind parameters
-extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Bind> const Bind;
+/// \details
+/// Domain: any
+/// 
+/// Codomain: any
+/// 
+/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+extern expr::SignatureTernary<::zmbt::expr::Keyword::Bind> const Bind;
 
 /// \brief Predicate on boolean transform (aka truthy)
+/// \details
+/// Domain: any
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Bool> const Bool;
 
 /// \brief Set cardinality (uniques count)
+/// \details
+/// Domain: union[list, object]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card;
 
 /// \brief Cartesian product
+/// \details
+/// Domain: list[set]
+/// 
+/// Codomain: list[list]
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Cartesian> const Cartesian;
 
 /// \brief Ceil
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Ceil> const Ceil;
 
 /// \brief Compose functions
+/// \details
+/// Domain: any
+/// 
+/// Codomain: any
+/// 
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
 
 /// \brief Concatenate sequences
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Concat> const Concat;
 
 /// \brief Cosinus
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Cos> const Cos;
 
 /// \brief Hyperbolic cos
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Cosh> const Cosh;
 
 /// \brief Count matches by predicate param
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Count> const Count;
+/// \details
+/// Domain: [list, predicate]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Count> const Count;
 
 /// \brief Return x if not null, else return default value
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default;
 
 /// \brief Division
 /// \details
 /// 1. [ ] |-> [x, y] |-> x / y
 /// 2. [y] |-> [x]    |-> x / y
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Div> const Div;
 
 /// \brief Reverse division
@@ -174,65 +396,185 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Div> const Div;
 /// Division with reverse arguments, i. e.
 ///   1. [ ] |-> [y, x] |-> x / y
 ///   2. [x] |-> [y]    |-> x / y
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::DivFrom> const DivFrom;
 
 /// \brief Euler's number
+/// \details
+/// Domain: None
+/// 
+/// Codomain: real
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::E> const E;
 
 /// \brief Machine epsilon
+/// \details
+/// Domain: None
+/// 
+/// Codomain: real
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::Eps> const Eps;
 
 /// \brief Is equal
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Eq> const Eq;
 
 /// \brief Error function
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Erf> const Erf;
 
 /// \brief Error function complement
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Erfc> const Erfc;
 
 /// \brief Exponential (e^x)
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Exp> const Exp;
 
 /// \brief Logical false
+/// \details
+/// Domain: None
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::False> const False;
 
 /// \brief Filter sequence by predicate param
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Filter> const Filter;
+/// \details
+/// Domain: [list, predicate]
+/// 
+/// Codomain: list
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Filter> const Filter;
 
 /// \brief Floor
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Floor> const Floor;
 
 /// \brief Format string with given parameter list
+/// \details
+/// Domain: [str, list]
+/// 
+/// Codomain: str
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Format;
 /// \brief Alias for Format
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Fmt;
 
 /// \brief Gamma function
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Gamma> const Gamma;
 
 /// \brief Greater or equal
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Ge> const Ge;
 
 /// \brief Greater than
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Gt> const Gt;
 
 /// \brief Identity function
+/// \details
+/// Domain: any
+/// 
+/// Codomain: any
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id;
 
 /// \brief Element is in
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::In> const In;
+/// \details
+/// Domain: [any, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::In> const In;
 
 /// \brief Infinity
+/// \details
+/// Domain: None
+/// 
+/// Codomain: real
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::Inf> const Inf;
 
 /// \brief Set intersection
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Intersect> const Intersect;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: set
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Intersect> const Intersect;
 
 /// \brief Lesser or equal
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Le> const Le;
 
 /// \brief Envelop zero or more parameters in list
+/// \details
+/// Domain: None
+/// 
+/// Codomain: list
+/// 
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
 
 /// \brief Logarithm
@@ -240,6 +582,12 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
 /// Logarithm with base b:
 ///   1. [ ] |-> [x, b] |-> log_b(x)
 ///   2. [b] |-> [x]    |-> log_b(x)
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Log> const Log;
 
 /// \brief Reverse logarithm
@@ -247,25 +595,61 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Log> const Log;
 /// Log with reverse arguments, i. e.
 ///   1. [ ] |-> [b, x] |-> log_b(x)
 ///   2. [b] |-> [b]    |-> log_b(x)
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::LogFrom> const LogFrom;
 
 /// \brief Lesser than
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Lt> const Lt;
 
 /// \brief Apply param expr to every element of sequence
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Map> const Map;
+/// \details
+/// Domain: [list, fn]
+/// 
+/// Codomain: list
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Map> const Map;
 
-/// \brief Max value
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Max> const Max;
+/// \brief Max value by key function
+/// \details
+/// Domain: [list [,fn = Id]]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Max> const Max;
 
-/// \brief Min value
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Min> const Min;
+/// \brief Min value by key function
+/// \details
+/// Domain: [list [,fn = Id]]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Min> const Min;
 
 /// \brief Modulo
 /// \details
 /// Modulo of x:
 ///   1. [ ] |-> [x, m] |-> x % m
 ///   2. [m] |-> [x]    |-> x % m
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Mod> const Mod;
 
 /// \brief Reverse modulo
@@ -273,67 +657,175 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Mod> const Mod;
 /// Modulo with reverse arguments, i. e.
 ///   1. [ ] |-> [b, x] |-> log_b(x)
 ///   2. [b] |-> [b]    |-> log_b(x)
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::ModFrom> const ModFrom;
 
 /// \brief Multiplication
+/// \details
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Mul> const Mul;
 
 /// \brief Not a number
+/// \details
+/// Domain: None
+/// 
+/// Codomain: real
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::NaN> const NaN;
 
 /// \brief Not equal
+/// \details
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Ne> const Ne;
 
 /// \brief Negate
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Neg> const Neg;
 
 /// \brief Contains element
+/// \details
+/// Domain: [set, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Ni;
 /// \brief Alias for Ni
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Contains;
 
 /// \brief Predicate on boolean transform (aka falsy)
+/// \details
+/// Domain: any
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Nil> const Nil;
 
 /// \brief No operation
+/// \details
+/// Domain: any
+/// 
+/// Codomain: any
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const Noop;
 /// \brief Alias for Noop
 extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const _;
 
 /// \brief Logical complement
+/// \details
+/// Domain: any
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Not> const Not;
 
 /// \brief Element is not in
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::NotIn> const NotIn;
+/// \details
+/// Domain: [any, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::NotIn> const NotIn;
 
 /// \brief Not contains element
+/// \details
+/// Domain: [set, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::NotNi> const NotNi;
 
 /// \brief Null value
+/// \details
+/// Domain: any
+/// 
+/// Codomain: any
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::Null> const Null;
 
 /// \brief Logical or
 /// \details
 /// Generic behavior:
 ///   if first operand is truthy, returns first operand, second otherwise
+/// 
+/// Domain: [any, any]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Or> const Or;
 
 /// \brief Is proper subset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSubset> const ProperSubset;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::ProperSubset> const ProperSubset;
 
 /// \brief Is proper superset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details
 /// Allows to combine different properties in a single expression,
 /// e.g. `Pack(Reduce(Add), Size)` on [1,2,3] evaluates to [6,3].
+/// 
+/// Domain: any
+/// 
+/// Codomain: list
+/// 
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Pack> const Pack;
 
 /// \brief Parse string as json
+/// \details
+/// Domain: str
+/// 
+/// Codomain: any
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Parse> const Parse;
 
 /// \brief Pi constant
+/// \details
+/// Domain: None
+/// 
+/// Codomain: real
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
 
 /// \brief To power
@@ -341,6 +833,12 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
 /// X to power p
 ///   1. [ ] |-> [x, p] |-> x^p
 ///   2. [p] |-> [x]    |-> x^p
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
 
 /// \brief Reverse power
@@ -348,14 +846,32 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
 /// Pow with reverse arguments, i. e.
 ///   1. [ ] |-> [p, x] |-> x^p
 ///   2. [x] |-> [p]    |-> x^p
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
 
 /// \brief Multiplication reduction
 /// \details
 /// Equivalent to Reduce(Mul)
+/// 
+/// Domain: list
+/// 
+/// Codomain: any
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Prod> const Prod;
 
 /// \brief Push element into a front of sequence
+/// \details
+/// Domain: [any, list]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Push> const Push;
 
 /// \brief Quotient
@@ -363,6 +879,12 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Push> const Push;
 /// Quotient of x:
 ///   1. [ ] |-> [x, d] |-> x // d
 ///   2. [d] |-> [x]    |-> x // d
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Quot> const Quot;
 
 /// \brief Reverse quotient
@@ -370,79 +892,205 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Quot> const Quot;
 /// Quotient with reverse arguments, i. e.
 ///   1. [ ] |-> [d, x] |-> x // d
 ///   2. [x] |-> [d]    |-> x // d
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::QuotFrom> const QuotFrom;
 
 /// \brief Regular expression match
 /// \details
 /// If input is not a string, match it's serialized form.
+/// 
+/// Domain: [any, str]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Re;
 /// \brief Alias for Re
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex;
 
 /// \brief Apply recursion to parameter expr
-extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Recur> const Recur;
+/// \details
+/// Domain: any
+/// 
+/// Codomain: any
+/// 
+/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+extern expr::SignatureTernary<::zmbt::expr::Keyword::Recur> const Recur;
 
 /// \brief Reduce sequence with binary operator
 /// \details
 /// To set specific initial value, use composition with Push, e.g.
 /// `Push(0)|Reduce(Add)`
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Reduce> const Reduce;
+/// 
+/// Domain: [list, fn]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Reduce> const Reduce;
 
 /// \brief Repeat value in list
+/// \details
+/// Domain: [any, int]
+/// 
+/// Codomain: list
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;
 
 /// \brief Reverse sequence
+/// \details
+/// Domain: list[set]
+/// 
+/// Codomain: list[list]
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Reverse> const Reverse;
 
 /// \brief Round to nearest integer with optional precision
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Round> const Round;
+/// \details
+/// Domain: [real, int]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Round> const Round;
 
 /// \brief Saturate matches in order
+/// \details
+/// Domain: list
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
 
 /// \brief Serialize json as string
+/// \details
+/// Domain: any
+/// 
+/// Codomain: str
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Serialize;
 /// \brief Alias for Serialize
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Str;
 
 /// \brief Set difference
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Diff> const Diff;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: set
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Diff> const Diff;
 
 /// \brief Reverse set difference
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::DiffFrom> const DiffFrom;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: set
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::DiffFrom> const DiffFrom;
 
 /// \brief Equal as set
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::SetEq> const SetEq;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::SetEq> const SetEq;
 
 /// \brief Sign
+/// \details
+/// Domain: real
+/// 
+/// Codomain: int
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Sign> const Sign;
 
 /// \brief Sinus
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Sin> const Sin;
 
 /// \brief Hyperbolic sin
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Sinh> const Sinh;
 
 /// \brief Sequence size
+/// \details
+/// Domain: union[list, object]
+/// 
+/// Codomain: uint
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size;
 
 /// \brief Sliding-window iteration
 /// \details
 /// Sliding window iteration by specified window width.
+/// 
+/// Domain: [list, int]
+/// 
+/// Codomain: list[list]
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Slide> const Slide;
 
-/// \brief Sort list by key function (default: id)
-extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Sort> const Sort;
+/// \brief Sort list by key function
+/// \details
+/// Domain: [list [,fn = Id]]
+/// 
+/// Codomain: list
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Sort> const Sort;
 
 /// \brief Square root
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Sqrt> const Sqrt;
 
 /// \brief Striding iteration
 /// \details
 /// Striding iteration by specified step width.
+/// 
+/// Domain: [list, int]
+/// 
+/// Codomain: list[list]
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Stride> const Stride;
 
 /// \brief Subtraction
+/// \details
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Sub> const Sub;
 
 /// \brief Reverse subtraction
@@ -450,23 +1098,59 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Sub> const Sub;
 /// Subtraction with reverse arguments, i. e.
 ///   1. [ ] |-> [y, x] |-> x - y
 ///   2. [x] |-> [y]    |-> x - y
+/// 
+/// Domain: [real, real]
+/// 
+/// Codomain: real
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::SubFrom> const SubFrom;
 
 /// \brief Is subset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Subset> const Subset;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Subset> const Subset;
 
 /// \brief Summation reduction
 /// \details
 /// Equivalent to Reduce(Add)
+/// 
+/// Domain: list
+/// 
+/// Codomain: any
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Sum> const Sum;
 
 /// \brief Is superset
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Superset> const Superset;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Superset> const Superset;
 
 /// \brief Tangens
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Tan> const Tan;
 
 /// \brief Hyperbolic tan
+/// \details
+/// Domain: real
+/// 
+/// Codomain: real
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Tanh> const Tanh;
 
 /// \brief Transpose multidimensional list, turning rows into columns
@@ -474,21 +1158,57 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Tanh> const Tanh;
 /// May be used to zip sequences of equal length.
 /// Example:
 ///   [[1, 2, 3], [4, 5, 6]] -> [[1, 4], [2, 5], [3, 6]]
+/// 
+/// Domain: list[list]
+/// 
+/// Codomain: list[list]
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Transp> const Transp;
 
 /// \brief Logical true
+/// \details
+/// Domain: None
+/// 
+/// Codomain: bool
+/// 
+/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern expr::SignatureConst<::zmbt::expr::Keyword::True> const True;
 
 /// \brief Evaluate enveloped function and return result or null if it throws
+/// \details
+/// Domain: [fn, any]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Try> const Try;
 
 /// \brief Evaluate enveloped function and return result or error info if it throws
+/// \details
+/// Domain: [fn, any]
+/// 
+/// Codomain: any
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern expr::SignatureBinary<::zmbt::expr::Keyword::TryCatch> const TryCatch;
 
 /// \brief Set union
-extern expr::SignatureBinarySetRhs<::zmbt::expr::Keyword::Union> const Union;
+/// \details
+/// Domain: [set, set]
+/// 
+/// Codomain: set
+/// 
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Union> const Union;
 
 /// \brief Filter unique elements
+/// \details
+/// Domain: list
+/// 
+/// Codomain: set
+/// 
+/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Uniques> const Uniques;
 
 } // namespace api
