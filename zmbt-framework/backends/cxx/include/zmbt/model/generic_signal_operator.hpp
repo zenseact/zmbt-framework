@@ -10,6 +10,7 @@
 
 #include <boost/json.hpp>
 #include <zmbt/core/type_tag.hpp>
+#include <zmbt/reflect/serialization.hpp>
 #include <zmbt/reflect/signal_traits.hpp>
 #include <iostream>
 
@@ -32,7 +33,7 @@ public:
 
     template <class T>
     GenericSignalOperator(T const& sample)
-        : GenericSignalOperator{boost::json::value_from(sample)}
+        : GenericSignalOperator{json_from(sample)}
     {
     }
 

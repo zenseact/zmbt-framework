@@ -289,22 +289,17 @@ V eval_impl<Keyword::Card>(V const& x, V const& param, O const&)
 template <>
 V eval_impl<Keyword::Reduce>(V const& x, V const& param, O const& op)
 {
-    ASSERT(param.is_array());
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
-    auto const& params = param.get_array();
-    ASSERT(params.size() >= 1 && params.size() <= 2);
     if (samples.empty())
     {
         return nullptr;
     }
-    auto F = E(params.at(0));
-    bool const init_value_defined = params.size() > 1;
-
+    auto F = E(param);
     auto it = samples.cbegin();
 
     // take init term
-    boost::json::value ret = init_value_defined ? params.at(1) : *it++;
+    boost::json::value ret = *it++;
 
     while (it != samples.cend())
     {
@@ -523,6 +518,29 @@ V eval_impl<Keyword::Concat>(V const& x, V const& param, O const&)
         boost::json::array out = x.get_array();
         out.reserve(out.size() + param.get_array().size());
         for (auto const& el: param.get_array())
+        {
+            out.push_back(el);
+        }
+        return out;
+    }
+    return nullptr;
+}
+
+template <>
+V eval_impl<Keyword::Push>(V const& x, V const& param, O const&)
+{
+    ASSERT(x.is_string() || x.is_array());
+
+    if (x.is_string())
+    {
+        return {zmbt::format("%s%s", param, x)};
+    }
+    else if (x.is_array())
+    {
+        boost::json::array out {};
+        out.reserve(1 + x.get_array().size());
+        out.push_back(param);
+        for (auto const& el: x.get_array())
         {
             out.push_back(el);
         }
@@ -910,6 +928,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
         ZMBT_EXPR_EVAL_IMPL_CASE(Transp)
         ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
         ZMBT_EXPR_EVAL_IMPL_CASE(Concat)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Push)
         ZMBT_EXPR_EVAL_IMPL_CASE(Uniques)
         ZMBT_EXPR_EVAL_IMPL_CASE(Sort)
         ZMBT_EXPR_EVAL_IMPL_CASE(Reverse)

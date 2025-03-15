@@ -257,9 +257,9 @@ std::vector<TestEvalSample> const TestSamples
     {Try(Slide(-1))             , L{}                   , nullptr               },
 
     {Pack(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
-    {(Size|4) + Size + Card     , {2,2,3,3}             , {true, 4, 2}          },
-    {At(0) + At(1) + At(2)      , {1,2,3}               , {1,2,3}               },
-    {(Reduce(Add) + Size) | Div , {2,2,3,3}             , 2.5                   },
+    {(Size|4) & Size & Card     , {2,2,3,3}             , {true, 4, 2}          },
+    {At(0) & At(1) & At(2)      , {1,2,3}               , {1,2,3}               },
+    {(Reduce(Add) & Size) | Div , {2,2,3,3}             , 2.5                   },
 
 
     {Stride(2)                  , {1,2,3,4,5,6}         , {{1,2},{3,4},{5,6}}   },
@@ -399,9 +399,12 @@ std::vector<TestEvalSample> const TestSamples
     {Repeat(3)                  , 42                    , {42,42,42}            },
     {Repeat(3)|Repeat(2)        ,  1                    , {{1,1,1}, {1,1,1}}    },
 
-    {Reduce(Add, 0)             , {2,2,2,2}             ,  8                    },
-    {Reduce(Add, 0)             , {1,2,3,4}             , 10                    },
-    {Reduce(Add, 3)             , {1,2,3,4}             , 13                    },
+    {Reduce(Add)                , {2,2,2,2}             ,  8                    },
+    {Reduce(Add)                , {1,2,3,4}             , 10                    },
+    {Push(3)|Reduce(Add)        , {1,2,3,4}             , 13                    },
+    {Reduce(Add)                , L{42}                 , 42                    },
+    {Reduce(Add)                , L{}                   , nullptr               },
+
 
     // ternary and or
     {And(42)|Or(13)             , true                  , 42                    },
@@ -409,10 +412,10 @@ std::vector<TestEvalSample> const TestSamples
     {And(42)|Or(13)|Not         , true                  , false                 },
     {And(E)|Or(NaN)             , true                  , E                     },
 
-    {Reduce(And, "baz")         , {"foo", "bar"}        , "bar"                 },
-    {Reduce(And, ""   )         , {"foo", "bar"}        , ""                    },
-    {Reduce(Or , 42   )         , {"foo", "bar"}        , 42                    },
-    {Reduce(Or , ""   )         , {"foo", "bar"}        , "foo"                 },
+    {Push("baz")|Reduce(And)    , {"foo", "bar"}        , "bar"                 },
+    {Push(""   )|Reduce(And)    , {"foo", "bar"}        , ""                    },
+    {Push(42   )|Reduce(Or )    , {"foo", "bar"}        , 42                    },
+    {Push(""   )|Reduce(Or )    , {"foo", "bar"}        , "foo"                 },
 
     {Re("42")                   , "42"                  , true                  },
     {Re("42")                   , "43"                  , false                 },

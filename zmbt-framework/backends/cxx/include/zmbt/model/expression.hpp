@@ -69,21 +69,18 @@ public:
     /// s.t. `a | b` is equivalent to `Compose(b, a)`. \see zmbt::api::Compose
     friend Expression operator|(Expression const& lhs, Expression const& rhs);
 
-    /// \brief Pack expression results into an array. \see zmbt::api::Pack.
+    /// \brief Concatenate expressions. \see zmbt::api::Concat.
     friend Expression operator+(Expression const& lhs, Expression const& rhs);
+
+    /// \brief Pack expression results into an array. \see zmbt::api::Pack.
+    friend Expression operator&(Expression const& lhs, Expression const& rhs);
 
 
     /// \brief Apply x to lhs expression.
     /// \details Equivalent to Apply(expr, x).
     /// Note that operator <<= precedence is lower than pipe operator,
     /// so `a <<= b` should be wrapped in parentheses when followed by |. \see zmbt::api::Apply
-    friend Expression operator<<=(Expression const& expr, boost::json::value const& x);
-
-    template <class T>
-    friend Expression operator<<=(Expression const& lhs, T const& rhs)
-    {
-        return lhs <<= json_from(rhs);
-    }
+    friend Expression operator<<=(Expression const& expr, Expression const& x);
 
 
 

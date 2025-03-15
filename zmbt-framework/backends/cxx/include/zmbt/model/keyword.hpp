@@ -293,6 +293,9 @@ enum class Keyword
     /// prod
     Prod,
 
+    /// push
+    Push,
+
     /// quot
     Quot,
 

@@ -62,6 +62,7 @@ bool isBinary(Keyword const& k)
     case Keyword::ProperSuperset:
     case Keyword::Pow:
     case Keyword::PowFrom:
+    case Keyword::Push:
     case Keyword::Quot:
     case Keyword::QuotFrom:
     case Keyword::Re:

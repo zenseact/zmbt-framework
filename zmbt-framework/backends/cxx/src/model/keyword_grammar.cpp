@@ -153,6 +153,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "pow-from", Keyword::PowFrom)
     (ZMBT_KEYWORD_PREFIX "prod", Keyword::Prod)
     (ZMBT_KEYWORD_PREFIX "Π", Keyword::Prod)
+    (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
     (ZMBT_KEYWORD_PREFIX "quot", Keyword::Quot)
     (ZMBT_KEYWORD_PREFIX "//", Keyword::Quot)
     (ZMBT_KEYWORD_PREFIX "quot-from", Keyword::QuotFrom)
@@ -308,6 +309,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }
     case Keyword::PowFrom: { v = ZMBT_KEYWORD_PREFIX "pow-from"; break; }
     case Keyword::Prod: { v = ZMBT_KEYWORD_PREFIX "prod"; break; }
+    case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "push"; break; }
     case Keyword::Quot: { v = ZMBT_KEYWORD_PREFIX "quot"; break; }
     case Keyword::QuotFrom: { v = ZMBT_KEYWORD_PREFIX "quot-from"; break; }
     case Keyword::Re: { v = ZMBT_KEYWORD_PREFIX "re"; break; }

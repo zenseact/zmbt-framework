@@ -355,6 +355,9 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
 /// Equivalent to Reduce(Mul)
 extern expr::SignatureUnary<::zmbt::expr::Keyword::Prod> const Prod;
 
+/// \brief Push element into a front of sequence
+extern expr::SignatureBinary<::zmbt::expr::Keyword::Push> const Push;
+
 /// \brief Quotient
 /// \details
 /// Quotient of x:
@@ -379,11 +382,11 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex;
 /// \brief Apply recursion to parameter expr
 extern expr::SignatureHiOrdParam<::zmbt::expr::Keyword::Recur> const Recur;
 
-/// \brief Reduce sequence with binary operator and optional initial value
+/// \brief Reduce sequence with binary operator
 /// \details
-/// If initial value is not provided, first element is used.
-/// If sequence is empty and initial value is not provided, error is raised.
-extern expr::SignatureHiOrdParamOpt<::zmbt::expr::Keyword::Reduce> const Reduce;
+/// To set specific initial value, use composition with Push, e.g.
+/// `Push(0)|Reduce(Add)`
+extern expr::SignatureHiOrd<::zmbt::expr::Keyword::Reduce> const Reduce;
 
 /// \brief Repeat value in list
 extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;

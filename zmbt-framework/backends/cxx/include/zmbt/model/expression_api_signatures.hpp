@@ -85,34 +85,9 @@ template <Keyword K>
 struct SignatureHiOrdParam : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
-    Expression operator()(Expression const& expr, boost::json::value const& param) const
+    Expression operator()(Expression const& expr, Expression const& param) const
     {
         return Expression(K, boost::json::array{expr, param});
-    }
-    template <class T>
-    Expression operator()(Expression const& expr, T&& param) const
-    {
-        return Expression(K, boost::json::array{expr, json_from(std::forward<T>(param))});
-    }
-};
-
-
-template <Keyword K>
-struct SignatureHiOrdParamOpt : public SignatureBase<K>
-{
-    using SignatureBase<K>::SignatureBase;
-    Expression operator()(Expression const& expr) const
-    {
-        return Expression(K, boost::json::array{expr});
-    }
-    Expression operator()(Expression const& expr, boost::json::value const& param) const
-    {
-        return Expression(K, boost::json::array{expr, param});
-    }
-    template <class T>
-    Expression operator()(Expression const& expr, T&& param) const
-    {
-        return Expression(K, boost::json::array{expr, json_from(std::forward<T>(param))});
     }
 };
 
@@ -149,7 +124,7 @@ struct SignatureVariadic : public SignatureBase<K>
     }
     template <class... T>
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3, E const& p4, E const& p5, E const& p6, E const& p7, T&&... rest) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7, boost::json::value_from(rest)...});
+        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7, zmbt::json_from(rest)...});
     }
 };
 
