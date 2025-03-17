@@ -32,7 +32,7 @@ namespace
 {
 using namespace zmbt;
 using namespace zmbt::mapping;
-using Keyword = zmbt::expr::Keyword;
+using Keyword = zmbt::dsl::Keyword;
 
 class InstanceTestRunner
 {

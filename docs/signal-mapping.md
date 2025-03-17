@@ -1,8 +1,8 @@
 <!-- (c) Copyright 2024 Zenseact AB -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-Signal Mapping model
-=================
+# Signal Mapping model {#signal-mapping-model}
+
 
 ***Signal Mapping*** model represents the system under test (SUT) as a pure
 mathematical mapping, abstracting away side effects and clearly defining the
@@ -11,7 +11,7 @@ scenario-based methods in unit testing, which often intertwine the declaration
 of test goals with test implementation details in a single workflow.
 
 
-## Overview
+## Overview {#signal-mapping-model-overview}
 
 Before diving into the test model definition, let's first look into some examples.
 All the library funtions below are available in namespace `zmbt::api`.
@@ -296,7 +296,7 @@ for clarity.
 ### Expressions {#expressions}
 
 For now we only considered strict equality checks.
-The library provides embedded functional scripting language in the `zmbt::expr` namespace,
+The library provides embedded functional scripting language in the `zmbt::dsl` namespace,
 that enables flexible matchers and more complex test data manipulation:
 
 ``` c++

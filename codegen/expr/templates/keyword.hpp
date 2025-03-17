@@ -28,7 +28,7 @@
 
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 
 
 /// ZMBT Expression keyword
@@ -50,7 +50,7 @@ bool isBinary(Keyword const& k);
 } // namespace detail
 
 
-} // namespace expr
+} // namespace dsl
 } // namespace zmbt
 
 

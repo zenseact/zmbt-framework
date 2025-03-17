@@ -13,7 +13,7 @@
 #include "zmbt/model/keyword.hpp"
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 namespace detail {
 
 /// Keyword classifier, allows to select eval implementation
@@ -29,7 +29,7 @@ enum class CodegenType
 CodegenType getCodegenType(Keyword const& k);
 
 } // namespace detail
-} // namespace expr
+} // namespace dsl
 } // namespace zmbt
 
 

@@ -32,7 +32,7 @@ namespace
 
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 namespace detail {
 boost::json::value handle_list_init(std::initializer_list<Expression> set)
 {
@@ -55,7 +55,7 @@ boost::json::value handle_list_init(std::initializer_list<Expression> set)
     }
 }
 } // namespace detail
-} // namespace expr
+} // namespace dsl
 
 Expression operator|(Expression const& lhs, Expression const& rhs)
 {
@@ -114,7 +114,7 @@ Expression operator+(Expression const& lhs, Expression const& rhs)
 
 Expression operator<<=(Expression const& lhs, Expression const& rhs)
 {
-    return api::Apply(lhs, rhs);
+    return expr::Apply(lhs, rhs);
 }
 
 } // namespace zmbt

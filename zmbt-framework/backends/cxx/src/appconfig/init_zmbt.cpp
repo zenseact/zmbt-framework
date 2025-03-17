@@ -11,7 +11,9 @@
 #include <iostream>
 #include <string>
 
+#include <boost/filesystem.hpp>
 #include <boost/json.hpp>
+
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/attributes.hpp>
@@ -22,7 +24,6 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 
 #include <boost/program_options.hpp>
-#include <boost/filesystem.hpp>
 
 #include <zmbt/logging.hpp>
 #include <zmbt/reflect.hpp>

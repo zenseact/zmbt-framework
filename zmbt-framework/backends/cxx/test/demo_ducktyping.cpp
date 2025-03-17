@@ -10,6 +10,7 @@
 #include "zenseact-mbt.hpp"
 
 using namespace zmbt::api;
+using namespace zmbt::expr;
 
 #if defined(__clang__)
     #pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"

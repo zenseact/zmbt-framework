@@ -14,7 +14,7 @@
 
 namespace
 {
-using Keyword = zmbt::expr::Keyword;
+using Keyword = zmbt::dsl::Keyword;
 
 
 boost::json::value const* ptrToParams(Keyword const& keyword, boost::json::value const& underlying)

@@ -14,8 +14,6 @@
 #include "zmbt/model/keyword_codegen_type.hpp"
 
 
-#include <boost/regex.hpp>
-
 #define ASSERT(E)      if (!(E)) { throw zmbt::expression_error("%s#%d - " #E, __FILE__, __LINE__);}
 
 namespace
@@ -24,7 +22,7 @@ namespace
 using V = boost::json::value;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
-using Keyword = zmbt::expr::Keyword;
+using Keyword = zmbt::dsl::Keyword;
 
 static V const kNullValue = nullptr;
 static V const kDefaultKeyFn = E(Keyword::Id);
@@ -76,7 +74,6 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
         {
             lhs = &x;
             rhs = &kNullValue;
-            // throw expression_error("got invalid params for binary operator, should be pair");
         }
     }
 }
@@ -85,11 +82,11 @@ boost::json::value Expression::eval(boost::json::value const& x, SignalOperatorH
 {
     if(is(Keyword::Literal))
     {
-        return Expression(Keyword::Eq, params()).eval(x, op);
+        return op.apply(Keyword::Eq, x, params());
     }
 
-    using expr::detail::CodegenType;
-    using expr::detail::getCodegenType;
+    using dsl::detail::CodegenType;
+    using dsl::detail::getCodegenType;
     CodegenType const classifier = getCodegenType(keyword());
 
     switch (classifier)

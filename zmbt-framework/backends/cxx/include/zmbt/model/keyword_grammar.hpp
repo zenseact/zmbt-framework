@@ -15,15 +15,15 @@
 
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 
-/// Boost.Sirit.Qi Symbol for zmbt::expr::Keyword parsing
+/// Boost.Sirit.Qi Symbol for zmbt::dsl::Keyword parsing
 struct KeywordSymbol : public boost::spirit::qi::symbols<char, Keyword>
 {
     KeywordSymbol();
 };
 
-/// Boost.Sirit.Qi Grammar for zmbt::expr::Keyword parsing
+/// Boost.Sirit.Qi Grammar for zmbt::dsl::Keyword parsing
 struct KeywordGrammar : public boost::spirit::qi::grammar<boost::json::string::const_iterator, Keyword()>
 {
     KeywordGrammar();
@@ -39,7 +39,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value&, Keyword
 Keyword tag_invoke(boost::json::value_to_tag<Keyword> const&, boost::json::value const&);
 
 
-} // namespace expr
+} // namespace dsl
 } // namespace zmbt
 
 

@@ -9,6 +9,7 @@
 #include "zenseact-mbt.hpp"
 
 using namespace zmbt::api;
+using namespace zmbt::expr;
 using namespace zmbt;
 
 

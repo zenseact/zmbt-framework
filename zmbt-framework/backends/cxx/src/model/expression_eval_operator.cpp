@@ -14,8 +14,6 @@
 #include "zmbt/model/keyword_codegen_type.hpp"
 
 
-#include <boost/regex.hpp>
-
 #define ASSERT(E)      if (!(E)) { throw zmbt::expression_error("%s#%d - " #E, __FILE__, __LINE__);}
 
 namespace
@@ -24,7 +22,7 @@ namespace
 using V = boost::json::value;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
-using Keyword = zmbt::expr::Keyword;
+using Keyword = zmbt::dsl::Keyword;
 }
 
 namespace zmbt {

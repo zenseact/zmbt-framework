@@ -19,7 +19,7 @@
 
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 namespace detail {
 
 
@@ -50,5 +50,5 @@ CodegenType getCodegenType(Keyword const& k)
 }
 
 } // namespace detail
-} // namespace expr
+} // namespace dsl
 } // namespace zmbt

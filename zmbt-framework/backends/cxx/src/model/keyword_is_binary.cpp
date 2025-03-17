@@ -18,7 +18,7 @@
 
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 namespace detail {
 
 bool isBinary(Keyword const& k)
@@ -96,5 +96,5 @@ bool isBinary(Keyword const& k)
 }
 
 } // namespace detail
-} // namespace expr
+} // namespace dsl
 } // namespace zmbt

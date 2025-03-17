@@ -7,7 +7,8 @@
 
 #include <algorithm>
 #include <deque>
-#include <boost/regex.hpp>
+#include <regex>
+
 #include <boost/format.hpp>
 
 #include "zmbt/core.hpp"
@@ -15,7 +16,6 @@
 #include "zmbt/model/generic_signal_operator.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
-#include "zmbt/model/expression_api.hpp"
 #include "zmbt/model/exceptions.hpp"
 
 
@@ -29,7 +29,7 @@ using V = boost::json::value;
 using L = boost::json::array;
 using O = zmbt::SignalOperatorHandler;
 using E = zmbt::Expression;
-using Keyword = zmbt::expr::Keyword;
+using Keyword = zmbt::dsl::Keyword;
 
 template <Keyword keyword>
 V eval_impl(V const& params, V const& x, O const& op);
@@ -81,9 +81,9 @@ V eval_impl<Keyword::Re>(V const& x, V const& param, O const&)
 {
     ASSERT(param.is_string());
     auto const pattern = param.get_string().c_str();
-    const boost::regex re(pattern);
+    const std::regex re(pattern);
     std::string sample = x.is_string() ? x.get_string().c_str() : boost::json::serialize(x);
-    return boost::regex_match(sample, re);
+    return std::regex_match(sample, re);
 }
 
 
@@ -665,29 +665,23 @@ template <>
 V eval_impl<Keyword::Sum>(V const& x, V const&, O const& op)
 {
     ASSERT(x.is_array());
-    using zmbt::api::Reduce;
-    using zmbt::api::Add;
-    return Reduce(Add).eval(x, op);
+    return eval_impl<Keyword::Reduce>(x, E(Keyword::Add), op);
 }
 
 template <>
 V eval_impl<Keyword::Prod>(V const& x, V const&, O const& op)
 {
     ASSERT(x.is_array());
-    using zmbt::api::Reduce;
-    using zmbt::api::Mul;
-    return Reduce(Mul).eval(x, op);
+    return eval_impl<Keyword::Reduce>(x, E(Keyword::Mul), op);
 }
 
 template <>
 V eval_impl<Keyword::Avg>(V const& x, V const&, O const& op)
 {
     ASSERT(x.is_array());
-    auto const N = x.get_array().size();
-    using zmbt::api::Reduce;
-    using zmbt::api::Add;
-    using zmbt::api::Div;
-    return (Reduce(Add)|Div(N)).eval(x, op);
+    auto const N = eval_impl<Keyword::Size>(x, {}, {});
+    auto const sum = eval_impl<Keyword::Reduce>(x, E(Keyword::Add), op);
+    return op.apply(Keyword::Div, sum, N);
 }
 
 template <>
@@ -859,11 +853,6 @@ V eval_impl<Keyword::Union>(V const& x, V const& param, O const& op)
     return set_union;
 }
 
-// Keyword::Union,
-// Keyword::Intersect,
-// Keyword::Diff,
-// Keyword::DiffFrom,
-
 } // namespace
 
 
@@ -875,7 +864,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, SignalO
 {
     V const* x_ptr {nullptr};
     V const* param_ptr {nullptr};
-    if (expr::detail::isBinary(keyword()))
+    if (dsl::detail::isBinary(keyword()))
     {
         handle_binary_args(x, x_ptr, param_ptr);
     }

@@ -20,21 +20,18 @@ ZMBT_COPTS = select({
 
 BOOST_LIBS = [
     "@boost//:algorithm",
-    "@boost//:chrono",
-    "@boost//:exception",
-    "@boost//:filesystem",
+    "@boost//:callable_traits",
+    "@boost//:describe",
     "@boost//:format",
     "@boost//:json",
-    "@boost//:lambda2",
-    "@boost//:pfr",
-    "@boost//:program_options",
-    "@boost//:regex",
-    "@boost//:system",
-    "@boost//:timer",
-    "@boost//:callable_traits",
-    "@boost//:conversion",
-    "@boost//:vmd",
     "@boost//:log",
+    "@boost//:mp11",
+    "@boost//:math",
+    "@boost//:phoenix",
+    "@boost//:system",
+    "@boost//:spirit",
+    "@boost//:type_index",
+    "@boost//:type_traits",
 ]
 
 INTERNAL_LIB_VISIBILITY = [
@@ -51,7 +48,10 @@ cc_library(
     hdrs = glob([
         "include/zmbt/logging.hpp",
     ]),
-    deps = BOOST_LIBS,
+    deps = [
+        "@boost//:log",
+        "@boost//:current_function",
+    ],
     copts = ZMBT_COPTS,
 )
 
@@ -128,24 +128,6 @@ cc_library(
 
 
 cc_library(
-    name = "appconfig",
-    visibility = INTERNAL_LIB_VISIBILITY,
-    includes = ["include/"],
-    hdrs = glob([
-        "include/zmbt/appconfig.hpp",
-        "include/zmbt/appconfig/*.hpp",
-    ]),
-    srcs = glob([
-        "src/appconfig/*.cpp",
-    ]),
-    deps = [
-        ":mapping",
-    ],
-    copts = ZMBT_COPTS,
-)
-
-
-cc_library(
     name = "zmbt",
     visibility = ["//visibility:public"],
     includes = ["include/"],
@@ -160,10 +142,33 @@ cc_library(
             "src/**/*.cpp",
         ],
         exclude = [
+            "src/appconfig/*.cpp",
             "src/main*.cpp"
         ],
     ),
-    deps = [":appconfig"],
+    deps = [
+        ":mapping",
+    ],
+    copts = ZMBT_COPTS,
+)
+
+
+cc_library(
+    name = "appconfig",
+    visibility = INTERNAL_LIB_VISIBILITY,
+    includes = ["include/"],
+    hdrs = glob([
+        "include/zmbt/appconfig.hpp",
+        "include/zmbt/appconfig/*.hpp",
+    ]),
+    srcs = glob([
+        "src/appconfig/*.cpp",
+    ]),
+    deps = [
+        "@boost//:program_options",
+        "@boost//:date_time",
+        ":mapping",
+    ],
     copts = ZMBT_COPTS,
 )
 
@@ -177,7 +182,10 @@ cc_library(
     ],
     deps = [
         ":zmbt",
+        ":appconfig",
+        "@boost//:filesystem",
         "@boost//:test.so",
     ],
     copts = ZMBT_COPTS,
 )
+

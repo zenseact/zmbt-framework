@@ -19,14 +19,14 @@
 #include "zmbt/model/expression_api.hpp"
 
 namespace zmbt {
-namespace api {
+namespace expr {
 
 @for keyword in data.ApiKeywords:
-expr::@keyword.Class const @keyword.Enum = {};
+dsl::@keyword.Class const @keyword.Enum = {};
 @for alias in keyword.Aliases:
-expr::@keyword.Class const @alias.capitalize() = @keyword.Enum;
+dsl::@keyword.Class const @alias.capitalize() = @keyword.Enum;
 @end
 @end
 
-} // namespace api
+} // namespace expr
 } // namespace zmbt

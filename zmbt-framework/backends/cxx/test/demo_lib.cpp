@@ -9,6 +9,7 @@
 #include "zenseact-mbt.hpp"
 
 using namespace zmbt::api;
+using namespace zmbt::expr;
 using namespace zmbt;
 
 
@@ -421,8 +422,8 @@ BOOST_AUTO_TEST_CASE(SignalTypeDecorator)
 
     SignalMapping("Narrowing conversion (double) -> float")
     .OnTrigger(DoubleToFloat)
-        .InjectTo  (DoubleToFloat) .As(type<precise<double>>)
-        .ObserveOn (DoubleToFloat) .As(type<precise<float>> )
+        .InjectTo  (DoubleToFloat) .As(type<decor::precise<double>>)
+        .ObserveOn (DoubleToFloat) .As(type<decor::precise<float>> )
 
     .Test
         (0.125                 , 0.125           ) ["ok: power of 2"]

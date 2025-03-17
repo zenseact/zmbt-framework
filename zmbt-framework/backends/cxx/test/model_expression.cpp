@@ -18,13 +18,13 @@ namespace utf = boost::unit_test;
 
 using namespace zmbt;
 using namespace zmbt::reflect;
-using namespace zmbt::api;
+using namespace zmbt::expr;
 using namespace zmbt::decor;
 using namespace boost::json;
 
 using V = boost::json::value;
 using L = boost::json::array;
-using zmbt::expr::Keyword;
+using zmbt::dsl::Keyword;
 
 namespace {
 
@@ -132,7 +132,6 @@ std::vector<TestEvalSample> const TestSamples
 
     {Round(2)                   ,  1.49999               ,  1.5                 },
     {Round(2)                   , -1.49999               , -1.5                 },
-
 
     // order relation
     {Lt(42)                     , 41                    , true                  },
@@ -245,7 +244,6 @@ std::vector<TestEvalSample> const TestSamples
     {Argmin                     , L{}                   , nullptr               },
     {Argmax                     , L{}                   , nullptr               },
 
-
     {Sort                       , L{}                   , L{}                   },
     {Reverse                    , L{}                   , L{}                   },
 
@@ -267,7 +265,6 @@ std::vector<TestEvalSample> const TestSamples
     {Stride(3)                  , {1,2,3,4,5}           , {{1,2,3},{4,5}}       },
     {Stride(42)                 , {1,2,3}               , L{{1,2,3}}            },
     {Stride(42)                 , L{}                   , L{}                   },
-
 
     // composition
     {Compose(Eq(2), Size)       , {1,2}                 , true                  },
@@ -328,7 +325,6 @@ std::vector<TestEvalSample> const TestSamples
     {DivFrom                    , { 2, 3}               ,  1.5                  },
     {DivFrom                    , {-2, 3}               , -1.5                  },
     {Reverse|Div                , {-2, 3}               , -1.5                  },
-
 
     {Mod                        , {4,  2}               ,  0                    },
     {Mod                        , {7,  4}               ,  3                    },
@@ -409,8 +405,6 @@ std::vector<TestEvalSample> const TestSamples
     {Reduce(Add)                , L{}                   , nullptr               },
     {Reduce                     , {{2,2,2,2},Add}       ,  8                    },
 
-
-
     // ternary and or
     {And(42)|Or(13)             , true                  , 42                    },
     {And(42)|Or(13)             , false                 , 13                    },
@@ -449,7 +443,6 @@ std::vector<TestEvalSample> const TestSamples
     {At("-1:0:-1")              , {1,2,3,4,5,6,7,8}      , {8,7,6,5,4,3,2,1}    },
 
     {At                         , {{1,2,3}, 0}           , 1                    },
-
     // TODO: string query
     // {At(0)                   , "foo"                 , "f"                   },
 
@@ -791,6 +784,6 @@ BOOST_AUTO_TEST_CASE(TestComposeVsApplyPrecedence)
 
 BOOST_AUTO_TEST_CASE(CodegenType)
 {
-    auto const test = zmbt::expr::detail::getCodegenType(Keyword::Abs);
-    BOOST_CHECK(test == zmbt::expr::detail::CodegenType::CodegenFn);
+    auto const test = zmbt::dsl::detail::getCodegenType(Keyword::Abs);
+    BOOST_CHECK(test == zmbt::dsl::detail::CodegenType::CodegenFn);
 }

@@ -20,7 +20,7 @@
 #include "expression_api_signatures.hpp"
 
 namespace zmbt {
-namespace api {
+namespace expr {
 
 
 /// \brief Absolute value
@@ -30,7 +30,7 @@ namespace api {
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Abs> const Abs;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Abs> const Abs;
 
 /// \brief Arccos
 /// \details
@@ -39,7 +39,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Abs> const Abs;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Acos> const Acos;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Acos> const Acos;
 
 /// \brief Hyperbolic arccos
 /// \details
@@ -48,7 +48,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Acos> const Acos;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Acosh> const Acosh;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Acosh> const Acosh;
 
 /// \brief Addition
 /// \details
@@ -57,7 +57,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Acosh> const Acosh;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Add> const Add;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Add> const Add;
 
 /// \brief Match all predicates
 /// \details
@@ -66,7 +66,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Add> const Add;
 /// Codomain: bool
 /// 
 /// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All;
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::All> const All;
 
 /// \brief Logical and
 /// \details
@@ -78,7 +78,7 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::All> const All;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::And> const And;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::And> const And;
 
 /// \brief Match any predicate
 /// \details
@@ -87,7 +87,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::And> const And;
 /// Codomain: bool
 /// 
 /// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any;
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Any> const Any;
 
 /// \brief Apply expr to literal param
 /// \details
@@ -96,7 +96,7 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::Any> const Any;
 /// Codomain: any
 /// 
 /// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
-extern expr::SignatureTernary<::zmbt::expr::Keyword::Apply> const Apply;
+extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Apply> const Apply;
 
 /// \brief Floating point approximately equal
 /// \details
@@ -108,9 +108,9 @@ extern expr::SignatureTernary<::zmbt::expr::Keyword::Apply> const Apply;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Approx;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Approx> const Approx;
 /// \brief Alias for Approx
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Near;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Approx> const Near;
 
 /// \brief Max value index by key function
 /// \details
@@ -119,7 +119,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Approx> const Near;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Argmax> const Argmax;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmax> const Argmax;
 
 /// \brief Min value index by key function
 /// \details
@@ -128,7 +128,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Argmax> const Argmax;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Argmin> const Argmin;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmin> const Argmin;
 
 /// \brief Arcsin
 /// \details
@@ -137,7 +137,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Argmin> const Argmin;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Asin> const Asin;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Asin> const Asin;
 
 /// \brief Hyperbolic arcsin
 /// \details
@@ -146,7 +146,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Asin> const Asin;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Asinh> const Asinh;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Asinh> const Asinh;
 
 /// \brief Transform json value with given query
 /// \details
@@ -165,7 +165,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Asinh> const Asinh;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::At> const At;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At;
 
 /// \brief Arctan
 /// \details
@@ -174,7 +174,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::At> const At;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Atan> const Atan;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Atan> const Atan;
 
 /// \brief Hyperbolic arctan
 /// \details
@@ -183,7 +183,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Atan> const Atan;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Atanh> const Atanh;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Atanh> const Atanh;
 
 /// \brief Arythmetic average
 /// \details
@@ -192,7 +192,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Atanh> const Atanh;
 /// Codomain: any
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Avg> const Avg;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Avg> const Avg;
 
 /// \brief Bitwise and
 /// \details
@@ -201,7 +201,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Avg> const Avg;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitAnd> const BitAnd;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitAnd> const BitAnd;
 
 /// \brief Bitwise left shift
 /// \details
@@ -213,7 +213,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitAnd> const BitAnd;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshift> const BitLshift;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitLshift> const BitLshift;
 
 /// \brief Reverse bitwise left shift
 /// \details
@@ -226,7 +226,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshift> const BitLshift;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshiftFrom> const BitLshiftFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitLshiftFrom> const BitLshiftFrom;
 
 /// \brief Bitwise not
 /// \details
@@ -235,7 +235,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitLshiftFrom> const BitLshi
 /// Codomain: uint
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::BitNot> const BitNot;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::BitNot> const BitNot;
 
 /// \brief Bitwise or
 /// \details
@@ -244,7 +244,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::BitNot> const BitNot;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitOr> const BitOr;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitOr> const BitOr;
 
 /// \brief Bitwise right shift
 /// \details
@@ -256,7 +256,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitOr> const BitOr;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshift> const BitRshift;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitRshift> const BitRshift;
 
 /// \brief Reverse bitwise right shift
 /// \details
@@ -269,7 +269,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshift> const BitRshift;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshiftFrom> const BitRshiftFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitRshiftFrom> const BitRshiftFrom;
 
 /// \brief Bitwise xor
 /// \details
@@ -278,7 +278,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitRshiftFrom> const BitRshi
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::BitXor> const BitXor;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitXor> const BitXor;
 
 /// \brief Bind parameters
 /// \details
@@ -287,7 +287,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::BitXor> const BitXor;
 /// Codomain: any
 /// 
 /// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
-extern expr::SignatureTernary<::zmbt::expr::Keyword::Bind> const Bind;
+extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Bind> const Bind;
 
 /// \brief Predicate on boolean transform (aka truthy)
 /// \details
@@ -296,7 +296,7 @@ extern expr::SignatureTernary<::zmbt::expr::Keyword::Bind> const Bind;
 /// Codomain: bool
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Bool> const Bool;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Bool> const Bool;
 
 /// \brief Set cardinality (uniques count)
 /// \details
@@ -305,7 +305,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Bool> const Bool;
 /// Codomain: uint
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Card> const Card;
 
 /// \brief Cartesian product
 /// \details
@@ -314,7 +314,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Card> const Card;
 /// Codomain: list[list]
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Cartesian> const Cartesian;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Cartesian> const Cartesian;
 
 /// \brief Ceil
 /// \details
@@ -323,7 +323,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Cartesian> const Cartesian;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Ceil> const Ceil;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Ceil> const Ceil;
 
 /// \brief Compose functions
 /// \details
@@ -332,7 +332,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Ceil> const Ceil;
 /// Codomain: any
 /// 
 /// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Compose> const Compose;
 
 /// \brief Concatenate sequences
 /// \details
@@ -341,7 +341,7 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::Compose> const Compose;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Concat> const Concat;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Concat> const Concat;
 
 /// \brief Cosinus
 /// \details
@@ -350,7 +350,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Concat> const Concat;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Cos> const Cos;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Cos> const Cos;
 
 /// \brief Hyperbolic cos
 /// \details
@@ -359,7 +359,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Cos> const Cos;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Cosh> const Cosh;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Cosh> const Cosh;
 
 /// \brief Count matches by predicate param
 /// \details
@@ -368,7 +368,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Cosh> const Cosh;
 /// Codomain: uint
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Count> const Count;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Count> const Count;
 
 /// \brief Return x if not null, else return default value
 /// \details
@@ -377,7 +377,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Count> const Count;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default;
 
 /// \brief Division
 /// \details
@@ -389,7 +389,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Default> const Default;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Div> const Div;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Div> const Div;
 
 /// \brief Reverse division
 /// \details
@@ -402,7 +402,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Div> const Div;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::DivFrom> const DivFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::DivFrom> const DivFrom;
 
 /// \brief Euler's number
 /// \details
@@ -411,7 +411,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::DivFrom> const DivFrom;
 /// Codomain: real
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::E> const E;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::E> const E;
 
 /// \brief Machine epsilon
 /// \details
@@ -420,7 +420,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::E> const E;
 /// Codomain: real
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::Eps> const Eps;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Eps> const Eps;
 
 /// \brief Is equal
 /// \details
@@ -429,7 +429,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::Eps> const Eps;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Eq> const Eq;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Eq> const Eq;
 
 /// \brief Error function
 /// \details
@@ -438,7 +438,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Eq> const Eq;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Erf> const Erf;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Erf> const Erf;
 
 /// \brief Error function complement
 /// \details
@@ -447,7 +447,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Erf> const Erf;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Erfc> const Erfc;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Erfc> const Erfc;
 
 /// \brief Exponential (e^x)
 /// \details
@@ -456,7 +456,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Erfc> const Erfc;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Exp> const Exp;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Exp> const Exp;
 
 /// \brief Logical false
 /// \details
@@ -465,7 +465,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Exp> const Exp;
 /// Codomain: bool
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::False> const False;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::False> const False;
 
 /// \brief Filter sequence by predicate param
 /// \details
@@ -474,7 +474,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::False> const False;
 /// Codomain: list
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Filter> const Filter;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Filter> const Filter;
 
 /// \brief Floor
 /// \details
@@ -483,7 +483,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Filter> const Filter;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Floor> const Floor;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Floor> const Floor;
 
 /// \brief Format string with given parameter list
 /// \details
@@ -492,9 +492,9 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Floor> const Floor;
 /// Codomain: str
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Format;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Format> const Format;
 /// \brief Alias for Format
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Fmt;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Format> const Fmt;
 
 /// \brief Gamma function
 /// \details
@@ -503,7 +503,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Format> const Fmt;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Gamma> const Gamma;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Gamma> const Gamma;
 
 /// \brief Greater or equal
 /// \details
@@ -512,7 +512,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Gamma> const Gamma;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ge> const Ge;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Ge> const Ge;
 
 /// \brief Greater than
 /// \details
@@ -521,7 +521,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Ge> const Ge;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Gt> const Gt;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Gt> const Gt;
 
 /// \brief Identity function
 /// \details
@@ -530,7 +530,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Gt> const Gt;
 /// Codomain: any
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Id> const Id;
 
 /// \brief Element is in
 /// \details
@@ -539,7 +539,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Id> const Id;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::In> const In;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::In> const In;
 
 /// \brief Infinity
 /// \details
@@ -548,7 +548,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::In> const In;
 /// Codomain: real
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::Inf> const Inf;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Inf> const Inf;
 
 /// \brief Set intersection
 /// \details
@@ -557,7 +557,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::Inf> const Inf;
 /// Codomain: set
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Intersect> const Intersect;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Intersect> const Intersect;
 
 /// \brief Lesser or equal
 /// \details
@@ -566,7 +566,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Intersect> const Intersect;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Le> const Le;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Le> const Le;
 
 /// \brief Envelop zero or more parameters in list
 /// \details
@@ -575,7 +575,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Le> const Le;
 /// Codomain: list
 /// 
 /// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::List> const List;
 
 /// \brief Logarithm
 /// \details
@@ -588,7 +588,7 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::List> const List;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Log> const Log;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Log> const Log;
 
 /// \brief Reverse logarithm
 /// \details
@@ -601,7 +601,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Log> const Log;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::LogFrom> const LogFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::LogFrom> const LogFrom;
 
 /// \brief Lesser than
 /// \details
@@ -610,7 +610,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::LogFrom> const LogFrom;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Lt> const Lt;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Lt> const Lt;
 
 /// \brief Apply param expr to every element of sequence
 /// \details
@@ -619,7 +619,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Lt> const Lt;
 /// Codomain: list
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Map> const Map;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Map> const Map;
 
 /// \brief Max value by key function
 /// \details
@@ -628,7 +628,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Map> const Map;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Max> const Max;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Max> const Max;
 
 /// \brief Min value by key function
 /// \details
@@ -637,7 +637,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Max> const Max;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Min> const Min;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Min> const Min;
 
 /// \brief Modulo
 /// \details
@@ -650,7 +650,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Min> const Min;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Mod> const Mod;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Mod> const Mod;
 
 /// \brief Reverse modulo
 /// \details
@@ -663,7 +663,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Mod> const Mod;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::ModFrom> const ModFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::ModFrom> const ModFrom;
 
 /// \brief Multiplication
 /// \details
@@ -672,7 +672,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::ModFrom> const ModFrom;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Mul> const Mul;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Mul> const Mul;
 
 /// \brief Not a number
 /// \details
@@ -681,7 +681,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Mul> const Mul;
 /// Codomain: real
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::NaN> const NaN;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::NaN> const NaN;
 
 /// \brief Not equal
 /// \details
@@ -690,7 +690,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::NaN> const NaN;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ne> const Ne;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Ne> const Ne;
 
 /// \brief Negate
 /// \details
@@ -699,7 +699,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Ne> const Ne;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Neg> const Neg;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Neg> const Neg;
 
 /// \brief Contains element
 /// \details
@@ -708,9 +708,9 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Neg> const Neg;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Ni;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Ni> const Ni;
 /// \brief Alias for Ni
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Contains;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Ni> const Contains;
 
 /// \brief Predicate on boolean transform (aka falsy)
 /// \details
@@ -719,7 +719,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Ni> const Contains;
 /// Codomain: bool
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Nil> const Nil;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Nil> const Nil;
 
 /// \brief No operation
 /// \details
@@ -728,9 +728,9 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Nil> const Nil;
 /// Codomain: any
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const Noop;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Noop> const Noop;
 /// \brief Alias for Noop
-extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const _;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Noop> const _;
 
 /// \brief Logical complement
 /// \details
@@ -739,7 +739,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::Noop> const _;
 /// Codomain: bool
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Not> const Not;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Not> const Not;
 
 /// \brief Element is not in
 /// \details
@@ -748,7 +748,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Not> const Not;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::NotIn> const NotIn;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::NotIn> const NotIn;
 
 /// \brief Not contains element
 /// \details
@@ -757,7 +757,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::NotIn> const NotIn;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::NotNi> const NotNi;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::NotNi> const NotNi;
 
 /// \brief Null value
 /// \details
@@ -766,7 +766,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::NotNi> const NotNi;
 /// Codomain: any
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::Null> const Null;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Null> const Null;
 
 /// \brief Logical or
 /// \details
@@ -778,7 +778,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::Null> const Null;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Or> const Or;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Or> const Or;
 
 /// \brief Is proper subset
 /// \details
@@ -787,7 +787,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Or> const Or;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::ProperSubset> const ProperSubset;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::ProperSubset> const ProperSubset;
 
 /// \brief Is proper superset
 /// \details
@@ -796,7 +796,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::ProperSubset> const ProperSu
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::ProperSuperset> const ProperSuperset;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::ProperSuperset> const ProperSuperset;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details
@@ -808,7 +808,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::ProperSuperset> const Proper
 /// Codomain: list
 /// 
 /// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Pack> const Pack;
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Pack> const Pack;
 
 /// \brief Parse string as json
 /// \details
@@ -817,7 +817,7 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::Pack> const Pack;
 /// Codomain: any
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Parse> const Parse;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Parse> const Parse;
 
 /// \brief Pi constant
 /// \details
@@ -826,7 +826,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Parse> const Parse;
 /// Codomain: real
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Pi> const Pi;
 
 /// \brief To power
 /// \details
@@ -839,7 +839,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::Pi> const Pi;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Pow> const Pow;
 
 /// \brief Reverse power
 /// \details
@@ -852,7 +852,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Pow> const Pow;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::PowFrom> const PowFrom;
 
 /// \brief Multiplication reduction
 /// \details
@@ -863,7 +863,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::PowFrom> const PowFrom;
 /// Codomain: any
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Prod> const Prod;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Prod> const Prod;
 
 /// \brief Push element into a front of sequence
 /// \details
@@ -872,7 +872,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Prod> const Prod;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Push> const Push;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Push> const Push;
 
 /// \brief Quotient
 /// \details
@@ -885,7 +885,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Push> const Push;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Quot> const Quot;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Quot> const Quot;
 
 /// \brief Reverse quotient
 /// \details
@@ -898,7 +898,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Quot> const Quot;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::QuotFrom> const QuotFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::QuotFrom> const QuotFrom;
 
 /// \brief Regular expression match
 /// \details
@@ -909,9 +909,9 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::QuotFrom> const QuotFrom;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Re;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Re;
 /// \brief Alias for Re
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Regex;
 
 /// \brief Apply recursion to parameter expr
 /// \details
@@ -920,7 +920,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Re> const Regex;
 /// Codomain: any
 /// 
 /// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
-extern expr::SignatureTernary<::zmbt::expr::Keyword::Recur> const Recur;
+extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur;
 
 /// \brief Reduce sequence with binary operator
 /// \details
@@ -932,7 +932,7 @@ extern expr::SignatureTernary<::zmbt::expr::Keyword::Recur> const Recur;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Reduce> const Reduce;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Reduce;
 
 /// \brief Repeat value in list
 /// \details
@@ -941,7 +941,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Reduce> const Reduce;
 /// Codomain: list
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Repeat> const Repeat;
 
 /// \brief Reverse sequence
 /// \details
@@ -950,7 +950,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Repeat> const Repeat;
 /// Codomain: list[list]
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Reverse> const Reverse;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Reverse> const Reverse;
 
 /// \brief Round to nearest integer with optional precision
 /// \details
@@ -959,7 +959,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Reverse> const Reverse;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Round> const Round;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Round> const Round;
 
 /// \brief Saturate matches in order
 /// \details
@@ -968,7 +968,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Round> const Round;
 /// Codomain: bool
 /// 
 /// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
-extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Saturate> const Saturate;
 
 /// \brief Serialize json as string
 /// \details
@@ -977,9 +977,9 @@ extern expr::SignatureVariadic<::zmbt::expr::Keyword::Saturate> const Saturate;
 /// Codomain: str
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Serialize;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Serialize> const Serialize;
 /// \brief Alias for Serialize
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Str;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Serialize> const Str;
 
 /// \brief Set difference
 /// \details
@@ -988,7 +988,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Serialize> const Str;
 /// Codomain: set
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Diff> const Diff;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Diff> const Diff;
 
 /// \brief Reverse set difference
 /// \details
@@ -997,7 +997,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Diff> const Diff;
 /// Codomain: set
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::DiffFrom> const DiffFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::DiffFrom> const DiffFrom;
 
 /// \brief Equal as set
 /// \details
@@ -1006,7 +1006,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::DiffFrom> const DiffFrom;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::SetEq> const SetEq;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::SetEq> const SetEq;
 
 /// \brief Sign
 /// \details
@@ -1015,7 +1015,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::SetEq> const SetEq;
 /// Codomain: int
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sign> const Sign;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Sign> const Sign;
 
 /// \brief Sinus
 /// \details
@@ -1024,7 +1024,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Sign> const Sign;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sin> const Sin;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Sin> const Sin;
 
 /// \brief Hyperbolic sin
 /// \details
@@ -1033,7 +1033,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Sin> const Sin;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sinh> const Sinh;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Sinh> const Sinh;
 
 /// \brief Sequence size
 /// \details
@@ -1042,7 +1042,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Sinh> const Sinh;
 /// Codomain: uint
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Size> const Size;
 
 /// \brief Sliding-window iteration
 /// \details
@@ -1053,7 +1053,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Size> const Size;
 /// Codomain: list[list]
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Slide> const Slide;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Slide> const Slide;
 
 /// \brief Sort list by key function
 /// \details
@@ -1062,7 +1062,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Slide> const Slide;
 /// Codomain: list
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Sort> const Sort;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Sort> const Sort;
 
 /// \brief Square root
 /// \details
@@ -1071,7 +1071,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Sort> const Sort;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sqrt> const Sqrt;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Sqrt> const Sqrt;
 
 /// \brief Striding iteration
 /// \details
@@ -1082,7 +1082,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Sqrt> const Sqrt;
 /// Codomain: list[list]
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Stride> const Stride;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Stride> const Stride;
 
 /// \brief Subtraction
 /// \details
@@ -1091,7 +1091,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Stride> const Stride;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Sub> const Sub;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Sub> const Sub;
 
 /// \brief Reverse subtraction
 /// \details
@@ -1104,7 +1104,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Sub> const Sub;
 /// Codomain: real
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::SubFrom> const SubFrom;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::SubFrom> const SubFrom;
 
 /// \brief Is subset
 /// \details
@@ -1113,7 +1113,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::SubFrom> const SubFrom;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Subset> const Subset;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Subset> const Subset;
 
 /// \brief Summation reduction
 /// \details
@@ -1124,7 +1124,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Subset> const Subset;
 /// Codomain: any
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Sum> const Sum;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Sum> const Sum;
 
 /// \brief Is superset
 /// \details
@@ -1133,7 +1133,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Sum> const Sum;
 /// Codomain: bool
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Superset> const Superset;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Superset> const Superset;
 
 /// \brief Tangens
 /// \details
@@ -1142,7 +1142,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Superset> const Superset;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Tan> const Tan;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Tan> const Tan;
 
 /// \brief Hyperbolic tan
 /// \details
@@ -1151,7 +1151,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Tan> const Tan;
 /// Codomain: real
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Tanh> const Tanh;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Tanh> const Tanh;
 
 /// \brief Transpose multidimensional list, turning rows into columns
 /// \details
@@ -1164,7 +1164,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Tanh> const Tanh;
 /// Codomain: list[list]
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Transp> const Transp;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Transp> const Transp;
 
 /// \brief Logical true
 /// \details
@@ -1173,7 +1173,7 @@ extern expr::SignatureUnary<::zmbt::expr::Keyword::Transp> const Transp;
 /// Codomain: bool
 /// 
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
-extern expr::SignatureConst<::zmbt::expr::Keyword::True> const True;
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::True> const True;
 
 /// \brief Evaluate enveloped function and return result or null if it throws
 /// \details
@@ -1182,7 +1182,7 @@ extern expr::SignatureConst<::zmbt::expr::Keyword::True> const True;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Try> const Try;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Try> const Try;
 
 /// \brief Evaluate enveloped function and return result or error info if it throws
 /// \details
@@ -1191,7 +1191,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Try> const Try;
 /// Codomain: any
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::TryCatch> const TryCatch;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::TryCatch> const TryCatch;
 
 /// \brief Set union
 /// \details
@@ -1200,7 +1200,7 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::TryCatch> const TryCatch;
 /// Codomain: set
 /// 
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern expr::SignatureBinary<::zmbt::expr::Keyword::Union> const Union;
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Union> const Union;
 
 /// \brief Filter unique elements
 /// \details
@@ -1209,9 +1209,9 @@ extern expr::SignatureBinary<::zmbt::expr::Keyword::Union> const Union;
 /// Codomain: set
 /// 
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern expr::SignatureUnary<::zmbt::expr::Keyword::Uniques> const Uniques;
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Uniques> const Uniques;
 
-} // namespace api
+} // namespace expr
 } // namespace zmbt
 
 #endif // ZMBT_MAPPING_EXPRESSION_HPP_

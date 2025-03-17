@@ -45,13 +45,14 @@ public:
 
 
 
-/// Entry point for mapping::DefinitionMachine
+/// \brief Signal Mapping Test Model
+/// \see \ref signal-mapping-model "Signal Mapping Model"
 class SignalMapping : public DefinitionMachine::N_Main
 {
 public:
 
     /**
-     * @brief Construct the machine entry point
+     * @brief Begin the model definition
      *
      * @tparam T
      * @param name model name or format pattern string

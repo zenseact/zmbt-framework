@@ -65,61 +65,61 @@ SignalOperatorHandler::SignalOperatorHandler()
 #undef GENERIC_T2
 
 
-boost::json::value SignalOperatorHandler::apply(expr::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
+boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
 {
     switch (keyword)
     {
-    case expr::Keyword::Bool: return operators.is_truth_(rhs);
-    case expr::Keyword::Nil: return !operators.is_truth_(rhs);
-    case expr::Keyword::Not: return operators.not_(rhs);
-    case expr::Keyword::And: return operators.land_(lhs, rhs);
-    case expr::Keyword::Or: return operators.lor_(lhs, rhs);
+    case dsl::Keyword::Bool: return operators.is_truth_(rhs);
+    case dsl::Keyword::Nil: return !operators.is_truth_(rhs);
+    case dsl::Keyword::Not: return operators.not_(rhs);
+    case dsl::Keyword::And: return operators.land_(lhs, rhs);
+    case dsl::Keyword::Or: return operators.lor_(lhs, rhs);
 
-    case expr::Keyword::Eq: return operators.is_equal_(lhs, rhs);
-    case expr::Keyword::Ne: return !operators.is_equal_(lhs, rhs);
+    case dsl::Keyword::Eq: return operators.is_equal_(lhs, rhs);
+    case dsl::Keyword::Ne: return !operators.is_equal_(lhs, rhs);
 
-    case expr::Keyword::Le: return operators.is_le_(lhs, rhs);
-    case expr::Keyword::Gt: return !operators.is_le_(lhs, rhs);
-    case expr::Keyword::Ge: return operators.is_le_(rhs, lhs);
-    case expr::Keyword::Lt: return !operators.is_le_(rhs, lhs);
+    case dsl::Keyword::Le: return operators.is_le_(lhs, rhs);
+    case dsl::Keyword::Gt: return !operators.is_le_(lhs, rhs);
+    case dsl::Keyword::Ge: return operators.is_le_(rhs, lhs);
+    case dsl::Keyword::Lt: return !operators.is_le_(rhs, lhs);
 
-    case expr::Keyword::Add: return operators.add_(lhs, rhs);
-    case expr::Keyword::Sub: return operators.sub_(lhs, rhs);
-    case expr::Keyword::SubFrom: return operators.sub_(rhs, lhs);
-    case expr::Keyword::Mul: return operators.mul_(lhs, rhs);
-    case expr::Keyword::Div: return operators.div_(lhs, rhs);
-    case expr::Keyword::DivFrom: return operators.div_(rhs, lhs);
-    case expr::Keyword::Mod: return operators.mod_(lhs, rhs);
-    case expr::Keyword::ModFrom: return operators.mod_(rhs, lhs);
+    case dsl::Keyword::Add: return operators.add_(lhs, rhs);
+    case dsl::Keyword::Sub: return operators.sub_(lhs, rhs);
+    case dsl::Keyword::SubFrom: return operators.sub_(rhs, lhs);
+    case dsl::Keyword::Mul: return operators.mul_(lhs, rhs);
+    case dsl::Keyword::Div: return operators.div_(lhs, rhs);
+    case dsl::Keyword::DivFrom: return operators.div_(rhs, lhs);
+    case dsl::Keyword::Mod: return operators.mod_(lhs, rhs);
+    case dsl::Keyword::ModFrom: return operators.mod_(rhs, lhs);
 
-    case expr::Keyword::Neg   : return operators.neg_(rhs);
-    case expr::Keyword::BitNot: return operators.compl_(rhs);
-    case expr::Keyword::BitAnd: return operators.conj_(lhs, rhs);
-    case expr::Keyword::BitOr : return operators.disj_(lhs, rhs);
-    case expr::Keyword::BitXor: return operators.bxor_(lhs, rhs);
-    case expr::Keyword::BitLshift: return operators.blshift_(lhs, rhs);
-    case expr::Keyword::BitRshift: return operators.brshift_(lhs, rhs);
-    case expr::Keyword::BitLshiftFrom: return operators.blshift_(rhs, lhs);
-    case expr::Keyword::BitRshiftFrom: return operators.brshift_(rhs, lhs);
+    case dsl::Keyword::Neg   : return operators.neg_(rhs);
+    case dsl::Keyword::BitNot: return operators.compl_(rhs);
+    case dsl::Keyword::BitAnd: return operators.conj_(lhs, rhs);
+    case dsl::Keyword::BitOr : return operators.disj_(lhs, rhs);
+    case dsl::Keyword::BitXor: return operators.bxor_(lhs, rhs);
+    case dsl::Keyword::BitLshift: return operators.blshift_(lhs, rhs);
+    case dsl::Keyword::BitRshift: return operators.brshift_(lhs, rhs);
+    case dsl::Keyword::BitLshiftFrom: return operators.blshift_(rhs, lhs);
+    case dsl::Keyword::BitRshiftFrom: return operators.brshift_(rhs, lhs);
 
-    case expr::Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
-    case expr::Keyword::Subset: return is_subset(lhs, rhs);
-    case expr::Keyword::Superset: return is_subset(rhs, lhs);
-    case expr::Keyword::ProperSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
-    case expr::Keyword::ProperSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
+    case dsl::Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
+    case dsl::Keyword::Subset: return is_subset(lhs, rhs);
+    case dsl::Keyword::Superset: return is_subset(rhs, lhs);
+    case dsl::Keyword::ProperSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
+    case dsl::Keyword::ProperSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
 
-    case expr::Keyword::In: return contains(rhs, lhs);
-    case expr::Keyword::Ni: return contains(lhs, rhs);
-    case expr::Keyword::NotIn: return !contains(rhs, lhs);
-    case expr::Keyword::NotNi: return !contains(lhs, rhs);
-    case expr::Keyword::Approx: return is_approx(lhs, rhs);
+    case dsl::Keyword::In: return contains(rhs, lhs);
+    case dsl::Keyword::Ni: return contains(lhs, rhs);
+    case dsl::Keyword::NotIn: return !contains(rhs, lhs);
+    case dsl::Keyword::NotNi: return !contains(lhs, rhs);
+    case dsl::Keyword::Approx: return is_approx(lhs, rhs);
 
-    case expr::Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
-    case expr::Keyword::PowFrom:  return GenericSignalOperator(rhs).pow(lhs);
-    case expr::Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
-    case expr::Keyword::LogFrom:  return GenericSignalOperator(rhs).log(lhs);
-    case expr::Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
-    case expr::Keyword::QuotFrom: return GenericSignalOperator(rhs).quot(lhs);
+    case dsl::Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
+    case dsl::Keyword::PowFrom:  return GenericSignalOperator(rhs).pow(lhs);
+    case dsl::Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
+    case dsl::Keyword::LogFrom:  return GenericSignalOperator(rhs).log(lhs);
+    case dsl::Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
+    case dsl::Keyword::QuotFrom: return GenericSignalOperator(rhs).quot(lhs);
 
     default:
         throw expression_not_implemented("unsupported operator");

@@ -19,12 +19,13 @@
 
 namespace zmbt {
 
-/// JSON transformation expression base
+/// Expression DSL implementation class.
+/// \details \see \ref expression-dsl "Expression DSL" documentation.
 class Expression
 {
 public:
     using V = boost::json::value;
-    using Keyword = expr::Keyword;
+    using Keyword = dsl::Keyword;
 
 private:
     Keyword keyword_;
@@ -66,20 +67,20 @@ public:
 
     /// \brief Compose expressions left-to-right
     /// \details Pipe functional expressions in composition,
-    /// s.t. `a | b` is equivalent to `Compose(b, a)`. \see zmbt::api::Compose
+    /// s.t. `a | b` is equivalent to `Compose(b, a)`. \see zmbt::expr::Compose
     friend Expression operator|(Expression const& lhs, Expression const& rhs);
 
-    /// \brief Concatenate expressions. \see zmbt::api::Concat.
+    /// \brief Concatenate expressions. \see zmbt::expr::Concat.
     friend Expression operator+(Expression const& lhs, Expression const& rhs);
 
-    /// \brief Pack expression results into an array. \see zmbt::api::Pack.
+    /// \brief Pack expression results into an array. \see zmbt::expr::Pack.
     friend Expression operator&(Expression const& lhs, Expression const& rhs);
 
 
     /// \brief Apply x to lhs expression.
     /// \details Equivalent to Apply(expr, x).
     /// Note that operator <<= precedence is lower than pipe operator,
-    /// so `a <<= b` should be wrapped in parentheses when followed by |. \see zmbt::api::Apply
+    /// so `a <<= b` should be wrapped in parentheses when followed by |. \see zmbt::expr::Apply
     friend Expression operator<<=(Expression const& expr, Expression const& x);
 
 

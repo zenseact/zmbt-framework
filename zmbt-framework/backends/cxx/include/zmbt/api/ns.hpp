@@ -25,8 +25,8 @@ using zmbt::InterfaceRecord;
 
 using zmbt::Expression;
 
-using namespace zmbt::decor;
-using namespace zmbt::expr;
+namespace decor = zmbt::decor;
+namespace expr = zmbt::expr;
 
 using zmbt::mapping::SignalMapping;
 
@@ -48,6 +48,14 @@ class precise {};
 class Expression {};
 /// Alias for zmbt::mapping::SignalMapping
 class SignalMapping {};
+
+/// \brief Signal type decorators API
+/// \details \see zmbt::decor
+namespace decor {}
+
+/// \brief Expression DSL keywords
+/// \details \see zmbt::expr
+namespace expr {}
 
 #endif
 

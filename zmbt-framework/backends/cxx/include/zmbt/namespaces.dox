@@ -22,14 +22,20 @@
  */
 
 /**
- * @namespace zmbt::expr
- * @brief Expression API namespace with function objects holding the keywords implementation.
+ * @namespace zmbt::dsl
+ * @brief Expression DSL implementation.
  */
 
 /**
  * @namespace zmbt::decor
- * @brief Signal type decorators
+ * @brief Signal type decorators API
  */
+
+/**
+ * @namespace zmbt::expr
+ * @brief Expression DSL
+ */
+
 
 /**
  * @namespace zmbt::api

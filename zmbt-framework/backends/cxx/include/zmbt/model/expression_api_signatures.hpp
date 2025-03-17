@@ -16,7 +16,7 @@
 #include "expression.hpp"
 
 namespace zmbt {
-namespace expr {
+namespace dsl {
 namespace detail {
     boost::json::value handle_list_init(std::initializer_list<Expression> set);
 }
@@ -144,7 +144,7 @@ struct SignatureVariadic : public SignatureBase<K>
 
 
 
-} // namespace expr
+} // namespace dsl
 } // namespace zmbt
 
 #endif // ZMBT_MODEL_EXPRESSION_API_SIGNATURES_HPP_
