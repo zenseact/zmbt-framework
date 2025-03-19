@@ -17,9 +17,9 @@ namespace
 std::string format_failure_report(boost::json::value const& report)
 {
     std::stringstream ss;
-    ss << "ZMBT_TEST_FAILURE_BEGIN\n";
+    ss << "\n/* ZMBT_TEST_FAILURE_BEGIN */\n";
     zmbt::pretty_print(ss, report);
-    ss << "\nZMBT_TEST_FAILURE_END\n";
+    ss << "\n/* ZMBT_TEST_FAILURE_END */\n";
     return ss.str();
 }
 } // namespace

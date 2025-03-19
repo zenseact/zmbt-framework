@@ -555,7 +555,11 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
     try
     {
-        BOOST_CHECK_EQUAL(sample.expr.eval(sample.x), sample.expected);
+        Expression::EvalConfig config{};
+        config.log = Expression::EvalLog::make();
+        auto const result = sample.expr.eval(sample.x, config);
+        BOOST_TEST_INFO("Eval log: \n" << config.log);
+        BOOST_CHECK_EQUAL(result, sample.expected);
 
         V js = json_from(sample.expr);
         Expression converted_implicitly = js;
@@ -719,6 +723,12 @@ BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 
     BOOST_CHECK_EQUAL(AllTrueFirst.eval(pairs), V({"lol", "kek"}));
     BOOST_CHECK_EQUAL(AllFalseFirst.eval(pairs), V({"foo", "bar"}));
+
+    Expression::EvalConfig eval{};
+    eval.log = Expression::EvalLog::make();
+    AllFalseFirst.eval(pairs, eval);
+
+    std::cerr << eval.log << '\n';
 }
 
 

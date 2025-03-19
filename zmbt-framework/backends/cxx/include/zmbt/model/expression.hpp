@@ -8,6 +8,8 @@
 #ifndef ZMBT_MODEL_EXPRESSION_V2_HPP_
 #define ZMBT_MODEL_EXPRESSION_V2_HPP_
 
+#include <ostream>
+
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "signal_operator_handler.hpp"
@@ -27,6 +29,40 @@ public:
     using V = boost::json::value;
     using Keyword = dsl::Keyword;
 
+    /// Expression evaluation log
+    struct EvalLog
+    {
+        mutable std::shared_ptr<boost::json::array> stack;
+
+        /// Default instance with null log stack
+        EvalLog() = default;
+
+        /// Stringify log
+        std::string str() const;
+
+        /// Push record to log stack
+        void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, int const depth) const;
+
+        friend std::ostream& operator<<(std::ostream& os, EvalLog const& log);
+
+        /// Make non-empty EvalLog
+        static EvalLog make();
+    };
+
+    /// Expression evaluation config
+    struct EvalConfig
+    {
+        /// Operator
+        SignalOperatorHandler op;
+        /// Evaluation log
+        EvalLog log;
+        /// Evaluation stack depth
+        int const depth;
+
+        /// Copy config with depth increment
+        EvalConfig operator++(int) const;
+    };
+
 private:
     Keyword keyword_;
     boost::json::value underlying_;
@@ -45,7 +81,7 @@ private:
     boost::json::value eval_UnaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_CodegenFn(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_BinaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
-    boost::json::value eval_Special(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_Special(boost::json::value const&, EvalConfig const&) const;
 public:
 
     static boost::json::array toArray(std::initializer_list<Expression> const& list);
@@ -138,10 +174,8 @@ public:
         return underlying();
     }
 
-
+    boost::json::value eval(boost::json::value const& x = nullptr, EvalConfig const& options = {}) const;
     bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const;
-
-    boost::json::value eval(boost::json::value const& x = nullptr, SignalOperatorHandler const& op = {}) const;
 
 };
 

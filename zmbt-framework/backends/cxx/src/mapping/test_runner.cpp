@@ -21,6 +21,7 @@
 #include <stdexcept>
 #include <tuple>
 
+#include "zmbt/logging.hpp"
 #include "zmbt/mapping/test_runner.hpp"
 #include "zmbt/mapping/test_diagnostics.hpp"
 #include "zmbt/mapping/test_parameter_resolver.hpp"
@@ -244,6 +245,12 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
 
         if (not (expr.match(observed, op)))
         {
+            // TODO: log
+
+            Expression::EvalConfig cfg {op, Expression::EvalLog::make(), 0};
+            expr.eval(observed, cfg);
+            ZMBT_LOG(debug) << "Failing match evaluation:\n" << cfg.log;
+
             report_failure(diagnostics
                 .Fail(expr, observed, op)
                 .ChannelIdx(group_idx)

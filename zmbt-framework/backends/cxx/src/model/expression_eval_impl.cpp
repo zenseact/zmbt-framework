@@ -78,28 +78,35 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
     }
 }
 
-boost::json::value Expression::eval(boost::json::value const& x, SignalOperatorHandler const& op) const
+boost::json::value Expression::eval(boost::json::value const& x, EvalConfig const& options) const
 {
-    if(is(Keyword::Literal))
-    {
-        return op.apply(Keyword::Eq, x, params());
-    }
-
     using dsl::detail::CodegenType;
     using dsl::detail::getCodegenType;
-    CodegenType const classifier = getCodegenType(keyword());
 
-    switch (classifier)
+    boost::json::value result {};
+
+    if(is(Keyword::Literal))
     {
-    case CodegenType::Const:       return eval_Const(x, op);
-    case CodegenType::UnaryOp:     return eval_UnaryOp(x, op);
-    case CodegenType::BinaryOp:    return eval_BinaryOp(x, op);
-    case CodegenType::CodegenFn:   return eval_CodegenFn(x, op);
-    case CodegenType::None:
-    default:
-        return eval_Special(x, op);
+        result = options.op.apply(Keyword::Eq, x, params());
     }
+    else {
+        CodegenType const classifier = getCodegenType(keyword());
+        switch (classifier)
+        {
+            case CodegenType::Const:       { result = eval_Const    (x, options.op);     break; }
+            case CodegenType::UnaryOp:     { result = eval_UnaryOp  (x, options.op);   break; }
+            case CodegenType::BinaryOp:    { result = eval_BinaryOp (x, options.op);  break; }
+            case CodegenType::CodegenFn:   { result = eval_CodegenFn(x, options.op); break; }
+            case CodegenType::None:
+            default:
+                result = eval_Special(x, options);
+                break;
+        }
+    }
+    options.log.push(underlying(),x, result, options.depth);
+    return result;
 }
+
 
 } // namespace zmbt
 

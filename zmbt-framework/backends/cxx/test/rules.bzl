@@ -16,6 +16,7 @@ def unit_test_group(lib, srcs):
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
+                "-Wno-parentheses", # allow `x & y | z` in tests
             ],
             linkopts = [
                 '-lm'

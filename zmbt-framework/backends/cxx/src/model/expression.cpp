@@ -172,12 +172,59 @@ boost::json::array Expression::toArray(std::initializer_list<Expression> const& 
 
 bool Expression::match(boost::json::value const& observed, SignalOperatorHandler const& op) const
 {
-    auto result = eval(observed, op);
+    auto result = eval(observed, {op, {}, 0});
     if (!result.is_bool())
     {
         throw zmbt::model_error("expr is not a predicate: `%s`", underlying_);
     }
     return result.get_bool();
+}
+
+std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+{
+    if (!log.stack)
+    {
+        return os;
+    }
+    for (auto it = log.stack->cbegin(); it != log.stack->cend(); ++it)
+    {
+        auto const& rec = it->as_array();
+        std::string const indent (rec.at(3).as_int64(), '-');
+        os << '|' << indent << indent << zmbt::format("%s(%s) = %s\n", rec.at(0), rec.at(1), rec.at(2) );
+    }
+    return os;
+}
+
+std::string Expression::EvalLog::str() const
+{
+    if (!stack)
+    {
+        return "";
+    }
+    std::stringstream ss;
+    ss << stack;
+    return ss.str();
+}
+
+void Expression::EvalLog::push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, int const depth) const
+{
+    if (!stack)
+    {
+        return;
+    }
+    stack->push_back({expr, x, result, depth});
+}
+
+
+Expression::EvalLog Expression::EvalLog::make()
+{
+    return {std::make_shared<boost::json::array>()};
+}
+
+
+Expression::EvalConfig Expression::EvalConfig::operator++(int) const
+{
+    return {op, log, depth + 1};
 }
 
 }  // namespace zmbt
