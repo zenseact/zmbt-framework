@@ -723,14 +723,19 @@ BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 
     BOOST_CHECK_EQUAL(AllTrueFirst.eval(pairs), V({"lol", "kek"}));
     BOOST_CHECK_EQUAL(AllFalseFirst.eval(pairs), V({"foo", "bar"}));
-
-    Expression::EvalConfig eval{};
-    eval.log = Expression::EvalLog::make();
-    AllFalseFirst.eval(pairs, eval);
-
-    std::cerr << eval.log << '\n';
 }
 
+
+BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
+{
+    Expression::EvalConfig cfg{};
+    cfg.log = Expression::EvalLog::make();
+
+    auto const f = Reduce(Add) & Size | Div;
+    auto const x = L{1,2,3,42.5};
+    f.eval(x, cfg);
+    BOOST_CHECK(!cfg.log.str().empty());
+}
 
 
 

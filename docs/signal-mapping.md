@@ -758,7 +758,7 @@ The railroad diagram below shows the incomplete BNF definition of the
 Signal Mapping DSL. Omitted rules may be deduced from
 introduction given above or from the following documentation.
 
-![image](./mapping_bnf.png)
+![image](mapping_bnf.png)
 <!-- ``` plantuml
 @startebnf mapping_syntax
 title Mapping model definition machine

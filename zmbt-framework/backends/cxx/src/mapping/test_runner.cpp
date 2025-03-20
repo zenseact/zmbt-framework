@@ -249,7 +249,9 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
 
             Expression::EvalConfig cfg {op, Expression::EvalLog::make(), 0};
             expr.eval(observed, cfg);
-            ZMBT_LOG(debug) << "Failing match evaluation:\n" << cfg.log;
+            ZMBT_LOG(error) << "Failing match evaluation:\n" << cfg.log;
+            // TODO: fix json log
+            // ZMBT_LOG_JSON(error) << *cfg.log.stack;
 
             report_failure(diagnostics
                 .Fail(expr, observed, op)

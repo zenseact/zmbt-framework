@@ -4,12 +4,20 @@
  * @copyright (c) Copyright 2024 Zenseact AB
  * @license SPDX-License-Identifier: Apache-2.0
  */
+#include <cstdint>
+#include <ostream>
+#include <sstream>
+
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
 
+
+#define SET_BIT(x, n) ((x) |= (1UL << (n)))
+#define TEST_BIT(x, n) ((x) & (1UL << (n)))
+#define CLEAR_BIT(x, n) ((x) &= ~(1UL << (n)))
 
 
 namespace
@@ -186,11 +194,46 @@ std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
     {
         return os;
     }
-    for (auto it = log.stack->cbegin(); it != log.stack->cend(); ++it)
+
+    std::size_t vertical_groups = 0;
+    std::int32_t prev_depth = 0;
+    for (auto const& item: *log.stack)
     {
-        auto const& rec = it->as_array();
-        std::string const indent (rec.at(3).as_int64(), '-');
-        os << '|' << indent << indent << zmbt::format("%s(%s) = %s\n", rec.at(0), rec.at(1), rec.at(2) );
+        auto const& rec = item.as_array();
+        std::int32_t const depth = rec.at(0).as_int64();
+
+        if (prev_depth < depth && prev_depth > 0)
+        {
+            SET_BIT(vertical_groups, prev_depth);
+        }
+
+        for (int i = 0; i < depth; ++i)
+        {
+            os << (TEST_BIT(vertical_groups, i) ? "│   " : "   ");
+        }
+
+        if (depth == 0)
+        {
+            os << "□  "; // QED
+        }
+        else if (prev_depth == depth || TEST_BIT(vertical_groups, depth))
+        {
+            os << "├── ";
+        }
+        else
+        {
+            os << "┌── ";
+        }
+
+        if (TEST_BIT(vertical_groups, depth))
+        {
+            CLEAR_BIT(vertical_groups, depth);
+        }
+        os  << rec.at(1) // f
+            << '(' << rec.at(2) // x
+            << ") = " << rec.at(3) // f(x)
+            << '\n';
+        prev_depth = depth;
     }
     return os;
 }
@@ -202,7 +245,7 @@ std::string Expression::EvalLog::str() const
         return "";
     }
     std::stringstream ss;
-    ss << stack;
+    ss << *this;
     return ss.str();
 }
 
@@ -212,7 +255,7 @@ void Expression::EvalLog::push(boost::json::value const& expr, boost::json::valu
     {
         return;
     }
-    stack->push_back({expr, x, result, depth});
+    stack->push_back({depth, expr, x, result});
 }
 
 

@@ -142,6 +142,7 @@ void init_logging(std::string log_lvl, std::string log_sink)
     sink->set_formatter(&format_json_log);
     sink->locked_backend()->set_open_handler(&open_json_log);
     sink->locked_backend()->set_close_handler(&close_json_log);
+    sink->locked_backend()->auto_flush(true);
     logging::core::get()->add_sink(sink);
 
     boost::log::add_common_attributes();
@@ -191,7 +192,7 @@ void InitZmbt(int argc, char **argv)
     std::string zmbt_log_level = vm.at("zmbt_log_level").as<std::string>();
     std::string zmbt_log_sink  = vm.at("zmbt_log_sink").as<std::string>();
     init_logging(zmbt_log_level, zmbt_log_sink);
-    ZMBT_LOG_JSON(info) << "ZMBT initialized";
+    // ZMBT_LOG_JSON(info) << "ZMBT initialized";
 }
 
 } // namespace appconfig
