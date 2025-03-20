@@ -71,7 +71,10 @@ class Environment {
     std::shared_ptr<EnvironmentData> data_;
 
   public:
-    class IfcRec;
+    class InterfaceHandle;
+
+    template <class Interface>
+    class TypedInterfaceHandle;
 
 
     JsonNode& json_data()

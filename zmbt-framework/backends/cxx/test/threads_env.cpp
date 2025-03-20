@@ -22,10 +22,10 @@ TEST(ModelEnvironment, ThreadSafety)
         {
             auto lock = handle.Env().Lock();
 
-            int arg_x = handle.GetInjectionArgs()[0].as_int64();
+            int arg_x = handle.GetInjectionArgs().as_array()[0].as_int64();
             int ret_x = handle.GetInjectionReturn().as_int64();
 
-            handle.InjectArgs({++arg_x});
+            handle.InjectArgs(boost::json::array{++arg_x});
             handle.InjectReturn(++ret_x);
         }
     };
@@ -34,6 +34,6 @@ TEST(ModelEnvironment, ThreadSafety)
     for(int i = 0; i < kWorkers; ++i) threads.emplace_back(task);
     for(auto& thread: threads) thread.join();
 
-    EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).GetInjectionArgs()[0].as_int64());
+    EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).GetInjectionArgs().as_array()[0].as_int64());
     EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).GetInjectionReturn().as_int64());
 }

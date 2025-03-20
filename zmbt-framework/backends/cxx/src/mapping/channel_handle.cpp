@@ -151,9 +151,8 @@ int ChannelHandle::on_call() const
 
 void ChannelHandle::inject(boost::json::value value) const
 {
-    auto handle = Environment::IfcRec(host(), interface());
+    auto handle = Environment::InterfaceHandle(host(), interface());
     value = op().decorate(value);
-    bool success {false};
 
     switch (kind())
     {
@@ -166,21 +165,15 @@ void ChannelHandle::inject(boost::json::value value) const
             boost::json::string_view group = is_args ? "/args%s" : "/return%s";
             boost::json::string jp {format(group, signal_path())};
             handle.SetInjectsRange(value, jp);
-            success = true;
         }
         else {
-            boost::json::error_code ec;
-            boost::json::value signal_node;
-            bool const is_args = kind() == ChannelHandle::Kind::Args;
-            signal_node = is_args ? handle.GetInjectionArgs(on_call()) : handle.GetInjectionReturn(on_call());
-            success = signal_node.set_at_pointer(signal_path(), value, ec);
-            if (success)
+            try
             {
-                is_args ? handle.InjectArgs(signal_node.as_array(), on_call()) : handle.InjectReturn(signal_node, on_call());
+                is_args ? handle.InjectArgs(value, signal_path(), on_call()) : handle.InjectReturn(value, signal_path(), on_call());
             }
-            else {
+            catch (std::exception const& e) {
                 // TODO: log
-                throw model_error("%s node not found at %s", signal_path(), signal_node);
+                throw model_error("failed to inject %s at %s, error: %s", value, signal_path(), e.what());
             }
         }
     }
@@ -201,7 +194,7 @@ boost::json::value ChannelHandle::observe() const
     {
         throw model_error("calling observe on input channel");
     }
-    auto ifc_handle = Environment::IfcRec(host(), interface());
+    auto ifc_handle = Environment::InterfaceHandle(host(), interface());
     switch (kind())
     {
     case Kind::Return:
@@ -258,7 +251,7 @@ boost::json::value ChannelHandle::observe() const
 
 boost::json::array const& ChannelHandle::captures() const
 {
-    auto ifc_handle = Environment::IfcRec(host(), interface());
+    auto ifc_handle = Environment::InterfaceHandle(host(), interface());
     return ifc_handle.Captures();
 }
 
@@ -295,7 +288,7 @@ boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channe
         auto const& alias = channel.alias();
         auto const& captures = channel.captures();
 
-        auto ifc_handle = Environment::IfcRec(channel.host(), channel.interface());
+        auto ifc_handle = Environment::InterfaceHandle(channel.host(), channel.interface());
         if (channel.kind() == Kind::CallCount)
         {
             boost::json::array record {

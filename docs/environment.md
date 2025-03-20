@@ -24,15 +24,21 @@ The Environment class methods are organized in the following groups:
 Method: `zmbt::InterfaceRecord`
 
 The method creates an extension to the environment that manages the signal records for particular interface. It owns an instance of environment, prolonging its lifetime.
+
 The following methods may be needed in user code:
 
+- Mock call rerouting: [`Hook(args...)`](\ref zmbt::Environment::TypedInterfaceHandle::Hook)
+    - This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values. See [examples](#signal-mapping-model-overview-mocks).
+
 - stimuli setters:
-    - `zmbt::Environment::IfcRec::InjectArgs`
-    - `zmbt::Environment::IfcRec::InjectReturn`
+[`InjectArgs(value, json_ptr = "", nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::InjectArgs),
+[`InjectReturn(value, json_ptr = "", nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::InjectReturn)
+    - Set corresponding value subsignal at specified JSON pointer and nofcall. The nofcall parameter corresponds to the interface call counter, where -1 is equivalent to `last value`, i.e. default.
+
 - stimuli getters:
-    - `zmbt::Environment::IfcRec::GetInjectionArgs`
-    - `zmbt::Environment::IfcRec::GetInjectionReturn`
-- Mock call rerouting: `zmbt::TypedInterfaceRecord::Hook`: This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values.
+[`GetInjectionArgs(json_ptr, nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::GetInjectionArgs),
+[`GetInjectionReturn(json_ptr, nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::GetInjectionReturn)
+    - Set corresponding values at JSON pointer and nofcall. Negative nofcall parameters used for reverse indexation.
 
 
 ## Arbitrary data management

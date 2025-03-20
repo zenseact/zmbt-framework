@@ -102,11 +102,11 @@ BOOST_AUTO_TEST_CASE(SetGetArgs)
     BOOST_CHECK(A(42, "lol") == InterfaceRecord(test_function).GetInjectionArgs());
 
 
-    InterfaceRecord(empty).InjectArgs({});
-    BOOST_CHECK(0 == InterfaceRecord(empty).GetInjectionArgs().size());
+    InterfaceRecord(empty).InjectArgs(boost::json::array{});
+    BOOST_CHECK(0 == InterfaceRecord(empty).GetInjectionArgs().as_array().size());
 
-    InterfaceRecord(empty_void).InjectArgs({});
-    BOOST_CHECK(0 == InterfaceRecord(empty_void).GetInjectionArgs().size());
+    InterfaceRecord(empty_void).InjectArgs(boost::json::array{});
+    BOOST_CHECK(0 == InterfaceRecord(empty_void).GetInjectionArgs().as_array().size());
 }
 
 
@@ -185,7 +185,7 @@ BOOST_AUTO_TEST_CASE(InterfaceHandleLambda)
     BOOST_CHECK(42 == handle.GetInjectionReturn());
 
     handle.InjectArgs({1,2,3,4});
-    auto args = handle.GetInjectionArgs();
+    auto args = handle.GetInjectionArgs().as_array();
 
     BOOST_CHECK(1 == args[0].as_int64());
     BOOST_CHECK(2 == args[1].as_int64());
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE(InterfaceHandleLambda)
     BOOST_CHECK(4 == args[3].as_int64());
 
     handle.InjectArgs({10, 20, 30, 40});
-    args = handle.GetInjectionArgs();
+    args = handle.GetInjectionArgs().as_array();
 
     BOOST_CHECK(10 == args[0].as_int64());
     BOOST_CHECK(20 == args[1].as_int64());
@@ -222,9 +222,9 @@ BOOST_AUTO_TEST_CASE(InterfaceHandleVoid)
     auto handle = InterfaceRecord(test_fun);
 
     BOOST_CHECK_NO_THROW(handle.GetInjectionReturn());
-    BOOST_CHECK_NO_THROW(handle.InjectArgs({}));
+    BOOST_CHECK_NO_THROW(handle.InjectArgs(boost::json::array{}));
 
-    BOOST_CHECK(0 == handle.GetInjectionArgs().size());
+    BOOST_CHECK(0 == handle.GetInjectionArgs().as_array().size());
     BOOST_CHECK_NO_THROW(handle.Hook());
     BOOST_CHECK(1 == handle.ObservedCalls());
 }

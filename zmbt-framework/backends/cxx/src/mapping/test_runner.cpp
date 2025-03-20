@@ -180,7 +180,7 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
 bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
 {
     try {
-        Environment::IfcRec ifc_rec{model_.at("/trigger").as_string()};
+        Environment::InterfaceHandle ifc_rec{model_.at("/trigger").as_string()};
         ifc_rec.RunAsTrigger();
         return true;
     }

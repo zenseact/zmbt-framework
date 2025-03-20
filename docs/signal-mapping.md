@@ -49,7 +49,7 @@ the third value.
 
 
 
-### Test with mocks
+### Test with mocks {#signal-mapping-model-overview-mocks}
 
 ``` c++
 struct Mock {

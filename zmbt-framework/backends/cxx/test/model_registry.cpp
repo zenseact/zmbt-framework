@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE(RegTrigger)
 
     BOOST_CHECK_NO_THROW(env.RegisterTrigger(lambda, "trigger"));
     InterfaceRecord(lambda).InjectArgs({42});
-    Environment::IfcRec ifc_rec {"trigger"};
+    Environment::InterfaceHandle ifc_rec {"trigger"};
     BOOST_CHECK_NO_THROW(ifc_rec.RunAsTrigger());
     BOOST_CHECK_EQUAL(InterfaceRecord(lambda).ObservedReturn(), 42);
 
