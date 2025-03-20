@@ -6,7 +6,7 @@
 
 #define BOOST_TEST_ALTERNATIVE_INIT_API
 #include <boost/test/unit_test.hpp>
-#include "zmbt/appconfig/init_zmbt.hpp"
+#include "zmbt/appconfig.hpp"
 
 bool init_unit_test()
 {

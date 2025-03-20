@@ -25,7 +25,9 @@
 
 #include <boost/program_options.hpp>
 
+#include <zmbt/appconfig.hpp>
 #include <zmbt/logging.hpp>
+
 #include <zmbt/reflect.hpp>
 #include <boost/date_time/posix_time/ptime.hpp>
 #include <boost/date_time/posix_time/time_formatters_limited.hpp>

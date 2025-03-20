@@ -1,8 +1,7 @@
 #include <thread>
 
 #include <gtest/gtest.h>
-
-#include "zmbt/model.hpp"
+#include <zenseact-mbt.hpp>
 
 using namespace zmbt;
 

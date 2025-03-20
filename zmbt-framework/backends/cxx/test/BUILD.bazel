@@ -54,7 +54,7 @@ cc_test(
     name = 'threads_env',
     srcs = ['threads_env.cpp'],
     deps = [
-        "//zmbt-framework/backends/cxx:model",
+        "//zmbt-framework/backends/cxx:zmbt",
         "@com_google_googletest//:gtest_main"
     ],
     defines = [
