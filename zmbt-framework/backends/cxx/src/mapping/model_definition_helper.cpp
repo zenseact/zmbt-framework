@@ -4,7 +4,7 @@
  * @license SPDX-License-Identifier: Apache-2.0
 
  */
-#include "zmbt/mapping/definition_helper.hpp"
+#include "zmbt/mapping/model_definition_helper.hpp"
 
 #include <zmbt/core/aliases.hpp>
 #include <zmbt/core/format_string.hpp>

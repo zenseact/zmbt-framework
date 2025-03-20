@@ -747,7 +747,7 @@ The model definition machine utilizes method cascading with an entry point at
 `zmbt::api::SignalMapping` class, which consumes a model name.
 
 Each subsequent method call consumes some parameter and transitions to a
-subclass of `zmbt::mapping::DefinitionMachine` that narrows the choices to methods
+subclass of `zmbt::mapping::ModelDefinition` that narrows the choices to methods
 valid for that specific step, effectively forming a push-down automaton.
 This technique simplifies the API usage, enhancing the code completion
 and checking certain errors at compilation stage.

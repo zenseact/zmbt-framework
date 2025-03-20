@@ -1,0 +1,95 @@
+# (c) Copyright 2025 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+nodes:
+  N_Term:
+    base: N_Node
+    transitions:
+      T_Null: N_Node
+  N_Descr:
+    base: N_Term
+    transitions:
+      T_Description: N_Term
+  N_Post:
+    base: N_Descr
+    transitions:
+      T_PostRun: N_Descr
+  N_Pre:
+    base: N_Post
+    transitions:
+      T_PreRun: N_Post
+  N_ParamTable:
+    base: N_Pre
+    transitions:
+      T_ParamRow: N_ParamTable
+      T_Zip: N_ParamTable
+      T_Prod: N_ParamTable
+  N_Param:
+    base: N_Pre
+    transitions:
+      T_Zip: N_ParamTable
+      T_Prod: N_ParamTable
+  N_TestTable:
+    base: N_Param
+    transitions:
+      T_TestRow: N_TestTable
+      T_TestComment: N_TestTable
+  N_Test:
+    base: N_Node
+    transitions:
+      T_Test: N_TestTable
+  N_Channel:
+    base: N_Test
+    transitions:
+      T_InjectTo: N_KindIn
+      T_ObserveOn: N_KindOut
+  N_ChannelOut:
+    base: N_Test
+    transitions:
+      T_ObserveOn: N_KindOut
+  N_Combine:
+    base: N_Channel
+    transitions:
+      T_InSeries: N_ChannelOut
+      T_Join: N_ChannelOut
+  N_Alias:
+    base: N_Channel
+    transitions:
+      T_Alias: N_Channel
+  N_AliasOut:
+    base: N_Combine
+    transitions:
+      T_Alias: N_Combine
+  N_Call:
+    base: N_Alias
+    transitions:
+      T_CallRangeIn: N_Alias
+      T_OnCall: N_Alias
+  N_CallOut:
+    base: N_AliasOut
+    transitions:
+      T_CallRange: N_AliasOut
+      T_OnCall: N_AliasOut
+  N_Decor:
+    base: N_Call
+    transitions:
+      T_As: N_Call
+  N_DecorOut:
+    base: N_CallOut
+    transitions:
+      T_As: N_CallOut
+  N_KindIn:
+    base: N_Decor
+    transitions:
+      T_Return: N_Decor
+      T_Args: N_Decor
+      T_Exception: N_Call
+  N_KindOut:
+    base: N_DecorOut
+    transitions:
+      T_Return: N_DecorOut
+      T_Args: N_DecorOut
+      T_Exception: N_CallOut
+      T_CallCount: N_AliasOut
+      T_Timestamp: N_CallOut
+      T_ThreadId: N_CallOut

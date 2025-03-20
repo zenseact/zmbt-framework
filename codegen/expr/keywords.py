@@ -1,3 +1,6 @@
+# (c) Copyright 2025 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
 from functools import cached_property
 from typing import Callable, Generator
 

@@ -4,8 +4,8 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_MAPPING_DEFINITION_MACHINE_TRANSITIONS_HPP_
-#define ZMBT_MAPPING_DEFINITION_MACHINE_TRANSITIONS_HPP_
+#ifndef ZMBT_MAPPING_MODEL_DEFINITION_TRANSITIONS_HPP_
+#define ZMBT_MAPPING_MODEL_DEFINITION_TRANSITIONS_HPP_
 
 #include <boost/json.hpp>
 #include <boost/mp11.hpp>
@@ -21,8 +21,8 @@
 #include <tuple>
 #include <utility>
 
-#include "definition_helper.hpp"
-#include "zmbt/mapping/definition_machine.hpp"
+#include "model_definition_helper.hpp"
+#include "zmbt/mapping/model_definition.hpp"
 
 
 #define N_STATE static_cast<Source*>(this)->state()
@@ -33,7 +33,7 @@ namespace mapping {
 
 
 template <class Source, class Target>
-struct DefinitionMachine::T_OnTrigger
+struct ModelDefinition::T_OnTrigger
 {
 
     template <class... T>
@@ -101,7 +101,7 @@ struct DefinitionMachine::T_OnTrigger
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_InjectTo
+struct ModelDefinition::T_InjectTo
 {
     /// Create input channel with an interface literal
     template <class O, class C>
@@ -133,7 +133,7 @@ struct DefinitionMachine::T_InjectTo
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_ObserveOn
+struct ModelDefinition::T_ObserveOn
 {
     /// Create input channel with an interface literal
     template <class O, class C>
@@ -163,7 +163,7 @@ struct DefinitionMachine::T_ObserveOn
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Return
+struct ModelDefinition::T_Return
 {
     /// Interface return clause
     /// Refers to the return subsignal at the given JSON Pointer
@@ -189,7 +189,7 @@ struct DefinitionMachine::T_Return
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Args
+struct ModelDefinition::T_Args
 {
     /// Interface argument clause
     /// Refers to the arguments subsignal at the given JSON Pointer
@@ -217,7 +217,7 @@ struct DefinitionMachine::T_Args
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Exception
+struct ModelDefinition::T_Exception
 {
     /// Interface exception
     Target Exception()
@@ -229,7 +229,7 @@ struct DefinitionMachine::T_Exception
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Timestamp
+struct ModelDefinition::T_Timestamp
 {
     /// Interface exception
     Target Timestamp()
@@ -241,7 +241,7 @@ struct DefinitionMachine::T_Timestamp
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_ThreadId
+struct ModelDefinition::T_ThreadId
 {
     /// Interface exception
     Target ThreadId()
@@ -254,7 +254,7 @@ struct DefinitionMachine::T_ThreadId
 
 
 template <class Source, class Target>
-struct DefinitionMachine::T_As
+struct ModelDefinition::T_As
 {
     /// Apply SignalOperatorHandler for comparisons and transform
     Target As(boost::json::string_view ref)
@@ -272,7 +272,7 @@ struct DefinitionMachine::T_As
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_OnCall
+struct ModelDefinition::T_OnCall
 {
     /// Interface call number (1-based index). Negative value is resolved as a reverse index,
     /// with -1 referring to the last call (default)
@@ -291,7 +291,7 @@ struct DefinitionMachine::T_OnCall
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_CallRange
+struct ModelDefinition::T_CallRange
 {
     /// Access mock data as list using slice semantic (1-based, inclusive boundaries)
     Target CallRange(int start = 1, int stop = -1, int step = 1)
@@ -310,7 +310,7 @@ struct DefinitionMachine::T_CallRange
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_CallRangeIn
+struct ModelDefinition::T_CallRangeIn
 {
     /// Inkect mock input data as list or map
     Target CallRange()
@@ -321,7 +321,7 @@ struct DefinitionMachine::T_CallRangeIn
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_CallCount
+struct ModelDefinition::T_CallCount
 {
     Target CallCount()
     {
@@ -332,7 +332,7 @@ struct DefinitionMachine::T_CallCount
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Alias
+struct ModelDefinition::T_Alias
 {
     Target Alias(boost::json::string_view alias)
     {
@@ -341,7 +341,7 @@ struct DefinitionMachine::T_Alias
     }
 };
 template <class Source, class Target>
-struct DefinitionMachine::T_InSeries
+struct ModelDefinition::T_InSeries
 {
     /// Combine channel outputs in time series
     ///
@@ -370,7 +370,7 @@ struct DefinitionMachine::T_InSeries
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Join
+struct ModelDefinition::T_Join
 {
     /// Combine channel outputs into an array
     /// X join Y join Z -> [X, Y, Z]
@@ -389,7 +389,7 @@ struct DefinitionMachine::T_Join
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Test
+struct ModelDefinition::T_Test
 {
     Target Test(Expression const& e0)
     {
@@ -438,7 +438,7 @@ struct DefinitionMachine::T_Test
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_TestRow
+struct ModelDefinition::T_TestRow
 {
     Target operator()(Expression const& e0)
     {
@@ -496,7 +496,7 @@ struct DefinitionMachine::T_TestRow
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_TestComment
+struct ModelDefinition::T_TestComment
 {
     Target operator[](boost::json::string_view comment)
     {
@@ -506,7 +506,7 @@ struct DefinitionMachine::T_TestComment
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Description
+struct ModelDefinition::T_Description
 {
     template <class... T>
     Target Description(boost::json::string_view comment, T&&... args)
@@ -517,7 +517,7 @@ struct DefinitionMachine::T_Description
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Zip
+struct ModelDefinition::T_Zip
 {
 
     Target Zip(Param const& p, boost::json::value const& v0)
@@ -626,7 +626,7 @@ struct DefinitionMachine::T_Zip
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_Prod
+struct ModelDefinition::T_Prod
 {
     Target Prod(Param const& p, boost::json::value const& v0)
     {
@@ -734,7 +734,7 @@ struct DefinitionMachine::T_Prod
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_ParamRow
+struct ModelDefinition::T_ParamRow
 {
     template <class... A>
     Target operator()(Param const& p, A&&... args)
@@ -842,7 +842,7 @@ struct DefinitionMachine::T_ParamRow
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_PreRun
+struct ModelDefinition::T_PreRun
 {
     template <class... T>
     Target PreRun(T&&... tasks)
@@ -853,7 +853,7 @@ struct DefinitionMachine::T_PreRun
 };
 
 template <class Source, class Target>
-struct DefinitionMachine::T_PostRun
+struct ModelDefinition::T_PostRun
 {
     template <class... T>
     Target PostRun(T&&... tasks)
