@@ -41,7 +41,7 @@ public:
         std::string str() const;
 
         /// Push record to log stack
-        void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, int const depth) const;
+        void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;
 
         friend std::ostream& operator<<(std::ostream& os, EvalLog const& log);
 
@@ -57,7 +57,7 @@ public:
         /// Evaluation log
         EvalLog log;
         /// Evaluation stack depth
-        int const depth;
+        std::uint64_t const depth;
 
         /// Copy config with depth increment
         EvalConfig operator++(int) const;
@@ -106,18 +106,22 @@ public:
     /// s.t. `a | b` is equivalent to `Compose(b, a)`. \see zmbt::expr::Compose
     friend Expression operator|(Expression const& lhs, Expression const& rhs);
 
-    /// \brief Concatenate expressions. \see zmbt::expr::Concat.
-    friend Expression operator+(Expression const& lhs, Expression const& rhs);
-
     /// \brief Pack expression results into an array. \see zmbt::expr::Pack.
     friend Expression operator&(Expression const& lhs, Expression const& rhs);
 
 
     /// \brief Apply x to lhs expression.
-    /// \details Equivalent to Apply(expr, x).
-    /// Note that operator <<= precedence is lower than pipe operator,
-    /// so `a <<= b` should be wrapped in parentheses when followed by |. \see zmbt::expr::Apply
-    friend Expression operator<<=(Expression const& expr, Expression const& x);
+    /// \details Bind x as a run-time argument to lhs expr. Equivalent to Apply(expr, x).
+    /// \see zmbt::expr::Apply
+    /// Note that operator << precedence is higher than pipe operator,
+    /// so lhs expression should be wrapped in parentheses if it contains
+    /// other operators.
+    friend Expression operator<<(Expression const& expr, Expression const& x);
+
+
+    /// \brief Evaluate x to lhs expression.
+    /// \details Equivalent to expr.eval(x).
+    friend Expression operator>>(Expression const& expr, Expression const& x);
 
 
 
@@ -174,7 +178,12 @@ public:
         return underlying();
     }
 
-    boost::json::value eval(boost::json::value const& x = nullptr, EvalConfig const& options = {}) const;
+    /// @brief Evaluate expression
+    /// @param x run-time argument
+    /// @param config evaluation config
+    /// @return
+    boost::json::value eval(boost::json::value const& x = nullptr, EvalConfig const& config = {}) const;
+
     bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const;
 
 };

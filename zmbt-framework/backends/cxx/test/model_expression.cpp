@@ -391,8 +391,13 @@ std::vector<TestEvalSample> const TestSamples
     // apply fn
     {Apply(Add(2), 3)           , {}                    , 5                     },
     {Apply(Pow(2), 3)           , {}                    , 9                     },
-    {Add(2) <<= 3               , {}                    , 5                     },
-    {Pow(2) <<= 3               , {}                    , 9                     },
+    {Add(2) << 3                , {}                    , 5                     },
+    {Pow(2) << 3                , {}                    , 9                     },
+
+    // eval yields literal which interpreted as Eq(p)
+    {Add(-1) >> 2               , 1                     , true                  },
+    {Add(-1) >> 2               , 2                     , false                 },
+
 
     {Repeat(4)                  ,  1                    , {1,1,1,1}             },
     {Repeat(3)                  , 42                    , {42,42,42}            },
@@ -785,15 +790,20 @@ BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
 }
 
 
-BOOST_AUTO_TEST_CASE(TestComposeVsApplyPrecedence)
+BOOST_AUTO_TEST_CASE(TestApplyShift)
 {
-    // <<= has lower precedence than |
+    // << has higher precedence than |
+    BOOST_CHECK_EQUAL(Add(2) << 2 | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
+    BOOST_CHECK_EQUAL((Add(2) << 2 | Eq(4)).eval(), true);
+}
 
-    // Invalid expression: Add(2) <<= 2 | Eq(4) is Add(2) <<= (2 | Eq(4))
-    BOOST_CHECK_NE(Add(2) <<= 2 | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
+BOOST_AUTO_TEST_CASE(TestEvalShift)
+{
+    // << has higher precedence than |
+    BOOST_CHECK_EQUAL(Add(2) >> 2, 4);
+    BOOST_CHECK_EQUAL((Add >> L{2,2}), 4);
 
-    BOOST_CHECK_EQUAL((Add(2) <<= 2) | Eq(4), Compose(Eq(4), Apply(Add(2), 2)));
-    BOOST_CHECK_EQUAL(((Add(2) <<= 2) | Eq(4)).eval(), true);
+    BOOST_CHECK_EQUAL(True >> Null, true);
 }
 
 

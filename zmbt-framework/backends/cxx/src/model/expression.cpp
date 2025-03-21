@@ -39,6 +39,76 @@ boost::json::value get_underlying(Keyword const& keyword, boost::json::value con
     return keyword == Keyword::Literal ? params : boost::json::value{{zmbt::json_from(keyword).get_string(), params}};
 }
 
+void trim_line(std::ostream& os, boost::json::array const& rec)
+{
+    constexpr std::size_t BuffSize {100};
+    constexpr std::size_t MinExpr = 10;
+
+    auto const depth = rec.at(0).as_uint64();
+    std::size_t capacity = BuffSize - 4U*depth;
+
+    if (capacity < 3*MinExpr)
+    {
+        os << "...\n";
+        return;
+    }
+
+    char buf_f[BuffSize];
+    char buf_x[BuffSize];
+    char buf_fx[BuffSize];
+
+
+    auto const shrink = [](boost::json::string_view& view, std::uint64_t const n){
+        if (view.size() < n) return;
+        view = view.substr(0, n);
+        if (n < 3) return;
+        if (n == 3) {
+            view = "...";
+            return;
+        }
+        char* buf = const_cast<char*>(view.data());
+        buf[n-1] = '.';
+        buf[n-2] = '.';
+        buf[n-3] = '.';
+        return;
+    };
+
+
+    boost::json::serializer sr;
+
+    boost::json::string_view f  = (sr.reset(&rec.at(1)), sr.read(buf_f));
+    if (!sr.done()) shrink(f, f.size());
+
+    boost::json::string_view x  = (sr.reset(&rec.at(2)), sr.read(buf_x));
+    if (!sr.done()) shrink(x, x.size());
+
+    boost::json::string_view fx = (sr.reset(&rec.at(3)), sr.read(buf_fx));
+    if (!sr.done()) shrink(fx, fx.size());
+
+
+    std::size_t total_size = f.size() + x.size() + fx.size();
+
+    if (total_size > capacity)
+    {
+        shrink(fx, capacity - 2*MinExpr);
+        total_size = f.size() + x.size() + fx.size();
+    }
+
+    if (total_size > capacity)
+    {
+        shrink(x, MinExpr);
+        total_size = f.size() + x.size() + fx.size();
+    }
+
+    if (total_size > capacity)
+    {
+        std::uint64_t const n =  total_size - capacity;
+        shrink(f, (n < fx.size()) ? f.size() - n : MinExpr);
+    }
+    os << f << '(' << x << ") = " << fx << '\n';
+};
+
+
 } // namespace
 
 
@@ -195,19 +265,21 @@ std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
         return os;
     }
 
+    std::uint64_t prev_depth = 0;
     std::size_t vertical_groups = 0;
-    std::int32_t prev_depth = 0;
+
+
     for (auto const& item: *log.stack)
     {
         auto const& rec = item.as_array();
-        std::int32_t const depth = rec.at(0).as_int64();
+        std::uint64_t const depth = rec.at(0).as_uint64();
 
         if (prev_depth < depth && prev_depth > 0)
         {
             SET_BIT(vertical_groups, prev_depth);
         }
 
-        for (int i = 0; i < depth; ++i)
+        for (std::uint64_t i = 0; i < depth; ++i)
         {
             os << (TEST_BIT(vertical_groups, i) ? "│   " : "   ");
         }
@@ -229,10 +301,8 @@ std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
         {
             CLEAR_BIT(vertical_groups, depth);
         }
-        os  << rec.at(1) // f
-            << '(' << rec.at(2) // x
-            << ") = " << rec.at(3) // f(x)
-            << '\n';
+
+        trim_line(os, rec);
         prev_depth = depth;
     }
     return os;
@@ -249,7 +319,7 @@ std::string Expression::EvalLog::str() const
     return ss.str();
 }
 
-void Expression::EvalLog::push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, int const depth) const
+void Expression::EvalLog::push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
 {
     if (!stack)
     {

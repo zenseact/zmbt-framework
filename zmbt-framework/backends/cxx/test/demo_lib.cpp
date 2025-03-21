@@ -380,8 +380,8 @@ BOOST_AUTO_TEST_CASE(ApplyExpression)
         .ObserveOn (id)
     .Test
         (Apply(Add(2), 2), 4         )
-        (Add(2)    <<=  2, 4         ) ["same as above using operator <<="]
-        (Repeat(3) <<= 42, {42,42,42})
+        (Add(2)     <<  2, 4         ) ["same as above using operator <<"]
+        (Repeat(3)  << 42, {42,42,42})
     ;
 }
 
