@@ -81,9 +81,11 @@ V eval_impl<Keyword::Re>(V const& x, V const& param, E::EvalConfig const& option
 {
     static_cast<void>(options);
     ASSERT(param.is_string());
+    ASSERT(x.is_string());
+
     auto const pattern = param.get_string().c_str();
-    const std::regex re(pattern);
-    std::string sample = x.is_string() ? x.get_string().c_str() : boost::json::serialize(x);
+    auto const sample = x.get_string().c_str();
+    std::regex const re(pattern);
     return std::regex_match(sample, re);
 }
 
@@ -231,19 +233,42 @@ V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalConfig const& op
 {
     // Based on numpy.isclose
     // absolute(a - b) <= (atol + rtol * absolute(b))
+    // default rtol=1e-05, atol=1e-08
+    constexpr double default_rtol = 1e-05;
+    constexpr double default_atol = 1e-08;
+
     ASSERT(x.is_number());
-    ASSERT(param.is_array());
-    auto const& params = param.get_array();
-    ASSERT(params.size() >= 2 && params.size() <= 3);
+    ASSERT(param.is_array() || param.is_number());
 
-    double ref_value = boost::json::value_to<double>(options.op.decorate(params.at(0)));
-    double rtol      = boost::json::value_to<double>(params.at(1));
-    double atol      = params.size() == 3
-        ? boost::json::value_to<double>(params.at(2))
-        : std::numeric_limits<double>::epsilon();
+    double x_value = boost::json::value_to<double>(options.op.decorate(x));
+    double ref_value = std::numeric_limits<double>::quiet_NaN();
+    double rtol      = default_rtol;
+    double atol      = default_atol;
 
-    double value = boost::json::value_to<double>(options.op.decorate(x));
-    return std::abs(value - ref_value) <= (atol + rtol * std::abs(ref_value));
+    if (param.is_number())
+    {
+        ref_value = boost::json::value_to<double>(options.op.decorate(param));
+    }
+    else
+    {
+        auto const& params = param.get_array();
+        ASSERT(params.size() >= 1 && params.size() <= 3);
+
+        if (params.size() >= 1)
+        {
+            ref_value = boost::json::value_to<double>(options.op.decorate(params.at(0)));
+        }
+        if (params.size() >= 2)
+        {
+            rtol = boost::json::value_to<double>(options.op.decorate(params.at(1)));
+        }
+        if (params.size() == 3)
+        {
+            atol = boost::json::value_to<double>(options.op.decorate(params.at(2)));
+        }
+    }
+
+    return std::abs(x_value - ref_value) <= (atol + rtol * std::abs(ref_value));
 }
 
 template <>
@@ -417,16 +442,6 @@ V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalConfig const& opt
     }
     return ret;
 }
-
-template <>
-V eval_impl<Keyword::List>(V const& x, V const& param, E::EvalConfig const& options)
-{
-    static_cast<void>(options);
-    ASSERT(param.is_array());
-    ASSERT(x.is_null());
-    return param;
-}
-
 
 template <>
 V eval_impl<Keyword::Transp>(V const& x, V const& param, E::EvalConfig const& options)
@@ -770,21 +785,6 @@ V eval_impl<Keyword::Max>(V const& x, V const& param, E::EvalConfig const& optio
     return *find_argminmax(samples, param, options.op, &std::max_element<L::const_iterator, compare_fn_t>);
 }
 
-template <>
-V eval_impl<Keyword::Round>(V const& x, V const& param, E::EvalConfig const& options)
-{
-    ASSERT(x.is_number());
-    ASSERT(param.is_null() || param.is_uint64() || param.is_int64());
-    auto const ndigits = param.is_null() ? 0UL : boost::json::value_to<std::size_t>(param);
-    auto const sample = boost::json::value_to<double>(options.op.decorate(x));
-    auto const factor = std::pow(10, ndigits);
-    auto const result = std::round(sample * factor) / factor;
-    if (ndigits == 0)
-    {
-        return result >= 0 ? V{static_cast<std::uint64_t>(result)} : V{static_cast<std::int64_t>(result)};
-    }
-    return result;
-}
 
 template <>
 V eval_impl<Keyword::Intersect>(V const& x, V const& param, E::EvalConfig const& options)
@@ -884,6 +884,157 @@ V eval_impl<Keyword::Union>(V const& x, V const& param, E::EvalConfig const& opt
     return set_union;
 }
 
+template <>
+V eval_impl<Keyword::Arange>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    static_cast<void>(options);
+    static_cast<void>(param);
+    ASSERT(x.is_number() || x.is_array() || x.is_string());
+
+    std::int64_t start = 0;
+    std::int64_t stop = 0;
+    std::int64_t step = 1;
+
+    if (x.is_number())
+    {
+        stop = boost::json::value_to<int>(x);
+    }
+    else if (x.is_array())
+    {
+        auto const& params = x.get_array();
+        ASSERT(params.size() >= 1 && params.size() <= 3);
+        if (params.size() == 1)
+        {
+            stop = boost::json::value_to<std::int64_t>(params.at(0));
+        }
+        else if (params.size() >= 2)
+        {
+            start = boost::json::value_to<std::int64_t>(params.at(0));
+            stop = boost::json::value_to<std::int64_t>(params.at(1));
+        }
+        if (params.size() == 3)
+        {
+            step = boost::json::value_to<std::int64_t>(params.at(2));
+        }
+    }
+    else if (x.is_string())
+    {
+        auto const slice_idx = zmbt::detail::str_to_slice_idx(x.get_string());
+        start = slice_idx.at(0);
+        stop = slice_idx.at(1);
+        step = slice_idx.at(2);
+    }
+
+    if (step == 0)
+    {
+        throw zmbt::expression_error("step cannot be zero");
+    }
+
+    L out {};
+    if ((step > 0 && start >= stop) || (step < 0 && start <= stop))
+    {
+        return out;
+    }
+
+    out.reserve(std::max(0l, (stop - start) / step));
+    for (std::int64_t i = start; (stop > start) ? i < stop : i > stop; i += step)
+    {
+        out.push_back(i);
+    }
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Items>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    static_cast<void>(param);
+    static_cast<void>(options);
+    ASSERT(x.is_object());
+    auto const& obj = x.get_object();
+    boost::json::array out {};
+    out.reserve(obj.size());
+    for (auto const& kv: obj)
+    {
+        out.push_back({kv.key(), kv.value()});
+    }
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Keys>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    static_cast<void>(param);
+    static_cast<void>(options);
+    ASSERT(x.is_object());
+    auto const& obj = x.get_object();
+    boost::json::array out {};
+    out.reserve(obj.size());
+    for (auto const& kv: obj)
+    {
+        out.push_back(kv.key());
+    }
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Values>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    static_cast<void>(param);
+    static_cast<void>(options);
+    ASSERT(x.is_object());
+    auto const& obj = x.get_object();
+    boost::json::array out {};
+    out.reserve(obj.size());
+    for (auto const& kv: obj)
+    {
+        out.push_back(kv.value());
+    }
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Enumerate>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    static_cast<void>(param);
+    static_cast<void>(options);
+    ASSERT(x.is_array());
+    auto const& arr = x.get_array();
+    boost::json::array out {};
+    out.reserve(arr.size());
+    std::size_t i = 0;
+    for (auto const& el: arr)
+    {
+        out.push_back({i++, el});
+    }
+    return out;
+}
+
+template <>
+V eval_impl<Keyword::Flatten>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    static_cast<void>(param);
+    static_cast<void>(options);
+    ASSERT(x.is_array());
+    auto const& arr = x.get_array();
+    boost::json::array out {};
+    out.reserve(arr.size());
+    for (auto const& el: arr)
+    {
+        if (el.is_array())
+        {
+            for (auto const& subel: el.get_array())
+            {
+                out.push_back(subel);
+            }
+        }
+        else
+        {
+            out.push_back(el);
+        }
+    }
+    return out;
+}
+
 } // namespace
 
 
@@ -914,7 +1065,6 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
 
         // terms special
         ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Round)
         ZMBT_EXPR_EVAL_IMPL_CASE(Re)
         ZMBT_EXPR_EVAL_IMPL_CASE(At)
 
@@ -946,7 +1096,6 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
 
         // vector ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
-        ZMBT_EXPR_EVAL_IMPL_CASE(List)
         ZMBT_EXPR_EVAL_IMPL_CASE(Transp)
         ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
         ZMBT_EXPR_EVAL_IMPL_CASE(Concat)
@@ -956,6 +1105,13 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         ZMBT_EXPR_EVAL_IMPL_CASE(Reverse)
         ZMBT_EXPR_EVAL_IMPL_CASE(Slide)
         ZMBT_EXPR_EVAL_IMPL_CASE(Stride)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Arange)
+
+        ZMBT_EXPR_EVAL_IMPL_CASE(Items)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Keys)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Values)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Enumerate)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Flatten)
 
         ZMBT_EXPR_EVAL_IMPL_CASE(Argmin)
         ZMBT_EXPR_EVAL_IMPL_CASE(Argmax)

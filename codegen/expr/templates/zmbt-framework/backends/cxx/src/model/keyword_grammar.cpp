@@ -32,8 +32,8 @@ KeywordSymbol::KeywordSymbol()
     add
 @for keyword in data.Keywords:
     (ZMBT_KEYWORD_PREFIX "@keyword.Name", Keyword::@keyword.Enum)
-    @if short := keyword.Short:
-    (ZMBT_KEYWORD_PREFIX "@short", Keyword::@keyword.Enum)
+    @if symbol := keyword.Symbol:
+    (ZMBT_KEYWORD_PREFIX "@symbol", Keyword::@keyword.Enum)
     @end
     @for alias in keyword.Aliases:
     (ZMBT_KEYWORD_PREFIX "@alias", Keyword::@keyword.Enum)

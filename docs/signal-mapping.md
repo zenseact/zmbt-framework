@@ -3,6 +3,7 @@
 
 # Signal Mapping model {#signal-mapping-model}
 
+[TOC]
 
 ***Signal Mapping*** model represents the system under test (SUT) as a pure
 mathematical mapping, abstracting away side effects and clearly defining the
@@ -14,7 +15,7 @@ of test goals with test implementation details in a single workflow.
 ## Overview {#signal-mapping-model-overview}
 
 Before diving into the test model definition, let's first look into some examples.
-All the library funtions below are available in namespace `zmbt::api`.
+All the library functions below are available in namespace `zmbt::api`.
 
 ### Simple function test
 
@@ -82,7 +83,7 @@ SignalMapping("Test with mock")
 ```
 
 In this example the stimuli are taken from the mock object,
-which also informs about operation succes with returned boolean.
+which also informs about operation success with returned boolean.
 So we again inject to `.Args(0)` and `.Args(1)`, but this time on different
 interface, plus our test now includes a channel for mock return status.
 
@@ -175,7 +176,7 @@ containing a single element which intended to be repeated with other parameters:
     (Z, 4)
 ```
 This clause yields *(1,1,4), (2,2,4), (3,3,4)*, but the following one will fail
-in runtime due to inconsistent zip parameters count:
+at runtime due to inconsistent zip parameters count:
 ``` c++
 .Zip
     (X, 1, 2, 3)
@@ -205,7 +206,7 @@ which is equivalent to
 ```
 
 The order of parameter keys doesn't matter, and you may notice that parameters
-table oriented hosrisontally, i. e. *row -> parameter*, unlike the test matrix,
+table oriented horizontally, i. e. *row -> parameter*, unlike the test matrix,
 which is *column -> channel*.
 
 Another parametrization mode is `Prod`, which stands for *Cartesian product*,
@@ -252,10 +253,10 @@ Signal serialization allows specifying the particular subsignal with string
 which refers to `<signal>.foo.bar` field on the corresponding argument or
 return value. The subsignal specification in a string is a [JSON Pointer](https://tools.ietf.org/html/rfc6901),
 which syntax resembles a unix path, with the main difference that `""` stands
-for root, and `"/"` stands for anonimous field in a JSON structure. Array elements are
+for root, and `"/"` stands for anonymous field in a JSON structure. Array elements are
 referenced by index, so `"/0"` and `"/1"` in the example means first and second
-elements of the arguments tuple. Recall the rule of default channel kind
-deduction - now you see that *unary function args resolves to value...* means
+elements of the arguments tuple. Recall the default channel kind deduction rule -
+now you see that *unary function args resolves to value...* means
 the default signal path for unary function is `"/0"`.
 
 This works with parametrization well - if you need to parametrize only a part
@@ -376,7 +377,7 @@ assert(Map(Pow(0.5)).eval({4,9,16,25}) == boost::json::array{2,3,4,5});
 
 ### Signal type decoration
 
-The predicate expressions described above knows nothing about actual
+The predicate expressions described above know nothing about actual
 operations - to apply them to a particular value, they need an operator handler.
 
 The default `GenericSignalOperator` does most of comparisons in an intuitive
@@ -683,7 +684,7 @@ obtained from the parameter resolver times each test vector:
 2. Execute pre-run tasks.
 3. Inject the stimuli from the test vector into the environment.
 4. Execute the trigger.
-5. Observe the responses captured in the environment and verify against expectations.
+5. Observe the responses captured in the environment and verify them against expectations.
 6. Execute post-run tasks.
 7. Report the results.
 
@@ -759,7 +760,7 @@ Signal Mapping DSL. Omitted rules may be deduced from
 introduction given above or from the following documentation.
 
 ![image](mapping_bnf.png)
-<!-- ``` plantuml
+<!-- plantuml
 @startebnf mapping_syntax
 title Mapping model definition machine
 
@@ -790,7 +791,7 @@ Params = {(".Zip"| ".Prod"), {LB, Param, REST(?value?), RB}-}-;
 Tasks =  [".PreRun", LB, ONEORMORE(?task?), RB], [".PostRun", LB, ONEORMORE(?task?), RB];
 
 @endebnf
-``` -->
+-->
 
 ### More on Channels
 

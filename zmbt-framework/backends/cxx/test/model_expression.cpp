@@ -115,11 +115,21 @@ std::vector<TestEvalSample> const TestSamples
     {Expression(42)|Not|Not     , 42                    , true                  },
     {Expression(42)|Not|Not     , 13                    , false                 },
 
+    {Approx(42)                 , 42                    , true                  },
+    {Approx(42)                 , 42.0 + 1e-09          , true                  },
+    {Approx(42.0 + 1e-09)       , 42                    , true                  },
+    {Approx                     , {42, 42.0 + 1e-09}    , true                  },
+    {Approx(42.001)             , 42                    , false                 },
+
+    // relative tolerance
     {Approx({3.14, 0.001})      , pi                    , true                  },
     {Approx({2.71, 0.005})      , e                     , true                  },
+    // absolute tolerance
     {Approx({3.14, 0, 0.01})    , pi                    , true                  },
     {Approx({2.71, 0, 0.01})    , e                     , true                  },
     {Approx                     , {pi, {3.14, 0.001}}   , true                  },
+    {Approx                     , {pi, {3.15, 0.001}}   , false                 },
+    // range check
     {All(Gt(3.14), Lt(3.15))    , pi                    , true                  },
 
     {Round                      ,  1.49999               ,  1                   },
@@ -130,8 +140,7 @@ std::vector<TestEvalSample> const TestSamples
     {Round                      , -1.49999               , -1                   },
     {Round                      , -1.5                   , -2                   },
 
-    {Round(2)                   ,  1.49999               ,  1.5                 },
-    {Round(2)                   , -1.49999               , -1.5                 },
+    {Mul(2)|Round|Div(2)        ,  1.49999               ,  1.5                 },
 
     // order relation
     {Lt(42)                     , 41                    , true                  },
@@ -179,6 +188,22 @@ std::vector<TestEvalSample> const TestSamples
     {  ProperSubset, {{1,3}     , {1,2,3}}              , true                  },
     {ProperSuperset, {{1,2,3}   , {1,3}  }              , true                  },
 
+    {        Subset({1})        , L{}                   , true                  },
+    {      Superset({1})        , L{}                   , false                 },
+    {  ProperSubset({1})        , L{}                   , true                  },
+    {ProperSuperset({1})        , L{}                   , false                 },
+
+    {        Subset(L{})        , L{1}                  , false                 },
+    {      Superset(L{})        , L{1}                  , true                  },
+    {  ProperSubset(L{})        , L{1}                  , false                 },
+    {ProperSuperset(L{})        , L{1}                  , true                  },
+
+    {        Subset(L{})        , L{}                   , true                  },
+    {      Superset(L{})        , L{}                   , true                  },
+    {  ProperSubset(L{})        , L{}                   , false                 },
+    {ProperSuperset(L{})        , L{}                   , false                 },
+
+
     {SetEq({1,2,3})             , {1,2,3}               , true                  },
     {SetEq({1,2,3})             , {1,3,2}               , true                  },
     {SetEq({1,2,3})             , {1,2}                 , false                 },
@@ -221,6 +246,8 @@ std::vector<TestEvalSample> const TestSamples
     {Size                       , {1,2,2,2}             , 4                     },
     {Card                       , {1,2,2,2}             , 2                     },
     {Card                       , {1,2,2,4,3,4}         , 4                     },
+    {Sort                       , {1,2}                 , {1,2}                 },
+    {Sort                       , {2,1}                 , {1,2}                 },
     {Sort                       , {4,1,3,1,2,1}         , {1,1,1,2,3,4}         },
     {Sort|Reverse               , {4,1,3,1,2,1}         , {4,3,2,1,1,1}         },
     {Sort(Neg)                  , {4,1,3,1,2,1}         , {4,3,2,1,1,1}         },
@@ -266,6 +293,27 @@ std::vector<TestEvalSample> const TestSamples
     {Stride(42)                 , {1,2,3}               , L{{1,2,3}}            },
     {Stride(42)                 , L{}                   , L{}                   },
 
+    {Arange                     , 4                     , {0,1,2,3}             },
+    {Arange                     , L{4}                  , {0,1,2,3}             },
+    {Arange << 4                , nullptr               , {0,1,2,3}             },
+    {Arange                     , "2:6"                 , {2,3,4,5}             },
+    {Arange << "2:6"            , nullptr               , {2,3,4,5}             },
+    {Arange << "1:9:2"          , nullptr               , {1,3,5,7}             },
+    {Arange << "5:1:-1"         , nullptr               , {5,4,3,2}             },
+
+    {Arange << L{2,6}           , nullptr               , {2,3,4,5}             },
+    {Arange << L{1,9,2}         , nullptr               , {1,3,5,7}             },
+    {Arange << L{5,1,-1}        , nullptr               , {5,4,3,2}             },
+
+    {Arange << 0                , nullptr               , L{}                   },
+    {Arange << "1:9:-1"         , nullptr               , L{}                   },
+
+    {Items                      , {{"a", 1}, {"b", 2}}  , {L{"a", 1}, L{"b", 2}}},
+    {Keys                       , {{"a", 1}, {"b", 2}}  , {"a", "b"}            },
+    {Values                     , {{"a", 1}, {"b", 2}}  , {1, 2}                },
+    {Enumerate                  , {1,2,3}               , {{0,1},{1,2},{2,3}}   },
+    {Flatten                    , {{1,2},{3,4}}         , {1,2,3,4}             },
+
     // composition
     {Compose(Eq(2), Size)       , {1,2}                 , true                  },
     {Size|Eq(2)                 , {1,2}                 , true                  },
@@ -278,16 +326,16 @@ std::vector<TestEvalSample> const TestSamples
     {Sign                       , 42                    ,  1                    },
     {Sign                       , -42                   , -1                    },
 
-    {Abs                        , 42                    ,  42.0                 },
-    {Abs                        , -42                   ,  42.0                 },
+    {Abs                        , 42                    ,  42                   },
+    {Abs                        , -42                   ,  42                   },
 
-    {Ceil                       , 42.1                  ,  43.0                 },
-    {Ceil                       , 42.9                  ,  43.0                 },
-    {Ceil                       , -42.1                 , -42.0                 },
+    {Ceil                       , 42.1                  ,  43                   },
+    {Ceil                       , 42.9                  ,  43                   },
+    {Ceil                       , -42.1                 , -42                   },
 
-    {Floor                      , 42.1                  ,  42.0                 },
-    {Floor                      , 42.9                  ,  42.0                 },
-    {Floor                      , -42.1                 , -43.0                 },
+    {Floor                      , 42.1                  ,  42                   },
+    {Floor                      , 42.9                  ,  42                   },
+    {Floor                      , -42.1                 , -43                   },
 
     {BitNot                     , 42ul                  , ~42ul                 },
     {BitAnd                     , {1ul, 2ul}            , 2ul & 1ul             },
@@ -300,6 +348,9 @@ std::vector<TestEvalSample> const TestSamples
     {BitRshiftFrom              , {1, 2}                , 1                   },
 
     {Add                        , {3,  2}               , 5                     },
+    {Add                        , {.5, 1}               , 1.5                   },
+    {Add                        , {.5, 1.5}             , 2                     },
+
     {Add                        , {3, -2}               , 1                     },
     {Add(2)                     , 3                     , 5                     },
     {Add(-2)                    , 3                     , 1                     },
@@ -366,22 +417,22 @@ std::vector<TestEvalSample> const TestSamples
     {Log                        , {8, 2}                , 3                     },
     {LogFrom                    , {2, 8}                , 3                     },
 
-    {Sqrt                       , 9                     , 3.0                   },
-    {Sqrt                       , 16                    , 4.0                   },
+    {Sqrt                       , 9                     , 3                     },
+    {Sqrt                       , 16                    , 4                     },
     {Sqrt                       , 0.25                  , 0.5                   },
 
-    {Sin                        , 0                     , 0.0                   },
-    {Cos                        , 0                     , 1.0                   },
-    {Tan                        , 0                     , 0.0                   },
-    {Asin                       , 0                     , 0.0                   },
-    {Acos                       , 1                     , 0.0                   },
-    {Atan                       , 0                     , 0.0                   },
-    {Sinh                       , 0                     , 0.0                   },
-    {Cosh                       , 0                     , 1.0                   },
-    {Tanh                       , 0                     , 0.0                   },
-    {Asinh                      , 0                     , 0.0                   },
-    {Acosh                      , 1                     , 0.0                   },
-    {Atanh                      , 0                     , 0.0                   },
+    {Sin                        , 0                     , 0                     },
+    {Cos                        , 0                     , 1                     },
+    {Tan                        , 0                     , 0                     },
+    {Asin                       , 0                     , 0                     },
+    {Acos                       , 1                     , 0                     },
+    {Atan                       , 0                     , 0                     },
+    {Sinh                       , 0                     , 0                     },
+    {Cosh                       , 0                     , 1                     },
+    {Tanh                       , 0                     , 0                     },
+    {Asinh                      , 0                     , 0                     },
+    {Acosh                      , 1                     , 0                     },
+    {Atanh                      , 0                     , 0                     },
 
     {Exp                        , 1.0/3                 , std::exp(1.0/3)       },
     {Erf                        , 1.0/3                 , std::erf(1.0/3)       },
@@ -425,10 +476,10 @@ std::vector<TestEvalSample> const TestSamples
     {Re("42")                   , "43"                  , false                 },
     {Re("^.{3}$")               , "123"                 , true                  },
     {Re("^.{3}$")               , "1234"                , false                 },
-    {Re("\\[1,2\\]")            , {1,2}                 , true                  },
-    {Re("42")                   , 42                    , true                  },
-    {Re                         , {42, "42"}            , true                  },
-    {Re                         , {{1,2}, "\\[1,2\\]"}  , true                  },
+    {Serialize|Re("\\[1,2\\]")  , {1,2}                 , true                  },
+    {Serialize|Re("42")         , 42                    , true                  },
+    {(At(0)|Serialize)&At(1)|Re , {42, "42"}            , true                  },
+    {(At(0)|Serialize)&At(1)|Re , {{1,2}, "\\[1,2\\]"}  , true                  },
 
 
     {At(0)                      , {1,2,3}               , 1                     },
@@ -448,6 +499,11 @@ std::vector<TestEvalSample> const TestSamples
     {At("-1:0:-1")              , {1,2,3,4,5,6,7,8}      , {8,7,6,5,4,3,2,1}    },
 
     {At                         , {{1,2,3}, 0}           , 1                    },
+
+    {At({"", ""})               , 42                     , {42, 42}             },
+    // single-element bracket init is always an array in Expression ctor
+    {At({""})                   , 42                     , L{42}                },
+
     // TODO: string query
     // {At(0)                   , "foo"                 , "f"                   },
 
@@ -485,9 +541,6 @@ std::vector<TestEvalSample> const TestSamples
     {Saturate(42, Mod(2)|0)     , {2,4,8,42,1,2}         , true                 },
     {Saturate(42, Mod(2)|0)     , {2,4,8,41,2}           , false                },
     {Saturate(42, Mod(2)|0)     , {2,4,8,42}             , false                },
-
-    {List(42)                   , nullptr                , L{42}                },
-    {List(1,2,3)                , nullptr                , {1,2,3}              },
 
     {Concat("World!")           , "Hello, "              , "Hello, World!"      },
     {Concat                     , L{"Hello, ", "World!"} , "Hello, World!"      },
@@ -625,8 +678,8 @@ BOOST_AUTO_TEST_CASE(NaNConst)
 
 BOOST_AUTO_TEST_CASE(TrigonometricFunctions)
 {
-    BOOST_CHECK_CLOSE((Pi | Div(2) | Sin)   .eval().as_double(),  1.0, eps);
-    BOOST_CHECK_CLOSE((Pi | Cos)            .eval().as_double(), -1.0, eps);
+    BOOST_CHECK_EQUAL((Pi | Div(2) | Sin)   .eval(),  1);
+    BOOST_CHECK_EQUAL((Pi | Cos)            .eval(), -1);
     BOOST_CHECK_CLOSE((Pi | Div(6) | Sin)   .eval().as_double(),  0.5, 0.00001);
     BOOST_CHECK_CLOSE((Pi | Div(4) | Tan)   .eval().as_double(),  1.0, 0.00001);
 }

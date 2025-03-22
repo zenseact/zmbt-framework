@@ -18,6 +18,7 @@
 #include "core/interface_traits.hpp"
 #include "core/json_iter.hpp"
 #include "core/json_node.hpp"
+#include "core/json_number_cast.hpp"
 #include "core/json_traverse.hpp"
 #include "core/json_pretty_print.hpp"
 #include "core/slice.hpp"

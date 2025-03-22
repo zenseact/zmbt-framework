@@ -302,8 +302,8 @@ boost::json::kind common_arithmetic_kind(boost::json::value const& a, boost::jso
     return result_kind;
 }
 
-#define CASE_DOUBLE case boost::json::kind::double_: return boost::json::value_to<double>(value_)       X_OP boost::json::value_to<double>(rhs.value_);
-#define CASE_INT64  case boost::json::kind::int64:   return boost::json::value_to<std::int64_t>(value_) X_OP boost::json::value_to<std::int64_t>(rhs.value_);
+#define CASE_DOUBLE case boost::json::kind::double_: return real_to_number(boost::json::value_to<double>(value_)       X_OP boost::json::value_to<double>(rhs.value_));
+#define CASE_INT64  case boost::json::kind::int64:   return real_to_number(boost::json::value_to<std::int64_t>(value_) X_OP boost::json::value_to<std::int64_t>(rhs.value_));
 #define CASE_UINT64 case boost::json::kind::uint64:  return boost::json::value_to<std::size_t>(value_)  X_OP boost::json::value_to<std::size_t>(rhs.value_);
 #define STR(a) #a
 
@@ -487,21 +487,7 @@ boost::json::value GenericSignalOperator::pow(GenericSignalOperator const& rhs) 
         throw expression_error("invalid power operands");
     }
 
-    double const result_double = std::pow(boost::json::value_to<double>(value_), boost::json::value_to<double>(rhs.value_));
-    std::int64_t const result_int64 = static_cast<std::int64_t>(result_double);
-    std::int64_t const result_uint64 = static_cast<std::size_t>(result_double);
-
-    if (result_double == result_uint64)
-    {
-        return result_uint64;
-    }
-    else if (result_double == result_int64)
-    {
-        return result_int64;
-    }
-    else {
-        return result_double;
-    }
+    return real_to_number(std::pow(boost::json::value_to<double>(value_), boost::json::value_to<double>(rhs.value_)));
 }
 
 boost::json::value GenericSignalOperator::log(GenericSignalOperator const& rhs) const
@@ -518,21 +504,7 @@ boost::json::value GenericSignalOperator::log(GenericSignalOperator const& rhs) 
         throw expression_error("invalid power operands");
     }
 
-    double const result_double = std::log(boost::json::value_to<double>(value_)) / std::log(boost::json::value_to<double>(rhs.value_));
-    std::int64_t const result_int64 = static_cast<std::int64_t>(result_double);
-    std::int64_t const result_uint64 = static_cast<std::size_t>(result_double);
-
-    if (result_double == result_uint64)
-    {
-        return result_uint64;
-    }
-    else if (result_double == result_int64)
-    {
-        return result_int64;
-    }
-    else {
-        return result_double;
-    }
+    return real_to_number(std::log(boost::json::value_to<double>(value_)) / std::log(boost::json::value_to<double>(rhs.value_)));
 }
 
 boost::json::value GenericSignalOperator::quot(GenericSignalOperator const& rhs) const

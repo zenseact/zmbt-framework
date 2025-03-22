@@ -3,6 +3,8 @@
 
 # Reflection API
 
+[TOC]
+
 Currently, ZMBT does not require complete type reflection. The `SignalMapping` tests rely solely on signal serialization and default value initialization. Future updates will ensure interoperability with Boost C++ libraries that provide data reflection capabilities.
 
 To operate on test data and interfaces within the test model, the framework utilizes the following metafunctions in the `zmbt::reflect` namespace:

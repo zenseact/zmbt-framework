@@ -106,8 +106,7 @@ BOOST_AUTO_TEST_CASE(RegexTest)
         .ObserveOn (id)
     .Test
         ("123", Re("^.{3}$")   ) ["ECMAScript regex"]
-        (42U  , Re("42")       ) ["match serialized value"]
-        ({1,2}, Re("\\[1,2\\]")) ["match serialized json array"]
+        (42U  , Serialize|Re("42")       ) ["match serialized value"]
     ;
 }
 
@@ -333,7 +332,7 @@ BOOST_AUTO_TEST_CASE(SetMatchExpression)
         ( {1,2,3}   , Count(Ne(5))|3                )
         ( {1,2,3}   , Count(2)|Lt(3)                )
         ( {1,2,3}   , All(At(0)|1, At("/1")|2)      )
-        ( {1,2,3}   , Re("^\\[1,2,3\\]$")           )
+        ( {1,2,3}   , Serialize|Re("^\\[1,2,3\\]$") )
     ;
 }
 

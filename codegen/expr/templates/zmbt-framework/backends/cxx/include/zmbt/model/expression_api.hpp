@@ -26,7 +26,8 @@ namespace expr {
 @for keyword in data.ApiKeywords:
 
 /// \brief @keyword.DocBrief
-    @if details := keyword.DocDetails:
+    @if details := keyword.DocDetailsDoxy:
+/// \anchor expr-@keyword.Name
 /// \details
         @for line in details.split('\n'):
 /// @line

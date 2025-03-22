@@ -4,6 +4,9 @@
 from functools import cached_property
 from typing import Callable, Generator
 
+EXCLUDE_OPERATORS = (
+    'approx',
+)
 
 class Keyword:
     def __init__(self, definition: dict, backend: str = 'cxx'):
@@ -16,7 +19,7 @@ class Keyword:
 
     @property
     def IsInternal(self) -> bool:
-        return self._definition.get('internal', False)
+        return self.Group == 'Internal'
 
     @property
     def Signature(self) -> str:
@@ -30,6 +33,9 @@ class Keyword:
     def Tags(self) -> tuple[str]:
         return self._definition.get('tags', tuple())
 
+    @property
+    def Group(self) -> str:
+        return self._definition['group']
 
     @property
     def IsConst(self) -> bool:
@@ -37,7 +43,7 @@ class Keyword:
 
     @property
     def IsOperator(self) -> bool:
-        return 'operator' in self.Tags
+        return 'op' in self.Tags and not self.Name in EXCLUDE_OPERATORS
 
     @property
     def CodegenValue(self) -> str:
@@ -90,28 +96,37 @@ class Keyword:
 
     @property
     def DocDetails(self) -> str:
-        details = self._definition.get('details', "")
-        if details:
-            details = f"{details}\n\n"
+        return self._definition.get('details', "")
+        # if details:
+        #     details = f"{details}\n\n"
 
-        domain = self.Domain
-        default = self.DefaultValue
-        if default and self.IsBinary:
-            domain = f"[{domain[0]} [,{domain[1]} = {default}]]"
-        else:
-            domain = str(domain).replace("'", "")
-        domain = f"Domain: {domain}\n\n"
-        codomain = f"Codomain: {self.Codomain}\n\n"
+        # domain = self.Domain
+        # default = self.DefaultValue
+        # if default and self.IsBinary:
+        #     domain = f"[{domain[0]} [,{domain[1]} = {default}]]"
+        # else:
+        #     domain = str(domain).replace("'", "")
+        # domain = f"Domain: {domain}\n\n"
+        # codomain = f"Codomain: {self.Codomain}\n\n"
 
+        # complete_doc = details + domain + codomain
+        # return complete_doc
+
+    @property
+    def DocDetailsDoxy(self) -> str:
         signature_ref = ""
         if self.Signature != 'Special':
             signature_ref = f'\see \\ref {self.Signature.lower()}-syntactic-forms "{self.Signature} Syntatic Forms"'
 
-        complete_doc = details + domain + codomain + signature_ref
-        return complete_doc
+        return self.DocDetails + signature_ref
+
     @property
-    def Short(self) -> str:
-        return self._definition.get('short', None)
+    def Symbol(self) -> str:
+        return self._definition.get('symbol', "")
+
+    @property
+    def Examples(self) -> str:
+        return self._definition.get('examples', "")
 
     @property
     def Aliases(self) -> str:
@@ -132,10 +147,13 @@ class Keyword:
 
 class KeywordGrammar:
     def __init__(self, data: dict):
-        keyword_groups: list = data['keyword_groups']
-        self._keywords = tuple(sorted(
-            (Keyword({**group.get('common', {}), **keyword}) for group in keyword_groups for keyword in group['keywords']),
-            key=lambda item: item.Name
+        keyword_groups: dict = data['keyword_groups']
+
+        self._groups = tuple(filter(lambda x: x != 'Internal', keyword_groups.keys()))
+        self._groups = tuple(map(lambda x: (x, x.lower().replace(' ', '-')), self._groups))
+        self._keywords = tuple((Keyword(
+            {'group': group, **group_data.get('defaults', {}), **keyword}) \
+                for group, group_data in keyword_groups.items() for keyword in group_data['keywords']
         ))
         # check unique names
         names = [k.Name for k in self._keywords]
@@ -194,3 +212,11 @@ class KeywordGrammar:
     @property
     def CodegenFns(self) -> list[Keyword]:
         return self.where(lambda x: x.CodegenValue and not x.IsOperator and not x.IsConst)
+
+    @property
+    def Groups(self) -> tuple[tuple[str, str]]:
+        "list of (group_name, group_ref)"
+        return self._groups
+
+    def GetGroup(self, group: str) -> list[Keyword]:
+        return self.where(lambda x: x.Group == group)
