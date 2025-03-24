@@ -155,49 +155,51 @@ void init_logging(std::string log_lvl, std::string log_sink)
 
 
 namespace zmbt {
-namespace appconfig {
 
 void InitZmbt(int argc, char **argv)
 {
-    std::string default_log_level;
-    std::string default_log_sink;
+    fs::path executable_path(argv[0]);
 
+    std::string default_log_level = "warning";
+    std::string default_log_sink = executable_path.filename().string();
+    bool default_log_prettify = false;
+
+
+
+#ifndef _MSC_VER
     if (const char* env_log_sink = std::getenv("ZMBT_LOG_SINK"))
     {
         default_log_sink = env_log_sink;
     }
-    else
-    {
-        fs::path executable_path(argv[0]);
-        default_log_sink = executable_path.filename().string();
-    }
-
     if (const char* env_log_level = std::getenv("ZMBT_LOG_LEVEL"))
     {
         default_log_level = env_log_level;
     }
-    else
+    if (std::getenv("ZMBT_LOG_PRETTIFY"))
     {
-        default_log_level = "warning";
+        default_log_prettify = true;
     }
+#endif
 
     po::options_description desc("ZMBT test appconfig options");
     desc.add_options()
         ("zmbt_log_level", po::value<std::string>()->default_value(default_log_level), "[trace|debug|info|warning|error|fatal] log severity level")
         ("zmbt_log_sink", po::value<std::string>()->default_value(default_log_sink), "file name")
+        ("zmbt_log_prettify", po::bool_switch()->default_value(default_log_prettify), "pretty print JSON values in failure reports")
     ;
 
     po::variables_map vm;
     po::store(po::command_line_parser(argc, argv).options(desc).allow_unregistered().run(), vm);
     po::notify(vm);
 
-    std::string zmbt_log_level = vm.at("zmbt_log_level").as<std::string>();
-    std::string zmbt_log_sink  = vm.at("zmbt_log_sink").as<std::string>();
+    std::string const zmbt_log_level = vm.at("zmbt_log_level").as<std::string>();
+    std::string const zmbt_log_sink  = vm.at("zmbt_log_sink").as<std::string>();
+    bool        const zmbt_log_prettify  = vm.at("zmbt_log_prettify").as<bool>();
+
     init_logging(zmbt_log_level, zmbt_log_sink);
-    // ZMBT_LOG_JSON(info) << "ZMBT initialized";
+    static_cast<void>(zmbt_log_prettify);
 }
 
-} // namespace appconfig
 } // namespace zmbt
 
 

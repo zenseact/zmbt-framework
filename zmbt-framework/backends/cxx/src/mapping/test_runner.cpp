@@ -131,7 +131,7 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
     auto test_value_it = test_vector.cbegin();
     auto channel_group_it = channel_groups_.cbegin();
     bool no_exception_met{true};
-    std::size_t group_idx {0};
+    std::size_t column_idx {0};
     while (test_value_it != test_vector.cend())
     {
         auto const& test_value = *test_value_it++;
@@ -166,11 +166,11 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
         catch (std::exception const& error) {
             report_failure(diagnostics
                 .Error("sample injection", error.what())
-                .ChannelIdx(group_idx)
+                .ChannelIdx(column_idx)
             );
             no_exception_met = false;
         }
-        group_idx++;
+        column_idx++;
     }
 
     return no_exception_met;
@@ -200,69 +200,107 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
     }
     auto test_value_it = test_vector.cbegin();
     auto channel_group_it = channel_groups_.cbegin();
-    bool no_exception_met{true};
-    std::size_t group_idx {0};
+    std::size_t column_idx {0};
+    bool test_case_passed{true};
+
     while (test_value_it != test_vector.cend())
     {
+        bool assertion_passed{true};
         auto const& test_value = *test_value_it++;
         auto const& channel_group = *channel_group_it++;
 
         if (channel_group.cbegin()->is_input())
         {
+            ++column_idx;
             continue;
         }
         auto expr = Expression(test_value);
-        if (expr.keyword() == Keyword::Noop)
+        if (expr.is(Keyword::Noop))
         {
+            ++column_idx;
             continue;
         }
+        else if (expr.is(Keyword::Apply))
+        {
+            try
+            {
+                expr = expr.eval();
+            }
+            catch(std::exception const& e)
+            {
+                assertion_passed = false;
+                diagnostics
+                    .Error("apply match evaluation", e.what())
+                    .ChannelIdx(column_idx);
+            }
+        }
 
-        auto const& combo = channel_group.cbegin()->combine();
         boost::json::value observed {};
         SignalOperatorHandler op {};
-        try {
-            if (combo == "series")
-            {
-                observed = ChannelHandle::observe_series(channel_group);
-            }
-            else if (combo == "join")
-            {
-                observed = ChannelHandle::observe_join(channel_group);
-            }
-            else
-            {
-                observed = channel_group.cbegin()->observe();
-                op = channel_group.cbegin()->op();
-            }
-        }
-        catch (std::exception const& error) {
-            report_failure(diagnostics
-                .Error("output observation",error.what())
-                .ChannelIdx(group_idx)
-            );
-            no_exception_met = false;
-        }
 
-        if (not (expr.match(observed, op)))
+        if (assertion_passed)
         {
-            // TODO: log
-
-            Expression::EvalConfig cfg {op, Expression::EvalLog::make(), 0};
-            expr.eval(observed, cfg);
-            ZMBT_LOG(error) << "Failing match evaluation:\n" << cfg.log;
-            // TODO: fix json log
-            // ZMBT_LOG_JSON(error) << *cfg.log.stack;
-
-            report_failure(diagnostics
-                .Fail(expr, observed, op)
-                .ChannelIdx(group_idx)
-            );
-            no_exception_met = false;
+            auto const& combo = channel_group.cbegin()->combine();
+            try {
+                if (combo == "series")
+                {
+                    observed = ChannelHandle::observe_series(channel_group);
+                }
+                else if (combo == "join")
+                {
+                    observed = ChannelHandle::observe_join(channel_group);
+                }
+                else
+                {
+                    observed = channel_group.cbegin()->observe();
+                    op = channel_group.cbegin()->op();
+                }
+            }
+            catch (std::exception const& error) {
+                diagnostics
+                    .Error("output observation",error.what())
+                    .ChannelIdx(column_idx);
+                assertion_passed = false;
+            }
         }
-        group_idx++;
+
+        if (assertion_passed)
+        {
+            try
+            {
+                if (not (expr.match(observed, op)))
+                {
+                    Expression::EvalConfig cfg {op, Expression::EvalLog::make(), 0};
+                    expr.eval(observed, cfg);
+
+                    diagnostics
+                        .Fail(expr, observed, op)
+                        .ChannelIdx(column_idx)
+                        .EvalStack(cfg.log);
+
+                    assertion_passed = false;
+                }
+            }
+            catch(const std::exception& e)
+            {
+                diagnostics
+                    .Error("output match evaluation", e.what())
+                    .ChannelIdx(column_idx);
+
+                assertion_passed = false;
+            }
+        }
+
+        if (!assertion_passed)
+        {
+            test_case_passed = false;
+            report_failure(diagnostics);
+        }
+        column_idx++;
+
     }
 
-    return no_exception_met;
+    return test_case_passed;
 }
 
 

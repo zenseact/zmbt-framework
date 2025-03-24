@@ -72,11 +72,15 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         buf[n-3] = '.';
         return;
     };
-
+    using E = zmbt::Expression;
+    E fn(rec.at(1));
+    if (fn.is(E::Keyword::Literal))
+    {
+        fn = E(E::Keyword::Eq, fn.underlying());
+    }
 
     boost::json::serializer sr;
-
-    boost::json::string_view f  = (sr.reset(&rec.at(1)), sr.read(buf_f));
+    boost::json::string_view f = (sr.reset(&fn.underlying()), sr.read(buf_f));
     if (!sr.done()) shrink(f, f.size());
 
     boost::json::string_view x  = (sr.reset(&rec.at(2)), sr.read(buf_x));
@@ -258,18 +262,15 @@ bool Expression::match(boost::json::value const& observed, SignalOperatorHandler
     return result.get_bool();
 }
 
-std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+
+void Expression::EvalLog::format(std::ostream& os, boost::json::array const& stack, int const indent)
 {
-    if (!log.stack)
-    {
-        return os;
-    }
 
     std::uint64_t prev_depth = 0;
     std::size_t vertical_groups = 0;
 
 
-    for (auto const& item: *log.stack)
+    for (auto const& item: stack)
     {
         auto const& rec = item.as_array();
         std::uint64_t const depth = rec.at(0).as_uint64();
@@ -278,6 +279,8 @@ std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
         {
             SET_BIT(vertical_groups, prev_depth);
         }
+
+        os << std::string(indent, ' ');
 
         for (std::uint64_t i = 0; i < depth; ++i)
         {
@@ -304,6 +307,14 @@ std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
 
         trim_line(os, rec);
         prev_depth = depth;
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+{
+    if (log.stack)
+    {
+        Expression::EvalLog::format(os, *log.stack);
     }
     return os;
 }

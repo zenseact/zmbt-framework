@@ -65,7 +65,7 @@ Expression class has overloading for several operators to simplify certain high-
 
 Complex expressions evaluation
 
-``` c++
+```cpp
 Expression::EvalConfig cfg{};
 cfg.log = Expression::EvalLog::make();
 

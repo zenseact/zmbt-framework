@@ -19,7 +19,7 @@ All the library functions below are available in namespace `zmbt::api`.
 
 ### Simple function test
 
-``` c++
+```cpp
 auto sum = [](int x, int y){ return x + y; };
 
 SignalMapping("Simple function test")
@@ -52,7 +52,7 @@ the third value.
 
 ### Test with mocks {#signal-mapping-model-overview-mocks}
 
-``` c++
+```cpp
 struct Mock {
     bool set_values(int& x, int& y) {
         // ZMBT mock api
@@ -94,7 +94,7 @@ including templates. In this example the mock behaves as a singleton -
 all Mock instances delegates to the same record. If you need to differentiate
 instances, this can be done by adding reference object to the record:
 
-``` c++
+```cpp
 // mock
 return zmbt::api::InterfaceRecord(this, &Mock::set_values).Hook(x, y);
 // corresponding channel clause
@@ -108,7 +108,7 @@ The examples above show invariant models with parameters specified by literals,
 but a model is not a model unless we allow variable parameters.
 Let's look at another example:
 
-``` c++
+```cpp
 struct Mock {
     void log(std::string msg) {
         return InterfaceRecord(&Mock::log).Hook(msg);
@@ -169,7 +169,7 @@ following rule:
 The `Zip` clause requires all parameter lists to be of equal length or
 containing a single element which intended to be repeated with other parameters:
 
-``` c++
+```cpp
 .Zip
     (X, 1, 2, 3)
     (Y, 1, 2, 3)
@@ -177,7 +177,7 @@ containing a single element which intended to be repeated with other parameters:
 ```
 This clause yields *(1,1,4), (2,2,4), (3,3,4)*, but the following one will fail
 at runtime due to inconsistent zip parameters count:
-``` c++
+```cpp
 .Zip
     (X, 1, 2, 3)
     (Y, 1, 2)
@@ -188,7 +188,7 @@ at runtime due to inconsistent zip parameters count:
 You can also repeat the same parameter key in multiple rows to avoid super-wide tables
 like this:
 
-``` c++
+```cpp
 .Zip
     (X, 1, 2, 3)
     (Y, 1, 2, 3)
@@ -199,7 +199,7 @@ like this:
 
 which is equivalent to
 
-``` c++
+```cpp
 .Zip
     (X, 1, 2, 3, 4, 5, 6)
     (Y, 1, 2, 3, 4, 5, 6)
@@ -211,7 +211,7 @@ which is *column -> channel*.
 
 Another parametrization mode is `Prod`, which stands for *Cartesian product*,
 so the clause
-``` c++
+```cpp
 .Prod
     (X,  1,  2)
     (Y, 10, 20)
@@ -223,7 +223,7 @@ yields a set of 4 model instances with *X, Y* equals
 Parameter clauses can be used multiple times - each clause creates an independent group.
 `Prod` and `Zip` clauses also can be chained
 
-``` c++
+```cpp
 .Prod
     (X, 1)
     (Y, 10, 20)
@@ -244,7 +244,7 @@ Here each clause initiates a separate product or zip set, resulting in
 Signal serialization allows specifying the particular subsignal with string
 (we call it signal path), e. g.
 
-``` c++
+```cpp
 .InjectTo (sut).Args("/0/foo/bar")
 .InjectTo (sut).Args("/1/foo/bar")
 .ObserveOn(sut).Return("/foo/bar")
@@ -262,7 +262,7 @@ the default signal path for unary function is `"/0"`.
 This works with parametrization well - if you need to parametrize only a part
 of signal path, use a printf-like syntax as follows:
 
-``` c++
+```cpp
 .InjectTo (sut).Args("/%d/%s/bar", Index, Field)
 ```
 
@@ -278,7 +278,7 @@ We can merge `Args(0)`, `Args(1)` from the first example
 into a single channel that refers to arguments tuple, and the corresponding
 test value may be represented with literal Boost JSON array:
 
-``` c++
+```cpp
 auto sum = [](int x, int y){ return x + y; };
 
 SignalMapping("Simple test with non-scalar channel")
@@ -300,7 +300,7 @@ For now we only considered strict equality checks.
 The library provides embedded functional scripting language in the `zmbt::dsl` namespace,
 that enables flexible matchers and more complex test data manipulation:
 
-``` c++
+```cpp
 .Test
     (2,  2, 4                ) ["this is a comment"]
     (2,  2, Eq(4)            ) ["same case as above"]
@@ -317,7 +317,7 @@ The predicate functions can be combined with `All`, `Any`, and `Not`.
 
 When the observed signal is set-like, we can apply set-specific expressions:
 
-``` c++
+```cpp
 auto sut = [](std::vector<int> x){ return x; };
 
 SignalMapping("Test set expressions")
@@ -359,7 +359,7 @@ Most of binary expressions are functors with optional parametrization in form
  2. `Expr(y) = x => x @ y`
 
 Example:
-``` c++
+```cpp
 assert(Lt(42).match(41));
 assert(Lt.match({41, 42}));
 ```
@@ -369,7 +369,7 @@ and arithmetic transforms (`Subset`, `Contains`, `Add`, etc.).
 
 
 High-order expressions can be used to manipulate both test inputs and outputs (WIP):
-``` c++
+```cpp
 assert(Reduce(Add, 0).eval({1,2,3,4}) == 10);
 assert(Map(Pow(0.5)).eval({4,9,16,25}) == boost::json::array{2,3,4,5});
 ```
@@ -386,7 +386,7 @@ way, allowing order checks on strings and array-like structures.
 Sometimes you need to apply specific C++ comparison operators - for such case
 a channel can take another parameter:
 
-``` c++
+```cpp
 .InjectTo(sum).As(type<int>)
 ```
 
@@ -404,7 +404,7 @@ with stubs that will throw exception if invalid assertions applied in test.
 
 This mechanism allows utilizing type decorators in place of actual signal types:
 
-``` c++
+```cpp
 auto DoubleToFloat = [](double x) -> float { return x; };
 
 SignalMapping("Narrowing conversion (double) -> float")
@@ -435,7 +435,7 @@ stimulus is repeated on each call, but the match expression is only applied to
 the last observation (range specification for `Call` is work in progress).
 
 
-``` c++
+```cpp
 struct Mock {
     int get_value() {
         return InterfaceRecord(&Mock::get_value).Hook();
@@ -469,7 +469,7 @@ multiple mock calls at once. If a signal path is specified on
 `Args` or `Return` node, it is used to transform the resulting list to
 cherry-pick only interesting subsignals:
 
-``` c++
+```cpp
 struct Mock {
     Bar do_smth(int x, int y) {
         return InterfaceRecord(&Mock::do_smth).Hook(x, y);
@@ -503,7 +503,7 @@ while `Call` will throw an exception if index is outside span.
 On injection channels `CallRange` does not accept slice parameters, however,
 it allows specifying values in a map instead of simple array:
 
-``` c++
+```cpp
 SignalMapping("Test CallRange inject")
     .OnTrigger(sut)
         .InjectTo  (sut)
@@ -528,7 +528,7 @@ see examples [below](#expressions).
 mock interface was invoked from the SUT, replacing combination of `CallRange()`
 with `Size` expression:
 
-``` c++
+```cpp
 SignalMapping("Test CallCount")
 .OnTrigger(sut)
     .InjectTo  (sut)
@@ -547,7 +547,7 @@ It can be made with combining clauses like `Join()` or `MergeInSeries()` that wi
 
 In the example below, the channel combination below gives a pair of captured args that can be tested with
 `Ge` or `Lt` expressions:
-``` c++
+```cpp
 .ObserveOn (&Mock::foo)
     .Join()
 .ObserveOn (&Mock::bar)
@@ -575,7 +575,7 @@ This feature is under construction, the API may look as following:
 The library relies on [Boost JSON](https://www.boost.org/doc/libs/1_84_0/libs/json/doc/html/index.html) to handle signals and test data.
 Let's create some types for our next example:
 
-``` c++
+```cpp
 namespace {
 enum class Foo { A, B, C };
 struct Bar {
@@ -591,7 +591,7 @@ struct Bar {
 The following lines, placed in the same namespace, enables serialization of
 `Foo` and `Bar`:
 
-``` c++
+```cpp
 BOOST_DESCRIBE_ENUM(Foo, A, B, C)
 BOOST_DESCRIBE_STRUCT(Bar, (), (foo, x))
 ZMBT_INJECT_JSON_TAG_INVOKE
@@ -600,13 +600,13 @@ ZMBT_INJECT_JSON_TAG_INVOKE
 Because `Bar` has deleted default constructor, we need to give ZMBT a hint
 on how to initialize a prototype value (should be in a global namespace):
 
-``` c++
+```cpp
 ZMBT_DEFINE_CUSTOM_INIT(Bar, (Foo::A, 0))
 ```
 
 Now we can define test like this:
 
-``` c++
+```cpp
 auto sut = [](Bar a, Bar b) {
     Foo foo = a.x > b.x ? a.foo : b.foo;
     int x = a.x + b.x;
@@ -642,7 +642,7 @@ to be done outside the test, a typical task for the test fixture.
 This can be done with `PreRun` and `PostRun` methods, that takes a list of tasks:
 
 
-``` c++
+```cpp
 struct Mock {
     int get_value() {
         return InterfaceRecord(&Mock::get_value).Hook();
@@ -695,7 +695,7 @@ Any non-serializable model component may be registered in the environment and
 referenced by a string key. This is what actually happens under the hood when we
 placed mfp literals in zip parameters in one of the examples above:
 
-``` c++
+```cpp
 .Zip
     (Ifc , &Sut::foo , &Sut::bar , &Sut::baz )
     (Name, "Sut::foo", "Sut::bar", "Sut::baz")
@@ -703,7 +703,7 @@ placed mfp literals in zip parameters in one of the examples above:
 
 We can do that registration explicitly:
 
-``` c++
+```cpp
 Environment env{};
 env.RegisterTrigger(sut, &Sut::foo, "Sut::foo");
 env.RegisterTrigger(sut, &Sut::bar, "Sut::bar");
@@ -737,8 +737,48 @@ Benefits from this approach are:
 However, the main objective of making this feature a part of API is under
 construction - we plan to allow a complete tests definition in JSON or YAML
 format
-<!--  -->
 
+### Diagnostic output
+
+Consider the following example:
+```cpp
+auto id = [](boost::json::value const& x){ return x; };
+
+SignalMapping("SignalMapping test")
+.OnTrigger(id)
+    .InjectTo  (id)
+    .ObserveOn (id)
+.Test
+    (Arange << "1:5", Reduce(Add) & Size | Div | Eq(2.5)) ["Computing average"]
+;
+```
+
+We can add negation at the matcher end as `| Not` to fail the test and check the log message:
+
+```yaml
+  - ZMBT FAIL:
+      model: "SignalMapping test"
+      message: "expectation match failed"
+      expected: {":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}
+      observed: [1,2,3,4]
+      test case: [3,1]
+      comment: "Computing average"
+      test vector: [{":apply":[":arange","1:5"]},{":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}]
+      expression eval stack: |-
+        ---
+                 ┌── ":add"([1,2]) = 3
+                 ├── ":add"([3,3]) = 6
+                 ├── ":add"([6,4]) = 10
+              ┌── {":reduce":":add"}([1,2,3,4]) = 10
+              ├── ":size"([1,2,3,4]) = 4
+           ┌── {":pack":[{":reduce":":add"},":size"]}([1,2,3,4]) = [10,4]
+           ├── ":div"([10,4]) = 2.5E0
+           ├── {":eq":2.5E0}(2.5E0) = true
+           ├── ":not"(true) = false
+        □  {":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}([1,2,3,4]) = false
+```
+
+To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.
 
 <!-- TODO: registering parameters and referencing by string key -->
 

@@ -33,6 +33,14 @@ Environment::Environment()
         data_ = std::make_shared<EnvironmentData>();
         instance = data_;
     }
+
+    static std::shared_ptr<PersistentConfig> config;
+    config_ = config;
+    if (not config_)
+    {
+        config_ = std::make_shared<PersistentConfig>();
+        config = config_;
+    }
 }
 
 Environment::lock_t Environment::Lock() const
@@ -171,21 +179,32 @@ SignalOperatorHandler Environment::GetOperatorOrDefault(boost::json::string_view
     return data_->operators.count(name) ? data_->operators.at(name) : SignalOperatorHandler{};
 }
 
+Environment::PersistentConfig Environment::Config() const
+{
+    return *config_;
+}
+
+Environment& Environment::SetPrettyPrint(bool const pretty_print)
+{
+    config_->pretty_print = pretty_print;
+    return *this;
+}
+
 Environment& Environment::SetFailureHandler(std::function<void(boost::json::value const&)> const& fn)
 {
-    data_->failure_handler = fn;
+    config_->failure_handler = fn;
     return *this;
 }
 
 Environment& Environment::ResetFailureHandler()
 {
-    data_->failure_handler = default_test_failure;
+    config_->failure_handler = default_test_failure;
     return *this;
 }
 
 Environment& Environment::HandleTestFailure(boost::json::value const& diagnostics)
 {
-    data_->failure_handler(diagnostics);
+    config_->failure_handler(diagnostics);
     return *this;
 }
 

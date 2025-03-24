@@ -50,23 +50,39 @@ unit_test_group(
 )
 
 
-cc_test(
-    name = 'threads_env',
-    srcs = ['threads_env.cpp'],
+
+cc_library(
+    name = 'gtest_exe',
+    srcs = ['run_in_gtest.cpp'],
+    visibility = [':__pkg__'],
     deps = [
         "//zmbt-framework/backends/cxx:zmbt",
-        "@com_google_googletest//:gtest_main"
+        "//zmbt-framework/backends/cxx:main_gtest",
     ],
-    defines = [
-        "BOOST_TEST_LOG_LEVEL=all"
+    copts = [
+        "-std=c++14",
+        "-Werror",
+        "-Wall",
+        "-Wextra",
+        "-Wpedantic",
+        "-Wno-parentheses", # allow `x & y | z` in tests
     ],
     linkopts = [
         '-lpthread',
         '-lm'
     ],
-    env = {
-    },
+)
+
+cc_test(
+    name = 'run_in_gtest',
+    deps = [':gtest_exe'],
+)
+
+cc_test(
+    name = 'run_in_gtest_thread_test',
+    deps = [':gtest_exe'],
     args = [
+        "--gtest_filter=RunInGtest.EnvThreadSafety",
         "--gtest_repeat=10",
         "--gtest_recreate_environments_when_repeating",
     ]

@@ -29,7 +29,7 @@ struct TestDiagnostics
 
     boost::json::string model;
     boost::json::string description{};
-    boost::json::string comment {};
+    boost::json::string comment    {};
     boost::json::string message    {};
     boost::json::value expected    {};
     boost::json::value observed    {};
@@ -39,7 +39,8 @@ struct TestDiagnostics
     boost::json::value nof_vector  {};
     boost::json::value trigger     {};
     boost::json::array channels    {};
-    Result kind           {};
+    boost::json::array eval_stack  {};
+    Result kind                    {};
 
 
     TestDiagnostics(boost::json::string_view model) : model{model} {}
@@ -82,6 +83,15 @@ struct TestDiagnostics
     TestDiagnostics& Trigger(boost::json::value const& trig)
     {
         this->trigger = trig; return *this;
+    }
+
+    TestDiagnostics& EvalStack(Expression::EvalLog const& log)
+    {
+        if (log.stack)
+        {
+            this->eval_stack = *log.stack;
+        }
+        return *this;
     }
 
     /// report test setup or execution error

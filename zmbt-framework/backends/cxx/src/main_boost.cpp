@@ -1,19 +1,23 @@
 /**
  * @file
- * @copyright (c) Copyright 2024 Zenseact AB
+ * @copyright (c) Copyright 2024-2025 Zenseact AB
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <sstream>
+
 #define BOOST_TEST_ALTERNATIVE_INIT_API
 #include <boost/test/unit_test.hpp>
-#include "zmbt/appconfig.hpp"
+
+#include <zenseact-mbt.hpp>
 
 bool init_unit_test()
 {
-    zmbt::appconfig::InitZmbt(
-         boost::unit_test::framework::master_test_suite().argc,
-         boost::unit_test::framework::master_test_suite().argv
-     );
+    zmbt::Environment().SetFailureHandler([](boost::json::value const& sts){
+        std::stringstream ss;
+        zmbt::format_failure_report(ss, sts);
+        BOOST_ERROR(ss.str());
+    });
     return true;
 }
 

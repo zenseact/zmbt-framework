@@ -63,7 +63,8 @@ boost::json::value TestDiagnostics::to_json() const
         {"decorator"     , this->decorator   },
         {"description"   , this->description },
         {"comment"       , this->comment     },
-        {"channels"      , this->channels    }
+        {"channels"      , this->channels    },
+        {"eval_stack"    , this->eval_stack  },
     };
 }
 

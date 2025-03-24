@@ -43,6 +43,9 @@ public:
         /// Push record to log stack
         void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;
 
+
+        static void format(std::ostream& os, boost::json::array const& log, int const indent = 0);
+
         friend std::ostream& operator<<(std::ostream& os, EvalLog const& log);
 
         /// Make non-empty EvalLog

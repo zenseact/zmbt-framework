@@ -11,7 +11,6 @@ def unit_test_group(lib, srcs):
             ],
             copts = [
                 "-std=c++14",
-                # "-Wgnu-zero-variadic-macro-arguments",
                 "-Werror",
                 "-Wall",
                 "-Wextra",

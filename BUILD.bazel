@@ -11,3 +11,9 @@ alias(
     actual = "//zmbt-framework/backends/cxx:main_boost",
     visibility = ["//visibility:public"],
 )
+
+alias(
+    name = "zmbt_cxx_main_gtest",
+    actual = "//zmbt-framework/backends/cxx:main_gtest",
+    visibility = ["//visibility:public"],
+)

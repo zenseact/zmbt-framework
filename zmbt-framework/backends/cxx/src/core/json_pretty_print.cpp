@@ -95,6 +95,7 @@ std::ostream& pretty_print_impl(std::ostream& os, boost::json::value const& jv, 
 
 std::ostream& zmbt::pretty_print(std::ostream& os, boost::json::value const& jv, int const indent)
 {
+    os << std::string((indent)*4, ' ');
     return pretty_print_impl(os, jv, indent);
     return os;
 }

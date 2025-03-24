@@ -282,11 +282,6 @@ BOOST_FIXTURE_TEST_CASE(MatchExpressions, ModelTestFixture)
 {
     auto sum = [](int x, int y){ return x + y; };
 
-    SetFailureHandler([](auto report){
-        zmbt::pretty_print(std::cerr, report);
-        BOOST_FAIL("ZMBT_FAIL");
-    });
-
     SignalMapping("Test with match expressions")
     .OnTrigger(sum)
         .InjectTo  (sum) .Args(0)

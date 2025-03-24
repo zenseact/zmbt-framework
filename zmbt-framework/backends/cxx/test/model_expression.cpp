@@ -655,7 +655,6 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
         implementation_error_thrown = true;
         if (NotImplemented.count(keyword) == 0)
         {
-            std::cerr << e.what() << '\n';
             BOOST_FAIL("Keyword " << json_from(keyword) << " is not implemented");
         }
     }

@@ -18,6 +18,7 @@
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/model/signal_operator_handler.hpp>
+#include <zmbt/model/test_failure.hpp>
 #include <zmbt/reflect/signal_traits.hpp>
 #include <zmbt/reflect/invocation.hpp>
 #include <zmbt/reflect/prototypes.hpp>
@@ -69,6 +70,17 @@ class Environment {
     using hookout_args_t = mp_transform<rvref_to_val, argsref_t<I>>;
 
     std::shared_ptr<EnvironmentData> data_;
+
+    // TODO: move to persistent config
+    using FailureHandler = std::function<void(boost::json::value const&)>;
+    struct PersistentConfig
+    {
+        FailureHandler failure_handler {&zmbt::default_test_failure};
+        bool pretty_print {false};
+    };
+
+    std::shared_ptr<PersistentConfig> config_;
+
 
   public:
     class InterfaceHandle;
@@ -568,6 +580,13 @@ class Environment {
     SignalOperatorHandler GetOperator(boost::json::string_view name) const;
 
     SignalOperatorHandler GetOperatorOrDefault(boost::json::string_view name) const;
+
+
+    PersistentConfig Config() const;
+
+
+    /// Set pretty print JSON values
+    Environment& SetPrettyPrint(bool const pretty_print = true);
 
     /// Set custom test failure handler
     Environment& SetFailureHandler(std::function<void(boost::json::value const&)> const& fn);

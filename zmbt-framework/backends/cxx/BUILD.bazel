@@ -182,9 +182,21 @@ cc_library(
     ],
     deps = [
         ":zmbt",
-        ":appconfig",
-        "@boost//:filesystem",
         "@boost//:test.so",
+    ],
+    copts = ZMBT_COPTS,
+)
+
+cc_library(
+    name = "main_gtest",
+    visibility = ["//visibility:public"],
+    includes = ["include/"],
+    srcs = [
+        "src/main_gtest.cpp",
+    ],
+    deps = [
+        ":zmbt",
+        "@googletest//:gtest",
     ],
     copts = ZMBT_COPTS,
 )
