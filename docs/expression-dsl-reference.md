@@ -15,7 +15,7 @@
 [TOC]
 
 
-## Constants {#constants}
+## Constants {#expression-dsl-reference-constants}
 <table>
 <thead>
     <tr>
@@ -30,6 +30,7 @@
         <td>No operation
         <pre>Returns true without input validation.
 Used in place of matchers for uninteresting signals.</pre>
+        <br>Aliases: _
         </td>
     </tr>
     <tr>
@@ -81,7 +82,7 @@ Used in place of matchers for uninteresting signals.</pre>
         </td>
     </tr>
 
-## Math Functions {#math-functions}
+## Math Functions {#expression-dsl-reference-math-functions}
 <table>
 <thead>
     <tr>
@@ -225,7 +226,7 @@ use Mul(ndigits)|Round|Div(ndigits) combo.</pre>
         </td>
     </tr>
 
-## Arithmetic Operators {#arithmetic-operators}
+## Arithmetic Operators {#expression-dsl-reference-arithmetic-operators}
 <table>
 <thead>
     <tr>
@@ -477,7 +478,7 @@ QuotFrom(4) >> 7   == 1</pre></td>
         <td><pre>BitRshiftFrom >> [2, 0b1010] == 0b0010</pre></td>
     </tr>
 
-## Relation Operators {#relation-operators}
+## Relation Operators {#expression-dsl-reference-relation-operators}
 <table>
 <thead>
     <tr>
@@ -559,6 +560,7 @@ Rhs dynamic evaluation:
   2. [ref]              -> [ref, default, default]
   3. [ref, rtol]        -> [ref, rtol   , default]
   4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]</pre>
+        <br>Aliases: near
         </td>
         <td><pre>Approx >> [42, 42] == true
 Approx(42.0 + 1e-09) >> 42 == true
@@ -570,7 +572,7 @@ Absolute tolerance 0.01
 Approx([3.14, 0, 0.01]) >> pi == true</pre></td>
     </tr>
 
-## Set Operators {#set-operators}
+## Set Operators {#expression-dsl-reference-set-operators}
 <table>
 <thead>
     <tr>
@@ -618,7 +620,7 @@ Diff([2, 3]) >> [1, 2] == [1]</pre></td>
 DiffFrom([2, 3]) >> [1, 2] == [3]</pre></td>
     </tr>
 
-## Set Relation Operators {#set-relation-operators}
+## Set Relation Operators {#expression-dsl-reference-set-relation-operators}
 <table>
 <thead>
     <tr>
@@ -721,6 +723,7 @@ NotIn([1, 2]) >> 1 == false</pre></td>
         </td>
         <td>∋</td>
         <td>Contains element
+        <br>Aliases: contains
         </td>
         <td><pre>Ni >> [[1, 2], 1] == true
 Ni([1, 2]) >> 3 == false</pre></td>
@@ -735,7 +738,7 @@ Ni([1, 2]) >> 3 == false</pre></td>
 NotNi([1, 2]) >> 1 == false</pre></td>
     </tr>
 
-## Branching Operators {#branching-operators}
+## Branching Operators {#expression-dsl-reference-branching-operators}
 <table>
 <thead>
     <tr>
@@ -824,7 +827,7 @@ And(42)|Or(13) >> true  == 42
 And(42)|Or(13) >> false == 13</pre></td>
     </tr>
 
-## Unary Structural transforms {#unary-structural-transforms}
+## Unary Structural transforms {#expression-dsl-reference-unary-structural-transforms}
 <table>
 <thead>
     <tr>
@@ -907,7 +910,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td><pre>Flatten >> [[1, 2], [3, 4]] == [1, 2, 3, 4]</pre></td>
     </tr>
 
-## Unary Generators {#unary-generators}
+## Unary Generators {#expression-dsl-reference-unary-generators}
 <table>
 <thead>
     <tr>
@@ -943,7 +946,7 @@ Arange >> "1:9:2"   == [1,3,5,7]
 Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
     </tr>
 
-## String Transforms Unary {#string-transforms-unary}
+## String Transforms {#expression-dsl-reference-string-transforms}
 <table>
 <thead>
     <tr>
@@ -957,6 +960,7 @@ Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
         <td>[Parse](\ref expr-parse)
         </td>
         <td>Parse string as json
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Parse >> '{"a": 42}' == {"a": 42}</pre></td>
     </tr>
@@ -964,27 +968,34 @@ Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
         <td>[Serialize](\ref expr-serialize)
         </td>
         <td>Serialize json as string
+        <br>Aliases: str
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Serialize >> {"a": 42} == '{"a":42}'</pre></td>
-    </tr>
-    <tr>
-        <td>[Format](\ref expr-format)
-        </td>
-        <td>Format string with given parameter list
-        </td>
-        <td><pre>Format >> ["Hello, %s!", ["world"]] == "Hello, world!"</pre></td>
     </tr>
     <tr>
         <td>[Re](\ref expr-re)
         </td>
         <td>Regular expression match
         <pre>If input is not a string, match it's serialized form.</pre>
+        <br>Aliases: regex
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Re >> ["[0-9]+", "42"] == true
 Re("[0-9]+") >> "42" == true</pre></td>
     </tr>
+    <tr>
+        <td>[Format](\ref expr-format)
+        </td>
+        <td>Format string with given parameter list
+        <br>Aliases: fmt
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
+        </td>
+        <td><pre>Format >> ["Hello, %s!", ["world"]] == "Hello, world!"
+Format(2,2,4) >> "%d + %d = %d" == "2 + 2 = 4"</pre></td>
+    </tr>
 
-## Structural properties {#structural-properties}
+## Structural properties {#expression-dsl-reference-structural-properties}
 <table>
 <thead>
     <tr>
@@ -998,6 +1009,7 @@ Re("[0-9]+") >> "42" == true</pre></td>
         <td>[Card](\ref expr-card)
         </td>
         <td>Set cardinality (uniques count)
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Card >> [1, 2, 1, 3, 2] == 3
 Card >> {"a": 1, "b": 2} == 2</pre></td>
@@ -1006,6 +1018,7 @@ Card >> {"a": 1, "b": 2} == 2</pre></td>
         <td>[Size](\ref expr-size)
         </td>
         <td>Sequence size
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Size >> [1, 1, 1] == 3
 Size >> {"a": 1, "b": 2} == 2</pre></td>
@@ -1015,6 +1028,7 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         </td>
         <td>Summation reduction
         <pre>Equivalent to Reduce(Add)</pre>
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Sum >> [1, 2, 3] == 6</pre></td>
     </tr>
@@ -1023,6 +1037,7 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         </td>
         <td>Multiplication reduction
         <pre>Equivalent to Reduce(Mul)</pre>
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Prod >> [1, 2, 3] == 6</pre></td>
     </tr>
@@ -1030,11 +1045,12 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         <td>[Avg](\ref expr-avg)
         </td>
         <td>Arythmetic average
+        <br>Syntax: [Unary](\ref expression-dsl-forms)
         </td>
         <td><pre>Avg >> [1, 2, 3] == 2</pre></td>
     </tr>
 
-## Binary Structural transforms {#binary-structural-transforms}
+## Binary Structural transforms {#expression-dsl-reference-binary-structural-transforms}
 <table>
 <thead>
     <tr>
@@ -1119,7 +1135,7 @@ At("4:")      >> [1,2,3,4,5,6,7,8] == [5,6,7,8]
 At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
     </tr>
 
-## High-Order Binary {#high-order-binary}
+## High-Order {#expression-dsl-reference-high-order}
 <table>
 <thead>
     <tr>
@@ -1134,7 +1150,11 @@ At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
         </td>
         <td>Reduce sequence with binary operator
         <pre>To set specific initial value, use composition with Push, e.g.
-Push(0)|Reduce(Add)</pre>
+Push(0)|Reduce(Add)
+
+For reverse operatin, see Unfold</pre>
+        <br>Aliases: fold
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Reduce(Add) >> [-1, 2, 3] ==  4
 Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
@@ -1143,6 +1163,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>[Map](\ref expr-map)
         </td>
         <td>Apply param expr to every element of sequence
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Map(Add(1)) >> [1, 2, 3] == [2, 3, 4]</pre></td>
     </tr>
@@ -1150,6 +1171,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>[Filter](\ref expr-filter)
         </td>
         <td>Filter sequence by predicate param
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Filter(Gt(2)) >> [1, 2, 3, 4] == [3, 4]</pre></td>
     </tr>
@@ -1157,6 +1179,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>[Count](\ref expr-count)
         </td>
         <td>Count matches by predicate param
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Count(Gt(2)) >> [1, 2, 3, 4] == 2</pre></td>
     </tr>
@@ -1164,6 +1187,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>[Sort](\ref expr-sort)
         </td>
         <td>Sort list by key function
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Sort >> [3, 1, 2] == [1, 2, 3]
 Sort(Id) >> [3, 1, 2] == [1, 2, 3]
@@ -1174,6 +1198,7 @@ Sort|Reverse >> [3, 1, 2] == [3, 2, 1]</pre></td>
         <td>[Min](\ref expr-min)
         </td>
         <td>Min value by key function
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Min      >> [-3, 1, -2] ==  1
 Min(Abs) >> [-3, 1, -2] == -3</pre></td>
@@ -1182,6 +1207,7 @@ Min(Abs) >> [-3, 1, -2] == -3</pre></td>
         <td>[Max](\ref expr-max)
         </td>
         <td>Max value by key function
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Max      >> [-3, 1, -2] ==  1
 Max(Abs) >> [-3, 1, -2] == -3</pre></td>
@@ -1190,6 +1216,7 @@ Max(Abs) >> [-3, 1, -2] == -3</pre></td>
         <td>[Argmin](\ref expr-argmin)
         </td>
         <td>Min value index by key function
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Argmin      >> [-3, 1, -2] == 0
 Argmin(Abs) >> [-3, 1, -2] == 1</pre></td>
@@ -1198,33 +1225,16 @@ Argmin(Abs) >> [-3, 1, -2] == 1</pre></td>
         <td>[Argmax](\ref expr-argmax)
         </td>
         <td>Max value index by key function
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Argmax      >> [-3, 1, -2] == 1
 Argmax(Abs) >> [-3, 1, -2] == 0</pre></td>
-    </tr>
-
-## High-Order Ternary {#high-order-ternary}
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td>[Recur](\ref expr-recur)
-        </td>
-        <td>Apply recursion to parameter expr
-        </td>
-        <td><pre>Recur(Add(1), 3)  >> 0 ==  3
-Recur(Mul(-1), 3) >> 1 == -1</pre></td>
     </tr>
     <tr>
         <td>[Apply](\ref expr-apply)
         </td>
         <td>Apply expr to literal param
+        <br>Syntax: [Ternary](\ref expression-dsl-forms)
         </td>
         <td><pre>Apply(Add(1), 42) >> null == 43
 
@@ -1232,26 +1242,35 @@ Recur(Mul(-1), 3) >> 1 == -1</pre></td>
 (Add(1) << 42) ≡ Apply(Add(1), 42)</pre></td>
     </tr>
     <tr>
+        <td>[Recur](\ref expr-recur)
+        </td>
+        <td>Apply recursion to parameter expr
+        <br>Syntax: [Ternary](\ref expression-dsl-forms)
+        </td>
+        <td><pre>Recur(Add(1), 3)  >> 0 ==  3
+Recur(Mul(-1), 3) >> 1 == -1</pre></td>
+    </tr>
+    <tr>
+        <td>[Unfold](\ref expr-unfold)
+        </td>
+        <td>Put results of recursive fn call on initial value x into an array
+        <br>Syntax: [Ternary](\ref expression-dsl-forms)
+        </td>
+        <td><pre>Unfold(Add(1), 3)  >> 0 ==  [0, 1, 2, 3]
+Unfold(Mul(-1), 3) >> 1 ==  [1,-1, 1,-1]</pre></td>
+    </tr>
+    <tr>
         <td>[Bind](\ref expr-bind)
         </td>
-        <td>!not implemented! bind parameters
+        <td>!not implemented! bind design-time parameters
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
         </td>
     </tr>
-
-## High-Order Variadics {#high-order-variadics}
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
     <tr>
         <td>[Any](\ref expr-any)
         </td>
         <td>Match any predicate
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
         </td>
         <td><pre>Any(Gt(2), Lt(0)) >> 3 == true
 Any(Gt(2), Lt(0)) >> 0 == false</pre></td>
@@ -1260,6 +1279,7 @@ Any(Gt(2), Lt(0)) >> 0 == false</pre></td>
         <td>[All](\ref expr-all)
         </td>
         <td>Match all predicates
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
         </td>
         <td><pre>All(Gt(2), Lt(0)) >> 3 == false
 All(Gt(2), Lt(3)) >> 2.5 == true</pre></td>
@@ -1268,6 +1288,7 @@ All(Gt(2), Lt(3)) >> 2.5 == true</pre></td>
         <td>[Saturate](\ref expr-saturate)
         </td>
         <td>Saturate matches in order
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
         </td>
         <td><pre>Saturate(Gt(2), Lt(0)) >> 3 == true
 Saturate(Gt(2), Lt(0)) >> 0 == false
@@ -1280,6 +1301,7 @@ Saturate(42, Mod(2)|0) >> [2,4,8,42]     == false</pre></td>
         <td>[Compose](\ref expr-compose)
         </td>
         <td>Compose functions
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
         </td>
         <td><pre>Compose(Add(1), Mul(2)) >> 3 == 7
 Compose(Add(1), Mul(2)) >> 4 == 9
@@ -1293,6 +1315,7 @@ Add(1)|Mul(2) >> 3 == 7</pre></td>
         </td>
         <td>Pack results from enveloped functions into an array
         <pre>Allows to combine different properties in a single expression</pre>
+        <br>Syntax: [Variadic](\ref expression-dsl-forms)
         </td>
         <td><pre>Pack(Reduce(Add), Size) >> [1,2,3] == [6,3]
 
@@ -1301,7 +1324,7 @@ Reduce(Add) & Size >> [1,2,3] == [6,3]
 Reduce(Add) & Size | Div >> [1,2,3] == 2</pre></td>
     </tr>
 
-## Evaluation handlers {#evaluation-handlers}
+## Evaluation handlers {#expression-dsl-reference-evaluation-handlers}
 <table>
 <thead>
     <tr>
@@ -1315,6 +1338,7 @@ Reduce(Add) & Size | Div >> [1,2,3] == 2</pre></td>
         <td>[Default](\ref expr-default)
         </td>
         <td>Return x if not null, else return default value
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Default(42) >> null == 42
 Default(42) >> 13 == 13</pre></td>
@@ -1323,6 +1347,7 @@ Default(42) >> 13 == 13</pre></td>
         <td>[Try](\ref expr-try)
         </td>
         <td>Evaluate enveloped function and return result or null if it throws
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>Try(Add(1)) >> 42    == 43
 Try(Add(1)) >> "foo" == null</pre></td>
@@ -1331,6 +1356,7 @@ Try(Add(1)) >> "foo" == null</pre></td>
         <td>[TryCatch](\ref expr-try-catch)
         </td>
         <td>Evaluate enveloped function and return result or error info if it throws
+        <br>Syntax: [Binary](\ref expression-dsl-forms)
         </td>
         <td><pre>TryCatch(Div(0)) >> 42 == {
     "err": "zero division",

@@ -461,6 +461,9 @@ std::vector<TestEvalSample> const TestSamples
     {Reduce(Add)                , L{}                   , nullptr               },
     {Reduce                     , {{2,2,2,2},Add}       ,  8                    },
 
+    {Unfold(Add(1), 4)          , 0                     , {0,1,2,3,4}           },
+    {Unfold(Add(1), 4)          , 1                     , {1,2,3,4,5}           },
+
     // ternary and or
     {And(42)|Or(13)             , true                  , 42                    },
     {And(42)|Or(13)             , false                 , 13                    },
@@ -546,11 +549,11 @@ std::vector<TestEvalSample> const TestSamples
     {Concat                     , L{"Hello, ", "World!"} , "Hello, World!"      },
     {Concat({3,4})              , {1,2}                  , {1,2,3,4}            },
 
-    {Format({"Hello", "World"}) , "%s, %s!"              , "Hello, World!"      },
-    {Format("World")            , "Hello, %s!"           , "Hello, World!"      },
+    {Format("Hello", "World")   , "%s, %s!"              , "Hello, World!"      },
+    {Format(2,2,4)              , "%d + %d = %d"         , "2 + 2 = 4"          },
+    {Format({1,2,3})            , "list: %s"             , "list: [1,2,3]"      },
     {Format                     , {"Hello, %s!", "World"}, "Hello, World!"      },
-    {Format({2,2,4})            , "%d + %d = %d"         , "2 + 2 = 4"          },
-    {Format(L{{1,2,3}})         , "list: %s"             , "list: [1,2,3]"      },
+    {Format                     , {"Hello, %s!", L{"World"}}, "Hello, World!"      },
 
     {Parse                      , "[1,2,3]"              , {1,2,3}              },
     {Serialize                  , {1,2,3}                , "[1,2,3]"            },

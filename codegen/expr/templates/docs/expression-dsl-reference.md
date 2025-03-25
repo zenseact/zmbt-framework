@@ -17,7 +17,7 @@
 
 @for group, group_ref in data.Groups:
 
-## @group {#@group_ref}
+## @group {#expression-dsl-reference-@group_ref}
 <table>
 <thead>
     <tr>
@@ -42,6 +42,12 @@
         <td>@keyword.DocBrief
         @if details := keyword.DocDetails:
         <pre>@details</pre>
+        @end
+        @if aliases := keyword.Aliases:
+        <br>Aliases: @{", ".join(aliases)}
+        @end
+        @if all(map(lambda x: x not in group, ['Unary', 'Binary', 'Math', 'Const', 'Operators'])):
+        <br>Syntax: [@keyword.Signature](\ref expression-dsl-forms)
         @end
         </td>
     @if group not in ('Constants', 'Math Functions'):

@@ -301,79 +301,26 @@ The library provides embedded functional scripting language in the `zmbt::dsl` n
 that enables flexible matchers and more complex test data manipulation:
 
 ```cpp
+
+auto id = [](boost::json::value const& x){ return x; };
+
+SignalMapping("SignalMapping test")
+.OnTrigger(id)
+    .InjectTo  (id)
+    .ObserveOn (id)
 .Test
-    (2,  2, 4                ) ["this is a comment"]
-    (2,  2, Eq(4)            ) ["same case as above"]
-    (2,  2, Ne(5)            ) ["not equals 5"]
-    (2,  2, Not(Eq(5))       ) ["same as above"]
-    (2,  2, Gt(1)            ) ["greater than 1"]
-    (2,  2, All(Ge(0), Le(5))) ["between 0 and 5"]
-    (2,  2, In({1,2,3,4})    ) ["is element of {1,2,3,4} set"]
-    (2,  2, Near({3, .5})    ) ["approximation with relative tolerance"]
-    (2,  2, Not(Nil())       ) ["bool(signal) resolves to true"]
-```
-
-The predicate functions can be combined with `All`, `Any`, and `Not`.
-
-When the observed signal is set-like, we can apply set-specific expressions:
-
-```cpp
-auto sut = [](std::vector<int> x){ return x; };
-
-SignalMapping("Test set expressions")
-.OnTrigger(sut)
-    .InjectTo  (sut)
-    .ObserveOn (sut)
-.Test
-    ( {1,2,3}   , Eq({1,2,3})                   )
-    ( {1,1,1}   , Size|3                        )
-    ( {1,1,1}   , Card|1                        )
-    ( {1,2,3}   , SetEq({1,1,2,2,3,3})          )
-    ( {1,2,3}   , Subset({1,2,3})               )
-    ( {1,2,3}   , Superset({1,2,3})             )
-    ( {1,2,3}   , ProperSubset({1,2,3,4})       )
-    ( {1,2,3}   , ProperSuperset({1,3})         )
-    ( {1,2,3}   , Not(ProperSubset({1,2,3}))    )
-    ( {1,2,3}   , Not(ProperSuperset({1,2,3}))  )
-    ( {1,2,3}   , Ni(1)                         )
-    ( {1,2,3}   , Not(Ni(42))                   )
-    ( {1,2,3}   , Saturate(Ne(5), 2, 3)         )
-    ( {1,2,3}   , Count(Ne(5))|3                )
-    ( {1,2,3}   , Count(2)|Lt(3)                )
-    ( {1,2,3}   , All(At(0)|1, At("/1")|2)      )
-    ( {1,2,3}   , Re("^\\[1,2,3\\]$")           )
+    (42                 , Eq(42)                             ) ["basic equality test"]
+    (42                 , All(Ge(41), Le(42))                ) ["between 0 and 5"]
+    ( 2                 , In({1,2,3,4})                      ) ["is element of"]
+    ({1,2,3}            , Saturate(Ne(5), 2, Mod(2)|Eq(1))   ) ["saturate matchers over array in order"]
+    ({42, 42, 42}       , Repeat(3) << 42                    ) ["output generation with Apply"]
+    (Repeat(3) << 42    , Serialize|"[42,42,42]"             ) ["input generation with Apply"]
+    ("[42,42,42]"       , Parse & Repeat(3) << 42 | Eq       ) ["Nested Apply"]
+    (Arange << "1:5"    , Reduce(Add) & Size | Div | Eq(2.5) ) ["Computing an average"]
 ;
 ```
 
-- `Size`: size of array or object
-- `Card`: set cardinality (number of unique elements). For objects size and cardinality are equal.
-- `SetEq`: set equality (ignore duplicates and order)
-- `Subset, Superset, ProperSubset, ProperSuperset`: common set tests
-- `Saturate(expr, expr...)`: saturate matches against array in strict order
-- `Count(expr, n)`: count expr matches in array and check agains n expr (can be an arbitrary expr)
-- `At(jp, expr)`: test match at JSON pointer or array index
-
-
-Most of binary expressions are functors with optional parametrization in form
- 1. `Expr = x => x1 @ x2`
- 2. `Expr(y) = x => x @ y`
-
-Example:
-```cpp
-assert(Lt(42).match(41));
-assert(Lt.match({41, 42}));
-```
-
-This semantic works both for all terminal binary expressions expressions, including set matchers
-and arithmetic transforms (`Subset`, `Contains`, `Add`, etc.).
-
-
-High-order expressions can be used to manipulate both test inputs and outputs (WIP):
-```cpp
-assert(Reduce(Add, 0).eval({1,2,3,4}) == 10);
-assert(Map(Pow(0.5)).eval({4,9,16,25}) == boost::json::array{2,3,4,5});
-```
-
+See more at [Expression DSL intro](./expression-dsl.md).
 
 ### Signal type decoration
 

@@ -164,10 +164,10 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "parse", Keyword::Parse)
     (ZMBT_KEYWORD_PREFIX "serialize", Keyword::Serialize)
     (ZMBT_KEYWORD_PREFIX "str", Keyword::Serialize)
-    (ZMBT_KEYWORD_PREFIX "format", Keyword::Format)
-    (ZMBT_KEYWORD_PREFIX "fmt", Keyword::Format)
     (ZMBT_KEYWORD_PREFIX "re", Keyword::Re)
     (ZMBT_KEYWORD_PREFIX "regex", Keyword::Re)
+    (ZMBT_KEYWORD_PREFIX "format", Keyword::Format)
+    (ZMBT_KEYWORD_PREFIX "fmt", Keyword::Format)
     (ZMBT_KEYWORD_PREFIX "card", Keyword::Card)
     (ZMBT_KEYWORD_PREFIX "size", Keyword::Size)
     (ZMBT_KEYWORD_PREFIX "sum", Keyword::Sum)
@@ -182,6 +182,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
     (ZMBT_KEYWORD_PREFIX "at", Keyword::At)
     (ZMBT_KEYWORD_PREFIX "reduce", Keyword::Reduce)
+    (ZMBT_KEYWORD_PREFIX "fold", Keyword::Reduce)
     (ZMBT_KEYWORD_PREFIX "map", Keyword::Map)
     (ZMBT_KEYWORD_PREFIX "filter", Keyword::Filter)
     (ZMBT_KEYWORD_PREFIX "count", Keyword::Count)
@@ -190,8 +191,9 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "max", Keyword::Max)
     (ZMBT_KEYWORD_PREFIX "argmin", Keyword::Argmin)
     (ZMBT_KEYWORD_PREFIX "argmax", Keyword::Argmax)
-    (ZMBT_KEYWORD_PREFIX "recur", Keyword::Recur)
     (ZMBT_KEYWORD_PREFIX "apply", Keyword::Apply)
+    (ZMBT_KEYWORD_PREFIX "recur", Keyword::Recur)
+    (ZMBT_KEYWORD_PREFIX "unfold", Keyword::Unfold)
     (ZMBT_KEYWORD_PREFIX "bind", Keyword::Bind)
     (ZMBT_KEYWORD_PREFIX "any", Keyword::Any)
     (ZMBT_KEYWORD_PREFIX "all", Keyword::All)
@@ -319,8 +321,8 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Arange: { v = ZMBT_KEYWORD_PREFIX "arange"; break; }
     case Keyword::Parse: { v = ZMBT_KEYWORD_PREFIX "parse"; break; }
     case Keyword::Serialize: { v = ZMBT_KEYWORD_PREFIX "serialize"; break; }
-    case Keyword::Format: { v = ZMBT_KEYWORD_PREFIX "format"; break; }
     case Keyword::Re: { v = ZMBT_KEYWORD_PREFIX "re"; break; }
+    case Keyword::Format: { v = ZMBT_KEYWORD_PREFIX "format"; break; }
     case Keyword::Card: { v = ZMBT_KEYWORD_PREFIX "card"; break; }
     case Keyword::Size: { v = ZMBT_KEYWORD_PREFIX "size"; break; }
     case Keyword::Sum: { v = ZMBT_KEYWORD_PREFIX "sum"; break; }
@@ -341,8 +343,9 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
     case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }
     case Keyword::Argmax: { v = ZMBT_KEYWORD_PREFIX "argmax"; break; }
-    case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
     case Keyword::Apply: { v = ZMBT_KEYWORD_PREFIX "apply"; break; }
+    case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
+    case Keyword::Unfold: { v = ZMBT_KEYWORD_PREFIX "unfold"; break; }
     case Keyword::Bind: { v = ZMBT_KEYWORD_PREFIX "bind"; break; }
     case Keyword::Any: { v = ZMBT_KEYWORD_PREFIX "any"; break; }
     case Keyword::All: { v = ZMBT_KEYWORD_PREFIX "all"; break; }

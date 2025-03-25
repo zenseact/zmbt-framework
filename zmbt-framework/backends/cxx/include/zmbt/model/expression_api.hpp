@@ -635,14 +635,6 @@ extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Serialize> const Serialize;
 /// \brief Alias for Serialize
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Serialize> const Str;
 
-/// \brief Format string with given parameter list
-/// \anchor expr-format
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Format> const Format;
-/// \brief Alias for Format
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Format> const Fmt;
-
 /// \brief Regular expression match
 /// \anchor expr-re
 /// \details
@@ -650,6 +642,14 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Format> const Fmt;
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Re;
 /// \brief Alias for Re
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Regex;
+
+/// \brief Format string with given parameter list
+/// \anchor expr-format
+/// \details
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Format> const Format;
+/// \brief Alias for Format
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Format> const Fmt;
 
 /// \brief Set cardinality (uniques count)
 /// \anchor expr-card
@@ -727,8 +727,12 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At;
 /// \anchor expr-reduce
 /// \details
 /// To set specific initial value, use composition with Push, e.g.
-/// Push(0)|Reduce(Add)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Push(0)|Reduce(Add)
+/// 
+/// For reverse operatin, see Unfold\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Reduce;
+/// \brief Alias for Reduce
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Fold;
 
 /// \brief Apply param expr to every element of sequence
 /// \anchor expr-map
@@ -778,23 +782,29 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmin> const Argmin;
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmax> const Argmax;
 
-/// \brief Apply recursion to parameter expr
-/// \anchor expr-recur
-/// \details
-/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
-extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur;
-
 /// \brief Apply expr to literal param
 /// \anchor expr-apply
 /// \details
 /// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Apply> const Apply;
 
-/// \brief !not implemented! bind parameters
-/// \anchor expr-bind
+/// \brief Apply recursion to parameter expr
+/// \anchor expr-recur
 /// \details
 /// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
-extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Bind> const Bind;
+extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur;
+
+/// \brief Put results of recursive fn call on initial value x into an array
+/// \anchor expr-unfold
+/// \details
+/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Unfold> const Unfold;
+
+/// \brief !not implemented! bind design-time parameters
+/// \anchor expr-bind
+/// \details
+/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
+extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Bind> const Bind;
 
 /// \brief Match any predicate
 /// \anchor expr-any

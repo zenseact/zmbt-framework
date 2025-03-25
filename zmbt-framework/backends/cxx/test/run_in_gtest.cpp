@@ -63,8 +63,8 @@ TEST(RunInGtest, SignalMapping)
         .InjectTo  (id)
         .ObserveOn (id)
     .Test
-        (List{X, X, X}              , Repeat(3) << X             )
-        (Format({X, Y}) << "[%s,%s]", Parse | Any({13,0}, {19,1}))
+        (List{X, X, X}            , Repeat(3) << X             )
+        (Format(X, Y) << "[%s,%s]", Parse | Any({13,0}, {19,1}))
     .Zip
         (X, 13, 19)
         (Y,  0,  1)

@@ -68,8 +68,8 @@ bool isBinary(Keyword const& k)
     case Keyword::NotNi:
     case Keyword::And:
     case Keyword::Or:
-    case Keyword::Format:
     case Keyword::Re:
+    case Keyword::Format:
     case Keyword::Slide:
     case Keyword::Stride:
     case Keyword::Repeat:

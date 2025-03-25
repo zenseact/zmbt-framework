@@ -891,7 +891,7 @@ keyword_groups:
           Arange >> "1:9:2"   == [1,3,5,7]
           Arange >> "5:1:-1"  == [5,4,3,2]
 
-  String Transforms Unary:
+  String Transforms:
     keywords:
       - name: parse
         brief: Parse string as JSON
@@ -920,15 +920,6 @@ keyword_groups:
         examples: |-
           Serialize >> {"a": 42} == '{"a":42}'
 
-      - name: format
-        aliases: [ fmt ]
-        brief: format string with given parameter list
-        signature: Binary
-        domain: [str, list]
-        codomain: str
-        examples: |-
-          Format >> ["Hello, %s!", ["world"]] == "Hello, world!"
-
       - name: re
         brief: Regular expression match
         signature: Binary
@@ -942,6 +933,16 @@ keyword_groups:
         examples: |-
           Re >> ["[0-9]+", "42"] == true
           Re("[0-9]+") >> "42" == true
+
+      - name: format
+        aliases: [ fmt ]
+        brief: format string with given parameter list
+        signature: Variadic
+        domain: [str, list]
+        codomain: str
+        examples: |-
+          Format >> ["Hello, %s!", ["world"]] == "Hello, world!"
+          Format(2,2,4) >> "%d + %d = %d" == "2 + 2 = 4"
 
   Structural properties:
     defaults:
@@ -1085,16 +1086,19 @@ keyword_groups:
           At("4:")      >> [1,2,3,4,5,6,7,8] == [5,6,7,8]
           At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]
 
-  High-Order Binary:
-    defaults:
-      signature: Binary
+  High-Order:
+    defaults: {}
     keywords:
 
       - name: reduce
+        signature: Binary
+        aliases: [ fold ]
         brief: Reduce sequence with binary operator
         details: |-
           To set specific initial value, use composition with Push, e.g.
           Push(0)|Reduce(Add)
+
+          For reverse operatin, see Unfold
         domain: [list, fn]
         codomain: any
         examples: |-
@@ -1102,6 +1106,7 @@ keyword_groups:
           Reduce(Mul) >> [-1, 2, 3] == -6
 
       - name: map
+        signature: Binary
         brief: Apply param expr to every element of sequence
         domain: [list, fn]
         codomain: list
@@ -1109,6 +1114,7 @@ keyword_groups:
           Map(Add(1)) >> [1, 2, 3] == [2, 3, 4]
 
       - name: filter
+        signature: Binary
         brief: Filter sequence by predicate param
         domain: [list, predicate]
         codomain: list
@@ -1116,6 +1122,7 @@ keyword_groups:
           Filter(Gt(2)) >> [1, 2, 3, 4] == [3, 4]
 
       - name: count
+        signature: Binary
         brief: Count matches by predicate param
         domain: [list, predicate]
         codomain: uint
@@ -1123,6 +1130,7 @@ keyword_groups:
           Count(Gt(2)) >> [1, 2, 3, 4] == 2
 
       - name: sort
+        signature: Binary
         brief: 'Sort list by key function'
         domain: [list, fn]
         default: Id
@@ -1134,6 +1142,7 @@ keyword_groups:
           Sort|Reverse >> [3, 1, 2] == [3, 2, 1]
 
       - name: min
+        signature: Binary
         brief: 'Min value by key function'
         domain: [list, fn]
         default: Id
@@ -1143,6 +1152,7 @@ keyword_groups:
           Min(Abs) >> [-3, 1, -2] == -3
 
       - name: max
+        signature: Binary
         brief: 'Max value by key function'
         domain: [list, fn]
         default: Id
@@ -1152,6 +1162,7 @@ keyword_groups:
           Max(Abs) >> [-3, 1, -2] == -3
 
       - name: argmin
+        signature: Binary
         brief: 'Min value index by key function'
         domain: [list, fn]
         default: Id
@@ -1161,6 +1172,7 @@ keyword_groups:
           Argmin(Abs) >> [-3, 1, -2] == 1
 
       - name: argmax
+        signature: Binary
         brief: 'Max value index by key function'
         domain: [list, fn]
         default: Id
@@ -1169,23 +1181,8 @@ keyword_groups:
           Argmax      >> [-3, 1, -2] == 1
           Argmax(Abs) >> [-3, 1, -2] == 0
 
-  High-Order Ternary:
-    defaults:
-      signature: Ternary
-    keywords:
-      - name: recur
-        brief: apply recursion to parameter expr
-        domain: any
-        codomain: any
-        params:
-          - type: fn
-          - label: depth
-            type: int
-        examples: |-
-          Recur(Add(1), 3)  >> 0 ==  3
-          Recur(Mul(-1), 3) >> 1 == -1
-
       - name: apply
+        signature: Ternary
         brief: Apply expr to literal param
         domain: null
         codomain: any
@@ -1199,19 +1196,43 @@ keyword_groups:
           • Infix operator form (left shift):
           (Add(1) << 42) ≡ Apply(Add(1), 42)
 
+      - name: recur
+        signature: Ternary
+        brief: apply recursion to parameter expr
+        domain: any
+        codomain: any
+        params:
+          - type: fn
+          - label: depth
+            type: int
+        examples: |-
+          Recur(Add(1), 3)  >> 0 ==  3
+          Recur(Mul(-1), 3) >> 1 == -1
+
+      - name: unfold
+        signature: Ternary
+        brief: Put results of recursive fn call on initial value x into an array
+        domain: any
+        codomain: list
+        params:
+          - type: fn
+          - label: depth
+            type: int
+        examples: |-
+          Unfold(Add(1), 3)  >> 0 ==  [0, 1, 2, 3]
+          Unfold(Mul(-1), 3) >> 1 ==  [1,-1, 1,-1]
+
+
       - name: bind
-        brief: '!NOT IMPLEMENTED! Bind parameters'
+        signature: Variadic
+        brief: '!NOT IMPLEMENTED! Bind design-time parameters'
         params:
           - type: fn
           - label: params
             type: object
 
-  High-Order Variadics:
-    defaults:
-      signature: Variadic
-    keywords:
-
       - name: any
+        signature: Variadic
         brief: Match any predicate
         domain: any
         codomain: bool
@@ -1223,6 +1244,7 @@ keyword_groups:
           Any(Gt(2), Lt(0)) >> 0 == false
 
       - name: all
+        signature: Variadic
         brief: Match all predicates
         domain: any
         codomain: bool
@@ -1234,6 +1256,7 @@ keyword_groups:
           All(Gt(2), Lt(3)) >> 2.5 == true
 
       - name: saturate
+        signature: Variadic
         brief: Saturate matches in order
         domain: list
         codomain: bool
@@ -1249,6 +1272,7 @@ keyword_groups:
           Saturate(42, Mod(2)|0) >> [2,4,8,42]     == false
 
       - name: compose
+        signature: Variadic
         brief: Compose functions
         domain: any
         codomain: any
@@ -1264,6 +1288,7 @@ keyword_groups:
           Add(1)|Mul(2) >> 3 == 7
 
       - name: pack
+        signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
           Allows to combine different properties in a single expression

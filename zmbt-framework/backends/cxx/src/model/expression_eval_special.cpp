@@ -432,7 +432,7 @@ V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalConfig const& opt
 {
     ASSERT(param.is_array());
     auto const& params = param.get_array();
-    ASSERT(params.size() >= 1 && params.size() <= 2);
+    ASSERT(params.size() == 2);
     auto F = E(params.at(0));
     std::uint64_t count = boost::json::value_to<std::uint64_t>(params.at(1));
     boost::json::value ret {x};
@@ -441,6 +441,24 @@ V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalConfig const& opt
         ret = F.eval(ret,options++);
     }
     return ret;
+}
+
+template <>
+V eval_impl<Keyword::Unfold>(V const& x, V const& param, E::EvalConfig const& options)
+{
+    ASSERT(param.is_array());
+    auto const& params = param.get_array();
+    ASSERT(params.size() == 2);
+    auto F = E(params.at(0));
+    std::uint64_t count = boost::json::value_to<std::uint64_t>(params.at(1));
+    boost::json::array unfold {};
+    unfold.reserve(count + 1);
+    unfold.push_back(x);
+    for (std::uint64_t i = 0; i < count; i++)
+    {
+        unfold.push_back(F.eval(unfold.back(),options++));
+    }
+    return unfold;
 }
 
 template <>
@@ -1086,6 +1104,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         ZMBT_EXPR_EVAL_IMPL_CASE(Map)
         ZMBT_EXPR_EVAL_IMPL_CASE(Filter)
         ZMBT_EXPR_EVAL_IMPL_CASE(Recur)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Unfold)
         ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
         ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
         ZMBT_EXPR_EVAL_IMPL_CASE(Apply)

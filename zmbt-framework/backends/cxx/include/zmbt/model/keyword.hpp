@@ -317,11 +317,11 @@ enum class Keyword
     /// serialize
     Serialize,
 
-    /// format
-    Format,
-
     /// re
     Re,
+
+    /// format
+    Format,
 
     /// card
     Card,
@@ -383,11 +383,14 @@ enum class Keyword
     /// argmax
     Argmax,
 
+    /// apply
+    Apply,
+
     /// recur
     Recur,
 
-    /// apply
-    Apply,
+    /// unfold
+    Unfold,
 
     /// bind
     Bind,
