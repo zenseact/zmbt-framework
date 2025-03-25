@@ -49,7 +49,7 @@ TEST(RunInGtest, SignalMapping)
     .Test
         (Add(2) <<  2       , 4                                  ) ["Apply on input"]
         ({42, 42, 42}       , Repeat(3) << 42                    ) ["Apply on output"]
-        ("[42,42,42]"       , Parse & (Null|Repeat(3) << 42) | Eq) ["Nested Apply"]
+        ("[42,42,42]"       , Parse & Repeat(3) << 42 | Eq       ) ["Nested Apply"]
         (Arange << "1:5"    , Reduce(Add) & Size | Div | Eq(2.5) ) ["Complex example (computing average)"]
     ;
 

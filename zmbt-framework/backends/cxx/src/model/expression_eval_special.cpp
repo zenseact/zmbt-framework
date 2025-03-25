@@ -38,8 +38,8 @@ V eval_impl(V const& x, V const& param, E::EvalConfig const& options);
 template <>
 V eval_impl<Keyword::Apply>(V const& x, V const& param, E::EvalConfig const& options)
 {
+    static_cast<void>(x); // x is ignored, as Apply essentialy creates a const expr
     ASSERT(param.is_array());
-    ASSERT(x.is_null());
     auto const& expr = param.get_array().at(0);
     auto const& args = param.get_array().at(1);
     return E(expr).eval(args, options++);
