@@ -199,8 +199,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
     using hookout_args_t = mp_transform<rvalue_reference_to_value, args_t>;
 
-    template <class A>
-    std::size_t HookImpl(A & args)
+    std::size_t HookImpl(hookout_args_t & args)
     {
         auto const ts = get_ts();
         std::string const tid = get_tid();
@@ -213,12 +212,24 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         };
 
         auto nofcall = captures().as_array().size();
-
-        auto args_out = dejsonize<unqf_args_t>(GetInjectionArgs(nofcall));
+        auto const injection = GetInjectionArgs(nofcall).as_array();
+        if (injection.size() != std::tuple_size<unqf_args_t>())
+        {
+        }
+        try
+        {
+            auto args_out = dejsonize<unqf_args_t>(injection);
+            tuple_exchange(args, args_out);
+        }
+        catch(const std::exception& e)
+        {
+            throw environment_error("InterfaceRecord<%s>::Hook failed with error `%s`",
+                interface().annotation(),
+                e.what()
+            );
+        }
 
         // Produce
-        auto args_hook = convert_tuple_to<hookout_args_t>(args);
-        tuple_exchange(args_hook, args_out);
         return nofcall;
     }
 
