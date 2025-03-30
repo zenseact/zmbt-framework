@@ -5,6 +5,8 @@ Environment API
 ===============
 
 
+:construction: *This document is in progress* :construction:
+
 Class: `zmbt::Environment`
 
 *Environment* is basically a sophisticated associative container. It's only purpose is to provide safe and convenient storage for the test data. It does not interact with any other component on its own, but test model runners may use it for interaction with triggers and mocks.
@@ -28,7 +30,8 @@ The method creates an extension to the environment that manages the signal recor
 The following methods may be needed in user code:
 
 - Mock call rerouting: [`Hook(args...)`](\ref zmbt::Environment::TypedInterfaceHandle::Hook)
-    - This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values. See [examples](#signal-mapping-model-overview-mocks).
+    - This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values. 
+    <!-- See [examples](#signal-mapping-model-overview-mocks). -->
 
 - stimuli setters:
 [`InjectArgs(value, json_ptr = "", nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::InjectArgs),

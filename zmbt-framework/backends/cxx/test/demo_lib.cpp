@@ -12,8 +12,7 @@ using namespace zmbt::api;
 using namespace zmbt::expr;
 using namespace zmbt;
 
-
-BOOST_AUTO_TEST_CASE(SimpleTest)
+BOOST_AUTO_TEST_CASE(QuickExample)
 {
     auto sum = [](int x, int y){ return x + y; };
 
@@ -29,87 +28,23 @@ BOOST_AUTO_TEST_CASE(SimpleTest)
     ;
 }
 
-
-BOOST_AUTO_TEST_CASE(TestOrderWithMerge)
-{
-    struct Mock {
-        void foo(std::string k) {
-            return InterfaceRecord(&Mock::foo).Hook(k);
-        }
-        void bar(std::string k) {
-            return InterfaceRecord(&Mock::bar).Hook(k);
-        }
-    };
-
-    auto test = [](std::vector<std::string> calls){
-        Mock mock{};
-        for (auto const& call: calls)
-        {
-            if (call == "foo") mock.foo(call);
-            else if (call == "bar") mock.bar(call);
-        }
-    };
-
-    SignalMapping("Test order with MergeInSeries channel combo")
-    .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).Alias("f")
-            .MergeInSeries()
-        .ObserveOn (&Mock::bar).Alias("b")
-
-    .Test
-        ({"bar", "foo"}, Saturate(At(0)|"b", At(0)|"f"))
-        ({"foo", "bar"}, Saturate(At(0)|"f", At(0)|"b"))
-    ;
-}
-
-
-BOOST_AUTO_TEST_CASE(TestJoinWithAutoArgs)
-{
-    struct Mock {
-        void foo(int x) {
-            return InterfaceRecord(&Mock::foo).Hook(x);
-        }
-        void bar(int x) {
-            return InterfaceRecord(&Mock::bar).Hook(x);
-        }
-    };
-
-    auto test = [](int x, int y){
-        Mock mock{};
-        mock.foo(x);
-        mock.bar(y);
-    };
-
-    SignalMapping("Test join with auto expr match on pair")
-    .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).Alias("f")
-            .Join()
-        .ObserveOn (&Mock::bar).Alias("b")
-
-    .Test
-        ({42,13}, {42, 13})
-        ({ 2, 1}, Gt      ) ["2 > 1"]
-        ({ 1, 2}, Lt      ) ["1 < 2"]
-    ;
-}
-
-
-BOOST_AUTO_TEST_CASE(RegexTest)
+BOOST_AUTO_TEST_CASE(ExpressionsExample)
 {
     auto id = [](boost::json::value const& x){ return x; };
 
-    SignalMapping("Regex test")
+    SignalMapping("SignalMapping test")
     .OnTrigger(id)
         .InjectTo  (id)
         .ObserveOn (id)
     .Test
-        ("123", Re("^.{3}$")   ) ["ECMAScript regex"]
-        (42U  , Serialize|Re("42")       ) ["match serialized value"]
+        (Add(2) <<  2       , 4                                  ) ["Apply on input"]
+        ({42, 42, 42}       , Repeat(3) << 42                    ) ["Apply on output"]
+        ("[42,42,42]"       , Parse & Repeat(3) << 42 | Eq       ) ["Nested Apply"]
+        (Arange << "1:5"    , Reduce(Add) & Size | Div | Eq(2.5) ) ["Complex example (computing average)"]
+        ("123"              , Re("^.{3}$")                       ) ["ECMAScript regex"]
+        (42U                , Serialize|Re("42")                 ) ["match serialized value"]
     ;
 }
-
 
 BOOST_AUTO_TEST_CASE(MockExample)
 {
@@ -181,6 +116,69 @@ BOOST_AUTO_TEST_CASE(MultipleMocksExample)
 }
 
 
+BOOST_AUTO_TEST_CASE(TestOrderUnion)
+{
+    struct Mock {
+        void foo(std::string k) {
+            return InterfaceRecord(&Mock::foo).Hook(k);
+        }
+        void bar(std::string k) {
+            return InterfaceRecord(&Mock::bar).Hook(k);
+        }
+    };
+
+    auto test = [](std::vector<std::string> calls){
+        Mock mock{};
+        for (auto const& call: calls)
+        {
+            if (call == "foo") mock.foo(call);
+            else if (call == "bar") mock.bar(call);
+        }
+    };
+
+    SignalMapping("Test order with Union channel combo")
+    .OnTrigger(test)
+        .InjectTo  (test)
+        .ObserveOn (&Mock::foo).Alias("f")
+            .Union()
+        .ObserveOn (&Mock::bar).Alias("b")
+
+    .Test
+        ({"bar", "foo"}, Saturate(At(0)|"b", At(0)|"f"))
+        ({"foo", "bar"}, Saturate(At(0)|"f", At(0)|"b"))
+    ;
+}
+
+BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
+{
+    struct Mock {
+        void foo(int x) {
+            return InterfaceRecord(&Mock::foo).Hook(x);
+        }
+        void bar(int x) {
+            return InterfaceRecord(&Mock::bar).Hook(x);
+        }
+    };
+
+    auto test = [](int x, int y){
+        Mock mock{};
+        mock.foo(x);
+        mock.bar(y);
+    };
+
+    SignalMapping("Test join with auto expr match on pair")
+    .OnTrigger(test)
+        .InjectTo  (test)
+        .ObserveOn (&Mock::foo).Alias("f")
+            .With()
+        .ObserveOn (&Mock::bar).Alias("b")
+
+    .Test
+        ({42,13}, {42, 13})
+        ({ 2, 1}, Gt      ) ["2 > 1"]
+        ({ 1, 2}, Lt      ) ["1 < 2"]
+    ;
+}
 
 
 BOOST_FIXTURE_TEST_CASE(ZipParametrization, ModelTestFixture)
@@ -376,36 +374,6 @@ BOOST_AUTO_TEST_CASE(ApplyExpression)
         (Apply(Add(2), 2), 4         )
         (Add(2)     <<  2, 4         ) ["same as above using operator <<"]
         (Repeat(3)  << 42, {42,42,42})
-    ;
-}
-
-BOOST_AUTO_TEST_CASE(DeepSetMatch)
-{
-    auto sut = [](boost::json::value const& x){ return x; };
-
-    boost::json::object const supersetSample
-    {
-        {"foo", {
-            {"bar", {1,2,3,1,2,3}},
-            {"baz", nullptr}
-        }}
-    };
-
-    boost::json::object const subsetSample
-    {
-        {"foo", {
-            {"bar", {1,2,2,2}}
-        }}
-    };
-
-    SignalMapping("Test set expressions on deep structures")
-    .OnTrigger(sut)
-        .InjectTo  (sut)
-        .ObserveOn (sut)
-    .Test
-        (supersetSample, Superset(subsetSample)    )
-        (subsetSample  , Subset(supersetSample)    )
-        (subsetSample  , SetEq(supersetSample)|Not )
     ;
 }
 

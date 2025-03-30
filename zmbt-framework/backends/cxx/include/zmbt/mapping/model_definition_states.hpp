@@ -211,8 +211,8 @@ class ModelDefinition::N_ChannelOut
 
 class ModelDefinition::N_Combine
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_InSeries<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>
-    , public ModelDefinition::T_Join<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>
+    , public ModelDefinition::T_Union<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>
+    , public ModelDefinition::T_With<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>
 {
   private:
     friend class ModelDefinition;
@@ -381,6 +381,43 @@ class ModelDefinition::N_KindOut
     }
 };
 
+class ModelDefinition::N_Repeat
+    : public ModelDefinition::N_Channel
+    , public ModelDefinition::T_Repeat<ModelDefinition::N_Repeat, ModelDefinition::N_Channel>
+{
+  private:
+    friend class ModelDefinition;
+    N_Repeat(detail::DefinitionHelper& m) : N_Channel(m)
+    {
+    }
+    N_Repeat(N_Repeat const&) = delete;
+    N_Repeat(N_Repeat&&) = default;
+
+  public:
+    ~N_Repeat()
+    {
+    }
+};
+
+class ModelDefinition::N_Main
+    : public ModelDefinition::ModelDefinition
+    , public ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Repeat>
+{
+  private:
+    friend class ModelDefinition;
+    N_Main(detail::DefinitionHelper& m) : ModelDefinition(m)
+    {
+    }
+    N_Main(N_Main const&) = delete;
+    N_Main(N_Main&&) = default;
+
+  public:
+    N_Main() : ModelDefinition() {}
+    ~N_Main()
+    {
+    }
+};
+
 
 extern template class ModelDefinition::T_Null<ModelDefinition::N_Term, ModelDefinition::N_Node>;
 extern template class ModelDefinition::T_Description<ModelDefinition::N_Descr, ModelDefinition::N_Term>;
@@ -397,8 +434,8 @@ extern template class ModelDefinition::T_Test<ModelDefinition::N_Test, ModelDefi
 extern template class ModelDefinition::T_InjectTo<ModelDefinition::N_Channel, ModelDefinition::N_KindIn>;
 extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_InSeries<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>;
-extern template class ModelDefinition::T_Join<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_Union<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_With<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_Alias, ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_Combine>;
 extern template class ModelDefinition::T_CallRangeIn<ModelDefinition::N_Call, ModelDefinition::N_Alias>;
@@ -416,6 +453,8 @@ extern template class ModelDefinition::T_Exception<ModelDefinition::N_KindOut, M
 extern template class ModelDefinition::T_CallCount<ModelDefinition::N_KindOut, ModelDefinition::N_AliasOut>;
 extern template class ModelDefinition::T_Timestamp<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>;
 extern template class ModelDefinition::T_ThreadId<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>;
+extern template class ModelDefinition::T_Repeat<ModelDefinition::N_Repeat, ModelDefinition::N_Channel>;
+extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Repeat>;
 
 }  // namespace mapping
 }  // namespace zmbt

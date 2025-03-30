@@ -19,6 +19,7 @@ class ModelDefinition::N_Node : protected ModelDefinition
   private:
     friend class ModelDefinition;
     N_Node(detail::DefinitionHelper& m) : ModelDefinition(m) {}
+    N_Node() : ModelDefinition() {}
     N_Node(N_Node const&) = delete;
     N_Node(N_Node&&) = default;
   public:

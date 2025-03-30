@@ -15,15 +15,12 @@
 namespace zmbt {
 namespace mapping {
 
-
-
-class ModelDefinition::N_Main
-    : protected ModelDefinition
-    , public ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Channel>
+/// \brief Signal Mapping Test Model
+/// \see \ref signal-mapping-model "Signal Mapping Model"
+// using SignalMapping = ModelDefinition::N_Main;
+class SignalMapping : public ModelDefinition::N_Main
 {
-    friend class ModelDefinition;
-
-public:
+  public:
 
     /**
      * @brief Begin the model definition
@@ -33,22 +30,17 @@ public:
      * @param args format arguments
      */
     template <class... T>
-    N_Main(boost::json::string_view name, T&&... args) : ModelDefinition()
+    SignalMapping(boost::json::string_view name, T&&... args) : N_Main()
     {
         this->state().set_deferred_param("/name", boost::json::array{name, std::forward<T>(args)...});
     }
 
-    ~N_Main()
+    ~SignalMapping()
     {
         this->state().execute();
     }
 };
 
-
-
-/// \brief Signal Mapping Test Model
-/// \see \ref signal-mapping-model "Signal Mapping Model"
-using SignalMapping = ModelDefinition::N_Main;
 
 }  // namespace mapping
 }  // namespace zmbt

@@ -71,22 +71,16 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "+", Keyword::Add)
     (ZMBT_KEYWORD_PREFIX "sub", Keyword::Sub)
     (ZMBT_KEYWORD_PREFIX "-", Keyword::Sub)
-    (ZMBT_KEYWORD_PREFIX "sub-from", Keyword::SubFrom)
     (ZMBT_KEYWORD_PREFIX "mul", Keyword::Mul)
     (ZMBT_KEYWORD_PREFIX "*", Keyword::Mul)
     (ZMBT_KEYWORD_PREFIX "div", Keyword::Div)
     (ZMBT_KEYWORD_PREFIX "/", Keyword::Div)
-    (ZMBT_KEYWORD_PREFIX "div-from", Keyword::DivFrom)
     (ZMBT_KEYWORD_PREFIX "pow", Keyword::Pow)
-    (ZMBT_KEYWORD_PREFIX "pow-from", Keyword::PowFrom)
     (ZMBT_KEYWORD_PREFIX "log", Keyword::Log)
-    (ZMBT_KEYWORD_PREFIX "log-from", Keyword::LogFrom)
     (ZMBT_KEYWORD_PREFIX "mod", Keyword::Mod)
     (ZMBT_KEYWORD_PREFIX "%", Keyword::Mod)
-    (ZMBT_KEYWORD_PREFIX "mod-from", Keyword::ModFrom)
     (ZMBT_KEYWORD_PREFIX "quot", Keyword::Quot)
     (ZMBT_KEYWORD_PREFIX "//", Keyword::Quot)
-    (ZMBT_KEYWORD_PREFIX "quot-from", Keyword::QuotFrom)
     (ZMBT_KEYWORD_PREFIX "b-not", Keyword::BitNot)
     (ZMBT_KEYWORD_PREFIX "~", Keyword::BitNot)
     (ZMBT_KEYWORD_PREFIX "b-and", Keyword::BitAnd)
@@ -97,10 +91,8 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "^", Keyword::BitXor)
     (ZMBT_KEYWORD_PREFIX "b-lshift", Keyword::BitLshift)
     (ZMBT_KEYWORD_PREFIX "<<", Keyword::BitLshift)
-    (ZMBT_KEYWORD_PREFIX "b-lshift-from", Keyword::BitLshiftFrom)
     (ZMBT_KEYWORD_PREFIX "b-rshift", Keyword::BitRshift)
     (ZMBT_KEYWORD_PREFIX ">>", Keyword::BitRshift)
-    (ZMBT_KEYWORD_PREFIX "b-rshift-from", Keyword::BitRshiftFrom)
     (ZMBT_KEYWORD_PREFIX "eq", Keyword::Eq)
     (ZMBT_KEYWORD_PREFIX "=", Keyword::Eq)
     (ZMBT_KEYWORD_PREFIX "ne", Keyword::Ne)
@@ -120,7 +112,6 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "intersect", Keyword::Intersect)
     (ZMBT_KEYWORD_PREFIX "∩", Keyword::Intersect)
     (ZMBT_KEYWORD_PREFIX "set-diff", Keyword::Diff)
-    (ZMBT_KEYWORD_PREFIX "set-diff-from", Keyword::DiffFrom)
     (ZMBT_KEYWORD_PREFIX "set-eq", Keyword::SetEq)
     (ZMBT_KEYWORD_PREFIX "≡", Keyword::SetEq)
     (ZMBT_KEYWORD_PREFIX "subset", Keyword::Subset)
@@ -181,6 +172,8 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "concat", Keyword::Concat)
     (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
     (ZMBT_KEYWORD_PREFIX "at", Keyword::At)
+    (ZMBT_KEYWORD_PREFIX "c", Keyword::C)
+    (ZMBT_KEYWORD_PREFIX "let", Keyword::C)
     (ZMBT_KEYWORD_PREFIX "reduce", Keyword::Reduce)
     (ZMBT_KEYWORD_PREFIX "fold", Keyword::Reduce)
     (ZMBT_KEYWORD_PREFIX "map", Keyword::Map)
@@ -200,6 +193,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "saturate", Keyword::Saturate)
     (ZMBT_KEYWORD_PREFIX "compose", Keyword::Compose)
     (ZMBT_KEYWORD_PREFIX "pack", Keyword::Pack)
+    (ZMBT_KEYWORD_PREFIX "flip", Keyword::Flip)
     (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
     (ZMBT_KEYWORD_PREFIX "try", Keyword::Try)
     (ZMBT_KEYWORD_PREFIX "try-catch", Keyword::TryCatch)
@@ -263,26 +257,18 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Neg: { v = ZMBT_KEYWORD_PREFIX "neg"; break; }
     case Keyword::Add: { v = ZMBT_KEYWORD_PREFIX "add"; break; }
     case Keyword::Sub: { v = ZMBT_KEYWORD_PREFIX "sub"; break; }
-    case Keyword::SubFrom: { v = ZMBT_KEYWORD_PREFIX "sub-from"; break; }
     case Keyword::Mul: { v = ZMBT_KEYWORD_PREFIX "mul"; break; }
     case Keyword::Div: { v = ZMBT_KEYWORD_PREFIX "div"; break; }
-    case Keyword::DivFrom: { v = ZMBT_KEYWORD_PREFIX "div-from"; break; }
     case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }
-    case Keyword::PowFrom: { v = ZMBT_KEYWORD_PREFIX "pow-from"; break; }
     case Keyword::Log: { v = ZMBT_KEYWORD_PREFIX "log"; break; }
-    case Keyword::LogFrom: { v = ZMBT_KEYWORD_PREFIX "log-from"; break; }
     case Keyword::Mod: { v = ZMBT_KEYWORD_PREFIX "mod"; break; }
-    case Keyword::ModFrom: { v = ZMBT_KEYWORD_PREFIX "mod-from"; break; }
     case Keyword::Quot: { v = ZMBT_KEYWORD_PREFIX "quot"; break; }
-    case Keyword::QuotFrom: { v = ZMBT_KEYWORD_PREFIX "quot-from"; break; }
     case Keyword::BitNot: { v = ZMBT_KEYWORD_PREFIX "b-not"; break; }
     case Keyword::BitAnd: { v = ZMBT_KEYWORD_PREFIX "b-and"; break; }
     case Keyword::BitOr: { v = ZMBT_KEYWORD_PREFIX "b-or"; break; }
     case Keyword::BitXor: { v = ZMBT_KEYWORD_PREFIX "b-xor"; break; }
     case Keyword::BitLshift: { v = ZMBT_KEYWORD_PREFIX "b-lshift"; break; }
-    case Keyword::BitLshiftFrom: { v = ZMBT_KEYWORD_PREFIX "b-lshift-from"; break; }
     case Keyword::BitRshift: { v = ZMBT_KEYWORD_PREFIX "b-rshift"; break; }
-    case Keyword::BitRshiftFrom: { v = ZMBT_KEYWORD_PREFIX "b-rshift-from"; break; }
     case Keyword::Eq: { v = ZMBT_KEYWORD_PREFIX "eq"; break; }
     case Keyword::Ne: { v = ZMBT_KEYWORD_PREFIX "ne"; break; }
     case Keyword::Lt: { v = ZMBT_KEYWORD_PREFIX "lt"; break; }
@@ -293,7 +279,6 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Union: { v = ZMBT_KEYWORD_PREFIX "union"; break; }
     case Keyword::Intersect: { v = ZMBT_KEYWORD_PREFIX "intersect"; break; }
     case Keyword::Diff: { v = ZMBT_KEYWORD_PREFIX "set-diff"; break; }
-    case Keyword::DiffFrom: { v = ZMBT_KEYWORD_PREFIX "set-diff-from"; break; }
     case Keyword::SetEq: { v = ZMBT_KEYWORD_PREFIX "set-eq"; break; }
     case Keyword::Subset: { v = ZMBT_KEYWORD_PREFIX "subset"; break; }
     case Keyword::Superset: { v = ZMBT_KEYWORD_PREFIX "superset"; break; }
@@ -334,6 +319,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
     case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "push"; break; }
     case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
+    case Keyword::C: { v = ZMBT_KEYWORD_PREFIX "c"; break; }
     case Keyword::Reduce: { v = ZMBT_KEYWORD_PREFIX "reduce"; break; }
     case Keyword::Map: { v = ZMBT_KEYWORD_PREFIX "map"; break; }
     case Keyword::Filter: { v = ZMBT_KEYWORD_PREFIX "filter"; break; }
@@ -352,6 +338,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Saturate: { v = ZMBT_KEYWORD_PREFIX "saturate"; break; }
     case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
     case Keyword::Pack: { v = ZMBT_KEYWORD_PREFIX "pack"; break; }
+    case Keyword::Flip: { v = ZMBT_KEYWORD_PREFIX "flip"; break; }
     case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
     case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "try"; break; }
     case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "try-catch"; break; }

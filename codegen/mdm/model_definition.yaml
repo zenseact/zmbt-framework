@@ -50,8 +50,8 @@ nodes:
   N_Combine:
     base: N_Channel
     transitions:
-      T_InSeries: N_ChannelOut
-      T_Join: N_ChannelOut
+      T_Union: N_ChannelOut
+      T_With: N_ChannelOut
   N_Alias:
     base: N_Channel
     transitions:
@@ -93,3 +93,11 @@ nodes:
       T_CallCount: N_AliasOut
       T_Timestamp: N_CallOut
       T_ThreadId: N_CallOut
+  N_Repeat:
+    base: N_Channel
+    transitions:
+      T_Repeat: N_Channel
+  N_Main:
+    base: ModelDefinition
+    transitions:
+      T_OnTrigger: N_Repeat

@@ -231,14 +231,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Add> const Add;
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Sub> const Sub;
 
-/// \brief Reverse subtraction
-/// \anchor expr-sub-from
-/// \details
-/// Subtraction with reverse arguments, i. e.
-///   1. [ ] |-> [y, x] |-> x - y
-///   2. [x] |-> [y]    |-> x - y\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::SubFrom> const SubFrom;
-
 /// \brief Multiplication
 /// \anchor expr-mul
 /// \details
@@ -252,14 +244,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Mul> const Mul;
 /// 2. [y] |-> [x]    |-> x / y\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Div> const Div;
 
-/// \brief Reverse division
-/// \anchor expr-div-from
-/// \details
-/// Division with reverse arguments, i. e.
-///   1. [ ] |-> [y, x] |-> x / y
-///   2. [x] |-> [y]    |-> x / y\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::DivFrom> const DivFrom;
-
 /// \brief To power
 /// \anchor expr-pow
 /// \details
@@ -267,14 +251,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::DivFrom> const DivFrom;
 ///   1. [ ] |-> [x, p] |-> x^p
 ///   2. [p] |-> [x]    |-> x^p\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Pow> const Pow;
-
-/// \brief Reverse power
-/// \anchor expr-pow-from
-/// \details
-/// Pow with reverse arguments, i. e.
-///   1. [ ] |-> [p, x] |-> x^p
-///   2. [x] |-> [p]    |-> x^p\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::PowFrom> const PowFrom;
 
 /// \brief Logarithm
 /// \anchor expr-log
@@ -284,14 +260,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::PowFrom> const PowFrom;
 ///   2. [b] |-> [x]    |-> log_b(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Log> const Log;
 
-/// \brief Reverse logarithm
-/// \anchor expr-log-from
-/// \details
-/// Log with reverse arguments, i. e.
-///   1. [ ] |-> [b, x] |-> log_b(x)
-///   2. [b] |-> [b]    |-> log_b(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::LogFrom> const LogFrom;
-
 /// \brief Modulo
 /// \anchor expr-mod
 /// \details
@@ -300,14 +268,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::LogFrom> const LogFrom;
 ///   2. [m] |-> [x]    |-> x % m\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Mod> const Mod;
 
-/// \brief Reverse modulo
-/// \anchor expr-mod-from
-/// \details
-/// Modulo with reverse arguments, i. e.
-///   1. [ ] |-> [b, x] |-> log_b(x)
-///   2. [b] |-> [b]    |-> log_b(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::ModFrom> const ModFrom;
-
 /// \brief Quotient
 /// \anchor expr-quot
 /// \details
@@ -315,14 +275,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::ModFrom> const ModFrom;
 ///   1. [ ] |-> [x, d] |-> x // d
 ///   2. [d] |-> [x]    |-> x // d\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Quot> const Quot;
-
-/// \brief Reverse quotient
-/// \anchor expr-quot-from
-/// \details
-/// Quotient with reverse arguments, i. e.
-///   1. [ ] |-> [d, x] |-> x // d
-///   2. [x] |-> [d]    |-> x // d\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::QuotFrom> const QuotFrom;
 
 /// \brief Bitwise not
 /// \anchor expr-b-not
@@ -355,28 +307,12 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitXor> const BitXor;
 /// 2. [s] |-> [x]    |-> x << s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitLshift> const BitLshift;
 
-/// \brief Reverse bitwise left shift
-/// \anchor expr-b-lshift-from
-/// \details
-/// Bitwise left shift with reverse arguments, i. e.
-///   1. [ ] |-> [s, x] |-> x << s
-///   2. [x] |-> [s]    |-> x << s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitLshiftFrom> const BitLshiftFrom;
-
 /// \brief Bitwise right shift
 /// \anchor expr-b-rshift
 /// \details
 /// 1. [ ] |-> [x, s] |-> x >> s
 /// 2. [s] |-> [x]    |-> x >> s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitRshift> const BitRshift;
-
-/// \brief Reverse bitwise right shift
-/// \anchor expr-b-rshift-from
-/// \details
-/// Bitwise right shift with reverse arguments, i. e.
-///   1. [ ] |-> [s, x] |-> x >> s
-///   2. [x] |-> [s]    |-> x >> s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitRshiftFrom> const BitRshiftFrom;
 
 /// \brief Is equal
 /// \anchor expr-eq
@@ -450,12 +386,6 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Intersect> const Intersect;
 /// \details
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Diff> const Diff;
-
-/// \brief Reverse set difference
-/// \anchor expr-set-diff-from
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::DiffFrom> const DiffFrom;
 
 /// \brief Equal as set
 /// \anchor expr-set-eq
@@ -723,6 +653,16 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Push> const Push;
 ///       { "key1": x at q1, "$(x at q2)": x at q3, ...}\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At;
 
+/// \brief User-defined constant
+/// \anchor expr-c
+/// \details
+/// Produced expression will return the design-time parameter
+/// on evaluation, ignoring input.
+/// C(x) is a shorthand for `Id << x` or `And(false)|Or(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const C;
+/// \brief Alias for C
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let;
+
 /// \brief Reduce sequence with binary operator
 /// \anchor expr-reduce
 /// \details
@@ -835,6 +775,14 @@ extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Compose> const Compose;
 /// \details
 /// Allows to combine different properties in a single expression\see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Pack> const Pack;
+
+/// \brief Flips design-time and eval-time parameters for enveloped expression.
+/// \anchor expr-flip
+/// \details
+/// Useful for binding lhs operands to non-commutative operators.
+/// Unlike Haskell's flip, won't change the order or eval-time parameters
+/// - for that case use the Reverse keyword instead.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Flip> const Flip;
 
 /// \brief Return x if not null, else return default value
 /// \anchor expr-default

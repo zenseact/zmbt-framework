@@ -31,11 +31,7 @@ static_assert(
     "This should never happen!"
 );
 
-BOOST_AUTO_TEST_CASE(TestModelInitCompilation)
-{
-    auto model = SignalMapping("SignalMapping init compilation test");
-    model.OnTrigger(foo);
-}
+
 
 BOOST_AUTO_TEST_CASE(FunctionTrigger, *boost::unit_test::disabled())
 {

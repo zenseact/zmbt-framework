@@ -143,41 +143,23 @@ enum class Keyword
     /// sub
     Sub,
 
-    /// sub-from
-    SubFrom,
-
     /// mul
     Mul,
 
     /// div
     Div,
 
-    /// div-from
-    DivFrom,
-
     /// pow
     Pow,
-
-    /// pow-from
-    PowFrom,
 
     /// log
     Log,
 
-    /// log-from
-    LogFrom,
-
     /// mod
     Mod,
 
-    /// mod-from
-    ModFrom,
-
     /// quot
     Quot,
-
-    /// quot-from
-    QuotFrom,
 
     /// b-not
     BitNot,
@@ -194,14 +176,8 @@ enum class Keyword
     /// b-lshift
     BitLshift,
 
-    /// b-lshift-from
-    BitLshiftFrom,
-
     /// b-rshift
     BitRshift,
-
-    /// b-rshift-from
-    BitRshiftFrom,
 
     /// eq
     Eq,
@@ -232,9 +208,6 @@ enum class Keyword
 
     /// set-diff
     Diff,
-
-    /// set-diff-from
-    DiffFrom,
 
     /// set-eq
     SetEq,
@@ -356,6 +329,9 @@ enum class Keyword
     /// at
     At,
 
+    /// c
+    C,
+
     /// reduce
     Reduce,
 
@@ -409,6 +385,9 @@ enum class Keyword
 
     /// pack
     Pack,
+
+    /// flip
+    Flip,
 
     /// default
     Default,

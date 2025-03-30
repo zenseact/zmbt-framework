@@ -27,25 +27,17 @@ bool isBinary(Keyword const& k)
     {
     case Keyword::Add:
     case Keyword::Sub:
-    case Keyword::SubFrom:
     case Keyword::Mul:
     case Keyword::Div:
-    case Keyword::DivFrom:
     case Keyword::Pow:
-    case Keyword::PowFrom:
     case Keyword::Log:
-    case Keyword::LogFrom:
     case Keyword::Mod:
-    case Keyword::ModFrom:
     case Keyword::Quot:
-    case Keyword::QuotFrom:
     case Keyword::BitAnd:
     case Keyword::BitOr:
     case Keyword::BitXor:
     case Keyword::BitLshift:
-    case Keyword::BitLshiftFrom:
     case Keyword::BitRshift:
-    case Keyword::BitRshiftFrom:
     case Keyword::Eq:
     case Keyword::Ne:
     case Keyword::Lt:
@@ -56,7 +48,6 @@ bool isBinary(Keyword const& k)
     case Keyword::Union:
     case Keyword::Intersect:
     case Keyword::Diff:
-    case Keyword::DiffFrom:
     case Keyword::SetEq:
     case Keyword::Subset:
     case Keyword::Superset:
@@ -76,6 +67,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Concat:
     case Keyword::Push:
     case Keyword::At:
+    case Keyword::C:
     case Keyword::Reduce:
     case Keyword::Map:
     case Keyword::Filter:
@@ -85,6 +77,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Max:
     case Keyword::Argmin:
     case Keyword::Argmax:
+    case Keyword::Flip:
     case Keyword::Default:
     case Keyword::Try:
     case Keyword::TryCatch:

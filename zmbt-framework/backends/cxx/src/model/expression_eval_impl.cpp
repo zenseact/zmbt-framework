@@ -78,7 +78,7 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
     }
 }
 
-boost::json::value Expression::eval(boost::json::value const& x, EvalConfig const& options) const
+boost::json::value Expression::eval(boost::json::value const& x, EvalContext const& ctx) const
 {
     using dsl::detail::CodegenType;
     using dsl::detail::getCodegenType;
@@ -87,23 +87,23 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalConfig cons
 
     if(is(Keyword::Literal))
     {
-        result = options.op.apply(Keyword::Eq, x, params());
+        result = ctx.op.apply(Keyword::Eq, x, params());
     }
     else {
         CodegenType const classifier = getCodegenType(keyword());
         switch (classifier)
         {
-            case CodegenType::Const:       { result = eval_Const    (x, options.op);     break; }
-            case CodegenType::UnaryOp:     { result = eval_UnaryOp  (x, options.op);   break; }
-            case CodegenType::BinaryOp:    { result = eval_BinaryOp (x, options.op);  break; }
-            case CodegenType::CodegenFn:   { result = eval_CodegenFn(x, options.op); break; }
+            case CodegenType::Const:       { result = eval_Const    (x, ctx.op);     break; }
+            case CodegenType::UnaryOp:     { result = eval_UnaryOp  (x, ctx.op);   break; }
+            case CodegenType::BinaryOp:    { result = eval_BinaryOp (x, ctx.op);  break; }
+            case CodegenType::CodegenFn:   { result = eval_CodegenFn(x, ctx.op); break; }
             case CodegenType::None:
             default:
-                result = eval_Special(x, options);
+                result = eval_Special(x, ctx);
                 break;
         }
     }
-    options.log.push(underlying(),x, result, options.depth);
+    ctx.log.push(underlying(),x, result, ctx.depth);
     return result;
 }
 

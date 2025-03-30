@@ -346,7 +346,7 @@ Expression::EvalLog Expression::EvalLog::make()
 }
 
 
-Expression::EvalConfig Expression::EvalConfig::operator++(int) const
+Expression::EvalContext Expression::EvalContext::operator++(int) const
 {
     return {op, log, depth + 1};
 }

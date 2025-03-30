@@ -100,6 +100,26 @@ struct ModelDefinition::T_OnTrigger
     }
 };
 
+
+template <class Source, class Target>
+struct ModelDefinition::T_Repeat
+{
+    /// Run trigger N times
+    Target Repeat(std::size_t N)
+    {
+        N_STATE.model("/repeat_trigger") = N;
+        return Target(N_STATE);
+    }
+
+    /// Run trigger N times
+    Target Repeat(Param const& N)
+    {
+        N_STATE.model("/repeat_trigger") = N;
+        N_STATE.params("/%s/pointers/+", N) = "/repeat_trigger";
+        return Target(N_STATE);
+    }
+};
+
 template <class Source, class Target>
 struct ModelDefinition::T_InjectTo
 {
@@ -341,7 +361,7 @@ struct ModelDefinition::T_Alias
     }
 };
 template <class Source, class Target>
-struct ModelDefinition::T_InSeries
+struct ModelDefinition::T_Union
 {
     /// Combine channel outputs in time series
     ///
@@ -354,36 +374,36 @@ struct ModelDefinition::T_InSeries
     /// - Call (default clause with param = -1 for latest): take only one sample at specified call number
     /// - CallCount: take call count as a sample value and timestamp from the most recent call
     ///
-    /// Can't be combined with Join()
-    Target MergeInSeries()
+    /// `With` and `Union` can't be combined in a single chain.
+    Target Union()
     {
         auto const curcnl = N_STATE.cur_cnl_idx();
-        if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "join")
+        if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "with")
         {
-            throw model_error("can't combine MergeInSeries with Join");
+            throw model_error("can't combine Union and With clauses");
         }
 
-        N_STATE.model("%s/combine", N_STATE.head_channel()) = "series";
+        N_STATE.model("%s/combine", N_STATE.head_channel()) = "union";
 
         return Target(N_STATE);
     }
 };
 
 template <class Source, class Target>
-struct ModelDefinition::T_Join
+struct ModelDefinition::T_With
 {
     /// Combine channel outputs into an array
     /// X join Y join Z -> [X, Y, Z]
     ///
-    /// Can't be combined with MergeInSeries()
-    Target Join()
+    /// `With` and `Union` can't be combined in a single chain.
+    Target With()
     {
         auto const curcnl = N_STATE.cur_cnl_idx();
-        if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "series")
+        if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "union")
         {
-            throw model_error("can't combine Join with MergeInSeries");
+            throw model_error("can't combine Union and With clauses");
         }
-        N_STATE.model("%s/combine", N_STATE.head_channel()) = "join";
+        N_STATE.model("%s/combine", N_STATE.head_channel()) = "with";
         return Target(N_STATE);
     }
 };

@@ -1,0 +1,111 @@
+site_name: Zenseact MBT Framework
+copyright: |-
+  Copyright &copy; 2022-2023 Volvo Car Corporation //
+  Copyright &copy; 2024-2025 Zenseact AB
+repo_url: https://github.com/zenseact/zmbt-framework
+# docs_dir: '.'
+
+strict: true
+hooks:
+  - docs/hooks/preprocessor.py
+nav:
+  - Home: index.md
+  # - Overview:
+  # - Installation:
+  # - Quick Start:
+  - User Guide:
+      - user-guide/signal-mapping.md
+      - user-guide/expressions.md
+      - user-guide/environment.md
+      - user-guide/reflection.md
+      - user-guide/concepts.md
+  - DSL Reference:
+      # - dsl-reference/overview.md
+      - dsl-reference/signal-mapping.md
+      - dsl-reference/expressions.md
+
+      # - C++ API:
+        # - "ZmbtCxxApiReference/zmbt-framework/backends/cxx/index.md"
+    #     - "ZmbtCxxApiReference/links.md"
+    #     - "Namespaces":
+    #         - "Namespace List": "ZmbtCxxApiReference/namespaces.md"
+    #         - "Namespace Members": "ZmbtCxxApiReference/namespace_members.md"
+    #         - "Namespace Member Functions": "ZmbtCxxApiReference/namespace_member_functions.md"
+    #         - "Namespace Member Variables": "ZmbtCxxApiReference/namespace_member_variables.md"
+    #         - "Namespace Member Typedefs": "ZmbtCxxApiReference/namespace_member_typedefs.md"
+    #         - "Namespace Member Enumerations": "ZmbtCxxApiReference/namespace_member_enums.md"
+    #     - "Classes":
+    #         - "Class List": "ZmbtCxxApiReference/annotated.md"
+    #         - "Class Index": "ZmbtCxxApiReference/classes.md"
+    #         - "Class Hierarchy": "ZmbtCxxApiReference/hierarchy.md"
+    #         - "Class Members": "ZmbtCxxApiReference/class_members.md"
+    #         - "Class Member Functions": "ZmbtCxxApiReference/class_member_functions.md"
+    #         - "Class Member Variables": "ZmbtCxxApiReference/class_member_variables.md"
+    #         - "Class Member Typedefs": "ZmbtCxxApiReference/class_member_typedefs.md"
+    #         - "Class Member Enumerations": "ZmbtCxxApiReference/class_member_enums.md"
+    #     - "Macros": "ZmbtCxxApiReference/macros.md"
+    #     - "Files": "ZmbtCxxApiReference/files.md"
+
+theme:
+  name: material
+  language: en
+  features:
+    - content.code.select
+    - content.code.copy
+    - content.code.annotate
+    - navigation.footer
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  version:
+    provider: mike
+
+plugins:
+  - search
+  - tags
+  - plantuml: # mkdocs_puml
+      puml_url: https://www.plantuml.com/plantuml/
+      puml_keyword: plantuml
+  - mike:
+      # These fields are all optional; the defaults are as below...
+      alias_type: symlink
+      redirect_template: null
+      deploy_prefix: ''
+      canonical_version: latest
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+
+  # - mkdoxy:
+  #     projects:
+        # ZmbtCxxApiReference: # name of project must be alphanumeric + numbers (without spaces)
+        #   src-dirs: zmbt-framework/backends/cxx # path to source code (support multiple paths separated by space) => INPUT
+        #   # full-doc: True # if you want to generate full documentation
+        #   doxy-cfg-file: docs/doxygen/Doxyfile
+        #   doxy-cfg: # standard doxygen configuration (key: value)
+        #     FILE_PATTERNS: "*.hpp* *.dox *.md" # specify file patterns to filter out
+        #     RECURSIVE: True # recursive search in source directories
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_javascript:
+  - docs/javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

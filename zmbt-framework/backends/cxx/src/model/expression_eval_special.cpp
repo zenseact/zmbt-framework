@@ -32,27 +32,27 @@ using E = zmbt::Expression;
 using Keyword = zmbt::dsl::Keyword;
 
 template <Keyword keyword>
-V eval_impl(V const& x, V const& param, E::EvalConfig const& options);
+V eval_impl(V const& x, V const& param, E::EvalContext const& context);
 
 
 template <>
-V eval_impl<Keyword::Apply>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Apply>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(x); // x is ignored, as Apply essentialy creates a const expr
     ASSERT(param.is_array());
     auto const& expr = param.get_array().at(0);
     auto const& args = param.get_array().at(1);
-    return E(expr).eval(args, options++);
+    return E(expr).eval(args, context++);
 }
 
 
 template <>
-V eval_impl<Keyword::All>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::All>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (not E(e).eval(x,options++).as_bool())
+        if (not E(e).eval(x,context++).as_bool())
         {
             return false;
         }
@@ -62,12 +62,12 @@ V eval_impl<Keyword::All>(V const& x, V const& param, E::EvalConfig const& optio
 
 
 template <>
-V eval_impl<Keyword::Any>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Any>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (E(e).eval(x,options++).as_bool())
+        if (E(e).eval(x,context++).as_bool())
         {
             return true;
         }
@@ -77,9 +77,9 @@ V eval_impl<Keyword::Any>(V const& x, V const& param, E::EvalConfig const& optio
 
 
 template <>
-V eval_impl<Keyword::Re>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Re>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_string());
     ASSERT(x.is_string());
 
@@ -166,15 +166,15 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
 }
 
 template <>
-V eval_impl<Keyword::At>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::At>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(not param.is_null())
     return query_at(x, param);
 }
 
 template <>
-V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     ASSERT(param.is_array());
@@ -189,7 +189,7 @@ V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalConfig const& 
         {
             break;
         }
-        if (E(*it).eval(sample,options++).as_bool())
+        if (E(*it).eval(sample,context++).as_bool())
         {
             it++;
         }
@@ -198,7 +198,7 @@ V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalConfig const& 
 }
 
 template <>
-V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array() || x.is_object())
     auto const filter = E(param);
@@ -208,7 +208,7 @@ V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalConfig const& opt
     {
         for (auto const& sample: x.get_array())
         {
-            if (filter.eval(sample,options++).as_bool())
+            if (filter.eval(sample,context++).as_bool())
             {
                 count++;
             }
@@ -218,7 +218,7 @@ V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalConfig const& opt
     {
         for (auto const& kv: x.get_object())
         {
-            if (filter.eval({kv.key(), kv.value()},options++).as_bool())
+            if (filter.eval({kv.key(), kv.value()},context++).as_bool())
             {
                 count++;
             }
@@ -229,7 +229,7 @@ V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalConfig const& opt
 }
 
 template <>
-V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalContext const& context)
 {
     // Based on numpy.isclose
     // absolute(a - b) <= (atol + rtol * absolute(b))
@@ -240,14 +240,14 @@ V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalConfig const& op
     ASSERT(x.is_number());
     ASSERT(param.is_array() || param.is_number());
 
-    double x_value = boost::json::value_to<double>(options.op.decorate(x));
+    double x_value = boost::json::value_to<double>(context.op.decorate(x));
     double ref_value = std::numeric_limits<double>::quiet_NaN();
     double rtol      = default_rtol;
     double atol      = default_atol;
 
     if (param.is_number())
     {
-        ref_value = boost::json::value_to<double>(options.op.decorate(param));
+        ref_value = boost::json::value_to<double>(context.op.decorate(param));
     }
     else
     {
@@ -256,15 +256,15 @@ V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalConfig const& op
 
         if (params.size() >= 1)
         {
-            ref_value = boost::json::value_to<double>(options.op.decorate(params.at(0)));
+            ref_value = boost::json::value_to<double>(context.op.decorate(params.at(0)));
         }
         if (params.size() >= 2)
         {
-            rtol = boost::json::value_to<double>(options.op.decorate(params.at(1)));
+            rtol = boost::json::value_to<double>(context.op.decorate(params.at(1)));
         }
         if (params.size() == 3)
         {
-            atol = boost::json::value_to<double>(options.op.decorate(params.at(2)));
+            atol = boost::json::value_to<double>(context.op.decorate(params.at(2)));
         }
     }
 
@@ -272,10 +272,10 @@ V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalConfig const& op
 }
 
 template <>
-V eval_impl<Keyword::Uniques>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Uniques>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_array());
     return boost::json::value_from(
         boost::json::value_to<std::unordered_set<V>>(x)
@@ -284,9 +284,9 @@ V eval_impl<Keyword::Uniques>(V const& x, V const& param, E::EvalConfig const& o
 
 
 template <>
-V eval_impl<Keyword::Size>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Size>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_null())
     ASSERT(x.is_structured())
     V size = nullptr;
@@ -302,9 +302,9 @@ V eval_impl<Keyword::Size>(V const& x, V const& param, E::EvalConfig const& opti
 
 
 template <>
-V eval_impl<Keyword::Card>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Card>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_null())
     ASSERT(x.is_structured())
 
@@ -320,7 +320,7 @@ V eval_impl<Keyword::Card>(V const& x, V const& param, E::EvalConfig const& opti
 
 
 template <>
-V eval_impl<Keyword::Reduce>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Reduce>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
@@ -336,7 +336,7 @@ V eval_impl<Keyword::Reduce>(V const& x, V const& param, E::EvalConfig const& op
 
     while (it != samples.cend())
     {
-        ret = F.eval({ret, *it},options++);
+        ret = F.eval({ret, *it},context++);
         it++;
     }
 
@@ -344,7 +344,7 @@ V eval_impl<Keyword::Reduce>(V const& x, V const& param, E::EvalConfig const& op
 }
 
 template <>
-V eval_impl<Keyword::Map>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Map>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
@@ -359,7 +359,7 @@ V eval_impl<Keyword::Map>(V const& x, V const& param, E::EvalConfig const& optio
 
     for (auto const& el: samples)
     {
-        ret.push_back(F.eval(el,options++));
+        ret.push_back(F.eval(el,context++));
     }
 
     return ret;
@@ -367,7 +367,7 @@ V eval_impl<Keyword::Map>(V const& x, V const& param, E::EvalConfig const& optio
 
 
 template <>
-V eval_impl<Keyword::Filter>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Filter>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_object());
     ASSERT(x.is_array());
@@ -380,7 +380,7 @@ V eval_impl<Keyword::Filter>(V const& x, V const& param, E::EvalConfig const& op
     auto F = E(param);
     for (auto const& el: samples)
     {
-        if (F.eval(el,options++).as_bool())
+        if (F.eval(el,context++).as_bool())
         {
             ret.push_back(el);
         }
@@ -390,7 +390,7 @@ V eval_impl<Keyword::Filter>(V const& x, V const& param, E::EvalConfig const& op
 
 
 template <>
-V eval_impl<Keyword::Compose>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Compose>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_array());
     auto const& funcs = param.get_array();
@@ -402,15 +402,15 @@ V eval_impl<Keyword::Compose>(V const& x, V const& param, E::EvalConfig const& o
 
     while (fn != funcs.crend())
     {
-        ret = E(*fn++).eval(ret,options++);
+        ret = E(*fn++).eval(ret,context++);
     }
     return ret;
 }
 
 template <>
-V eval_impl<Keyword::Repeat>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Repeat>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_number());
     std::uint64_t count = boost::json::value_to<std::uint64_t>(param);
     boost::json::array ret {};
@@ -428,7 +428,7 @@ V eval_impl<Keyword::Repeat>(V const& x, V const& param, E::EvalConfig const& op
 
 
 template <>
-V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_array());
     auto const& params = param.get_array();
@@ -438,13 +438,13 @@ V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalConfig const& opt
     boost::json::value ret {x};
     for (std::uint64_t i = 0; i < count; i++)
     {
-        ret = F.eval(ret,options++);
+        ret = F.eval(ret,context++);
     }
     return ret;
 }
 
 template <>
-V eval_impl<Keyword::Unfold>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Unfold>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_array());
     auto const& params = param.get_array();
@@ -456,15 +456,15 @@ V eval_impl<Keyword::Unfold>(V const& x, V const& param, E::EvalConfig const& op
     unfold.push_back(x);
     for (std::uint64_t i = 0; i < count; i++)
     {
-        unfold.push_back(F.eval(unfold.back(),options++));
+        unfold.push_back(F.eval(unfold.back(),context++));
     }
     return unfold;
 }
 
 template <>
-V eval_impl<Keyword::Transp>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Transp>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_null());
     ASSERT(x.is_array());
     auto const& arr = x.get_array();
@@ -485,9 +485,9 @@ V eval_impl<Keyword::Transp>(V const& x, V const& param, E::EvalConfig const& op
 
 
 template <>
-V eval_impl<Keyword::Cartesian>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Cartesian>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_null());
     ASSERT(x.is_array());
     auto const& arr = x.get_array();
@@ -515,12 +515,12 @@ V eval_impl<Keyword::Cartesian>(V const& x, V const& param, E::EvalConfig const&
 }
 
 template <>
-V eval_impl<Keyword::Try>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Try>(V const& x, V const& param, E::EvalContext const& context)
 {
     try
     {
         auto const fn = E(param);
-        return fn.eval(x,options++);
+        return fn.eval(x,context++);
     }
     catch(const std::exception& e)
     {
@@ -529,12 +529,12 @@ V eval_impl<Keyword::Try>(V const& x, V const& param, E::EvalConfig const& optio
 }
 
 template <>
-V eval_impl<Keyword::TryCatch>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::TryCatch>(V const& x, V const& param, E::EvalContext const& context)
 {
     try
     {
         auto const fn = E(param);
-        return fn.eval(x,options++);
+        return fn.eval(x,context++);
     }
     catch(const std::exception& e)
     {
@@ -542,15 +542,15 @@ V eval_impl<Keyword::TryCatch>(V const& x, V const& param, E::EvalConfig const& 
             {"err", e.what()       },
             {"fn" , param          },
             {"x"  , x              },
-            {"op" , options.op.annotation()},
+            {"op" , context.op.annotation()},
         };
     }
 }
 
 template <>
-V eval_impl<Keyword::Concat>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Concat>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.kind() == param.kind());
     ASSERT(x.is_string() || x.is_array());
 
@@ -572,9 +572,9 @@ V eval_impl<Keyword::Concat>(V const& x, V const& param, E::EvalConfig const& op
 }
 
 template <>
-V eval_impl<Keyword::Push>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Push>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_string() || x.is_array());
 
     if (x.is_string())
@@ -596,9 +596,9 @@ V eval_impl<Keyword::Push>(V const& x, V const& param, E::EvalConfig const& opti
 }
 
 template <>
-V eval_impl<Keyword::Format>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Format>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_string());
     boost::format fmt {x.get_string().c_str()};
     auto const N = fmt.expected_args();
@@ -620,11 +620,11 @@ V eval_impl<Keyword::Format>(V const& x, V const& param, E::EvalConfig const& op
 
 
 template <>
-V eval_impl<Keyword::Sort>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Sort>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const key_fn = param.is_null() ? E(Keyword::Id) : E(param);
-    auto const& op = options.op;
+    auto const& op = context.op;
     std::function<bool(V const&, V const&)> is_less = [&key_fn, &op](V const& lhs, V const& rhs) ->bool {
         return op.apply(Keyword::Lt, key_fn.eval(lhs), key_fn.eval(rhs)).as_bool();
     };
@@ -634,10 +634,10 @@ V eval_impl<Keyword::Sort>(V const& x, V const& param, E::EvalConfig const& opti
 }
 
 template <>
-V eval_impl<Keyword::Reverse>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Reverse>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_array());
     boost::json::array out = x.get_array();
     std::reverse(out.begin(), out.end());
@@ -645,9 +645,9 @@ V eval_impl<Keyword::Reverse>(V const& x, V const& param, E::EvalConfig const& o
 }
 
 template <>
-V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_array());
     ASSERT(param.is_number());
     auto const W = boost::json::value_to<std::uint64_t>(param);
@@ -675,9 +675,9 @@ V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalConfig const& opt
 }
 
 template <>
-V eval_impl<Keyword::Stride>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Stride>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_array());
     ASSERT(param.is_number());
     auto const& samples = x.get_array();
@@ -712,42 +712,42 @@ V eval_impl<Keyword::Stride>(V const& x, V const& param, E::EvalConfig const& op
 
 
 template <>
-V eval_impl<Keyword::Sum>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Sum>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
     ASSERT(x.is_array());
-    return eval_impl<Keyword::Reduce>(x, E(Keyword::Add),options++);
+    return eval_impl<Keyword::Reduce>(x, E(Keyword::Add),context++);
 }
 
 template <>
-V eval_impl<Keyword::Prod>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Prod>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
     ASSERT(x.is_array());
-    return eval_impl<Keyword::Reduce>(x, E(Keyword::Mul),options++);
+    return eval_impl<Keyword::Reduce>(x, E(Keyword::Mul),context++);
 }
 
 template <>
-V eval_impl<Keyword::Avg>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Avg>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
     ASSERT(x.is_array());
     auto const N = eval_impl<Keyword::Size>(x, {}, {});
     auto const sum = eval_impl<Keyword::Reduce>(x, E(Keyword::Add), {});
-    return options.op.apply(Keyword::Div, sum, N);
+    return context.op.apply(Keyword::Div, sum, N);
 }
 
 template <>
-V eval_impl<Keyword::Pack>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Pack>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(param.is_array());
     auto const& funcs = param.get_array();
     boost::json::array out {};
     out.reserve(funcs.size());
     for (auto const& fn: funcs)
     {
-        out.push_back(E(fn).eval(x,options++));
+        out.push_back(E(fn).eval(x,context++));
     }
     return out;
 }
@@ -768,52 +768,52 @@ L::const_iterator find_argminmax(L const& samples, V const& param, O const& op, 
 }
 
 template <>
-V eval_impl<Keyword::Argmin>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Argmin>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return find_argminmax(samples, param, options.op, &std::min_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
+    return find_argminmax(samples, param, context.op, &std::min_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
 }
 
 template <>
-V eval_impl<Keyword::Argmax>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Argmax>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return find_argminmax(samples, param, options.op, &std::max_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
+    return find_argminmax(samples, param, context.op, &std::max_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
 }
 
 template <>
-V eval_impl<Keyword::Min>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Min>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return *find_argminmax(samples, param, options.op, &std::min_element<L::const_iterator, compare_fn_t>);
+    return *find_argminmax(samples, param, context.op, &std::min_element<L::const_iterator, compare_fn_t>);
 }
 
 template <>
-V eval_impl<Keyword::Max>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Max>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return *find_argminmax(samples, param, options.op, &std::max_element<L::const_iterator, compare_fn_t>);
+    return *find_argminmax(samples, param, context.op, &std::max_element<L::const_iterator, compare_fn_t>);
 }
 
 
 template <>
-V eval_impl<Keyword::Intersect>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Intersect>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.kind() == param.kind());
     ASSERT(x.is_array());
 
     auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
     auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
-    auto const& op = options.op;
+    auto const& op = context.op;
     L intersection {};
     intersection.reserve(std::max(lhs.size(), rhs.size()));
     auto out_it = std::back_inserter(intersection);
@@ -833,15 +833,15 @@ V eval_impl<Keyword::Intersect>(V const& x, V const& param, E::EvalConfig const&
 }
 
 template <>
-V eval_impl<Keyword::Diff>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Diff>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.kind() == param.kind());
     ASSERT(x.is_structured());
 
     auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
     auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
-    auto const& op = options.op;
+    auto const& op = context.op;
     L difference {};
     difference.reserve(std::max(lhs.size(), rhs.size()));
     auto out_it = std::back_inserter(difference);
@@ -860,17 +860,11 @@ V eval_impl<Keyword::Diff>(V const& x, V const& param, E::EvalConfig const& opti
     return difference;
 }
 
-template <>
-V eval_impl<Keyword::DiffFrom>(V const& x, V const& param, E::EvalConfig const& options)
-{
-    static_cast<void>(options);
-    return eval_impl<Keyword::Diff>(param, x,{});
-}
 
 template <>
-V eval_impl<Keyword::Union>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Union>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.kind() == param.kind());
     ASSERT(x.is_structured());
 
@@ -878,7 +872,7 @@ V eval_impl<Keyword::Union>(V const& x, V const& param, E::EvalConfig const& opt
 
     auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
     auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
-    auto const& op = options.op;
+    auto const& op = context.op;
     L set_union {};
     set_union.reserve(lhs.size() + rhs.size());
 
@@ -903,9 +897,9 @@ V eval_impl<Keyword::Union>(V const& x, V const& param, E::EvalConfig const& opt
 }
 
 template <>
-V eval_impl<Keyword::Arange>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Arange>(V const& x, V const& param, E::EvalContext const& context)
 {
-    static_cast<void>(options);
+    static_cast<void>(context);
     static_cast<void>(param);
     ASSERT(x.is_number() || x.is_array() || x.is_string());
 
@@ -963,10 +957,10 @@ V eval_impl<Keyword::Arange>(V const& x, V const& param, E::EvalConfig const& op
 }
 
 template <>
-V eval_impl<Keyword::Items>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Items>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_object());
     auto const& obj = x.get_object();
     boost::json::array out {};
@@ -979,10 +973,10 @@ V eval_impl<Keyword::Items>(V const& x, V const& param, E::EvalConfig const& opt
 }
 
 template <>
-V eval_impl<Keyword::Keys>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Keys>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_object());
     auto const& obj = x.get_object();
     boost::json::array out {};
@@ -995,10 +989,10 @@ V eval_impl<Keyword::Keys>(V const& x, V const& param, E::EvalConfig const& opti
 }
 
 template <>
-V eval_impl<Keyword::Values>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Values>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_object());
     auto const& obj = x.get_object();
     boost::json::array out {};
@@ -1011,10 +1005,10 @@ V eval_impl<Keyword::Values>(V const& x, V const& param, E::EvalConfig const& op
 }
 
 template <>
-V eval_impl<Keyword::Enumerate>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Enumerate>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_array());
     auto const& arr = x.get_array();
     boost::json::array out {};
@@ -1028,10 +1022,10 @@ V eval_impl<Keyword::Enumerate>(V const& x, V const& param, E::EvalConfig const&
 }
 
 template <>
-V eval_impl<Keyword::Flatten>(V const& x, V const& param, E::EvalConfig const& options)
+V eval_impl<Keyword::Flatten>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(param);
-    static_cast<void>(options);
+    static_cast<void>(context);
     ASSERT(x.is_array());
     auto const& arr = x.get_array();
     boost::json::array out {};
@@ -1053,6 +1047,16 @@ V eval_impl<Keyword::Flatten>(V const& x, V const& param, E::EvalConfig const& o
     return out;
 }
 
+
+
+template <>
+V eval_impl<Keyword::Flip>(V const& x, V const& param, E::EvalContext const& context)
+{
+    auto const f = E(param);
+    auto const flip = E(f.keyword(), x);
+    return flip.eval(f.params(), context++);
+}
+
 } // namespace
 
 
@@ -1060,7 +1064,7 @@ namespace zmbt
 {
 
 
-boost::json::value Expression::eval_Special(boost::json::value const& x, EvalConfig const& options) const
+boost::json::value Expression::eval_Special(boost::json::value const& x, EvalContext const& context) const
 {
     V const* x_ptr {nullptr};
     V const* param_ptr {nullptr};
@@ -1079,7 +1083,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
     switch(keyword())
     {
 
-    #define ZMBT_EXPR_EVAL_IMPL_CASE(K) case Keyword::K: return eval_impl<Keyword::K>(*x_ptr, *param_ptr, options);
+    #define ZMBT_EXPR_EVAL_IMPL_CASE(K) case Keyword::K: return eval_impl<Keyword::K>(*x_ptr, *param_ptr, context);
 
         // terms special
         ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
@@ -1111,6 +1115,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         ZMBT_EXPR_EVAL_IMPL_CASE(Try)
         ZMBT_EXPR_EVAL_IMPL_CASE(TryCatch)
         ZMBT_EXPR_EVAL_IMPL_CASE(Pack)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Flip)
 
 
         // vector ops
@@ -1141,7 +1146,6 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         ZMBT_EXPR_EVAL_IMPL_CASE(Union)
         ZMBT_EXPR_EVAL_IMPL_CASE(Intersect)
         ZMBT_EXPR_EVAL_IMPL_CASE(Diff)
-        ZMBT_EXPR_EVAL_IMPL_CASE(DiffFrom)
 
         // string ops
         ZMBT_EXPR_EVAL_IMPL_CASE(Format)

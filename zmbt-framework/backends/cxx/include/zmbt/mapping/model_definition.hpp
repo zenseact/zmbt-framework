@@ -26,7 +26,7 @@ namespace zmbt {
 namespace mapping {
 
 /// Mapping model definition machine
-class ModelDefinition 
+class ModelDefinition
 {
     detail::DefinitionHelper mapping_;
 
@@ -72,21 +72,18 @@ class ModelDefinition
     /// T_Exception transition
     template <class Source, class Target>
     struct T_Exception;
-    /// T_InSeries transition
-    template <class Source, class Target>
-    struct T_InSeries;
     /// T_InjectTo transition
     template <class Source, class Target>
     struct T_InjectTo;
-    /// T_Join transition
-    template <class Source, class Target>
-    struct T_Join;
     /// T_ObserveOn transition
     template <class Source, class Target>
     struct T_ObserveOn;
     /// T_OnCall transition
     template <class Source, class Target>
     struct T_OnCall;
+    /// T_OnTrigger transition
+    template <class Source, class Target>
+    struct T_OnTrigger;
     /// T_ParamRow transition
     template <class Source, class Target>
     struct T_ParamRow;
@@ -99,6 +96,9 @@ class ModelDefinition
     /// T_Prod transition
     template <class Source, class Target>
     struct T_Prod;
+    /// T_Repeat transition
+    template <class Source, class Target>
+    struct T_Repeat;
     /// T_Return transition
     template <class Source, class Target>
     struct T_Return;
@@ -117,13 +117,15 @@ class ModelDefinition
     /// T_Timestamp transition
     template <class Source, class Target>
     struct T_Timestamp;
+    /// T_Union transition
+    template <class Source, class Target>
+    struct T_Union;
+    /// T_With transition
+    template <class Source, class Target>
+    struct T_With;
     /// T_Zip transition
     template <class Source, class Target>
     struct T_Zip;
-
-    /// T_OnTrigger transition
-    template <class Source, class Target>
-    struct T_OnTrigger;
 
 // NODES forward declarations
     /// N_Term node
@@ -164,11 +166,15 @@ class ModelDefinition
     class N_KindIn;
     /// N_KindOut node
     class N_KindOut;
+    /// N_Repeat node
+    class N_Repeat;
+    /// N_Main node
+    class N_Main;
 
     /// Base node class
     class N_Node;
-  public:
-    class N_Main;
+
+    friend class SignalMapping;
 
 };
 

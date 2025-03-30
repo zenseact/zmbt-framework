@@ -52,8 +52,8 @@ public:
         static EvalLog make();
     };
 
-    /// Expression evaluation config
-    struct EvalConfig
+    /// Expression evaluation context
+    struct EvalContext
     {
         /// Operator
         SignalOperatorHandler op;
@@ -62,8 +62,8 @@ public:
         /// Evaluation stack depth
         std::uint64_t const depth;
 
-        /// Copy config with depth increment
-        EvalConfig operator++(int) const;
+        /// Copy context with depth increment
+        EvalContext operator++(int) const;
     };
 
 private:
@@ -84,7 +84,7 @@ private:
     boost::json::value eval_UnaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_CodegenFn(boost::json::value const&, SignalOperatorHandler const&) const;
     boost::json::value eval_BinaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
-    boost::json::value eval_Special(boost::json::value const&, EvalConfig const&) const;
+    boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
 public:
 
     static boost::json::array toArray(std::initializer_list<Expression> const& list);
@@ -185,7 +185,7 @@ public:
     /// @param x run-time argument
     /// @param config evaluation config
     /// @return
-    boost::json::value eval(boost::json::value const& x = nullptr, EvalConfig const& config = {}) const;
+    boost::json::value eval(boost::json::value const& x = nullptr, EvalContext const& ctx = {}) const;
 
     bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const;
 

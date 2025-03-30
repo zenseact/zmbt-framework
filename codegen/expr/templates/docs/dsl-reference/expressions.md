@@ -11,13 +11,12 @@
     3. Commit changes
 -->
 
-# Expression DSL Reference {#expression-dsl-reference}
-
-[TOC]
+# Expression DSL Reference
 
 @for group, group_ref in data.Groups:
 
-## @group {#expression-dsl-reference-@group_ref}
+## @group
+
 <table>
 <thead>
     <tr>
@@ -26,6 +25,7 @@
         <th>Symbol</th>
         @end
         <th>Description</th>
+        <th>Syntax</th>
         @if group not in ('Constants', 'Math Functions'):
         <th>Examples</th>
         @end
@@ -34,22 +34,20 @@
 <tbody>
 @for keyword in data.GetGroup(group):
     <tr>
-        <td>[@keyword.Enum](\ref expr-@keyword.Name)
+        <td><a id ="@keyword.Enum.lower()"> @keyword.Enum
         </td>
-        @if 'Operators' in group:
+    @if 'Operators' in group:
         <td>@keyword.Symbol</td>
-        @end
+    @end
         <td>@keyword.DocBrief
-        @if details := keyword.DocDetails:
+    @if details := keyword.DocDetails:
         <pre>@details</pre>
-        @end
-        @if aliases := keyword.Aliases:
+    @end
+    @if aliases := keyword.Aliases:
         <br>Aliases: @{", ".join(aliases)}
-        @end
-        @if all(map(lambda x: x not in group, ['Unary', 'Binary', 'Math', 'Const', 'Operators'])):
-        <br>Syntax: [@keyword.Signature](\ref expression-dsl-forms)
-        @end
+    @end
         </td>
+        <td><a href="/user-guide/expressions/#syntax">@keyword.Signature</a></td>
     @if group not in ('Constants', 'Math Functions'):
         @if examples := keyword.Examples:
         <td><pre>@examples</pre></td>
@@ -57,5 +55,5 @@
     @end
     </tr>
 @end
-@end
 </tbody></table>
+@end

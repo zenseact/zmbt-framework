@@ -44,25 +44,17 @@ CodegenType getCodegenType(Keyword const& k)
         return CodegenType::UnaryOp;
     case Keyword::Add:
     case Keyword::Sub:
-    case Keyword::SubFrom:
     case Keyword::Mul:
     case Keyword::Div:
-    case Keyword::DivFrom:
     case Keyword::Pow:
-    case Keyword::PowFrom:
     case Keyword::Log:
-    case Keyword::LogFrom:
     case Keyword::Mod:
-    case Keyword::ModFrom:
     case Keyword::Quot:
-    case Keyword::QuotFrom:
     case Keyword::BitAnd:
     case Keyword::BitOr:
     case Keyword::BitXor:
     case Keyword::BitLshift:
-    case Keyword::BitLshiftFrom:
     case Keyword::BitRshift:
-    case Keyword::BitRshiftFrom:
     case Keyword::Eq:
     case Keyword::Ne:
     case Keyword::Lt:
@@ -106,6 +98,7 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Id:
     case Keyword::Parse:
     case Keyword::Serialize:
+    case Keyword::C:
     case Keyword::Default:
         return CodegenType::CodegenFn;
     default:

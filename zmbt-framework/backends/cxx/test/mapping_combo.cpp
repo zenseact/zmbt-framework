@@ -13,11 +13,11 @@ using namespace zmbt::expr;
 using namespace zmbt;
 
 
-BOOST_AUTO_TEST_CASE(TestJoin)
+BOOST_AUTO_TEST_CASE(TestWith)
 {
     auto test_pair = [](int x, int y){ return std::make_pair(x, y); };
 
-    SignalMapping("Join channels test")
+    SignalMapping("With clause test")
     .OnTrigger(test_pair)
 
         .InjectTo  (test_pair).Args(0)
@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(TestJoin)
         .ObserveOn (test_pair) .Return()
 
         .ObserveOn (test_pair) .Return(1)
-            .Join()
+            .With()
         .ObserveOn (test_pair) .Return(0)
 
     .Test
@@ -40,12 +40,12 @@ BOOST_AUTO_TEST_CASE(TestJoin)
     using test_map_t = std::map<int, int>;
     auto test_map = [](test_map_t const& map){ return map; };
 
-    SignalMapping("Join channels test")
+    SignalMapping("With clause test")
     .OnTrigger(test_map)
 
         .InjectTo  (test_map)
         .ObserveOn (test_map).Return("/0/1")
-            .Join()
+            .With()
         .ObserveOn (test_map).Return("/1/1")
 
     .Test
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE(TestJoin)
 }
 
 
-BOOST_AUTO_TEST_CASE(TestMergeInSeries)
+BOOST_AUTO_TEST_CASE(TestUnion)
 {
     struct Mock {
         void foo(int x) {
@@ -84,7 +84,7 @@ BOOST_AUTO_TEST_CASE(TestMergeInSeries)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).Alias("f")
-            .MergeInSeries()
+            .Union()
         .ObserveOn (&Mock::bar).Alias("b")
 
     .Test
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(TestMergeInSeries)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).CallRange().Alias("f")
-            .MergeInSeries()
+            .Union()
         .ObserveOn (&Mock::bar).CallRange().Alias("b")
 
     .Test
@@ -107,7 +107,7 @@ BOOST_AUTO_TEST_CASE(TestMergeInSeries)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).CallCount().Alias("f")
-            .MergeInSeries()
+            .Union()
         .ObserveOn (&Mock::bar).CallCount().Alias("b")
 
     .Test

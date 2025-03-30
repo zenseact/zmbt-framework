@@ -231,21 +231,9 @@ keyword_groups:
       - name: sub
         brief: Subtraction
         symbol: '-'
-        commutative-dual: sub-from
         examples: |-
           Sub >> [2, 1] == -1
           Sub(1) >> 2   == 1
-
-      - name: sub-from
-        brief: Reverse subtraction
-        details: |-
-          Subtraction with reverse arguments, i. e.
-            1. [ ] |-> [y, x] |-> x - y
-            2. [x] |-> [y]    |-> x - y
-        commutative-dual: sub
-        examples: |-
-          SubFrom >> [2, 1] == -1
-          SubFrom(1) >> 2   == -1
 
       - name: mul
         brief: Multiplication
@@ -260,21 +248,9 @@ keyword_groups:
         details: |-
           1. [ ] |-> [x, y] |-> x / y
           2. [y] |-> [x]    |-> x / y
-        commutative-dual: div-from
         examples: |-
           Div >> [6, 3] == 2
           Div(3) >> 6   == 2
-
-      - name: div-from
-        brief: Reverse division
-        details: |-
-          Division with reverse arguments, i. e.
-            1. [ ] |-> [y, x] |-> x / y
-            2. [x] |-> [y]    |-> x / y
-        commutative-dual: div
-        examples: |-
-          DivFrom >> [6, 3] == 0.5
-          DivFrom(3) >> 6   == 0.5
 
       - name: pow
         brief: To power
@@ -282,21 +258,9 @@ keyword_groups:
           X to power p
             1. [ ] |-> [x, p] |-> x^p
             2. [p] |-> [x]    |-> x^p
-        commutative-dual: pow-from
         examples: |-
           Pow >> [2, 3] == 8
           Pow(3) >> 2   == 8
-
-      - name: pow-from
-        brief: Reverse power
-        details: |-
-          Pow with reverse arguments, i. e.
-            1. [ ] |-> [p, x] |-> x^p
-            2. [x] |-> [p]    |-> x^p
-        commutative-dual: pow
-        examples: |-
-          PowFrom >> [2, 3] == 9
-          PowFrom(3) >> 2   == 9
 
       - name: log
         brief: Logarithm
@@ -304,21 +268,9 @@ keyword_groups:
           Logarithm with base b:
             1. [ ] |-> [x, b] |-> log_b(x)
             2. [b] |-> [x]    |-> log_b(x)
-        commutative-dual: log-from
         examples: |-
           Log >> [8, 2] == 3
           Log(2) >> 8   == 3
-
-      - name: log-from
-        brief: Reverse logarithm
-        details: |-
-          Log with reverse arguments, i. e.
-            1. [ ] |-> [b, x] |-> log_b(x)
-            2. [b] |-> [b]    |-> log_b(x)
-        commutative-dual: log
-        examples: |-
-          LogFrom >> [2, 8] == 3
-          LogFrom(2) >> 8   == 3
 
       - name: mod
         brief: Modulo
@@ -327,21 +279,9 @@ keyword_groups:
           Modulo of x:
             1. [ ] |-> [x, m] |-> x % m
             2. [m] |-> [x]    |-> x % m
-        commutative-dual: mod-from
         examples: |-
           Mod >> [7, 4] == 3
           Mod(4) >> 7   == 3
-
-      - name: mod-from
-        brief: Reverse modulo
-        details: |-
-          Modulo with reverse arguments, i. e.
-            1. [ ] |-> [b, x] |-> log_b(x)
-            2. [b] |-> [b]    |-> log_b(x)
-        commutative-dual: mod
-        examples: |-
-          ModFrom >> [4, 7] == 3
-          ModFrom(4) >> 7   == 3
 
       - name: quot
         brief: Quotient
@@ -350,21 +290,9 @@ keyword_groups:
           Quotient of x:
             1. [ ] |-> [x, d] |-> x // d
             2. [d] |-> [x]    |-> x // d
-        commutative-dual: quot-from
         examples: |-
           Quot >> [7, 4] == 1
           Quot(4) >> 7   == 1
-
-      - name: quot-from
-        brief: Reverse quotient
-        details: |-
-          Quotient with reverse arguments, i. e.
-            1. [ ] |-> [d, x] |-> x // d
-            2. [x] |-> [d]    |-> x // d
-        commutative-dual: quot
-        examples: |-
-          QuotFrom >> [4, 7] == 1
-          QuotFrom(4) >> 7   == 1
 
       - name: b-not
         signature: Unary
@@ -410,24 +338,10 @@ keyword_groups:
         details: |-
           1. [ ] |-> [x, s] |-> x << s
           2. [s] |-> [x]    |-> x << s
-        commutative-dual: b-lshift-from
         domain: [uint, uint]
         codomain: uint
         examples: |-
           BitLshift >> [0b1010, 2] == 0b101000
-
-      - name: b-lshift-from
-        brief: Reverse bitwise left shift
-        enum: BitLshiftFrom
-        details: |-
-          Bitwise left shift with reverse arguments, i. e.
-            1. [ ] |-> [s, x] |-> x << s
-            2. [x] |-> [s]    |-> x << s
-        commutative-dual: b-lshift
-        domain: [uint, uint]
-        codomain: uint
-        examples: |-
-          BitLshiftFrom >> [2, 0b1010] == 0b101000
 
       - name: b-rshift
         brief: Bitwise right shift
@@ -436,24 +350,10 @@ keyword_groups:
         details: |-
           1. [ ] |-> [x, s] |-> x >> s
           2. [s] |-> [x]    |-> x >> s
-        commutative-dual: b-rshift-from
         domain: [uint, uint]
         codomain: uint
         examples: |-
           BitRshift >> [0b1010, 2] == 0b0010
-
-      - name: b-rshift-from
-        brief: Reverse bitwise right shift
-        enum: BitRshiftFrom
-        details: |-
-          Bitwise right shift with reverse arguments, i. e.
-            1. [ ] |-> [s, x] |-> x >> s
-            2. [x] |-> [s]    |-> x >> s
-        commutative-dual: b-rshift
-        domain: [uint, uint]
-        codomain: uint
-        examples: |-
-          BitRshiftFrom >> [2, 0b1010] == 0b0010
 
   Relation Operators:
     defaults:
@@ -564,18 +464,9 @@ keyword_groups:
       - name: set-diff
         enum: Diff
         brief: Set difference
-        commutative-dual: set-diff-from
         examples: |-
           Diff >> [[1, 2], [2, 3]] == [1]
           Diff([2, 3]) >> [1, 2] == [1]
-
-      - name: set-diff-from
-        enum: DiffFrom
-        brief: Reverse set difference
-        commutative-dual: set-diff
-        examples: |-
-          DiffFrom >> [[1, 2], [2, 3]] == [3]
-          DiffFrom([2, 3]) >> [1, 2] == [3]
 
   Set Relation Operators:
     defaults:
@@ -1057,7 +948,6 @@ keyword_groups:
             4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
             5. {"key": q1, "$q2": q3, ...} |-> x: any |->
                 { "key1": x at q1, "$(x at q2)": x at q3, ...}
-
         commutative: false
         domain: [any, union: [int, str, list, object]]
         codomain: any
@@ -1085,6 +975,20 @@ keyword_groups:
           At("::2")     >> [1,2,3,4,5,6,7,8] == [1,3,5,7]
           At("4:")      >> [1,2,3,4,5,6,7,8] == [5,6,7,8]
           At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]
+
+      - name: c
+        aliases: [let]
+        brief: User-defined constant
+        details: |-
+          Produced expression will return the design-time parameter
+          on evaluation, ignoring input.
+          C(x) is a shorthand for `Id << x` or `And(false)|Or(x)
+        domain: [any, any]
+        codomain: any
+        examples: |-
+          C(42) >> 13 == 42
+        codegen-value:
+          cxx: params()
 
   High-Order:
     defaults: {}
@@ -1303,6 +1207,20 @@ keyword_groups:
           • Infix operator form (ampersand):
           Reduce(Add) & Size >> [1,2,3] == [6,3]
           Reduce(Add) & Size | Div >> [1,2,3] == 2
+
+      - name: flip
+        signature: Binary
+        brief: Flips design-time and eval-time parameters for enveloped expression.
+        details: |-
+          Useful for binding lhs operands to non-commutative operators.
+          Unlike Haskell's flip, won't change the order or eval-time parameters
+          - for that case use the Reverse keyword instead.
+        domain: [fn, any]
+        codomain: any
+        examples: |-
+          Div(1) >> 2 == 2
+          Flip(Div(1)) >> 2 == 0.5
+
 
   Evaluation handlers:
     defaults:

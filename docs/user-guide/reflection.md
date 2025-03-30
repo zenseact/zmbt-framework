@@ -3,7 +3,7 @@
 
 # Reflection API
 
-[TOC]
+:construction: *This document is in progress* :construction:
 
 Currently, ZMBT does not require complete type reflection. The `SignalMapping` tests rely solely on signal serialization and default value initialization. Future updates will ensure interoperability with Boost C++ libraries that provide data reflection capabilities.
 
@@ -17,7 +17,7 @@ For customization, specialize the metafunctions `zmbt::reflect::custom_*<T, E = 
 
 ## Serialization
 
-Serialization is based on Boost.JSON, and it can be enabled by following the [Boost.JSON API](https://www.boost.org/doc/libs/release/libs/json/). However, the recommended approach is to use the metafunction `zmbt::reflect::custom_serialization<T, E = void>`. This enables serialization independently of Boost.JSON, preventing argument-dependent lookup pollution in the tested system (see the example in [demo_hermetic_serialization.cpp](../zmbt-framework/backends/cxx/test/demo_hermetic_serialization.cpp)). This is particularly useful when user data already has defined serialization that is unsuitable for testing or when template types in tests are not expected to be serializable in the SUT context.
+Serialization is based on Boost.JSON, and it can be enabled by following the [Boost.JSON API](https://www.boost.org/doc/libs/release/libs/json/). However, the recommended approach is to use the metafunction `zmbt::reflect::custom_serialization<T, E = void>`. This enables serialization independently of Boost.JSON, preventing argument-dependent lookup pollution in the tested system (see the example in [demo_hermetic_serialization.cpp](../examples/cxx/hermetic_serialization.cpp)). This is particularly useful when user data already has defined serialization that is unsuitable for testing or when template types in tests are not expected to be serializable in the SUT context.
 
 ```cpp
 template <class T>

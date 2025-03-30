@@ -41,6 +41,9 @@ class ModelDefinition::@node.Class
     @{node.Class}(@{node.Class}&&) = default;
 
   public:
+@if node.Class == "N_Main":
+    N_Main() : ModelDefinition() {}
+@end
     ~@{node.Class}()
     {
     }

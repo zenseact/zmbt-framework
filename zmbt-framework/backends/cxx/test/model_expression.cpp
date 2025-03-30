@@ -115,6 +115,11 @@ std::vector<TestEvalSample> const TestSamples
     {Expression(42)|Not|Not     , 42                    , true                  },
     {Expression(42)|Not|Not     , 13                    , false                 },
 
+    {C(42)                      , 13                    , 42                    },
+    {C                          , 13                    , nullptr               },
+    {C(42)                      , nullptr               , 42                    },
+    {Let(42)                    , nullptr               , 42                    },
+
     {Approx(42)                 , 42                    , true                  },
     {Approx(42)                 , 42.0 + 1e-09          , true                  },
     {Approx(42.0 + 1e-09)       , 42                    , true                  },
@@ -213,16 +218,16 @@ std::vector<TestEvalSample> const TestSamples
     {Union|Sort                 , {{1,2,3},{2,3,4}}     , {1,2,3,4}             },
     {Intersect|Sort             , {{1,2,3},{2,3,4}}     , {2,3}                 },
     {Diff                       , {{1,2,3},{2,3,4}}     , L{1}                  },
-    {DiffFrom                   , {{1,2,3},{2,3,4}}     , L{4}                  },
+    {Reverse|Diff               , {{1,2,3},{2,3,4}}     , L{4}                  },
     {Union({2,3,4})|Sort        , L{1,2,3}              , {1,2,3,4}             },
     {Intersect({2,3,4})|Sort    , L{1,2,3}              , {2,3}                 },
     {Diff({2,3,4})              , L{1,2,3}              , L{1}                  },
-    {DiffFrom({2,3,4})          , L{1,2,3}              , L{4}                  },
+    {Flip(Diff({2,3,4}))          , L{1,2,3}              , L{4}                  },
 
     {Union                      , {L{},L{}}             , L{}                   },
     {Intersect                  , {L{},L{}}             , L{}                   },
     {Diff                       , {L{},L{}}             , L{}                   },
-    {DiffFrom                   , {L{},L{}}             , L{}                   },
+    {Reverse|Diff               , {L{},L{}}             , L{}                   },
 
     // element in set
     {In({1, 2})                 , 2                     , true                  },
@@ -308,6 +313,7 @@ std::vector<TestEvalSample> const TestSamples
     {Arange << 0                , nullptr               , L{}                   },
     {Arange << "1:9:-1"         , nullptr               , L{}                   },
 
+
     {Items                      , {{"a", 1}, {"b", 2}}  , {L{"a", 1}, L{"b", 2}}},
     {Keys                       , {{"a", 1}, {"b", 2}}  , {"a", "b"}            },
     {Values                     , {{"a", 1}, {"b", 2}}  , {1, 2}                },
@@ -344,8 +350,6 @@ std::vector<TestEvalSample> const TestSamples
 
     {BitLshift                  , {1, 1}                , 2                   },
     {BitRshift                  , {2, 1}                , 1                   },
-    {BitLshiftFrom              , {1, 1}                , 2                   },
-    {BitRshiftFrom              , {1, 2}                , 1                   },
 
     {Add                        , {3,  2}               , 5                     },
     {Add                        , {.5, 1}               , 1.5                   },
@@ -359,8 +363,6 @@ std::vector<TestEvalSample> const TestSamples
     {Sub                        , {3, -2}               , 5                     },
     {Sub(2)                     , 3                     , 1                     },
     {Sub(-2)                    , 3                     , 5                     },
-    {SubFrom                    , { 2, 3}               , 1                     },
-    {SubFrom                    , {-2, 3}               , 5                     },
 
     {Mul                        , {3,  2}               ,  6                    },
     {Mul                        , {3, -2}               , -6                    },
@@ -373,8 +375,6 @@ std::vector<TestEvalSample> const TestSamples
     {Div                        , {3, -2}               , -1.5                  },
     {Div(2)                     , 3                     ,  1.5                  },
     {Div(-2)                    , 3                     , -1.5                  },
-    {DivFrom                    , { 2, 3}               ,  1.5                  },
-    {DivFrom                    , {-2, 3}               , -1.5                  },
     {Reverse|Div                , {-2, 3}               , -1.5                  },
 
     {Mod                        , {4,  2}               ,  0                    },
@@ -386,25 +386,20 @@ std::vector<TestEvalSample> const TestSamples
     {Mod(2)                     , 12                    ,  0                    },
     {Mod(2)                     , 13                    ,  1                    },
     {Mod(2)                     , 14                    ,  0                    },
-    {ModFrom                    , { 2, 4}               ,  0                    },
-    {ModFrom                    , { 3, 4}               ,  1                    },
 
     {Quot                       , {4 ,  2}              ,  2                    },
     {Quot                       , {17, -4}              , -4                    },
     {Quot(2)                    , 11                    ,  5                    },
     {Quot(-4)                   , 7                     , -1                    },
-    {QuotFrom                   , { 2, 4}               ,  2                    },
-    {QuotFrom                   , { 3, 4}               ,  1                    },
 
     {Pow(2)                     , 3                     ,  9                    },
     {Pow(2)                     , 4                     , 16                    },
     {Pow(0.5)                   , 9                     ,  3                    },
     {Pow(0.5)                   , 16                    ,  4                    },
     {Pow(0.5)                   , 0.25                  ,  0.5                  },
-    {PowFrom(3)                 , 2                     ,  9                    },
-    {PowFrom(9)                 , 0.5                   ,  3                    },
+    {Flip(Pow(3))                 , 2                     ,  9                    },
+    {Flip(Pow(9))                 , 0.5                   ,  3                    },
     {Pow                        , {3, 2}                ,  9                    },
-    {PowFrom                    , {2, 3}                ,  9                    },
 
     {Log(2)                     , 8                     , 3                     },
     {Log(2)                     , 16                    , 4                     },
@@ -412,10 +407,9 @@ std::vector<TestEvalSample> const TestSamples
     {Log(0.5)                   , 0.25                  , 2                     },
     {Log(0.5)                   , 0.5                   , 1                     },
     {Log(E.eval())              , E.eval()              , 1                     },
-    {LogFrom(16   )             , 2                     , 4                     },
-    {LogFrom(0.125)             , 0.5                   , 3                     },
+    {Flip(Log(16   ))           , 2                     , 4                     },
+    {Flip(Log(0.125))             , 0.5                   , 3                     },
     {Log                        , {8, 2}                , 3                     },
-    {LogFrom                    , {2, 8}                , 3                     },
 
     {Sqrt                       , 9                     , 3                     },
     {Sqrt                       , 16                    , 4                     },
@@ -513,8 +507,8 @@ std::vector<TestEvalSample> const TestSamples
     {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
     {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },
     {Map(Pow(0.5))              , {1,4,9,16}             , {1,2,3,4}            },
-    {Map(PowFrom(2))            , {1,2,3,4}              , {2,4,8,16}           },
-    {Map(PowFrom(0.5))          , {1,2,3,4}              , {.5,.25,.125,.0625}  },
+    {Map(Flip(Pow(2)))          , {1,2,3,4}              , {2,4,8,16}           },
+    {Map(Flip(Pow(0.5)))        , {1,2,3,4}              , {.5,.25,.125,.0625}  },
 
     {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
     {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
@@ -616,10 +610,10 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
     try
     {
-        Expression::EvalConfig config{};
-        config.log = Expression::EvalLog::make();
-        auto const result = sample.expr.eval(sample.x, config);
-        BOOST_TEST_INFO("Eval log: \n" << config.log);
+        Expression::EvalContext context{};
+        context.log = Expression::EvalLog::make();
+        auto const result = sample.expr.eval(sample.x, context);
+        BOOST_TEST_INFO("Eval log: \n" << context.log);
         BOOST_CHECK_EQUAL(result, sample.expected);
 
         V js = json_from(sample.expr);
@@ -788,7 +782,7 @@ BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 
 BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 {
-    Expression::EvalConfig cfg{};
+    Expression::EvalContext cfg{};
     cfg.log = Expression::EvalLog::make();
 
     auto const f = Reduce(Add) & Size | Div;

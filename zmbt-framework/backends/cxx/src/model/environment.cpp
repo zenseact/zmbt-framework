@@ -101,14 +101,53 @@ void Environment::ResetAllFor(object_id obj)
 
 boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id)
 {
-    TriggerObj const& obj = data_->trigger_objs.at(obj_id);
-    TriggerIfc const& ifc = data_->trigger_ifcs.at(ifc_id);
-    Trigger trigger {obj, ifc};
-    auto key = GetOrRegisterInterface(obj_id, ifc_id);
-    auto lock = Lock();
-    data_->triggers.emplace(key, std::move(trigger));
-    data_->json_data("/triggers/%s", key) = 0; // TODO: timestamp
-    return key;
+    bool const is_obj_ok = data_->trigger_objs.count(obj_id);
+    bool const is_ifc_ok = data_->trigger_ifcs.count(ifc_id);
+    bool const is_complete_trigger = data_->triggers.count(ifc_id.str());
+        
+    if (is_obj_ok && is_ifc_ok)
+    {
+        TriggerObj const& obj = data_->trigger_objs.at(obj_id);
+        TriggerIfc const& ifc = data_->trigger_ifcs.at(ifc_id);
+        Trigger trigger {obj, ifc};
+        auto key = GetOrRegisterInterface(obj_id, ifc_id);
+        auto lock = Lock();
+        data_->triggers.emplace(key, std::move(trigger));
+        data_->json_data("/triggers/%s", key) = 0; // TODO: timestamp
+        return key;
+    }
+    else if (is_obj_ok && is_complete_trigger)
+    {
+        throw environment_error(
+            "`%s` is registered as complete trigger and can't be used together object reference",
+            ifc_id
+        );
+        return "";
+    }
+    else if (!is_obj_ok && is_ifc_ok)
+    {
+        throw environment_error(
+            "`%s` is registered as interface and can't be used together object reference",
+            ifc_id
+        );
+        return "";
+    }
+    else if (!is_obj_ok && is_ifc_ok)
+    {
+        throw environment_error(
+            "%s object id is not found in registered triggers",
+            obj_id
+        );
+        return "";
+    }
+    else
+    {
+        throw environment_error(
+            "Can't resolve registered trigger for (%s, %s)", obj_id, ifc_id
+        );
+        return "";
+    }
+
 }
 
 

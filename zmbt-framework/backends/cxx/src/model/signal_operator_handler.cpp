@@ -85,12 +85,9 @@ boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boo
 
     case dsl::Keyword::Add: return operators.add_(lhs, rhs);
     case dsl::Keyword::Sub: return operators.sub_(lhs, rhs);
-    case dsl::Keyword::SubFrom: return operators.sub_(rhs, lhs);
     case dsl::Keyword::Mul: return operators.mul_(lhs, rhs);
     case dsl::Keyword::Div: return operators.div_(lhs, rhs);
-    case dsl::Keyword::DivFrom: return operators.div_(rhs, lhs);
     case dsl::Keyword::Mod: return operators.mod_(lhs, rhs);
-    case dsl::Keyword::ModFrom: return operators.mod_(rhs, lhs);
 
     case dsl::Keyword::Neg   : return operators.neg_(rhs);
     case dsl::Keyword::BitNot: return operators.compl_(rhs);
@@ -99,8 +96,6 @@ boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boo
     case dsl::Keyword::BitXor: return operators.bxor_(lhs, rhs);
     case dsl::Keyword::BitLshift: return operators.blshift_(lhs, rhs);
     case dsl::Keyword::BitRshift: return operators.brshift_(lhs, rhs);
-    case dsl::Keyword::BitLshiftFrom: return operators.blshift_(rhs, lhs);
-    case dsl::Keyword::BitRshiftFrom: return operators.brshift_(rhs, lhs);
 
     case dsl::Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
     case dsl::Keyword::Subset: return is_subset(lhs, rhs);
@@ -115,11 +110,8 @@ boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boo
     case dsl::Keyword::Approx: return is_approx(lhs, rhs);
 
     case dsl::Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
-    case dsl::Keyword::PowFrom:  return GenericSignalOperator(rhs).pow(lhs);
     case dsl::Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
-    case dsl::Keyword::LogFrom:  return GenericSignalOperator(rhs).log(lhs);
     case dsl::Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
-    case dsl::Keyword::QuotFrom: return GenericSignalOperator(rhs).quot(lhs);
 
     default:
         throw expression_not_implemented("unsupported operator");
@@ -155,11 +147,7 @@ bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json
 
         for (auto const& value: a)
         {
-            if (!value.is_structured() && std::find_if(b.cbegin(), b.cend(), [&](auto const& other){ return operators.is_equal_(value, other); }) == b.cend())
-            {
-                return false;
-            }
-            else if (value.is_structured() && std::find_if(b.cbegin(), b.cend(), [&](auto const& other){ return is_subset(value, other); }) == b.cend())
+            if (std::find_if(b.cbegin(), b.cend(), [&](auto const& other){ return operators.is_equal_(value, other); }) == b.cend())
             {
                 return false;
             }
@@ -181,19 +169,18 @@ bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json
         {
             auto const& key = kvp.key();
             auto const& value = kvp.value();
-            if (!b.contains(kvp.key())) {
-                return false;
-            }
-            else if (value.is_structured() && !is_subset(value, b.at(key)))
-            {
-                return false;
-            }
-            else if (!value.is_structured() && value != b.at(key))
+            if (!b.contains(key) || value != b.at(key))
             {
                 return false;
             }
         }
         return true;
+    }
+    // string in string treated as set of substrings
+    else if (lhs.is_string() && rhs.is_string())
+    {
+        if (lhs.get_string().empty()) { return true; }
+        return std::string::npos != rhs.get_string().find(lhs.get_string());
     }
     else
     {
@@ -206,24 +193,26 @@ bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json
 /// Is element of
 bool SignalOperatorHandler::contains(boost::json::value const& set, boost::json::value const& element) const
 {
-    if (auto arr = set.if_array())
+    // array item
+    if (set.if_array())
     {
-        return std::find_if(arr->cbegin(), arr->cend(), [&](auto const& other){ return operators.is_equal_(element, other); }) != arr->cend();
+        return is_subset(boost::json::array{element}, set);
+    }
+    else if(element.is_string() && set.is_string())
+    {
+        return is_subset(element, set);
     }
     // object key
-    else if(element.is_string() && set.if_object())
+    else if(element.is_string() && set.is_object())
     {
-        return set.get_object().contains(element.as_string());
+        return set.get_object().contains(element.get_string());
     }
     // object key-value pair
-    else if(element.is_array() && set.is_object())
+    else if(set.is_object() && element.is_array() && element.get_array().size() == 2 && element.get_array().front().is_string())
     {
         auto const& kvp = element.get_array();
-        if (kvp.size() != 2) { return false; }
-        if (!kvp.at(0).is_string()) { return false; }
-
         auto const& obj = set.get_object();
-        auto const& key = kvp.at(0).as_string();
+        auto const& key = kvp.front().as_string();
         auto const& value = kvp.at(1);
         if (!obj.contains(key)) { return false; }
         return operators.is_equal_(obj.at(key), value);

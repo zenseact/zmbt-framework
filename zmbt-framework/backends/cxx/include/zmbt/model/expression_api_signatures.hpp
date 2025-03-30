@@ -63,10 +63,6 @@ struct SignatureUnary : public SignatureBase<K>
 /// see documentation for specific expression.
 ///
 /// In the third form the expression parameter is used as the right-hand side operand.
-///
-/// Most of the non-commutative terminal operators has a counterpart expression `*From`,
-/// which is evaluated under the same rules but with operands swapped. For other cases,
-/// the composition with Reverse can be utilized in the first form.
 template <Keyword K>
 struct SignatureBinary : public SignatureBase<K>
 {

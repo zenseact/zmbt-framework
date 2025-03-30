@@ -181,7 +181,11 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
 {
     try {
         Environment::InterfaceHandle ifc_rec{model_.at("/trigger").as_string()};
-        ifc_rec.RunAsTrigger();
+        auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
+        for (std::uint64_t i = 0; i < runs; i++)
+        {
+            ifc_rec.RunAsTrigger();
+        }
         return true;
     }
     catch (std::exception const& error) {
@@ -242,11 +246,11 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
         {
             auto const& combo = channel_group.cbegin()->combine();
             try {
-                if (combo == "series")
+                if (combo == "union")
                 {
                     observed = ChannelHandle::observe_series(channel_group);
                 }
-                else if (combo == "join")
+                else if (combo == "with")
                 {
                     observed = ChannelHandle::observe_join(channel_group);
                 }
@@ -270,13 +274,13 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
             {
                 if (not (expr.match(observed, op)))
                 {
-                    Expression::EvalConfig cfg {op, Expression::EvalLog::make(), 0};
-                    expr.eval(observed, cfg);
+                    Expression::EvalContext ctx {op, Expression::EvalLog::make(), 0};
+                    expr.eval(observed, ctx);
 
                     diagnostics
                         .Fail(expr, observed, op)
                         .ChannelIdx(column_idx)
-                        .EvalStack(cfg.log);
+                        .EvalStack(ctx.log);
 
                     assertion_passed = false;
                 }

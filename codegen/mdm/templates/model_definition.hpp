@@ -27,7 +27,7 @@ namespace zmbt {
 namespace mapping {
 
 /// Mapping model definition machine
-class ModelDefinition 
+class ModelDefinition
 {
     detail::DefinitionHelper mapping_;
 
@@ -55,10 +55,6 @@ class ModelDefinition
     struct @t;
 @end
 
-    /// T_OnTrigger transition
-    template <class Source, class Target>
-    struct T_OnTrigger;
-
 // NODES forward declarations
 @for n in data.Nodes:
     /// @n.Class node
@@ -67,8 +63,8 @@ class ModelDefinition
 
     /// Base node class
     class N_Node;
-  public:
-    class N_Main;
+
+    friend class SignalMapping;
 
 };
 
