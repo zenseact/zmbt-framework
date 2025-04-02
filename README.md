@@ -12,7 +12,6 @@ modeling syntax, upon which automated verification procedures are applied.
 
 [![Test and Scan Backends](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-backends.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-backends.yml)
 [![Test and Scan Python](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-python.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-python.yml)
-[![Generate API Reference](https://github.com/zenseact/zmbt-framework/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/publish-docs.yml)
 
 
 

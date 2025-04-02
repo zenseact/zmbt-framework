@@ -14,7 +14,7 @@ nav:
   # - Installation:
   # - Quick Start:
   - User Guide:
-      - user-guide/signal-mapping.md
+      - Signal Mapping Model: user-guide/signal-mapping.md
       - user-guide/expressions.md
       - user-guide/environment.md
       - user-guide/reflection.md
@@ -24,27 +24,26 @@ nav:
       - dsl-reference/signal-mapping.md
       - dsl-reference/expressions.md
 
-      # - C++ API:
-        # - "ZmbtCxxApiReference/zmbt-framework/backends/cxx/index.md"
-    #     - "ZmbtCxxApiReference/links.md"
-    #     - "Namespaces":
-    #         - "Namespace List": "ZmbtCxxApiReference/namespaces.md"
-    #         - "Namespace Members": "ZmbtCxxApiReference/namespace_members.md"
-    #         - "Namespace Member Functions": "ZmbtCxxApiReference/namespace_member_functions.md"
-    #         - "Namespace Member Variables": "ZmbtCxxApiReference/namespace_member_variables.md"
-    #         - "Namespace Member Typedefs": "ZmbtCxxApiReference/namespace_member_typedefs.md"
-    #         - "Namespace Member Enumerations": "ZmbtCxxApiReference/namespace_member_enums.md"
-    #     - "Classes":
-    #         - "Class List": "ZmbtCxxApiReference/annotated.md"
-    #         - "Class Index": "ZmbtCxxApiReference/classes.md"
-    #         - "Class Hierarchy": "ZmbtCxxApiReference/hierarchy.md"
-    #         - "Class Members": "ZmbtCxxApiReference/class_members.md"
-    #         - "Class Member Functions": "ZmbtCxxApiReference/class_member_functions.md"
-    #         - "Class Member Variables": "ZmbtCxxApiReference/class_member_variables.md"
-    #         - "Class Member Typedefs": "ZmbtCxxApiReference/class_member_typedefs.md"
-    #         - "Class Member Enumerations": "ZmbtCxxApiReference/class_member_enums.md"
-    #     - "Macros": "ZmbtCxxApiReference/macros.md"
-    #     - "Files": "ZmbtCxxApiReference/files.md"
+  - C++ API:
+    # - "ZmbtCxxApiReference/links.md"
+    - "Namespaces":
+        - "Namespace List": "ZmbtCxxApiReference/namespaces.md"
+        - "Namespace Members": "ZmbtCxxApiReference/namespace_members.md"
+        - "Namespace Member Functions": "ZmbtCxxApiReference/namespace_member_functions.md"
+        - "Namespace Member Variables": "ZmbtCxxApiReference/namespace_member_variables.md"
+        - "Namespace Member Typedefs": "ZmbtCxxApiReference/namespace_member_typedefs.md"
+        - "Namespace Member Enumerations": "ZmbtCxxApiReference/namespace_member_enums.md"
+    - "Classes":
+        - "Class List": "ZmbtCxxApiReference/annotated.md"
+        - "Class Index": "ZmbtCxxApiReference/classes.md"
+        - "Class Hierarchy": "ZmbtCxxApiReference/hierarchy.md"
+        - "Class Members": "ZmbtCxxApiReference/class_members.md"
+        - "Class Member Functions": "ZmbtCxxApiReference/class_member_functions.md"
+        - "Class Member Variables": "ZmbtCxxApiReference/class_member_variables.md"
+        - "Class Member Typedefs": "ZmbtCxxApiReference/class_member_typedefs.md"
+        - "Class Member Enumerations": "ZmbtCxxApiReference/class_member_enums.md"
+    - "Macros": "ZmbtCxxApiReference/macros.md"
+    - "Files": "ZmbtCxxApiReference/files.md"
 
 theme:
   name: material
@@ -56,6 +55,20 @@ theme:
     - navigation.footer
   icon:
     repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 extra:
   version:
@@ -77,15 +90,15 @@ plugins:
       css_dir: css
       javascript_dir: js
 
-  # - mkdoxy:
-  #     projects:
-        # ZmbtCxxApiReference: # name of project must be alphanumeric + numbers (without spaces)
-        #   src-dirs: zmbt-framework/backends/cxx # path to source code (support multiple paths separated by space) => INPUT
-        #   # full-doc: True # if you want to generate full documentation
-        #   doxy-cfg-file: docs/doxygen/Doxyfile
-        #   doxy-cfg: # standard doxygen configuration (key: value)
-        #     FILE_PATTERNS: "*.hpp* *.dox *.md" # specify file patterns to filter out
-        #     RECURSIVE: True # recursive search in source directories
+  - mkdoxy:
+      projects:
+        ZmbtCxxApiReference: # name of project must be alphanumeric + numbers (without spaces)
+          src-dirs: zmbt-framework/backends/cxx # path to source code (support multiple paths separated by space) => INPUT
+          # full-doc: True # if you want to generate full documentation
+          doxy-cfg-file: docs/doxygen/Doxyfile
+          doxy-cfg: # standard doxygen configuration (key: value)
+            FILE_PATTERNS: "*.hpp* *.dox *.md" # specify file patterns to filter out
+            RECURSIVE: True # recursive search in source directories
 
 markdown_extensions:
   - attr_list

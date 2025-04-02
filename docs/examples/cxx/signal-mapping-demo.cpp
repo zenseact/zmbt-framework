@@ -23,11 +23,11 @@ using namespace zmbt::expr; //(2)
 2. Expression DSL namespace
 
 
-## Quick example
+## Basic example
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(QuickExample)
+BOOST_AUTO_TEST_CASE(BasicExample)
 {
     auto sum = [](int x, int y){ return x + y; };
 
@@ -637,7 +637,7 @@ BOOST_AUTO_TEST_CASE(Call)
 /*
 ```
 
-## Batch calls
+## Signal batch testing
 
 `Call` clause is useful for injectin conditions and checking outputs atomically,
 but in many cases batch processing is more convenient and resource efficient.
@@ -703,7 +703,7 @@ BOOST_AUTO_TEST_CASE(CallRange)
         ((Arange1toNp1|Reverse) << N, Slide(2) | Map(Sub|Eq(1)) | Reduce(And) /*(4)*/)
     .Zip
         (N, 3, 42, 100)
-    .Description("avg([1,2,...,N,N+1]) == N/2+0.5")
+    .Description("Verify that avg(1,2,...,N,N+1) == N/2+0.5")
     ;
 }
 /*
