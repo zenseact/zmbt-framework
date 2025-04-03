@@ -181,7 +181,7 @@ public:
 
     InterfaceHandle& RunAsAction();
 
-    InterfaceHandle& RunAsTrigger();
+    InterfaceHandle& RunAsTrigger(int const nofcall = -1);
 };
 
 /// @brief Environment API handler for specific interface

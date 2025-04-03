@@ -10,23 +10,6 @@
 #include "zmbt/mapping/channel_handle.hpp"
 
 
-namespace
-{
-boost::json::value get_at_pointer(boost::json::value const& val, boost::json::string_view ptr)
-{
-    try
-    {
-        return val.at_pointer(ptr);
-    }
-    catch(const std::exception& e)
-    {
-        throw zmbt::model_error("failed to retrieve `%s` from `%s`, %s", ptr, val, e.what());
-    }
-    return nullptr;
-}
-} // namespace
-
-
 namespace zmbt {
 namespace mapping {
 
@@ -162,8 +145,8 @@ void ChannelHandle::inject(boost::json::value value) const
         bool const is_args = kind() == ChannelHandle::Kind::Args;
         if (is_range())
         {
-            boost::json::string_view group = is_args ? "/args%s" : "/return%s";
-            boost::json::string jp {format(group, signal_path())};
+            boost::json::string_view const group = is_args ? "/args%s" : "/return%s";
+            boost::json::string const jp {format(group, signal_path())};
             handle.SetInjectsRange(value, jp);
         }
         else {
@@ -198,21 +181,18 @@ boost::json::value ChannelHandle::observe() const
     switch (kind())
     {
     case Kind::Return:
-        {
-            return get_at_pointer(ifc_handle.ObservedReturn(on_call()), signal_path());
-        }
-        break;
     case Kind::Args:
         {
-            boost::json::string jp {format("/args%s", signal_path())};
+            boost::json::string_view const group = (kind() == Kind::Args) ? "/args%s" : "/return%s";
+            boost::json::string const jp {format(group, signal_path())};
             int start, stop, step;
             std::tie(start, stop, step) = call();
-            boost::json::array arg_list = ifc_handle.CaptureSlice(jp, start, stop, step);
-            if (!is_range() && arg_list.empty())
+            boost::json::array capture_list = ifc_handle.CaptureSlice(jp, start, stop, step);
+            if (!is_range() && capture_list.empty())
             {
                 throw model_error("no captures for requested channel");
             }
-            return is_range() ? arg_list : arg_list.at(0);
+            return is_range() ? capture_list : capture_list.at(0);
         }
         break;
     case Kind::Timestamp:

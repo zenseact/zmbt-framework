@@ -245,7 +245,7 @@ namespace zmbt {
         return *this;
     }
 
-    Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger()
+    Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(int const nofcall)
     {
         // TODO: make it thread safe without recursive mutex
         boost::json::string_view ref = key();
@@ -259,7 +259,7 @@ namespace zmbt {
 
         try
         {
-            boost::json::value capture = trigger(GetInjectionArgs(-1));
+            boost::json::value capture = trigger(GetInjectionArgs(nofcall));
             captures("/+") = capture;
         }
         catch(const std::exception& e)

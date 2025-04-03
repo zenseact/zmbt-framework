@@ -588,6 +588,22 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
 }
 
 
+BOOST_AUTO_TEST_CASE(CallRangeTrigger)
+{
+    auto id = [](boost::json::value const& x){ return x; };
+
+    SignalMapping("Test CallRange in and out on repeated trigger")
+    .OnTrigger(id).Repeat(3)
+        .InjectTo  (id).CallRange()
+        .ObserveOn (id).CallRange()
+    .Test
+        ( {1,2,3}     , {1,2,3}        )
+        ( {1,2,3,4,5} , {1,2,3}        )
+        ( {1,2}       , {1,2, nullptr} )
+    ;
+}
+
+
 BOOST_AUTO_TEST_CASE(Call)
 {
     struct Mock {

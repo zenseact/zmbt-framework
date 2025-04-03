@@ -184,7 +184,7 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
         auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
         for (std::uint64_t i = 0; i < runs; i++)
         {
-            ifc_rec.RunAsTrigger();
+            ifc_rec.RunAsTrigger(i+1);
         }
         return true;
     }
