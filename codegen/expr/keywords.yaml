@@ -751,6 +751,16 @@ keyword_groups:
         examples: |-
           Flatten >> [[1, 2], [3, 4]] == [1, 2, 3, 4]
 
+      - name: to-list
+        brief: Put argument into a list
+        details: Equivalent to `At([""])`
+        domain: any
+        codomain: list
+        examples: |-
+          List >> 42 == [42]
+        codegen-value:
+          cxx: boost::json::array{x}
+
 
   Unary Generators:
     defaults:
@@ -982,7 +992,7 @@ keyword_groups:
         details: |-
           Produced expression will return the design-time parameter
           on evaluation, ignoring input.
-          C(x) is a shorthand for `Id << x` or `And(false)|Or(x)
+          C(x) is a shorthand for `Id << x` or `And(false)|Or(x)`
         domain: [any, any]
         codomain: any
         examples: |-

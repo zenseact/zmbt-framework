@@ -96,6 +96,7 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Sqrt:
     case Keyword::Sign:
     case Keyword::Id:
+    case Keyword::ToList:
     case Keyword::Parse:
     case Keyword::Serialize:
     case Keyword::C:

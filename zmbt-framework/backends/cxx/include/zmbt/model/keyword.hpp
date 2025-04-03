@@ -281,6 +281,9 @@ enum class Keyword
     /// flatten
     Flatten,
 
+    /// to-list
+    ToList,
+
     /// arange
     Arange,
 

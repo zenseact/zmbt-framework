@@ -319,6 +319,8 @@ std::vector<TestEvalSample> const TestSamples
     {Values                     , {{"a", 1}, {"b", 2}}  , {1, 2}                },
     {Enumerate                  , {1,2,3}               , {{0,1},{1,2},{2,3}}   },
     {Flatten                    , {{1,2},{3,4}}         , {1,2,3,4}             },
+    {ToList                     , 42                    , L{42}                 },
+
 
     // composition
     {Compose(Eq(2), Size)       , {1,2}                 , true                  },

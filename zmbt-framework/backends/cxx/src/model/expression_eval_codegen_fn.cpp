@@ -50,6 +50,7 @@ boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x,
     case Keyword::Sqrt: return real_to_number(std::sqrt(boost::json::value_to<double>(x)));
     case Keyword::Sign: return boost::json::value_to<double>(x) >= 0 ? 1 : -1;
     case Keyword::Id: return x;
+    case Keyword::ToList: return boost::json::array{x};
     case Keyword::Parse: return boost::json::parse(x.as_string());
     case Keyword::Serialize: return {boost::json::serialize(x)};
     case Keyword::C: return params();

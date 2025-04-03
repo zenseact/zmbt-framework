@@ -103,6 +103,7 @@ dsl::SignatureUnary<::zmbt::dsl::Keyword::Keys> const Keys = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Values> const Values = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Enumerate> const Enumerate = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Flatten> const Flatten = {};
+dsl::SignatureUnary<::zmbt::dsl::Keyword::ToList> const ToList = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Arange> const Arange = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Parse> const Parse = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Serialize> const Serialize = {};

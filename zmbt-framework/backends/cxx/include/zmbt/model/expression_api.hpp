@@ -535,6 +535,12 @@ extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Enumerate> const Enumerate;
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Flatten> const Flatten;
 
+/// \brief Put argument into a list
+/// \anchor expr-to-list
+/// \details
+/// Equivalent to `At([""])`\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::ToList> const ToList;
+
 /// \brief Generate range of numbers
 /// \anchor expr-arange
 /// \details
@@ -658,7 +664,7 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At;
 /// \details
 /// Produced expression will return the design-time parameter
 /// on evaluation, ignoring input.
-/// C(x) is a shorthand for `Id << x` or `And(false)|Or(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// C(x) is a shorthand for `Id << x` or `And(false)|Or(x)`\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const C;
 /// \brief Alias for C
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let;

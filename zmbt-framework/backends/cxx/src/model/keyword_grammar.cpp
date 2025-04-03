@@ -151,6 +151,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "values", Keyword::Values)
     (ZMBT_KEYWORD_PREFIX "enumerate", Keyword::Enumerate)
     (ZMBT_KEYWORD_PREFIX "flatten", Keyword::Flatten)
+    (ZMBT_KEYWORD_PREFIX "to-list", Keyword::ToList)
     (ZMBT_KEYWORD_PREFIX "arange", Keyword::Arange)
     (ZMBT_KEYWORD_PREFIX "parse", Keyword::Parse)
     (ZMBT_KEYWORD_PREFIX "serialize", Keyword::Serialize)
@@ -303,6 +304,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Values: { v = ZMBT_KEYWORD_PREFIX "values"; break; }
     case Keyword::Enumerate: { v = ZMBT_KEYWORD_PREFIX "enumerate"; break; }
     case Keyword::Flatten: { v = ZMBT_KEYWORD_PREFIX "flatten"; break; }
+    case Keyword::ToList: { v = ZMBT_KEYWORD_PREFIX "to-list"; break; }
     case Keyword::Arange: { v = ZMBT_KEYWORD_PREFIX "arange"; break; }
     case Keyword::Parse: { v = ZMBT_KEYWORD_PREFIX "parse"; break; }
     case Keyword::Serialize: { v = ZMBT_KEYWORD_PREFIX "serialize"; break; }
