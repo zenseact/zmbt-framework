@@ -12,262 +12,242 @@
 
 namespace zmbt {
 
-    Environment::InterfaceHandle::InterfaceHandle(Environment const& e, object_id refobj, interface_id const& interface)
-        : env{e}
-        , refobj_{refobj}
-        , interface_{interface}
+Environment::InterfaceHandle::InterfaceHandle(Environment const& e, object_id refobj, interface_id const& interface)
+    : env{e}
+    , refobj_{refobj}
+    , interface_{interface}
+{
+    auto lock = Env().Lock();
+    auto& ifc_rec = Env().data_->json_data;
+    captures = ifc_rec.branch(boost::json::kind::array, "/interface_records/%s/%s/captures", refobj, interface);
+    injects = ifc_rec.branch(boost::json::kind::object, "/interface_records/%s/%s/injects", refobj, interface);
+}
+
+Environment::InterfaceHandle::InterfaceHandle(Environment const& e, boost::json::string_view ref)
+    : Environment::InterfaceHandle::InterfaceHandle(
+        e,
+        e.ObjectId(ref),
+        e.InterfaceId(ref)
+    )
+{
+}
+
+Environment::InterfaceHandle::InterfaceHandle(object_id refobj, interface_id const& interface)
+    : Environment::InterfaceHandle::InterfaceHandle(Environment {}, refobj, interface)
+{
+}
+
+Environment::InterfaceHandle::InterfaceHandle(nullptr_t, interface_id const& interface)
+    : Environment::InterfaceHandle::InterfaceHandle(object_id(nullptr), interface)
+{
+}
+
+Environment::InterfaceHandle::InterfaceHandle(boost::json::string_view ref)
+    : Environment::InterfaceHandle::InterfaceHandle(Environment {}, ref)
+{
+}
+
+
+boost::json::value const& Environment::InterfaceHandle::PrototypeReturn() const
+{
+    auto lock = Env().Lock();
+    return env.data_->json_data.at("/prototypes/%s/return", interface());
+}
+
+boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
+{
+    auto lock = Env().Lock();
+    return env.data_->json_data.at("/prototypes/%s/args", interface());
+}
+
+void Environment::InterfaceHandle::Inject(Expression const& e, boost::json::string_view op, boost::json::string_view group, boost::json::string_view jp)
+{
+    auto lock = Env().Lock();
+    auto& expr_map = injects.get_or_create_object("/%s/expr", group);
+    expr_map[jp] = boost::json::array{e, op};
+
+    // invalidate cache
+    injects("/%s/cache", group).emplace_array();
+}
+
+
+boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::string_view group, boost::json::string_view jp, int const nofcall)
+{
+    auto lock = Env().Lock();
+    auto& injection_cache = injects.get_or_create_array("/%s/cache", group);
+
+    if (injection_cache.empty())
     {
-        auto lock = Env().Lock();
-        auto& ifc_rec = Env().data_->json_data;
-        captures = ifc_rec.branch(boost::json::kind::array, "/interface_records/%s/%s/captures", refobj, interface);
-        injects = ifc_rec.branch(boost::json::kind::object, "/interface_records/%s/%s/injects", refobj, interface);
+        injection_cache.push_back(nullptr);
+        injection_cache.push_back(nullptr);
     }
-
-    Environment::InterfaceHandle::InterfaceHandle(Environment const& e, boost::json::string_view ref)
-        : Environment::InterfaceHandle::InterfaceHandle(
-            e,
-            e.ObjectId(ref),
-            e.InterfaceId(ref)
-        )
+    auto& cache_nofcall = injection_cache.at(0);
+    auto& cache_value = injection_cache.at(1);
+    
+    if (cache_nofcall != nofcall) // compute and store inject at n
     {
-    }
+        boost::json::value temp_node;
 
-    Environment::InterfaceHandle::InterfaceHandle(object_id refobj, interface_id const& interface)
-        : Environment::InterfaceHandle::InterfaceHandle(Environment {}, refobj, interface)
-    {
-    }
-
-    Environment::InterfaceHandle::InterfaceHandle(nullptr_t, interface_id const& interface)
-        : Environment::InterfaceHandle::InterfaceHandle(object_id(nullptr), interface)
-    {
-    }
-
-    Environment::InterfaceHandle::InterfaceHandle(boost::json::string_view ref)
-        : Environment::InterfaceHandle::InterfaceHandle(Environment {}, ref)
-    {
-    }
-
-
-    boost::json::value const& Environment::InterfaceHandle::PrototypeReturn() const
-    {
-        auto lock = Env().Lock();
-        return env.data_->json_data.at("/prototypes/%s/return", interface());
-    }
-
-    boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
-    {
-        auto lock = Env().Lock();
-        return env.data_->json_data.at("/prototypes/%s/args", interface());
-    }
-
-    boost::json::value Environment::InterfaceHandle::GetInjectionReturn(int const nofcall) const
-    {
-        auto lock = Env().Lock();
-        auto ptr = injects.find_pointer("/%ld/return", nofcall);
-        if (!ptr) ptr = injects.find_pointer("/-1/return");
-        return ptr ? *ptr : PrototypeReturn();
-    }
-
-    boost::json::value Environment::InterfaceHandle::GetInjectionReturn(boost::json::string_view jp, int const nofcall) const
-    {
-        auto lock = Env().Lock();
-        return GetInjectionReturn(nofcall).at_pointer(jp);
-    }
-
-    void Environment::InterfaceHandle::InjectReturn(boost::json::value const& value, boost::json::string_view jp, int const nofcall)
-    {
-        auto lock = Env().Lock();
-
-        auto signal_node = GetInjectionReturn(nofcall);
-        signal_node.set_at_pointer(jp, value);
-        injects("/%ld/return", nofcall) = signal_node;
-    }
-
-    boost::json::value Environment::InterfaceHandle::GetInjectionArgs(int const nofcall) const
-    {
-        auto lock = Env().Lock();
-        auto ptr = injects.find_pointer("/%ld/args", nofcall);
-        if(!ptr) {
-            ptr = injects.find_pointer("/-1/args");
-        }
-        return ptr ? *ptr : PrototypeArgs();
-    }
-
-    boost::json::value Environment::InterfaceHandle::GetInjectionArgs(boost::json::string_view jp, int const nofcall) const
-    {
-        auto lock = Env().Lock();
-        return GetInjectionArgs(nofcall).at_pointer(jp);
-    }
-
-
-    void Environment::InterfaceHandle::InjectArgs(boost::json::value const& value, boost::json::string_view jp, int const nofcall)
-    {
-        auto lock = Env().Lock();
-        auto signal_node = GetInjectionArgs(nofcall);
-        signal_node.set_at_pointer(jp, value);
-        injects("/%ld/args", nofcall) = signal_node;
-    }
-
-    std::size_t Environment::InterfaceHandle::ObservedCalls() const
-    {
-        auto lock = Env().Lock();
-        return captures().as_array().size();
-    }
-
-
-    boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
-    {
-        auto lock = Env().Lock();
-        auto const N = captures().as_array().size();
-        if (N == 0)
+        if ("return" == group)
         {
-            throw environment_error("ObservedArgs(%s) no captures found", interface());
+            temp_node = PrototypeReturn();
         }
-        auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
-        if (idx >= N)
+        else if ("args" == group)
         {
-            // TODO: format err msg
-            throw environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N);
+            temp_node = PrototypeArgs();
         }
-        return captures.get_or_create_array("/%d/args", idx);
-    }
-
-
-    boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path, int start, int stop, int const step)
-    {
-        // handle 1-based indexation
-        if (start > 0) { start -= 1; }
-        if (stop  > 0) { stop  -= 1; }
-        auto lock = Env().Lock();
-        return slice(captures().as_array(), signal_path, start, stop, step);
-    }
-
-    boost::json::array const& Environment::InterfaceHandle::Captures()
-    {
-        auto lock = Env().Lock();
-        return captures().as_array();
-    }
-
-    void Environment::InterfaceHandle::SetInjectsRange(boost::json::value const& values, boost::json::string_view signal_path)
-    {
-        boost::json::object inject_map {};
-        if (values.is_object())
+        else
         {
-            inject_map = values.get_object();
+            throw model_error("%s injection not implemented", group);
         }
-        else if (values.is_array())
+
+        if (auto expr_map = injects("/%s/expr",group).if_object())
         {
-            auto arr = values.get_array();
-            for (std::size_t i = 0; i < arr.size(); i++)
+            for (auto const& record: *expr_map)
             {
-                inject_map.emplace(std::to_string(i+1), arr.at(i));
+                boost::json::string_view const record_pointer = record.key();
+                auto const& config = record.value().as_array();
+                Expression const expr (config.at(0));
+                SignalOperatorHandler const op =  env.GetOperatorOrDefault(config.at(1).as_string());
+
+                if (expr.is_noop()) continue;
+
+                // TODO: optimize recursive expr
+                auto v = expr.is_literal() ? expr.underlying() : expr.eval(nofcall); // TODO: handle errors
+                v = op.decorate(v);
+                temp_node.set_at_pointer(record_pointer, v);
             }
         }
-        else {
-            throw environment_error("SetInjectsRange: invalid range values");
-        }
-
-        if (signal_path.empty())
-        {
-            throw environment_error("SetInjectsRange: empty signal_path (shall start with group name)");
-        }
-        auto const group = signal_path.substr(1, signal_path.find('/',2)-1);
-        auto const path_in_group = signal_path.substr(group.size()+1);
-
-        if (("args" != group) && ("return" != group) && ("exception" != group))
-        {
-            throw environment_error("SetInjectsRange: invalid injection group: %s", group);
-        }
-        else if ("exception" == group)
-        {
-            throw environment_error("SetInjectsRange: exception injection not implemented");
-        }
-
-        for (auto const& kv : inject_map) {
-            auto const& idx  = kv.key();
-            auto const& value =  kv.value();
-
-            boost::json::value& injection_at_call = injects("/%ld/%s", idx, group);
-            if (injection_at_call.is_null())
-            {
-                injection_at_call = env.data_->json_data.at("/prototypes/%s/%s", interface(), group);
-            }
-
-            injection_at_call.set_at_pointer(path_in_group, value);
-        }
+        cache_value = temp_node;
+        cache_nofcall = nofcall;
     }
+    
+    boost::json::error_code ec;
+    auto p = cache_value.find_pointer(jp, ec);
+
+    return p ? *p : nullptr;
+}
 
 
-    boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcall)
+
+std::size_t Environment::InterfaceHandle::ObservedCalls() const
+{
+    auto lock = Env().Lock();
+    return captures().as_array().size();
+}
+
+
+boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
+{
+    auto lock = Env().Lock();
+    auto const N = captures().as_array().size();
+    if (N == 0)
     {
-        auto lock = Env().Lock();
-        auto const N = captures().as_array().size();
-        if (N == 0)
-        {
-            throw environment_error("ObservedReturn(%s) no captures found", interface());
-        }
-        auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
-        if (idx >= N)
-        {
-            // TODO: format err msg
-            throw environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N);
-        }
-        return captures.at("/%d/return", idx);
+        throw environment_error("ObservedArgs(%s) no captures found", interface());
     }
-
-    boost::json::string const& Environment::InterfaceHandle::key() const
+    auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
+    if (idx >= N)
     {
-        auto lock = Env().Lock();
-        return Env().json_data().at("/refs/ids2key/%s/%s", refobj(), interface()).as_string();
+        // TODO: format err msg
+        throw environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N);
     }
+    return captures.get_or_create_array("/%d/args", idx);
+}
 
 
+boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path, int start, int stop, int const step)
+{
+    auto lock = Env().Lock();
+    return slice(captures().as_array(), signal_path, start, stop, step);
+}
 
-    Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsAction()
+boost::json::array const& Environment::InterfaceHandle::Captures()
+{
+    auto lock = Env().Lock();
+    return captures().as_array();
+}
+
+
+boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcall)
+{
+    auto lock = Env().Lock();
+    auto const N = captures().as_array().size();
+    if (N == 0)
     {
-        // TODO: handle actions as registered interfaces
-        throw environment_error("RunAsAction not implemented!");
-        boost::json::string_view ref = key();
-        auto const& actions = Env().data_->callbacks;
-        if (0 == actions.count(ref))
-        {
-            throw environment_error("Action %s is not registered!", ref);
-        }
-
-        try
-        {
-            actions.at(ref).operator()();
-        }
-        catch(const std::exception& e)
-        {
-            throw environment_error("Action %s error: `%s`", ref, e.what());
-        }
-        return *this;
+        throw environment_error("ObservedReturn(%s) no captures found", interface());
     }
-
-    Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(int const nofcall)
+    auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
+    if (idx >= N)
     {
-        // TODO: make it thread safe without recursive mutex
-        boost::json::string_view ref = key();
-        auto const& triggers = Env().data_->triggers;
-        if (0 == triggers.count(ref))
-        {
-            throw environment_error("Trigger %s is not registered!", ref);
-        }
-
-        Trigger const& trigger = triggers.at(ref);
-
-        try
-        {
-            boost::json::value capture = trigger(GetInjectionArgs(nofcall));
-            captures("/+") = capture;
-        }
-        catch(const std::exception& e)
-        {
-            throw environment_error("Trigger %s error: `%s`", ref, e.what());
-        }
-
-        return *this;
+        // TODO: format err msg
+        throw environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N);
     }
+    return captures.at("/%d/return", idx);
+}
+
+boost::json::string const& Environment::InterfaceHandle::key() const
+{
+    auto lock = Env().Lock();
+    return Env().json_data().at("/refs/ids2key/%s/%s", refobj(), interface()).as_string();
+}
+
+
+
+Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsAction()
+{
+    // TODO: handle actions as registered interfaces
+    throw environment_error("RunAsAction not implemented!");
+    boost::json::string_view ref = key();
+    auto const& actions = Env().data_->callbacks;
+    if (0 == actions.count(ref))
+    {
+        throw environment_error("Action %s is not registered!", ref);
+    }
+
+    try
+    {
+        actions.at(ref).operator()();
+    }
+    catch(const std::exception& e)
+    {
+        throw environment_error("Action %s error: `%s`", ref, e.what());
+    }
+    return *this;
+}
+
+Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(std::size_t const nofcall)
+{
+    // TODO: make it thread safe without recursive mutex
+    boost::json::string_view ref = key();
+    auto const& triggers = Env().data_->triggers;
+    if (0 == triggers.count(ref))
+    {
+        throw environment_error("Trigger %s is not registered!", ref);
+    }
+
+    Trigger const& trigger = triggers.at(ref);
+    boost::json::value args;
+    boost::json::value capture;
+
+    try
+    {
+        args = GetInjectionArgs(nofcall);
+    }
+    catch(const std::exception& e)
+    {
+        throw environment_error("Trigger[%s] #%d input evaluation error: `%s`", ref, nofcall, e.what());
+    }
+    try
+    {
+        capture = trigger(args);
+        captures("/+") = capture;
+    }
+    catch(const std::exception& e)
+    {
+        throw environment_error("Trigger[%s] #%d execution error: `%s`", ref, nofcall, e.what());
+    }
+
+    return *this;
+}
 
 }  // namespace zmbt

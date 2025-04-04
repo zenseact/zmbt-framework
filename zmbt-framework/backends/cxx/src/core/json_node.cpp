@@ -90,7 +90,8 @@ boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
     }
     else
     {
-        return node().set_at_pointer(json_ptr, nullptr);
+        auto& rv = node().set_at_pointer(json_ptr, nullptr);
+        return rv;
     }
 }
 

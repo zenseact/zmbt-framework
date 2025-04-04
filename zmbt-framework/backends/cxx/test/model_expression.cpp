@@ -457,8 +457,6 @@ std::vector<TestEvalSample> const TestSamples
     {Reduce(Add)                , L{}                   , nullptr               },
     {Reduce                     , {{2,2,2,2},Add}       ,  8                    },
 
-    {Unfold(Add(1), 4)          , 0                     , {0,1,2,3,4}           },
-    {Unfold(Add(1), 4)          , 1                     , {1,2,3,4,5}           },
 
     // ternary and or
     {And(42)|Or(13)             , true                  , 42                    },
@@ -505,7 +503,7 @@ std::vector<TestEvalSample> const TestSamples
 
     {Flip(At({1,2,3}))          , 0                      , 1                     },
     {Lookup({1,2,3})            , 0                      , 1                     },
-
+    {Lookup({{"42", "lol"}})    , 42                     , "lol"                 },
 
     // TODO: string query
     // {At(0)                   , "foo"                 , "f"                   },
@@ -519,10 +517,14 @@ std::vector<TestEvalSample> const TestSamples
     {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
     {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
 
-    {Recur(Add(1), 4)           , 0                      , 4                    },
-    {Recur(Add(-1), 41)         , 42                     , 1                    },
-    {Recur(Sub(1) , 41)         , 42                     , 1                    },
-    {Recur(Pow(2), 4)           , 2                      , 65536                },
+    {Recur(Add(1) ,  0)         ,  4                     , 4                    },
+    {Recur(Add(-1), 42)         , 41                     , 1                    },
+    {Recur(Sub(1) , 42)         , 41                     , 1                    },
+    {Recur(Pow(2) ,  2)         ,  4                     , 65536                },
+
+
+    {Unfold(Add(1), 0)          , 4                     , {0,1,2,3,4}           },
+    {Unfold(Add(1), 1)          , 4                     , {1,2,3,4,5}           },
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
     {All(Gt(5), Mod(2)|0)       , 7                      , false                },

@@ -45,7 +45,6 @@ BOOST_AUTO_TEST_CASE(FunctionTrigger, *boost::unit_test::disabled())
     .InjectTo  (foo).Return("")
     .InjectTo  (foo).Return("%s", Param(2))
     .InjectTo  (foo).Return()
-    .InjectTo  (foo).Call(-1)
     .InjectTo  (foo).Args()
     .InjectTo  (foo).As(type<int>)
 
@@ -56,7 +55,6 @@ BOOST_AUTO_TEST_CASE(FunctionTrigger, *boost::unit_test::disabled())
     .InjectTo  (nullptr, foo).Return("")
     .InjectTo  (nullptr, foo).Return("%s", Param(4))
     .InjectTo  (nullptr, foo).Return()
-    .InjectTo  (nullptr, foo).Call(-1)
     .InjectTo  (nullptr, foo).Args()
     .InjectTo  (nullptr, foo).As(type<int>)
     .Test(_)
@@ -80,7 +78,6 @@ BOOST_AUTO_TEST_CASE(FunctorTrigger, *boost::unit_test::disabled())
     .InjectTo  (fctor).As(type<int>)
     .InjectTo  (fctor).Return("")
     .InjectTo  (fctor).Return()
-    .InjectTo  (fctor).Call(-1)
     .InjectTo  (fctor).Args()
 
     .InjectTo  (nullptr, fctor)
@@ -89,7 +86,6 @@ BOOST_AUTO_TEST_CASE(FunctorTrigger, *boost::unit_test::disabled())
     .InjectTo  (nullptr, fctor).As(type<int>)
     .InjectTo  (nullptr, fctor).Return("")
     .InjectTo  (nullptr, fctor).Return()
-    .InjectTo  (nullptr, fctor).Call(-1)
     .InjectTo  (nullptr, fctor).Args()
     .Test(_);
 }
@@ -477,14 +473,14 @@ BOOST_AUTO_TEST_CASE(OnCallInject)
     };
 
     auto const T = true;
+    auto const F = false;
     SignalMapping("Test Call Inject")
     .OnTrigger(SUT)
-        .InjectTo  (&Mock::break_loop).Return().Call(4)
-        .InjectTo  (&Mock::break_loop).Return().Call(5)
+        .InjectTo  (&Mock::break_loop).Return()
         .ObserveOn (&Mock::break_loop).CallCount()
     .Test
-        ( T    , false, 4 )
-        ( false, T    , 5 )
+        ( Eq(3)|And(T)|Or(F), 4 )
+        ( Lookup({F,F,F,T}) , 4 )
     ;
 }
 
@@ -509,9 +505,9 @@ BOOST_AUTO_TEST_CASE(OnCallObserve)
     SignalMapping("Test Call Observe")
     .OnTrigger(SUT)
         .InjectTo  (SUT)
+        .ObserveOn (&Mock::consume_value).Args().Call(0)
         .ObserveOn (&Mock::consume_value).Args().Call(1)
         .ObserveOn (&Mock::consume_value).Args().Call(2)
-        .ObserveOn (&Mock::consume_value).Args().Call(3)
     .Test
         (  0,  1,  2,  3 )
         ( 42, 43, 44, 45 )
@@ -532,21 +528,44 @@ BOOST_AUTO_TEST_CASE(OnCallParametric)
 
 
     auto NofCall = Param(1);
-    auto OutIndex = Param(2);
-
-    SignalMapping("Test parametric Call")
+    SignalMapping("Parametric call # match")
     .OnTrigger(SUT)
-        .ObserveOn (&TestObject::get_value) .CallCount()
-        .InjectTo  (&TestObject::get_value) .Call(NofCall)
-        .ObserveOn (SUT)                    .Return("/%d", OutIndex)
-        .ObserveOn (SUT)                    .Return()
+        .InjectTo  (&TestObject::get_value)
+        .ObserveOn (SUT).Return()
+        .ObserveOn (SUT).Return("/%d", NofCall)
     .Test
-        ( 3,  0,   0, Noop            )
-        ( 3, -1,  -1, Superset({0, -1}) )
-        ( 3, 42,  42, Superset({0, 42}) )
+        ( Ne(NofCall)|And(13)|Or(0) , Superset({13,  0}),  0)
+        ( Eq(NofCall)|And(-1)|Or(13), Superset({13, -1}), -1)
+        ( Eq(NofCall)|And(42)|Or(13), Superset({13, 42}), 42)
     .Zip
-        (NofCall , 1, 2, 3)
-        (OutIndex, 0, 1, 2)
+        (NofCall, 0, 1, 2)
+    ;
+}
+
+BOOST_AUTO_TEST_CASE(KeepClause)
+{
+    auto SUT = [](boost::json::value const& x){
+        return x;
+    };
+
+    SignalMapping("Parametric Keep function 2")
+    .OnTrigger(SUT).Repeat(5)
+        .InjectTo  (SUT).Keep(Flip(Sub(5)))
+        .ObserveOn (SUT).CallRange()
+    .Test
+        ({5,4,3,2,1})
+    ;
+
+    auto N = Param(1);
+
+    SignalMapping("Parametric Keep Id + observe Unfold")
+    .OnTrigger(SUT).Repeat(N)
+        .InjectTo  (SUT).Keep(Recur(Pow(2), 2))
+        .ObserveOn (SUT).CallRange()
+    .Test
+        (Id & (Sub(1)|Unfold(Pow(2), 2)) << N | Eq)
+    .Zip
+        (N, 1)
     ;
 }
 

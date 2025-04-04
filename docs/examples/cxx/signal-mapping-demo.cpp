@@ -103,7 +103,8 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         ( {1,2,3}           , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
         ( {1,2,3}           , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
         ( {1,2,3,4}         , Reduce(Add) & Size | Div | Eq(2.5) ) //(5)
-        ( Arange << "5:1:-1", {5,4,3,2}                          ) //(6)
+        ( Pi|Div(2)|Sin     , Approx(1)                          ) //(6)
+        ( Arange << "5:1:-1", {5,4,3,2}                          ) //(7)
     ;
 }
 /*
@@ -119,8 +120,11 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
     1. `Reduce(Add) & Size` on input `[1,2,3,4]` produces [10, 4]
     2. `Div` on input `[10, 4]` produces [2.5]
     3. `Eq(2.5)` on input `[2.5]` produces `true`
-6. Left shift operator (`Apply`) binds eval-time argument at rintime.
-    `Arange` is a generator similar to [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
+6. A constant function can be used on input channel instead of literal
+7. Left shift operator (`Apply`) binds eval-time argument at rintime,
+    making it a constant function. `Arange` is a generator similar to
+    [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
+
 
 For more detailes, see [Expression Guide](expressions.md) and [Expression DSL Reference](../dsl-reference/expressions.md).
 
@@ -598,67 +602,105 @@ that checks the correct value representation and allows conversion to/from float
 point hexadecimal literals in string.
 
 
-## Handling specific calls
+## Signal batch testing
 
-`Call` clause sets the interface call number,
-supporting negative values for reverse indexation. It is applicable both to
-stimuli and responses, and can be combined with other clauses like`Args` or `Return`.
-The default clause is `.Call(-1)`, which for stimuli means that the corresponding
-value is repeated on each call, and for outputs it means that the match expression
-is only applied to the last observation:
+Batch test conditions may be more convenient, expressive, and resource efficient
+then atomic conditions like in examples before.
+
+The SignalMapping model provides the following functionality for batch testing:
+
+ - Generating functions and `Keep` clause for inputs
+ - `Repeat` clause for triggers.
+ - `CallRange` and `Call` clauses for output filters.
+ - Output combination filters like `With` and `Union`.
+ - `ThreadId`, `Timestamp`, `Alias` - clauses for additional information useful in batch tests.
+
+### Batch inputs
+
+In the previous examples the input conditions were specified as JSON literals,
+which intuitively reads as an instruction for the test runner to set the input value
+on a corresponding channel.
+
+More generally the input signals are specified as [constant](user-guide/expressions/#syntax)
+or [generating functions](https://en.wikipedia.org/wiki/Generating_function).
+Top-level JSON literals in the input context are interpreted as constants for brevity.
+
+When an input channel, either mock or trigger, is called multiple times in the test,
+the intput condition is evaluated from this expression with 0-based call index as an argument.
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(Call)
+BOOST_AUTO_TEST_CASE(BatchInputs)
 {
     struct Mock {
-        int get_value() {
-            return InterfaceRecord(&Mock::get_value).Hook();
+        double produce() {
+            return InterfaceRecord(&Mock::produce).Hook();
         }
+    } mock {};
+
+    auto sut = [&mock](std::size_t count) {
+        std::vector<double> result;
+        for (size_t i = 0; i < count; i++)
+        {
+            result.push_back(mock.produce());
+        }
+        return result;
     };
 
-    auto sut = []() {
-        Mock mock{};
-        int x = mock.get_value();
-        int y = mock.get_value();
-        return x + y;
-    };
-
-    SignalMapping("Test Call")
+    SignalMapping("Input expressions")
     .OnTrigger(sut)
-        .InjectTo (&Mock::get_value).Call(1)
-        .InjectTo (&Mock::get_value).Call(2)
+        .InjectTo (sut)
+        .InjectTo (&Mock::produce)
         .ObserveOn(sut)
     .Test
-        (2,  2, 4)
-        (2, -2, 0)
+        (2, 42/*(1)*/            , {42, 42}             )
+        (2, Pi/*(2)*/            , At(0)|Approx(3.14159))
+        (3, Add(42)/*(3)*/       , {42, 43, 44}         )
+        (4, Lookup({1,2,3})|D(42), {1,2,3,42}           )//(4)
+    ;
+/*
+```
+
+1. Top evel JSON literal input stands for constant, a canonical form would be `C(42)`
+2. Mathematical constant
+3. Simple generating function
+4. Lookup function with Default 42 as generator
+
+If the same expression is used for all test cases, it may be placed in the `Keep` clause instead,
+reducing the test matrix:
+
+```c++
+*/
+    SignalMapping("Keep clause")
+    .OnTrigger(sut)
+        .InjectTo (sut)
+        .InjectTo (&Mock::produce) .Keep(Add(42)) //(1)
+        .ObserveOn(sut)
+    .Test
+        (2, {42, 43}    )
+        (3, {42, 43, 44})
     ;
 }
 /*
 ```
 
-## Signal batch testing
 
-`Call` clause is useful for injectin conditions and checking outputs atomically,
-but in many cases batch processing is more convenient and resource efficient.
-
-The SignalMapping model provides the following clauses for such cases:
-
- - `Repeat` - a trigger clause specifying the number of times the trigger
-    function should be called before checking the outputs. This is useful for
-    testing simple stateful systems in a vectorized way
- - `CallRange` - a channel clause that allows to process a signal vector on a range of calls.
-    Preceding clauses like `Args` or `Return` are used to filter the interesting data.
- - `With` and `Union` - channel clauses used to combine outputs
-    into a single multichannel, more on these below.
- - `ThreadId`, `Timestamp`, `Alias` - these channel clauses adds
-    additional information to the captured signal, useful in batch processing.
 
 ### CallRange and Repeat
 
-The example below shows usage of `CallRange` and `Repeat` clauses.
-The following example reuses the same SUT with a parameterized repeats,
-showing how the complex expressions can be designed with dependency to model parameters.
+In the previous example we used a dynamic number of mock calls as a test condition,
+and the resulting vector was populated in the trigger.
+
+We can have a batch test a simpler trigger, using `Repeat` clause for input and
+`CallRange` on output.
+
+`Repeat` is a unique clause following `OnTrigger`. When omitted, it's default value is 1.
+
+The `CallRange` and `Call` clauses are mutually exclusive variant filters specific to output channels,
+either trigger or mock. Default is `Call(-1)`, which stand for the latest captured call.
+
+When `CallRange()` with no parameters specified, the output matcher will get an array of all
+captured signals as an argument:
 
 ```c++
 */
@@ -681,26 +723,30 @@ BOOST_AUTO_TEST_CASE(CallRange)
 
     SignalMapping("Repeat and CallRange clauses")
     .OnTrigger(sut).Repeat(3)
-        .InjectTo  (&Mock::produce).CallRange()
+        .InjectTo  (&Mock::produce)
         .ObserveOn (&Mock::consume).CallRange()
     .Test
-        ( _                         , Nil|Not        )
-        ( {1,2,3}                   , {1,2,3}        )
-        ( {1,2,3,4,5}               , {1,2,3}        )
-        ( {1,2}                     , {1,2, nullptr} )
-        ( {{"-1",5},{"2",42}}/*(1)*/, {5,42,5}       )
+        (Add(1)          , {1, 2, 3})
+        (Recur(Add(1), 0), {0, 1, 2})
+        ( Lookup({{"1","foo"}})|D("bar")/*(1)*/, {"bar","foo","bar"})
     ;
+/*
+```
 
+1. Input generator from lookup table - inject "foo" at second call, or "bar" by default.
+
+Same example with parametric trigger repeats and more complex matchers:
+```c++
+*/
     Param const N {"N"};
-    Expression const Arange1toNp1 = C(1) & Add(1) | Arange; // (2)
 
     SignalMapping("Batch test with complex expressions for N=%d", N)
     .OnTrigger(sut).Repeat(N)
-        .InjectTo  (&Mock::produce).CallRange()
+        .InjectTo  (&Mock::produce)
         .ObserveOn (&Mock::consume).CallRange()
     .Test
-        (Arange1toNp1 << N          , (Div(2) | Add(0.5)) << N & Avg | Eq /*(3)*/    )
-        ((Arange1toNp1|Reverse) << N, Slide(2) | Map(Sub|Eq(1)) | Reduce(And) /*(4)*/)
+        (Add(1)       , (Div(2) | Add(0.5)) << N & Avg | Eq /*(1)*/    )
+        (Flip(Sub(N)) , Slide(2) | Map(Sub|Eq(1)) | Reduce(And) /*(2)*/)
     .Zip
         (N, 3, 42, 100)
     .Description("Verify that avg(1,2,...,N,N+1) == N/2+0.5")
@@ -709,27 +755,57 @@ BOOST_AUTO_TEST_CASE(CallRange)
 /*
 ```
 
-1. X=5 by default, X=42 at 2nd call. Note this parameter has to be object, not an array.
-   otherwise it would be passed as is.
-2. Generator expression:
-    1. `C(1) & Add(1) << x` produces `[1, x+1]`
-    2. `Arange << [1, x+1]` produces `#!js [1,2,...,x,x+1]`
-3. Matcher expression:
+1. Matcher expression:
     1. `Div(2) | Add(0.5) << N` produces N/2+0.5, ignoring input
     2. `Avg` computes average of the input `#!js [1,2,...,N,N+1]`
     3. `(N/2+0.5) & Avg | Eq` produces `true`
-4. Matcher expression:
+2. Matcher expression:
     1. `Slide(2)` over `#!js [N+1,N,...,2,1]`
         produces `#!js [[N+1,N],[N,N-1],...,[2,1]]`
     2. `Map(Sub|Eq(1))` produces `[true, true, ...]`
     3. `Reduce(And)` produces `true`
 
 
+### Filtering specific calls
+
+! TODO
+
 `CallRange` supports slice semantic, s.t. `CallRange(-1, 0, -1)`
 will provide reversed list of call data. Both `CallRange` and `Call` use
-1-based indexation. The difference on observation channels is that `CallRange`
+0-based indexation. The difference on observation channels is that `CallRange`
 will return all captures that falls in the scpecified span or an empty array,
-while `Call` will throw an exception if index is outside span.
+while `Call` will throw an exception if the call index is outside of the captures span.
+
+The `Call` clause is a useful filter when only a specific output capture is interesting.
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(Call)
+{
+    struct Mock {
+        int get_value() {
+            return InterfaceRecord(&Mock::get_value).Hook();
+        }
+    };
+
+    auto sut = []() {
+        Mock mock{};
+        int x = mock.get_value();
+        int y = mock.get_value();
+        return x + y;
+    };
+
+    SignalMapping("Test Call")
+    .OnTrigger(sut)
+        .InjectTo (&Mock::get_value)
+        .ObserveOn(sut)
+    .Test
+        (Lookup({2,  2}), 4)
+        (Lookup({2, -2}), 0)
+    ;
+}
+/*
+```
 
 ### CallCount
 

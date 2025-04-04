@@ -147,6 +147,7 @@ dsl::SignatureVariadic<::zmbt::dsl::Keyword::Compose> const Compose = {};
 dsl::SignatureVariadic<::zmbt::dsl::Keyword::Pack> const Pack = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Flip> const Flip = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default = {};
+dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const D = Default;
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Try> const Try = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::TryCatch> const TryCatch = {};
 

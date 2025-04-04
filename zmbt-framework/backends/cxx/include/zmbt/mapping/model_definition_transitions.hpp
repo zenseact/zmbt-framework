@@ -15,6 +15,7 @@
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/parameter.hpp>
 #include <zmbt/model/expression.hpp>
+#include <zmbt/model/expression_api.hpp>
 #include <zmbt/model/signal_operator_handler.hpp>
 #include <zmbt/model/traits.hpp>
 #include <cstddef>
@@ -149,8 +150,8 @@ struct ModelDefinition::T_InjectTo
         N_STATE.add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "inject");
         return Target(N_STATE);
     }
-
 };
+
 
 template <class Source, class Target>
 struct ModelDefinition::T_ObserveOn
@@ -183,7 +184,7 @@ struct ModelDefinition::T_ObserveOn
 };
 
 template <class Source, class Target>
-struct ModelDefinition::T_Return
+struct ModelDefinition::T_SignalFilter
 {
     /// Interface return clause
     /// Refers to the return subsignal at the given JSON Pointer
@@ -206,11 +207,6 @@ struct ModelDefinition::T_Return
         return Return("/%lu", idx);
     }
 
-};
-
-template <class Source, class Target>
-struct ModelDefinition::T_Args
-{
     /// Interface argument clause
     /// Refers to the arguments subsignal at the given JSON Pointer
     template <class... T>
@@ -234,11 +230,7 @@ struct ModelDefinition::T_Args
     {
         return Args("/%lu", idx);
     }
-};
 
-template <class Source, class Target>
-struct ModelDefinition::T_Exception
-{
     /// Interface exception
     Target Exception()
     {
@@ -249,24 +241,31 @@ struct ModelDefinition::T_Exception
 };
 
 template <class Source, class Target>
-struct ModelDefinition::T_Timestamp
+struct ModelDefinition::T_SignalProperty
 {
-    /// Interface exception
+    /// Output capture timestamp
     Target Timestamp()
     {
         N_STATE.model("/channels/@/kind") = "ts";
         N_STATE.model("/channels/@/signal_path") = "";
         return Target(N_STATE);
     }
-};
 
-template <class Source, class Target>
-struct ModelDefinition::T_ThreadId
-{
-    /// Interface exception
+    /// Output capture thread id
     Target ThreadId()
     {
         N_STATE.model("/channels/@/kind") = "tid";
+        N_STATE.model("/channels/@/signal_path") = "";
+        return Target(N_STATE);
+    }
+};
+
+template <class Source, class Target>
+struct ModelDefinition::T_CallCount
+{
+    Target CallCount()
+    {
+        N_STATE.model("/channels/@/kind") = "call_count";
         N_STATE.model("/channels/@/signal_path") = "";
         return Target(N_STATE);
     }
@@ -292,9 +291,9 @@ struct ModelDefinition::T_As
 };
 
 template <class Source, class Target>
-struct ModelDefinition::T_OnCall
+struct ModelDefinition::T_CallFilter
 {
-    /// Interface call number (1-based index). Negative value is resolved as a reverse index,
+    /// Interface call number (0-based index). Negative value is resolved as a reverse index,
     /// with -1 referring to the last call (default)
     Target Call(int cnt)
     {
@@ -308,19 +307,15 @@ struct ModelDefinition::T_OnCall
         N_STATE.model("/channels/@/call") = param;
         return Target(N_STATE);
     }
-};
 
-template <class Source, class Target>
-struct ModelDefinition::T_CallRange
-{
-    /// Access mock data as list using slice semantic (1-based, inclusive boundaries)
-    Target CallRange(int start = 1, int stop = -1, int step = 1)
+    /// Access mock data as list using slice semantic (0-based, inclusive boundaries)
+    Target CallRange(int start = 0, int stop = -1, int step = 1)
     {
         N_STATE.model("/channels/@/call") = {start, stop, step};
         return Target(N_STATE);
     }
 
-    /// Access mock captures as list using slice semantic (1-based, inclusive boundaries)
+    /// Access mock captures as list using slice semantic (0-based, inclusive boundaries)
     Target CallRange(Param const& param)
     {
         N_STATE.params("/%s/pointers/+", param) = format("%s/call", N_STATE.head_channel());
@@ -329,27 +324,6 @@ struct ModelDefinition::T_CallRange
     }
 };
 
-template <class Source, class Target>
-struct ModelDefinition::T_CallRangeIn
-{
-    /// Inkect mock input data as list or map
-    Target CallRange()
-    {
-        N_STATE.model("/channels/@/call") = {1, -1, 1};
-        return Target(N_STATE);
-    }
-};
-
-template <class Source, class Target>
-struct ModelDefinition::T_CallCount
-{
-    Target CallCount()
-    {
-        N_STATE.model("/channels/@/kind") = "call_count";
-        N_STATE.model("/channels/@/signal_path") = "";
-        return Target(N_STATE);
-    }
-};
 
 template <class Source, class Target>
 struct ModelDefinition::T_Alias
@@ -360,6 +334,31 @@ struct ModelDefinition::T_Alias
         return Target(N_STATE);
     }
 };
+
+
+template <class Source, class Target>
+struct ModelDefinition::T_Keep
+{
+    /// Set input condition
+    Target Keep(Expression const& expr)
+    {
+        N_STATE.model("/channels/@/keep") = expr;
+        auto const curcnl = N_STATE.cur_cnl_idx();
+        auto& params = N_STATE.params;
+
+        JsonTraverse([&](boost::json::value const& v, std::string const jp){
+            if (Param::isParam(v)) {
+                params("/%s/pointers/+", v) = format(
+                            "/channels/%d/keep%s", curcnl, jp);
+            }
+            return false;
+        })(expr.underlying());
+
+        return Target(N_STATE);
+    }
+};
+
+
 template <class Source, class Target>
 struct ModelDefinition::T_Union
 {
@@ -374,13 +373,13 @@ struct ModelDefinition::T_Union
     /// - Call (default clause with param = -1 for latest): take only one sample at specified call number
     /// - CallCount: take call count as a sample value and timestamp from the most recent call
     ///
-    /// `With` and `Union` can't be combined in a single chain.
+    /// Different combination clauses like `With` and `Union` can't be chained.
     Target Union()
     {
         auto const curcnl = N_STATE.cur_cnl_idx();
-        if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "with")
+        if ("union" != N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "union"))
         {
-            throw model_error("can't combine Union and With clauses");
+            throw model_error("can't chain different combination clauses");
         }
 
         N_STATE.model("%s/combine", N_STATE.head_channel()) = "union";
@@ -399,9 +398,9 @@ struct ModelDefinition::T_With
     Target With()
     {
         auto const curcnl = N_STATE.cur_cnl_idx();
-        if (N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "") == "union")
+        if ("with" != N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "with"))
         {
-            throw model_error("can't combine Union and With clauses");
+            throw model_error("can't chain different combination clauses");
         }
         N_STATE.model("%s/combine", N_STATE.head_channel()) = "with";
         return Target(N_STATE);

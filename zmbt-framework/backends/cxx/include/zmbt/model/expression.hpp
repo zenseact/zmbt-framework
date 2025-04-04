@@ -176,6 +176,16 @@ public:
         return kwrd == keyword_;
     }
 
+    bool is_literal() const
+    {
+        return is(Keyword::Literal);
+    }
+
+    bool is_noop() const
+    {
+        return is(Keyword::Noop);
+    }
+
     operator boost::json::value() const
     {
         return underlying();

@@ -1131,29 +1131,29 @@ keyword_groups:
 
       - name: recur
         signature: Ternary
-        brief: apply recursion to parameter expr
+        brief: Apply recursion to parameter expr and initial value
+        details: Recur(f, x) >> n = ◯ⁿ f(x)
         domain: any
         codomain: any
         params:
           - type: fn
-          - label: depth
-            type: int
+          - label: initial
         examples: |-
-          Recur(Add(1), 3)  >> 0 ==  3
-          Recur(Mul(-1), 3) >> 1 == -1
+          Recur(Add(1), 0)  >> 0 ==  3
+          Recur(Mul(-1), 1) >> 3 == -1
 
       - name: unfold
         signature: Ternary
-        brief: Put results of recursive fn call on initial value x into an array
+        brief: Put results of recursive fn call on initial value into an array
+        details: Unfold(f, x) >> n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]
         domain: any
-        codomain: list
+        codomain: list\bigcirc
         params:
           - type: fn
-          - label: depth
-            type: int
+          - label: initial
         examples: |-
-          Unfold(Add(1), 3)  >> 0 ==  [0, 1, 2, 3]
-          Unfold(Mul(-1), 3) >> 1 ==  [1,-1, 1,-1]
+          Unfold(Add(1),  0) >> 3 ==  [0, 1, 2, 3]
+          Unfold(Mul(-1), 1) >> 3 ==  [1,-1, 1,-1]
 
 
       - name: bind
@@ -1258,6 +1258,7 @@ keyword_groups:
 
     keywords:
       - name: default
+        aliases: [ d ]
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:

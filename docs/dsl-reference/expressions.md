@@ -1298,20 +1298,22 @@ Argmax(Abs) >> [-3, 1, -2] == 0</pre></td>
     <tr>
         <td><a id ="recur"> Recur
         </td>
-        <td>Apply recursion to parameter expr
+        <td>Apply recursion to parameter expr and initial value
+        <pre>Recur(f, x) >> n = ◯ⁿ f(x)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Recur(Add(1), 3)  >> 0 ==  3
-Recur(Mul(-1), 3) >> 1 == -1</pre></td>
+        <td><pre>Recur(Add(1), 0)  >> 0 ==  3
+Recur(Mul(-1), 1) >> 3 == -1</pre></td>
     </tr>
     <tr>
         <td><a id ="unfold"> Unfold
         </td>
-        <td>Put results of recursive fn call on initial value x into an array
+        <td>Put results of recursive fn call on initial value into an array
+        <pre>Unfold(f, x) >> n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Unfold(Add(1), 3)  >> 0 ==  [0, 1, 2, 3]
-Unfold(Mul(-1), 3) >> 1 ==  [1,-1, 1,-1]</pre></td>
+        <td><pre>Unfold(Add(1),  0) >> 3 ==  [0, 1, 2, 3]
+Unfold(Mul(-1), 1) >> 3 ==  [1,-1, 1,-1]</pre></td>
     </tr>
     <tr>
         <td><a id ="bind"> Bind
@@ -1407,6 +1409,7 @@ Flip(Div(1)) >> 2 == 0.5</pre></td>
         <td><a id ="default"> Default
         </td>
         <td>Return x if not null, else return default value
+        <br>Aliases: d
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
         <td><pre>Default(42) >> null == 42

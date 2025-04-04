@@ -12,6 +12,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/model/environment.hpp"
+#include "zmbt/model/expression.hpp"
 
 namespace zmbt {
 namespace mapping {
@@ -32,7 +33,7 @@ public:
     ChannelHandle(JsonNode& model, boost::json::string_view cnl_ptr);
 
     bool is_input() const;
-
+    bool is_keep() const;
     bool is_output() const;
     bool operator==(boost::json::value const& v);
     boost::json::string key() const;
@@ -57,8 +58,11 @@ public:
     /// Channel alias or index if not set
     boost::json::value alias() const;
     boost::json::array const& captures() const;
-    void inject(boost::json::value value) const;
+    void inject(Expression const& expr) const;
+    void inject_yield() const;
+    Expression keep() const;
     boost::json::value observe() const;
+
 
     static boost::json::value observe_join(std::list<ChannelHandle> channels);
     static boost::json::value observe_series(std::list<ChannelHandle> channels);

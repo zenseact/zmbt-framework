@@ -35,8 +35,8 @@ The `>>` operator is syntactic sugar for `eval`, and is used in examples below f
 |Literal₁|Evaluated as is where a value is expected                  |`#!js Serialize >> Eq(0) ≢ Serialize >> 0`|
 |Literal₂|Evaluated as `#!ts Eq(value)` where a function is expected |`#!js Filter(42) ≡ Filter(Eq(42))        `|
 
-The **Const** keywords are de-facto unary, as the resulting expression still can take any argument at eval-time like
-true **Unary**, with the difference that constants will ignore the input, which simplifies expression composition.
+The **Const** keywords creates constant functions. They are syntactically equivalent to **Unary**,
+with the difference that constants will ignore the input value.
 
 **Binary** keywords have the most flexible syntax. The canonic **Binary₁** form with no parameters like `Add` expects
 a pair at eval-time input, but **Binary₂** form like `#!ts Add(42)` essentially creates a curried unary

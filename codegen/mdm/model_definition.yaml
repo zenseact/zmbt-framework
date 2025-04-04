@@ -47,52 +47,42 @@ nodes:
     base: N_Test
     transitions:
       T_ObserveOn: N_KindOut
-  N_Combine:
+  N_CombineOut:
     base: N_Channel
     transitions:
       T_Union: N_ChannelOut
       T_With: N_ChannelOut
-  N_Alias:
+  N_AliasIn:
     base: N_Channel
     transitions:
       T_Alias: N_Channel
+      T_Keep: N_Channel
   N_AliasOut:
-    base: N_Combine
+    base: N_CombineOut
     transitions:
-      T_Alias: N_Combine
-  N_Call:
-    base: N_Alias
-    transitions:
-      T_CallRangeIn: N_Alias
-      T_OnCall: N_Alias
-  N_CallOut:
+      T_Alias: N_CombineOut
+  N_CallFilter:
     base: N_AliasOut
     transitions:
-      T_CallRange: N_AliasOut
-      T_OnCall: N_AliasOut
-  N_Decor:
-    base: N_Call
+      T_CallFilter: N_AliasOut
+  N_DecorIn:
+    base: N_AliasIn
     transitions:
-      T_As: N_Call
+      T_As: N_AliasIn
   N_DecorOut:
-    base: N_CallOut
+    base: N_CallFilter
     transitions:
-      T_As: N_CallOut
+      T_As: N_CallFilter
   N_KindIn:
-    base: N_Decor
+    base: N_DecorIn
     transitions:
-      T_Return: N_Decor
-      T_Args: N_Decor
-      T_Exception: N_Call
+      T_SignalFilter: N_DecorIn
   N_KindOut:
     base: N_DecorOut
     transitions:
-      T_Return: N_DecorOut
-      T_Args: N_DecorOut
-      T_Exception: N_CallOut
+      T_SignalFilter: N_DecorOut
+      T_SignalProperty: N_CallFilter
       T_CallCount: N_AliasOut
-      T_Timestamp: N_CallOut
-      T_ThreadId: N_CallOut
   N_Repeat:
     base: N_Channel
     transitions:

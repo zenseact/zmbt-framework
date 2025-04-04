@@ -94,11 +94,19 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
 {
     boost::json::value query {};
 
-    if (at.is_number() && value.is_array())
+    if (at.is_number() && value.is_structured())
     {
         try
         {
-            query = value.get_array().at(boost::json::value_to<std::size_t>(at));
+            if (value.is_array())
+            {
+                query = value.get_array().at(boost::json::value_to<std::size_t>(at));
+            }
+            else if (value.is_object())
+            {
+                // lookup table query
+                query = value.get_object().at(boost::json::serialize(at));
+            }
         }
         catch(std::exception const&)
         {
@@ -158,7 +166,7 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
             query = zmbt::slice(value.get_array(), slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
         }
     }
-    else
+    else if (at.is_number())
     {
         // TODO: throw?
     }
@@ -422,6 +430,7 @@ V eval_impl<Keyword::Repeat>(V const& x, V const& param, E::EvalContext const& c
     ASSERT(param.is_number());
     std::uint64_t count = boost::json::value_to<std::uint64_t>(param);
     boost::json::array ret {};
+
     if (!count)
     {
         return ret;
@@ -442,13 +451,14 @@ V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalContext const& co
     auto const& params = param.get_array();
     ASSERT(params.size() == 2);
     auto F = E(params.at(0));
-    std::uint64_t count = boost::json::value_to<std::uint64_t>(params.at(1));
-    boost::json::value ret {x};
+    std::uint64_t count = boost::json::value_to<std::uint64_t>(x);
+    boost::json::value result {params.at(1)};
+
     for (std::uint64_t i = 0; i < count; i++)
     {
-        ret = F.eval(ret,context++);
+        result = F.eval(result,context++);
     }
-    return ret;
+    return result;
 }
 
 template <>
@@ -458,15 +468,16 @@ V eval_impl<Keyword::Unfold>(V const& x, V const& param, E::EvalContext const& c
     auto const& params = param.get_array();
     ASSERT(params.size() == 2);
     auto F = E(params.at(0));
-    std::uint64_t count = boost::json::value_to<std::uint64_t>(params.at(1));
-    boost::json::array unfold {};
-    unfold.reserve(count + 1);
-    unfold.push_back(x);
+    std::uint64_t count = boost::json::value_to<std::uint64_t>(x);
+    boost::json::array result {};
+    result.reserve(count);
+    result.push_back(params.at(1));
+
     for (std::uint64_t i = 0; i < count; i++)
     {
-        unfold.push_back(F.eval(unfold.back(),context++));
+        result.push_back(F.eval(result.back(),context++));
     }
-    return unfold;
+    return result;
 }
 
 template <>

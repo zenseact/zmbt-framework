@@ -209,50 +209,51 @@ class ModelDefinition::N_ChannelOut
     }
 };
 
-class ModelDefinition::N_Combine
+class ModelDefinition::N_CombineOut
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_Union<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>
-    , public ModelDefinition::T_With<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>
+    , public ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_ChannelOut>
+    , public ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_ChannelOut>
 {
   private:
     friend class ModelDefinition;
-    N_Combine(detail::DefinitionHelper& m) : N_Channel(m)
+    N_CombineOut(detail::DefinitionHelper& m) : N_Channel(m)
     {
     }
-    N_Combine(N_Combine const&) = delete;
-    N_Combine(N_Combine&&) = default;
+    N_CombineOut(N_CombineOut const&) = delete;
+    N_CombineOut(N_CombineOut&&) = default;
 
   public:
-    ~N_Combine()
+    ~N_CombineOut()
     {
     }
 };
 
-class ModelDefinition::N_Alias
+class ModelDefinition::N_AliasIn
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_Alias<ModelDefinition::N_Alias, ModelDefinition::N_Channel>
+    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>
+    , public ModelDefinition::T_Keep<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>
 {
   private:
     friend class ModelDefinition;
-    N_Alias(detail::DefinitionHelper& m) : N_Channel(m)
+    N_AliasIn(detail::DefinitionHelper& m) : N_Channel(m)
     {
     }
-    N_Alias(N_Alias const&) = delete;
-    N_Alias(N_Alias&&) = default;
+    N_AliasIn(N_AliasIn const&) = delete;
+    N_AliasIn(N_AliasIn&&) = default;
 
   public:
-    ~N_Alias()
+    ~N_AliasIn()
     {
     }
 };
 
 class ModelDefinition::N_AliasOut
-    : public ModelDefinition::N_Combine
-    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_Combine>
+    : public ModelDefinition::N_CombineOut
+    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_CombineOut>
 {
   private:
     friend class ModelDefinition;
-    N_AliasOut(detail::DefinitionHelper& m) : N_Combine(m)
+    N_AliasOut(detail::DefinitionHelper& m) : N_CombineOut(m)
     {
     }
     N_AliasOut(N_AliasOut const&) = delete;
@@ -264,69 +265,49 @@ class ModelDefinition::N_AliasOut
     }
 };
 
-class ModelDefinition::N_Call
-    : public ModelDefinition::N_Alias
-    , public ModelDefinition::T_CallRangeIn<ModelDefinition::N_Call, ModelDefinition::N_Alias>
-    , public ModelDefinition::T_OnCall<ModelDefinition::N_Call, ModelDefinition::N_Alias>
-{
-  private:
-    friend class ModelDefinition;
-    N_Call(detail::DefinitionHelper& m) : N_Alias(m)
-    {
-    }
-    N_Call(N_Call const&) = delete;
-    N_Call(N_Call&&) = default;
-
-  public:
-    ~N_Call()
-    {
-    }
-};
-
-class ModelDefinition::N_CallOut
+class ModelDefinition::N_CallFilter
     : public ModelDefinition::N_AliasOut
-    , public ModelDefinition::T_CallRange<ModelDefinition::N_CallOut, ModelDefinition::N_AliasOut>
-    , public ModelDefinition::T_OnCall<ModelDefinition::N_CallOut, ModelDefinition::N_AliasOut>
+    , public ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>
 {
   private:
     friend class ModelDefinition;
-    N_CallOut(detail::DefinitionHelper& m) : N_AliasOut(m)
+    N_CallFilter(detail::DefinitionHelper& m) : N_AliasOut(m)
     {
     }
-    N_CallOut(N_CallOut const&) = delete;
-    N_CallOut(N_CallOut&&) = default;
+    N_CallFilter(N_CallFilter const&) = delete;
+    N_CallFilter(N_CallFilter&&) = default;
 
   public:
-    ~N_CallOut()
+    ~N_CallFilter()
     {
     }
 };
 
-class ModelDefinition::N_Decor
-    : public ModelDefinition::N_Call
-    , public ModelDefinition::T_As<ModelDefinition::N_Decor, ModelDefinition::N_Call>
+class ModelDefinition::N_DecorIn
+    : public ModelDefinition::N_AliasIn
+    , public ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>
 {
   private:
     friend class ModelDefinition;
-    N_Decor(detail::DefinitionHelper& m) : N_Call(m)
+    N_DecorIn(detail::DefinitionHelper& m) : N_AliasIn(m)
     {
     }
-    N_Decor(N_Decor const&) = delete;
-    N_Decor(N_Decor&&) = default;
+    N_DecorIn(N_DecorIn const&) = delete;
+    N_DecorIn(N_DecorIn&&) = default;
 
   public:
-    ~N_Decor()
+    ~N_DecorIn()
     {
     }
 };
 
 class ModelDefinition::N_DecorOut
-    : public ModelDefinition::N_CallOut
-    , public ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallOut>
+    : public ModelDefinition::N_CallFilter
+    , public ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>
 {
   private:
     friend class ModelDefinition;
-    N_DecorOut(detail::DefinitionHelper& m) : N_CallOut(m)
+    N_DecorOut(detail::DefinitionHelper& m) : N_CallFilter(m)
     {
     }
     N_DecorOut(N_DecorOut const&) = delete;
@@ -339,14 +320,12 @@ class ModelDefinition::N_DecorOut
 };
 
 class ModelDefinition::N_KindIn
-    : public ModelDefinition::N_Decor
-    , public ModelDefinition::T_Return<ModelDefinition::N_KindIn, ModelDefinition::N_Decor>
-    , public ModelDefinition::T_Args<ModelDefinition::N_KindIn, ModelDefinition::N_Decor>
-    , public ModelDefinition::T_Exception<ModelDefinition::N_KindIn, ModelDefinition::N_Call>
+    : public ModelDefinition::N_DecorIn
+    , public ModelDefinition::T_SignalFilter<ModelDefinition::N_KindIn, ModelDefinition::N_DecorIn>
 {
   private:
     friend class ModelDefinition;
-    N_KindIn(detail::DefinitionHelper& m) : N_Decor(m)
+    N_KindIn(detail::DefinitionHelper& m) : N_DecorIn(m)
     {
     }
     N_KindIn(N_KindIn const&) = delete;
@@ -360,12 +339,9 @@ class ModelDefinition::N_KindIn
 
 class ModelDefinition::N_KindOut
     : public ModelDefinition::N_DecorOut
-    , public ModelDefinition::T_Return<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>
-    , public ModelDefinition::T_Args<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>
-    , public ModelDefinition::T_Exception<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>
+    , public ModelDefinition::T_SignalFilter<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>
+    , public ModelDefinition::T_SignalProperty<ModelDefinition::N_KindOut, ModelDefinition::N_CallFilter>
     , public ModelDefinition::T_CallCount<ModelDefinition::N_KindOut, ModelDefinition::N_AliasOut>
-    , public ModelDefinition::T_Timestamp<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>
-    , public ModelDefinition::T_ThreadId<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>
 {
   private:
     friend class ModelDefinition;
@@ -434,25 +410,18 @@ extern template class ModelDefinition::T_Test<ModelDefinition::N_Test, ModelDefi
 extern template class ModelDefinition::T_InjectTo<ModelDefinition::N_Channel, ModelDefinition::N_KindIn>;
 extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_Union<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>;
-extern template class ModelDefinition::T_With<ModelDefinition::N_Combine, ModelDefinition::N_ChannelOut>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_Alias, ModelDefinition::N_Channel>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_Combine>;
-extern template class ModelDefinition::T_CallRangeIn<ModelDefinition::N_Call, ModelDefinition::N_Alias>;
-extern template class ModelDefinition::T_OnCall<ModelDefinition::N_Call, ModelDefinition::N_Alias>;
-extern template class ModelDefinition::T_CallRange<ModelDefinition::N_CallOut, ModelDefinition::N_AliasOut>;
-extern template class ModelDefinition::T_OnCall<ModelDefinition::N_CallOut, ModelDefinition::N_AliasOut>;
-extern template class ModelDefinition::T_As<ModelDefinition::N_Decor, ModelDefinition::N_Call>;
-extern template class ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallOut>;
-extern template class ModelDefinition::T_Return<ModelDefinition::N_KindIn, ModelDefinition::N_Decor>;
-extern template class ModelDefinition::T_Args<ModelDefinition::N_KindIn, ModelDefinition::N_Decor>;
-extern template class ModelDefinition::T_Exception<ModelDefinition::N_KindIn, ModelDefinition::N_Call>;
-extern template class ModelDefinition::T_Return<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>;
-extern template class ModelDefinition::T_Args<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>;
-extern template class ModelDefinition::T_Exception<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>;
+extern template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
+extern template class ModelDefinition::T_Keep<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
+extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_CombineOut>;
+extern template class ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>;
+extern template class ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>;
+extern template class ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>;
+extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_KindIn, ModelDefinition::N_DecorIn>;
+extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>;
+extern template class ModelDefinition::T_SignalProperty<ModelDefinition::N_KindOut, ModelDefinition::N_CallFilter>;
 extern template class ModelDefinition::T_CallCount<ModelDefinition::N_KindOut, ModelDefinition::N_AliasOut>;
-extern template class ModelDefinition::T_Timestamp<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>;
-extern template class ModelDefinition::T_ThreadId<ModelDefinition::N_KindOut, ModelDefinition::N_CallOut>;
 extern template class ModelDefinition::T_Repeat<ModelDefinition::N_Repeat, ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Repeat>;
 

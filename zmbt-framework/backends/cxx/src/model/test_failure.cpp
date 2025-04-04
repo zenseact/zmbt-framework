@@ -51,7 +51,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     print_js_section("expected");
     print_js_section("observed");
 
-    os << prefix << "test case: [" << sts.at("test") << "," << sts.at("channel") << "]";
+    os << prefix << "condition: [" << sts.at("test") << "," << sts.at("channel") << "]";
 
     print_string("description");
     print_string("comment");

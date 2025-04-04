@@ -51,36 +51,27 @@ class ModelDefinition
     /// T_Alias transition
     template <class Source, class Target>
     struct T_Alias;
-    /// T_Args transition
-    template <class Source, class Target>
-    struct T_Args;
     /// T_As transition
     template <class Source, class Target>
     struct T_As;
     /// T_CallCount transition
     template <class Source, class Target>
     struct T_CallCount;
-    /// T_CallRange transition
+    /// T_CallFilter transition
     template <class Source, class Target>
-    struct T_CallRange;
-    /// T_CallRangeIn transition
-    template <class Source, class Target>
-    struct T_CallRangeIn;
+    struct T_CallFilter;
     /// T_Description transition
     template <class Source, class Target>
     struct T_Description;
-    /// T_Exception transition
-    template <class Source, class Target>
-    struct T_Exception;
     /// T_InjectTo transition
     template <class Source, class Target>
     struct T_InjectTo;
+    /// T_Keep transition
+    template <class Source, class Target>
+    struct T_Keep;
     /// T_ObserveOn transition
     template <class Source, class Target>
     struct T_ObserveOn;
-    /// T_OnCall transition
-    template <class Source, class Target>
-    struct T_OnCall;
     /// T_OnTrigger transition
     template <class Source, class Target>
     struct T_OnTrigger;
@@ -99,9 +90,12 @@ class ModelDefinition
     /// T_Repeat transition
     template <class Source, class Target>
     struct T_Repeat;
-    /// T_Return transition
+    /// T_SignalFilter transition
     template <class Source, class Target>
-    struct T_Return;
+    struct T_SignalFilter;
+    /// T_SignalProperty transition
+    template <class Source, class Target>
+    struct T_SignalProperty;
     /// T_Test transition
     template <class Source, class Target>
     struct T_Test;
@@ -111,12 +105,6 @@ class ModelDefinition
     /// T_TestRow transition
     template <class Source, class Target>
     struct T_TestRow;
-    /// T_ThreadId transition
-    template <class Source, class Target>
-    struct T_ThreadId;
-    /// T_Timestamp transition
-    template <class Source, class Target>
-    struct T_Timestamp;
     /// T_Union transition
     template <class Source, class Target>
     struct T_Union;
@@ -148,18 +136,16 @@ class ModelDefinition
     class N_Channel;
     /// N_ChannelOut node
     class N_ChannelOut;
-    /// N_Combine node
-    class N_Combine;
-    /// N_Alias node
-    class N_Alias;
+    /// N_CombineOut node
+    class N_CombineOut;
+    /// N_AliasIn node
+    class N_AliasIn;
     /// N_AliasOut node
     class N_AliasOut;
-    /// N_Call node
-    class N_Call;
-    /// N_CallOut node
-    class N_CallOut;
-    /// N_Decor node
-    class N_Decor;
+    /// N_CallFilter node
+    class N_CallFilter;
+    /// N_DecorIn node
+    class N_DecorIn;
     /// N_DecorOut node
     class N_DecorOut;
     /// N_KindIn node

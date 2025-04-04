@@ -536,7 +536,7 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
     SignalMapping("Test CallRange first and last dropped")
     .OnTrigger(sut)
         .InjectTo  (sut)
-        .ObserveOn (&Mock::do_smth).Args(0).CallRange(2, -2) // all arguments at 0 (x)
+        .ObserveOn (&Mock::do_smth).Args(0).CallRange(1, -2)
     .Test
         ( 3, SetEq({1}))
         ( 5, {3,2,1} )
@@ -546,7 +546,7 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
     SignalMapping("Test CallRange reverse")
     .OnTrigger(sut)
         .InjectTo  (sut)
-        .ObserveOn (&Mock::do_smth).Args(0).CallRange(-1, 1, -1)
+        .ObserveOn (&Mock::do_smth).Args(0).CallRange(-1, 0, -1)
     .Test
         ( 3, {0,1,2}    )
         ( 5, {0,1,2,3,4})
@@ -562,28 +562,28 @@ BOOST_AUTO_TEST_CASE(CallCountAndOnCallsRange)
         ( 3, Size|Ge(0))
         ( 5, Size|Ge(0))
     .Zip
-        (range, {-1, 1, -1}, {1, 42, 1})
+        (range, {-1, 1, -1}, {0, 42, 1})
     ;
 
     SignalMapping("Test Call")
     .OnTrigger(sut)
         .InjectTo (sut)
-        .ObserveOn(&Mock::do_smth).Args(0).Call(1)
+        .ObserveOn(&Mock::do_smth).Args(0).Call(0)
         .ObserveOn(&Mock::do_smth).Args(1).Call(-1)
     .Test
         ( 5,  4, 42)
         (42, 41, 42)
     ;
 
-    SignalMapping("Test CallRange inject")
+    SignalMapping("Test range inject with Lookup")
     .OnTrigger(sut)
         .InjectTo  (sut)
-        .InjectTo (&Mock::do_smth).Return("/x").CallRange()
+        .InjectTo (&Mock::do_smth).Return("/x")
         .ObserveOn (sut)
     .Test
-        ( 4, { 1,-1, 1,-1}        ,  0 )
-        ( 5, { 3, 2, 1   }        ,  6 ) ["x=5 at first 3 calls, other calls x=0 (default from prototype)"]
-        ( 5, {{"-1", 5}, {"2", 4}}, 24 ) ["x=2 at 2nd call, x=2 at default"]
+        ( 4, Lookup({ 1,-1, 1,-1})|D(0) ,  0 )
+        ( 5, Lookup({ 3, 2, 1   })|D(0) ,  6 )
+        ( 5, Lookup({{"2", 4}})   |D(5) , 24 )
     ;
 }
 
@@ -594,12 +594,12 @@ BOOST_AUTO_TEST_CASE(CallRangeTrigger)
 
     SignalMapping("Test CallRange in and out on repeated trigger")
     .OnTrigger(id).Repeat(3)
-        .InjectTo  (id).CallRange()
+        .InjectTo  (id)
         .ObserveOn (id).CallRange()
     .Test
-        ( {1,2,3}     , {1,2,3}        )
-        ( {1,2,3,4,5} , {1,2,3}        )
-        ( {1,2}       , {1,2, nullptr} )
+        ( Lookup({1,2,3})     , {1,2,3}        )
+        ( Lookup({1,2,3,4,5}) , {1,2,3}        )
+        ( Lookup({1,2})       , {1,2, nullptr} )
     ;
 }
 
@@ -621,12 +621,11 @@ BOOST_AUTO_TEST_CASE(Call)
 
     SignalMapping("Test Call")
     .OnTrigger(sut)
-        .InjectTo (&Mock::get_value).Call(1)
-        .InjectTo (&Mock::get_value).Call(2)
+        .InjectTo (&Mock::get_value)
         .ObserveOn(sut)
     .Test
-        (2,  2, 4)
-        (2, -2, 0)
+        (Lookup({2,  2}), 4)
+        (Lookup({2, -2}), 0)
     ;
 }
 

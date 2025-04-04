@@ -20,6 +20,8 @@
 #include <type_traits>
 
 #include "environment.hpp"
+#include "expression.hpp"
+
 
 
 
@@ -95,65 +97,86 @@ public:
 
     boost::json::value const& PrototypeArgs() const;
 
-    /// \brief Injection return signal at nofcall
+    /// \brief Injection at nofcall
+    /// \param group return | args | exception
+    /// \param jp JSON pointer
     /// \param nofcall number of call
-    /// \param jp JSON Pointer
-    /// \return
-    boost::json::value GetInjectionReturn(boost::json::string_view jp, int const nofcall = -1) const;
+    boost::json::value GetInjection(boost::json::string_view group, boost::json::string_view jp, int const nofcall);
 
     /// \brief Injection return signal at nofcall
-    /// \param nofcall number of call
-    /// \return
-    boost::json::value GetInjectionReturn(int const nofcall = -1) const;
-
-
-    /// \brief Set injection return subsignal at nofcall
-    /// \param value
     /// \param jp JSON Pointer
-    /// \param nofcall number of call
-    void InjectReturn(boost::json::value const& value, boost::json::string_view jp = "", int const nofcall = -1);
-
-    /// \brief Set injection return subsignal at nofcall
-    /// \tparam T
-    /// \param value
-    /// \param jp JSON Pointer
-    /// \param nofcall number of call
-    template <class T>
-    void InjectReturn(T value, boost::json::string_view jp = "", int const nofcall = -1)
+    /// \param nofcall
+    boost::json::value GetInjectionReturn(boost::json::string_view jp, std::size_t const nofcall = 0)
     {
-        // TODO: handle conversion error
-        InjectReturn(json_from(value), jp, nofcall);
+        return GetInjection("return", jp, nofcall);
     }
 
+    /// \brief Injection return signal at nofcall
+    /// \param nofcall
+    boost::json::value GetInjectionReturn(std::size_t const nofcall = 0)
+    {
+        return GetInjectionReturn("", nofcall);
+    }
 
     /// \brief Injection args subsignal at nofcall
     /// \param value
     /// \param jp JSON Pointer
-    /// \param nofcall number of call
-    boost::json::value GetInjectionArgs(boost::json::string_view jp, int const nofcall = -1) const;
-
-    /// \brief Injection args subsignal at nofcall
-    /// \param value
-    /// \param nofcall number of call
-    boost::json::value GetInjectionArgs(int const nofcall = -1) const;
-
-    /// \brief Set injection args subsignal at nofcall
-    /// \param value
-    /// \param jp JSON Pointer
-    /// \param nofcall number of call
-    void InjectArgs(boost::json::value const& value, boost::json::string_view jp = "", int const nofcall = -1);
-
-    /// \brief Set injection args subsignal at nofcall
-    /// \tparam T
-    /// \param value
-    /// \param jp JSON Pointer
-    /// \param nofcall number of call
-    template <class T>
-    void InjectArgs(T value, boost::json::string_view jp = "", int const nofcall = -1)
+    /// \param nofcall
+    boost::json::value GetInjectionArgs(boost::json::string_view jp, std::size_t const nofcall = 0)
     {
-        // TODO: handle conversion error
-        InjectArgs(json_from(value), jp, nofcall);
+        return GetInjection("args", jp, nofcall);
     }
+
+
+    /// \brief Injection args at nofcall
+    /// \param value
+    /// \param nofcall
+    boost::json::value GetInjectionArgs(std::size_t const nofcall = 0)
+    {
+        return GetInjectionArgs("", nofcall);
+    }
+
+
+    /// \brief Set injection return subsignal at nofcall
+    /// \param e expression
+    /// \param op operator handler id
+    /// \param group return | args | exception
+    /// \param jp JSON Pointer
+    void Inject(Expression const& e, boost::json::string_view op, boost::json::string_view group, boost::json::string_view jp = "");
+
+    /// \brief Set injection return subsignal at nofcall
+    /// \param e
+    /// \param jp JSON Pointer
+    void InjectReturn(Expression const& e, SignalOperatorHandler const& op, boost::json::string_view jp = "")
+    {
+        return Inject(e, op.annotation(), "return", jp);
+    }
+
+    /// \brief Set injection return subsignal at nofcall
+    /// \param e
+    /// \param jp JSON Pointer
+    void InjectReturn(Expression const& e, boost::json::string_view jp = "")
+    {
+        return InjectReturn(e, {}, jp);
+    }
+
+
+    /// \brief Set injection args subsignal at nofcall
+    /// \param e
+    /// \param jp JSON Pointer
+    void InjectArgs(Expression const& e, SignalOperatorHandler const& op, boost::json::string_view jp = "")
+    {
+        return Inject(e, op.annotation(), "args", jp);
+    }
+
+    /// \brief Set injection args subsignal at nofcall
+    /// \param e
+    /// \param jp JSON Pointer
+    void InjectArgs(Expression const& e, boost::json::string_view jp = "")
+    {
+        return InjectArgs(e, {}, jp);
+    }
+
 
     /// Number of interface calls
     std::size_t ObservedCalls() const;
@@ -167,13 +190,6 @@ public:
 
     boost::json::array const& Captures();
 
-    /// @brief Set injects range
-    /// values should be either a mapping {numof_call -> value} or an array.
-    /// @param values values to inject
-    /// @param signal_path signal path to update at each injection
-    void SetInjectsRange(boost::json::value const& values, boost::json::string_view signal_path);
-
-
     /// Observed return value at nofcall
     boost::json::value ObservedReturn(int const nofcall = -1);
 
@@ -181,7 +197,7 @@ public:
 
     InterfaceHandle& RunAsAction();
 
-    InterfaceHandle& RunAsTrigger(int const nofcall = -1);
+    InterfaceHandle& RunAsTrigger(std::size_t const nofcall = 0);
 };
 
 /// @brief Environment API handler for specific interface
@@ -211,11 +227,13 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
             {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
         };
 
-        auto nofcall = captures().as_array().size();
+        auto nofcall = captures().as_array().size() - 1;
         auto const injection = GetInjectionArgs(nofcall).as_array();
         if (injection.size() != std::tuple_size<unqf_args_t>())
         {
+            throw model_error("invalid inject arguments arity for %s", interface().annotation());
         }
+
         try
         {
             auto args_out = dejsonize<unqf_args_t>(injection);

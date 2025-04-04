@@ -197,6 +197,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "pack", Keyword::Pack)
     (ZMBT_KEYWORD_PREFIX "flip", Keyword::Flip)
     (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
+    (ZMBT_KEYWORD_PREFIX "d", Keyword::Default)
     (ZMBT_KEYWORD_PREFIX "try", Keyword::Try)
     (ZMBT_KEYWORD_PREFIX "try-catch", Keyword::TryCatch)
     ;

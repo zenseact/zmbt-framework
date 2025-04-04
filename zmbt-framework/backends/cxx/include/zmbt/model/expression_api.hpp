@@ -743,16 +743,16 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmax> const Argmax;
 /// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Apply> const Apply;
 
-/// \brief Apply recursion to parameter expr
+/// \brief Apply recursion to parameter expr and initial value
 /// \anchor expr-recur
 /// \details
-/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+/// Recur(f, x) >> n = ◯ⁿ f(x)\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur;
 
-/// \brief Put results of recursive fn call on initial value x into an array
+/// \brief Put results of recursive fn call on initial value into an array
 /// \anchor expr-unfold
 /// \details
-/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+/// Unfold(f, x) >> n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Unfold> const Unfold;
 
 /// \brief !not implemented! bind design-time parameters
@@ -804,6 +804,8 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Flip> const Flip;
 /// \details
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default;
+/// \brief Alias for Default
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const D;
 
 /// \brief Evaluate enveloped function and return result or null if it throws
 /// \anchor expr-try

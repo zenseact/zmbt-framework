@@ -131,7 +131,7 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, boost::js
         {"role", role},
         {"signal_path", "$default"},
         {"kind", "$default"},
-        {"call", -1},
+        {"call", role == "observe" ? -1 : 0},
         {"alias", idx},
     };
 

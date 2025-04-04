@@ -7,6 +7,7 @@
 #include <boost/json.hpp>
 
 #include "zmbt/model/environment_interface_record.hpp"
+#include "zmbt/model/expression_api.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 
 
@@ -27,6 +28,11 @@ bool ChannelHandle::is_input() const
 bool ChannelHandle::is_output() const
 {
     return data_.at("/role") == "observe";
+}
+
+bool ChannelHandle::is_keep() const
+{
+    return data_.contains("/keep");
 }
 
 
@@ -132,50 +138,32 @@ int ChannelHandle::on_call() const
 }
 
 
-void ChannelHandle::inject(boost::json::value value) const
+void ChannelHandle::inject(Expression const& expr) const
 {
+    if (expr.is(Expression::Keyword::Noop)) return;
     auto handle = Environment::InterfaceHandle(host(), interface());
-    value = op().decorate(value);
-
-    switch (kind())
-    {
-    case Kind::Return:
-    case Kind::Args:
-    {
-        bool const is_args = kind() == ChannelHandle::Kind::Args;
-        if (is_range())
-        {
-            boost::json::string_view const group = is_args ? "/args%s" : "/return%s";
-            boost::json::string const jp {format(group, signal_path())};
-            handle.SetInjectsRange(value, jp);
-        }
-        else {
-            try
-            {
-                is_args ? handle.InjectArgs(value, signal_path(), on_call()) : handle.InjectReturn(value, signal_path(), on_call());
-            }
-            catch (std::exception const& e) {
-                // TODO: log
-                throw model_error("failed to inject %s at %s, error: %s", value, signal_path(), e.what());
-            }
-        }
-    }
-    break;
-    case Kind::Exception:
-        // TODO: impl
-        throw model_error("Exception clause not implemented");
-        break;
-    default:
-        throw model_error("invalid injection kind");
-        break;
-    }
+    handle.Inject(expr, op().annotation(), data_.at("/kind").as_string(), signal_path());
 }
+
+Expression ChannelHandle::keep() const
+{
+    auto const& recur = data_.at("keep");
+    if (recur.is_null()) return expr::Noop;
+    else return Expression(recur);
+}
+
+
+void ChannelHandle::inject_yield() const
+{
+    return inject(keep());
+}
+
 
 boost::json::value ChannelHandle::observe() const
 {
-    if (is_input())
+    if (!is_output())
     {
-        throw model_error("calling observe on input channel");
+        throw model_error("calling observe on non-output channel");
     }
     auto ifc_handle = Environment::InterfaceHandle(host(), interface());
     switch (kind())
@@ -287,9 +275,6 @@ boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channe
 
         int start, stop, step;
         std::tie(start, stop, step) = channel.call();
-        // handle 1-based indexation
-        if (start > 0) { start -= 1; }
-        if (stop  > 0) { stop  -= 1; }
         auto captures_slice = make_slice_const_generator(captures, start, stop, step);
         auto insert_begin = join_captures.begin();
         auto capture = captures.cend();

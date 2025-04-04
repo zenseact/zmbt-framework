@@ -39,7 +39,8 @@ class InstanceTestRunner
 {
     JsonNode model_;
     Environment env;
-    std::vector<std::list<ChannelHandle>> channel_groups_;
+    std::vector<std::list<ChannelHandle>> dynamic_channel_groups_;
+    std::list<ChannelHandle> static_channels_; // keep
 
 
     void report_failure(TestDiagnostics report);
@@ -47,6 +48,8 @@ class InstanceTestRunner
     TestDiagnostics test_case_diagnostics(std::size_t n);
 
     void exec_prerun_tasks(TestDiagnostics diagnostics);
+
+    void setup_static_channels(TestDiagnostics diagnostics);
 
     void exec_postrun_tasks(TestDiagnostics diagnostics);
 
@@ -100,6 +103,14 @@ void InstanceTestRunner::exec_prerun_tasks(TestDiagnostics diagnostics)
     }
 }
 
+void InstanceTestRunner::setup_static_channels(TestDiagnostics diagnostics)
+{
+    (void) diagnostics;
+    for (auto const& static_cnl: static_channels_)
+    {
+        static_cnl.inject_yield();
+    }
+}
 
 void InstanceTestRunner::exec_postrun_tasks(TestDiagnostics diagnostics)
 {
@@ -123,45 +134,35 @@ bool InstanceTestRunner::prepare_test(std::size_t const n, TestDiagnostics diagn
 
     exec_prerun_tasks(diagnostics);
 
+    setup_static_channels(diagnostics);
+
     auto const& test_vector = model_.at("/tests/%d", n).as_array();
-    if (test_vector.size() != channel_groups_.size())
+    if (test_vector.size() != dynamic_channel_groups_.size())
     {
         throw model_error("inconsistent test vecor size at test case %d", n);
     }
     auto test_value_it = test_vector.cbegin();
-    auto channel_group_it = channel_groups_.cbegin();
+    auto channel_group_it = dynamic_channel_groups_.cbegin();
     bool no_exception_met{true};
     std::size_t column_idx {0};
     while (test_value_it != test_vector.cend())
     {
-        auto const& test_value = *test_value_it++;
+        auto const& test_expr = *test_value_it++;
         auto const& channel_group = *channel_group_it++;
 
-        if (channel_group.cbegin()->is_output())
-        {
-            continue;
-        }
-        auto const expr = Expression(test_value);
-        if (expr.keyword() == Keyword::Noop)
-        {
-            continue;
-        }
-        else if (!(expr.is(Keyword::Literal) or expr.is(Keyword::Apply)))
-        {
-            // TODO: warn
-            report_failure(diagnostics
-                .Error(
-                    "sample injection",
-                    "only literals and Apply expressions are allowed on input channels"
-                )
-                .ChannelIdx(n)
-            );
-        }
-
         try {
-            channel_group.cbegin()->inject(
-                expr.is(Keyword::Literal) ? expr.underlying() : expr.eval()
-            );
+            if (channel_group.cbegin()->is_input())
+            {
+                channel_group.cbegin()->inject(test_expr);
+            }
+            else if ((channel_group.cbegin()->is_keep()))
+            {
+
+            }
+            else // output
+            {
+                continue;
+            }
         }
         catch (std::exception const& error) {
             report_failure(diagnostics
@@ -184,7 +185,7 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
         auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
         for (std::uint64_t i = 0; i < runs; i++)
         {
-            ifc_rec.RunAsTrigger(i+1);
+            ifc_rec.RunAsTrigger(i);
         }
         return true;
     }
@@ -198,12 +199,12 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
 bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnostics)
 {
     auto const& test_vector = model_.at("/tests/%d", n).as_array();
-    if (test_vector.size() != channel_groups_.size())
+    if (test_vector.size() != dynamic_channel_groups_.size())
     {
         throw model_error("inconsistent test vecor size at test case %d", n);
     }
     auto test_value_it = test_vector.cbegin();
-    auto channel_group_it = channel_groups_.cbegin();
+    auto channel_group_it = dynamic_channel_groups_.cbegin();
     std::size_t column_idx {0};
     bool test_case_passed{true};
 
@@ -213,7 +214,7 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
         auto const& test_value = *test_value_it++;
         auto const& channel_group = *channel_group_it++;
 
-        if (channel_group.cbegin()->is_input())
+        if (!channel_group.cbegin()->is_output())
         {
             ++column_idx;
             continue;
@@ -308,15 +309,25 @@ bool InstanceTestRunner::observe_results(std::size_t n, TestDiagnostics diagnost
 }
 
 
-InstanceTestRunner::InstanceTestRunner(JsonNode const& model) : model_(model), channel_groups_{}
+InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
+    : model_(model)
+    , dynamic_channel_groups_{}
+    , static_channels_{}
 {
-    channel_groups_.push_back({});
-    auto group_it = channel_groups_.rbegin();
+    dynamic_channel_groups_.push_back({});
+    auto group_it = dynamic_channel_groups_.rbegin();
     auto const N = model_.at("/channels").as_array().size();
     for (std::size_t i = 0; i < N; i++)
     {
         ChannelHandle channel{model_, format("/channels/%d", i)};
+        if (channel.is_keep())
+        {
+            static_channels_.push_back(channel);
+            continue;
+        }
+
         bool switch_group {true};
+
         if (group_it->empty())
         {
             switch_group = false;
@@ -332,9 +343,10 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model) : model_(model), c
 
         if (switch_group)
         {
-            channel_groups_.push_back({});
-            group_it = channel_groups_.rbegin();
+            dynamic_channel_groups_.push_back({});
+            group_it = dynamic_channel_groups_.rbegin();
         }
+
         group_it->push_back(channel);
     }
 }

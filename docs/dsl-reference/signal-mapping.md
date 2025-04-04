@@ -36,12 +36,12 @@ MODEL = SignalMapping, OnTrigger, [Repeat], {Channel}-, Params, Tests, [Tasks], 
 
 Channel = Input | Output | OutputCombo;
 
-Input = InjectTo, (
-(((Return | Args), [As]) | Exception), [(Call | CallRange)]
-);
+Input = InjectTo, ([(Return | Args | Exception)], [As]), [Keep];
 
-Output = ObserveOn, (
-(((Return | Args), [As]) | Exception | CallCount | ThreadId | Timestamp), [(Call | CallRange)]);
+
+Output = ObserveOn, ((
+(([(Return | Args | Exception)], [As]) | ThreadId | Timestamp), [(Call | CallRange)]) | CallCount);
+
 
 OutputCombo = {Output, (With, Output)}- | {Output, (Union, Output)}-;
 
@@ -57,13 +57,13 @@ Tasks =  [".PreRun", LB, ONEORMORE(?task?), RB], [".PostRun", LB, ONEORMORE(?tas
 ### Channel clauses
 
 Each channel node of the model definition starts with `InjectTo` or `ObserveOn` method,
-that defines a signal role, stimulus for `InjectTo` and observed response for `ObserveOn`.
+followed with optional filters. Each filter has one or more mutually exclusive clauses.
 
 The channel definition node is terminated once the new channel started with the
 `InjectTo` or `ObserveOn` method, or when the definition switches to `Parameters`
 or `Tests` nodes.
 
-Channel parameters:
+Channel filters:
 
 - **Role**:
     - `InjectTo`: start stimulus definition on a specified interface.
@@ -83,10 +83,10 @@ Channel parameters:
 - **Other**:
     - `As`: specify the type decorator for channel signal (see zmbt::SignalOperatorHandler).
         - default: `zmbt::GenericSignalOperator`, good enough for most cases.
-    - `Call`: specify the interface call number (1-based).
+    - `Call`: specify the interface call number (0-based).
         - Negative value is resolved as a reverse index, with -1 referring to the last call.
         - default: `-1`
-    - `CallRange`: specify the interface call range in 1-based slice with inclusive boundaries.
+    - `CallRange`: specify the interface call range in 0-based slice with inclusive boundaries.
 
 ### Interface referencing
 
