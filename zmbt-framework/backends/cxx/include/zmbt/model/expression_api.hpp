@@ -659,6 +659,15 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Push> const Push;
 ///       { "key1": x at q1, "$(x at q2)": x at q3, ...}\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At;
 
+/// \brief Lookup table function
+/// \anchor expr-lookup
+/// \details
+/// Parametrized at design time with fixed array or object,
+/// produces the value at corresponding `At` query given
+/// as eval-time argument.
+/// Equivalent to `Flip(At(...))`\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Lookup> const Lookup;
+
 /// \brief User-defined constant
 /// \anchor expr-c
 /// \details
@@ -675,7 +684,7 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let;
 /// To set specific initial value, use composition with Push, e.g.
 /// Push(0)|Reduce(Add)
 /// 
-/// For reverse operatin, see Unfold\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// For reverse operation, see Unfold\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Reduce;
 /// \brief Alias for Reduce
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Fold;

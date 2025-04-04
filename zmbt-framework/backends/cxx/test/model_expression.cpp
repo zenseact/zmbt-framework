@@ -503,6 +503,10 @@ std::vector<TestEvalSample> const TestSamples
     // single-element bracket init is always an array in Expression ctor
     {At({""})                   , 42                     , L{42}                },
 
+    {Flip(At({1,2,3}))          , 0                      , 1                     },
+    {Lookup({1,2,3})            , 0                      , 1                     },
+
+
     // TODO: string query
     // {At(0)                   , "foo"                 , "f"                   },
 

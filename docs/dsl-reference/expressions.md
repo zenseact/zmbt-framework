@@ -1161,6 +1161,19 @@ At("4:")      >> [1,2,3,4,5,6,7,8] == [5,6,7,8]
 At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
     </tr>
     <tr>
+        <td><a id ="lookup"> Lookup
+        </td>
+        <td>Lookup table function
+        <pre>Parametrized at design time with fixed array or object,
+produces the value at corresponding `At` query given
+as eval-time argument.
+Equivalent to `Flip(At(...))`</pre>
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
+        <td><pre>Lookup([1,2,3]) >> 0 ==  1
+Lookup([1,2,3]) >> "/foo" ==  null</pre></td>
+    </tr>
+    <tr>
         <td><a id ="c"> C
         </td>
         <td>User-defined constant
@@ -1193,7 +1206,7 @@ C(x) is a shorthand for `Id << x` or `And(false)|Or(x)`</pre>
         <pre>To set specific initial value, use composition with Push, e.g.
 Push(0)|Reduce(Add)
 
-For reverse operatin, see Unfold</pre>
+For reverse operation, see Unfold</pre>
         <br>Aliases: fold
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>

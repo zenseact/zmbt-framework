@@ -67,6 +67,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Concat:
     case Keyword::Push:
     case Keyword::At:
+    case Keyword::Lookup:
     case Keyword::C:
     case Keyword::Reduce:
     case Keyword::Map:

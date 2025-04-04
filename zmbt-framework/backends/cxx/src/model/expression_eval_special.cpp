@@ -174,6 +174,14 @@ V eval_impl<Keyword::At>(V const& x, V const& param, E::EvalContext const& conte
 }
 
 template <>
+V eval_impl<Keyword::Lookup>(V const& x, V const& param, E::EvalContext const& context)
+{
+    static_cast<void>(context);
+    ASSERT(not x.is_null())
+    return query_at(param, x);
+}
+
+template <>
 V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array());
@@ -1089,6 +1097,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
         ZMBT_EXPR_EVAL_IMPL_CASE(Re)
         ZMBT_EXPR_EVAL_IMPL_CASE(At)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Lookup)
 
         // props
         ZMBT_EXPR_EVAL_IMPL_CASE(Card)

@@ -332,6 +332,9 @@ enum class Keyword
     /// at
     At,
 
+    /// lookup
+    Lookup,
+
     /// c
     C,
 

@@ -173,6 +173,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "concat", Keyword::Concat)
     (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
     (ZMBT_KEYWORD_PREFIX "at", Keyword::At)
+    (ZMBT_KEYWORD_PREFIX "lookup", Keyword::Lookup)
     (ZMBT_KEYWORD_PREFIX "c", Keyword::C)
     (ZMBT_KEYWORD_PREFIX "let", Keyword::C)
     (ZMBT_KEYWORD_PREFIX "reduce", Keyword::Reduce)
@@ -321,6 +322,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
     case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "push"; break; }
     case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
+    case Keyword::Lookup: { v = ZMBT_KEYWORD_PREFIX "lookup"; break; }
     case Keyword::C: { v = ZMBT_KEYWORD_PREFIX "c"; break; }
     case Keyword::Reduce: { v = ZMBT_KEYWORD_PREFIX "reduce"; break; }
     case Keyword::Map: { v = ZMBT_KEYWORD_PREFIX "map"; break; }

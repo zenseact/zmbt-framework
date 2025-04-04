@@ -123,6 +123,7 @@ dsl::SignatureBinary<::zmbt::dsl::Keyword::Repeat> const Repeat = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Concat> const Concat = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Push> const Push = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At = {};
+dsl::SignatureBinary<::zmbt::dsl::Keyword::Lookup> const Lookup = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const C = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let = C;
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Reduce = {};
