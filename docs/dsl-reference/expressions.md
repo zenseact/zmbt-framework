@@ -90,6 +90,15 @@ Used in place of matchers for uninteresting signals.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Const</a></td>
     </tr>
+    <tr>
+        <td><a id ="thread"> Thread
+        </td>
+        <td>Thread id
+        <pre>Not really a constant, but useful for
+branching the test input conditions.</pre>
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
+    </tr>
 </tbody></table>
 
 ## Math Functions

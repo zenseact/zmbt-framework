@@ -68,6 +68,9 @@ enum class Keyword
     /// nan
     NaN,
 
+    /// thread
+    Thread,
+
     /// sin
     Sin,
 

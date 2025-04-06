@@ -36,6 +36,7 @@ boost::json::value zmbt::Expression::eval_Const(boost::json::value const&, Signa
     case Keyword::Inf: return std::numeric_limits<double>::infinity();
     case Keyword::Eps: return std::numeric_limits<double>::epsilon();
     case Keyword::NaN: return std::numeric_limits<double>::quiet_NaN();
+    case Keyword::Thread: return zmbt::get_tid().c_str();
     default:
         throw expression_error("got invalid const expression: %s", underlying());
         return nullptr;

@@ -44,6 +44,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "inf", Keyword::Inf)
     (ZMBT_KEYWORD_PREFIX "eps", Keyword::Eps)
     (ZMBT_KEYWORD_PREFIX "nan", Keyword::NaN)
+    (ZMBT_KEYWORD_PREFIX "thread", Keyword::Thread)
     (ZMBT_KEYWORD_PREFIX "sin", Keyword::Sin)
     (ZMBT_KEYWORD_PREFIX "cos", Keyword::Cos)
     (ZMBT_KEYWORD_PREFIX "tan", Keyword::Tan)
@@ -235,6 +236,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Inf: { v = ZMBT_KEYWORD_PREFIX "inf"; break; }
     case Keyword::Eps: { v = ZMBT_KEYWORD_PREFIX "eps"; break; }
     case Keyword::NaN: { v = ZMBT_KEYWORD_PREFIX "nan"; break; }
+    case Keyword::Thread: { v = ZMBT_KEYWORD_PREFIX "thread"; break; }
     case Keyword::Sin: { v = ZMBT_KEYWORD_PREFIX "sin"; break; }
     case Keyword::Cos: { v = ZMBT_KEYWORD_PREFIX "cos"; break; }
     case Keyword::Tan: { v = ZMBT_KEYWORD_PREFIX "tan"; break; }

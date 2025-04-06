@@ -30,6 +30,7 @@ dsl::SignatureConst<::zmbt::dsl::Keyword::E> const E = {};
 dsl::SignatureConst<::zmbt::dsl::Keyword::Inf> const Inf = {};
 dsl::SignatureConst<::zmbt::dsl::Keyword::Eps> const Eps = {};
 dsl::SignatureConst<::zmbt::dsl::Keyword::NaN> const NaN = {};
+dsl::SignatureConst<::zmbt::dsl::Keyword::Thread> const Thread = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Sin> const Sin = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Cos> const Cos = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Tan> const Tan = {};

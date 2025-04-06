@@ -35,6 +35,7 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Inf:
     case Keyword::Eps:
     case Keyword::NaN:
+    case Keyword::Thread:
         return CodegenType::Const;
     case Keyword::Neg:
     case Keyword::BitNot:

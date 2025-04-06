@@ -97,6 +97,9 @@ std::vector<TestEvalSample> const TestSamples
     { Inf                       , {}                    , inf                   },
     { Eps                       , {}                    , eps                   },
 
+    { Thread                    , {}                    , zmbt::get_tid().c_str()},
+
+
     // comparison
     {Eq(42)                     , 42                    , true                  },
     {Eq(42)                     , 13                    , false                 },

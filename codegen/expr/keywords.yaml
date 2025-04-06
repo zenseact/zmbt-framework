@@ -84,6 +84,14 @@ keyword_groups:
         codegen-value:
           cxx: std::numeric_limits<double>::quiet_NaN()
 
+      - name: thread
+        brief: Thread id
+        details: |-
+          Not really a constant, but useful for
+          branching the test input conditions.
+        codegen-value:
+          cxx: zmbt::get_tid().c_str()
+
   Math Functions:
     defaults:
       signature: Unary

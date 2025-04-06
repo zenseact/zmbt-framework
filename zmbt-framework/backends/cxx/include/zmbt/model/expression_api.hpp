@@ -80,6 +80,13 @@ extern dsl::SignatureConst<::zmbt::dsl::Keyword::Eps> const Eps;
 /// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern dsl::SignatureConst<::zmbt::dsl::Keyword::NaN> const NaN;
 
+/// \brief Thread id
+/// \anchor expr-thread
+/// \details
+/// Not really a constant, but useful for
+/// branching the test input conditions.\see \ref const-syntactic-forms "Const Syntatic Forms"
+extern dsl::SignatureConst<::zmbt::dsl::Keyword::Thread> const Thread;
+
 /// \brief Sinus
 /// \anchor expr-sin
 /// \details
