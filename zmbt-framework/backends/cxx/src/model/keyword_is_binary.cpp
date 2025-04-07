@@ -73,6 +73,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Map:
     case Keyword::Filter:
     case Keyword::Count:
+    case Keyword::Each:
     case Keyword::Sort:
     case Keyword::Min:
     case Keyword::Max:

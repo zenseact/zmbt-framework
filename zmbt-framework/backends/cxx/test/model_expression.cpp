@@ -545,6 +545,9 @@ std::vector<TestEvalSample> const TestSamples
     {Count(Mod(2)|0)            , {1,2,3,4,5}            , 2                    },
     {Count(Mod(2)|1)            , {1,2,3,4,5}            , 3                    },
 
+    {Each(Gt(2))                , {1, 2, 3, 4}           , false                },
+    {Slide(2)|Each(Lt)          , {1, 2, 3, 4}           , true                 },
+
     {Saturate(Eq(42), Mod(2)|0) , {2,4,8,42,1,2}         , true                 },
     {Saturate(42, Mod(2)|0)     , {2,4,8,42,1,2}         , true                 },
     {Saturate(42, Mod(2)|0)     , {2,4,8,41,2}           , false                },

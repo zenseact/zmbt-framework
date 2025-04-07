@@ -182,6 +182,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "map", Keyword::Map)
     (ZMBT_KEYWORD_PREFIX "filter", Keyword::Filter)
     (ZMBT_KEYWORD_PREFIX "count", Keyword::Count)
+    (ZMBT_KEYWORD_PREFIX "each", Keyword::Each)
     (ZMBT_KEYWORD_PREFIX "sort", Keyword::Sort)
     (ZMBT_KEYWORD_PREFIX "min", Keyword::Min)
     (ZMBT_KEYWORD_PREFIX "max", Keyword::Max)
@@ -331,6 +332,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Map: { v = ZMBT_KEYWORD_PREFIX "map"; break; }
     case Keyword::Filter: { v = ZMBT_KEYWORD_PREFIX "filter"; break; }
     case Keyword::Count: { v = ZMBT_KEYWORD_PREFIX "count"; break; }
+    case Keyword::Each: { v = ZMBT_KEYWORD_PREFIX "each"; break; }
     case Keyword::Sort: { v = ZMBT_KEYWORD_PREFIX "sort"; break; }
     case Keyword::Min: { v = ZMBT_KEYWORD_PREFIX "min"; break; }
     case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }

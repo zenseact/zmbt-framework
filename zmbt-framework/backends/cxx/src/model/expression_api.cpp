@@ -132,6 +132,7 @@ dsl::SignatureBinary<::zmbt::dsl::Keyword::Reduce> const Fold = Reduce;
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Map> const Map = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Filter> const Filter = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Count> const Count = {};
+dsl::SignatureBinary<::zmbt::dsl::Keyword::Each> const Each = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Sort> const Sort = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Min> const Min = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Max> const Max = {};

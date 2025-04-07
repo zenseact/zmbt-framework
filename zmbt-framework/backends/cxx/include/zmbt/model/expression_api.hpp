@@ -714,6 +714,12 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Filter> const Filter;
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Count> const Count;
 
+/// \brief Test predicate for each item in a sequence
+/// \anchor expr-each
+/// \details
+/// Equivalent to `Count(p|Not)|Eq(0)`\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Each> const Each;
+
 /// \brief Sort list by key function
 /// \anchor expr-sort
 /// \details

@@ -1247,6 +1247,16 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td><pre>Count(Gt(2)) >> [1, 2, 3, 4] == 2</pre></td>
     </tr>
     <tr>
+        <td><a id ="each"> Each
+        </td>
+        <td>Test predicate for each item in a sequence
+        <pre>Equivalent to `Count(p|Not)|Eq(0)`</pre>
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
+        <td><pre>Each(Gt(2)) >> [1, 2, 3, 4] == false
+Slide(2)|Each(Lt) >> [1, 2, 3, 4] == true</pre></td>
+    </tr>
+    <tr>
         <td><a id ="sort"> Sort
         </td>
         <td>Sort list by key function

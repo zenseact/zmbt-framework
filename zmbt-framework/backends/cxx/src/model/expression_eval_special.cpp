@@ -245,6 +245,36 @@ V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalContext const& co
 }
 
 template <>
+V eval_impl<Keyword::Each>(V const& x, V const& param, E::EvalContext const& context)
+{
+    ASSERT(x.is_array() || x.is_object())
+    auto const filter = E(param);
+
+    if (x.is_array())
+    {
+        for (auto const& sample: x.get_array())
+        {
+            if (!filter.eval(sample,context++).as_bool())
+            {
+                return false;
+            }
+        }
+    }
+    else if (x.is_object())
+    {
+        for (auto const& kv: x.get_object())
+        {
+            if (!filter.eval({kv.key(), kv.value()},context++).as_bool())
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+template <>
 V eval_impl<Keyword::Approx>(V const& x, V const& param, E::EvalContext const& context)
 {
     // Based on numpy.isclose
@@ -1125,6 +1155,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         // high-orded
         ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
         ZMBT_EXPR_EVAL_IMPL_CASE(Count)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Each)
         ZMBT_EXPR_EVAL_IMPL_CASE(Map)
         ZMBT_EXPR_EVAL_IMPL_CASE(Filter)
         ZMBT_EXPR_EVAL_IMPL_CASE(Recur)

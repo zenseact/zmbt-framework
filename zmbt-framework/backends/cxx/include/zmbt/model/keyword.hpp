@@ -353,6 +353,9 @@ enum class Keyword
     /// count
     Count,
 
+    /// each
+    Each,
+
     /// sort
     Sort,
 

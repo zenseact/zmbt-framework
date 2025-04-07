@@ -1070,6 +1070,16 @@ keyword_groups:
         examples: |-
           Count(Gt(2)) >> [1, 2, 3, 4] == 2
 
+      - name: each
+        signature: Binary
+        brief: Test predicate for each item in a sequence
+        details: Equivalent to `Count(p|Not)|Eq(0)`
+        domain: [list, predicate]
+        codomain: bool
+        examples: |-
+          Each(Gt(2)) >> [1, 2, 3, 4] == false
+          Slide(2)|Each(Lt) >> [1, 2, 3, 4] == true
+
       - name: sort
         signature: Binary
         brief: 'Sort list by key function'
