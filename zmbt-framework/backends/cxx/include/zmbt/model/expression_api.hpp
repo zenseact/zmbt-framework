@@ -633,8 +633,16 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Slide> const Slide;
 /// \brief Striding iteration
 /// \anchor expr-stride
 /// \details
-/// Striding iteration by specified step width.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Striding iteration by specified step width.
+/// Reminder subsequence smaller then step width is discarded.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Stride> const Stride;
+
+/// \brief Split into chunks of specified max width
+/// \anchor expr-chunks
+/// \details
+/// Similar to Stride, but includes the last subsequence
+/// smaller then step width.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Chunks> const Chunks;
 
 /// \brief Repeat value in list
 /// \anchor expr-repeat

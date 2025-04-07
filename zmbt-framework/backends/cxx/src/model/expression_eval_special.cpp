@@ -699,7 +699,10 @@ V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalContext const& co
     static_cast<void>(context);
     ASSERT(x.is_array());
     ASSERT(param.is_number());
+
     auto const W = boost::json::value_to<std::uint64_t>(param);
+    ASSERT(W > 0);
+
     auto const& samples = x.get_array();
     boost::json::array out {};
     if (samples.empty() || (0 == W))
@@ -708,7 +711,6 @@ V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalContext const& co
     }
     if (samples.size() <= W)
     {
-        out.push_back(samples);
         return out;
     }
     out.reserve(samples.size() - W);
@@ -724,13 +726,15 @@ V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalContext const& co
 }
 
 template <>
-V eval_impl<Keyword::Stride>(V const& x, V const& param, E::EvalContext const& context)
+V eval_impl<Keyword::Chunks>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(context);
     ASSERT(x.is_array());
     ASSERT(param.is_number());
+
     auto const& samples = x.get_array();
     auto const W = boost::json::value_to<std::uint64_t>(param);
+    ASSERT(W > 0);
     auto const N = samples.size();
     boost::json::array out {};
     if (samples.empty() || (0 == W))
@@ -757,6 +761,18 @@ V eval_impl<Keyword::Stride>(V const& x, V const& param, E::EvalContext const& c
         out.push_back(boost::json::array(stride_boundary, samples.cend()));
     }
     return out;
+}
+
+template <>
+V eval_impl<Keyword::Stride>(V const& x, V const& param, E::EvalContext const& context)
+{
+    auto result = eval_impl<Keyword::Chunks>(x, param, context).as_array();
+
+    if (!result.empty() && result.back().as_array().size() != param)
+    {
+        result.pop_back();
+    }
+    return result;
 }
 
 
@@ -1179,6 +1195,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         ZMBT_EXPR_EVAL_IMPL_CASE(Sort)
         ZMBT_EXPR_EVAL_IMPL_CASE(Reverse)
         ZMBT_EXPR_EVAL_IMPL_CASE(Slide)
+        ZMBT_EXPR_EVAL_IMPL_CASE(Chunks)
         ZMBT_EXPR_EVAL_IMPL_CASE(Stride)
         ZMBT_EXPR_EVAL_IMPL_CASE(Arange)
 

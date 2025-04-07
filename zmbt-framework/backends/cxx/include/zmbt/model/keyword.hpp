@@ -323,6 +323,9 @@ enum class Keyword
     /// stride
     Stride,
 
+    /// chunks
+    Chunks,
+
     /// repeat
     Repeat,
 

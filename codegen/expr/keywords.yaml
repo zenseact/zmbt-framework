@@ -914,18 +914,36 @@ keyword_groups:
           - label: window width
         examples: |-
           Slide(3) >> [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]
+          Slide(42) >> [1,2,3,4,5] == []
 
       - name: stride
         brief: Striding iteration
         details: |-
           Striding iteration by specified step width.
+          Reminder subsequence smaller then step width is discarded.
         commutative: false
         domain: [list, int]
         codomain: list[list]
         params:
           - label: step width
         examples: |-
-          Stride(2) >> [1,2,3,4,5] == [[1,3,5],[2,4]]
+          Stride(2) >> [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
+          Stride(3) >> [1,2,3,4,5]   == [[1,2,3]]
+
+      - name: chunks
+        brief: Split into chunks of specified max width
+        details: |-
+          Similar to Stride, but includes the last subsequence
+          smaller then step width.
+        commutative: false
+        domain: [list, int]
+        codomain: list[list]
+        params:
+          - label: step width
+        examples: |-
+          Chunks(2) >> [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
+          Chunks(3) >> [1,2,3,4,5]   == [[1,2,3],[4,5]]
+
 
       - name: repeat
         brief: Repeat value in list

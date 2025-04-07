@@ -1096,16 +1096,30 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         <pre>Sliding window iteration by specified window width.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Slide(3) >> [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]</pre></td>
+        <td><pre>Slide(3) >> [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]
+Slide(42) >> [1,2,3,4,5] == []</pre></td>
     </tr>
     <tr>
         <td><a id ="stride"> Stride
         </td>
         <td>Striding iteration
-        <pre>Striding iteration by specified step width.</pre>
+        <pre>Striding iteration by specified step width.
+Reminder subsequence smaller then step width is discarded.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Stride(2) >> [1,2,3,4,5] == [[1,3,5],[2,4]]</pre></td>
+        <td><pre>Stride(2) >> [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
+Stride(3) >> [1,2,3,4,5]   == [[1,2,3]]</pre></td>
+    </tr>
+    <tr>
+        <td><a id ="chunks"> Chunks
+        </td>
+        <td>Split into chunks of specified max width
+        <pre>Similar to Stride, but includes the last subsequence
+smaller then step width.</pre>
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
+        <td><pre>Chunks(2) >> [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
+Chunks(3) >> [1,2,3,4,5]   == [[1,2,3],[4,5]]</pre></td>
     </tr>
     <tr>
         <td><a id ="repeat"> Repeat

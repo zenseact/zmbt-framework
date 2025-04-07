@@ -286,7 +286,7 @@ std::vector<TestEvalSample> const TestSamples
     {Slide(3)|Map(Sum)          , {1,2,3,4,5}           , {6      , 9      , 12}},
     {Slide(3)|Map(Prod)         , {1,2,3,4,5}           , {6      , 24     , 60}},
     {Slide(3)|Map(Avg)          , {1,2,3,4,5}           , {2      , 3      ,  4}},
-    {Slide(42)                  , {1,2,3}               , L{{1,2,3}}            },
+    {Slide(42)                  , {1,2,3}               , L{}                   },
     {Slide(42)                  , L{}                   , L{}                   },
     {Try(Slide(-1))             , L{}                   , nullptr               },
 
@@ -297,9 +297,12 @@ std::vector<TestEvalSample> const TestSamples
 
 
     {Stride(2)                  , {1,2,3,4,5,6}         , {{1,2},{3,4},{5,6}}   },
-    {Stride(3)                  , {1,2,3,4,5}           , {{1,2,3},{4,5}}       },
-    {Stride(42)                 , {1,2,3}               , L{{1,2,3}}            },
+    {Stride(3)                  , {1,2,3,4,5}           , L{{1,2,3}}            },
+    {Stride(42)                 , {1,2,3}               , L{}                   },
     {Stride(42)                 , L{}                   , L{}                   },
+
+    {Chunks(2)                  , {1,2,3,4,5,6}         , {{1,2},{3,4},{5,6}}   },
+    {Chunks(3)                  , {1,2,3,4,5}           , {{1,2,3},{4,5}}       },
 
     {Arange                     , 4                     , {0,1,2,3}             },
     {Arange                     , L{4}                  , {0,1,2,3}             },

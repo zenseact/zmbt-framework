@@ -120,6 +120,7 @@ dsl::SignatureUnary<::zmbt::dsl::Keyword::Prod> const Prod = {};
 dsl::SignatureUnary<::zmbt::dsl::Keyword::Avg> const Avg = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Slide> const Slide = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Stride> const Stride = {};
+dsl::SignatureBinary<::zmbt::dsl::Keyword::Chunks> const Chunks = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Repeat> const Repeat = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Concat> const Concat = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Push> const Push = {};

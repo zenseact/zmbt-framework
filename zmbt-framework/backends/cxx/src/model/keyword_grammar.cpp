@@ -170,6 +170,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "avg", Keyword::Avg)
     (ZMBT_KEYWORD_PREFIX "slide", Keyword::Slide)
     (ZMBT_KEYWORD_PREFIX "stride", Keyword::Stride)
+    (ZMBT_KEYWORD_PREFIX "chunks", Keyword::Chunks)
     (ZMBT_KEYWORD_PREFIX "repeat", Keyword::Repeat)
     (ZMBT_KEYWORD_PREFIX "concat", Keyword::Concat)
     (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
@@ -322,6 +323,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Avg: { v = ZMBT_KEYWORD_PREFIX "avg"; break; }
     case Keyword::Slide: { v = ZMBT_KEYWORD_PREFIX "slide"; break; }
     case Keyword::Stride: { v = ZMBT_KEYWORD_PREFIX "stride"; break; }
+    case Keyword::Chunks: { v = ZMBT_KEYWORD_PREFIX "chunks"; break; }
     case Keyword::Repeat: { v = ZMBT_KEYWORD_PREFIX "repeat"; break; }
     case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
     case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "push"; break; }

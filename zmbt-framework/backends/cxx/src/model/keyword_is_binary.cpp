@@ -63,6 +63,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Format:
     case Keyword::Slide:
     case Keyword::Stride:
+    case Keyword::Chunks:
     case Keyword::Repeat:
     case Keyword::Concat:
     case Keyword::Push:
