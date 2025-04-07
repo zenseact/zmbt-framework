@@ -231,21 +231,11 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         auto const injection = GetInjectionArgs(nofcall).as_array();
         if (injection.size() != std::tuple_size<unqf_args_t>())
         {
-            throw model_error("invalid inject arguments arity for %s", interface().annotation());
+            throw model_error("invalid inject arguments arity");
         }
 
-        try
-        {
-            auto args_out = dejsonize<unqf_args_t>(injection);
-            tuple_exchange(args, args_out);
-        }
-        catch(const std::exception& e)
-        {
-            throw environment_error("InterfaceRecord<%s>::Hook failed with error `%s`",
-                interface().annotation(),
-                e.what()
-            );
-        }
+        auto args_out = dejsonize<unqf_args_t>(injection);
+        tuple_exchange(args, args_out);
 
         // Produce
         return nofcall;
@@ -275,8 +265,41 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
      */
     return_t Hook(hookout_args_t args)
     {
-        auto const nofcall = HookImpl(args);
-        return dejsonize<return_t>(GetInjectionReturn(nofcall));
+        std::size_t nofcall;
+        boost::json::value result;
+
+        try
+        {
+            nofcall = HookImpl(args);
+        }
+        catch(const std::exception& e)
+        {
+            throw model_error("Hook #%d %s capture error: `%s`, args: %s"
+                , nofcall, interface()
+                , e.what(), json_from(args));
+            return dejsonize<return_t>(nullptr);
+        }
+
+        try
+        {
+            result = GetInjectionReturn(nofcall);
+        }
+        catch(const std::exception& e)
+        {
+            throw model_error("Hook #%d %s return evaluation error: `%s`", nofcall, interface(), e.what());
+            return dejsonize<return_t>(nullptr);
+        }
+
+        try
+        {
+            return dejsonize<return_t>(result);
+        }
+        catch(const std::exception& e)
+        {
+            throw model_error("Hook #%d %s return evaluation error, can't deserialize %s as %s",
+                nofcall, interface(), boost::json::serialize(result), type_name<return_t>());
+            return dejsonize<return_t>(nullptr);
+        }
     }
 
     /**
@@ -293,8 +316,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     return_t Hook(A&&... arg)
     {
         hookout_args_t args {arg...};
-        auto const nofcall = HookImpl(args);
-        return dejsonize<return_t>(GetInjectionReturn(nofcall));
+        return Hook(args);
     }
 };
 

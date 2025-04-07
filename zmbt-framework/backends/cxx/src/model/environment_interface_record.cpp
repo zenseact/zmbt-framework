@@ -83,7 +83,7 @@ boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::strin
     }
     auto& cache_nofcall = injection_cache.at(0);
     auto& cache_value = injection_cache.at(1);
-    
+
     if (cache_nofcall != nofcall) // compute and store inject at n
     {
         boost::json::value temp_node;
@@ -121,7 +121,7 @@ boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::strin
         cache_value = temp_node;
         cache_nofcall = nofcall;
     }
-    
+
     boost::json::error_code ec;
     auto p = cache_value.find_pointer(jp, ec);
 
@@ -242,9 +242,13 @@ Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(std::si
         capture = trigger(args);
         captures("/+") = capture;
     }
+    catch(const model_error& e)
+    {
+        throw e;
+    }
     catch(const std::exception& e)
     {
-        throw environment_error("Trigger[%s] #%d execution error: `%s`", ref, nofcall, e.what());
+        throw environment_error("Trigger[%s] #%d execution error: `%s`, args: %s", ref, nofcall, e.what(), args);
     }
 
     return *this;
