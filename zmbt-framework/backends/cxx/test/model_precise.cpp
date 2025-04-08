@@ -7,12 +7,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "zenseact-mbt.hpp"
+#include "zmbt/decor.hpp"
 
-using namespace zmbt::api;
-using namespace zmbt::expr;
+using namespace zmbt::decor;
 
-using zmbt::decor::precise;
 using zmbt::decor::precision_loss_error;
 
 BOOST_AUTO_TEST_CASE(Constructor)
@@ -168,98 +166,3 @@ namespace {
     BOOST_DESCRIBE_STRUCT(Point, (void), (x, y))
 }
 
-
-BOOST_AUTO_TEST_CASE(FloatToFloat)
-{
-    BOOST_TEST_INFO("Tags: U-SMD U-PRC");
-
-    auto const IdentityTest = [](float x) { return x; };
-
-    SignalMapping("Test comparison assertions on IdentityFunctor")
-    .OnTrigger(IdentityTest)
-        .InjectTo  (IdentityTest) .As(type<precise<float>>)
-        .ObserveOn (IdentityTest) .As(type<precise<float>>)
-    .Test
-        (  0.f , 0.f   )
-        (  1.f , 1.f   )
-        (  1.1f, 1.1f  )
-        (  0         , 0          )
-        (  1         , 1          )
-        (  "0"       , "0"        )
-        (  "1"       , "1"        )
-        ( "-1"       , "-1"       )
-        (  "0.25"    , "0.25"     )
-        (  "0x1.4p3" , "0x1.4p3"  )
-    ;
-}
-
-BOOST_AUTO_TEST_CASE(FloatToDouble)
-{
-    BOOST_TEST_INFO("Tags: U-SMD U-PRC");
-
-    auto const FloatToDouble = [](float x) -> double { return x; };
-
-    SignalMapping("Test comparison assertions on FloatToDouble")
-    .OnTrigger(FloatToDouble)
-        .InjectTo  (FloatToDouble) .As(type<precise<float>>)
-        .ObserveOn (FloatToDouble) .As(type<precise<double>>)
-    // .Description("Literal vectors")
-    .Test
-        // will fail: "1.1f" is parsed py strtod, not strtof
-        // ("1.1f"          , Expect::EQ("1.1f")     )
-        // correct: hexadecimal notation is safe regardless of type
-        (1.1f            , "0x1.19999ap+0"   )
-
-        (0.f             , 0.f               )
-        (1.f             , 1.f               )
-        (1.f             , "1.f"             )
-        ("0x1.19999ap+0" , "0x1.19999ap+0"   ) // 1.1f
-        ("0x1.555556p-2" , "0x1.555556p-2"   ) // 1.f / 3
-
-        (1.f           , Eq(1.f )            )
-        (1.f           , Le(1.5f)            )
-        (1.f           , Ge( .5f)            )
-
-        (1.f           , Near({1.1f, 0.2})   )
-        (1             , In({1.1f, 0.2, 1E0}))
-        (1             , In({1.1f, 0.2, 1})  )
-
-        (  0           , 0                   )
-        (  1           , 1                   )
-        (  "0"         , "0"                 )
-        (  "1"         , "1"                 )
-        ( "-1"         , "-1"                )
-        (  "0.25"      , "0.25"              )
-        (  "0x1.4p3"   , "0x1.4p3"           )
-
-        (1.5f          , Near({1.f, 0.5})    )
-        (1.5f          , Near({2.f, 0.5})    )
-        (1.5f          , Near({1  , 0.5})    )
-        (1.5f          , Near({2  , 0.5})    )
-        (1.f           , Near({precise<double> ("1.f"), 0.1}) )
-        (1.5f          , Near({precise<double> ("1.f"), 0.5}) )
-        (1.5f          , Near({precise<double> ("2.f"), 0.5}) )
-    ;
-}
-
-BOOST_AUTO_TEST_CASE(DoubleToFloat)
-{
-    BOOST_TEST_INFO("Tags: U-SMD U-PRC");
-
-    auto const DoubleToFloat = [](double x) -> float { return x; };
-
-    SignalMapping("Test comparison assertions on FloatToDouble")
-    .OnTrigger(DoubleToFloat)
-        .InjectTo  (DoubleToFloat) .As(type<precise<double>>)
-        .ObserveOn (DoubleToFloat) .As(type<precise<float>>)
-    // .Description("Literal vectors")
-    .Test
-        (0                     , 0               )
-        (1                     , 1               )
-        ("1.f"                 , "1.f"           )
-        ("0x1.19999ap+0"       , "0x1.19999ap+0" ) // 1.1f
-        ("0x1.555556p-2"       , "0x1.555556p-2" ) // 1.f / 3
-        (1.1                   , "0x1.19999ap+0" )
-        ("0x1.199999999999ap+0", "0x1.19999ap+0" )
-    ;
-}

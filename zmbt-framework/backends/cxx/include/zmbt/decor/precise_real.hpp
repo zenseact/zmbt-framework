@@ -29,23 +29,23 @@ namespace detail {
 
 
 template<class T>
-T strto (char const*const, char**);
+T strto (boost::json::string_view, boost::json::string_view::pointer*);
 
 template<>
-inline float strto<float>(char const*const str, char ** end)
+inline float strto<float>(boost::json::string_view str, boost::json::string_view::pointer* end)
 {
-    return std::strtof(str, end);;
+    return std::strtof(str.cbegin(), end);
 }
 
 template<>
-inline double strto<double>(char const*const str, char ** end)
+inline double strto<double>(boost::json::string_view str, boost::json::string_view::pointer* end)
 {
-    return std::strtod(str, end);
+    return std::strtod(str.cbegin(), end);
 }
 template<>
-inline long double strto<long double>(char const*const str, char ** end)
+inline long double strto<long double>(boost::json::string_view str, boost::json::string_view::pointer* end)
 {
-    return std::strtold(str, end);
+    return std::strtold(str.cbegin(), end);
 }
 
 } // namespace detail
@@ -68,10 +68,7 @@ struct precise
 
     ~precise() = default;
 
-    precise() : value_ {0}
-    {
-    }
-
+    precise() : value_ {0} {}
     precise(precise const&) = default;
     precise(precise &&) = default;
     precise& operator=(precise const&) = default;
@@ -80,15 +77,24 @@ struct precise
 
   private:
 
+    template <class T>
+    static decorated_type validate(T init_value)
+    {
+        decorated_type value = static_cast<decorated_type>(init_value);
+        if (std::isnormal(init_value) and (T {value} !=  init_value)) {
+            throw precision_loss_error("precision loss when creating zmbt::decor::precise<T>");
+        }
+        return value;
+    }
 
     template <class T>
-    static decorated_type validate_str_as(char const* const str)
+    static decorated_type validate_str_as(boost::json::string_view str)
     {
         char* end {nullptr};
 
         auto const value_as_t = detail::strto<T>(str, &end);
 
-        if (end == str) {
+        if (end == str.cbegin() ) {
             throw std::invalid_argument("zmbt::decor::precise<T> string parsing error");
         }
 
@@ -100,29 +106,15 @@ struct precise
         return validate(value_as_t);
     }
 
-    template <class T>
-    static decorated_type validate(T init_value)
-    {
 
-        #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wnarrowing"
-        #pragma GCC diagnostic ignored "-Wpragmas"
-        decorated_type value = init_value;
-        if (std::isnormal(init_value) and (T {value} !=  init_value)) {
-            throw precision_loss_error("precision loss when creating zmbt::decor::precise<T>");
-        }
-        #pragma GCC diagnostic pop
-        return value;
-    }
-
-    static decorated_type validate_str(char const* const str)
+    static decorated_type validate_str(boost::json::string_view str)
     {
         // hex notation shall be precise
-        if (0 == (std::strncmp(str, "0x", 2) & std::strncmp(str, "0X", 2)))
+        if (0 == (std::strncmp(str.cbegin(), "0x", 2) & std::strncmp(str.cbegin(), "0X", 2)))
         {
             return validate_str_as<long double>(str);
         }
-        else if (auto const N = std::strlen(str))
+        else if (auto const N = str.size())
         {
             switch (str[N-1])
             {
@@ -147,21 +139,20 @@ struct precise
 
   public:
 
-    explicit precise(decorated_type v) : value_{v}
+    explicit precise(decorated_type v) : value_{v} {}
+
+    template<class T, class = std::enable_if_t<std::is_arithmetic<T>::value>>
+    precise(T const v) : value_{validate(v)}
     {
     }
 
-    template<class T>
-    precise(T v) : value_{validate(v)}
-    {
-    }
-
-    template <class T>
-    precise& operator=(T v)
+    template <class T , class = std::enable_if_t<std::is_arithmetic<T>::value>>
+    precise& operator=(T const v)
     {
         value_ = validate(v);
         return *this;
     }
+
 
     template<class T>
     precise(precise<T> other) : value_{validate(other.value())}
@@ -176,11 +167,11 @@ struct precise
     }
 
     /// Construct value from string. Hex literals are supported.
-    explicit precise(char const* const str) : value_{validate_str(str)}
+    precise(boost::json::string_view str) : value_{validate_str(str)}
     {
     }
 
-    precise& operator=(char const* const str)
+    precise& operator=(boost::json::string_view str)
     {
         value_ = validate_str(str);
         return *this;
@@ -196,15 +187,9 @@ struct precise
         return value() < other.value();
     }
 
-    bool operator<(char const* const str) const
+    bool operator<(boost::json::string_view str) const
     {
         return value() < validate_str(str);
-    }
-
-    template <class T>
-    bool operator<(T other) const
-    {
-        return value() < other();
     }
 
     bool operator==(precise other) const
@@ -212,16 +197,11 @@ struct precise
         return value() == other.value();
     }
 
-    bool operator==(char const* const str) const
+    bool operator==(boost::json::string_view str) const
     {
         return value() == validate_str(str);
     }
 
-    template <class T>
-    bool operator==(T other) const
-    {
-        return value() == other;
-    }
 
     operator decorated_type() const
     {
@@ -238,6 +218,11 @@ struct precise
   private:
     decorated_type value_;
 };
+
+/// @brief precise<T> decorator
+/// @tparam T
+template <class T>
+constexpr zmbt::type_tag<precise<T>> Precise;
 
 } // namespace decor
 
@@ -279,6 +264,7 @@ struct custom_serialization<decor::precise<T>> {
     }
 
 };
+
 
 } // namespace reflect
 } // namespace zmbt

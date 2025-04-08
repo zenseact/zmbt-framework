@@ -113,7 +113,9 @@ boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::strin
                 if (expr.is_noop()) continue;
 
                 // TODO: optimize recursive expr
-                auto v = expr.is_literal() ? expr.underlying() : expr.eval(nofcall); // TODO: handle errors
+                Expression::EvalContext ctx{};
+                ctx.op = op;
+                auto v = expr.is_literal() ? expr.underlying() : expr.eval(nofcall, ctx); // TODO: handle errors
                 v = op.decorate(v);
                 temp_node.set_at_pointer(record_pointer, v);
             }
