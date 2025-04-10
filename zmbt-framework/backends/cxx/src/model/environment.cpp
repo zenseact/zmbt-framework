@@ -167,7 +167,7 @@ bool Environment::HasAction(boost::json::string_view key) const
 
 
 
-Environment& Environment::RegisterInterface(object_id const& obj_id, interface_id const& ifc_id, boost::json::string_view key)
+Environment& Environment::RegisterInterface(boost::json::string_view key, interface_id const& ifc_id, object_id const& obj_id)
 {
 
     JsonNode refs_ids =  data_->json_data.branch("/refs/key2ids/%s", key);
@@ -191,13 +191,9 @@ Environment& Environment::RegisterInterface(object_id const& obj_id, interface_i
     return *this;
 }
 
-Environment& Environment::RegisterInterface(object_id const& obj_id, interface_id const& ifc_id)
-{
-    return RegisterInterface(obj_id, ifc_id, autokey(obj_id, ifc_id));
-}
 
 
-Environment& Environment::RegisterOperator(SignalOperatorHandler const& op, boost::json::string_view key)
+Environment& Environment::RegisterOperator(boost::json::string_view key, SignalOperatorHandler const& op)
 {
     auto lock = Lock();
     data_->operators.emplace(key, op);
@@ -267,7 +263,7 @@ boost::json::string Environment::GetOrRegisterInterface(object_id const& obj_id,
     if (!json_data().contains(ptr))
     {
         auto key = autokey(obj_id, ifc_id);
-        RegisterInterface(obj_id, ifc_id, key);
+        RegisterInterface(key, ifc_id, obj_id);
         return key;
     }
     else {

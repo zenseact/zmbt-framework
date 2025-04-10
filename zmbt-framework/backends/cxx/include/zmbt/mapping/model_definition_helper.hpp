@@ -133,7 +133,7 @@ class DefinitionHelper {
         }, role, param_type);
 
         if (cnl_prm_none == param_type) {
-            env.RegisterInterface(object_id(obj_node), interface_id(cal_node));
+            env.RegisterAnonymousInterface(interface_id(cal_node), object_id(obj_node));
         }
     }
 
@@ -150,7 +150,7 @@ class DefinitionHelper {
         }, role, param_type);
 
         if (cnl_prm_none == param_type) {
-            env.RegisterInterface(ifc_host_nullptr<T>, interface_id(cal_node));
+            env.RegisterAnonymousInterface(interface_id(cal_node), ifc_host_nullptr<T>);
         }
     }
 

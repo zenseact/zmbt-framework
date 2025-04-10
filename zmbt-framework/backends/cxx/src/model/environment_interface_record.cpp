@@ -12,7 +12,7 @@
 
 namespace zmbt {
 
-Environment::InterfaceHandle::InterfaceHandle(Environment const& e, object_id refobj, interface_id const& interface)
+Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id const& interface, object_id refobj)
     : env{e}
     , refobj_{refobj}
     , interface_{interface}
@@ -26,19 +26,19 @@ Environment::InterfaceHandle::InterfaceHandle(Environment const& e, object_id re
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, boost::json::string_view ref)
     : Environment::InterfaceHandle::InterfaceHandle(
         e,
-        e.ObjectId(ref),
-        e.InterfaceId(ref)
+        e.InterfaceId(ref),
+        e.ObjectId(ref)
     )
 {
 }
 
-Environment::InterfaceHandle::InterfaceHandle(object_id refobj, interface_id const& interface)
-    : Environment::InterfaceHandle::InterfaceHandle(Environment {}, refobj, interface)
+Environment::InterfaceHandle::InterfaceHandle(interface_id const& interface, object_id refobj)
+    : Environment::InterfaceHandle::InterfaceHandle(Environment {}, interface, refobj)
 {
 }
 
-Environment::InterfaceHandle::InterfaceHandle(nullptr_t, interface_id const& interface)
-    : Environment::InterfaceHandle::InterfaceHandle(object_id(nullptr), interface)
+Environment::InterfaceHandle::InterfaceHandle(interface_id const& interface, nullptr_t)
+    : Environment::InterfaceHandle::InterfaceHandle(interface, object_id(nullptr))
 {
 }
 

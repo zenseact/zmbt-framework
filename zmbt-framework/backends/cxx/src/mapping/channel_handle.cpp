@@ -141,7 +141,7 @@ int ChannelHandle::on_call() const
 void ChannelHandle::inject(Expression const& expr) const
 {
     if (expr.is(Expression::Keyword::Noop)) return;
-    auto handle = Environment::InterfaceHandle(host(), interface());
+    auto handle = Environment::InterfaceHandle(interface(), host());
     handle.Inject(expr, op().annotation(), data_.at("/kind").as_string(), signal_path());
 }
 
@@ -165,7 +165,7 @@ boost::json::value ChannelHandle::observe() const
     {
         throw model_error("calling observe on non-output channel");
     }
-    auto ifc_handle = Environment::InterfaceHandle(host(), interface());
+    auto ifc_handle = Environment::InterfaceHandle(interface(), host());
     switch (kind())
     {
     case Kind::Return:
@@ -219,7 +219,7 @@ boost::json::value ChannelHandle::observe() const
 
 boost::json::array const& ChannelHandle::captures() const
 {
-    auto ifc_handle = Environment::InterfaceHandle(host(), interface());
+    auto ifc_handle = Environment::InterfaceHandle(interface(), host());
     return ifc_handle.Captures();
 }
 
@@ -256,7 +256,7 @@ boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channe
         auto const& alias = channel.alias();
         auto const& captures = channel.captures();
 
-        auto ifc_handle = Environment::InterfaceHandle(channel.host(), channel.interface());
+        auto ifc_handle = Environment::InterfaceHandle(channel.interface(), channel.host());
         if (channel.kind() == Kind::CallCount)
         {
             boost::json::array record {

@@ -43,14 +43,14 @@ BOOST_AUTO_TEST_CASE(RegTrigger)
     Environment env {};
     auto lambda  = [](int x) -> int { return x; };
 
-    BOOST_CHECK_NO_THROW(env.RegisterTrigger(lambda, "trigger"));
+    BOOST_CHECK_NO_THROW(env.RegisterTrigger("trigger", lambda));
     InterfaceRecord(lambda).InjectArgs({42});
     Environment::InterfaceHandle ifc_rec {"trigger"};
     BOOST_CHECK_NO_THROW(ifc_rec.RunAsTrigger());
     BOOST_CHECK_EQUAL(InterfaceRecord(lambda).ObservedReturn(), 42);
 
     // registering same entity shall not throw
-    BOOST_CHECK_NO_THROW(env.RegisterTrigger(lambda, "trigger"));
+    BOOST_CHECK_NO_THROW(env.RegisterTrigger("trigger", lambda));
 }
 
 
@@ -60,18 +60,41 @@ BOOST_AUTO_TEST_CASE(RegInterface)
     Environment env {};
     auto lambda  = [](int x) -> int { return x; };
 
-    BOOST_CHECK_NO_THROW(env.RegisterInterface(lambda, "lambda"));
+    BOOST_CHECK_NO_THROW(env.RegisterInterface("lambda", lambda));
 
     // registering same entity shall not throw
-    BOOST_CHECK_NO_THROW(env.RegisterInterface(lambda, "lambda"));
+    BOOST_CHECK_NO_THROW(env.RegisterInterface("lambda", lambda));
 
     // nullptr obj id registered in the first call implicitely
-    BOOST_CHECK_NO_THROW(env.RegisterInterface(nullptr, lambda, "lambda"));
+    BOOST_CHECK_NO_THROW(env.RegisterInterface("lambda", lambda, nullptr));
 
     // obj+ifc identity already assigned to another key
-    BOOST_CHECK_THROW(env.RegisterInterface(nullptr, lambda, "other key"), environment_error);
+    BOOST_CHECK_THROW(env.RegisterInterface("other key", lambda, nullptr), environment_error);
 
     // key already exist
-    BOOST_CHECK_THROW(env.RegisterInterface(object_id("some obj"), lambda, "lambda"), environment_error);
+    BOOST_CHECK_THROW(env.RegisterInterface("lambda", lambda, object_id("some obj")), environment_error);
 }
 
+
+// BOOST_AUTO_TEST_CASE(RegByString)
+// {
+//     struct Mock {
+//         Mock(std::string const id) : id_{id_}
+//         void foo() {
+//             return InterfaceRecord(&Mock::foo, id_).Hook();
+//         }
+//         std::string const id_;
+//     };
+
+//     auto SUT = []{
+//         Mock("lol").foo();
+//         Mock("kek").foo();
+//     };
+
+//     SignalMapping("Test interface associated with string")
+//     .OnTrigger(SUT)
+//         .ObserveOn(&Mock::foo, "lol").CallCount()
+//         .ObserveOn(&Mock::foo, "kek").CallCount()
+//     .Test( 1, 1 )
+//     ;
+// }

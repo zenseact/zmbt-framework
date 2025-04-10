@@ -78,43 +78,6 @@ BOOST_AUTO_TEST_CASE(MockExample)
 }
 
 
-BOOST_AUTO_TEST_CASE(MultipleMocksExample)
-{
-    struct Mock {
-        void set_value(int& x) const {
-            return InterfaceRecord(this, &Mock::set_value).Hook(x);
-        }
-    };
-
-    struct Sut {
-        Mock const& mock_x;
-        Mock const& mock_y;
-
-        Sut(Mock const& mx, Mock const& my) : mock_x{mx}, mock_y{my} {}
-
-        int operator()() {
-            int x, y;
-            mock_x.set_value(x);
-            mock_y.set_value(y);
-            return x + y;
-        }
-    };
-
-    Mock mock_x {};
-    Mock mock_y {};
-    Sut sut {mock_x, mock_y};
-
-    SignalMapping("Test with multiple mocks")
-    .OnTrigger(sut)
-        .InjectTo  (mock_x, &Mock::set_value) .Args()
-        .InjectTo  (mock_y, &Mock::set_value) .Args()
-        .ObserveOn (sut)
-    .Test
-        ( 2,  2, 4)
-        ( 2, -2, 0)
-    ;
-}
-
 
 BOOST_AUTO_TEST_CASE(TestOrderUnion)
 {
@@ -203,9 +166,9 @@ BOOST_FIXTURE_TEST_CASE(ZipParametrization, ModelTestFixture)
     Param const Name {"interface name"};
 
     SignalMapping("Test with zip params on %s", Name)
-    .OnTrigger(sut, Ifc)
-        .InjectTo  (sut, Ifc)
-        .ObserveOn (sut, Ifc)
+    .OnTrigger(Ifc, sut)
+        .InjectTo  (Ifc, sut)
+        .ObserveOn (Ifc, sut)
         .ObserveOn (&Mock::log)
     .Test
         (Noop, 42, Name)
@@ -218,47 +181,6 @@ BOOST_FIXTURE_TEST_CASE(ZipParametrization, ModelTestFixture)
     ;
 }
 
-
-BOOST_AUTO_TEST_CASE(ZipParametrizationWithRegistry)
-{
-    struct Mock {
-        void log(std::string msg) {
-            return InterfaceRecord(&Mock::log).Hook(msg);
-        }
-    };
-
-    struct Sut {
-        Mock mock {};
-
-        int foo(int)    { mock.log("Sut::foo"); return 42; };
-        int bar(double) { mock.log("Sut::bar"); return 42; };
-        int baz()       { mock.log("Sut::baz"); return 42; };
-    };
-
-    auto sut = std::make_shared<Sut>();
-
-    Environment env{};
-    env.RegisterTrigger(sut, &Sut::foo, "Sut::foo");
-    env.RegisterTrigger(sut, &Sut::bar, "Sut::bar");
-    env.RegisterTrigger(sut, &Sut::baz, "Sut::baz");
-    env.RegisterInterface(&Mock::log, "Mock::log");
-
-    Param const Ifc  {"test interface"};
-    Param const Name {"interface name"};
-
-    SignalMapping("Test with zip params")
-    .OnTrigger(Ifc)
-        .InjectTo  (Ifc)
-        .ObserveOn (Ifc)
-        .ObserveOn ("Mock::log")
-    .Test
-        (Noop, 42, Ifc)
-        (Noop, 42, Ifc)
-        (Noop, 42, Ifc)
-    .Zip
-        (Ifc, "Sut::foo", "Sut::bar", "Sut::baz")
-    ;
-}
 
 
 BOOST_AUTO_TEST_CASE(NonScalarValues)

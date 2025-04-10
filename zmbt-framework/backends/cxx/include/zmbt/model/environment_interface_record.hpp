@@ -59,21 +59,21 @@ public:
         return refobj_;
     }
 
-    InterfaceHandle(Environment const& e, object_id refobj, interface_id const& interface);
+    InterfaceHandle(Environment const& e, interface_id const& interface, object_id refobj);
     InterfaceHandle(Environment const& e, boost::json::string_view ref);
 
   public:
 
-    InterfaceHandle(object_id refobj, interface_id const& interface);
+    InterfaceHandle(interface_id const& interface, object_id refobj);
 
-    InterfaceHandle(nullptr_t, interface_id const& interface);
+    InterfaceHandle(interface_id const& interface, nullptr_t);
 
     InterfaceHandle(boost::json::string_view ref);
 
 
     template<class H, class E = mp_if<mp_not<is_pointer<H>>, void>>
-    InterfaceHandle(H const& obj, interface_id const& interface)
-        : InterfaceHandle(std::addressof(obj), interface)
+    InterfaceHandle(interface_id const& interface, H const& obj)
+        : InterfaceHandle(interface, std::addressof(obj))
     {
     }
 
@@ -245,8 +245,8 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
 
     template <class H>
-    TypedInterfaceHandle(H const& refobj, interface_id const& interface)
-        : Environment::InterfaceHandle(refobj, interface)
+    TypedInterfaceHandle(interface_id const& interface, H const& refobj)
+        : Environment::InterfaceHandle(interface, refobj)
     {
     }
 
@@ -330,11 +330,11 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
  * @return TypedInterfaceHandle<I>
  */
 template <class H, class I>
-Environment::TypedInterfaceHandle<I> InterfaceRecord(H const& obj, I const& interface)
+Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface, H const& obj)
 {
     Environment env {};
     env.RegisterPrototypes(interface);
-    return {obj, interface};
+    return {interface, obj};
 }
 
 
@@ -349,7 +349,7 @@ template <class I>
 Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface) {
     Environment env {};
     env.RegisterPrototypes(interface);
-    return {ifc_host_nullptr<I>, interface};
+    return {interface, ifc_host_nullptr<I>};
 }
 
 

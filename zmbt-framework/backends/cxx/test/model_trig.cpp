@@ -141,8 +141,8 @@ BOOST_FIXTURE_TEST_CASE(ObjFunctorRef, TestMappingTrigger)
 BOOST_FIXTURE_TEST_CASE(AddressEquivalence, TestMappingTrigger)
 {
     O obj {11};
-    BOOST_CHECK_EQUAL(Trigger(&obj, &O::set_x).obj_id(), InterfaceRecord(&obj, &O::set_x).refobj());
-    BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , InterfaceRecord(obj, &O::set_x).refobj());
+    BOOST_CHECK_EQUAL(Trigger(&obj, &O::set_x).obj_id(), InterfaceRecord(&O::set_x, &obj).refobj());
+    BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , InterfaceRecord(&O::set_x, obj ).refobj());
     BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , Trigger(&obj, &O::set_x).obj_id());
 
     BOOST_CHECK_EQUAL(Trigger(nullptr, return_int).obj_id(), object_id(nullptr));
@@ -152,7 +152,7 @@ BOOST_FIXTURE_TEST_CASE(AddressEquivalence, TestMappingTrigger)
 BOOST_FIXTURE_TEST_CASE(PointerObjectMemberPointer, TestMappingTrigger)
 {
     O obj {11};
-    auto ifc_rec = InterfaceRecord(obj, &O::set_x);
+    auto ifc_rec = InterfaceRecord(&O::set_x, obj);
     auto trigger = Trigger(&obj, &O::set_x);
     trigger(13);
     BOOST_CHECK_EQUAL(obj.x, 13);
@@ -163,7 +163,7 @@ BOOST_FIXTURE_TEST_CASE(ExecSharedActuator, TestActuator)
 {
     auto obj = std::make_shared<O>(11.5);
     auto actuator = Trigger(obj, &O::set_x);
-    InterfaceRecord(actuator.obj_id(), &O::set_x);
+    InterfaceRecord(&O::set_x, actuator.obj_id());
     actuator(13);
     BOOST_CHECK_EQUAL(obj->x, 13);
 }

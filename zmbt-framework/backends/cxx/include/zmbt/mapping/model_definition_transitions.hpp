@@ -51,7 +51,7 @@ struct ModelDefinition::T_OnTrigger
         return Target(N_STATE);
     }
 
-    Target OnTrigger(Param const& obj, Param const& ifc)
+    Target OnTrigger(Param const& ifc, Param const& obj)
     {
         N_STATE.model("/trigger") = {
             {"obj", obj},
@@ -65,8 +65,8 @@ struct ModelDefinition::T_OnTrigger
 
     template <class O, class I>
     require_literal<O, I, Target>
-    OnTrigger(O&& obj, I&& ifc) {
-        auto key = N_STATE.env.RegisterTriggerLiteral(obj, ifc);
+    OnTrigger(I&& ifc, O&& obj) {
+        auto key = N_STATE.env.RegisterAnonymousTrigger(obj, ifc);
         return OnTrigger(key);
     }
 
@@ -74,13 +74,13 @@ struct ModelDefinition::T_OnTrigger
     require_cal<I, Target>
     OnTrigger(I&& ifc) {
         static_assert(!is_member_pointer<I>::value, "");
-        return OnTrigger(ifc_host_nullptr<I>, std::forward<I>(ifc));
+        return OnTrigger(std::forward<I>(ifc), ifc_host_nullptr<I>);
     }
 
 
     template <class I>
     require_cal<I, Target>
-    OnTrigger(Param const& obj, I&& ifc)
+    OnTrigger(I&& ifc, Param const& obj)
     {
         N_STATE.model("/trigger") = {
             {"ifc", N_STATE.env.RegisterParametricTriggerIfc(ifc)}
@@ -91,7 +91,7 @@ struct ModelDefinition::T_OnTrigger
 
     template <class H>
     require_obj<H, Target>
-    OnTrigger(H&& obj, Param const& ifc)
+    OnTrigger(Param const& ifc, H&& obj)
     {
         N_STATE.model("/trigger") = {
             {"obj", N_STATE.env.RegisterParametricTriggerObj(obj)}
@@ -125,9 +125,9 @@ template <class Source, class Target>
 struct ModelDefinition::T_InjectTo
 {
     /// Create input channel with an interface literal
-    template <class O, class C>
-    require_not_str<O, Target>
-    InjectTo(O&& obj, C&& cal)
+    template <class C, class O>
+    require_not_str<C, Target>
+    InjectTo(C&& cal, O&& obj)
     {
         N_STATE.add_channel(std::forward<O>(obj), std::forward<C>(cal), "inject");
         return Target(N_STATE);
@@ -158,8 +158,8 @@ struct ModelDefinition::T_ObserveOn
 {
     /// Create input channel with an interface literal
     template <class O, class C>
-    require_not_str<O, Target>
-    ObserveOn(O&& obj, C&& cal)
+    require_not_str<C, Target>
+    ObserveOn(C&& cal, O&& obj)
     {
         N_STATE.add_channel(std::forward<O>(obj), std::forward<C>(cal), "observe");
         return Target(N_STATE);

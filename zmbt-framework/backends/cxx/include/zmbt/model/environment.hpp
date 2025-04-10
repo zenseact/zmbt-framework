@@ -453,8 +453,8 @@ class Environment {
      * @return
      */
     //@{
-    template <class H, class I>
-    Environment& RegisterTrigger(H&& host, I&& interface, boost::json::string_view key)
+    template <class I, class H>
+    Environment& RegisterTrigger(boost::json::string_view key, I&& interface, H&& host)
     {
         Trigger trigger{std::forward<H>(host), interface};
 
@@ -477,23 +477,23 @@ class Environment {
         }
         data_->triggers.emplace(key, trigger);
         data_->json_data("/triggers/%s", key) = 0; // TODO: timestamp
-        RegisterInterface(trigger.obj_id(), interface, key);
+        RegisterInterface(key, interface, trigger.obj_id());
         return *this;
     }
 
 
     template <class I>
-    Environment& RegisterTrigger(I&& interface, boost::json::string_view key)
+    Environment& RegisterTrigger(boost::json::string_view key, I&& interface)
     {
-        return RegisterTrigger(ifc_host_nullptr<I>, std::forward<I>(interface), key);
+        return RegisterTrigger(key, std::forward<I>(interface), ifc_host_nullptr<I>);
     }
     //@}
 
     template <class H, class I>
-    boost::json::string RegisterTriggerLiteral(H&& host, I&& interface)
+    boost::json::string RegisterAnonymousTrigger(H&& host, I&& interface)
     {
         auto key = autokey(host, interface);
-        RegisterTrigger(host, interface, key);
+        RegisterTrigger(key, interface, host);
         return key;
     }
 
@@ -522,41 +522,29 @@ class Environment {
      * @param key string key, unique per environment
      * @return
      */
-    //@{
-    Environment& RegisterInterface(object_id const& obj_id, interface_id const& ifc_id, boost::json::string_view key);
+    Environment& RegisterInterface(boost::json::string_view key, interface_id const& ifc_id, object_id const& obj_id);
 
-    Environment& RegisterInterface(object_id const& obj_id, interface_id const& ifc_id);
+    Environment& RegisterAnonymousInterface(interface_id const& ifc_id, object_id const& obj_id)
+    {
+        return RegisterInterface(autokey(obj_id, ifc_id), ifc_id, obj_id);
+    }
+
 
     template <class I>
     enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(object_id const& obj_id, I&& interface, boost::json::string_view key)
+    RegisterInterface(boost::json::string_view key, I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
         RegisterPrototypes(std::forward<I>(interface));
-        return RegisterInterface(obj_id, interface_id{std::forward<I>(interface)}, key);
+        return RegisterInterface(key, interface_id{std::forward<I>(interface)}, obj_id);
     }
 
     template <class I>
     enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(object_id const& obj_id, I&& interface)
+    RegisterAnonymousInterface(I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
-        return RegisterInterface(obj_id, interface_id{interface}, autokey(obj_id, interface_id{interface}));
+        RegisterPrototypes(std::forward<I>(interface));
+        return RegisterInterface(autokey(obj_id, interface_id{interface}), interface_id(interface), obj_id);
     }
-
-
-    template <class I>
-    enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(I&& interface, boost::json::string_view key)
-    {
-        return RegisterInterface<I>(ifc_host_nullptr<I>, std::forward<I>(interface), key);
-    }
-
-    template <class I>
-    enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(I&& interface)
-    {
-        return RegisterInterface<I>(ifc_host_nullptr<I>, std::forward<I>(interface));
-    }
-    //@}
 
 
     /**
@@ -567,12 +555,12 @@ class Environment {
      * @return
      */
     //@{
-    Environment& RegisterOperator(SignalOperatorHandler const& op, boost::json::string_view key);
+    Environment& RegisterOperator(boost::json::string_view key, SignalOperatorHandler const& op);
 
 
     Environment& RegisterOperator(SignalOperatorHandler const& op)
     {
-        return RegisterOperator(op, op.annotation());
+        return RegisterOperator(op.annotation(), op);
     }
     //@}
 

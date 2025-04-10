@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE(MultipleMocks)
 {
     struct Mock {
         void set_value(int& x) const {
-            return InterfaceRecord(this, &Mock::set_value) // (1)
+            return InterfaceRecord(&Mock::set_value, this) // (1)
                 .Hook(x);
         }
     };
@@ -231,8 +231,8 @@ BOOST_AUTO_TEST_CASE(MultipleMocks)
 
     SignalMapping("Test with multiple mocks")
     .OnTrigger(sut)
-        .InjectTo  (mock_x, &Mock::set_value) .Args()
-        .InjectTo  (mock_y, &Mock::set_value) .Args()
+        .InjectTo  (&Mock::set_value, mock_x) .Args()
+        .InjectTo  (&Mock::set_value, mock_y) .Args()
         .ObserveOn (sut)
     .Test
         ( 2,  2, 4)
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE(ZipParametrization)
 
 
     SignalMapping("Test with zip params on %s", Name /*(2)*/)
-    .OnTrigger(sut, Method)
+    .OnTrigger(Method, sut)
         .ObserveOn (&Mock::log)
 
     .Test
@@ -520,17 +520,17 @@ BOOST_AUTO_TEST_CASE(UsingRegistry)
     auto sut = std::make_shared<Sut>();
 
     Environment env{};
-    env.RegisterTrigger(sut, &Sut::foo, "Sut::foo");
-    env.RegisterTrigger(sut, &Sut::bar, "Sut::bar");
-    env.RegisterTrigger(sut, &Sut::baz, "Sut::baz");
-    env.RegisterInterface(&Mock::log, "Mock::log");
+    env.RegisterTrigger("Sut::foo", &Sut::foo, sut);
+    env.RegisterTrigger("Sut::bar", &Sut::bar, sut);
+    env.RegisterTrigger("Sut::baz", &Sut::baz, sut);
+    env.RegisterInterface("Mock::log", &Mock::log);
 
     Param const Method {"interface method"};
 
 
     SignalMapping("Test with zip params on %s", Method)
     .OnTrigger(Method)
-        .ObserveOn ("Mock::log")
+        .ObserveOn("Mock::log")
     .Test
         ( Eq(Method) )
     .Zip

@@ -48,15 +48,15 @@ BOOST_AUTO_TEST_CASE(FunctionTrigger, *boost::unit_test::disabled())
     .InjectTo  (foo).Args()
     .InjectTo  (foo).As(type<int>)
 
-    .InjectTo  (nullptr, foo)
-    .InjectTo  (nullptr, foo).Args(0)
-    .InjectTo  (nullptr, foo).Args("")
-    .InjectTo  (nullptr, foo).Args("%s", Param(3))
-    .InjectTo  (nullptr, foo).Return("")
-    .InjectTo  (nullptr, foo).Return("%s", Param(4))
-    .InjectTo  (nullptr, foo).Return()
-    .InjectTo  (nullptr, foo).Args()
-    .InjectTo  (nullptr, foo).As(type<int>)
+    .InjectTo  (foo, nullptr)
+    .InjectTo  (foo, nullptr).Args(0)
+    .InjectTo  (foo, nullptr).Args("")
+    .InjectTo  (foo, nullptr).Args("%s", Param(3))
+    .InjectTo  (foo, nullptr).Return("")
+    .InjectTo  (foo, nullptr).Return("%s", Param(4))
+    .InjectTo  (foo, nullptr).Return()
+    .InjectTo  (foo, nullptr).Args()
+    .InjectTo  (foo, nullptr).As(type<int>)
     .Test(_)
     ;
 
@@ -80,13 +80,13 @@ BOOST_AUTO_TEST_CASE(FunctorTrigger, *boost::unit_test::disabled())
     .InjectTo  (fctor).Return()
     .InjectTo  (fctor).Args()
 
-    .InjectTo  (nullptr, fctor)
-    .InjectTo  (nullptr, fctor).Args(0)
-    .InjectTo  (nullptr, fctor).Args("")
-    .InjectTo  (nullptr, fctor).As(type<int>)
-    .InjectTo  (nullptr, fctor).Return("")
-    .InjectTo  (nullptr, fctor).Return()
-    .InjectTo  (nullptr, fctor).Args()
+    .InjectTo  (fctor, nullptr)
+    .InjectTo  (fctor, nullptr).Args(0)
+    .InjectTo  (fctor, nullptr).Args("")
+    .InjectTo  (fctor, nullptr).As(type<int>)
+    .InjectTo  (fctor, nullptr).Return("")
+    .InjectTo  (fctor, nullptr).Return()
+    .InjectTo  (fctor, nullptr).Args()
     .Test(_);
 }
 
@@ -224,15 +224,15 @@ BOOST_AUTO_TEST_CASE(VirtualMethod)
     Final final;
 
     SignalMapping("Test virtual method on a parent")
-    .OnTrigger(base, &Base::foo)
-        .ObserveOn (base, &Base::foo)
+    .OnTrigger(&Base::foo, base)
+        .ObserveOn (&Base::foo, base)
     .Test("Base")
     ;
 
 
     SignalMapping("Test virtual method on a subclass")
-    .OnTrigger(final, &Base::foo)
-        .ObserveOn (final, &Base::foo)
+    .OnTrigger(&Base::foo, final)
+        .ObserveOn (&Base::foo, final)
     .Test("Final")
     ;
 }
@@ -244,13 +244,13 @@ BOOST_AUTO_TEST_CASE(VirtualMethodDefaultRefobj)
     Final fin;
 
     SignalMapping("Test virtual method on a parent")
-        .OnTrigger (base, &Base::foo)
+        .OnTrigger (&Base::foo, base)
         .ObserveOn (&Base::foo)
     .Test("Base")
     ;
 
     SignalMapping("Test virtual method on a subclass")
-        .OnTrigger (fin, &Base::foo)
+        .OnTrigger (&Base::foo, fin)
         .ObserveOn (&Base::foo)
     .Test("Final")
     ;
@@ -581,9 +581,9 @@ BOOST_AUTO_TEST_CASE(ZipRegisteredInterfaces)
 
     Environment env {};
 
-    env .RegisterTrigger(sut1, "sut-1")
-        .RegisterTrigger(sut2, "sut-2")
-        .RegisterTrigger(sut3, "sut-3");
+    env .RegisterTrigger("sut-1", sut1)
+        .RegisterTrigger("sut-2", sut2)
+        .RegisterTrigger("sut-3", sut3);
 
     auto SUT = Param(1);
 
@@ -668,9 +668,9 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiteralsInvariantSut)
     auto IFC = Param(1);
 
     SignalMapping("Test interface zipping")
-    .OnTrigger(SUT, IFC)
-        .InjectTo  (SUT, IFC)
-        .ObserveOn (SUT, IFC)
+    .OnTrigger(IFC, SUT)
+        .InjectTo  (IFC, SUT)
+        .ObserveOn (IFC, SUT)
     .Test
         ( Noop,  42)
         ( Noop,  42)
@@ -713,9 +713,9 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiteralsMock)
     auto IFC = Param(1);
 
     SignalMapping("Test interface zipping")
-    .OnTrigger(SUT, &Consumer::foo)
+    .OnTrigger(&Consumer::foo, SUT)
         .InjectTo  (IFC).Return()
-        .ObserveOn (SUT, &Consumer::foo)
+        .ObserveOn (&Consumer::foo, SUT)
     .Test
         ( 42, 42 )
         ( 13, 13 )
@@ -740,9 +740,9 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiterals)
 
 
     SignalMapping("Test interface zipping")
-    .OnTrigger(SUT, IFC)
-        .InjectTo  (SUT, IFC)
-        .ObserveOn (SUT, IFC)
+    .OnTrigger(IFC, SUT)
+        .InjectTo  (IFC, SUT)
+        .ObserveOn (IFC, SUT)
     .Test
         ( Noop,  42)
         ( Noop,  42)
@@ -789,9 +789,9 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiteralsUnsafe)
 
 
     SignalMapping("Test interface zipping")
-    .OnTrigger(SUT, IFC)
-        .InjectTo  (SUT, IFC)
-        .ObserveOn (SUT, IFC)
+    .OnTrigger(IFC, SUT)
+        .InjectTo  (IFC, SUT)
+        .ObserveOn (IFC, SUT)
     .Test
         ( Noop,  42)
         ( Noop,  42)
@@ -853,9 +853,9 @@ BOOST_AUTO_TEST_CASE(ZipWithDeferredReferences)
     auto sut3 = [&](){ return 3; };
 
     Environment env {};
-    env .RegisterTrigger(sut1, "sut-1")
-        .RegisterTrigger(sut2, "sut-2")
-        .RegisterTrigger(sut3, "sut-3");
+    env .RegisterTrigger("sut-1", sut1)
+        .RegisterTrigger("sut-2", sut2)
+        .RegisterTrigger("sut-3", sut3);
 
     Param const N {"N"};
 
