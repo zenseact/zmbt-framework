@@ -57,7 +57,11 @@ class object_id : public entity_id {
     }
 
 
-    explicit object_id(char const* str) : object_id(boost::json::string_view(str))
+    object_id(char const* str) : object_id(boost::json::string_view(str))
+    {
+    }
+
+    object_id(std::string const& str) : object_id(boost::json::string_view(str))
     {
     }
 

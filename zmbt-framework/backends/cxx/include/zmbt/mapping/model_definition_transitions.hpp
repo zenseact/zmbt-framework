@@ -125,11 +125,19 @@ template <class Source, class Target>
 struct ModelDefinition::T_InjectTo
 {
     /// Create input channel with an interface literal
-    template <class C, class O>
+    template <class C>
     require_not_str<C, Target>
-    InjectTo(C&& cal, O&& obj)
+    InjectTo(C&& cal, object_id const& obj)
     {
-        N_STATE.add_channel(std::forward<O>(obj), std::forward<C>(cal), "inject");
+        N_STATE.add_channel(obj, std::forward<C>(cal), "inject");
+        return Target(N_STATE);
+    }
+
+    template <class C>
+    require_not_str<C, Target>
+    InjectTo(C&& cal, Param const& obj)
+    {
+        N_STATE.add_channel(obj, std::forward<C>(cal), "inject");
         return Target(N_STATE);
     }
 
@@ -157,11 +165,19 @@ template <class Source, class Target>
 struct ModelDefinition::T_ObserveOn
 {
     /// Create input channel with an interface literal
-    template <class O, class C>
+    template <class C>
     require_not_str<C, Target>
-    ObserveOn(C&& cal, O&& obj)
+    ObserveOn(C&& cal, object_id const& obj)
     {
-        N_STATE.add_channel(std::forward<O>(obj), std::forward<C>(cal), "observe");
+        N_STATE.add_channel(obj, std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class C>
+    require_not_str<C, Target>
+    ObserveOn(C&& cal, Param const& obj)
+    {
+        N_STATE.add_channel(obj, std::forward<C>(cal), "observe");
         return Target(N_STATE);
     }
 

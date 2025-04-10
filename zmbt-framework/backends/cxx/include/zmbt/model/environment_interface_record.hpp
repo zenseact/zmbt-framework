@@ -329,29 +329,13 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
  * @param interface
  * @return TypedInterfaceHandle<I>
  */
-template <class H, class I>
-Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface, H const& obj)
+template <class I>
+Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface, object_id const& obj = {ifc_host_nullptr<I>})
 {
     Environment env {};
     env.RegisterPrototypes(interface);
     return {interface, obj};
 }
-
-
-/**
- * @brief Make TypedInterfaceHandle instance
- *
- * @tparam I
- * @param interface
- * @return TypedInterfaceHandle<I>
- */
-template <class I>
-Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface) {
-    Environment env {};
-    env.RegisterPrototypes(interface);
-    return {interface, ifc_host_nullptr<I>};
-}
-
 
 
 }  // namespace zmbt

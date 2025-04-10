@@ -247,6 +247,39 @@ BOOST_AUTO_TEST_CASE(MultipleMocks)
     record in the `Environment`. The default reference object is `nullptr`.
 
 
+```c++
+*/
+BOOST_AUTO_TEST_CASE(MockReferencingByString)
+{
+    struct Mock {
+        Mock(std::string const id) : id_{id} {}
+
+        void foo() {
+            auto const ir = InterfaceRecord(&Mock::foo, id_);
+            return InterfaceRecord(&Mock::foo, id_).Hook();
+        }
+
+        std::string const id_;
+    };
+
+    auto SUT = []{
+        Mock("lol").foo();
+        Mock("kek").foo();
+    };
+
+    SignalMapping("Test interface associated with string")
+    .OnTrigger(SUT)
+        .ObserveOn(&Mock::foo, "lol").CallCount()
+        .ObserveOn(&Mock::foo, "kek").CallCount()
+    .Test( 1, 1 )
+    .PostRun([]{
+        Environment().DumpJsonData(std::cerr);
+    })
+    ;
+}
+/*
+```
+
 ## Parametrization
 
 The previous examples used invariant test models with all components and condition values hardcoded.

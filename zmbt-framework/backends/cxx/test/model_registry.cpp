@@ -74,27 +74,3 @@ BOOST_AUTO_TEST_CASE(RegInterface)
     // key already exist
     BOOST_CHECK_THROW(env.RegisterInterface("lambda", lambda, object_id("some obj")), environment_error);
 }
-
-
-// BOOST_AUTO_TEST_CASE(RegByString)
-// {
-//     struct Mock {
-//         Mock(std::string const id) : id_{id_}
-//         void foo() {
-//             return InterfaceRecord(&Mock::foo, id_).Hook();
-//         }
-//         std::string const id_;
-//     };
-
-//     auto SUT = []{
-//         Mock("lol").foo();
-//         Mock("kek").foo();
-//     };
-
-//     SignalMapping("Test interface associated with string")
-//     .OnTrigger(SUT)
-//         .ObserveOn(&Mock::foo, "lol").CallCount()
-//         .ObserveOn(&Mock::foo, "kek").CallCount()
-//     .Test( 1, 1 )
-//     ;
-// }

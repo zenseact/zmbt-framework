@@ -125,10 +125,23 @@ BOOST_AUTO_TEST_CASE(PtrVsRef)
     BOOST_CHECK_EQUAL(object_id(&obj).annotation(), object_id(obj_ref).annotation());
 }
 
-BOOST_AUTO_TEST_CASE(StringLiteral)
+BOOST_AUTO_TEST_CASE(StringId)
 {
     BOOST_CHECK_EQUAL(object_id("string literal").key(), "string literal");
     BOOST_CHECK_EQUAL(object_id("string literal").annotation(), "string");
+
+    std::string const std_string {"std::string"};
+    boost::json::string_view const string_view {"boost::json::string_view"};
+    char const* const c_string {"c_string"};
+
+    BOOST_CHECK_EQUAL(object_id(std_string).key(), std_string);
+    BOOST_CHECK_EQUAL(object_id(std_string).annotation(), "string");
+
+    BOOST_CHECK_EQUAL(object_id(string_view).key(), string_view);
+    BOOST_CHECK_EQUAL(object_id(string_view).annotation(), "string");
+
+    BOOST_CHECK_EQUAL(object_id(c_string).key(), c_string);
+    BOOST_CHECK_EQUAL(object_id(c_string).annotation(), "string");
 }
 
 

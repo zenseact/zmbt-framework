@@ -71,11 +71,9 @@ class DefinitionHelper {
         cnl_prm_defer_key = 1U << 3
     };
 
-    template <class P>
-    require_not_param<P, boost::json::value>
-    handle_obj_p(P&& obj, uint32_t&)
+    boost::json::value handle_obj_p(object_id const& obj, uint32_t&)
     {
-        return {object_id(obj)};
+        return {obj};
     }
 
     boost::json::value handle_obj_p(Param const& obj, uint32_t& param_type)

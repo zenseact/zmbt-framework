@@ -124,7 +124,6 @@ struct custom_serialization<decor::underlying<T>> {
                 result = v.get_uint64();
                 break;
             default:
-                std::cerr << v << "\n";
                 throw std::invalid_argument("zmbt::decor::underlying<T> conversion failure");
                 break;
         }
