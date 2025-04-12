@@ -117,12 +117,18 @@ namespace {
 
 BOOST_AUTO_TEST_SUITE(ObjectIdTest)
 
-BOOST_AUTO_TEST_CASE(PtrVsRef)
+BOOST_AUTO_TEST_CASE(EliminatePtrRefConst)
 {
-    O obj;
-    O const& obj_ref = obj;
-    BOOST_CHECK_EQUAL(object_id(&obj), object_id(obj_ref));
-    BOOST_CHECK_EQUAL(object_id(&obj).annotation(), object_id(obj_ref).annotation());
+    std::shared_ptr<O> obj = std::make_shared<O>();
+    O& mref = *obj.get();
+    O* mptr = obj.get();
+    O const& cref = *obj.get();
+    O const* cptr = obj.get();
+
+    BOOST_CHECK_EQUAL(object_id(obj), object_id(mref));
+    BOOST_CHECK_EQUAL(object_id(obj), object_id(cref));
+    BOOST_CHECK_EQUAL(object_id(obj), object_id(cptr));
+    BOOST_CHECK_EQUAL(object_id(obj), object_id(mptr));
 }
 
 BOOST_AUTO_TEST_CASE(StringId)
