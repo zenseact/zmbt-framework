@@ -26,8 +26,7 @@ BOOST_AUTO_TEST_CASE(TestWith)
         .ObserveOn (test_pair) .Return()
 
         .ObserveOn (test_pair) .Return(1)
-            .With()
-        .ObserveOn (test_pair) .Return(0)
+             .With (test_pair) .Return(0)
 
     .Test
         (  _ ,  _ ,  Size|2  ,  Size|2  )
@@ -45,8 +44,7 @@ BOOST_AUTO_TEST_CASE(TestWith)
 
         .InjectTo  (test_map)
         .ObserveOn (test_map).Return("/0/1")
-            .With()
-        .ObserveOn (test_map).Return("/1/1")
+             .With (test_map).Return("/1/1")
 
     .Test
         (_             ,  _   )
@@ -84,8 +82,7 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).Alias("f")
-            .Union()
-        .ObserveOn (&Mock::bar).Alias("b")
+            .Union (&Mock::bar).Alias("b")
 
     .Test
         ({1,2,3,4}, array{{"f", 3}, {"b", 4}})
@@ -95,8 +92,7 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).CallRange().Alias("f")
-            .Union()
-        .ObserveOn (&Mock::bar).CallRange().Alias("b")
+            .Union (&Mock::bar).CallRange().Alias("b")
 
     .Test
         ({1,2,3,4}, array{{"f", 1}, {"b", 2}, {"f", 3}, {"b", 4}})
@@ -107,8 +103,7 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).CallCount().Alias("f")
-            .Union()
-        .ObserveOn (&Mock::bar).CallCount().Alias("b")
+            .Union (&Mock::bar).CallCount().Alias("b")
 
     .Test
         ({1,2,3,4,5,6,7}, array{{"b", 3}, {"f", 4}}) ["f is called last"]

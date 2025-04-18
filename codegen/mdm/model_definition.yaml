@@ -50,8 +50,8 @@ nodes:
   N_CombineOut:
     base: N_Channel
     transitions:
-      T_Union: N_ChannelOut
-      T_With: N_ChannelOut
+      T_Union: N_KindOut
+      T_With: N_KindOut
   N_AliasIn:
     base: N_Channel
     transitions:

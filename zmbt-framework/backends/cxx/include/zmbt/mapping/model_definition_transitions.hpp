@@ -200,6 +200,99 @@ struct ModelDefinition::T_ObserveOn
 };
 
 template <class Source, class Target>
+struct ModelDefinition::T_Union
+{
+    /// Combine channel outputs in time series
+    ///
+    /// Combined channels produce a list of pairs [channel alias, requested signal],
+    /// sorted by timestamp. Use it in combination with Saturate expr for testing strict or partial
+    /// order on mock calls.
+    ///
+    /// The output is affected by CallRange/Call/CallCount clauses:
+    /// - CallRange: take all samples at specified range
+    /// - Call (default clause with param = -1 for latest): take only one sample at specified call number
+    /// - CallCount: take call count as a sample value and timestamp from the most recent call
+    template <class C>
+    require_not_str<C, Target>
+    Union(C&& cal, object_id const& obj)
+    {
+        N_STATE.combine_channels("union");
+        N_STATE.add_channel(obj, std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class C>
+    require_not_str<C, Target>
+    Union(C&& cal, Param const& obj)
+    {
+        N_STATE.combine_channels("union");
+        N_STATE.add_channel(obj, std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class C>
+    require_not_str<C, Target>
+    Union(C&& cal)
+    {
+        N_STATE.combine_channels("union");
+        N_STATE.add_channel(std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class... T>
+    Target
+    Union(boost::json::string_view key, T&&... fmtargs)
+    {
+        N_STATE.combine_channels("union");
+        N_STATE.add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "observe");
+        return Target(N_STATE);
+    }
+};
+
+template <class Source, class Target>
+struct ModelDefinition::T_With
+{
+    /// Combine channel outputs into an array similarly to Pack keyword
+    /// X with Y with Z -> [X, Y, Z]
+    template <class C>
+    require_not_str<C, Target>
+    With(C&& cal, object_id const& obj)
+    {
+        N_STATE.combine_channels("with");
+        N_STATE.add_channel(obj, std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class C>
+    require_not_str<C, Target>
+    With(C&& cal, Param const& obj)
+    {
+        N_STATE.combine_channels("with");
+        N_STATE.add_channel(obj, std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class C>
+    require_not_str<C, Target>
+    With(C&& cal)
+    {
+        N_STATE.combine_channels("with");
+        N_STATE.add_channel(std::forward<C>(cal), "observe");
+        return Target(N_STATE);
+    }
+
+    template <class... T>
+    Target
+    With(boost::json::string_view key, T&&... fmtargs)
+    {
+        N_STATE.combine_channels("with");
+        N_STATE.add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "observe");
+        return Target(N_STATE);
+    }
+};
+
+
+template <class Source, class Target>
 struct ModelDefinition::T_SignalFilter
 {
     /// Interface return clause
@@ -374,54 +467,6 @@ struct ModelDefinition::T_Keep
     }
 };
 
-
-template <class Source, class Target>
-struct ModelDefinition::T_Union
-{
-    /// Combine channel outputs in time series
-    ///
-    /// Combined channels produce a list of pairs [channel alias, requested signal],
-    /// sorted by timestamp. Use it in combination with Saturate expr for testing strict or partial
-    /// order on mock calls.
-    ///
-    /// The output is affected by CallRange/Call/CallCount clauses:
-    /// - CallRange: take all samples at specified range
-    /// - Call (default clause with param = -1 for latest): take only one sample at specified call number
-    /// - CallCount: take call count as a sample value and timestamp from the most recent call
-    ///
-    /// Different combination clauses like `With` and `Union` can't be chained.
-    Target Union()
-    {
-        auto const curcnl = N_STATE.cur_cnl_idx();
-        if ("union" != N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "union"))
-        {
-            throw model_error("can't chain different combination clauses");
-        }
-
-        N_STATE.model("%s/combine", N_STATE.head_channel()) = "union";
-
-        return Target(N_STATE);
-    }
-};
-
-template <class Source, class Target>
-struct ModelDefinition::T_With
-{
-    /// Combine channel outputs into an array
-    /// X join Y join Z -> [X, Y, Z]
-    ///
-    /// `With` and `Union` can't be combined in a single chain.
-    Target With()
-    {
-        auto const curcnl = N_STATE.cur_cnl_idx();
-        if ("with" != N_STATE.model.get_or_default(format("/channels/%s/combine", curcnl - 1), "with"))
-        {
-            throw model_error("can't chain different combination clauses");
-        }
-        N_STATE.model("%s/combine", N_STATE.head_channel()) = "with";
-        return Target(N_STATE);
-    }
-};
 
 template <class Source, class Target>
 struct ModelDefinition::T_Test

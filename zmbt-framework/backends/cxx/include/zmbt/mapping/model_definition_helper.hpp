@@ -115,6 +115,7 @@ class DefinitionHelper {
         return {node};
     }
 
+    void combine_channels(boost::json::string_view combo);
 
     void add_channel_impl(boost::json::value const& ifc, boost::json::string_view role, uint32_t const param_type);
 

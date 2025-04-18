@@ -35,8 +35,8 @@ template class ModelDefinition::T_Test<ModelDefinition::N_Test, ModelDefinition:
 template class ModelDefinition::T_InjectTo<ModelDefinition::N_Channel, ModelDefinition::N_KindIn>;
 template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
-template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_ChannelOut>;
-template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_ChannelOut>;
+template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
+template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
 template class ModelDefinition::T_Keep<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
 template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_CombineOut>;

@@ -916,8 +916,7 @@ BOOST_AUTO_TEST_CASE(TestOrderUnion)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).CallRange().Alias("f")
-            .Union()
-        .ObserveOn (&Mock::bar).CallRange().Alias("b")
+            .Union (&Mock::bar).CallRange().Alias("b")
 
     .Test
         (  2, Serialize | "[[\"f\",1],[\"b\",0]]"                )
@@ -957,8 +956,7 @@ BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).CallRange()
-            .With()
-        .ObserveOn (&Mock::bar).CallRange()
+             .With (&Mock::bar).CallRange()
 
     .Test
         ({1, 42, 13}, Flatten | Gt            )

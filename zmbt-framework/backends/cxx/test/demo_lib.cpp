@@ -103,8 +103,7 @@ BOOST_AUTO_TEST_CASE(TestOrderUnion)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).Alias("f")
-            .Union()
-        .ObserveOn (&Mock::bar).Alias("b")
+            .Union (&Mock::bar).Alias("b")
 
     .Test
         ({"bar", "foo"}, Saturate(At(0)|"b", At(0)|"f"))
@@ -133,8 +132,7 @@ BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
     .OnTrigger(test)
         .InjectTo  (test)
         .ObserveOn (&Mock::foo).Alias("f")
-            .With()
-        .ObserveOn (&Mock::bar).Alias("b")
+             .With (&Mock::bar).Alias("b")
 
     .Test
         ({42,13}, {42, 13})

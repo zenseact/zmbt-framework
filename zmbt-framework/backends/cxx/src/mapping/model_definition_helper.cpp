@@ -123,6 +123,18 @@ void DefinitionHelper::init_prod()
     model("/param_groups").as_array().push_back("Prod");
 }
 
+
+void DefinitionHelper::combine_channels(boost::json::string_view combo)
+{
+    auto const curcnl = cur_cnl_idx();
+    if (combo != model.get_or_default(format("/channels/%s/combine", curcnl - 1), combo))
+    {
+        throw model_error("can't chain different combination clauses");
+    }
+
+    model("%s/combine", head_channel()) = combo;
+}
+
 void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, boost::json::string_view role, uint32_t const param_type)
 {
     auto const idx = cur_cnl_idx() + 1;
