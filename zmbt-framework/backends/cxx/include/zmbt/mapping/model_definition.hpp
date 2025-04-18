@@ -63,6 +63,9 @@ class ModelDefinition
     /// T_Description transition
     template <class Source, class Target>
     struct T_Description;
+    /// T_Expect transition
+    template <class Source, class Target>
+    struct T_Expect;
     /// T_InjectTo transition
     template <class Source, class Target>
     struct T_InjectTo;
@@ -138,6 +141,10 @@ class ModelDefinition
     class N_ChannelOut;
     /// N_CombineOut node
     class N_CombineOut;
+    /// N_EndIn node
+    class N_EndIn;
+    /// N_EndOut node
+    class N_EndOut;
     /// N_AliasIn node
     class N_AliasIn;
     /// N_AliasOut node

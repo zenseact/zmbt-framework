@@ -228,14 +228,49 @@ class ModelDefinition::N_CombineOut
     }
 };
 
-class ModelDefinition::N_AliasIn
+class ModelDefinition::N_EndIn
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>
-    , public ModelDefinition::T_Keep<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>
+    , public ModelDefinition::T_Keep<ModelDefinition::N_EndIn, ModelDefinition::N_Channel>
 {
   private:
     friend class ModelDefinition;
-    N_AliasIn(detail::DefinitionHelper& m) : N_Channel(m)
+    N_EndIn(detail::DefinitionHelper& m) : N_Channel(m)
+    {
+    }
+    N_EndIn(N_EndIn const&) = delete;
+    N_EndIn(N_EndIn&&) = default;
+
+  public:
+    ~N_EndIn()
+    {
+    }
+};
+
+class ModelDefinition::N_EndOut
+    : public ModelDefinition::N_CombineOut
+    , public ModelDefinition::T_Expect<ModelDefinition::N_EndOut, ModelDefinition::N_ChannelOut>
+{
+  private:
+    friend class ModelDefinition;
+    N_EndOut(detail::DefinitionHelper& m) : N_CombineOut(m)
+    {
+    }
+    N_EndOut(N_EndOut const&) = delete;
+    N_EndOut(N_EndOut&&) = default;
+
+  public:
+    ~N_EndOut()
+    {
+    }
+};
+
+class ModelDefinition::N_AliasIn
+    : public ModelDefinition::N_EndIn
+    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_EndIn>
+{
+  private:
+    friend class ModelDefinition;
+    N_AliasIn(detail::DefinitionHelper& m) : N_EndIn(m)
     {
     }
     N_AliasIn(N_AliasIn const&) = delete;
@@ -248,12 +283,12 @@ class ModelDefinition::N_AliasIn
 };
 
 class ModelDefinition::N_AliasOut
-    : public ModelDefinition::N_CombineOut
-    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_CombineOut>
+    : public ModelDefinition::N_EndOut
+    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_EndOut>
 {
   private:
     friend class ModelDefinition;
-    N_AliasOut(detail::DefinitionHelper& m) : N_CombineOut(m)
+    N_AliasOut(detail::DefinitionHelper& m) : N_EndOut(m)
     {
     }
     N_AliasOut(N_AliasOut const&) = delete;
@@ -412,9 +447,10 @@ extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, M
 extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
-extern template class ModelDefinition::T_Keep<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_CombineOut>;
+extern template class ModelDefinition::T_Keep<ModelDefinition::N_EndIn, ModelDefinition::N_Channel>;
+extern template class ModelDefinition::T_Expect<ModelDefinition::N_EndOut, ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_EndIn>;
+extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_EndOut>;
 extern template class ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>;
 extern template class ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>;
 extern template class ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>;

@@ -53,8 +53,10 @@ This example defines a simple mapping with two inputs and one output.
 
 The Test clause defines a list of test vectors using cascade of `operator()` calls,
 where each line represents one test case.
-The `InjectTo` and `ObserveOn` lines form a list of channels, which act as column headers
-for the corresponding test matrix.
+The `InjectTo` and `ObserveOn` lines form a list of channels, which act as headers
+for the corresponding columns in the test matrix. The channel-to-column indexation
+is 1-to-1 for most cases; however, certain clauses, such as `Keep`, `Expect`, `Union`, and `With`,
+will implicitly reduce the expected test vector size.
 
 For each test case, the runner invokes `sum` with the first two values as inputs
 and checks whether the result matches the third value.
@@ -272,9 +274,6 @@ BOOST_AUTO_TEST_CASE(MockReferencingByString)
         .ObserveOn(&Mock::foo, "lol").CallCount()
         .ObserveOn(&Mock::foo, "kek").CallCount()
     .Test( 1, 1 )
-    .PostRun([]{
-        Environment().DumpJsonData(std::cerr);
-    })
     ;
 }
 /*
@@ -615,8 +614,8 @@ BOOST_AUTO_TEST_CASE(SignalTypeDecorator)
 
     SignalMapping("Narrowing conversion (double) -> float")
     .OnTrigger(DoubleToFloat)
-        .InjectTo  (DoubleToFloat) .As(type<decor::precise<double>>)
-        .ObserveOn (DoubleToFloat) .As(type<decor::precise<float>> )
+        .InjectTo  (DoubleToFloat) .As(decor::Precise<double>)
+        .ObserveOn (DoubleToFloat) .As(decor::Precise<float> )
 
     .Test
         (0.125                 , 0.125           ) ["ok: power of 2"]
@@ -627,10 +626,10 @@ BOOST_AUTO_TEST_CASE(SignalTypeDecorator)
 /*
 ```
 
-1. If test value is passed without -f suffix, the `precise<float>` ctor will throw exception
+1. If test value is passed without -f suffix, the `Precise<float>` decorator will throw exception
    because double precision `.2` can't be represented in float.
 
-In this example we utilize a signal decorator template `zmbt::decor::precise`,
+In this example we utilize a signal decorator `zmbt::decor::Precise`,
 that checks the correct value representation and allows conversion to/from floating
 point hexadecimal literals in string.
 
@@ -642,24 +641,26 @@ then atomic conditions like in examples before.
 
 The SignalMapping model provides the following functionality for batch testing:
 
- - Generating functions and `Keep` clause for inputs
+ - Generating input functions
  - `Repeat` clause for triggers.
  - `CallRange` and `Call` clauses for output filters.
- - Output combination filters like `With` and `Union`.
+ - Output combination clauses like `With` and `Union`.
  - `ThreadId`, `Timestamp`, `Alias` - clauses for additional information useful in batch tests.
+ - `Keep` and `Expect` channels clauses for fixed expressions.
 
-### Batch inputs
+### Generating functions
 
 In the previous examples the input conditions were specified as JSON literals,
 which intuitively reads as an instruction for the test runner to set the input value
 on a corresponding channel.
 
-More generally the input signals are specified as [constant](user-guide/expressions/#syntax)
-or [generating functions](https://en.wikipedia.org/wiki/Generating_function).
-Top-level JSON literals in the input context are interpreted as constants for brevity.
+More generally the input signals are specified with [generating functions](https://en.wikipedia.org/wiki/Generating_function).
+When an interface specified in the input channels is called multiple times in the test,
+the intput conditions are evaluated from the corresponding expressions with 0-based call index as an argument.
+The [constant](user-guide/expressions/#syntax) functions are considered here a subset of generating functions,
+as they discard input argument.
+The top-level JSON literals in the input context of SignalMapping are treated as constants for brevity.
 
-When an input channel, either mock or trigger, is called multiple times in the test,
-the intput condition is evaluated from this expression with 0-based call index as an argument.
 
 ```c++
 */
@@ -694,25 +695,29 @@ BOOST_AUTO_TEST_CASE(BatchInputs)
 /*
 ```
 
-1. Top evel JSON literal input stands for constant, a canonical form would be `C(42)`
+1. Top level JSON literal input stands for constant, a canonical form would be `C(42)`
 2. Mathematical constant
 3. Simple generating function
 4. Lookup function with Default 42 as generator
 
-If the same expression is used for all test cases, it may be placed in the `Keep` clause instead,
-reducing the test matrix:
+### Fixed channels
+
+Both input and output channels can be excluded from the test matrix
+by providing a fixed input generator or an expectation matcher directly
+at channel definition with `Keep` and `Expect` clauses.
+
+This techique allows to reduce the test matrix size, omitting invariant conditions,
+or even use only the fixed channels, switching to a more functional style:
 
 ```c++
 */
     SignalMapping("Keep clause")
     .OnTrigger(sut)
-        .InjectTo (sut)
-        .InjectTo (&Mock::produce) .Keep(Add(42)) //(1)
-        .ObserveOn(sut)
-    .Test
-        (2, {42, 43}    )
-        (3, {42, 43, 44})
-    ;
+        .InjectTo (sut)            .Keep(6)
+        .InjectTo (&Mock::produce) .Keep(Add(42))
+        .ObserveOn(sut)            .Expect(Each(Ge(42)))
+        .ObserveOn(sut)            .Expect(Slide(2)|Each(Lt))
+    .Test();
 }
 /*
 ```
@@ -759,8 +764,8 @@ BOOST_AUTO_TEST_CASE(CallRange)
         .InjectTo  (&Mock::produce)
         .ObserveOn (&Mock::consume).CallRange()
     .Test
-        (Add(1)          , {1, 2, 3})
-        (Recur(Add(1), 0), {0, 1, 2})
+        ( Add(1)                               , {1, 2, 3}          )
+        ( Recur(Add(1), 0)                     , {0, 1, 2}          )
         ( Lookup({{"1","foo"}})|D("bar")/*(1)*/, {"bar","foo","bar"})
     ;
 /*
@@ -878,16 +883,18 @@ BOOST_AUTO_TEST_CASE(CallCount)
 
 ### With and Union
 
-When testing relation between different channels it may be necessary to put their outputs into a single structure.
+When testing the relationship between different channels, it may be necessary to put their outputs into a single column in the test matrix.
+It can be made with clauses like `With` or `Union`, which begin an output channel definition similar to `ObserveOn`.
+It is possible to chain multiple channels in a single combo, but mixing different combo types in a chain will not work.
+The `ObserveOn` clause will break a chain, starting a new channel or combo.
 
-It can be made with combining clauses like `With()` or `Union()` that will group the outputs according to certain rules.
+The test runner will combine the captured outputs from the chained channels according to certain rules.
+The result is passed then to the matcher expression from the corresponding test matrix column or the `Expect` clause argument.
 
-The `Union()` clause allows to test the order of mock captures,
-merging samples in time series. Combined channels produce a
-list of pairs `[alias|index, signal]`, sorted by timestamp.
+The `Union` chain merges captured samples in a time series, producing a list of pairs `[alias, signal]`, sorted by timestamp.
+Alias, if not defined explicitly with `Alias` clause, is a channel index (counting each channel in a chain separately).
 
-In combination with `Saturate` or custom matchers the `Union()` output can be used
-for testing strict or partial order on mock calls.
+In combination with `Saturate` or other custom matchers, the `Union` output can be used for testing a strict or partial order on mock calls.
 
 ```c++
 */
@@ -919,7 +926,7 @@ BOOST_AUTO_TEST_CASE(TestOrderUnion)
             .Union (&Mock::bar).CallRange().Alias("b")
 
     .Test
-        (  2, Serialize | "[[\"f\",1],[\"b\",0]]"                )
+        (  2, Serialize | R"([["f",1],["b",0]])"                 )
         ( 42, Map(At(0)) | All(Count("f")|21, Count("b")|21)     )
         ( 42, Map(At(1)) | Slide(2) | Map(Sub) | Count(1) | 41   )
     ;
@@ -927,7 +934,7 @@ BOOST_AUTO_TEST_CASE(TestOrderUnion)
 /*
 ```
 
-The `With` is a very simple clause that will pack the outputs of the combined channels into an
+The `With` clause will simply pack the outputs of the combined channels into an
 array.
 
 ```c++
@@ -966,6 +973,40 @@ BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
 }
 /*
 ```
+
+As it is stated previously, the channel list acts as a table header for the test matrix(1),
+however, the fixing or combination clauses will break the 1-to-1 indexation.
+It is important to keep this in mind when defining the test matrix or investigating the output reports.
+{ .annotate }
+
+1. Defined with the `Test` clause
+
+
+## Order matters
+
+The input injections are evaluated in the order of their definition in a channel list.
+The injection may be overwritten fully or partially by the following injections when channels share the same interface.
+However, all the fixed inputs(1) are evaluated before the non-fixed,
+so it is recommended to group them at the beginning for clarity.
+{ .annotate }
+
+1. Defined with the `Keep` clause
+
+The input evaluation order can be utilized to do some preparations before injecting at a specific subsignal.
+It is especially useful with dynamic structures like STL containers or variant types like boost::json::value itself.
+
+E.g. having an interface with vector input,
+```c++
+auto sut = [](std::vector<int> const& x){ ... };
+```
+we may need to initialize a non-empty input before injecting to speciic elements:
+
+```c++
+    .InjectTo (sut) .Args("/0").Keep(Repeat(64) << 0)
+    .InjectTo (sut) .Args("/0/1") // (1)
+```
+
+1. Injecting to the second element will fail without the previous line, as the default vector is empty.
 
 ## Fixture tasks
 
@@ -1044,7 +1085,7 @@ We can add negation at the matcher end as `| Not` to fail the test and check the
       message: "expectation match failed"
       expected: {":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}
       observed: [1,2,3,4]
-      test case: [3,1]
+      condition: [3,1]
       comment: "Computing average"
       test vector: [{":apply":[":arange","1:5"]},{":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}]
       expression eval stack: |-

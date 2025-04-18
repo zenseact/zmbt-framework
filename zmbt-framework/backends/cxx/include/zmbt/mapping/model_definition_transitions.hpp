@@ -448,7 +448,7 @@ struct ModelDefinition::T_Alias
 template <class Source, class Target>
 struct ModelDefinition::T_Keep
 {
-    /// Set input condition
+    /// Set fixed input condition
     Target Keep(Expression const& expr)
     {
         N_STATE.model("/channels/@/keep") = expr;
@@ -467,10 +467,36 @@ struct ModelDefinition::T_Keep
     }
 };
 
+template <class Source, class Target>
+struct ModelDefinition::T_Expect
+{
+    /// Set fixed output assertion
+    Target Expect(Expression const& expr)
+    {
+        N_STATE.model("/channels/@/expect") = expr;
+        auto const curcnl = N_STATE.cur_cnl_idx();
+        auto& params = N_STATE.params;
+
+        JsonTraverse([&](boost::json::value const& v, std::string const jp){
+            if (Param::isParam(v)) {
+                params("/%s/pointers/+", v) = format(
+                            "/channels/%d/expect%s", curcnl, jp);
+            }
+            return false;
+        })(expr.underlying());
+
+        return Target(N_STATE);
+    }
+};
+
 
 template <class Source, class Target>
 struct ModelDefinition::T_Test
 {
+    Target Test()
+    {
+        return Target(N_STATE)();
+    }
     Target Test(Expression const& e0)
     {
         return Target(N_STATE)(e0);
@@ -520,6 +546,12 @@ struct ModelDefinition::T_Test
 template <class Source, class Target>
 struct ModelDefinition::T_TestRow
 {
+    Target operator()()
+    {
+        N_STATE.add_test_case({});
+        return Target(N_STATE);
+    }
+
     Target operator()(Expression const& e0)
     {
         N_STATE.add_test_case({e0});

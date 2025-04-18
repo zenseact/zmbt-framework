@@ -30,9 +30,14 @@ bool ChannelHandle::is_output() const
     return data_.at("/role") == "observe";
 }
 
-bool ChannelHandle::is_keep() const
+bool ChannelHandle::is_fixed_input() const
 {
     return data_.contains("/keep");
+}
+
+bool ChannelHandle::is_fixed_output() const
+{
+    return data_.contains("/expect");
 }
 
 
@@ -78,6 +83,13 @@ boost::json::string ChannelHandle::full_path() const
 boost::json::string ChannelHandle::signal_path() const
 {
     return data_.at("/signal_path").as_string();
+}
+
+
+std::size_t ChannelHandle::index() const
+{
+    return data_.at("/index").as_uint64();
+
 }
 
 boost::json::value ChannelHandle::alias() const
@@ -152,8 +164,15 @@ Expression ChannelHandle::keep() const
     else return Expression(recur);
 }
 
+Expression ChannelHandle::expect() const
+{
+    auto const& recur = data_.at("expect");
+    if (recur.is_null()) return expr::Noop;
+    else return Expression(recur);
+}
 
-void ChannelHandle::inject_yield() const
+
+void ChannelHandle::inject_fixed() const
 {
     return inject(keep());
 }
@@ -223,7 +242,7 @@ boost::json::array const& ChannelHandle::captures() const
     return ifc_handle.Captures();
 }
 
-boost::json::value ChannelHandle::observe_join(std::list<ChannelHandle> channels)
+boost::json::value ChannelHandle::observe_with(std::list<ChannelHandle> channels)
 {
     boost::json::array union_signal {};
 
@@ -235,7 +254,7 @@ boost::json::value ChannelHandle::observe_join(std::list<ChannelHandle> channels
     return union_signal;
 }
 
-boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channels)
+boost::json::value ChannelHandle::observe_union(std::list<ChannelHandle> channels)
 {
     if (channels.empty())
     {

@@ -137,13 +137,14 @@ void DefinitionHelper::combine_channels(boost::json::string_view combo)
 
 void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, boost::json::string_view role, uint32_t const param_type)
 {
-    auto const idx = cur_cnl_idx() + 1;
+    auto const idx = cur_cnl_idx();
     model("/channels/+") = {
         {"interface", ifc},
         {"role", role},
         {"signal_path", "$default"},
         {"kind", "$default"},
         {"call", role == "observe" ? -1 : 0},
+        {"index", idx},
         {"alias", idx},
     };
 

@@ -52,15 +52,25 @@ nodes:
     transitions:
       T_Union: N_KindOut
       T_With: N_KindOut
-  N_AliasIn:
+
+  N_EndIn:
     base: N_Channel
     transitions:
-      T_Alias: N_Channel
       T_Keep: N_Channel
-  N_AliasOut:
+  N_EndOut:
     base: N_CombineOut
     transitions:
-      T_Alias: N_CombineOut
+      T_Expect: N_ChannelOut # terminate combo
+
+  N_AliasIn:
+    base: N_EndIn
+    transitions:
+      T_Alias: N_EndIn
+  N_AliasOut:
+    base: N_EndOut
+    transitions:
+      T_Alias: N_EndOut
+
   N_CallFilter:
     base: N_AliasOut
     transitions:

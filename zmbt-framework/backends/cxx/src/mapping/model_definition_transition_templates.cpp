@@ -37,9 +37,10 @@ template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDef
 template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
-template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
-template class ModelDefinition::T_Keep<ModelDefinition::N_AliasIn, ModelDefinition::N_Channel>;
-template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_CombineOut>;
+template class ModelDefinition::T_Keep<ModelDefinition::N_EndIn, ModelDefinition::N_Channel>;
+template class ModelDefinition::T_Expect<ModelDefinition::N_EndOut, ModelDefinition::N_ChannelOut>;
+template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_EndIn>;
+template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_EndOut>;
 template class ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>;
 template class ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>;
 template class ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>;
