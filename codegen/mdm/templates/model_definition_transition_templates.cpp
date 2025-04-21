@@ -22,7 +22,7 @@ namespace zmbt {
 namespace mapping {
 
 @for t in data.Transitions:
-template class ModelDefinition::@t.Class<ModelDefinition::@t.Source, ModelDefinition::@t.Target>;
+template class ModelDefinition::@t.Class<ModelDefinition::@t.Target>;
 @end
 
 }  // namespace mapping

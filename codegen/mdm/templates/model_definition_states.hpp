@@ -26,25 +26,19 @@ namespace zmbt {
 namespace mapping {
 
 @for node in data.Nodes:
-class ModelDefinition::@node.Class
-    : public ModelDefinition::@node.Base
-    @for t in node.Transitions:
-    , public ModelDefinition::@t.Class<ModelDefinition::@node.Class, ModelDefinition::@t.Target>
-    @end
+class ModelDefinition::@node.Class @node.BasesList
 {
   private:
     friend class ModelDefinition;
-    @{node.Class}(detail::DefinitionHelper& m) : @{node.Base}(m)
+    @{node.Class}(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     @{node.Class}(@{node.Class} const&) = delete;
     @{node.Class}(@{node.Class}&&) = default;
 
   public:
-@if node.Class == "N_Main":
-    N_Main() : ModelDefinition() {}
-@end
-    ~@{node.Class}()
+    @{node.Class}() : @{node.Class}(detail::DefinitionHelper{}) {}
+    virtual ~@{node.Class}()
     {
     }
 };
@@ -52,7 +46,7 @@ class ModelDefinition::@node.Class
 @end
 
 @for t in data.Transitions:
-extern template class ModelDefinition::@t.Class<ModelDefinition::@t.Source, ModelDefinition::@t.Target>;
+extern template class ModelDefinition::@t.Class<ModelDefinition::@t.Target>;
 @end
 
 }  // namespace mapping

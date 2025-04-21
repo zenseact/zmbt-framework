@@ -29,29 +29,19 @@ namespace mapping {
 /// Mapping model definition machine
 class ModelDefinition
 {
-    detail::DefinitionHelper mapping_;
-
-  public:
-    ModelDefinition() : mapping_{} {}
-    ModelDefinition(detail::DefinitionHelper& mapping) : mapping_{mapping} {}
-
-    detail::DefinitionHelper& state()
-    {
-        return mapping_;
-    }
-  protected:
 
 
-    /// \brief  Empty transition
-    /// \tparam Source
-    /// \tparam Target
-    template <class Source, class Target>
-    struct T_Null {};
+    /// Base node class
+    class BaseTransition;
+
+    friend class SignalMapping;
+
+    struct N_Term;
 
     // Transition templates
 @for t in data.AbstractTransitions:
     /// @t transition
-    template <class Source, class Target>
+    template <class Target>
     struct @t;
 @end
 
@@ -60,11 +50,6 @@ class ModelDefinition
     /// @n.Class node
     class @n.Class;
 @end
-
-    /// Base node class
-    class N_Node;
-
-    friend class SignalMapping;
 
 };
 

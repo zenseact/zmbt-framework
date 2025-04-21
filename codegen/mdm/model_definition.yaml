@@ -2,10 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 nodes:
-  N_Term:
-    base: N_Node
-    transitions:
-      T_Null: N_Node
   N_Descr:
     base: N_Term
     transitions:
@@ -35,7 +31,7 @@ nodes:
       T_TestRow: N_TestTable
       T_TestComment: N_TestTable
   N_Test:
-    base: N_Node
+    base: null
     transitions:
       T_Test: N_TestTable
   N_Channel:
@@ -98,6 +94,6 @@ nodes:
     transitions:
       T_Repeat: N_Channel
   N_Main:
-    base: ModelDefinition
+    base: null
     transitions:
       T_OnTrigger: N_Repeat

@@ -24,442 +24,438 @@
 namespace zmbt {
 namespace mapping {
 
-class ModelDefinition::N_Term
-    : public ModelDefinition::N_Node
-    , public ModelDefinition::T_Null<ModelDefinition::N_Term, ModelDefinition::N_Node>
-{
-  private:
-    friend class ModelDefinition;
-    N_Term(detail::DefinitionHelper& m) : N_Node(m)
-    {
-    }
-    N_Term(N_Term const&) = delete;
-    N_Term(N_Term&&) = default;
-
-  public:
-    ~N_Term()
-    {
-    }
-};
-
-class ModelDefinition::N_Descr
+class ModelDefinition::N_Descr 
     : public ModelDefinition::N_Term
-    , public ModelDefinition::T_Description<ModelDefinition::N_Descr, ModelDefinition::N_Term>
+    , public ModelDefinition::T_Description<ModelDefinition::N_Term>
 {
   private:
     friend class ModelDefinition;
-    N_Descr(detail::DefinitionHelper& m) : N_Term(m)
+    N_Descr(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Descr(N_Descr const&) = delete;
     N_Descr(N_Descr&&) = default;
 
   public:
-    ~N_Descr()
+    N_Descr() : N_Descr(detail::DefinitionHelper{}) {}
+    virtual ~N_Descr()
     {
     }
 };
 
-class ModelDefinition::N_Post
+class ModelDefinition::N_Post 
     : public ModelDefinition::N_Descr
-    , public ModelDefinition::T_PostRun<ModelDefinition::N_Post, ModelDefinition::N_Descr>
+    , public ModelDefinition::T_PostRun<ModelDefinition::N_Descr>
 {
   private:
     friend class ModelDefinition;
-    N_Post(detail::DefinitionHelper& m) : N_Descr(m)
+    N_Post(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Post(N_Post const&) = delete;
     N_Post(N_Post&&) = default;
 
   public:
-    ~N_Post()
+    N_Post() : N_Post(detail::DefinitionHelper{}) {}
+    virtual ~N_Post()
     {
     }
 };
 
-class ModelDefinition::N_Pre
+class ModelDefinition::N_Pre 
     : public ModelDefinition::N_Post
-    , public ModelDefinition::T_PreRun<ModelDefinition::N_Pre, ModelDefinition::N_Post>
+    , public ModelDefinition::T_PreRun<ModelDefinition::N_Post>
 {
   private:
     friend class ModelDefinition;
-    N_Pre(detail::DefinitionHelper& m) : N_Post(m)
+    N_Pre(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Pre(N_Pre const&) = delete;
     N_Pre(N_Pre&&) = default;
 
   public:
-    ~N_Pre()
+    N_Pre() : N_Pre(detail::DefinitionHelper{}) {}
+    virtual ~N_Pre()
     {
     }
 };
 
-class ModelDefinition::N_ParamTable
+class ModelDefinition::N_ParamTable 
     : public ModelDefinition::N_Pre
-    , public ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>
-    , public ModelDefinition::T_Zip<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>
-    , public ModelDefinition::T_Prod<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>
+    , public ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable>
+    , public ModelDefinition::T_Zip<ModelDefinition::N_ParamTable>
+    , public ModelDefinition::T_Prod<ModelDefinition::N_ParamTable>
 {
   private:
     friend class ModelDefinition;
-    N_ParamTable(detail::DefinitionHelper& m) : N_Pre(m)
+    N_ParamTable(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_ParamTable(N_ParamTable const&) = delete;
     N_ParamTable(N_ParamTable&&) = default;
 
   public:
-    ~N_ParamTable()
+    N_ParamTable() : N_ParamTable(detail::DefinitionHelper{}) {}
+    virtual ~N_ParamTable()
     {
     }
 };
 
-class ModelDefinition::N_Param
+class ModelDefinition::N_Param 
     : public ModelDefinition::N_Pre
-    , public ModelDefinition::T_Zip<ModelDefinition::N_Param, ModelDefinition::N_ParamTable>
-    , public ModelDefinition::T_Prod<ModelDefinition::N_Param, ModelDefinition::N_ParamTable>
+    , public ModelDefinition::T_Zip<ModelDefinition::N_ParamTable>
+    , public ModelDefinition::T_Prod<ModelDefinition::N_ParamTable>
 {
   private:
     friend class ModelDefinition;
-    N_Param(detail::DefinitionHelper& m) : N_Pre(m)
+    N_Param(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Param(N_Param const&) = delete;
     N_Param(N_Param&&) = default;
 
   public:
-    ~N_Param()
+    N_Param() : N_Param(detail::DefinitionHelper{}) {}
+    virtual ~N_Param()
     {
     }
 };
 
-class ModelDefinition::N_TestTable
+class ModelDefinition::N_TestTable 
     : public ModelDefinition::N_Param
-    , public ModelDefinition::T_TestRow<ModelDefinition::N_TestTable, ModelDefinition::N_TestTable>
-    , public ModelDefinition::T_TestComment<ModelDefinition::N_TestTable, ModelDefinition::N_TestTable>
+    , public ModelDefinition::T_TestRow<ModelDefinition::N_TestTable>
+    , public ModelDefinition::T_TestComment<ModelDefinition::N_TestTable>
 {
   private:
     friend class ModelDefinition;
-    N_TestTable(detail::DefinitionHelper& m) : N_Param(m)
+    N_TestTable(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_TestTable(N_TestTable const&) = delete;
     N_TestTable(N_TestTable&&) = default;
 
   public:
-    ~N_TestTable()
+    N_TestTable() : N_TestTable(detail::DefinitionHelper{}) {}
+    virtual ~N_TestTable()
     {
     }
 };
 
-class ModelDefinition::N_Test
-    : public ModelDefinition::N_Node
-    , public ModelDefinition::T_Test<ModelDefinition::N_Test, ModelDefinition::N_TestTable>
+class ModelDefinition::N_Test 
+    : public ModelDefinition::T_Test<ModelDefinition::N_TestTable>
 {
   private:
     friend class ModelDefinition;
-    N_Test(detail::DefinitionHelper& m) : N_Node(m)
+    N_Test(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Test(N_Test const&) = delete;
     N_Test(N_Test&&) = default;
 
   public:
-    ~N_Test()
+    N_Test() : N_Test(detail::DefinitionHelper{}) {}
+    virtual ~N_Test()
     {
     }
 };
 
-class ModelDefinition::N_Channel
+class ModelDefinition::N_Channel 
     : public ModelDefinition::N_Test
-    , public ModelDefinition::T_InjectTo<ModelDefinition::N_Channel, ModelDefinition::N_KindIn>
-    , public ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDefinition::N_KindOut>
+    , public ModelDefinition::T_InjectTo<ModelDefinition::N_KindIn>
+    , public ModelDefinition::T_ObserveOn<ModelDefinition::N_KindOut>
 {
   private:
     friend class ModelDefinition;
-    N_Channel(detail::DefinitionHelper& m) : N_Test(m)
+    N_Channel(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Channel(N_Channel const&) = delete;
     N_Channel(N_Channel&&) = default;
 
   public:
-    ~N_Channel()
+    N_Channel() : N_Channel(detail::DefinitionHelper{}) {}
+    virtual ~N_Channel()
     {
     }
 };
 
-class ModelDefinition::N_ChannelOut
+class ModelDefinition::N_ChannelOut 
     : public ModelDefinition::N_Test
-    , public ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>
+    , public ModelDefinition::T_ObserveOn<ModelDefinition::N_KindOut>
 {
   private:
     friend class ModelDefinition;
-    N_ChannelOut(detail::DefinitionHelper& m) : N_Test(m)
+    N_ChannelOut(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_ChannelOut(N_ChannelOut const&) = delete;
     N_ChannelOut(N_ChannelOut&&) = default;
 
   public:
-    ~N_ChannelOut()
+    N_ChannelOut() : N_ChannelOut(detail::DefinitionHelper{}) {}
+    virtual ~N_ChannelOut()
     {
     }
 };
 
-class ModelDefinition::N_CombineOut
+class ModelDefinition::N_CombineOut 
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>
-    , public ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>
+    , public ModelDefinition::T_Union<ModelDefinition::N_KindOut>
+    , public ModelDefinition::T_With<ModelDefinition::N_KindOut>
 {
   private:
     friend class ModelDefinition;
-    N_CombineOut(detail::DefinitionHelper& m) : N_Channel(m)
+    N_CombineOut(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_CombineOut(N_CombineOut const&) = delete;
     N_CombineOut(N_CombineOut&&) = default;
 
   public:
-    ~N_CombineOut()
+    N_CombineOut() : N_CombineOut(detail::DefinitionHelper{}) {}
+    virtual ~N_CombineOut()
     {
     }
 };
 
-class ModelDefinition::N_EndIn
+class ModelDefinition::N_EndIn 
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_Keep<ModelDefinition::N_EndIn, ModelDefinition::N_Channel>
+    , public ModelDefinition::T_Keep<ModelDefinition::N_Channel>
 {
   private:
     friend class ModelDefinition;
-    N_EndIn(detail::DefinitionHelper& m) : N_Channel(m)
+    N_EndIn(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_EndIn(N_EndIn const&) = delete;
     N_EndIn(N_EndIn&&) = default;
 
   public:
-    ~N_EndIn()
+    N_EndIn() : N_EndIn(detail::DefinitionHelper{}) {}
+    virtual ~N_EndIn()
     {
     }
 };
 
-class ModelDefinition::N_EndOut
+class ModelDefinition::N_EndOut 
     : public ModelDefinition::N_CombineOut
-    , public ModelDefinition::T_Expect<ModelDefinition::N_EndOut, ModelDefinition::N_ChannelOut>
+    , public ModelDefinition::T_Expect<ModelDefinition::N_ChannelOut>
 {
   private:
     friend class ModelDefinition;
-    N_EndOut(detail::DefinitionHelper& m) : N_CombineOut(m)
+    N_EndOut(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_EndOut(N_EndOut const&) = delete;
     N_EndOut(N_EndOut&&) = default;
 
   public:
-    ~N_EndOut()
+    N_EndOut() : N_EndOut(detail::DefinitionHelper{}) {}
+    virtual ~N_EndOut()
     {
     }
 };
 
-class ModelDefinition::N_AliasIn
+class ModelDefinition::N_AliasIn 
     : public ModelDefinition::N_EndIn
-    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_EndIn>
+    , public ModelDefinition::T_Alias<ModelDefinition::N_EndIn>
 {
   private:
     friend class ModelDefinition;
-    N_AliasIn(detail::DefinitionHelper& m) : N_EndIn(m)
+    N_AliasIn(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_AliasIn(N_AliasIn const&) = delete;
     N_AliasIn(N_AliasIn&&) = default;
 
   public:
-    ~N_AliasIn()
+    N_AliasIn() : N_AliasIn(detail::DefinitionHelper{}) {}
+    virtual ~N_AliasIn()
     {
     }
 };
 
-class ModelDefinition::N_AliasOut
+class ModelDefinition::N_AliasOut 
     : public ModelDefinition::N_EndOut
-    , public ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_EndOut>
+    , public ModelDefinition::T_Alias<ModelDefinition::N_EndOut>
 {
   private:
     friend class ModelDefinition;
-    N_AliasOut(detail::DefinitionHelper& m) : N_EndOut(m)
+    N_AliasOut(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_AliasOut(N_AliasOut const&) = delete;
     N_AliasOut(N_AliasOut&&) = default;
 
   public:
-    ~N_AliasOut()
+    N_AliasOut() : N_AliasOut(detail::DefinitionHelper{}) {}
+    virtual ~N_AliasOut()
     {
     }
 };
 
-class ModelDefinition::N_CallFilter
+class ModelDefinition::N_CallFilter 
     : public ModelDefinition::N_AliasOut
-    , public ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>
+    , public ModelDefinition::T_CallFilter<ModelDefinition::N_AliasOut>
 {
   private:
     friend class ModelDefinition;
-    N_CallFilter(detail::DefinitionHelper& m) : N_AliasOut(m)
+    N_CallFilter(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_CallFilter(N_CallFilter const&) = delete;
     N_CallFilter(N_CallFilter&&) = default;
 
   public:
-    ~N_CallFilter()
+    N_CallFilter() : N_CallFilter(detail::DefinitionHelper{}) {}
+    virtual ~N_CallFilter()
     {
     }
 };
 
-class ModelDefinition::N_DecorIn
+class ModelDefinition::N_DecorIn 
     : public ModelDefinition::N_AliasIn
-    , public ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>
+    , public ModelDefinition::T_As<ModelDefinition::N_AliasIn>
 {
   private:
     friend class ModelDefinition;
-    N_DecorIn(detail::DefinitionHelper& m) : N_AliasIn(m)
+    N_DecorIn(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_DecorIn(N_DecorIn const&) = delete;
     N_DecorIn(N_DecorIn&&) = default;
 
   public:
-    ~N_DecorIn()
+    N_DecorIn() : N_DecorIn(detail::DefinitionHelper{}) {}
+    virtual ~N_DecorIn()
     {
     }
 };
 
-class ModelDefinition::N_DecorOut
+class ModelDefinition::N_DecorOut 
     : public ModelDefinition::N_CallFilter
-    , public ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>
+    , public ModelDefinition::T_As<ModelDefinition::N_CallFilter>
 {
   private:
     friend class ModelDefinition;
-    N_DecorOut(detail::DefinitionHelper& m) : N_CallFilter(m)
+    N_DecorOut(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_DecorOut(N_DecorOut const&) = delete;
     N_DecorOut(N_DecorOut&&) = default;
 
   public:
-    ~N_DecorOut()
+    N_DecorOut() : N_DecorOut(detail::DefinitionHelper{}) {}
+    virtual ~N_DecorOut()
     {
     }
 };
 
-class ModelDefinition::N_KindIn
+class ModelDefinition::N_KindIn 
     : public ModelDefinition::N_DecorIn
-    , public ModelDefinition::T_SignalFilter<ModelDefinition::N_KindIn, ModelDefinition::N_DecorIn>
+    , public ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorIn>
 {
   private:
     friend class ModelDefinition;
-    N_KindIn(detail::DefinitionHelper& m) : N_DecorIn(m)
+    N_KindIn(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_KindIn(N_KindIn const&) = delete;
     N_KindIn(N_KindIn&&) = default;
 
   public:
-    ~N_KindIn()
+    N_KindIn() : N_KindIn(detail::DefinitionHelper{}) {}
+    virtual ~N_KindIn()
     {
     }
 };
 
-class ModelDefinition::N_KindOut
+class ModelDefinition::N_KindOut 
     : public ModelDefinition::N_DecorOut
-    , public ModelDefinition::T_SignalFilter<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>
-    , public ModelDefinition::T_SignalProperty<ModelDefinition::N_KindOut, ModelDefinition::N_CallFilter>
-    , public ModelDefinition::T_CallCount<ModelDefinition::N_KindOut, ModelDefinition::N_AliasOut>
+    , public ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorOut>
+    , public ModelDefinition::T_SignalProperty<ModelDefinition::N_CallFilter>
+    , public ModelDefinition::T_CallCount<ModelDefinition::N_AliasOut>
 {
   private:
     friend class ModelDefinition;
-    N_KindOut(detail::DefinitionHelper& m) : N_DecorOut(m)
+    N_KindOut(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_KindOut(N_KindOut const&) = delete;
     N_KindOut(N_KindOut&&) = default;
 
   public:
-    ~N_KindOut()
+    N_KindOut() : N_KindOut(detail::DefinitionHelper{}) {}
+    virtual ~N_KindOut()
     {
     }
 };
 
-class ModelDefinition::N_Repeat
+class ModelDefinition::N_Repeat 
     : public ModelDefinition::N_Channel
-    , public ModelDefinition::T_Repeat<ModelDefinition::N_Repeat, ModelDefinition::N_Channel>
+    , public ModelDefinition::T_Repeat<ModelDefinition::N_Channel>
 {
   private:
     friend class ModelDefinition;
-    N_Repeat(detail::DefinitionHelper& m) : N_Channel(m)
+    N_Repeat(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Repeat(N_Repeat const&) = delete;
     N_Repeat(N_Repeat&&) = default;
 
   public:
-    ~N_Repeat()
+    N_Repeat() : N_Repeat(detail::DefinitionHelper{}) {}
+    virtual ~N_Repeat()
     {
     }
 };
 
-class ModelDefinition::N_Main
-    : public ModelDefinition::ModelDefinition
-    , public ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Repeat>
+class ModelDefinition::N_Main 
+    : public ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>
 {
   private:
     friend class ModelDefinition;
-    N_Main(detail::DefinitionHelper& m) : ModelDefinition(m)
+    N_Main(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
     N_Main(N_Main const&) = delete;
     N_Main(N_Main&&) = default;
 
   public:
-    N_Main() : ModelDefinition() {}
-    ~N_Main()
+    N_Main() : N_Main(detail::DefinitionHelper{}) {}
+    virtual ~N_Main()
     {
     }
 };
 
 
-extern template class ModelDefinition::T_Null<ModelDefinition::N_Term, ModelDefinition::N_Node>;
-extern template class ModelDefinition::T_Description<ModelDefinition::N_Descr, ModelDefinition::N_Term>;
-extern template class ModelDefinition::T_PostRun<ModelDefinition::N_Post, ModelDefinition::N_Descr>;
-extern template class ModelDefinition::T_PreRun<ModelDefinition::N_Pre, ModelDefinition::N_Post>;
-extern template class ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Zip<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Prod<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Zip<ModelDefinition::N_Param, ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Prod<ModelDefinition::N_Param, ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_TestRow<ModelDefinition::N_TestTable, ModelDefinition::N_TestTable>;
-extern template class ModelDefinition::T_TestComment<ModelDefinition::N_TestTable, ModelDefinition::N_TestTable>;
-extern template class ModelDefinition::T_Test<ModelDefinition::N_Test, ModelDefinition::N_TestTable>;
-extern template class ModelDefinition::T_InjectTo<ModelDefinition::N_Channel, ModelDefinition::N_KindIn>;
-extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
-extern template class ModelDefinition::T_Keep<ModelDefinition::N_EndIn, ModelDefinition::N_Channel>;
-extern template class ModelDefinition::T_Expect<ModelDefinition::N_EndOut, ModelDefinition::N_ChannelOut>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_EndIn>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_EndOut>;
-extern template class ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>;
-extern template class ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>;
-extern template class ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>;
-extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_KindIn, ModelDefinition::N_DecorIn>;
-extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>;
-extern template class ModelDefinition::T_SignalProperty<ModelDefinition::N_KindOut, ModelDefinition::N_CallFilter>;
-extern template class ModelDefinition::T_CallCount<ModelDefinition::N_KindOut, ModelDefinition::N_AliasOut>;
-extern template class ModelDefinition::T_Repeat<ModelDefinition::N_Repeat, ModelDefinition::N_Channel>;
-extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Repeat>;
+extern template class ModelDefinition::T_Description<ModelDefinition::N_Term>;
+extern template class ModelDefinition::T_PostRun<ModelDefinition::N_Descr>;
+extern template class ModelDefinition::T_PreRun<ModelDefinition::N_Post>;
+extern template class ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable>;
+extern template class ModelDefinition::T_Zip<ModelDefinition::N_ParamTable>;
+extern template class ModelDefinition::T_Prod<ModelDefinition::N_ParamTable>;
+extern template class ModelDefinition::T_TestRow<ModelDefinition::N_TestTable>;
+extern template class ModelDefinition::T_TestComment<ModelDefinition::N_TestTable>;
+extern template class ModelDefinition::T_Test<ModelDefinition::N_TestTable>;
+extern template class ModelDefinition::T_InjectTo<ModelDefinition::N_KindIn>;
+extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_KindOut>;
+extern template class ModelDefinition::T_Union<ModelDefinition::N_KindOut>;
+extern template class ModelDefinition::T_With<ModelDefinition::N_KindOut>;
+extern template class ModelDefinition::T_Keep<ModelDefinition::N_Channel>;
+extern template class ModelDefinition::T_Expect<ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_Alias<ModelDefinition::N_EndIn>;
+extern template class ModelDefinition::T_Alias<ModelDefinition::N_EndOut>;
+extern template class ModelDefinition::T_CallFilter<ModelDefinition::N_AliasOut>;
+extern template class ModelDefinition::T_As<ModelDefinition::N_AliasIn>;
+extern template class ModelDefinition::T_As<ModelDefinition::N_CallFilter>;
+extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorIn>;
+extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorOut>;
+extern template class ModelDefinition::T_SignalProperty<ModelDefinition::N_CallFilter>;
+extern template class ModelDefinition::T_CallCount<ModelDefinition::N_AliasOut>;
+extern template class ModelDefinition::T_Repeat<ModelDefinition::N_Channel>;
+extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>;
 
 }  // namespace mapping
 }  // namespace zmbt

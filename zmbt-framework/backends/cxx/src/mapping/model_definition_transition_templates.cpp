@@ -20,36 +20,32 @@
 namespace zmbt {
 namespace mapping {
 
-template class ModelDefinition::T_Null<ModelDefinition::N_Term, ModelDefinition::N_Node>;
-template class ModelDefinition::T_Description<ModelDefinition::N_Descr, ModelDefinition::N_Term>;
-template class ModelDefinition::T_PostRun<ModelDefinition::N_Post, ModelDefinition::N_Descr>;
-template class ModelDefinition::T_PreRun<ModelDefinition::N_Pre, ModelDefinition::N_Post>;
-template class ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>;
-template class ModelDefinition::T_Zip<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>;
-template class ModelDefinition::T_Prod<ModelDefinition::N_ParamTable, ModelDefinition::N_ParamTable>;
-template class ModelDefinition::T_Zip<ModelDefinition::N_Param, ModelDefinition::N_ParamTable>;
-template class ModelDefinition::T_Prod<ModelDefinition::N_Param, ModelDefinition::N_ParamTable>;
-template class ModelDefinition::T_TestRow<ModelDefinition::N_TestTable, ModelDefinition::N_TestTable>;
-template class ModelDefinition::T_TestComment<ModelDefinition::N_TestTable, ModelDefinition::N_TestTable>;
-template class ModelDefinition::T_Test<ModelDefinition::N_Test, ModelDefinition::N_TestTable>;
-template class ModelDefinition::T_InjectTo<ModelDefinition::N_Channel, ModelDefinition::N_KindIn>;
-template class ModelDefinition::T_ObserveOn<ModelDefinition::N_Channel, ModelDefinition::N_KindOut>;
-template class ModelDefinition::T_ObserveOn<ModelDefinition::N_ChannelOut, ModelDefinition::N_KindOut>;
-template class ModelDefinition::T_Union<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
-template class ModelDefinition::T_With<ModelDefinition::N_CombineOut, ModelDefinition::N_KindOut>;
-template class ModelDefinition::T_Keep<ModelDefinition::N_EndIn, ModelDefinition::N_Channel>;
-template class ModelDefinition::T_Expect<ModelDefinition::N_EndOut, ModelDefinition::N_ChannelOut>;
-template class ModelDefinition::T_Alias<ModelDefinition::N_AliasIn, ModelDefinition::N_EndIn>;
-template class ModelDefinition::T_Alias<ModelDefinition::N_AliasOut, ModelDefinition::N_EndOut>;
-template class ModelDefinition::T_CallFilter<ModelDefinition::N_CallFilter, ModelDefinition::N_AliasOut>;
-template class ModelDefinition::T_As<ModelDefinition::N_DecorIn, ModelDefinition::N_AliasIn>;
-template class ModelDefinition::T_As<ModelDefinition::N_DecorOut, ModelDefinition::N_CallFilter>;
-template class ModelDefinition::T_SignalFilter<ModelDefinition::N_KindIn, ModelDefinition::N_DecorIn>;
-template class ModelDefinition::T_SignalFilter<ModelDefinition::N_KindOut, ModelDefinition::N_DecorOut>;
-template class ModelDefinition::T_SignalProperty<ModelDefinition::N_KindOut, ModelDefinition::N_CallFilter>;
-template class ModelDefinition::T_CallCount<ModelDefinition::N_KindOut, ModelDefinition::N_AliasOut>;
-template class ModelDefinition::T_Repeat<ModelDefinition::N_Repeat, ModelDefinition::N_Channel>;
-template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Main, ModelDefinition::N_Repeat>;
+template class ModelDefinition::T_Description<ModelDefinition::N_Term>;
+template class ModelDefinition::T_PostRun<ModelDefinition::N_Descr>;
+template class ModelDefinition::T_PreRun<ModelDefinition::N_Post>;
+template class ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable>;
+template class ModelDefinition::T_Zip<ModelDefinition::N_ParamTable>;
+template class ModelDefinition::T_Prod<ModelDefinition::N_ParamTable>;
+template class ModelDefinition::T_TestRow<ModelDefinition::N_TestTable>;
+template class ModelDefinition::T_TestComment<ModelDefinition::N_TestTable>;
+template class ModelDefinition::T_Test<ModelDefinition::N_TestTable>;
+template class ModelDefinition::T_InjectTo<ModelDefinition::N_KindIn>;
+template class ModelDefinition::T_ObserveOn<ModelDefinition::N_KindOut>;
+template class ModelDefinition::T_Union<ModelDefinition::N_KindOut>;
+template class ModelDefinition::T_With<ModelDefinition::N_KindOut>;
+template class ModelDefinition::T_Keep<ModelDefinition::N_Channel>;
+template class ModelDefinition::T_Expect<ModelDefinition::N_ChannelOut>;
+template class ModelDefinition::T_Alias<ModelDefinition::N_EndIn>;
+template class ModelDefinition::T_Alias<ModelDefinition::N_EndOut>;
+template class ModelDefinition::T_CallFilter<ModelDefinition::N_AliasOut>;
+template class ModelDefinition::T_As<ModelDefinition::N_AliasIn>;
+template class ModelDefinition::T_As<ModelDefinition::N_CallFilter>;
+template class ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorIn>;
+template class ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorOut>;
+template class ModelDefinition::T_SignalProperty<ModelDefinition::N_CallFilter>;
+template class ModelDefinition::T_CallCount<ModelDefinition::N_AliasOut>;
+template class ModelDefinition::T_Repeat<ModelDefinition::N_Channel>;
+template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>;
 
 }  // namespace mapping
 }  // namespace zmbt

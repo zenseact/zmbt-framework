@@ -111,12 +111,16 @@ std::vector<TestEvalSample> const TestSamples
     {Ne                         , {13, 42}              , true                  },
 
     // literal is equivalent to Eq(x) in direct evaluation
-    {Expression(42)             , 42                    , true                  },
-    {Expression(42)             , 13                    , false                 },
-    {Expression(42)|Not         , 42                    , false                 },
-    {Expression(42)|Not         , 13                    , true                  },
-    {Expression(42)|Not|Not     , 42                    , true                  },
-    {Expression(42)|Not|Not     , 13                    , false                 },
+    {42                         , 42                    , true                  },
+    {42                         , 13                    , false                 },
+    {42|Not                     , 42                    , false                 },
+    {42|Not                     , 13                    , true                  },
+    {42|Not|Not                 , 42                    , true                  },
+    {42|Not|Not                 , 13                    , false                 },
+    {"foo"|Not                  , "foo"                 , false                 },
+    {"foo"|Not|Not              , "foo"                 , true                  },
+
+
 
     {C(42)                      , 13                    , 42                    },
     {C                          , 13                    , nullptr               },

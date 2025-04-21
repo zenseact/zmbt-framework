@@ -28,99 +28,87 @@ namespace mapping {
 /// Mapping model definition machine
 class ModelDefinition
 {
-    detail::DefinitionHelper mapping_;
-
-  public:
-    ModelDefinition() : mapping_{} {}
-    ModelDefinition(detail::DefinitionHelper& mapping) : mapping_{mapping} {}
-
-    detail::DefinitionHelper& state()
-    {
-        return mapping_;
-    }
-  protected:
 
 
-    /// \brief  Empty transition
-    /// \tparam Source
-    /// \tparam Target
-    template <class Source, class Target>
-    struct T_Null {};
+    /// Base node class
+    class BaseTransition;
+
+    friend class SignalMapping;
+
+    struct N_Term;
 
     // Transition templates
     /// T_Alias transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Alias;
     /// T_As transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_As;
     /// T_CallCount transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_CallCount;
     /// T_CallFilter transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_CallFilter;
     /// T_Description transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Description;
     /// T_Expect transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Expect;
     /// T_InjectTo transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_InjectTo;
     /// T_Keep transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Keep;
     /// T_ObserveOn transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_ObserveOn;
     /// T_OnTrigger transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_OnTrigger;
     /// T_ParamRow transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_ParamRow;
     /// T_PostRun transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_PostRun;
     /// T_PreRun transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_PreRun;
     /// T_Prod transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Prod;
     /// T_Repeat transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Repeat;
     /// T_SignalFilter transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_SignalFilter;
     /// T_SignalProperty transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_SignalProperty;
     /// T_Test transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Test;
     /// T_TestComment transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_TestComment;
     /// T_TestRow transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_TestRow;
     /// T_Union transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Union;
     /// T_With transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_With;
     /// T_Zip transition
-    template <class Source, class Target>
+    template <class Target>
     struct T_Zip;
 
 // NODES forward declarations
-    /// N_Term node
-    class N_Term;
     /// N_Descr node
     class N_Descr;
     /// N_Post node
@@ -163,11 +151,6 @@ class ModelDefinition
     class N_Repeat;
     /// N_Main node
     class N_Main;
-
-    /// Base node class
-    class N_Node;
-
-    friend class SignalMapping;
 
 };
 
