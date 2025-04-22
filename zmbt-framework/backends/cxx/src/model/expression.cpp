@@ -74,10 +74,6 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
     };
     using E = zmbt::Expression;
     E fn(rec.at(1));
-    if (fn.is(E::Keyword::Literal))
-    {
-        fn = E(E::Keyword::Eq, fn.underlying());
-    }
 
     boost::json::serializer sr;
     boost::json::string_view f = (sr.reset(&fn.underlying()), sr.read(buf_f));
@@ -246,10 +242,25 @@ Expression::Expression(std::initializer_list<boost::json::value_ref> items)
 {
 }
 
-boost::json::array Expression::toArray(std::initializer_list<Expression> const& list) {
-    boost::json::array arr(list.size());
-    std::transform(list.begin(), list.end(), arr.begin(), [](Expression const& e) {return e.underlying_;});
-    return arr;
+Expression Expression::literalAsEq(boost::json::value const& underlying)
+{
+    Expression const expr(underlying);
+    if (expr.is_literal()) return Expression(Keyword::Eq, expr.underlying());
+    return expr;
+}
+
+Expression Expression::constAsEq(boost::json::value const& underlying)
+{
+    Expression const expr(underlying);
+    if (!expr.is_noop() && expr.is_const()) return Expression(Keyword::Eq, expr.eval());
+    return expr;
+}
+
+bool Expression::is_const() const
+{
+    using dsl::detail::CodegenType;
+    using dsl::detail::getCodegenType;
+    return is(Keyword::Apply) || is(Keyword::Literal) || is(Keyword::C) || (CodegenType::Const == getCodegenType(keyword()));
 }
 
 bool Expression::match(boost::json::value const& observed, SignalOperatorHandler const& op) const

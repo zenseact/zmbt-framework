@@ -1075,6 +1075,7 @@ keyword_groups:
       - name: filter
         signature: Binary
         brief: Filter sequence by predicate param
+        literals-as-eq: true
         domain: [list, predicate]
         codomain: list
         examples: |-
@@ -1084,6 +1085,7 @@ keyword_groups:
         signature: Binary
         brief: Count matches by predicate param
         domain: [list, predicate]
+        literals-as-eq: true
         codomain: uint
         examples: |-
           Count(Gt(2)) >> [1, 2, 3, 4] == 2
@@ -1092,6 +1094,7 @@ keyword_groups:
         signature: Binary
         brief: Test predicate for each item in a sequence
         details: Equivalent to `Count(p|Not)|Eq(0)`
+        literals-as-eq: true
         domain: [list, predicate]
         codomain: bool
         examples: |-
@@ -1205,9 +1208,10 @@ keyword_groups:
         brief: Match any predicate
         domain: any
         codomain: bool
+        literals-as-eq: true
         params:
           - label: predicates
-            type: list[expr]
+            type: list[predicate]
         examples: |-
           Any(Gt(2), Lt(0)) >> 3 == true
           Any(Gt(2), Lt(0)) >> 0 == false
@@ -1217,9 +1221,10 @@ keyword_groups:
         brief: Match all predicates
         domain: any
         codomain: bool
+        literals-as-eq: true
         params:
           - label: predicates
-            type: list[expr]
+            type: list[predicate]
         examples: |-
           All(Gt(2), Lt(0)) >> 3 == false
           All(Gt(2), Lt(3)) >> 2.5 == true
@@ -1229,9 +1234,10 @@ keyword_groups:
         brief: Saturate matches in order
         domain: list
         codomain: bool
+        literals-as-eq: true
         params:
           - label: predicates
-            type: list[expr]
+            type: list[predicate]
         examples: |-
           Saturate(Gt(2), Lt(0)) >> 3 == true
           Saturate(Gt(2), Lt(0)) >> 0 == false
@@ -1245,6 +1251,7 @@ keyword_groups:
         brief: Compose functions
         domain: any
         codomain: any
+        literals-as-eq: true
         params:
           - label: functions
             type: list[expr]

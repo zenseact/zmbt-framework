@@ -112,7 +112,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 /*
 ```
 
-1. `Eq` may be omitted in this context.
+1. `Eq` may be omitted in this context (predicate is expected).
 2. Expression composition with pipe operator. Equivalent to `Compose(Eq(3), Size)`.
 3. Optional comment.
 4. Saturate matchers in order over sequence input.

@@ -115,7 +115,7 @@ boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::strin
                 // TODO: optimize recursive expr
                 Expression::EvalContext ctx{};
                 ctx.op = op;
-                auto v = expr.is_literal() ? expr.underlying() : expr.eval(nofcall, ctx); // TODO: handle errors
+                auto v = expr.eval(nofcall, ctx); // TODO: handle errors
                 v = op.decorate(v);
                 temp_node.set_at_pointer(record_pointer, v);
             }

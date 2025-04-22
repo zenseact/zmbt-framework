@@ -87,7 +87,8 @@ private:
     boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
 public:
 
-    static boost::json::array toArray(std::initializer_list<Expression> const& list);
+    static Expression literalAsEq(boost::json::value const& underlying);
+    static Expression constAsEq(boost::json::value const& underlying);
 
     Expression(std::initializer_list<boost::json::value_ref> items);
     Expression(boost::json::value const& expr);
@@ -185,6 +186,8 @@ public:
     {
         return is(Keyword::Noop);
     }
+
+    bool is_const() const;
 
     operator boost::json::value() const
     {

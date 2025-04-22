@@ -110,18 +110,6 @@ std::vector<TestEvalSample> const TestSamples
     {Ne                         , {42, 42}              , false                 },
     {Ne                         , {13, 42}              , true                  },
 
-    // literal is equivalent to Eq(x) in direct evaluation
-    {42                         , 42                    , true                  },
-    {42                         , 13                    , false                 },
-    {42|Not                     , 42                    , false                 },
-    {42|Not                     , 13                    , true                  },
-    {42|Not|Not                 , 42                    , true                  },
-    {42|Not|Not                 , 13                    , false                 },
-    {"foo"|Not                  , "foo"                 , false                 },
-    {"foo"|Not|Not              , "foo"                 , true                  },
-
-
-
     {C(42)                      , 13                    , 42                    },
     {C                          , 13                    , nullptr               },
     {C(42)                      , nullptr               , 42                    },
@@ -451,10 +439,8 @@ std::vector<TestEvalSample> const TestSamples
     {Add(2) << 3                , {}                    , 5                     },
     {Pow(2) << 3                , {}                    , 9                     },
 
-    // eval yields literal which interpreted as Eq(p)
-    {Add(-1) >> 2               , 1                     , true                  },
-    {Add(-1) >> 2               , 2                     , false                 },
-
+    // eval operator yields literal which interpreted as C(x)
+    {Add(-1) >> 2               , {}                    , 1                    },
 
     {Repeat(4)                  ,  1                    , {1,1,1,1}             },
     {Repeat(3)                  , 42                    , {42,42,42}            },

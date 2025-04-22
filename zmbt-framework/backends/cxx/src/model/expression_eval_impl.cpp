@@ -85,9 +85,9 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
 
     boost::json::value result {};
 
-    if(is(Keyword::Literal))
+    if(is_literal())
     {
-        result = ctx.op.apply(Keyword::Eq, x, params());
+        result = underlying();
     }
     else {
         CodegenType const classifier = getCodegenType(keyword());

@@ -34,13 +34,9 @@ try
     auto& description = next_model("/description");
     auto& trigger = next_model("/trigger");
 
-    Expression e_name (name);
-    Expression e_description (description);
-    Expression e_trigger (trigger);
-
-    if (!e_name.is_literal())        { name        = e_name.eval(); }
-    if (!e_description.is_literal()) { description = e_description.eval(); }
-    if (!e_trigger.is_literal())     { trigger     = e_trigger.eval(); }
+    name = Expression(name).eval();
+    description = Expression(description).eval();
+    trigger = Expression(trigger).eval();
 
     interface_id trig_ifc;
     object_id    trig_obj;
@@ -67,12 +63,8 @@ try
         auto& interface   = channel.as_object().at("interface");
         auto& signal_path = channel.as_object().at("signal_path");
 
-        Expression e_interface (interface);
-        Expression e_signal_path (signal_path);
-        if (!e_interface.is_literal())   { interface   = e_interface.eval(); }
-        if (!e_signal_path.is_literal()) { 
-            signal_path = e_signal_path.eval();
-        }
+        interface   = Expression(interface).eval();
+        signal_path = Expression(signal_path).eval();
 
 
         // auto const& call = channel.as_object().at("call");
@@ -91,8 +83,7 @@ try
             if (obj_param == "$default") {
                 obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
             } else {
-                Expression const e(obj_param);
-                obj_id = e.is_literal() ? object_id{e.underlying()} : object_id{e.eval()};
+                obj_id = object_id{Expression(obj_param).eval()};
             }
 
             interface = env.GetOrRegisterInterface(obj_id, ifc_id);

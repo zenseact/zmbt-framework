@@ -23,17 +23,17 @@ Both forms yield a `Expression` object with an `eval` method, used by the framew
 The `>>` operator is syntactic sugar for `eval`, and is used in examples below for brevity.
 
 
-|Form    | Resulting Expression Type                                 |Example                                   |
-|--------|-------------------------------------------------------    |--------------------------------------    |
-|Const   |$E^C            \mapsto (x \mapsto C)$                     |`#!js Pi >> null = 3.1415...             `|
-|Unary   |$E^f            \mapsto (x \mapsto f(x))$                  |`#!js Sin >>` $\frac{\pi}{2}$ `= 1       `|
-|Binary₁ |$E^*            \mapsto ([x, y] \mapsto x * y )$           |`#!js Add >> [2,2] = 4                   `|
-|Binary₂ |$E^*(y)         \mapsto (x \mapsto x * y      )$           |`#!js Eq(42) >> 13 = ⊥                   `|
-|Binary₃ |$E^*            \mapsto (x \mapsto x * default)$           |`#!js Max >> [-1,1] = 1                  `|
-|Ternary |$E^f(a, b)      \mapsto (x \mapsto f(a, b)(x))$            |`#!js Recur(Pow(2), 4) >> 4 = 65536      `|
-|Variadic|$E^f(a,b,c,...) \mapsto (x \mapsto f(a,b,c,...)(x))$       |`#!js All(Gt(5), Le(6)) >> 6 = ⊤         `|
-|Literal₁|Evaluated as is where a value is expected                  |`#!js Serialize >> Eq(0) ≢ Serialize >> 0`|
-|Literal₂|Evaluated as `#!ts Eq(value)` where a function is expected |`#!js Filter(42) ≡ Filter(Eq(42))        `|
+|Form    | Resulting Expression Type                                  |Example                              |
+|--------|-------------------------------------------------------     |------------------------------------ |
+|Const   |$E^C            \mapsto (x \mapsto C)$                      |`#!js Pi >> null = 3.1415...        `|
+|Unary   |$E^f            \mapsto (x \mapsto f(x))$                   |`#!js Sin >>` $\frac{\pi}{2}$ `= 1  `|
+|Binary₁ |$E^*            \mapsto ([x, y] \mapsto x * y )$            |`#!js Add >> [2,2] = 4              `|
+|Binary₂ |$E^*(y)         \mapsto (x \mapsto x * y      )$            |`#!js Eq(42) >> 13 = ⊥              `|
+|Binary₃ |$E^*            \mapsto (x \mapsto x * default)$            |`#!js Max >> [-1,1] = 1             `|
+|Ternary |$E^f(a, b)      \mapsto (x \mapsto f(a, b)(x))$             |`#!js Recur(Pow(2), 4) >> 4 = 65536 `|
+|Variadic|$E^f(a,b,c,...) \mapsto (x \mapsto f(a,b,c,...)(x))$        |`#!js All(Gt(5), Le(6)) >> 6 = ⊤    `|
+|Literal₁|Evaluated as is where a value is expected                   |`#!js Map(Eq(0)) ≢ Map(0)           `|
+|Literal₂|Evaluated as `#!ts Eq(value)` where a predicate is expected |`#!js Filter(42) ≡ Filter(Eq(42))   `|
 
 The **Const** keywords creates constant functions. They are syntactically equivalent to **Unary**,
 with the difference that constants will ignore the input value.

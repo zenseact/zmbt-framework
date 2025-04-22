@@ -53,6 +53,7 @@ class InstanceTestRunner
     TestDiagnostics test_case_diagnostics(std::size_t const n);
 
     bool exec_prerun_tasks(TestDiagnostics diagnostics);
+
     void exec_postrun_tasks(TestDiagnostics diagnostics);
 
     bool inject_fixed_inputs(TestDiagnostics diagnostics);
@@ -65,7 +66,7 @@ class InstanceTestRunner
 
     bool observe_results(boost::json::array const& test_vector, TestDiagnostics diagnostics);
 
-    bool eval_assertion(std::list<ChannelHandle> const& channel_group, Expression expr, TestDiagnostics& diagnostics);
+    bool eval_assertion(std::list<ChannelHandle> const& channel_group, Expression const& expr, TestDiagnostics& diagnostics);
 
 
 public:
@@ -192,30 +193,19 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
     }
 }
 
-bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, Expression expr, TestDiagnostics& diagnostics)
+bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, Expression const& expr, TestDiagnostics& diagnostics)
 {
     bool assertion_passed{true};
 
-    if (expr.is(Keyword::Noop))
+    if (expr.is_noop())
     {
         return true;
-    }
-    else if (expr.is(Keyword::Apply))
-    {
-        try
-        {
-            expr = expr.eval();
-        }
-        catch(std::exception const& e)
-        {
-            assertion_passed = false;
-            diagnostics.Error("apply match evaluation", e.what());
-        }
     }
 
     boost::json::value observed {};
     SignalOperatorHandler op {};
 
+    // getting observed value
     if (assertion_passed)
     {
         auto const& combo = channel_group.cbegin()->combine();
@@ -239,6 +229,8 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
             assertion_passed = false;
         }
     }
+
+    // testing observed value
     if (assertion_passed)
     {
         try
@@ -298,8 +290,7 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
             continue;
         }
 
-        Expression const expr(test_vector.at(condition_idx));
-        test_case_passed = eval_assertion(channel_group, expr, diagnostics) && test_case_passed;
+        test_case_passed = eval_assertion(channel_group, Expression::constAsEq(test_vector.at(condition_idx)), diagnostics) && test_case_passed;
 
         if (!test_case_passed)
         {
@@ -327,19 +318,6 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
     for (std::size_t i = 0; i < N; i++)
     {
         ChannelHandle channel{model_, format("/channels/%d", i)};
-
-        // if (channel.is_input())
-        // {
-        //     if (channel.is_fixed_input())
-        //     {
-        //         static_inputs_.push_back(channel);
-        //     }
-        //     else
-        //     {
-        //         dynamic_inputs_.push_back(channel);
-        //     }
-        //     continue;
-        // }
 
         bool switch_group {true};
 

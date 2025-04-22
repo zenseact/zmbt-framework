@@ -52,7 +52,7 @@ V eval_impl<Keyword::All>(V const& x, V const& param, E::EvalContext const& cont
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (not E(e).eval(x,context++).as_bool())
+        if (not E::literalAsEq(e).eval(x,context++).as_bool())
         {
             return false;
         }
@@ -67,7 +67,7 @@ V eval_impl<Keyword::Any>(V const& x, V const& param, E::EvalContext const& cont
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (E(e).eval(x,context++).as_bool())
+        if (E::literalAsEq(e).eval(x,context++).as_bool())
         {
             return true;
         }
@@ -179,8 +179,7 @@ V eval_impl<Keyword::At>(V const& x, V const& param, E::EvalContext const& conte
     static_cast<void>(context);
     ASSERT(not param.is_null())
     // TODO: check is x is constant expr
-    E const ex {x};
-    boost::json::value const q = ex.is_literal() ? x : ex.eval();
+    boost::json::value const q = E(x).eval();
     return query_at(q, param);
 }
 
@@ -208,7 +207,7 @@ V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalContext const&
         {
             break;
         }
-        if (E(*it).eval(sample,context++).as_bool())
+        if (E::literalAsEq(*it).eval(sample,context++).as_bool())
         {
             it++;
         }
@@ -220,7 +219,7 @@ template <>
 V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array() || x.is_object())
-    auto const filter = E(param);
+    auto const filter = E::literalAsEq(param);
     std::size_t count {0};
 
     if (x.is_array())
@@ -251,7 +250,7 @@ template <>
 V eval_impl<Keyword::Each>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array() || x.is_object())
-    auto const filter = E(param);
+    auto const filter = E::literalAsEq(param);
 
     if (x.is_array())
     {
@@ -426,7 +425,7 @@ V eval_impl<Keyword::Filter>(V const& x, V const& param, E::EvalContext const& c
     {
         return ret;
     }
-    auto F = E(param);
+    auto F = E::literalAsEq(param);
     for (auto const& el: samples)
     {
         if (F.eval(el,context++).as_bool())
@@ -451,7 +450,7 @@ V eval_impl<Keyword::Compose>(V const& x, V const& param, E::EvalContext const& 
 
     while (fn != funcs.crend())
     {
-        ret = E(*fn++).eval(ret,context++);
+        ret = E::literalAsEq(*fn++).eval(ret,context++);
     }
     return ret;
 }
