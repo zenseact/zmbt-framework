@@ -9,6 +9,7 @@
 
 
 #include "zmbt/core.hpp"
+#include "zmbt/model/expression.hpp"
 
 
 namespace zmbt {
@@ -19,27 +20,18 @@ namespace detail {
 template <class T>
 using is_param = is_same<remove_cvref_t<T>, Param>;
 
-template <class T>
-using not_param = mp_not<is_param<T>>;
 
 template <class T>
-using is_defer = is_same<remove_cvref_t<T>, DeferredFormat>;
+using is_expr = is_same<remove_cvref_t<T>, Expression>;
 
 template <class T>
-using not_defer = mp_not<is_defer<T>>;
-
-
-template <class T>
-using is_ref = mp_or<boost::json::is_string_like<T>, is_param<T>, is_defer<T>>;
+using is_ref = mp_or<boost::json::is_string_like<T>, is_param<T>, is_expr<T>>;
 
 template <class T>
 using not_ref = mp_not<is_ref<T>>;
 
 template <class T>
 using maybe_obj = mp_and<not_ref<T>, is_constructible<object_id, T>>;
-
-template <class T>
-using not_obj = mp_not<maybe_obj<T>>;
 
 template <class T>
 using is_cal = is_ifc_handle<T>;
@@ -64,31 +56,8 @@ using require_not_cal = mp_if<detail::not_cal<T>, R>;
 template <class T, class R = void>
 using require_obj = mp_if<detail::maybe_obj<T>, R>;
 
-
 template <class O, class I, class R = void>
 using require_literal = mp_if<mp_and<detail::maybe_obj<O>, detail::is_cal<I>>, R>;
-
-template <class T, class R = void>
-using require_not_obj = mp_if<detail::not_obj<T>, R>;
-
-template <class T, class R = void>
-using require_ref = mp_if<detail::is_ref<T>, R>;
-
-template <class T, class R = void>
-using require_not_ref = mp_if<detail::not_ref<T>, R>;
-
-
-template <class T, class R = void>
-using require_param = mp_if<detail::is_param<T>, R>;
-
-template <class T, class R = void>
-using require_not_param = mp_if<detail::not_param<T>, R>;
-
-template <class T, class R = void>
-using require_defer = mp_if<detail::is_defer<T>, R>;
-
-template <class T, class R = void>
-using require_not_defer = mp_if<detail::not_defer<T>, R>;
 
 template <class T, class R = void>
 using require_json_from = mp_if<boost::json::has_value_from<T>, R>;

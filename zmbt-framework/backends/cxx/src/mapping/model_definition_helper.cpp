@@ -56,13 +56,19 @@ void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, boo
     }
     else
     {
-        DeferredFormat df{param};
-        model(node_ptr) = df;
-        for (auto const& kv : df.deferred_params()) {
-            auto const& param_key  = kv.key();
-            auto const& df_pointer =  kv.value();
-            params("/%s/pointers/+", param_key) = format("%s%s", node_ptr, df_pointer);
+        Expression expr(param);
+        if (expr.is_literal())
+        {
+            expr = Expression(Expression::Keyword::C, expr.underlying());
         }
+        model(node_ptr) = expr;
+
+        JsonTraverse([&](boost::json::value const& v, std::string const jp){
+            if (Param::isParam(v)) {
+                params("/%s/pointers/+", v) = format("%s%s", node_ptr, jp);
+            }
+            return false;
+        })(expr.underlying());
     }
 }
 

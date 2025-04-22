@@ -10,7 +10,6 @@
 
 #include "core/aliases.hpp"
 #include "core/exceptions.hpp"
-#include "core/deferred_format.hpp"
 #include "core/file_parser.hpp"
 #include "core/format_string.hpp"
 #include "core/generic_traits.hpp"

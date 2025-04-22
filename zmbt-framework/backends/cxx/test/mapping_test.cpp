@@ -1041,6 +1041,7 @@ BOOST_AUTO_TEST_CASE(TestFixedChannels)
     SignalMapping("Test fixing clauses Keep and Expect")
     .OnTrigger(sut)
 
+    .InjectTo (sut) .At("/args/0")   .Keep({0,0,0,0})
     .InjectTo (sut) .Args("/0")   .Keep({0,0,0})
     .InjectTo (sut) .Args("/0/1") .Keep(1)
     .InjectTo (sut) .Args("/0/2") .Keep(42)

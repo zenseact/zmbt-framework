@@ -178,7 +178,10 @@ V eval_impl<Keyword::At>(V const& x, V const& param, E::EvalContext const& conte
 {
     static_cast<void>(context);
     ASSERT(not param.is_null())
-    return query_at(x, param);
+    // TODO: check is x is constant expr
+    E const ex {x};
+    boost::json::value const q = ex.is_literal() ? x : ex.eval();
+    return query_at(q, param);
 }
 
 template <>

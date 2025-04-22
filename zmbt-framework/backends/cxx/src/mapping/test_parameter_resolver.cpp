@@ -8,12 +8,12 @@
 
 #include <boost/json.hpp>
 #include <zmbt/core/aliases.hpp>
-#include <zmbt/core/deferred_format.hpp>
 #include <zmbt/core/entity_id.hpp>
 #include <zmbt/core/interface_id.hpp>
 #include <zmbt/core/json_pretty_print.hpp>
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/model/exceptions.hpp>
+#include <zmbt/model/expression.hpp>
 #include <cstddef>
 #include <exception>
 #include <iostream>
@@ -31,69 +31,74 @@ try
 {
 
     auto& name = next_model("/name");
-    if (DeferredFormat::isDeferredFormat(name))
-    {
-        name = DeferredFormat(name).to_string();
-    }
-
     auto& description = next_model("/description");
-    if (DeferredFormat::isDeferredFormat(description))
-    {
-        description = DeferredFormat(description).to_string();
-    }
-
-
     auto& trigger = next_model("/trigger");
+
+    Expression e_name (name);
+    Expression e_description (description);
+    Expression e_trigger (trigger);
+
+    if (!e_name.is_literal())        { name        = e_name.eval(); }
+    if (!e_description.is_literal()) { description = e_description.eval(); }
+    if (!e_trigger.is_literal())     { trigger     = e_trigger.eval(); }
+
     interface_id trig_ifc;
     object_id    trig_obj;
 
-    if (DeferredFormat::isDeferredFormat(trigger))
+    if (trigger.is_string())
     {
-        trigger = DeferredFormat(trigger).to_string();
-        trig_ifc = env.InterfaceId(trigger.as_string());
-        trig_obj = env.ObjectId(trigger.as_string());
+        trig_ifc = env.InterfaceId(trigger.get_string());
+        trig_obj = env.ObjectId(trigger.get_string());
     }
-    else if (trigger.is_object())
+    else if (trigger.is_object() && trigger.get_object().contains("ifc"))
     {
         trig_ifc = interface_id (trigger.as_object().at("ifc"));
         trig_obj = object_id    (trigger.as_object().at("obj"));
         trigger = env.GetOrRegisterParametricTrigger(trig_obj, trig_ifc);
     }
     else{
-        trig_ifc = env.InterfaceId(trigger.as_string());
-        trig_obj = env.ObjectId(trigger.as_string());
+        throw model_error("invalid trigger: %s", trigger);
     }
 
     for (auto& channel: next_model("/channels").as_array())
     {
-        auto& interface   = channel.as_object().at("interface");
-        auto& kind        = channel.as_object().at("kind");
-        auto& signal_path = channel.as_object().at("signal_path");
         auto const& role = channel.as_object().at("role");
+        auto& kind        = channel.as_object().at("kind");
+        auto& interface   = channel.as_object().at("interface");
+        auto& signal_path = channel.as_object().at("signal_path");
+
+        Expression e_interface (interface);
+        Expression e_signal_path (signal_path);
+        if (!e_interface.is_literal())   { interface   = e_interface.eval(); }
+        if (!e_signal_path.is_literal()) { 
+            signal_path = e_signal_path.eval();
+        }
+
+
         // auto const& call = channel.as_object().at("call");
         interface_id ifc_id;
 
 
-        if (DeferredFormat::isDeferredFormat(interface))
+        if (interface.is_string())
         {
-            interface = DeferredFormat(interface).to_string();
-            ifc_id = env.InterfaceId(interface.as_string());
+            ifc_id = env.InterfaceId(interface.get_string());
         }
         else if (interface.is_object())
         {
             ifc_id = interface_id(interface.as_object().at("ifc"));
-            auto const& obj_str = interface.as_object().at("obj");
+            auto const& obj_param = interface.as_object().at("obj");
             object_id obj_id;
-            if (obj_str == "$default") {
+            if (obj_param == "$default") {
                 obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
             } else {
-                obj_id = object_id{obj_str};
+                Expression const e(obj_param);
+                obj_id = e.is_literal() ? object_id{e.underlying()} : object_id{e.eval()};
             }
 
             interface = env.GetOrRegisterInterface(obj_id, ifc_id);
         }
         else{
-            ifc_id = env.InterfaceId(interface.as_string());
+            throw model_error("invalid interface: %s", interface);
         }
 
 
@@ -113,9 +118,9 @@ try
             bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
             signal_path = (is_unary && (kind == "args")) ? "/0" : "";
         }
-        else if (signal_path.is_object())
+        else if (!signal_path.is_string())
         {
-            signal_path = DeferredFormat(signal_path).to_string();
+            throw model_error("invalid signal_path: %s", signal_path);
         }
     }
 }
@@ -157,67 +162,47 @@ void TestParameterResolver::init_param_iters()
         }
     }
 
-    // if (zip) // validate and handle continuation
-    // {
-        for (std::size_t grp_idx = 0; grp_idx < group_count; grp_idx++)
+    for (std::size_t grp_idx = 0; grp_idx < group_count; grp_idx++)
+    {
+        if (model_param_groups.at(grp_idx) == "Prod")
         {
-            if (model_param_groups.at(grp_idx) == "Prod")
-            {
-                iterators_.push_back(
-                    std::make_shared<JsonProdIter>(std::move(parameter_groups.at(grp_idx)))
-                );
-                continue;
-            }
-            auto& p_group = parameter_groups.at(grp_idx);
-            std::vector<std::size_t> continuation_parameters;
-            std::size_t zip_length {0};
-            for (std::size_t i = 0; i < p_group.size(); i++)
-            {
-                std::size_t const N = p_group.at(i).as_array().size();
-                if (N == 1)
-                {
-                    continuation_parameters.push_back(i);
-                }
-                else if (zip_length && (N != zip_length)) {
-                    throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
-                }
-                else
-                {
-                    zip_length = N;
-                }
-            }
-            // TODO: handle this in zip iterator to avoid repeated value allocation
-            if (continuation_parameters.size() < p_group.size())
-            {
-                for (std::size_t const i: continuation_parameters)
-                {
-                    boost::json::array continue_param (zip_length);
-                    std::fill(continue_param.begin(), continue_param.end(), p_group[i].as_array().at(0));
-                    p_group[i] = continue_param;
-                }
-            }
             iterators_.push_back(
-                std::make_shared<JsonZipIter>(std::move(parameter_groups.at(grp_idx)))
+                std::make_shared<JsonProdIter>(std::move(parameter_groups.at(grp_idx)))
             );
+            continue;
         }
-        // while(!parameter_groups.empty())
-        // {
-        //     iterators_.push_back(
-        //         std::make_shared<JsonZipIter>(std::move(parameter_groups.back()))
-        //     );
-        //     parameter_groups.pop_back();
-        // }
-    // }
-    // else {
-    //     while(!parameter_groups.empty())
-    //     {
-    //         iterators_.push_back(
-    //             std::make_shared<JsonProdIter>(std::move(parameter_groups.back()))
-    //         );
-    //         parameter_groups.pop_back();
-    //     }
-    // }
-
+        auto& p_group = parameter_groups.at(grp_idx);
+        std::vector<std::size_t> continuation_parameters;
+        std::size_t zip_length {0};
+        for (std::size_t i = 0; i < p_group.size(); i++)
+        {
+            std::size_t const N = p_group.at(i).as_array().size();
+            if (N == 1)
+            {
+                continuation_parameters.push_back(i);
+            }
+            else if (zip_length && (N != zip_length)) {
+                throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
+            }
+            else
+            {
+                zip_length = N;
+            }
+        }
+        // TODO: handle this in zip iterator to avoid repeated value allocation
+        if (continuation_parameters.size() < p_group.size())
+        {
+            for (std::size_t const i: continuation_parameters)
+            {
+                boost::json::array continue_param (zip_length);
+                std::fill(continue_param.begin(), continue_param.end(), p_group[i].as_array().at(0));
+                p_group[i] = continue_param;
+            }
+        }
+        iterators_.push_back(
+            std::make_shared<JsonZipIter>(std::move(parameter_groups.at(grp_idx)))
+        );
+    }
 }
 
 

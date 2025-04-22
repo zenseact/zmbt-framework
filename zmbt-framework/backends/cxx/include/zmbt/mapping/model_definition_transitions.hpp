@@ -10,7 +10,6 @@
 #include <boost/json.hpp>
 #include <boost/mp11.hpp>
 #include <zmbt/core/aliases.hpp>
-#include <zmbt/core/deferred_format.hpp>
 #include <zmbt/core/format_string.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/parameter.hpp>
@@ -39,7 +38,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
     template <class... T>
     Target OnTrigger(boost::json::string_view key, T&&... fmtargs)
     {
-        state().set_deferred_param("/trigger", boost::json::array{key, std::forward<T>(fmtargs)...});
+        state().set_deferred_param("/trigger", expr::Format(fmtargs...) << key);
         return transit_to<Target>();
     }
 
@@ -154,7 +153,7 @@ struct ModelDefinition::T_InjectTo : protected virtual ModelDefinition::BaseTran
     Target
     InjectTo(boost::json::string_view key, T&&... fmtargs)
     {
-        state().add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "inject");
+        state().add_channel(expr::Format(fmtargs...) << key, "inject");
         return transit_to<Target>();
     }
 };
@@ -193,7 +192,7 @@ struct ModelDefinition::T_ObserveOn : protected virtual ModelDefinition::BaseTra
     Target
     ObserveOn(boost::json::string_view key, T&&... fmtargs)
     {
-        state().add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "observe");
+        state().add_channel(expr::Format(fmtargs...) << key, "observe");
         return transit_to<Target>();
     }
 };
@@ -243,7 +242,7 @@ struct ModelDefinition::T_Union : protected virtual ModelDefinition::BaseTransit
     Union(boost::json::string_view key, T&&... fmtargs)
     {
         state().combine_channels("union");
-        state().add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "observe");
+        state().add_channel(expr::Format(fmtargs...) << key, "observe");
         return transit_to<Target>();
     }
 };
@@ -285,7 +284,7 @@ struct ModelDefinition::T_With : protected virtual ModelDefinition::BaseTransiti
     With(boost::json::string_view key, T&&... fmtargs)
     {
         state().combine_channels("with");
-        state().add_channel(DeferredFormat(key, std::forward<T>(fmtargs)...), "observe");
+        state().add_channel(expr::Format(fmtargs...) << key, "observe");
         return transit_to<Target>();
     }
 };
@@ -295,12 +294,20 @@ template <class Target>
 struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::BaseTransition
 {
 
+    Target At(Expression const&)
+    {
+
+        // state().model("/channels/@/kind") = "at";
+        // state().model("/channels/@/signal_path") = "";
+        return transit_to<Target>();
+    }
+
     /// Interface return clause
     /// Refers to the return subsignal at the given JSON Pointer
     template <class... T>
     Target Return(boost::json::string_view base, T&&... tokens)
     {
-        state().set_channel_sp("return", boost::json::array{base, std::forward<T>(tokens)...});
+        state().set_channel_sp("return", expr::Format(tokens...) << base);
         return transit_to<Target>();
     }
 
@@ -321,7 +328,7 @@ struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::Base
     template <class... T>
     Target Args(boost::json::string_view base, T&&... tokens)
     {
-        state().set_channel_sp("args", boost::json::array{base, std::forward<T>(tokens)...});
+        state().set_channel_sp("args", expr::Format(tokens...) << base);
         return transit_to<Target>();
     }
 
@@ -623,7 +630,7 @@ struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseT
     template <class... T>
     Target Description(boost::json::string_view comment, T&&... args)
     {
-        state().set_deferred_param("/description", boost::json::array{comment, std::forward<T>(args)...});
+        state().set_deferred_param("/description", expr::Format(args...) << comment);
         return transit_to<Target>();
     }
 };

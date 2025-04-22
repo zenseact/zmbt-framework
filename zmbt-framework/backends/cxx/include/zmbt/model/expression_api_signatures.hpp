@@ -108,6 +108,9 @@ struct SignatureVariadic : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
     using E = Expression;
+    Expression operator()() const {
+        return Expression(K, boost::json::array{});
+    }
     Expression operator()(E const& p0) const {
         return Expression(K, boost::json::array{p0});
     }

@@ -564,11 +564,12 @@ std::vector<TestEvalSample> const TestSamples
     {Concat                     , L{"Hello, ", "World!"} , "Hello, World!"      },
     {Concat({3,4})              , {1,2}                  , {1,2,3,4}            },
 
+    {Format()                   , "Hello, World!"        , "Hello, World!"      },
     {Format("Hello", "World")   , "%s, %s!"              , "Hello, World!"      },
     {Format(2,2,4)              , "%d + %d = %d"         , "2 + 2 = 4"          },
     {Format({1,2,3})            , "list: %s"             , "list: [1,2,3]"      },
     {Format                     , {"Hello, %s!", "World"}, "Hello, World!"      },
-    {Format                     , {"Hello, %s!", L{"World"}}, "Hello, World!"      },
+    {Format                     , {"Hello, %s!", L{"World"}}, "Hello, World!"   },
 
     {Parse                      , "[1,2,3]"              , {1,2,3}              },
     {Serialize                  , {1,2,3}                , "[1,2,3]"            },

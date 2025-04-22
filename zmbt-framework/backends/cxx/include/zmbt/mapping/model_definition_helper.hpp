@@ -10,7 +10,6 @@
 
 #include <stdint.h>
 #include <boost/json.hpp>
-#include <zmbt/core/deferred_format.hpp>
 #include <zmbt/core/interface_id.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
@@ -108,7 +107,7 @@ class DefinitionHelper {
         {
             param_type |= cnl_prm_key;
         }
-        else if (DeferredFormat::isDeferredFormat(node))
+        else if (!Expression(node).is_literal())
         {
             param_type |= cnl_prm_defer_key;
         }
