@@ -100,17 +100,15 @@ boost::json::value ChannelHandle::alias() const
 
 ChannelHandle::Kind ChannelHandle::kind() const
 {
-    static std::unordered_map<boost::json::string, Kind> const map =
-    {
-        {"call_count", Kind::CallCount},
-        {"exception" , Kind::Exception},
-        {"ts"        , Kind::Timestamp},
-        {"tid"       , Kind::ThreadId },
-        {"args"      , Kind::Args     },
-        {"return"    , Kind::Return   }
-    };
     boost::json::string const& k = data_.at("/kind").as_string();
-    return map.at(k);
+
+    if("args"       == k) return Kind::Args;
+    if("return"     == k) return Kind::Return;
+    if("call_count" == k) return Kind::CallCount;
+    if("exception"  == k) return Kind::Exception;
+    if("ts"         == k) return Kind::Timestamp;
+    if("tid"        == k) return Kind::ThreadId;
+    return Kind::Undefined;
 }
 
 bool ChannelHandle::is_range() const

@@ -761,7 +761,7 @@ keyword_groups:
 
       - name: to-list
         brief: Put argument into a list
-        details: Equivalent to `At([""])`
+        details: Equivalent to At([""])
         domain: any
         codomain: list
         examples: |-
@@ -845,7 +845,10 @@ keyword_groups:
 
       - name: format
         aliases: [ fmt ]
-        brief: format string with given parameter list
+        brief: Format string with the given parameter list.
+        details: |-
+          Constant expressions are supported for the token list,
+          s.t. Fmt(Pi) << "%s" produces "3.141592653589793E0"
         signature: Variadic
         domain: [str, list]
         codomain: str
@@ -1018,9 +1021,9 @@ keyword_groups:
         commutative-dual: at
         details: |-
           Parametrized at design time with fixed array or object,
-          produces the value at corresponding `At` query given
+          produces the value at corresponding At query given
           as eval-time argument.
-          Equivalent to `Flip(At(...))`
+          Equivalent to Flip(At(...))
 
         domain: [union: [int, str, list, object], any]
 
@@ -1036,7 +1039,7 @@ keyword_groups:
         details: |-
           Produced expression will return the design-time parameter
           on evaluation, ignoring input.
-          C(x) is a shorthand for `Id << x` or `And(false)|Or(x)`
+          C(x) is a shorthand for Id << x or And(false)|Or(x)
         domain: [any, any]
         codomain: any
         examples: |-
@@ -1093,7 +1096,7 @@ keyword_groups:
       - name: each
         signature: Binary
         brief: Test predicate for each item in a sequence
-        details: Equivalent to `Count(p|Not)|Eq(0)`
+        details: Equivalent to Count(p|Not)|Eq(0)
         literals-as-eq: true
         domain: [list, predicate]
         codomain: bool

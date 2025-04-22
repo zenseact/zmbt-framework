@@ -294,57 +294,34 @@ template <class Target>
 struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::BaseTransition
 {
 
-    Target At(Expression const&)
-    {
-
-        // state().model("/channels/@/kind") = "at";
-        // state().model("/channels/@/signal_path") = "";
-        return transit_to<Target>();
-    }
-
     /// Interface return clause
     /// Refers to the return subsignal at the given JSON Pointer
-    template <class... T>
-    Target Return(boost::json::string_view base, T&&... tokens)
+    Target Return(Expression const& e = "")
     {
-        state().set_channel_sp("return", expr::Format(tokens...) << base);
+        state().set_channel_sp("return", e);
         return transit_to<Target>();
     }
 
-    /// Interface return clause
-    Target Return()
+    /// Interface return clause with printf-like format
+    template <class T, class... Rest>
+    Target Return(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
     {
-        return Return("");
-    }
-
-    /// Refers to the arguments subsignal at the given idx
-    Target Return(std::size_t idx)
-    {
-        return Return("/%lu", idx);
+        return Return(expr::Format(arg1, args_rest...) << fmt);
     }
 
     /// Interface argument clause
     /// Refers to the arguments subsignal at the given JSON Pointer
-    template <class... T>
-    Target Args(boost::json::string_view base, T&&... tokens)
+    Target Args(Expression const& e = "$default")
     {
-        state().set_channel_sp("args", expr::Format(tokens...) << base);
+        state().set_channel_sp("args", e);
         return transit_to<Target>();
     }
 
-    /// Interface default argument clause
-    /// Refers to the argument value on unary interfaces or to the arguments tuple otherwise.
-    Target Args()
+    /// Interface argument clause with printf-like format
+    template <class T, class... Rest>
+    Target Args(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
     {
-        state().set_channel_sp("args", "$default");
-        return transit_to<Target>();
-    }
-
-    /// Interface argument clause
-    /// Refers to the arguments subsignal at the given idx
-    Target Args(std::size_t idx)
-    {
-        return Args("/%lu", idx);
+        return Args(expr::Format(arg1, args_rest...) << fmt);
     }
 
     /// Interface exception

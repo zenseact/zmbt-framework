@@ -66,10 +66,12 @@ try
         interface   = Expression(interface).eval();
         signal_path = Expression(signal_path).eval();
 
+        if (signal_path.is_number())
+        {
+            signal_path = format("/%d", signal_path);
+        }
 
-        // auto const& call = channel.as_object().at("call");
         interface_id ifc_id;
-
 
         if (interface.is_string())
         {
@@ -118,7 +120,7 @@ try
 catch (std::exception const& e)
 {
     print_debug(next_model);
-    throw model_error("Resolving deferred parameters failed with `%s`", e.what());
+    throw model_error("Resolving model parameters failed with `%s`", e.what());
 }
 
 

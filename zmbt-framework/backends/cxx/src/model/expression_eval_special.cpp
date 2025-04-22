@@ -446,10 +446,12 @@ V eval_impl<Keyword::Compose>(V const& x, V const& param, E::EvalContext const& 
 
     auto fn = funcs.crbegin();
 
-    boost::json::value ret {x};
+    // first el eval as is
+    boost::json::value ret {E(*fn++).eval(x,context++)};
 
     while (fn != funcs.crend())
     {
+        // any consequent literals eval as eq
         ret = E::literalAsEq(*fn++).eval(ret,context++);
     }
     return ret;
@@ -651,20 +653,18 @@ V eval_impl<Keyword::Format>(V const& x, V const& param, E::EvalContext const& c
 {
     static_cast<void>(context);
     ASSERT(x.is_string());
-    boost::format fmt {x.get_string().c_str()};
-    auto const N = fmt.expected_args();
-    ASSERT(param.is_array() || (N == 1));
+    ASSERT(param.is_array());
+    auto const& tokens = param.get_array();
+    if (tokens.empty()) return x;
 
-    if (!param.is_array() && N == 1)
+    boost::format fmt {x.get_string().c_str()};
+    auto const N = static_cast<std::size_t>(fmt.expected_args());
+    ASSERT(tokens.size() == N);
+
+    for (auto const& token: tokens)
     {
-        fmt = param.is_string() ? (fmt % param.get_string().c_str()) : (fmt % param);
-    }
-    else
-    {
-        for (auto const& item: param.get_array())
-        {
-            fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
-        }
+        auto const item = E(token).eval();
+        fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
     }
     return {fmt.str()};
 }

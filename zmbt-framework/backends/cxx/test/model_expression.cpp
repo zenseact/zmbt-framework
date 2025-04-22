@@ -554,8 +554,9 @@ std::vector<TestEvalSample> const TestSamples
     {Format("Hello", "World")   , "%s, %s!"              , "Hello, World!"      },
     {Format(2,2,4)              , "%d + %d = %d"         , "2 + 2 = 4"          },
     {Format({1,2,3})            , "list: %s"             , "list: [1,2,3]"      },
-    {Format                     , {"Hello, %s!", "World"}, "Hello, World!"      },
     {Format                     , {"Hello, %s!", L{"World"}}, "Hello, World!"   },
+    {Format(Pi) |Parse          , "%s"                   , Pi.eval()            },
+    {Format(Inf)|Parse          , "%s"                   , Inf.eval()           },
 
     {Parse                      , "[1,2,3]"              , {1,2,3}              },
     {Serialize                  , {1,2,3}                , "[1,2,3]"            },

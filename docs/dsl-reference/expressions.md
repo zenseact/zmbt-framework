@@ -920,7 +920,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td><a id ="tolist"> ToList
         </td>
         <td>Put argument into a list
-        <pre>Equivalent to `At([""])`</pre>
+        <pre>Equivalent to At([""])</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
         <td><pre>List >> 42 == [42]</pre></td>
@@ -1010,7 +1010,9 @@ Re("[0-9]+") >> "42" == true</pre></td>
     <tr>
         <td><a id ="format"> Format
         </td>
-        <td>Format string with given parameter list
+        <td>Format string with the given parameter list.
+        <pre>Constant expressions are supported for the token list,
+s.t. Fmt(Pi) << "%s" produces "3.141592653589793E0"</pre>
         <br>Aliases: fmt
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
@@ -1188,9 +1190,9 @@ At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
         </td>
         <td>Lookup table function
         <pre>Parametrized at design time with fixed array or object,
-produces the value at corresponding `At` query given
+produces the value at corresponding At query given
 as eval-time argument.
-Equivalent to `Flip(At(...))`</pre>
+Equivalent to Flip(At(...))</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
         <td><pre>Lookup([1,2,3]) >> 0 ==  1
@@ -1202,7 +1204,7 @@ Lookup([1,2,3]) >> "/foo" ==  null</pre></td>
         <td>User-defined constant
         <pre>Produced expression will return the design-time parameter
 on evaluation, ignoring input.
-C(x) is a shorthand for `Id << x` or `And(false)|Or(x)`</pre>
+C(x) is a shorthand for Id << x or And(false)|Or(x)</pre>
         <br>Aliases: let
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
@@ -1264,7 +1266,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td><a id ="each"> Each
         </td>
         <td>Test predicate for each item in a sequence
-        <pre>Equivalent to `Count(p|Not)|Eq(0)`</pre>
+        <pre>Equivalent to Count(p|Not)|Eq(0)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
         <td><pre>Each(Gt(2)) >> [1, 2, 3, 4] == false

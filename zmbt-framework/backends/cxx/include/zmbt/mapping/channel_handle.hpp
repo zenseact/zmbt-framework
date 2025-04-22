@@ -26,7 +26,7 @@ class ChannelHandle
 public:
     enum class Kind
     {
-        Args, Return, Exception, Timestamp, ThreadId, CallCount,
+        Undefined, Args, Return, Exception, Timestamp, ThreadId, CallCount,
     };
 
     ~ChannelHandle() = default;

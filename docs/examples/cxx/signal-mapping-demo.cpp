@@ -328,7 +328,7 @@ BOOST_AUTO_TEST_CASE(ZipParametrization)
 1. `Param` is a placeholder object with string or int identifier.
     It must be unique within the test model. These identifiers are also
     used for diagnostics and reporting, so meaningful names are encouraged.
-2. Strings can be parametrized with deferred formatting.
+2. Strings can be parametrized as expressions, deferring the string formatting.
 3. Parameters can be nested deep in the expressions.
 4. Use `Zip` or `Pro` to generate multiple test instances with different parameter combinations.
 5. Each parameter list follows the syntax: $(key, x_1, x_2, ..., x_n)$.
@@ -449,16 +449,20 @@ elements of the arguments tuple. Recall the default channel kind deduction rule 
 now you see that *unary function args resolves to value...* means
 the default signal path for unary function is `"/0"`.
 
-This works with parametrization well - if you need to parametrize only a part
-of signal path, use a printf-like syntax as follows:
+This works with parametrization well - the `Args` and `Return` clauses
+accepts constant expression that evaluates to JSON Pointer string or index integer.
+
+If you need to parametrize only a part of signal path, use an expr::Fmt or a printf-like overload:
 
 ```cpp
+.InjectTo (sut).Args(Fmt(Index, Field) << "/%d/%s/bar")
+// or
 .InjectTo (sut).Args("/%d/%s/bar", Index, Field)
 ```
 
 Considering the *Index* and *Field* are parameter keys, the signal path here is
-a deferred format object that is transformed to an actual string by the model
-resolver when the parameter values are known.
+evaluated to an actual string by the model resolver when the parameter values are known.
+Parameters can be composed with other expressions, e.g. `Index|Add(1)` will be evaluated with +1 offset.
 
 The example below shows how to use JSON serialization with custom types.
 ```c++

@@ -545,7 +545,7 @@ extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Flatten> const Flatten;
 /// \brief Put argument into a list
 /// \anchor expr-to-list
 /// \details
-/// Equivalent to `At([""])`\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// Equivalent to At([""])\see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::ToList> const ToList;
 
 /// \brief Generate range of numbers
@@ -586,10 +586,11 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Re;
 /// \brief Alias for Re
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Regex;
 
-/// \brief Format string with given parameter list
+/// \brief Format string with the given parameter list.
 /// \anchor expr-format
 /// \details
-/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
+/// Constant expressions are supported for the token list,
+/// s.t. Fmt(Pi) << "%s" produces "3.141592653589793E0"\see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Format> const Format;
 /// \brief Alias for Format
 extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Format> const Fmt;
@@ -678,9 +679,9 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::At> const At;
 /// \anchor expr-lookup
 /// \details
 /// Parametrized at design time with fixed array or object,
-/// produces the value at corresponding `At` query given
+/// produces the value at corresponding At query given
 /// as eval-time argument.
-/// Equivalent to `Flip(At(...))`\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Equivalent to Flip(At(...))\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Lookup> const Lookup;
 
 /// \brief User-defined constant
@@ -688,7 +689,7 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Lookup> const Lookup;
 /// \details
 /// Produced expression will return the design-time parameter
 /// on evaluation, ignoring input.
-/// C(x) is a shorthand for `Id << x` or `And(false)|Or(x)`\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// C(x) is a shorthand for Id << x or And(false)|Or(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const C;
 /// \brief Alias for C
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let;
@@ -725,7 +726,7 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Count> const Count;
 /// \brief Test predicate for each item in a sequence
 /// \anchor expr-each
 /// \details
-/// Equivalent to `Count(p|Not)|Eq(0)`\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Equivalent to Count(p|Not)|Eq(0)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Each> const Each;
 
 /// \brief Sort list by key function
