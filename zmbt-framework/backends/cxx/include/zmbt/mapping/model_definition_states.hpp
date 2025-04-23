@@ -240,7 +240,7 @@ class ModelDefinition::N_EndIn
 
 class ModelDefinition::N_EndOut 
     : public ModelDefinition::N_CombineOut
-    , public ModelDefinition::T_Expect<ModelDefinition::N_ChannelOut>
+    , public ModelDefinition::T_Expect<ModelDefinition::N_Channel>
 {
   private:
     friend class ModelDefinition;
@@ -444,7 +444,7 @@ extern template class ModelDefinition::T_ObserveOn<ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_Union<ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_With<ModelDefinition::N_KindOut>;
 extern template class ModelDefinition::T_Keep<ModelDefinition::N_Channel>;
-extern template class ModelDefinition::T_Expect<ModelDefinition::N_ChannelOut>;
+extern template class ModelDefinition::T_Expect<ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_EndIn>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_EndOut>;
 extern template class ModelDefinition::T_CallFilter<ModelDefinition::N_AliasOut>;

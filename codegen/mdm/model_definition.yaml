@@ -56,7 +56,7 @@ nodes:
   N_EndOut:
     base: N_CombineOut
     transitions:
-      T_Expect: N_ChannelOut # terminate combo
+      T_Expect: N_Channel # terminate combo
 
   N_AliasIn:
     base: N_EndIn

@@ -34,7 +34,7 @@ template class ModelDefinition::T_ObserveOn<ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_Union<ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_With<ModelDefinition::N_KindOut>;
 template class ModelDefinition::T_Keep<ModelDefinition::N_Channel>;
-template class ModelDefinition::T_Expect<ModelDefinition::N_ChannelOut>;
+template class ModelDefinition::T_Expect<ModelDefinition::N_Channel>;
 template class ModelDefinition::T_Alias<ModelDefinition::N_EndIn>;
 template class ModelDefinition::T_Alias<ModelDefinition::N_EndOut>;
 template class ModelDefinition::T_CallFilter<ModelDefinition::N_AliasOut>;
