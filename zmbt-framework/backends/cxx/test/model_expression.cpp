@@ -348,8 +348,8 @@ std::vector<TestEvalSample> const TestSamples
     {BitOr                      , {1ul, 2ul}            , 2ul | 1ul             },
     {BitXor                     , {1ul, 2ul}            , 2ul xor 1ul           },
 
-    {BitLshift                  , {1, 1}                , 2                   },
-    {BitRshift                  , {2, 1}                , 1                   },
+    {BitLshift                  , {1, 1}                , 2                     },
+    {BitRshift                  , {2, 1}                , 1                     },
 
     {Add                        , {3,  2}               , 5                     },
     {Add                        , {.5, 1}               , 1.5                   },
@@ -458,7 +458,7 @@ std::vector<TestEvalSample> const TestSamples
     {And(42)|Or(13)             , true                  , 42                    },
     {And(42)|Or(13)             , false                 , 13                    },
     {And(42)|Or(13)|Not         , true                  , false                 },
-    {And(E)|Or(NaN)             , true                  , E                     },
+    {And(E)|Or(NaN)             , true                  , e                     },
 
     {Push("baz")|Reduce(And)    , {"foo", "bar"}        , "bar"                 },
     {Push(""   )|Reduce(And)    , {"foo", "bar"}        , ""                    },
@@ -547,6 +547,7 @@ std::vector<TestEvalSample> const TestSamples
     {Saturate(42, Mod(2)|0)     , {2,4,8,42}             , false                },
 
     {Concat("World!")           , "Hello, "              , "Hello, World!"      },
+    {Flip(Concat("Hello, "))    , "World!"               , "Hello, World!"      },
     {Concat                     , L{"Hello, ", "World!"} , "Hello, World!"      },
     {Concat({3,4})              , {1,2}                  , {1,2,3,4}            },
 
@@ -589,11 +590,11 @@ std::vector<TestEvalSample> const TestSamples
     {Keyword::Noop              , nullptr                , true                 },
     // test heterogeneous init lists in params
     // Binary
-    {Serialize                  , Concat({Keyword::At})  , R"({":concat":[":at"]})"},
-    {Serialize                  , Concat({42, Keyword::At, precise<float>()})
+    {Serialize                  , C(Cat({Keyword::At}))  , R"({":concat":[":at"]})"},
+    {Serialize                  , C(Cat({42, Keyword::At, precise<float>()}))
                                 , R"({":concat":[42,":at","0x0p+0"]})"          },
     // HiOrd
-    {Serialize                  , Max({Keyword::At})     , R"({":max":[":at"]})"},
+    {Serialize                  , C(Max({Keyword::At}))     , R"({":max":[":at"]})"},
 };
 
 

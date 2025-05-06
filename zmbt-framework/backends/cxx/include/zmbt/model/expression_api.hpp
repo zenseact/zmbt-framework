@@ -455,12 +455,16 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::NotNi> const NotNi;
 /// \details
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Bool> const Bool;
+/// \brief Alias for Bool
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Bool> const Truthy;
 
 /// \brief Predicate on boolean transform (aka falsy)
 /// \anchor expr-nil
 /// \details
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Nil> const Nil;
+/// \brief Alias for Nil
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Nil> const Falsy;
 
 /// \brief Logical complement
 /// \anchor expr-not
@@ -656,6 +660,8 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Repeat> const Repeat;
 /// \details
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Concat> const Concat;
+/// \brief Alias for Concat
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Concat> const Cat;
 
 /// \brief Push element into a front of sequence
 /// \anchor expr-push

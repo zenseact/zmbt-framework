@@ -743,6 +743,7 @@ NotNi([1, 2]) >> 1 == false</pre></td>
         </td>
         <td>?</td>
         <td>Predicate on boolean transform (aka truthy)
+        <br>Aliases: truthy
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
         <td><pre>Bool >> 42 == true
@@ -759,6 +760,7 @@ Bool >> null == false</pre></td>
         </td>
         <td></td>
         <td>Predicate on boolean transform (aka falsy)
+        <br>Aliases: falsy
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
         <td><pre>Nil >> 42 == false
@@ -1136,6 +1138,7 @@ Repeat(3)|Repeat(2) >> 1 == [[1,1,1],[1,1,1]]</pre></td>
         <td><a id ="concat"> Concat
         </td>
         <td>Concatenate sequences
+        <br>Aliases: cat
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
         <td><pre>Concat >> [1, 2], [3, 4] == [1, 2, 3, 4]
