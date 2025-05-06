@@ -36,23 +36,12 @@ V eval_impl(V const& x, V const& param, E::EvalContext const& context);
 
 
 template <>
-V eval_impl<Keyword::Apply>(V const& x, V const& param, E::EvalContext const& context)
-{
-    static_cast<void>(x); // x is ignored, as Apply essentialy creates a const expr
-    ASSERT(param.is_array());
-    auto const& expr = param.get_array().at(0);
-    auto const& args = param.get_array().at(1);
-    return E(expr).eval(args, context++);
-}
-
-
-template <>
 V eval_impl<Keyword::All>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (not E::literalAsEq(e).eval(x,context++).as_bool())
+        if (not E::asPredicate(e).eval(x,context++).as_bool())
         {
             return false;
         }
@@ -67,7 +56,7 @@ V eval_impl<Keyword::Any>(V const& x, V const& param, E::EvalContext const& cont
     ASSERT(param.is_array());
     for (auto const& e: param.get_array())
     {
-        if (E::literalAsEq(e).eval(x,context++).as_bool())
+        if (E::asPredicate(e).eval(x,context++).as_bool())
         {
             return true;
         }
@@ -207,7 +196,7 @@ V eval_impl<Keyword::Saturate>(V const& x, V const& param, E::EvalContext const&
         {
             break;
         }
-        if (E::literalAsEq(*it).eval(sample,context++).as_bool())
+        if (E::asPredicate(*it).eval(sample,context++).as_bool())
         {
             it++;
         }
@@ -219,7 +208,7 @@ template <>
 V eval_impl<Keyword::Count>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array() || x.is_object())
-    auto const filter = E::literalAsEq(param);
+    auto const filter = E::asPredicate(param);
     std::size_t count {0};
 
     if (x.is_array())
@@ -250,7 +239,7 @@ template <>
 V eval_impl<Keyword::Each>(V const& x, V const& param, E::EvalContext const& context)
 {
     ASSERT(x.is_array() || x.is_object())
-    auto const filter = E::literalAsEq(param);
+    auto const filter = E::asPredicate(param);
 
     if (x.is_array())
     {
@@ -425,7 +414,7 @@ V eval_impl<Keyword::Filter>(V const& x, V const& param, E::EvalContext const& c
     {
         return ret;
     }
-    auto F = E::literalAsEq(param);
+    auto F = E::asPredicate(param);
     for (auto const& el: samples)
     {
         if (F.eval(el,context++).as_bool())
@@ -452,7 +441,7 @@ V eval_impl<Keyword::Compose>(V const& x, V const& param, E::EvalContext const& 
     while (fn != funcs.crend())
     {
         // any consequent literals eval as eq
-        ret = E::literalAsEq(*fn++).eval(ret,context++);
+        ret = E::asPredicate(*fn++).eval(ret,context++);
     }
     return ret;
 }
@@ -485,7 +474,7 @@ V eval_impl<Keyword::Recur>(V const& x, V const& param, E::EvalContext const& co
     auto const& params = param.get_array();
     ASSERT(params.size() == 2);
     auto F = E(params.at(0));
-    std::uint64_t count = boost::json::value_to<std::uint64_t>(x);
+    std::uint64_t count = boost::json::value_to<std::uint64_t>(E(x).eval());
     boost::json::value result {params.at(1)};
 
     for (std::uint64_t i = 0; i < count; i++)
@@ -502,7 +491,7 @@ V eval_impl<Keyword::Unfold>(V const& x, V const& param, E::EvalContext const& c
     auto const& params = param.get_array();
     ASSERT(params.size() == 2);
     auto F = E(params.at(0));
-    std::uint64_t count = boost::json::value_to<std::uint64_t>(x);
+    std::uint64_t count = boost::json::value_to<std::uint64_t>(E(x).eval());
     boost::json::array result {};
     result.reserve(count);
     result.push_back(params.at(1));
@@ -661,9 +650,8 @@ V eval_impl<Keyword::Format>(V const& x, V const& param, E::EvalContext const& c
     auto const N = static_cast<std::size_t>(fmt.expected_args());
     ASSERT(tokens.size() == N);
 
-    for (auto const& token: tokens)
+    for (auto const& item: tokens)
     {
-        auto const item = E(token).eval();
         fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
     }
     return {fmt.str()};
@@ -1133,6 +1121,84 @@ namespace zmbt
 
 boost::json::value Expression::eval_Special(boost::json::value const& x, EvalContext const& context) const
 {
+    V maybe_x;
+    V maybe_param;
+    V const* x_ptr {nullptr};
+    V const* param_ptr {nullptr};
+    if (dsl::detail::isBinary(keyword()))
+    {
+        handle_binary_args(x, x_ptr, param_ptr);
+    }
+    else
+    {
+        x_ptr = &x;
+        param_ptr = &params();
+    }
+    ASSERT(x_ptr)
+    ASSERT(param_ptr)
+
+    V const xx = E(*x_ptr).eval();
+
+
+    V pp = *param_ptr;
+    if (dsl::detail::isVariadic(keyword()) && pp.is_array())
+    {
+        for (auto& fn: pp.get_array())
+        {
+            fn = E(fn).eval(nullptr, context++);
+        }
+    }
+    else
+    {
+        pp  = E(pp).eval(nullptr, context++);
+    }
+
+    switch(keyword())
+    {
+
+        // terms special
+        case Keyword::At:        return eval_impl<Keyword::At>          (xx, pp, context);
+        case Keyword::Approx:    return eval_impl<Keyword::Approx>      (xx, pp, context);
+        case Keyword::Re:        return eval_impl<Keyword::Re>          (xx, pp, context);
+        case Keyword::Lookup:    return eval_impl<Keyword::Lookup>      (xx, pp, context);
+        case Keyword::Card:      return eval_impl<Keyword::Card>        (xx, pp, context);
+        case Keyword::Size:      return eval_impl<Keyword::Size>        (xx, pp, context);
+        case Keyword::Sum:       return eval_impl<Keyword::Sum>         (xx, pp, context);
+        case Keyword::Prod:      return eval_impl<Keyword::Prod>        (xx, pp, context);
+        case Keyword::Avg:       return eval_impl<Keyword::Avg>         (xx, pp, context);
+        case Keyword::Repeat:    return eval_impl<Keyword::Repeat>      (xx, pp, context);
+        case Keyword::Transp:    return eval_impl<Keyword::Transp>      (xx, pp, context);
+        case Keyword::Cartesian: return eval_impl<Keyword::Cartesian>   (xx, pp, context);
+        case Keyword::Concat:    return eval_impl<Keyword::Concat>      (xx, pp, context);
+        case Keyword::Push:      return eval_impl<Keyword::Push>        (xx, pp, context);
+        case Keyword::Uniques:   return eval_impl<Keyword::Uniques>     (xx, pp, context);
+        case Keyword::Reverse:   return eval_impl<Keyword::Reverse>     (xx, pp, context);
+        case Keyword::Slide:     return eval_impl<Keyword::Slide>       (xx, pp, context);
+        case Keyword::Chunks:    return eval_impl<Keyword::Chunks>      (xx, pp, context);
+        case Keyword::Stride:    return eval_impl<Keyword::Stride>      (xx, pp, context);
+        case Keyword::Arange:    return eval_impl<Keyword::Arange>      (xx, pp, context);
+        case Keyword::Items:     return eval_impl<Keyword::Items>       (xx, pp, context);
+        case Keyword::Keys:      return eval_impl<Keyword::Keys>        (xx, pp, context);
+        case Keyword::Values:    return eval_impl<Keyword::Values>      (xx, pp, context);
+        case Keyword::Enumerate: return eval_impl<Keyword::Enumerate>   (xx, pp, context);
+        case Keyword::Flatten:   return eval_impl<Keyword::Flatten>     (xx, pp, context);
+        case Keyword::Union:     return eval_impl<Keyword::Union>       (xx, pp, context);
+        case Keyword::Intersect: return eval_impl<Keyword::Intersect>   (xx, pp, context);
+        case Keyword::Diff:      return eval_impl<Keyword::Diff>        (xx, pp, context);
+        case Keyword::Format:    return eval_impl<Keyword::Format>      (xx, pp, context);
+
+        default:
+        {
+            // TODO: throw
+            throw zmbt::expression_not_implemented("%s keyword not implemented", json_from(keyword()));
+            return nullptr;
+        }
+    }
+}
+
+
+boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalContext const& context) const
+{
     V const* x_ptr {nullptr};
     V const* param_ptr {nullptr};
     if (dsl::detail::isBinary(keyword()))
@@ -1149,76 +1215,26 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
 
     switch(keyword())
     {
-
-    #define ZMBT_EXPR_EVAL_IMPL_CASE(K) case Keyword::K: return eval_impl<Keyword::K>(*x_ptr, *param_ptr, context);
-
-        // terms special
-        ZMBT_EXPR_EVAL_IMPL_CASE(Approx)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Re)
-        ZMBT_EXPR_EVAL_IMPL_CASE(At)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Lookup)
-
-        // props
-        ZMBT_EXPR_EVAL_IMPL_CASE(Card)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Size)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Sum)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Prod)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Avg)
-
-
-        // combo
-        ZMBT_EXPR_EVAL_IMPL_CASE(All)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Any)
-
-        // high-orded
-        ZMBT_EXPR_EVAL_IMPL_CASE(Compose)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Count)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Each)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Map)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Filter)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Recur)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Unfold)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Reduce)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Saturate)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Apply)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Try)
-        ZMBT_EXPR_EVAL_IMPL_CASE(TryCatch)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Pack)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Flip)
-
-
-        // vector ops
-        ZMBT_EXPR_EVAL_IMPL_CASE(Repeat)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Transp)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Cartesian)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Concat)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Push)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Uniques)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Sort)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Reverse)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Slide)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Chunks)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Stride)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Arange)
-
-        ZMBT_EXPR_EVAL_IMPL_CASE(Items)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Keys)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Values)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Enumerate)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Flatten)
-
-        ZMBT_EXPR_EVAL_IMPL_CASE(Argmin)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Argmax)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Min)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Max)
-
-        // set ops
-        ZMBT_EXPR_EVAL_IMPL_CASE(Union)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Intersect)
-        ZMBT_EXPR_EVAL_IMPL_CASE(Diff)
-
-        // string ops
-        ZMBT_EXPR_EVAL_IMPL_CASE(Format)
+        case Keyword::All:      return eval_impl<Keyword::All>     (*x_ptr, *param_ptr, context);
+        case Keyword::Any:      return eval_impl<Keyword::Any>     (*x_ptr, *param_ptr, context);
+        case Keyword::Compose:  return eval_impl<Keyword::Compose> (*x_ptr, *param_ptr, context);
+        case Keyword::Count:    return eval_impl<Keyword::Count>   (*x_ptr, *param_ptr, context);
+        case Keyword::Each:     return eval_impl<Keyword::Each>    (*x_ptr, *param_ptr, context);
+        case Keyword::Map:      return eval_impl<Keyword::Map>     (*x_ptr, *param_ptr, context);
+        case Keyword::Filter:   return eval_impl<Keyword::Filter>  (*x_ptr, *param_ptr, context);
+        case Keyword::Recur:    return eval_impl<Keyword::Recur>   (*x_ptr, *param_ptr, context);
+        case Keyword::Unfold:   return eval_impl<Keyword::Unfold>  (*x_ptr, *param_ptr, context);
+        case Keyword::Reduce:   return eval_impl<Keyword::Reduce>  (*x_ptr, *param_ptr, context);
+        case Keyword::Saturate: return eval_impl<Keyword::Saturate>(*x_ptr, *param_ptr, context);
+        case Keyword::Try:      return eval_impl<Keyword::Try>     (*x_ptr, *param_ptr, context);
+        case Keyword::TryCatch: return eval_impl<Keyword::TryCatch>(*x_ptr, *param_ptr, context);
+        case Keyword::Pack:     return eval_impl<Keyword::Pack>    (*x_ptr, *param_ptr, context);
+        case Keyword::Flip:     return eval_impl<Keyword::Flip>    (*x_ptr, *param_ptr, context);
+        case Keyword::Sort:     return eval_impl<Keyword::Sort>    (*x_ptr, *param_ptr, context);
+        case Keyword::Argmin:   return eval_impl<Keyword::Argmin>  (*x_ptr, *param_ptr, context);
+        case Keyword::Argmax:   return eval_impl<Keyword::Argmax>  (*x_ptr, *param_ptr, context);
+        case Keyword::Min:      return eval_impl<Keyword::Min>     (*x_ptr, *param_ptr, context);
+        case Keyword::Max:      return eval_impl<Keyword::Max>     (*x_ptr, *param_ptr, context);
 
         default:
         {
@@ -1227,8 +1243,9 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
             return nullptr;
         }
     }
-    #undef ZMBT_EXPR_EVAL_IMPL_CASE
+
 }
+
 
 } // namespace zmbt
 

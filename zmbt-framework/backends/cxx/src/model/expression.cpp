@@ -242,26 +242,29 @@ Expression::Expression(std::initializer_list<boost::json::value_ref> items)
 {
 }
 
-Expression Expression::literalAsEq(boost::json::value const& underlying)
-{
-    Expression const expr(underlying);
-    if (expr.is_literal()) return Expression(Keyword::Eq, expr.underlying());
-    return expr;
-}
-
-Expression Expression::constAsEq(boost::json::value const& underlying)
+Expression Expression::asPredicate(boost::json::value const& underlying)
 {
     Expression const expr(underlying);
     if (!expr.is_noop() && expr.is_const()) return Expression(Keyword::Eq, expr.eval());
-    return expr;
+    else return expr;
 }
 
 bool Expression::is_const() const
 {
     using dsl::detail::CodegenType;
     using dsl::detail::getCodegenType;
-    return is(Keyword::Apply) || is(Keyword::Literal) || is(Keyword::C) || (CodegenType::Const == getCodegenType(keyword()));
+    if (is(Keyword::Compose))
+    {
+        return Expression(params().as_array().back()).is_const();
+    }
+    return is(Keyword::Literal) || is(Keyword::C) || (CodegenType::Const == getCodegenType(keyword()));
 }
+
+bool Expression::is_hiord() const
+{
+    return dsl::detail::isHiOrd(keyword());
+}
+
 
 bool Expression::match(boost::json::value const& observed, SignalOperatorHandler const& op) const
 {

@@ -89,21 +89,32 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
     {
         result = underlying();
     }
+    else if (is(Keyword::C))
+    {
+        result = params();
+    }
+    else if (is(Keyword::Id))
+    {
+        result = x;
+    }
     else {
         CodegenType const classifier = getCodegenType(keyword());
         switch (classifier)
         {
-            case CodegenType::Const:       { result = eval_Const    (x, ctx.op);     break; }
-            case CodegenType::UnaryOp:     { result = eval_UnaryOp  (x, ctx.op);   break; }
-            case CodegenType::BinaryOp:    { result = eval_BinaryOp (x, ctx.op);  break; }
-            case CodegenType::CodegenFn:   { result = eval_CodegenFn(x, ctx.op); break; }
+            case CodegenType::Const:       { result = eval_Const    (x);      break; }
+            case CodegenType::UnaryOp:     { result = eval_UnaryOp  (x, ctx); break; }
+            case CodegenType::BinaryOp:    { result = eval_BinaryOp (x, ctx); break; }
+            case CodegenType::CodegenFn:   { result = eval_CodegenFn(x, ctx); break; }
             case CodegenType::None:
             default:
-                result = eval_Special(x, ctx);
+            {
+                result = is_hiord() ? eval_HiOrd(x, ctx) : eval_Special(x, ctx);
                 break;
+
+            }
         }
+        ctx.log.push(underlying(),x, result, ctx.depth);
     }
-    ctx.log.push(underlying(),x, result, ctx.depth);
     return result;
 }
 

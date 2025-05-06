@@ -22,6 +22,10 @@ class Keyword:
         return self.Group == 'Internal'
 
     @property
+    def IsHiOrd(self) -> bool:
+        return self.Group == 'High-Order'
+
+    @property
     def Signature(self) -> str:
         return self._definition.get('signature', 'Special')
 
@@ -196,6 +200,10 @@ class KeywordGrammar:
     @property
     def Operators(self) -> list[Keyword]:
         return self.where(lambda x: x.IsOperator)
+
+    @property
+    def HiOrdFns(self) -> list[Keyword]:
+        return self.where(lambda x: x.IsHiOrd)
 
     @property
     def UnaryOperators(self) -> list[Keyword]:

@@ -374,9 +374,6 @@ enum class Keyword
     /// argmax
     Argmax,
 
-    /// apply
-    Apply,
-
     /// recur
     Recur,
 
@@ -404,14 +401,14 @@ enum class Keyword
     /// flip
     Flip,
 
-    /// default
-    Default,
-
     /// try
     Try,
 
     /// try-catch
     TryCatch,
+
+    /// default
+    Default,
 
     _count
 };

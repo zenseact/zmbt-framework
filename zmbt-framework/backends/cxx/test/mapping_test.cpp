@@ -565,7 +565,7 @@ BOOST_AUTO_TEST_CASE(KeepClause)
         .InjectTo  (SUT).Keep(Recur(Pow(2), 2))
         .ObserveOn (SUT).CallRange()
     .Test
-        (Id & (Sub(1)|Unfold(Pow(2), 2)) << N | Eq)
+        (Id & (N|Sub(1)|Unfold(Pow(2), 2)) | Eq)
     .Zip
         (N, 1)
     ;

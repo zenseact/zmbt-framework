@@ -47,10 +47,10 @@ TEST(RunInGtest, SignalMapping)
         .InjectTo  (id)
         .ObserveOn (id)
     .Test
-        (Add(2) <<  2       , 4                                  ) ["Apply on input"]
-        ({42, 42, 42}       , Repeat(3) << 42                    ) ["Apply on output"]
-        ("[42,42,42]"       , Parse & Repeat(3) << 42 | Eq       ) ["Nested Apply"]
-        (Arange << "1:5"    , Reduce(Add) & Size | Div | Eq(2.5) ) ["Complex example (computing average)"]
+        (2|Add(2)    , 4                                 ) ["Compose on input"]
+        ({42, 42, 42}, 42|Repeat(3)                      ) ["Compose on output"]
+        ("[42,42,42]", Parse & (42|Repeat(3)) | Eq       ) ["Nested Compose"]
+        ("1:5"|Arange, Reduce(Add) & Size | Div | Eq(2.5)) ["Complex example (computing average)"]
     ;
 
 
@@ -63,8 +63,8 @@ TEST(RunInGtest, SignalMapping)
         .InjectTo  (id)
         .ObserveOn (id)
     .Test
-        (List{X, X, X}            , Repeat(3) << X             )
-        (Format(X, Y) << "[%s,%s]", Parse | Any({13,0}, {19,1}))
+        (List{X, X, X}         , X|Repeat(3)                )
+        ("[%s,%s]"|Format(X, Y), Parse | Any({13,0}, {19,1}))
     .Zip
         (X, 13, 19)
         (Y,  0,  1)

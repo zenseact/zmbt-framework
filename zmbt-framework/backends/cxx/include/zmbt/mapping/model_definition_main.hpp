@@ -33,7 +33,7 @@ class SignalMapping : public ModelDefinition::N_Main
     template <class... T>
     SignalMapping(boost::json::string_view name, T&&... args) : N_Main()
     {
-        this->state().set_deferred_param("/name", expr::Format(args...) << name);
+        this->state().set_deferred_param("/name", name | expr::Fmt(args...));
     }
 
     ~SignalMapping()

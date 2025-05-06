@@ -81,9 +81,9 @@ bool isBinary(Keyword const& k)
     case Keyword::Argmin:
     case Keyword::Argmax:
     case Keyword::Flip:
-    case Keyword::Default:
     case Keyword::Try:
     case Keyword::TryCatch:
+    case Keyword::Default:
         return true;
     default:
         return false;

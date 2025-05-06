@@ -46,7 +46,49 @@ CodegenType getCodegenType(Keyword const& k)
     default:
         return CodegenType::None;
     }
+}
 
+
+bool isConst(Keyword const& k)
+{
+    switch (k)
+    {
+@for keyword in data.Constants:
+    case Keyword::@keyword.Enum:
+@end
+    case Keyword::C:
+    case Keyword::Literal:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool isHiOrd(Keyword const& k)
+{
+    switch (k)
+    {
+@for keyword in data.HiOrdFns:
+    case Keyword::@keyword.Enum:
+@end
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool isVariadic(Keyword const& k)
+{
+    switch (k)
+    {
+@for keyword in data.where(lambda x: x.Signature == 'Variadic'):
+    case Keyword::@keyword.Enum:
+@end
+        return true;
+    default:
+        return false;
+    }
 }
 
 } // namespace detail

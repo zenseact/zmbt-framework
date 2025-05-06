@@ -97,12 +97,17 @@ Expression operator&(Expression const& lhs, Expression const& rhs)
 
 Expression operator<<(Expression const& lhs, Expression const& rhs)
 {
-    return expr::Apply(lhs, rhs);
+    return expr::Compose(lhs, rhs);
 }
 
-Expression operator>>(Expression const& lhs, Expression const& rhs)
+boost::json::value operator*(Expression const& lhs, Expression const& rhs)
 {
     return lhs.eval(rhs);
+}
+
+boost::json::value operator*(Expression const& expr)
+{
+    return expr.eval();
 }
 
 } // namespace zmbt

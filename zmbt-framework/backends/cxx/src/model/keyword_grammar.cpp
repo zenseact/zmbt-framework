@@ -192,7 +192,6 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "max", Keyword::Max)
     (ZMBT_KEYWORD_PREFIX "argmin", Keyword::Argmin)
     (ZMBT_KEYWORD_PREFIX "argmax", Keyword::Argmax)
-    (ZMBT_KEYWORD_PREFIX "apply", Keyword::Apply)
     (ZMBT_KEYWORD_PREFIX "recur", Keyword::Recur)
     (ZMBT_KEYWORD_PREFIX "unfold", Keyword::Unfold)
     (ZMBT_KEYWORD_PREFIX "bind", Keyword::Bind)
@@ -202,10 +201,10 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "compose", Keyword::Compose)
     (ZMBT_KEYWORD_PREFIX "pack", Keyword::Pack)
     (ZMBT_KEYWORD_PREFIX "flip", Keyword::Flip)
-    (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
-    (ZMBT_KEYWORD_PREFIX "d", Keyword::Default)
     (ZMBT_KEYWORD_PREFIX "try", Keyword::Try)
     (ZMBT_KEYWORD_PREFIX "try-catch", Keyword::TryCatch)
+    (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
+    (ZMBT_KEYWORD_PREFIX "d", Keyword::Default)
     ;
 }
 
@@ -343,7 +342,6 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
     case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }
     case Keyword::Argmax: { v = ZMBT_KEYWORD_PREFIX "argmax"; break; }
-    case Keyword::Apply: { v = ZMBT_KEYWORD_PREFIX "apply"; break; }
     case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
     case Keyword::Unfold: { v = ZMBT_KEYWORD_PREFIX "unfold"; break; }
     case Keyword::Bind: { v = ZMBT_KEYWORD_PREFIX "bind"; break; }
@@ -353,9 +351,9 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
     case Keyword::Pack: { v = ZMBT_KEYWORD_PREFIX "pack"; break; }
     case Keyword::Flip: { v = ZMBT_KEYWORD_PREFIX "flip"; break; }
-    case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
     case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "try"; break; }
     case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "try-catch"; break; }
+    case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
         // TODO: throw
         default: v = ":undefined";
     }

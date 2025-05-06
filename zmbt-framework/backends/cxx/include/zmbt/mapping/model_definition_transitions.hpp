@@ -38,7 +38,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
     template <class... T>
     Target OnTrigger(boost::json::string_view key, T&&... fmtargs)
     {
-        state().set_deferred_param("/trigger", expr::Format(fmtargs...) << key);
+        state().set_deferred_param("/trigger", key | expr::Format(fmtargs...));
         return transit_to<Target>();
     }
 
@@ -153,7 +153,7 @@ struct ModelDefinition::T_InjectTo : protected virtual ModelDefinition::BaseTran
     Target
     InjectTo(boost::json::string_view key, T&&... fmtargs)
     {
-        state().add_channel(expr::Format(fmtargs...) << key, "inject");
+        state().add_channel(key | expr::Fmt(fmtargs...), "inject");
         return transit_to<Target>();
     }
 };
@@ -192,7 +192,7 @@ struct ModelDefinition::T_ObserveOn : protected virtual ModelDefinition::BaseTra
     Target
     ObserveOn(boost::json::string_view key, T&&... fmtargs)
     {
-        state().add_channel(expr::Format(fmtargs...) << key, "observe");
+        state().add_channel(key | expr::Fmt(fmtargs...), "observe");
         return transit_to<Target>();
     }
 };
@@ -242,7 +242,7 @@ struct ModelDefinition::T_Union : protected virtual ModelDefinition::BaseTransit
     Union(boost::json::string_view key, T&&... fmtargs)
     {
         state().combine_channels("union");
-        state().add_channel(expr::Format(fmtargs...) << key, "observe");
+        state().add_channel(key | expr::Format(fmtargs...), "observe");
         return transit_to<Target>();
     }
 };
@@ -284,7 +284,7 @@ struct ModelDefinition::T_With : protected virtual ModelDefinition::BaseTransiti
     With(boost::json::string_view key, T&&... fmtargs)
     {
         state().combine_channels("with");
-        state().add_channel(expr::Format(fmtargs...) << key, "observe");
+        state().add_channel(key | expr::Format(fmtargs...), "observe");
         return transit_to<Target>();
     }
 };
@@ -306,7 +306,7 @@ struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::Base
     template <class T, class... Rest>
     Target Return(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
     {
-        return Return(expr::Format(arg1, args_rest...) << fmt);
+        return Return(fmt | expr::Fmt(arg1, args_rest...));
     }
 
     /// Interface argument clause
@@ -321,7 +321,7 @@ struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::Base
     template <class T, class... Rest>
     Target Args(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
     {
-        return Args(expr::Format(arg1, args_rest...) << fmt);
+        return Args(fmt | expr::Format(arg1, args_rest...));
     }
 
     /// Interface exception
@@ -607,7 +607,7 @@ struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseT
     template <class... T>
     Target Description(boost::json::string_view comment, T&&... args)
     {
-        state().set_deferred_param("/description", expr::Format(args...) << comment);
+        state().set_deferred_param("/description", comment | expr::Format(args...));
         return transit_to<Target>();
     }
 };

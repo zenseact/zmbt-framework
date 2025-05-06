@@ -317,8 +317,8 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitLshift> const BitLshift;
 /// \brief Bitwise right shift
 /// \anchor expr-b-rshift
 /// \details
-/// 1. [ ] |-> [x, s] |-> x >> s
-/// 2. [s] |-> [x]    |-> x >> s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// 1. [ ] |-> [x, s] |-> x * s
+/// 2. [s] |-> [x]    |-> x * s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::BitRshift> const BitRshift;
 
 /// \brief Is equal
@@ -594,7 +594,7 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Re> const Regex;
 /// \anchor expr-format
 /// \details
 /// Constant expressions are supported for the token list,
-/// s.t. Fmt(Pi) << "%s" produces "3.141592653589793E0"\see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
+/// s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"\see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Format> const Format;
 /// \brief Alias for Format
 extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Format> const Fmt;
@@ -695,7 +695,7 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Lookup> const Lookup;
 /// \details
 /// Produced expression will return the design-time parameter
 /// on evaluation, ignoring input.
-/// C(x) is a shorthand for Id << x or And(false)|Or(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// C(x) is a shorthand for x|Id or And(false)|Or(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const C;
 /// \brief Alias for C
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let;
@@ -765,22 +765,16 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmin> const Argmin;
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmax> const Argmax;
 
-/// \brief Apply expr to literal param
-/// \anchor expr-apply
-/// \details
-/// \see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
-extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Apply> const Apply;
-
 /// \brief Apply recursion to parameter expr and initial value
 /// \anchor expr-recur
 /// \details
-/// Recur(f, x) >> n = ◯ⁿ f(x)\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+/// Recur(f, x) * n = ◯ⁿ f(x)\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur;
 
 /// \brief Put results of recursive fn call on initial value into an array
 /// \anchor expr-unfold
 /// \details
-/// Unfold(f, x) >> n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+/// Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Unfold> const Unfold;
 
 /// \brief !not implemented! bind design-time parameters
@@ -827,14 +821,6 @@ extern dsl::SignatureVariadic<::zmbt::dsl::Keyword::Pack> const Pack;
 /// - for that case use the Reverse keyword instead.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Flip> const Flip;
 
-/// \brief Return x if not null, else return default value
-/// \anchor expr-default
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default;
-/// \brief Alias for Default
-extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const D;
-
 /// \brief Evaluate enveloped function and return result or null if it throws
 /// \anchor expr-try
 /// \details
@@ -846,6 +832,14 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Try> const Try;
 /// \details
 /// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::TryCatch> const TryCatch;
+
+/// \brief Return x if not null, else return default value
+/// \anchor expr-default
+/// \details
+/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default;
+/// \brief Alias for Default
+extern dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const D;
 
 } // namespace expr
 } // namespace zmbt

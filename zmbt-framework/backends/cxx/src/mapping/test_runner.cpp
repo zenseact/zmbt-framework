@@ -290,7 +290,7 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
             continue;
         }
 
-        test_case_passed = eval_assertion(channel_group, Expression::constAsEq(test_vector.at(condition_idx)), diagnostics) && test_case_passed;
+        test_case_passed = eval_assertion(channel_group, Expression::asPredicate(test_vector.at(condition_idx)), diagnostics) && test_case_passed;
 
         if (!test_case_passed)
         {

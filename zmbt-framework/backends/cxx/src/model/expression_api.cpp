@@ -142,7 +142,6 @@ dsl::SignatureBinary<::zmbt::dsl::Keyword::Min> const Min = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Max> const Max = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmin> const Argmin = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Argmax> const Argmax = {};
-dsl::SignatureTernary<::zmbt::dsl::Keyword::Apply> const Apply = {};
 dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur = {};
 dsl::SignatureTernary<::zmbt::dsl::Keyword::Unfold> const Unfold = {};
 dsl::SignatureVariadic<::zmbt::dsl::Keyword::Bind> const Bind = {};
@@ -152,10 +151,10 @@ dsl::SignatureVariadic<::zmbt::dsl::Keyword::Saturate> const Saturate = {};
 dsl::SignatureVariadic<::zmbt::dsl::Keyword::Compose> const Compose = {};
 dsl::SignatureVariadic<::zmbt::dsl::Keyword::Pack> const Pack = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Flip> const Flip = {};
-dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default = {};
-dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const D = Default;
 dsl::SignatureBinary<::zmbt::dsl::Keyword::Try> const Try = {};
 dsl::SignatureBinary<::zmbt::dsl::Keyword::TryCatch> const TryCatch = {};
+dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const Default = {};
+dsl::SignatureBinary<::zmbt::dsl::Keyword::Default> const D = Default;
 
 } // namespace expr
 } // namespace zmbt

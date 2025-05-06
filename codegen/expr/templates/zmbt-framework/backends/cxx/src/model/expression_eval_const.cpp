@@ -25,7 +25,7 @@
 
 namespace zmbt {
 
-boost::json::value zmbt::Expression::eval_Const(boost::json::value const&, SignalOperatorHandler const&) const
+boost::json::value zmbt::Expression::eval_Const(boost::json::value const&) const
 {
     switch(keyword())
     {

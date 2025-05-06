@@ -16,6 +16,10 @@ namespace zmbt {
 namespace dsl {
 namespace detail {
 
+bool isConst(Keyword const& k);
+bool isHiOrd(Keyword const& k);
+bool isVariadic(Keyword const& k);
+
 /// Keyword classifier, allows to select eval implementation
 enum class CodegenType
 {
@@ -27,6 +31,9 @@ enum class CodegenType
 };
 
 CodegenType getCodegenType(Keyword const& k);
+
+
+
 
 } // namespace detail
 } // namespace dsl

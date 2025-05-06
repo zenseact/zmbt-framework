@@ -290,7 +290,7 @@ use Mul(ndigits)|Round|Div(ndigits) combo.</pre>
         <td>Negate
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Neg >> 42 == -42</pre></td>
+        <td><pre>Neg * 42 == -42</pre></td>
     </tr>
     <tr>
         <td><a id ="add"> Add
@@ -299,8 +299,8 @@ use Mul(ndigits)|Round|Div(ndigits) combo.</pre>
         <td>Addition
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Add >> [2, -1] == 1
-Add(-1) >> 2  == 1</pre></td>
+        <td><pre>Add * [2, -1] == 1
+Add(-1) * 2  == 1</pre></td>
     </tr>
     <tr>
         <td><a id ="sub"> Sub
@@ -309,8 +309,8 @@ Add(-1) >> 2  == 1</pre></td>
         <td>Subtraction
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Sub >> [2, 1] == -1
-Sub(1) >> 2   == 1</pre></td>
+        <td><pre>Sub * [2, 1] == -1
+Sub(1) * 2   == 1</pre></td>
     </tr>
     <tr>
         <td><a id ="mul"> Mul
@@ -319,8 +319,8 @@ Sub(1) >> 2   == 1</pre></td>
         <td>Multiplication
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Mul >> [2, 3] == 6
-Mul(3) >> 2   == 6</pre></td>
+        <td><pre>Mul * [2, 3] == 6
+Mul(3) * 2   == 6</pre></td>
     </tr>
     <tr>
         <td><a id ="div"> Div
@@ -331,8 +331,8 @@ Mul(3) >> 2   == 6</pre></td>
 2. [y] |-> [x]    |-> x / y</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Div >> [6, 3] == 2
-Div(3) >> 6   == 2</pre></td>
+        <td><pre>Div * [6, 3] == 2
+Div(3) * 6   == 2</pre></td>
     </tr>
     <tr>
         <td><a id ="pow"> Pow
@@ -344,8 +344,8 @@ Div(3) >> 6   == 2</pre></td>
   2. [p] |-> [x]    |-> x^p</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Pow >> [2, 3] == 8
-Pow(3) >> 2   == 8</pre></td>
+        <td><pre>Pow * [2, 3] == 8
+Pow(3) * 2   == 8</pre></td>
     </tr>
     <tr>
         <td><a id ="log"> Log
@@ -357,8 +357,8 @@ Pow(3) >> 2   == 8</pre></td>
   2. [b] |-> [x]    |-> log_b(x)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Log >> [8, 2] == 3
-Log(2) >> 8   == 3</pre></td>
+        <td><pre>Log * [8, 2] == 3
+Log(2) * 8   == 3</pre></td>
     </tr>
     <tr>
         <td><a id ="mod"> Mod
@@ -370,8 +370,8 @@ Log(2) >> 8   == 3</pre></td>
   2. [m] |-> [x]    |-> x % m</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Mod >> [7, 4] == 3
-Mod(4) >> 7   == 3</pre></td>
+        <td><pre>Mod * [7, 4] == 3
+Mod(4) * 7   == 3</pre></td>
     </tr>
     <tr>
         <td><a id ="quot"> Quot
@@ -383,8 +383,8 @@ Mod(4) >> 7   == 3</pre></td>
   2. [d] |-> [x]    |-> x // d</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Quot >> [7, 4] == 1
-Quot(4) >> 7   == 1</pre></td>
+        <td><pre>Quot * [7, 4] == 1
+Quot(4) * 7   == 1</pre></td>
     </tr>
     <tr>
         <td><a id ="bitnot"> BitNot
@@ -393,7 +393,7 @@ Quot(4) >> 7   == 1</pre></td>
         <td>Bitwise not
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>BitNot >> 0b1010 == 0b0101</pre></td>
+        <td><pre>BitNot * 0b1010 == 0b0101</pre></td>
     </tr>
     <tr>
         <td><a id ="bitand"> BitAnd
@@ -402,7 +402,7 @@ Quot(4) >> 7   == 1</pre></td>
         <td>Bitwise and
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitAnd >> [0b1010, 0b1100] == 0b1000</pre></td>
+        <td><pre>BitAnd * [0b1010, 0b1100] == 0b1000</pre></td>
     </tr>
     <tr>
         <td><a id ="bitor"> BitOr
@@ -411,7 +411,7 @@ Quot(4) >> 7   == 1</pre></td>
         <td>Bitwise or
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitOr >> [0b1010, 0b1100] == 0b1110</pre></td>
+        <td><pre>BitOr * [0b1010, 0b1100] == 0b1110</pre></td>
     </tr>
     <tr>
         <td><a id ="bitxor"> BitXor
@@ -420,7 +420,7 @@ Quot(4) >> 7   == 1</pre></td>
         <td>Bitwise xor
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitXor >> [0b1010, 0b1100] == 0b0110</pre></td>
+        <td><pre>BitXor * [0b1010, 0b1100] == 0b0110</pre></td>
     </tr>
     <tr>
         <td><a id ="bitlshift"> BitLshift
@@ -431,18 +431,18 @@ Quot(4) >> 7   == 1</pre></td>
 2. [s] |-> [x]    |-> x << s</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitLshift >> [0b1010, 2] == 0b101000</pre></td>
+        <td><pre>BitLshift * [0b1010, 2] == 0b101000</pre></td>
     </tr>
     <tr>
         <td><a id ="bitrshift"> BitRshift
         </td>
         <td>>></td>
         <td>Bitwise right shift
-        <pre>1. [ ] |-> [x, s] |-> x >> s
-2. [s] |-> [x]    |-> x >> s</pre>
+        <pre>1. [ ] |-> [x, s] |-> x * s
+2. [s] |-> [x]    |-> x * s</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitRshift >> [0b1010, 2] == 0b0010</pre></td>
+        <td><pre>BitRshift * [0b1010, 2] == 0b0010</pre></td>
     </tr>
 </tbody></table>
 
@@ -466,8 +466,8 @@ Quot(4) >> 7   == 1</pre></td>
         <td>Is equal
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Eq >> [1, 1] == true
-Eq(42) >> 41 == false</pre></td>
+        <td><pre>Eq * [1, 1] == true
+Eq(42) * 41 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="ne"> Ne
@@ -476,8 +476,8 @@ Eq(42) >> 41 == false</pre></td>
         <td>Not equal
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Ne >> [1, 2] == true
-Ne(42) >> 42 == false</pre></td>
+        <td><pre>Ne * [1, 2] == true
+Ne(42) * 42 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="lt"> Lt
@@ -486,8 +486,8 @@ Ne(42) >> 42 == false</pre></td>
         <td>Lesser than
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Lt >> [1, 2] == true
-Lt(42) >> 41 == false</pre></td>
+        <td><pre>Lt * [1, 2] == true
+Lt(42) * 41 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="le"> Le
@@ -496,8 +496,8 @@ Lt(42) >> 41 == false</pre></td>
         <td>Lesser or equal
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Le >> [1, 2] == true
-Le(42) >> 42 == true</pre></td>
+        <td><pre>Le * [1, 2] == true
+Le(42) * 42 == true</pre></td>
     </tr>
     <tr>
         <td><a id ="gt"> Gt
@@ -506,8 +506,8 @@ Le(42) >> 42 == true</pre></td>
         <td>Greater than
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Gt >> [2, 1] == true
-Gt(42) >> 43 == false</pre></td>
+        <td><pre>Gt * [2, 1] == true
+Gt(42) * 43 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="ge"> Ge
@@ -516,8 +516,8 @@ Gt(42) >> 43 == false</pre></td>
         <td>Greater or equal
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Ge >> [2, 1] == true
-Ge(42) >> 42 == true</pre></td>
+        <td><pre>Ge * [2, 1] == true
+Ge(42) * 42 == true</pre></td>
     </tr>
     <tr>
         <td><a id ="approx"> Approx
@@ -539,14 +539,14 @@ Rhs dynamic evaluation:
         <br>Aliases: near
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Approx >> [42, 42] == true
-Approx(42.0 + 1e-09) >> 42 == true
-Approx(42.001) >> 42 == false
+        <td><pre>Approx * [42, 42] == true
+Approx(42.0 + 1e-09) * 42 == true
+Approx(42.001) * 42 == false
 
 Relative tolerance 1e-03
-Approx([3.14, 0.001]) >> pi == true
+Approx([3.14, 0.001]) * pi == true
 Absolute tolerance 0.01
-Approx([3.14, 0, 0.01]) >> pi == true</pre></td>
+Approx([3.14, 0, 0.01]) * pi == true</pre></td>
     </tr>
 </tbody></table>
 
@@ -570,8 +570,8 @@ Approx([3.14, 0, 0.01]) >> pi == true</pre></td>
         <td>Set union
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Union >> [[1, 2], [2, 3]] == [1, 2, 3]
-Union([2, 3]) >> [1, 2] == [1, 2, 3]</pre></td>
+        <td><pre>Union * [[1, 2], [2, 3]] == [1, 2, 3]
+Union([2, 3]) * [1, 2] == [1, 2, 3]</pre></td>
     </tr>
     <tr>
         <td><a id ="intersect"> Intersect
@@ -580,8 +580,8 @@ Union([2, 3]) >> [1, 2] == [1, 2, 3]</pre></td>
         <td>Set intersection
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Intersect >> [[1, 2], [2, 3]] == [2]
-Intersect([2, 3]) >> [1, 2] == [2]</pre></td>
+        <td><pre>Intersect * [[1, 2], [2, 3]] == [2]
+Intersect([2, 3]) * [1, 2] == [2]</pre></td>
     </tr>
     <tr>
         <td><a id ="diff"> Diff
@@ -590,8 +590,8 @@ Intersect([2, 3]) >> [1, 2] == [2]</pre></td>
         <td>Set difference
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Diff >> [[1, 2], [2, 3]] == [1]
-Diff([2, 3]) >> [1, 2] == [1]</pre></td>
+        <td><pre>Diff * [[1, 2], [2, 3]] == [1]
+Diff([2, 3]) * [1, 2] == [1]</pre></td>
     </tr>
 </tbody></table>
 
@@ -615,8 +615,8 @@ Diff([2, 3]) >> [1, 2] == [1]</pre></td>
         <td>Equal as set
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>SetEq >> [[1, 2], [2, 1]] == true
-SetEq([2, 1]) >> [1, 2] == true</pre></td>
+        <td><pre>SetEq * [[1, 2], [2, 1]] == true
+SetEq([2, 1]) * [1, 2] == true</pre></td>
     </tr>
     <tr>
         <td><a id ="subset"> Subset
@@ -625,14 +625,14 @@ SetEq([2, 1]) >> [1, 2] == true</pre></td>
         <td>Is subset
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Subset >> [[1, 2], [1, 2, 3]] == true
-Subset([1, 2, 3]) >> [1, 2] == true
+        <td><pre>Subset * [[1, 2], [1, 2, 3]] == true
+Subset([1, 2, 3]) * [1, 2] == true
 
-Subset >> [[1, 2, 3], [2, 3]] == false
-Subset([2, 3]) >> [1, 2, 3] == false
+Subset * [[1, 2, 3], [2, 3]] == false
+Subset([2, 3]) * [1, 2, 3] == false
 
-Subset >> [[1, 2], []] == true
-Subset >> [[], []] == true</pre></td>
+Subset * [[1, 2], []] == true
+Subset * [[], []] == true</pre></td>
     </tr>
     <tr>
         <td><a id ="superset"> Superset
@@ -641,14 +641,14 @@ Subset >> [[], []] == true</pre></td>
         <td>Is superset
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Superset >> [[1, 2, 3], [1, 2]] == true
-Superset([1, 2]) >> [1, 2, 3] == true
+        <td><pre>Superset * [[1, 2, 3], [1, 2]] == true
+Superset([1, 2]) * [1, 2, 3] == true
 
-Superset >> [[2, 3], [1, 2, 3]] == false
-Superset([1, 2, 3]) >> [2, 3] == false
+Superset * [[2, 3], [1, 2, 3]] == false
+Superset([1, 2, 3]) * [2, 3] == false
 
-Superset >> [[], [1, 2]] == true
-Superset >> [[], []] == true</pre></td>
+Superset * [[], [1, 2]] == true
+Superset * [[], []] == true</pre></td>
     </tr>
     <tr>
         <td><a id ="propersubset"> ProperSubset
@@ -657,14 +657,14 @@ Superset >> [[], []] == true</pre></td>
         <td>Is proper subset
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>ProperSubset >> [[1, 2], [1, 2, 3]] == true
-ProperSubset([1, 2, 3]) >> [1, 2] == true
+        <td><pre>ProperSubset * [[1, 2], [1, 2, 3]] == true
+ProperSubset([1, 2, 3]) * [1, 2] == true
 
-ProperSubset >> [[1, 2, 3], [2, 3]] == false
-ProperSubset([2, 3]) >> [1, 2, 3] == false
+ProperSubset * [[1, 2, 3], [2, 3]] == false
+ProperSubset([2, 3]) * [1, 2, 3] == false
 
-ProperSubset >> [[1, 2], []] == true
-ProperSubset >> [[], []] == false</pre></td>
+ProperSubset * [[1, 2], []] == true
+ProperSubset * [[], []] == false</pre></td>
     </tr>
     <tr>
         <td><a id ="propersuperset"> ProperSuperset
@@ -673,14 +673,14 @@ ProperSubset >> [[], []] == false</pre></td>
         <td>Is proper superset
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>ProperSuperset >> [[1, 2, 3], [1, 2]] == true
-ProperSuperset([1, 2]) >> [1, 2, 3] == true
+        <td><pre>ProperSuperset * [[1, 2, 3], [1, 2]] == true
+ProperSuperset([1, 2]) * [1, 2, 3] == true
 
-ProperSuperset >> [[2, 3], [1, 2, 3]] == false
-ProperSuperset([1, 2, 3]) >> [2, 3] == false
+ProperSuperset * [[2, 3], [1, 2, 3]] == false
+ProperSuperset([1, 2, 3]) * [2, 3] == false
 
-ProperSuperset >> [[], [1, 2]] == true
-ProperSuperset >> [[], []] == false</pre></td>
+ProperSuperset * [[], [1, 2]] == true
+ProperSuperset * [[], []] == false</pre></td>
     </tr>
     <tr>
         <td><a id ="in"> In
@@ -689,8 +689,8 @@ ProperSuperset >> [[], []] == false</pre></td>
         <td>Element is in
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>In >> [1, [1, 2]] == true
-In([1, 2]) >> 3 == false</pre></td>
+        <td><pre>In * [1, [1, 2]] == true
+In([1, 2]) * 3 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="notin"> NotIn
@@ -699,8 +699,8 @@ In([1, 2]) >> 3 == false</pre></td>
         <td>Element is not in
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>NotIn >> [3, [1, 2]] == true
-NotIn([1, 2]) >> 1 == false</pre></td>
+        <td><pre>NotIn * [3, [1, 2]] == true
+NotIn([1, 2]) * 1 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="ni"> Ni
@@ -710,8 +710,8 @@ NotIn([1, 2]) >> 1 == false</pre></td>
         <br>Aliases: contains
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Ni >> [[1, 2], 1] == true
-Ni([1, 2]) >> 3 == false</pre></td>
+        <td><pre>Ni * [[1, 2], 1] == true
+Ni([1, 2]) * 3 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="notni"> NotNi
@@ -720,8 +720,8 @@ Ni([1, 2]) >> 3 == false</pre></td>
         <td>Not contains element
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>NotNi >> [[1, 2], 3] == true
-NotNi([1, 2]) >> 1 == false</pre></td>
+        <td><pre>NotNi * [[1, 2], 3] == true
+NotNi([1, 2]) * 1 == false</pre></td>
     </tr>
 </tbody></table>
 
@@ -746,14 +746,14 @@ NotNi([1, 2]) >> 1 == false</pre></td>
         <br>Aliases: truthy
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Bool >> 42 == true
-Bool >> 0 == false
-Bool >> "false" == true
-Bool >> "" == false
-Bool >> [1] == true
-Bool >> [] == false
-Bool >> {} == false
-Bool >> null == false</pre></td>
+        <td><pre>Bool * 42 == true
+Bool * 0 == false
+Bool * "false" == true
+Bool * "" == false
+Bool * [1] == true
+Bool * [] == false
+Bool * {} == false
+Bool * null == false</pre></td>
     </tr>
     <tr>
         <td><a id ="nil"> Nil
@@ -763,8 +763,8 @@ Bool >> null == false</pre></td>
         <br>Aliases: falsy
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Nil >> 42 == false
-Nil >> 0 == true</pre></td>
+        <td><pre>Nil * 42 == false
+Nil * 0 == true</pre></td>
     </tr>
     <tr>
         <td><a id ="not"> Not
@@ -773,8 +773,8 @@ Nil >> 0 == true</pre></td>
         <td>Logical complement
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Not >> true == false
-Not >> false == true</pre></td>
+        <td><pre>Not * true == false
+Not * false == true</pre></td>
     </tr>
     <tr>
         <td><a id ="and"> And
@@ -785,19 +785,19 @@ Not >> false == true</pre></td>
   if first operand is truthy, returns second operand, otherwise first</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>And >> [true, false] == false
-And >> [true, true] == true
+        <td><pre>And * [true, false] == false
+And * [true, true] == true
 
 Generic behavior:
-And >> ["foo", [42, 43]] == [42, 43]
-And >> [""   , [42, 43]] == ""
+And * ["foo", [42, 43]] == [42, 43]
+And * [""   , [42, 43]] == ""
 
-And(42) >> 13 == 42
-And(42) >> [] == []
+And(42) * 13 == 42
+And(42) * [] == []
 
 If-Else using composition:
-And(42)|Or(13) >> true  == 42
-And(42)|Or(13) >> false == 13</pre></td>
+And(42)|Or(13) * true  == 42
+And(42)|Or(13) * false == 13</pre></td>
     </tr>
     <tr>
         <td><a id ="or"> Or
@@ -808,19 +808,19 @@ And(42)|Or(13) >> false == 13</pre></td>
   if first operand is truthy, returns first operand, second otherwise</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Or >> [true, false] == true
-Or >> [false, false] == false
+        <td><pre>Or * [true, false] == true
+Or * [false, false] == false
 
 Generic behavior:
-Or >> ["foo", [42, 43]] == "foo"
-Or >> [""   , [42, 43]] == [42, 43]
+Or * ["foo", [42, 43]] == "foo"
+Or * [""   , [42, 43]] == [42, 43]
 
-Or(42) >> 13 == 13
-Or(42) >> [] == 42
+Or(42) * 13 == 13
+Or(42) * [] == 42
 
 If-Else using composition:
-And(42)|Or(13) >> true  == 42
-And(42)|Or(13) >> false == 13</pre></td>
+And(42)|Or(13) * true  == 42
+And(42)|Or(13) * false == 13</pre></td>
     </tr>
 </tbody></table>
 
@@ -842,7 +842,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Identity function
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Id >> 42 == 42</pre></td>
+        <td><pre>Id * 42 == 42</pre></td>
     </tr>
     <tr>
         <td><a id ="transp"> Transp
@@ -851,7 +851,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <pre>May be used to zip sequences of equal length.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Transp >> [[1, 2, 3], [4, 5, 6]] == [[1, 4], [2, 5], [3, 6]]</pre></td>
+        <td><pre>Transp * [[1, 2, 3], [4, 5, 6]] == [[1, 4], [2, 5], [3, 6]]</pre></td>
     </tr>
     <tr>
         <td><a id ="cartesian"> Cartesian
@@ -859,7 +859,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Cartesian product
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Cartesian >> [[1, 2], [3, 4]] == [[1, 3], [1, 4], [2, 3], [2, 4]]</pre></td>
+        <td><pre>Cartesian * [[1, 2], [3, 4]] == [[1, 3], [1, 4], [2, 3], [2, 4]]</pre></td>
     </tr>
     <tr>
         <td><a id ="reverse"> Reverse
@@ -867,7 +867,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Reverse sequence
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Reverse >> [1, 2, 3] == [3, 2, 1]</pre></td>
+        <td><pre>Reverse * [1, 2, 3] == [3, 2, 1]</pre></td>
     </tr>
     <tr>
         <td><a id ="uniques"> Uniques
@@ -875,7 +875,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Filter unique elements
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Uniques >> [1, 2, 1, 3, 2] == [1, 2, 3]</pre></td>
+        <td><pre>Uniques * [1, 2, 1, 3, 2] == [1, 2, 3]</pre></td>
     </tr>
     <tr>
         <td><a id ="items"> Items
@@ -883,7 +883,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Extract key-value pairs from object
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Items >> {"a": 1, "b": 2} == [["a", 1], ["b", 2]]</pre></td>
+        <td><pre>Items * {"a": 1, "b": 2} == [["a", 1], ["b", 2]]</pre></td>
     </tr>
     <tr>
         <td><a id ="keys"> Keys
@@ -891,7 +891,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Extract keys from object
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Keys >> {"a": 1, "b": 2} == ["a", "b"]</pre></td>
+        <td><pre>Keys * {"a": 1, "b": 2} == ["a", "b"]</pre></td>
     </tr>
     <tr>
         <td><a id ="values"> Values
@@ -899,7 +899,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Extract values from object
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Values >> {"a": 1, "b": 2} == [1, 2]</pre></td>
+        <td><pre>Values * {"a": 1, "b": 2} == [1, 2]</pre></td>
     </tr>
     <tr>
         <td><a id ="enumerate"> Enumerate
@@ -908,7 +908,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <pre>Enumerate sequence with index.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Enumerate >> [1, 2, 3] == [[0, 1], [1, 2], [2, 3]]</pre></td>
+        <td><pre>Enumerate * [1, 2, 3] == [[0, 1], [1, 2], [2, 3]]</pre></td>
     </tr>
     <tr>
         <td><a id ="flatten"> Flatten
@@ -916,7 +916,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <td>Flatten nested list
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Flatten >> [[1, 2], [3, 4]] == [1, 2, 3, 4]</pre></td>
+        <td><pre>Flatten * [[1, 2], [3, 4]] == [1, 2, 3, 4]</pre></td>
     </tr>
     <tr>
         <td><a id ="tolist"> ToList
@@ -925,7 +925,7 @@ And(42)|Or(13) >> false == 13</pre></td>
         <pre>Equivalent to At([""])</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>List >> 42 == [42]</pre></td>
+        <td><pre>List * 42 == [42]</pre></td>
     </tr>
 </tbody></table>
 
@@ -958,14 +958,14 @@ Parameters dynamic evaluation:
   3. [start, stop, step]  -> [start, stop, step]</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Arange >> 6 == [0,1,2,3,4,5]
-Arange >> [2,6]     == [2,3,4,5]
-Arange >> [1,9,2]   == [1,3,5,7]
-Arange >> [5,1,-1]  == [5,4,3,2]
+        <td><pre>Arange * 6 == [0,1,2,3,4,5]
+Arange * [2,6]     == [2,3,4,5]
+Arange * [1,9,2]   == [1,3,5,7]
+Arange * [5,1,-1]  == [5,4,3,2]
 
-Arange >> "2:6"     == [2,3,4,5]
-Arange >> "1:9:2"   == [1,3,5,7]
-Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
+Arange * "2:6"     == [2,3,4,5]
+Arange * "1:9:2"   == [1,3,5,7]
+Arange * "5:1:-1"  == [5,4,3,2]</pre></td>
     </tr>
 </tbody></table>
 
@@ -987,7 +987,7 @@ Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
         <td>Parse string as json
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Parse >> '{"a": 42}' == {"a": 42}</pre></td>
+        <td><pre>Parse * '{"a": 42}' == {"a": 42}</pre></td>
     </tr>
     <tr>
         <td><a id ="serialize"> Serialize
@@ -996,7 +996,7 @@ Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
         <br>Aliases: str
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Serialize >> {"a": 42} == '{"a":42}'</pre></td>
+        <td><pre>Serialize * {"a": 42} == '{"a":42}'</pre></td>
     </tr>
     <tr>
         <td><a id ="re"> Re
@@ -1006,20 +1006,20 @@ Arange >> "5:1:-1"  == [5,4,3,2]</pre></td>
         <br>Aliases: regex
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Re >> ["[0-9]+", "42"] == true
-Re("[0-9]+") >> "42" == true</pre></td>
+        <td><pre>Re * ["[0-9]+", "42"] == true
+Re("[0-9]+") * "42" == true</pre></td>
     </tr>
     <tr>
         <td><a id ="format"> Format
         </td>
         <td>Format string with the given parameter list.
         <pre>Constant expressions are supported for the token list,
-s.t. Fmt(Pi) << "%s" produces "3.141592653589793E0"</pre>
+s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"</pre>
         <br>Aliases: fmt
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Format >> ["Hello, %s!", ["world"]] == "Hello, world!"
-Format(2,2,4) >> "%d + %d = %d" == "2 + 2 = 4"</pre></td>
+        <td><pre>Format * ["Hello, %s!", ["world"]] == "Hello, world!"
+Format(2,2,4) * "%d + %d = %d" == "2 + 2 = 4"</pre></td>
     </tr>
 </tbody></table>
 
@@ -1041,8 +1041,8 @@ Format(2,2,4) >> "%d + %d = %d" == "2 + 2 = 4"</pre></td>
         <td>Set cardinality (uniques count)
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Card >> [1, 2, 1, 3, 2] == 3
-Card >> {"a": 1, "b": 2} == 2</pre></td>
+        <td><pre>Card * [1, 2, 1, 3, 2] == 3
+Card * {"a": 1, "b": 2} == 2</pre></td>
     </tr>
     <tr>
         <td><a id ="size"> Size
@@ -1050,8 +1050,8 @@ Card >> {"a": 1, "b": 2} == 2</pre></td>
         <td>Sequence size
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Size >> [1, 1, 1] == 3
-Size >> {"a": 1, "b": 2} == 2</pre></td>
+        <td><pre>Size * [1, 1, 1] == 3
+Size * {"a": 1, "b": 2} == 2</pre></td>
     </tr>
     <tr>
         <td><a id ="sum"> Sum
@@ -1060,7 +1060,7 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         <pre>Equivalent to Reduce(Add)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Sum >> [1, 2, 3] == 6</pre></td>
+        <td><pre>Sum * [1, 2, 3] == 6</pre></td>
     </tr>
     <tr>
         <td><a id ="prod"> Prod
@@ -1069,7 +1069,7 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         <pre>Equivalent to Reduce(Mul)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Prod >> [1, 2, 3] == 6</pre></td>
+        <td><pre>Prod * [1, 2, 3] == 6</pre></td>
     </tr>
     <tr>
         <td><a id ="avg"> Avg
@@ -1077,7 +1077,7 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         <td>Arythmetic average
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Avg >> [1, 2, 3] == 2</pre></td>
+        <td><pre>Avg * [1, 2, 3] == 2</pre></td>
     </tr>
 </tbody></table>
 
@@ -1100,8 +1100,8 @@ Size >> {"a": 1, "b": 2} == 2</pre></td>
         <pre>Sliding window iteration by specified window width.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Slide(3) >> [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]
-Slide(42) >> [1,2,3,4,5] == []</pre></td>
+        <td><pre>Slide(3) * [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]
+Slide(42) * [1,2,3,4,5] == []</pre></td>
     </tr>
     <tr>
         <td><a id ="stride"> Stride
@@ -1111,8 +1111,8 @@ Slide(42) >> [1,2,3,4,5] == []</pre></td>
 Reminder subsequence smaller then step width is discarded.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Stride(2) >> [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
-Stride(3) >> [1,2,3,4,5]   == [[1,2,3]]</pre></td>
+        <td><pre>Stride(2) * [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
+Stride(3) * [1,2,3,4,5]   == [[1,2,3]]</pre></td>
     </tr>
     <tr>
         <td><a id ="chunks"> Chunks
@@ -1122,8 +1122,8 @@ Stride(3) >> [1,2,3,4,5]   == [[1,2,3]]</pre></td>
 smaller then step width.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Chunks(2) >> [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
-Chunks(3) >> [1,2,3,4,5]   == [[1,2,3],[4,5]]</pre></td>
+        <td><pre>Chunks(2) * [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
+Chunks(3) * [1,2,3,4,5]   == [[1,2,3],[4,5]]</pre></td>
     </tr>
     <tr>
         <td><a id ="repeat"> Repeat
@@ -1131,8 +1131,8 @@ Chunks(3) >> [1,2,3,4,5]   == [[1,2,3],[4,5]]</pre></td>
         <td>Repeat value in list
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Repeat(3) >> 42 == [42, 42, 42]
-Repeat(3)|Repeat(2) >> 1 == [[1,1,1],[1,1,1]]</pre></td>
+        <td><pre>Repeat(3) * 42 == [42, 42, 42]
+Repeat(3)|Repeat(2) * 1 == [[1,1,1],[1,1,1]]</pre></td>
     </tr>
     <tr>
         <td><a id ="concat"> Concat
@@ -1141,8 +1141,8 @@ Repeat(3)|Repeat(2) >> 1 == [[1,1,1],[1,1,1]]</pre></td>
         <br>Aliases: cat
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Concat >> [1, 2], [3, 4] == [1, 2, 3, 4]
-Concat("World!") >> "Hello, " == "Hello, World!"</pre></td>
+        <td><pre>Concat * [[1, 2], [3, 4]] == [1, 2, 3, 4]
+Concat("World!") * "Hello, " == "Hello, World!"</pre></td>
     </tr>
     <tr>
         <td><a id ="push"> Push
@@ -1150,8 +1150,8 @@ Concat("World!") >> "Hello, " == "Hello, World!"</pre></td>
         <td>Push element into a front of sequence
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Push >> [1, 2], 3 == [3, 1, 2]
-Push(3) >> [1, 2] == [3, 1, 2]</pre></td>
+        <td><pre>Push * [[1, 2], 3] == [3, 1, 2]
+Push(3) * [1, 2]   == [3, 1, 2]</pre></td>
     </tr>
     <tr>
         <td><a id ="at"> At
@@ -1167,26 +1167,26 @@ Push(3) >> [1, 2] == [3, 1, 2]</pre></td>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
         <td><pre>• Index query:
-At(2) >> [1, 2, 3] == 3
-At(3) >> [1, 2, 3] == nullptr
-At(0) >> 42 == nullptr
+At(2) * [1, 2, 3] == 3
+At(3) * [1, 2, 3] == nullptr
+At(0) * 42 == nullptr
 
 • JSON Pointer query:
-At("")   >> "foo" == "foo"
-At("/a") >> {"a": 42, "b": 13} == 42
+At("")   * "foo" == "foo"
+At("/a") * {"a": 42, "b": 13} == 42
 
 • List query:
-At(["/a", "/b"])  >> {"a": 42, "b": 13} == [42, 13]
-At([""])          >> 42 ==  [42]
+At(["/a", "/b"])  * {"a": 42, "b": 13} == [42, 13]
+At([""])          * 42 ==  [42]
 
 • Object query:
-At({"f": "/a", "g": "/b"})  >> {"a": 42, "b": 13} == {"f": 42, "g": 13}
-At({"$/b": "/a"})           >> {"a": 42, "b": 13} == {"13": 42}
+At({"f": "/a", "g": "/b"})  * {"a": 42, "b": 13} == {"f": 42, "g": 13}
+At({"$/b": "/a"})           * {"a": 42, "b": 13} == {"13": 42}
 
 • Slice query:
-At("::2")     >> [1,2,3,4,5,6,7,8] == [1,3,5,7]
-At("4:")      >> [1,2,3,4,5,6,7,8] == [5,6,7,8]
-At("-1:0:-1") >> [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
+At("::2")     * [1,2,3,4,5,6,7,8] == [1,3,5,7]
+At("4:")      * [1,2,3,4,5,6,7,8] == [5,6,7,8]
+At("-1:0:-1") * [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
     </tr>
     <tr>
         <td><a id ="lookup"> Lookup
@@ -1198,8 +1198,8 @@ as eval-time argument.
 Equivalent to Flip(At(...))</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Lookup([1,2,3]) >> 0 ==  1
-Lookup([1,2,3]) >> "/foo" ==  null</pre></td>
+        <td><pre>Lookup([1,2,3]) * 0 ==  1
+Lookup([1,2,3]) * "/foo" ==  null</pre></td>
     </tr>
     <tr>
         <td><a id ="c"> C
@@ -1207,11 +1207,11 @@ Lookup([1,2,3]) >> "/foo" ==  null</pre></td>
         <td>User-defined constant
         <pre>Produced expression will return the design-time parameter
 on evaluation, ignoring input.
-C(x) is a shorthand for Id << x or And(false)|Or(x)</pre>
+C(x) is a shorthand for x|Id or And(false)|Or(x)</pre>
         <br>Aliases: let
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>C(42) >> 13 == 42</pre></td>
+        <td><pre>C(42) * 13 == 42</pre></td>
     </tr>
 </tbody></table>
 
@@ -1238,8 +1238,8 @@ For reverse operation, see Unfold</pre>
         <br>Aliases: fold
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Reduce(Add) >> [-1, 2, 3] ==  4
-Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
+        <td><pre>Reduce(Add) * [-1, 2, 3] ==  4
+Reduce(Mul) * [-1, 2, 3] == -6</pre></td>
     </tr>
     <tr>
         <td><a id ="map"> Map
@@ -1247,7 +1247,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>Apply param expr to every element of sequence
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Map(Add(1)) >> [1, 2, 3] == [2, 3, 4]</pre></td>
+        <td><pre>Map(Add(1)) * [1, 2, 3] == [2, 3, 4]</pre></td>
     </tr>
     <tr>
         <td><a id ="filter"> Filter
@@ -1255,7 +1255,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>Filter sequence by predicate param
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Filter(Gt(2)) >> [1, 2, 3, 4] == [3, 4]</pre></td>
+        <td><pre>Filter(Gt(2)) * [1, 2, 3, 4] == [3, 4]</pre></td>
     </tr>
     <tr>
         <td><a id ="count"> Count
@@ -1263,7 +1263,7 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <td>Count matches by predicate param
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Count(Gt(2)) >> [1, 2, 3, 4] == 2</pre></td>
+        <td><pre>Count(Gt(2)) * [1, 2, 3, 4] == 2</pre></td>
     </tr>
     <tr>
         <td><a id ="each"> Each
@@ -1272,8 +1272,8 @@ Reduce(Mul) >> [-1, 2, 3] == -6</pre></td>
         <pre>Equivalent to Count(p|Not)|Eq(0)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Each(Gt(2)) >> [1, 2, 3, 4] == false
-Slide(2)|Each(Lt) >> [1, 2, 3, 4] == true</pre></td>
+        <td><pre>Each(Gt(2)) * [1, 2, 3, 4] == false
+Slide(2)|Each(Lt) * [1, 2, 3, 4] == true</pre></td>
     </tr>
     <tr>
         <td><a id ="sort"> Sort
@@ -1281,10 +1281,10 @@ Slide(2)|Each(Lt) >> [1, 2, 3, 4] == true</pre></td>
         <td>Sort list by key function
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Sort >> [3, 1, 2] == [1, 2, 3]
-Sort(Id) >> [3, 1, 2] == [1, 2, 3]
-Sort(Abs) >> [-3, 1, -2] == [1, -2, -3]
-Sort|Reverse >> [3, 1, 2] == [3, 2, 1]</pre></td>
+        <td><pre>Sort * [3, 1, 2] == [1, 2, 3]
+Sort(Id) * [3, 1, 2] == [1, 2, 3]
+Sort(Abs) * [-3, 1, -2] == [1, -2, -3]
+Sort|Reverse * [3, 1, 2] == [3, 2, 1]</pre></td>
     </tr>
     <tr>
         <td><a id ="min"> Min
@@ -1292,8 +1292,8 @@ Sort|Reverse >> [3, 1, 2] == [3, 2, 1]</pre></td>
         <td>Min value by key function
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Min      >> [-3, 1, -2] ==  1
-Min(Abs) >> [-3, 1, -2] == -3</pre></td>
+        <td><pre>Min      * [-3, 1, -2] ==  1
+Min(Abs) * [-3, 1, -2] == -3</pre></td>
     </tr>
     <tr>
         <td><a id ="max"> Max
@@ -1301,8 +1301,8 @@ Min(Abs) >> [-3, 1, -2] == -3</pre></td>
         <td>Max value by key function
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Max      >> [-3, 1, -2] ==  1
-Max(Abs) >> [-3, 1, -2] == -3</pre></td>
+        <td><pre>Max      * [-3, 1, -2] ==  1
+Max(Abs) * [-3, 1, -2] == -3</pre></td>
     </tr>
     <tr>
         <td><a id ="argmin"> Argmin
@@ -1310,8 +1310,8 @@ Max(Abs) >> [-3, 1, -2] == -3</pre></td>
         <td>Min value index by key function
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Argmin      >> [-3, 1, -2] == 0
-Argmin(Abs) >> [-3, 1, -2] == 1</pre></td>
+        <td><pre>Argmin      * [-3, 1, -2] == 0
+Argmin(Abs) * [-3, 1, -2] == 1</pre></td>
     </tr>
     <tr>
         <td><a id ="argmax"> Argmax
@@ -1319,39 +1319,28 @@ Argmin(Abs) >> [-3, 1, -2] == 1</pre></td>
         <td>Max value index by key function
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Argmax      >> [-3, 1, -2] == 1
-Argmax(Abs) >> [-3, 1, -2] == 0</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="apply"> Apply
-        </td>
-        <td>Apply expr to literal param
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Apply(Add(1), 42) >> null == 43
-
-• Infix operator form (left shift):
-(Add(1) << 42) ≡ Apply(Add(1), 42)</pre></td>
+        <td><pre>Argmax      * [-3, 1, -2] == 1
+Argmax(Abs) * [-3, 1, -2] == 0</pre></td>
     </tr>
     <tr>
         <td><a id ="recur"> Recur
         </td>
         <td>Apply recursion to parameter expr and initial value
-        <pre>Recur(f, x) >> n = ◯ⁿ f(x)</pre>
+        <pre>Recur(f, x) * n = ◯ⁿ f(x)</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Recur(Add(1), 0)  >> 0 ==  3
-Recur(Mul(-1), 1) >> 3 == -1</pre></td>
+        <td><pre>Recur(Add(1), 0)  * 0 ==  3
+Recur(Mul(-1), 1) * 3 == -1</pre></td>
     </tr>
     <tr>
         <td><a id ="unfold"> Unfold
         </td>
         <td>Put results of recursive fn call on initial value into an array
-        <pre>Unfold(f, x) >> n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]</pre>
+        <pre>Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Unfold(Add(1),  0) >> 3 ==  [0, 1, 2, 3]
-Unfold(Mul(-1), 1) >> 3 ==  [1,-1, 1,-1]</pre></td>
+        <td><pre>Unfold(Add(1),  0) * 3 ==  [0, 1, 2, 3]
+Unfold(Mul(-1), 1) * 3 ==  [1,-1, 1,-1]</pre></td>
     </tr>
     <tr>
         <td><a id ="bind"> Bind
@@ -1366,8 +1355,8 @@ Unfold(Mul(-1), 1) >> 3 ==  [1,-1, 1,-1]</pre></td>
         <td>Match any predicate
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Any(Gt(2), Lt(0)) >> 3 == true
-Any(Gt(2), Lt(0)) >> 0 == false</pre></td>
+        <td><pre>Any(Gt(2), Lt(0)) * 3 == true
+Any(Gt(2), Lt(0)) * 0 == false</pre></td>
     </tr>
     <tr>
         <td><a id ="all"> All
@@ -1375,8 +1364,8 @@ Any(Gt(2), Lt(0)) >> 0 == false</pre></td>
         <td>Match all predicates
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>All(Gt(2), Lt(0)) >> 3 == false
-All(Gt(2), Lt(3)) >> 2.5 == true</pre></td>
+        <td><pre>All(Gt(2), Lt(0)) * 3 == false
+All(Gt(2), Lt(3)) * 2.5 == true</pre></td>
     </tr>
     <tr>
         <td><a id ="saturate"> Saturate
@@ -1384,12 +1373,12 @@ All(Gt(2), Lt(3)) >> 2.5 == true</pre></td>
         <td>Saturate matches in order
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Saturate(Gt(2), Lt(0)) >> 3 == true
-Saturate(Gt(2), Lt(0)) >> 0 == false
+        <td><pre>Saturate(Gt(2), Lt(0)) * 3 == true
+Saturate(Gt(2), Lt(0)) * 0 == false
 
-Saturate(42, Mod(2)|0) >> [2,4,8,42,1,2] == true
-Saturate(42, Mod(2)|0) >> [2,4,8,41,2]   == false
-Saturate(42, Mod(2)|0) >> [2,4,8,42]     == false</pre></td>
+Saturate(42, Mod(2)|0) * [2,4,8,42,1,2] == true
+Saturate(42, Mod(2)|0) * [2,4,8,41,2]   == false
+Saturate(42, Mod(2)|0) * [2,4,8,42]     == false</pre></td>
     </tr>
     <tr>
         <td><a id ="compose"> Compose
@@ -1397,12 +1386,12 @@ Saturate(42, Mod(2)|0) >> [2,4,8,42]     == false</pre></td>
         <td>Compose functions
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Compose(Add(1), Mul(2)) >> 3 == 7
-Compose(Add(1), Mul(2)) >> 4 == 9
+        <td><pre>Compose(Add(1), Mul(2)) * 3 == 7
+Compose(Add(1), Mul(2)) * 4 == 9
 
 • Infix operator form (pipe):
 Add(1)|Mul(2) ≡ Compose(Add(1), Mul(2))
-Add(1)|Mul(2) >> 3 == 7</pre></td>
+Add(1)|Mul(2) * 3 == 7</pre></td>
     </tr>
     <tr>
         <td><a id ="pack"> Pack
@@ -1411,11 +1400,11 @@ Add(1)|Mul(2) >> 3 == 7</pre></td>
         <pre>Allows to combine different properties in a single expression</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Pack(Reduce(Add), Size) >> [1,2,3] == [6,3]
+        <td><pre>Pack(Reduce(Add), Size) * [1,2,3] == [6,3]
 
 • Infix operator form (ampersand):
-Reduce(Add) & Size >> [1,2,3] == [6,3]
-Reduce(Add) & Size | Div >> [1,2,3] == 2</pre></td>
+Reduce(Add) & Size * [1,2,3] == [6,3]
+Reduce(Add) & Size | Div * [1,2,3] == 2</pre></td>
     </tr>
     <tr>
         <td><a id ="flip"> Flip
@@ -1426,8 +1415,31 @@ Unlike Haskell's flip, won't change the order or eval-time parameters
 - for that case use the Reverse keyword instead.</pre>
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Div(1) >> 2 == 2
-Flip(Div(1)) >> 2 == 0.5</pre></td>
+        <td><pre>Div(1) * 2 == 2
+Flip(Div(1)) * 2 == 0.5</pre></td>
+    </tr>
+    <tr>
+        <td><a id ="try"> Try
+        </td>
+        <td>Evaluate enveloped function and return result or null if it throws
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
+        <td><pre>Try(Add(1)) * 42    == 43
+Try(Add(1)) * "foo" == null</pre></td>
+    </tr>
+    <tr>
+        <td><a id ="trycatch"> TryCatch
+        </td>
+        <td>Evaluate enveloped function and return result or error info if it throws
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
+        <td><pre>TryCatch(Div(0)) * 42 == {
+    "err": "zero division",
+    "fn": ":div",
+    "x": 42,
+    "op":
+    "zmbt::GenericSignalOperator"
+}</pre></td>
     </tr>
 </tbody></table>
 
@@ -1450,30 +1462,7 @@ Flip(Div(1)) >> 2 == 0.5</pre></td>
         <br>Aliases: d
         </td>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Default(42) >> null == 42
-Default(42) >> 13 == 13</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="try"> Try
-        </td>
-        <td>Evaluate enveloped function and return result or null if it throws
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Try(Add(1)) >> 42    == 43
-Try(Add(1)) >> "foo" == null</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="trycatch"> TryCatch
-        </td>
-        <td>Evaluate enveloped function and return result or error info if it throws
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>TryCatch(Div(0)) >> 42 == {
-    "err": "zero division",
-    "fn": ":div",
-    "x": 42,
-    "op":
-    "zmbt::GenericSignalOperator"
-}</pre></td>
+        <td><pre>Default(42) * null == 42
+Default(42) * 13 == 13</pre></td>
     </tr>
 </tbody></table>

@@ -96,17 +96,86 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Round:
     case Keyword::Sqrt:
     case Keyword::Sign:
-    case Keyword::Id:
     case Keyword::ToList:
     case Keyword::Parse:
     case Keyword::Serialize:
-    case Keyword::C:
     case Keyword::Default:
         return CodegenType::CodegenFn;
     default:
         return CodegenType::None;
     }
+}
 
+
+bool isConst(Keyword const& k)
+{
+    switch (k)
+    {
+    case Keyword::Noop:
+    case Keyword::Null:
+    case Keyword::True:
+    case Keyword::False:
+    case Keyword::Pi:
+    case Keyword::E:
+    case Keyword::Inf:
+    case Keyword::Eps:
+    case Keyword::NaN:
+    case Keyword::Thread:
+    case Keyword::C:
+    case Keyword::Literal:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool isHiOrd(Keyword const& k)
+{
+    switch (k)
+    {
+    case Keyword::Reduce:
+    case Keyword::Map:
+    case Keyword::Filter:
+    case Keyword::Count:
+    case Keyword::Each:
+    case Keyword::Sort:
+    case Keyword::Min:
+    case Keyword::Max:
+    case Keyword::Argmin:
+    case Keyword::Argmax:
+    case Keyword::Recur:
+    case Keyword::Unfold:
+    case Keyword::Bind:
+    case Keyword::Any:
+    case Keyword::All:
+    case Keyword::Saturate:
+    case Keyword::Compose:
+    case Keyword::Pack:
+    case Keyword::Flip:
+    case Keyword::Try:
+    case Keyword::TryCatch:
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool isVariadic(Keyword const& k)
+{
+    switch (k)
+    {
+    case Keyword::Format:
+    case Keyword::Bind:
+    case Keyword::Any:
+    case Keyword::All:
+    case Keyword::Saturate:
+    case Keyword::Compose:
+    case Keyword::Pack:
+        return true;
+    default:
+        return false;
+    }
 }
 
 } // namespace detail

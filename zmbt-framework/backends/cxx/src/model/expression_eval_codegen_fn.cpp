@@ -23,8 +23,9 @@
 
 namespace zmbt {
 
-boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x, SignalOperatorHandler const&) const
+boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
 {
+    boost::json::value x = Expression(x_).eval(nullptr, ctx++);
     switch(keyword())
     {
     case Keyword::Sin: return real_to_number(std::sin(boost::json::value_to<double>(x)));
@@ -49,11 +50,9 @@ boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x,
     case Keyword::Round: return real_to_number(std::round(boost::json::value_to<double>(x)));
     case Keyword::Sqrt: return real_to_number(std::sqrt(boost::json::value_to<double>(x)));
     case Keyword::Sign: return boost::json::value_to<double>(x) >= 0 ? 1 : -1;
-    case Keyword::Id: return x;
     case Keyword::ToList: return boost::json::array{x};
     case Keyword::Parse: return boost::json::parse(x.as_string());
     case Keyword::Serialize: return {boost::json::serialize(x)};
-    case Keyword::C: return params();
     case Keyword::Default: return x.is_null() ? params() : x;
     default:
         throw expression_error("got invalid unary math expression: %s", underlying());

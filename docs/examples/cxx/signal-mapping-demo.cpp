@@ -100,13 +100,13 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         .InjectTo  (id)
         .ObserveOn (id)
     .Test
-        ( 42                , Eq(42)                             )
-        ( 42                , 42     /*(1)*/                     )
-        ( {1,2,3}           , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
-        ( {1,2,3}           , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
-        ( {1,2,3,4}         , Reduce(Add) & Size | Div | Eq(2.5) ) //(5)
-        ( Pi|Div(2)|Sin     , Approx(1)                          ) //(6)
-        ( Arange << "5:1:-1", {5,4,3,2}                          ) //(7)
+        ( 42             , Eq(42)                             )
+        ( 42             , 42     /*(1)*/                     )
+        ( {1,2,3}        , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
+        ( {1,2,3}        , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
+        ( {1,2,3,4}      , Reduce(Add) & Size | Div | Eq(2.5) ) //(5)
+        ( Pi|Div(2)|Sin  , Approx(1)                          ) //(6)
+        ( "5:1:-1"|Arange, {5,4,3,2}                          ) //(7)
     ;
 }
 /*
@@ -123,8 +123,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
     2. `Div` on input `[10, 4]` produces [2.5]
     3. `Eq(2.5)` on input `[2.5]` produces `true`
 6. A constant function can be used on input channel instead of literal
-7. Left shift operator (`Apply`) binds eval-time argument at rintime,
-    making it a constant function. `Arange` is a generator similar to
+7. `Arange` is a generator similar to
     [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
 
 
@@ -455,7 +454,7 @@ accepts constant expression that evaluates to JSON Pointer string or index integ
 If you need to parametrize only a part of signal path, use an expr::Fmt or a printf-like overload:
 
 ```cpp
-.InjectTo (sut).Args(Fmt(Index, Field) << "/%d/%s/bar")
+.InjectTo (sut).Args("/%d/%s/bar"|Fmt(Index, Field))
 // or
 .InjectTo (sut).Args("/%d/%s/bar", Index, Field)
 ```
@@ -787,7 +786,7 @@ Same example with parametric trigger repeats and more complex matchers:
         .InjectTo  (&Mock::produce)
         .ObserveOn (&Mock::consume).CallRange()
     .Test
-        (Add(1)       , (Div(2) | Add(0.5)) << N & Avg | Eq /*(1)*/    )
+        (Add(1)       , (N | Div(2) | Add(0.5)) & Avg | Eq      /*(1)*/)
         (Flip(Sub(N)) , Slide(2) | Map(Sub|Eq(1)) | Reduce(And) /*(2)*/)
     .Zip
         (N, 3, 42, 100)
@@ -798,7 +797,7 @@ Same example with parametric trigger repeats and more complex matchers:
 ```
 
 1. Matcher expression:
-    1. `Div(2) | Add(0.5) << N` produces N/2+0.5, ignoring input
+    1. `N | Div(2) | Add(0.5)` produces N/2+0.5, ignoring input
     2. `Avg` computes average of the input `#!js [1,2,...,N,N+1]`
     3. `(N/2+0.5) & Avg | Eq` produces `true`
 2. Matcher expression:
@@ -1006,7 +1005,7 @@ auto sut = [](std::vector<int> const& x){ ... };
 we may need to initialize a non-empty input before injecting to speciic elements:
 
 ```c++
-    .InjectTo (sut) .Args("/0").Keep(Repeat(64) << 0)
+    .InjectTo (sut) .Args("/0").Keep(0|Repeat(64))
     .InjectTo (sut) .Args("/0/1") // (1)
 ```
 
@@ -1073,7 +1072,7 @@ SignalMapping("SignalMapping test")
     .InjectTo  (id)
     .ObserveOn (id)
 .Test
-    (Arange << "1:5", Reduce(Add) & Size | Div | Eq(2.5)) //(1)
+    ("1:5"|Arange, Reduce(Add) & Size | Div | Eq(2.5)) //(1)
 ;
 }
 /*

@@ -80,15 +80,17 @@ private:
 
     void handle_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
 
-    boost::json::value eval_Const(boost::json::value const&, SignalOperatorHandler const&) const;
-    boost::json::value eval_UnaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
-    boost::json::value eval_CodegenFn(boost::json::value const&, SignalOperatorHandler const&) const;
-    boost::json::value eval_BinaryOp(boost::json::value const&, SignalOperatorHandler const&) const;
+    boost::json::value eval_Const(boost::json::value const&) const;
+    boost::json::value eval_UnaryOp(boost::json::value const&, EvalContext const&) const;
+    boost::json::value eval_BinaryOp(boost::json::value const&, EvalContext const&) const;
+    boost::json::value eval_CodegenFn(boost::json::value const&, EvalContext const&) const;
+    boost::json::value eval_HiOrd(boost::json::value const&, EvalContext const&) const;
     boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
 public:
 
-    static Expression literalAsEq(boost::json::value const& underlying);
-    static Expression constAsEq(boost::json::value const& underlying);
+    /// Return const expressions as Eq(underlying), except for Noop,
+    /// otherwise return Expression(underlying) unchanged
+    static Expression asPredicate(boost::json::value const& underlying);
 
     Expression(std::initializer_list<boost::json::value_ref> items);
     Expression(boost::json::value const& expr);
@@ -113,19 +115,13 @@ public:
     /// \brief Pack expression results into an array. \see zmbt::expr::Pack.
     friend Expression operator&(Expression const& lhs, Expression const& rhs);
 
-
-    /// \brief Apply x to lhs expression.
-    /// \details Bind x as a run-time argument to lhs expr. Equivalent to Apply(expr, x).
-    /// \see zmbt::expr::Apply
-    /// Note that operator << precedence is higher than pipe operator,
-    /// so lhs expression should be wrapped in parentheses if it contains
-    /// other operators.
-    friend Expression operator<<(Expression const& expr, Expression const& x);
-
-
     /// \brief Evaluate x to lhs expression.
     /// \details Equivalent to expr.eval(x).
-    friend Expression operator>>(Expression const& expr, Expression const& x);
+    friend V operator*(Expression const& expr, Expression const& x);
+
+    /// \brief Evaluate expression.
+    /// \details Equivalent to expr.eval().
+    friend V operator*(Expression const& expr);
 
 
 
@@ -188,6 +184,8 @@ public:
     }
 
     bool is_const() const;
+
+    bool is_hiord() const;
 
     operator boost::json::value() const
     {
