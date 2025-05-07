@@ -50,7 +50,6 @@ class InstanceTestRunner
 
     void report_failure(TestDiagnostics const& report);
 
-    TestDiagnostics test_case_diagnostics(std::size_t const n);
 
     bool exec_prerun_tasks(TestDiagnostics diagnostics);
 
@@ -81,26 +80,6 @@ void InstanceTestRunner::report_failure(TestDiagnostics const& report)
 }
 
 
-TestDiagnostics InstanceTestRunner::test_case_diagnostics(std::size_t const n)
-{
-
-    std::string name =  model_("/name").is_string() ? model_("/name").get_string().c_str() : boost::json::serialize(model_("/name"));
-    std::string descr =  model_("/description").is_string() ? model_("/description").get_string().c_str() : boost::json::serialize(model_("/description"));
-
-    auto diagnostics = TestDiagnostics(name)
-    .Description(descr)
-    .Channels(model_.at("/channels").as_array())
-    .Trigger(model_.at("/trigger"))
-    .VectorIdx(n)
-    .Vector(model_("/tests/%d", n))
-    .Comment(model_.get_or_default(format("/comments/%d", n), "").as_string());
-    ;
-
-
-    return diagnostics;
-}
-
-
 bool InstanceTestRunner::exec_prerun_tasks(TestDiagnostics diagnostics)
 {
     if (!model_.contains("/pre-run")) return true;
@@ -127,8 +106,10 @@ bool InstanceTestRunner::inject_fixed_inputs(TestDiagnostics diagnostics)
         }
         catch(const std::exception& e)
         {
-            // TODO: handle diagnostics
-            throw e;
+            report_failure(diagnostics
+                .Error("fixed input injection", e.what())
+                .ChannelId(static_cnl.alias()));
+            return false;
         }
     }
     return true;
@@ -154,6 +135,7 @@ bool InstanceTestRunner::inject_dynamic_inputs(boost::json::array const& test_ve
 {
     bool no_exception_met{true};
 
+    std::size_t col_idx {};
     for (auto const& input: dynamic_inputs_)
     {
         auto const& condition_idx = input.first;
@@ -165,11 +147,12 @@ bool InstanceTestRunner::inject_dynamic_inputs(boost::json::array const& test_ve
         }
         catch (std::exception const& error) {
             report_failure(diagnostics
-                .Error("sample injection", error.what())
-                .ChannelIdx(condition_idx)
+                .Error("test input injection", error.what())
+                .TestCol(col_idx)
             );
             no_exception_met = false;
         }
+        ++col_idx;
     }
 
     return no_exception_met;
@@ -241,7 +224,7 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
                 expr.eval(observed, ctx);
 
                 diagnostics
-                    .Fail(expr, observed, op)
+                    .Fail(expr, observed)
                     .EvalStack(ctx.log);
 
                 assertion_passed = false;
@@ -266,11 +249,38 @@ bool InstanceTestRunner::eval_fixed_assertions(TestDiagnostics diagnostics)
 
     for (auto const& group: static_outputs_)
     {
-        passed = eval_assertion(group, group.back().expect(), diagnostics) && passed;
+        Expression expect = group.back().expect();
+        try
+        {
+            expect = Expression::asPredicate(expect);
+        }
+        catch(const std::exception& e)
+        {
+            diagnostics.Error("fixed expectation eval", e.what());
+            passed = false;
+        }
+
+        if (passed)
+        {
+            passed = eval_assertion(group, expect, diagnostics) && passed;
+        }
 
         if (!passed)
         {
-            report_failure(diagnostics);
+            boost::json::value ids;
+            if (group.size() > 1)
+            {
+                ids.emplace_array();
+                for (auto const& cnl: group)
+                {
+                    ids.get_array().push_back(cnl.alias());
+                }
+            }
+            else
+            {
+                ids = group.back().alias();
+            }
+            report_failure(diagnostics.ChannelId(ids));
         }
     }
     return passed;
@@ -294,9 +304,8 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
 
         if (!test_case_passed)
         {
-            diagnostics
-                .ChannelIdx(condition_idx);
-            report_failure(diagnostics);
+            report_failure(diagnostics
+                .TestCol(condition_idx));
         }
     }
 
@@ -307,7 +316,6 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
 InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
     : model_(model)
 {
-    // TODO: handle fixed combos
 
     std::list<std::list<ChannelHandle>> channel_groups;
 
@@ -389,7 +397,17 @@ void InstanceTestRunner::Run()
         }
 
         bool success {true};
-        auto diagnostics = test_case_diagnostics(i);
+
+        auto to_string = [](boost::json::value const& node) {
+            return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
+        };
+
+        auto diagnostics = TestDiagnostics(to_string(model_("/name")))
+            .Description(to_string(model_("/description")))
+            .Vector(test_vector)
+            .TestRow(i)
+            .Comment(model_.get_or_default(format("/comments/%d", i), "").as_string());
+            ;
 
         env.ResetInterfaceData();
         success = success && exec_prerun_tasks(diagnostics);

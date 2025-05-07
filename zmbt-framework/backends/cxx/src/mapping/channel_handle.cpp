@@ -165,8 +165,7 @@ Expression ChannelHandle::keep() const
 Expression ChannelHandle::expect() const
 {
     auto const& expect = data_.at("expect");
-    if (expect.is_null()) return expr::Noop;
-    else return Expression::asPredicate(expect);
+    return expect.is_null() ? Expression(expr::Noop) : Expression(expect);
 }
 
 

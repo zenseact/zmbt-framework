@@ -14,20 +14,19 @@ namespace mapping {
 
 
 /// report test setup or execution error
-TestDiagnostics& TestDiagnostics::Error (boost::json::string_view origin, boost::json::string_view msg)
+TestDiagnostics& TestDiagnostics::Error(boost::json::string_view origin, boost::json::string_view msg)
 {
-    this->kind = Result::Error;
+    this->result = Result::Error;
     this->message = format("%s: %s", origin, msg);
     return *this;
 }
 
 /// report test expectation failure
-TestDiagnostics& TestDiagnostics::Fail(Expression expected, boost::json::value observed, SignalOperatorHandler op)
+TestDiagnostics& TestDiagnostics::Fail(Expression expected, boost::json::value observed)
 {
-    this->kind = Result::Fail;
+    this->result = Result::Fail;
     this->expected = expected.serialize();
     this->observed = observed;
-    this->decorator = op.annotation();
     this->message = "expectation match failed";
     return *this;
 }
@@ -36,7 +35,7 @@ boost::json::value TestDiagnostics::to_json() const
 {
     boost::json::string verdict = "";
 
-    switch (this->kind)
+    switch (this->result)
     {
     case Result::Fail:
         verdict = "FAIL";
@@ -51,19 +50,16 @@ boost::json::value TestDiagnostics::to_json() const
     }
 
     return boost::json::object {
-        {"model"         , this->model       },
-        {"test"          , this->nof_vector  },
-        {"trigger"       , this->trigger     },
-        {"channel"       , this->nof_channel },
+        {"model"         , this->model_name  },
+        {"condition"     , {this->tr, this->tc}},
+        {"channel"       , this->channel_id  },
         {"verdict"       , verdict           },
         {"message"       , this->message     },
         {"expected"      , this->expected    },
-        {"test vector"   , this->vector      },
         {"observed"      , this->observed    },
-        {"decorator"     , this->decorator   },
+        {"test vector"   , this->vector      },
         {"description"   , this->description },
         {"comment"       , this->comment     },
-        {"channels"      , this->channels    },
         {"eval_stack"    , this->eval_stack  },
     };
 }

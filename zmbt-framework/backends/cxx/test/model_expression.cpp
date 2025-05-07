@@ -4,8 +4,6 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include <cmath>
-#include <limits>
 #include <boost/math/constants/constants.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/data/test_case.hpp>
@@ -34,10 +32,6 @@ std::set<Keyword> const NotImplemented {
 };
 
 
-double const pi = boost::math::constants::pi<double>();
-double const e = boost::math::constants::e<double>();
-double const inf = std::numeric_limits<double>::infinity();
-double const eps = std::numeric_limits<double>::epsilon();
 
 struct TestEvalSample
 {
@@ -456,7 +450,7 @@ std::vector<TestEvalSample> const TestSamples
     {And(42)|Or(13)             , true                  , 42                    },
     {And(42)|Or(13)             , false                 , 13                    },
     {And(42)|Or(13)|Not         , true                  , false                 },
-    {And(E)|Or(NaN)             , true                  , e                     },
+    {And(E)|Or(NaN)             , true                  , *E                    },
 
     {Push("baz")|Reduce(And)    , {"foo", "bar"}        , "bar"                 },
     {Push(""   )|Reduce(And)    , {"foo", "bar"}        , ""                    },
