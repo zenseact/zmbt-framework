@@ -215,7 +215,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
     using hookout_args_t = mp_transform<rvalue_reference_to_value, args_t>;
 
-    std::size_t HookImpl(hookout_args_t & args)
+    std::size_t HookArgsImpl(hookout_args_t & args)
     {
         auto const ts = get_ts();
         std::string const tid = get_tid();
@@ -240,6 +240,59 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         // Produce
         return nofcall;
     }
+
+    template <class T>
+    auto HookReturnImpl(std::size_t const nofcall) -> mp_if<mp_and<mp_not<is_reference<T>>, mp_not<is_void<T>>>, T>
+    {
+        boost::json::value result;
+        try
+        {
+            result = GetInjectionReturn(nofcall);
+        }
+        catch(const std::exception& e)
+        {
+            throw model_error("Hook #%d %s return evaluation error: `%s`", nofcall, interface(), e.what());
+            return dejsonize<T>(nullptr);
+        }
+
+        try
+        {
+            return dejsonize<T>(result);
+        }
+        catch(const std::exception& e)
+        {
+            throw model_error("Hook #%d %s return evaluation error, can't deserialize %s as %s",
+                nofcall, interface(), boost::json::serialize(result), type_name<T>());
+            return dejsonize<T>(nullptr);
+        }
+    }
+
+    template <class T>
+    auto HookReturnImpl(std::size_t const nofcall) -> mp_if<is_reference<T>, T>
+    {
+        using TT = remove_reference_t<T>;
+
+        TT result = HookReturnImpl<TT>(nofcall);
+        auto const key = format("Returning hook reference for %s: %s", interface(), refobj());
+
+        auto shared = Env().GetShared<TT>(key);
+        if (!shared)
+        {
+            shared = std::make_shared<TT>(result);
+            Env().SetShared(shared, key);
+        }
+        else
+        {
+            *shared = result;
+        }
+        return *shared;
+    }
+
+    template <class T>
+    auto HookReturnImpl(std::size_t const nofcall) -> mp_if<is_void<T>, T>
+    {
+    }
+
 
     public:
 
@@ -270,36 +323,16 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
         try
         {
-            nofcall = HookImpl(args);
+            nofcall = HookArgsImpl(args);
         }
         catch(const std::exception& e)
         {
             throw model_error("Hook #%d %s capture error: `%s`, args: %s"
                 , nofcall, interface()
                 , e.what(), json_from(args));
-            return dejsonize<return_t>(nullptr);
-        }
+            }
 
-        try
-        {
-            result = GetInjectionReturn(nofcall);
-        }
-        catch(const std::exception& e)
-        {
-            throw model_error("Hook #%d %s return evaluation error: `%s`", nofcall, interface(), e.what());
-            return dejsonize<return_t>(nullptr);
-        }
-
-        try
-        {
-            return dejsonize<return_t>(result);
-        }
-        catch(const std::exception& e)
-        {
-            throw model_error("Hook #%d %s return evaluation error, can't deserialize %s as %s",
-                nofcall, interface(), boost::json::serialize(result), type_name<return_t>());
-            return dejsonize<return_t>(nullptr);
-        }
+        return HookReturnImpl<return_t>(nofcall);
     }
 
     /**

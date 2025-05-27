@@ -1061,3 +1061,43 @@ BOOST_AUTO_TEST_CASE(TestFixedChannels)
 
     .Test();
 }
+
+
+BOOST_AUTO_TEST_CASE(TriggerReturnRef)
+{
+
+    int x = 42;
+    auto const getx = [&x] () -> int& { return x; };
+
+    SignalMapping("trigger return reference")
+    .OnTrigger (getx)
+        .ObserveOn (getx).Return().Expect(42)
+    .Test();
+}
+
+
+BOOST_AUTO_TEST_CASE(MockReturnRef)
+{
+
+    struct Mock
+    {
+        int&  x()
+        {
+            return InterfaceRecord(&Mock::x, this).Hook();
+        }
+    } mock1, mock2;
+
+
+    auto const SUT = [&] ()  { return mock1.x() + mock2.x(); };
+
+    SignalMapping("mock return reference")
+    .OnTrigger (SUT)
+        .InjectTo(&Mock::x, &mock1)
+        .InjectTo(&Mock::x, &mock2)
+        .ObserveOn (SUT).Return()
+    .Test
+        ( 2,  2,  4)
+        ( 3,  3,  6)
+        (42, -3, 39)
+    ;
+}
