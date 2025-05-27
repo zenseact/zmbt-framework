@@ -257,3 +257,11 @@ BOOST_FIXTURE_TEST_CASE(PolymorphicUnsafeRef, TestMappingTrigger)
         BOOST_CHECK_EQUAL(result, "Final");
     }
 }
+
+
+BOOST_FIXTURE_TEST_CASE(ReturnRef, TestMappingTrigger)
+{
+    int x = 42;
+    auto const getx = [&x] () -> int& { return x; };
+    BOOST_CHECK_EQUAL(Trigger(nullptr, getx).execute().as_object().at("return"), 42);
+}
