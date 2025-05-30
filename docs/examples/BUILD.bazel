@@ -1,10 +1,9 @@
 # copyright (c) Copyright 2024 Zenseact AB
 # SPDX-License-Identifier: Apache-2.0
 
-load("//zmbt-framework/backends/cxx/test:rules.bzl", "unit_test_group")
+load("//zmbt-framework/backends/cxx/test:rules.bzl", "make_unit_tests")
 
-unit_test_group(
-    lib = "//zmbt-framework/backends/cxx:zmbt",
+make_unit_tests(
     srcs = glob([
         "cxx/*.cpp",
     ])
