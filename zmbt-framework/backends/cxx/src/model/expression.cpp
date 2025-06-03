@@ -106,7 +106,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         shrink(f, (n < fx.size()) ? f.size() - n : MinExpr);
     }
     os << f << '(' << x << ") = " << fx << '\n';
-};
+}
 
 
 } // namespace

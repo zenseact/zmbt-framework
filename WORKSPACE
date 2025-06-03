@@ -9,7 +9,6 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Bazel packaging
 ##############################
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
     name = "rules_pkg",
     urls = [
@@ -20,6 +19,24 @@ http_archive(
 )
 load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 rules_pkg_dependencies()
+
+##############################
+# GCC toolchain
+##############################
+
+gcc_toolchain_version = "0.6.0"
+gcc_toolchain_sha = "8aa7129247f06e12ab356797f79eea13f2387f32ae8f7184074e8e6402790299"
+
+http_archive(
+    name = "gcc_toolchain",
+    urls = [
+        "https://github.com/f0rmiga/gcc-toolchain/archive/refs/tags/{}.tar.gz".format(
+            gcc_toolchain_version
+        ),
+    ],
+    sha256 = gcc_toolchain_sha,
+    strip_prefix = "gcc-toolchain-{}".format(gcc_toolchain_version),
+)
 
 ##############################
 # Boost C++ Libraries
