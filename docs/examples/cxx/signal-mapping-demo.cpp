@@ -584,57 +584,63 @@ Benefits from this approach are:
  - reuse string parameters in different roles (like `Method` in the example)
 
 
-## Signal type decoration
+## Operator overloading
 
 The predicate expressions described above know nothing about actual
 operations - to apply them to a particular value, they need an operator handler.
 
-The default `GenericSignalOperator` does most of operations in an intuitive
+By default they use `GenericSignalOperator` which does most of operations in an intuitive
 way, allowing order checks on strings and array-like structures.
 
-Sometimes you need to apply specific operators - for such case
-a channel can take a handler in `As` clause:
+Sometimes you need to apply certain type-specific operators - for such case use the Overload or Cast expressions:
 
 ```cpp
-.InjectTo(sum).As(type<int>)
+Overload(f, type<std::complex>)
 ```
 
-The operator handler constructed from `type<int>` will provide to the model
-all existing operators for this type, plus the `decorate` function - a transformation
-ansuring the correct type representation in serialized form.
+The operator handler constructed from `type<std::complex>` will provide to the `f`
+expression all existing operators for this type. If specific type does not support certain operators,
+they will be substituted with stubs that will fail in runtime instead of blocking compilation.
 
-If specific type does not support certain operators, they will be substituted
-with stubs that will throw exceptions on call.
+Operator handler is propagated downstream to all terminal subexpressions.
+If some of subexpressions returns type other than T in JSON representation, it may lead to undesired
+behavior, e.g., boolean result from predicate will be casted to T if passed further:
 
-This mechanism allows utilizing type decorators in place of actual signal types:
+```cpp
+Overload(Eq(x), type<T>)|Not // good
+Overload(Eq(x)|Not, type<T>) // bad
+```
 
+## Type decoration
+
+The `Decorate` (alias `Cast`) expression allows utilizing type decorators in place of actual signal types:
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(SignalTypeDecorator)
+BOOST_AUTO_TEST_CASE(DecorUnderlying)
 {
-    auto DoubleToFloat = [](double x) -> float { return x; };
 
-    SignalMapping("Narrowing conversion (double) -> float")
-    .OnTrigger(DoubleToFloat)
-        .InjectTo  (DoubleToFloat) .As(decor::Precise<double>)
-        .ObserveOn (DoubleToFloat) .As(decor::Precise<float> )
+    auto const id = [](int x) -> int { return x; };
+    using decor::Underlying;
 
+    SignalMapping("Decorate int -> int as Foo -> Foo")
+    .OnTrigger(id)
+        .InjectTo  (id) .As(Underlying<Foo>)
+        .ObserveOn (id) .As(Underlying<Foo>)
     .Test
-        (0.125                 , 0.125           ) ["ok: power of 2"]
-        (.2                    , .2f /*(1)*/     ) ["ok: correct repr of float"]
-        ("0x1.199999999999ap+0", "0x1.19999ap+0" ) ["ok with float literals"]
+        (Foo::A, Foo::A    )
+        (Foo::B, Foo::B    )
+        (Foo::A, Eq(Foo::B)|Not)
+        (Foo::B, Eq(Foo::C)|Not)
     ;
 }
+
 /*
 ```
 
-1. If test value is passed without -f suffix, the `Precise<float>` decorator will throw exception
-   because double precision `.2` can't be represented in float.
-
-In this example we utilize a signal decorator `zmbt::decor::Precise`,
-that checks the correct value representation and allows conversion to/from floating
-point hexadecimal literals in string.
+In this example we utilize a signal decorator `zmbt::decor::Underlying`,
+that maps input Foo to int before passing to trigger function. Without this cast
+the model will throw exception on attempt to cast string representation of Foo:A to integer.
 
 
 ## Signal batch testing

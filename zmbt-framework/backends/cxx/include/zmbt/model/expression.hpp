@@ -86,6 +86,9 @@ private:
     boost::json::value eval_CodegenFn(boost::json::value const&, EvalContext const&) const;
     boost::json::value eval_HiOrd(boost::json::value const&, EvalContext const&) const;
     boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
+
+    Expression(internal_tag, SignalOperatorHandler const& op);
+
 public:
 
     /// Return const expressions as Eq(underlying), except for Noop,
@@ -187,6 +190,9 @@ public:
 
     bool is_hiord() const;
 
+    bool is_boolean() const;
+
+
     operator boost::json::value() const
     {
         return underlying();
@@ -218,6 +224,7 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<Expression, T>, void>> 
     }
 
 };
+
 
 }  // namespace zmbt
 

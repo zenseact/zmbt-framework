@@ -244,9 +244,12 @@ Expression::Expression(std::initializer_list<boost::json::value_ref> items)
 
 Expression Expression::asPredicate(boost::json::value const& underlying)
 {
-    Expression const expr(underlying);
-    if (!expr.is_noop() && expr.is_const()) return Expression(Keyword::Eq, expr.eval());
-    else return expr;
+    Expression expr(underlying);
+    if (!expr.is_noop() && expr.is_const())
+    {
+        expr = Expression(Keyword::Eq, expr.eval());
+    }
+    return expr;
 }
 
 bool Expression::is_const() const
@@ -257,7 +260,35 @@ bool Expression::is_const() const
     {
         return Expression(params().as_array().back()).is_const();
     }
+    else if (is(Keyword::Overload))
+    {
+        return Expression(params()).is_const();
+    }
     return is(Keyword::Literal) || is(Keyword::C) || (CodegenType::Const == getCodegenType(keyword()));
+}
+
+bool Expression::is_boolean() const
+{
+    using dsl::detail::CodegenType;
+    using dsl::detail::getCodegenType;
+    using dsl::detail::isBoolean;
+    if(is_literal())
+    {
+        return params().is_bool();
+    }
+    if (isBoolean(keyword()))
+    {
+        return true;
+    }
+    if (is(Keyword::Overload))
+    {
+        return Expression(params()).is_boolean();
+    }
+    if (is(Keyword::Compose))
+    {
+        return Expression(params().as_array().back()).is_boolean();
+    }
+    return false;
 }
 
 bool Expression::is_hiord() const

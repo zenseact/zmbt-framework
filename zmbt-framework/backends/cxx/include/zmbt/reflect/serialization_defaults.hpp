@@ -16,6 +16,8 @@
 
 #include "serialization.hpp"
 
+#include <complex>
+
 
 
 namespace zmbt {
@@ -167,6 +169,45 @@ struct default_serialization<T, first_if_t<void,
     static T dejsonize(boost::json::value const& v)
     {
         return T(v);
+    }
+};
+
+
+//////////////////////////////
+// STD TYPES
+//////////////////////////////
+
+
+template <class T>
+struct default_serialization<std::complex<T>>
+{
+
+    static boost::json::value json_from(std::complex<T> const& t)
+    {
+
+        auto const real = real_to_number(t.real());
+        auto const imag = real_to_number(t.imag());
+        return t.imag() ? boost::json::array{real, imag} : real;
+    }
+
+    static std::complex<T> dejsonize(boost::json::value const& v)
+    {
+        T real, imag;
+        if (v.is_array() && v.get_array().size() == 2)
+        {
+            real = boost::json::value_to<T>(v.get_array().at(0));
+            imag = boost::json::value_to<T>(v.get_array().at(1));
+        }
+        else if (v.is_number())
+        {
+            real = boost::json::value_to<T>(v);
+            imag = 0;
+        }
+        else
+        {
+            throw serialization_error("can't produce std::complex from `%s`", v);
+        }
+        return {real, imag};
     }
 };
 

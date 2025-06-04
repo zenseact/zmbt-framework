@@ -242,9 +242,6 @@ enum class Keyword
     /// bool
     Bool,
 
-    /// nil
-    Nil,
-
     /// not
     Not,
 
@@ -344,6 +341,12 @@ enum class Keyword
     /// c
     C,
 
+    /// decorate
+    Decorate,
+
+    /// undecorate
+    Undecorate,
+
     /// reduce
     Reduce,
 
@@ -379,6 +382,9 @@ enum class Keyword
 
     /// unfold
     Unfold,
+
+    /// overload
+    Overload,
 
     /// bind
     Bind,
@@ -416,6 +422,7 @@ enum class Keyword
 namespace detail
 {
 bool isBinary(Keyword const& k);
+bool isBoolean(Keyword const& k);
 } // namespace detail
 
 

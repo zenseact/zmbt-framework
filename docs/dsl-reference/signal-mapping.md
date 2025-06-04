@@ -36,11 +36,11 @@ MODEL = SignalMapping, OnTrigger, [Repeat], {Channel}-, Params, Tests, [Tasks], 
 
 Channel = Input | Output | OutputCombo;
 
-Input = InjectTo, ([(Return | Args | Exception)], [As]), [Keep];
+Input = InjectTo, ([(Return | Args | Exception)], [Map]), [Keep];
 
 
 Output = ObserveOn, ((
-(([(Return | Args | Exception)], [As]) | ThreadId | Timestamp), [(Call | CallRange)]) | CallCount);
+(([(Return | Args | Exception)], [Map]) | ThreadId | Timestamp), [(Call | CallRange)]) | CallCount);
 
 
 OutputCombo = {Output, (With, Output)}- | {Output, (Union, Output)}-;
@@ -81,8 +81,10 @@ Channel filters:
         - if on trigger: `Args` for `InjectTo`, `Return` for `ObserveOn`.
         - if on mock: `Args` for `ObserveOn`, `Return` for `InjectTo`.
 - **Other**:
-    - `As`: specify the type decorator for channel signal (see zmbt::SignalOperatorHandler).
-        - default: `zmbt::GenericSignalOperator`, good enough for most cases.
+    - `Map`: invariant part of the test expression (default = `Id`).
+      Composed with corresponding Test or Keep expression, and evaluated as:
+        - inputs: `Test | Map | Inject`
+        - outputs: `Observe | Map | Test`
     - `Call`: specify the interface call number (0-based).
         - Negative value is resolved as a reverse index, with -1 referring to the last call.
         - default: `-1`

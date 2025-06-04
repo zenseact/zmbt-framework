@@ -47,6 +47,7 @@ enum class Keyword
 namespace detail
 {
 bool isBinary(Keyword const& k);
+bool isBoolean(Keyword const& k);
 } // namespace detail
 
 

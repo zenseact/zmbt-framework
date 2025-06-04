@@ -14,6 +14,7 @@
 #include "zmbt/model/keyword.hpp"
 #include "zmbt/reflect/serialization.hpp"
 #include "expression.hpp"
+#include "environment.hpp"
 
 namespace zmbt {
 namespace dsl {
@@ -91,6 +92,7 @@ template <Keyword K>
 struct SignatureTernary : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
+
     Expression operator()(Expression const& expr, Expression const& param) const
     {
         return Expression(K, boost::json::array{expr, param});
@@ -142,6 +144,49 @@ struct SignatureVariadic : public SignatureBase<K>
 };
 
 
+
+
+struct SignatureOverload : public SignatureTernary<Keyword::Overload>
+{
+    using SignatureTernary<Keyword::Overload>::SignatureTernary;
+    using SignatureTernary<Keyword::Overload>::operator();
+
+    template <class T>
+    Expression operator()(Expression const& expr, type_tag<T> tag) const
+    {
+        SignalOperatorHandler const op{tag};
+        Environment().RegisterOperator(op);
+        return Expression(Keyword::Overload, {expr, op.annotation()});
+    }
+};
+
+struct SignatureDecorate : public SignatureBinary<Keyword::Decorate>
+{
+    using SignatureBinary<Keyword::Decorate>::SignatureBinary;
+    using SignatureBinary<Keyword::Decorate>::operator();
+
+    template <class T>
+    Expression operator()(type_tag<T> tag) const
+    {
+        SignalOperatorHandler const op{tag};
+        Environment().RegisterOperator(op);
+        return Expression(Keyword::Decorate, op.annotation());
+    }
+};
+
+struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
+{
+    using SignatureBinary<Keyword::Undecorate>::SignatureBinary;
+    using SignatureBinary<Keyword::Undecorate>::operator();
+
+    template <class T>
+    Expression operator()(type_tag<T> tag) const
+    {
+        SignalOperatorHandler const op{tag};
+        Environment().RegisterOperator(op);
+        return Expression(Keyword::Undecorate, op.annotation());
+    }
+};
 
 } // namespace dsl
 } // namespace zmbt

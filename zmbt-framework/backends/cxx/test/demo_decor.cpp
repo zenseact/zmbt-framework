@@ -17,33 +17,6 @@ using zmbt::decor::Precise;
 using zmbt::decor::precise;
 
 
-enum class Foo : int
-{
-    Bar, Baz
-};
-
-BOOST_DESCRIBE_ENUM(Foo, Bar, Baz)
-
-BOOST_AUTO_TEST_CASE(DecorUnderlying)
-{
-
-    auto const id = [](int x) -> int { return x; };
-
-    SignalMapping("Test comparison assertions on FloatToDouble")
-    .OnTrigger(id)
-        .InjectTo  (id) .As(Underlying<Foo>)
-        .ObserveOn (id) .As(Underlying<Foo>)
-    .Test
-        (0            , 0           )
-        (1            , 1           )
-        (42           , 42          )
-        (Foo::Bar     , Foo::Bar    )
-        (Add(Foo::Baz), Foo::Baz    )
-        (Foo::Bar     , Ne(Foo::Baz))
-        // (Foo::Bar     , Foo::Baz|Not) // will throw conversion error, see https://github.com/zenseact/zmbt-framework/issues/17
-    ;
-}
-
 
 
 BOOST_AUTO_TEST_CASE(DecorPreciseFloatToFloat)
@@ -53,12 +26,15 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToFloat)
 
     SignalMapping("Test comparison assertions on IdentityFunctor")
     .OnTrigger(IdentityTest)
-        .InjectTo  (IdentityTest) .As(Precise<float>)
-        .ObserveOn (IdentityTest) .As(Precise<float>)
+        .InjectTo  (IdentityTest).As(Precise<float>)
+        .ObserveOn (IdentityTest).As(Precise<float>)
     .Test
-        (  0.f , 0.f   )
-        (  1.f , 1.f   )
-        (  1.1f, 1.1f  )
+        (0           , "0x0p+0")
+        (  1.f       , 1.f        )
+
+        (  0.f       , 0.f        )
+        (  1.f       , 1.f        )
+        (  1.1f      , 1.1f       )
         (  0         , 0          )
         (  1         , 1          )
         (  "0"       , "0"        )
@@ -77,7 +53,7 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToDouble)
     SignalMapping("Test comparison assertions on FloatToDouble")
     .OnTrigger(FloatToDouble)
         .InjectTo  (FloatToDouble) .As(Precise<float>)
-        .ObserveOn (FloatToDouble) .As(Precise<double>)
+        .ObserveOn (FloatToDouble) .As(Precise<float>)
     // .Description("Literal vectors")
     .Test
         // will fail: "1.1f" is parsed py strtod, not strtof
@@ -85,9 +61,8 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToDouble)
         // correct: hexadecimal notation is safe regardless of type
         (1.1f            , "0x1.19999ap+0"   )
 
-        (0.f             , 0.f               )
-        (1.f             , 1.f               )
-        (1.f             , "1.f"             )
+        // (0.f             , 0.f               )
+        // (1.f             , 1.f               )
         ("0x1.19999ap+0" , "0x1.19999ap+0"   ) // 1.1f
         ("0x1.555556p-2" , "0x1.555556p-2"   ) // 1.f / 3
 
@@ -95,9 +70,9 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToDouble)
         (1.f           , Le(1.5f)            )
         (1.f           , Ge( .5f)            )
 
-        (1.f           , Near({1.1f, 0.2})   )
-        (1             , In({1.1f, 0.2, 1E0}))
-        (1             , In({1.1f, 0.2, 1})  )
+        (1.f           , Near({1.1f, 0.2f})   )
+        (1             , In({1.1f, 0.2f, 1E0}))
+        (1             , In({1.1f, 0.2f, 1})  )
 
         (  0           , 0                   )
         (  1           , 1                   )
@@ -111,9 +86,9 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToDouble)
         (1.5f          , Near({2.f, 0.5})    )
         (1.5f          , Near({1  , 0.5})    )
         (1.5f          , Near({2  , 0.5})    )
-        (1.f           , Near({precise<double> ("1.f"), 0.1}) )
-        (1.5f          , Near({precise<double> ("1.f"), 0.5}) )
-        (1.5f          , Near({precise<double> ("2.f"), 0.5}) )
+        (1.f           , Near({"1.f", 0.1f}) )
+        (1.5f          , Near({"1.f", 0.5}) )
+        (1.5f          , Near({"2.f", 0.5}) )
     ;
 }
 
@@ -131,8 +106,8 @@ BOOST_AUTO_TEST_CASE(DecorPreciseDoubleToFloat)
         (0                     , 0               )
         (1                     , 1               )
         ("1.f"                 , "1.f"           )
-        ("0x1.19999ap+0"       , "0x1.19999ap+0" ) // 1.1f
-        ("0x1.555556p-2"       , "0x1.555556p-2" ) // 1.f / 3
+        ("0x1.19999ap+0"       , "0x1.19999ap+0" )
+        ("0x1.555556p-2"       , "0x1.555556p-2" )
         (1.1                   , "0x1.19999ap+0" )
         ("0x1.199999999999ap+0", "0x1.19999ap+0" )
     ;

@@ -205,6 +205,7 @@ Environment& Environment::RegisterOperator(boost::json::string_view key, SignalO
 SignalOperatorHandler Environment::GetOperator(boost::json::string_view name) const
 {
     auto lock = Lock();
+    if(!data_->operators.count(name)) throw model_error("requesting non-registered operator `%s`", name);
     return data_->operators.at(name);
 }
 

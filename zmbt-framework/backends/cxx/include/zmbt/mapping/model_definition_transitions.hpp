@@ -366,16 +366,16 @@ struct ModelDefinition::T_CallCount : protected virtual ModelDefinition::BaseTra
 
 
 template <class Target>
-struct ModelDefinition::T_As : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Map : protected virtual ModelDefinition::BaseTransition
 {
-    /// Apply SignalOperatorHandler for comparisons and transform
+    /// Apply Overload operator
     Target As(boost::json::string_view ref)
     {
-        state().model("/channels/@/operator") = ref;
+        state().model("/channels/@/overload") = ref;
         return transit_to<Target>();
     }
 
-    /// Apply SignalOperatorHandler for comparisons and transform
+    /// Apply Overload operator
     Target As(SignalOperatorHandler const& op)
     {
         state().env.RegisterOperator(op);

@@ -17,6 +17,7 @@
 #include "zmbt/model/signal_operator_handler.hpp"
 #include "zmbt/model/expression.hpp"
 #include "zmbt/model/exceptions.hpp"
+#include "zmbt/model/environment.hpp"
 
 
 
@@ -1112,6 +1113,41 @@ V eval_impl<Keyword::Flip>(V const& x, V const& param, E::EvalContext const& con
     return flip.eval(f.params(), context++);
 }
 
+
+template <>
+V eval_impl<Keyword::Overload>(V const& x, V const& param, E::EvalContext const& context)
+{
+    ASSERT(param.is_array());
+    auto const& params = param.get_array();
+    ASSERT(params.size() == 2);
+    auto const F = E(params.at(0));
+    auto const operator_reference = E(params.at(1)).eval({}, context++);
+    ASSERT(operator_reference.is_string());
+    E::EvalContext ctx = context++;
+    ctx.op = zmbt::Environment().GetOperator(operator_reference.get_string());
+    auto result = F.eval(x, ctx);
+
+    return (F.is_const() && !F.is_boolean()) ? ctx.op.decorate(result) : result;
+}
+
+template <>
+V eval_impl<Keyword::Decorate>(V const& x, V const& param, E::EvalContext const& context)
+{
+    auto const operator_reference = E(param).eval({}, context++);
+    ASSERT(operator_reference.is_string());
+    auto const op = zmbt::Environment().GetOperator(operator_reference.get_string());
+    return op.decorate(x);
+}
+
+template <>
+V eval_impl<Keyword::Undecorate>(V const& x, V const& param, E::EvalContext const& context)
+{
+    auto const operator_reference = E(param).eval({}, context++);
+    ASSERT(operator_reference.is_string());
+    auto const op = zmbt::Environment().GetOperator(operator_reference.get_string());
+    return op.undecorate(x);
+}
+
 } // namespace
 
 
@@ -1157,35 +1193,38 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
     {
 
         // terms special
-        case Keyword::At:        return eval_impl<Keyword::At>          (xx, pp, context);
-        case Keyword::Approx:    return eval_impl<Keyword::Approx>      (xx, pp, context);
-        case Keyword::Re:        return eval_impl<Keyword::Re>          (xx, pp, context);
-        case Keyword::Lookup:    return eval_impl<Keyword::Lookup>      (xx, pp, context);
-        case Keyword::Card:      return eval_impl<Keyword::Card>        (xx, pp, context);
-        case Keyword::Size:      return eval_impl<Keyword::Size>        (xx, pp, context);
-        case Keyword::Sum:       return eval_impl<Keyword::Sum>         (xx, pp, context);
-        case Keyword::Prod:      return eval_impl<Keyword::Prod>        (xx, pp, context);
-        case Keyword::Avg:       return eval_impl<Keyword::Avg>         (xx, pp, context);
-        case Keyword::Repeat:    return eval_impl<Keyword::Repeat>      (xx, pp, context);
-        case Keyword::Transp:    return eval_impl<Keyword::Transp>      (xx, pp, context);
-        case Keyword::Cartesian: return eval_impl<Keyword::Cartesian>   (xx, pp, context);
-        case Keyword::Concat:    return eval_impl<Keyword::Concat>      (xx, pp, context);
-        case Keyword::Push:      return eval_impl<Keyword::Push>        (xx, pp, context);
-        case Keyword::Uniques:   return eval_impl<Keyword::Uniques>     (xx, pp, context);
-        case Keyword::Reverse:   return eval_impl<Keyword::Reverse>     (xx, pp, context);
-        case Keyword::Slide:     return eval_impl<Keyword::Slide>       (xx, pp, context);
-        case Keyword::Chunks:    return eval_impl<Keyword::Chunks>      (xx, pp, context);
-        case Keyword::Stride:    return eval_impl<Keyword::Stride>      (xx, pp, context);
-        case Keyword::Arange:    return eval_impl<Keyword::Arange>      (xx, pp, context);
-        case Keyword::Items:     return eval_impl<Keyword::Items>       (xx, pp, context);
-        case Keyword::Keys:      return eval_impl<Keyword::Keys>        (xx, pp, context);
-        case Keyword::Values:    return eval_impl<Keyword::Values>      (xx, pp, context);
-        case Keyword::Enumerate: return eval_impl<Keyword::Enumerate>   (xx, pp, context);
-        case Keyword::Flatten:   return eval_impl<Keyword::Flatten>     (xx, pp, context);
-        case Keyword::Union:     return eval_impl<Keyword::Union>       (xx, pp, context);
-        case Keyword::Intersect: return eval_impl<Keyword::Intersect>   (xx, pp, context);
-        case Keyword::Diff:      return eval_impl<Keyword::Diff>        (xx, pp, context);
-        case Keyword::Format:    return eval_impl<Keyword::Format>      (xx, pp, context);
+        case Keyword::At:         return eval_impl<Keyword::At>          (xx, pp, context);
+        case Keyword::Approx:     return eval_impl<Keyword::Approx>      (xx, pp, context);
+        case Keyword::Re:         return eval_impl<Keyword::Re>          (xx, pp, context);
+        case Keyword::Lookup:     return eval_impl<Keyword::Lookup>      (xx, pp, context);
+        case Keyword::Card:       return eval_impl<Keyword::Card>        (xx, pp, context);
+        case Keyword::Size:       return eval_impl<Keyword::Size>        (xx, pp, context);
+        case Keyword::Sum:        return eval_impl<Keyword::Sum>         (xx, pp, context);
+        case Keyword::Prod:       return eval_impl<Keyword::Prod>        (xx, pp, context);
+        case Keyword::Avg:        return eval_impl<Keyword::Avg>         (xx, pp, context);
+        case Keyword::Repeat:     return eval_impl<Keyword::Repeat>      (xx, pp, context);
+        case Keyword::Transp:     return eval_impl<Keyword::Transp>      (xx, pp, context);
+        case Keyword::Cartesian:  return eval_impl<Keyword::Cartesian>   (xx, pp, context);
+        case Keyword::Concat:     return eval_impl<Keyword::Concat>      (xx, pp, context);
+        case Keyword::Push:       return eval_impl<Keyword::Push>        (xx, pp, context);
+        case Keyword::Uniques:    return eval_impl<Keyword::Uniques>     (xx, pp, context);
+        case Keyword::Reverse:    return eval_impl<Keyword::Reverse>     (xx, pp, context);
+        case Keyword::Slide:      return eval_impl<Keyword::Slide>       (xx, pp, context);
+        case Keyword::Chunks:     return eval_impl<Keyword::Chunks>      (xx, pp, context);
+        case Keyword::Stride:     return eval_impl<Keyword::Stride>      (xx, pp, context);
+        case Keyword::Arange:     return eval_impl<Keyword::Arange>      (xx, pp, context);
+        case Keyword::Items:      return eval_impl<Keyword::Items>       (xx, pp, context);
+        case Keyword::Keys:       return eval_impl<Keyword::Keys>        (xx, pp, context);
+        case Keyword::Values:     return eval_impl<Keyword::Values>      (xx, pp, context);
+        case Keyword::Enumerate:  return eval_impl<Keyword::Enumerate>   (xx, pp, context);
+        case Keyword::Flatten:    return eval_impl<Keyword::Flatten>     (xx, pp, context);
+        case Keyword::Union:      return eval_impl<Keyword::Union>       (xx, pp, context);
+        case Keyword::Intersect:  return eval_impl<Keyword::Intersect>   (xx, pp, context);
+        case Keyword::Diff:       return eval_impl<Keyword::Diff>        (xx, pp, context);
+        case Keyword::Format:     return eval_impl<Keyword::Format>      (xx, pp, context);
+        case Keyword::Decorate:   return eval_impl<Keyword::Decorate>    (xx, pp, context);
+        case Keyword::Undecorate: return eval_impl<Keyword::Undecorate>  (xx, pp, context);
+
 
         default:
         {
@@ -1235,6 +1274,7 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
         case Keyword::Argmax:   return eval_impl<Keyword::Argmax>  (*x_ptr, *param_ptr, context);
         case Keyword::Min:      return eval_impl<Keyword::Min>     (*x_ptr, *param_ptr, context);
         case Keyword::Max:      return eval_impl<Keyword::Max>     (*x_ptr, *param_ptr, context);
+        case Keyword::Overload: return eval_impl<Keyword::Overload>(*x_ptr, *param_ptr, context);
 
         default:
         {

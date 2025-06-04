@@ -234,9 +234,7 @@ struct custom_serialization<decor::precise<T>> {
 
     static boost::json::value json_from(decor::precise<T> const t)
     {
-        boost::json::value v;
-        v.emplace_string() = t.stringify();
-        return v;
+        return t.stringify().c_str();
     }
 
     static decor::precise<T>

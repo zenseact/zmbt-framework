@@ -316,7 +316,7 @@ class ModelDefinition::N_CallFilter
 
 class ModelDefinition::N_DecorIn 
     : public ModelDefinition::N_AliasIn
-    , public ModelDefinition::T_As<ModelDefinition::N_AliasIn>
+    , public ModelDefinition::T_Map<ModelDefinition::N_AliasIn>
 {
   private:
     friend class ModelDefinition;
@@ -335,7 +335,7 @@ class ModelDefinition::N_DecorIn
 
 class ModelDefinition::N_DecorOut 
     : public ModelDefinition::N_CallFilter
-    , public ModelDefinition::T_As<ModelDefinition::N_CallFilter>
+    , public ModelDefinition::T_Map<ModelDefinition::N_CallFilter>
 {
   private:
     friend class ModelDefinition;
@@ -448,8 +448,8 @@ extern template class ModelDefinition::T_Expect<ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_EndIn>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_EndOut>;
 extern template class ModelDefinition::T_CallFilter<ModelDefinition::N_AliasOut>;
-extern template class ModelDefinition::T_As<ModelDefinition::N_AliasIn>;
-extern template class ModelDefinition::T_As<ModelDefinition::N_CallFilter>;
+extern template class ModelDefinition::T_Map<ModelDefinition::N_AliasIn>;
+extern template class ModelDefinition::T_Map<ModelDefinition::N_CallFilter>;
 extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorIn>;
 extern template class ModelDefinition::T_SignalFilter<ModelDefinition::N_DecorOut>;
 extern template class ModelDefinition::T_SignalProperty<ModelDefinition::N_CallFilter>;

@@ -139,34 +139,17 @@ public:
 
     /// \brief Set injection return subsignal at nofcall
     /// \param e expression
-    /// \param op operator handler id
     /// \param group return | args | exception
     /// \param jp JSON Pointer
-    void Inject(Expression const& e, boost::json::string_view op, boost::json::string_view group, boost::json::string_view jp = "");
+    void Inject(Expression const& e, boost::json::string_view group, boost::json::string_view jp = "");
 
-    /// \brief Set injection return subsignal at nofcall
-    /// \param e
-    /// \param jp JSON Pointer
-    void InjectReturn(Expression const& e, SignalOperatorHandler const& op, boost::json::string_view jp = "")
-    {
-        return Inject(e, op.annotation(), "return", jp);
-    }
 
     /// \brief Set injection return subsignal at nofcall
     /// \param e
     /// \param jp JSON Pointer
     void InjectReturn(Expression const& e, boost::json::string_view jp = "")
     {
-        return InjectReturn(e, {}, jp);
-    }
-
-
-    /// \brief Set injection args subsignal at nofcall
-    /// \param e
-    /// \param jp JSON Pointer
-    void InjectArgs(Expression const& e, SignalOperatorHandler const& op, boost::json::string_view jp = "")
-    {
-        return Inject(e, op.annotation(), "args", jp);
+        return Inject(e, "return", jp);
     }
 
     /// \brief Set injection args subsignal at nofcall
@@ -174,7 +157,7 @@ public:
     /// \param jp JSON Pointer
     void InjectArgs(Expression const& e, boost::json::string_view jp = "")
     {
-        return InjectArgs(e, {}, jp);
+        return Inject(e, "args", jp);
     }
 
 

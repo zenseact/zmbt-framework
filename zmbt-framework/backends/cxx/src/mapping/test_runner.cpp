@@ -12,6 +12,7 @@
 #include <zmbt/model/environment_interface_record.hpp>
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/expression.hpp>
+#include <zmbt/model/expression_api.hpp>
 #include <zmbt/model/keyword.hpp>
 #include <zmbt/model/signal_operator_handler.hpp>
 #include <zmbt/core.hpp>
@@ -65,7 +66,7 @@ class InstanceTestRunner
 
     bool observe_results(boost::json::array const& test_vector, TestDiagnostics diagnostics);
 
-    bool eval_assertion(std::list<ChannelHandle> const& channel_group, Expression const& expr, TestDiagnostics& diagnostics);
+    bool eval_assertion(std::list<ChannelHandle> const& channel_group, Expression expr, TestDiagnostics& diagnostics);
 
 
 public:
@@ -176,17 +177,16 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
     }
 }
 
-bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, Expression const& expr, TestDiagnostics& diagnostics)
+bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, Expression e, TestDiagnostics& diagnostics)
 {
     bool assertion_passed{true};
 
-    if (expr.is_noop())
+    if (e.is_noop())
     {
         return true;
     }
 
     boost::json::value observed {};
-    SignalOperatorHandler op {};
 
     // getting observed value
     if (assertion_passed)
@@ -204,7 +204,11 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
             else
             {
                 observed = channel_group.cbegin()->observe();
-                op = channel_group.cbegin()->op();
+                auto const op = channel_group.cbegin()->overload();
+                if (op.annotation() != SignalOperatorHandler{}.annotation())
+                {
+                    e = expr::Overload(e, op.annotation());
+                }
             }
         }
         catch (std::exception const& error) {
@@ -218,13 +222,13 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
     {
         try
         {
-            if (not (expr.match(observed, op)))
+            if (not (e.match(observed)))
             {
-                Expression::EvalContext ctx {op, Expression::EvalLog::make(), 0};
-                expr.eval(observed, ctx);
+                Expression::EvalContext ctx {{}, Expression::EvalLog::make(), 0};
+                e.eval(observed, ctx);
 
                 diagnostics
-                    .Fail(expr, observed)
+                    .Fail(e, observed)
                     .EvalStack(ctx.log);
 
                 assertion_passed = false;

@@ -18,84 +18,60 @@
 
 namespace zmbt {
 
-
 SignalOperatorHandler::SignalOperatorHandler(
-    boost::json::string_view  annotation,
-    operators_t op
+    Config const config,
+    std::string const annotation,
+    Handle const handle
 )
-    : annotation_{annotation}
-    , operators{op}
+    : config_{config}
+    , annotation_{annotation}
+    , handle_{handle}
 {
 }
 
 
-#define GENERIC_T1(OP) [](boost::json::value const& rhs) { return OP zmbt::GenericSignalOperator(rhs); }
-#define GENERIC_T2(OP) [](boost::json::value const& lhs, boost::json::value const& rhs) { return zmbt::GenericSignalOperator(lhs) OP zmbt::GenericSignalOperator(rhs); }
-
 SignalOperatorHandler::SignalOperatorHandler()
     : SignalOperatorHandler{
+        Config::Full,
         type_name<GenericSignalOperator>(),
-        operators_t {
-            [](boost::json::value const& x) {return x;},
-            [](boost::json::value const& x) {return static_cast<bool>(zmbt::GenericSignalOperator(x));},
-            GENERIC_T2(==), // generic_is_equal,
-            GENERIC_T2(<), // generic_is_less,
-            GENERIC_T2(<=), // generic_is_less_or_eq,
-            GENERIC_T1(-), // generic_negate,
-            GENERIC_T1(~), // generic_complement,
-            GENERIC_T1(!), // generic_logical_not,
-            GENERIC_T2(+), // generic_add,
-            GENERIC_T2(-), // generic_sub,
-            GENERIC_T2(*), // generic_mul,
-            GENERIC_T2(/), // generic_div,
-            GENERIC_T2(%), // generic_mod,
-            GENERIC_T2(&), // generic_band,
-            GENERIC_T2(|), // generic_bor,
-            GENERIC_T2(^), // generic_bxor,
-            GENERIC_T2(<<),  // generic_lsift,
-            GENERIC_T2(>>),  // generic_rshift,
-            GENERIC_T2(&&), // generic_land,
-            GENERIC_T2(||)  // generic_lor,
-        }
+        {}
     }
 {
 }
 
-#undef GENERIC_T1
-#undef GENERIC_T2
 
 
 boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
 {
     switch (keyword)
     {
-    case dsl::Keyword::Bool: return operators.is_truth_(rhs);
-    case dsl::Keyword::Nil: return !operators.is_truth_(rhs);
-    case dsl::Keyword::Not: return operators.not_(rhs);
-    case dsl::Keyword::And: return operators.land_(lhs, rhs);
-    case dsl::Keyword::Or: return operators.lor_(lhs, rhs);
+    case dsl::Keyword::Bool: return handle_.logic.bool_(rhs);
+    case dsl::Keyword::Not: return !handle_.logic.bool_(rhs);
+    case dsl::Keyword::And: return handle_.logic.and_(lhs, rhs);
+    case dsl::Keyword::Or: return handle_.logic.or_(lhs, rhs);
 
-    case dsl::Keyword::Eq: return operators.is_equal_(lhs, rhs);
-    case dsl::Keyword::Ne: return !operators.is_equal_(lhs, rhs);
+    case dsl::Keyword::Eq: return handle_.comp.equal_to(lhs, rhs);
+    case dsl::Keyword::Ne: return !handle_.comp.equal_to(lhs, rhs);
 
-    case dsl::Keyword::Le: return operators.is_le_(lhs, rhs);
-    case dsl::Keyword::Gt: return !operators.is_le_(lhs, rhs);
-    case dsl::Keyword::Ge: return operators.is_le_(rhs, lhs);
-    case dsl::Keyword::Lt: return !operators.is_le_(rhs, lhs);
+    case dsl::Keyword::Le: return handle_.comp.less_equal(lhs, rhs);
+    case dsl::Keyword::Gt: return !handle_.comp.less_equal(lhs, rhs);
+    case dsl::Keyword::Ge: return handle_.comp.less_equal(rhs, lhs);
+    case dsl::Keyword::Lt: return !handle_.comp.less_equal(rhs, lhs);
 
-    case dsl::Keyword::Add: return operators.add_(lhs, rhs);
-    case dsl::Keyword::Sub: return operators.sub_(lhs, rhs);
-    case dsl::Keyword::Mul: return operators.mul_(lhs, rhs);
-    case dsl::Keyword::Div: return operators.div_(lhs, rhs);
-    case dsl::Keyword::Mod: return operators.mod_(lhs, rhs);
+    case dsl::Keyword::Add: return handle_.arithmetics.add(lhs, rhs);
+    case dsl::Keyword::Sub: return handle_.arithmetics.sub(lhs, rhs);
+    case dsl::Keyword::Mul: return handle_.arithmetics.mul(lhs, rhs);
+    case dsl::Keyword::Div: return handle_.arithmetics.div(lhs, rhs);
+    case dsl::Keyword::Mod: return handle_.arithmetics.mod(lhs, rhs);
+    case dsl::Keyword::Neg   : return handle_.arithmetics.neg(rhs);
 
-    case dsl::Keyword::Neg   : return operators.neg_(rhs);
-    case dsl::Keyword::BitNot: return operators.compl_(rhs);
-    case dsl::Keyword::BitAnd: return operators.conj_(lhs, rhs);
-    case dsl::Keyword::BitOr : return operators.disj_(lhs, rhs);
-    case dsl::Keyword::BitXor: return operators.bxor_(lhs, rhs);
-    case dsl::Keyword::BitLshift: return operators.blshift_(lhs, rhs);
-    case dsl::Keyword::BitRshift: return operators.brshift_(lhs, rhs);
+    case dsl::Keyword::BitNot: return handle_.bitwise.compl_(rhs);
+    case dsl::Keyword::BitAnd: return handle_.bitwise.and_(lhs, rhs);
+    case dsl::Keyword::BitOr : return handle_.bitwise.or_(lhs, rhs);
+    case dsl::Keyword::BitXor: return handle_.bitwise.xor_(lhs, rhs);
+
+    case dsl::Keyword::BitLshift: return handle_.shift.left(lhs, rhs);
+    case dsl::Keyword::BitRshift: return handle_.shift.right(lhs, rhs);
 
     case dsl::Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
     case dsl::Keyword::Subset: return is_subset(lhs, rhs);
@@ -147,7 +123,7 @@ bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json
 
         for (auto const& value: a)
         {
-            if (std::find_if(b.cbegin(), b.cend(), [&](auto const& other){ return operators.is_equal_(value, other); }) == b.cend())
+            if (std::find_if(b.cbegin(), b.cend(), [&](auto const& other){ return handle_.comp.equal_to(value, other); }) == b.cend())
             {
                 return false;
             }
@@ -215,7 +191,7 @@ bool SignalOperatorHandler::contains(boost::json::value const& set, boost::json:
         auto const& key = kvp.front().as_string();
         auto const& value = kvp.at(1);
         if (!obj.contains(key)) { return false; }
-        return operators.is_equal_(obj.at(key), value);
+        return handle_.comp.equal_to(obj.at(key), value);
     }
     else
     {

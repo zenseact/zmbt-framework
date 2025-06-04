@@ -41,9 +41,6 @@ class ModelDefinition
     /// T_Alias transition
     template <class Target>
     struct T_Alias;
-    /// T_As transition
-    template <class Target>
-    struct T_As;
     /// T_CallCount transition
     template <class Target>
     struct T_CallCount;
@@ -62,6 +59,9 @@ class ModelDefinition
     /// T_Keep transition
     template <class Target>
     struct T_Keep;
+    /// T_Map transition
+    template <class Target>
+    struct T_Map;
     /// T_ObserveOn transition
     template <class Target>
     struct T_ObserveOn;

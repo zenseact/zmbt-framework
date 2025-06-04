@@ -32,6 +32,8 @@ std::set<Keyword> const NotImplemented {
 };
 
 
+BOOST_DEFINE_FIXED_ENUM_CLASS(Foo, int, Bar, Baz)
+
 
 struct TestEvalSample
 {
@@ -45,6 +47,7 @@ struct TestEvalSample
     }
 };
 
+Environment const env; // keep instance online for Overload test
 
 std::vector<TestEvalSample> const TestSamples
 { // expr                       , x                     , expected
@@ -594,6 +597,22 @@ std::vector<TestEvalSample> const TestSamples
     {Pi|Div(2)|Sin              , {}                    , 1                     },
     {Pi|Div(6)|Sin|Approx(0.5)  , {}                    , true                  },
     {Pi|Div(4)|Tan|Approx(1)    , {}                    , true                  },
+
+    {Try(Cast(type<int>))       , 42.5                  , nullptr               },
+    {Cast(type<float>)          , 0.2                   , 0.2f                  },
+
+    {Cast(Underlying<Foo>)      , "Bar"                 ,  int(Foo::Bar)        },
+    {Cast(Underlying<Foo>)      , "Baz"                 ,  int(Foo::Baz)        },
+    {Uncast(Underlying<Foo>)    , int(Foo::Bar)         , "Bar"                 },
+    {Uncast(Underlying<Foo>)    , int(Foo::Baz)         , "Baz"                 },
+    {Cast(type<Foo>)            , int(Foo::Bar)         , "Bar"                 },
+    {Cast(type<Foo>)            , int(Foo::Baz)         , "Baz"                 },
+
+
+    {Overload(Eq(42), type<unsigned>)            , 42     , true                },
+    {Try(Overload(Eq(42), type<unsigned>))       , -42    , nullptr             },
+    {Overload(Add(1), type<std::complex<double>>), {.5, 2}, {1.5, 2}            },
+
 };
 
 

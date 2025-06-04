@@ -67,10 +67,9 @@ interface_id ChannelHandle::interface() const
     return env.InterfaceId(data_.at("/interface").as_string());
 }
 
-
-SignalOperatorHandler ChannelHandle::op() const
+SignalOperatorHandler ChannelHandle::overload() const
 {
-    return data_.contains("operator") ? env.GetOperator(data_.at("operator").as_string()) : SignalOperatorHandler {};
+    return data_.contains("overload") ? env.GetOperator(data_.at("overload").as_string()) : SignalOperatorHandler {};
 }
 
 
@@ -148,11 +147,16 @@ int ChannelHandle::on_call() const
 }
 
 
-void ChannelHandle::inject(Expression const& expr) const
+void ChannelHandle::inject(Expression e) const
 {
-    if (expr.is(Expression::Keyword::Noop)) return;
+    if (e.is_noop()) return;
     auto handle = Environment::InterfaceHandle(interface(), host());
-    handle.Inject(expr, op().annotation(), data_.at("/kind").as_string(), signal_path());
+    auto const op = overload();
+    if (op.annotation() != SignalOperatorHandler{}.annotation())
+    {
+        e = expr::Overload(e, op.annotation());
+    }
+    handle.Inject(e, data_.at("/kind").as_string(), signal_path());
 }
 
 Expression ChannelHandle::keep() const

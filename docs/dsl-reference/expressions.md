@@ -756,25 +756,15 @@ Bool * {} == false
 Bool * null == false</pre></td>
     </tr>
     <tr>
-        <td><a id ="nil"> Nil
+        <td><a id ="not"> Not
         </td>
         <td></td>
-        <td>Predicate on boolean transform (aka falsy)
-        <br>Aliases: falsy
+        <td>Logical complement
+        <br>Aliases: falsy, nil
         </td>
         <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
         <td><pre>Nil * 42 == false
 Nil * 0 == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="not"> Not
-        </td>
-        <td>¬</td>
-        <td>Logical complement
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Not * true == false
-Not * false == true</pre></td>
     </tr>
     <tr>
         <td><a id ="and"> And
@@ -1213,6 +1203,22 @@ C(x) is a shorthand for x|Id or And(false)|Or(x)</pre>
         <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
         <td><pre>C(42) * 13 == 42</pre></td>
     </tr>
+    <tr>
+        <td><a id ="decorate"> Decorate
+        </td>
+        <td>Reserialize decorated type as decorator
+        <br>Aliases: cast
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
+    </tr>
+    <tr>
+        <td><a id ="undecorate"> Undecorate
+        </td>
+        <td>Reserialize decorator as decorated type
+        <br>Aliases: uncast
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
+    </tr>
 </tbody></table>
 
 ## High-Order
@@ -1341,6 +1347,22 @@ Recur(Mul(-1), 1) * 3 == -1</pre></td>
         <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
         <td><pre>Unfold(Add(1),  0) * 3 ==  [0, 1, 2, 3]
 Unfold(Mul(-1), 1) * 3 ==  [1,-1, 1,-1]</pre></td>
+    </tr>
+    <tr>
+        <td><a id ="overload"> Overload
+        </td>
+        <td>Bind type-specific operator handler to parameter function
+        <pre>Expression Overload(f, op) instructs f to use operator op on
+invocation instead of the default GenericSignalOperator.
+
+Operator parameter can be referenced with string key
+if registered previously with Environment::RegisterOperator.
+Alternatively, it can be constructed in-place using type tag,
+e. g. type<std::complex>.</pre>
+        <br>Aliases: op
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
+        <td><pre>Overload(Add(1), "complex") * [0.5, 2] == [1.5, 2]</pre></td>
     </tr>
     <tr>
         <td><a id ="bind"> Bind

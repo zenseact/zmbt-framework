@@ -40,7 +40,6 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Neg:
     case Keyword::BitNot:
     case Keyword::Bool:
-    case Keyword::Nil:
     case Keyword::Not:
         return CodegenType::UnaryOp;
     case Keyword::Add:
@@ -145,6 +144,7 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Argmax:
     case Keyword::Recur:
     case Keyword::Unfold:
+    case Keyword::Overload:
     case Keyword::Bind:
     case Keyword::Any:
     case Keyword::All:

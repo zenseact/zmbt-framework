@@ -60,11 +60,11 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
     return env.data_->json_data.at("/prototypes/%s/args", interface());
 }
 
-void Environment::InterfaceHandle::Inject(Expression const& e, boost::json::string_view op, boost::json::string_view group, boost::json::string_view jp)
+void Environment::InterfaceHandle::Inject(Expression const& e, boost::json::string_view group, boost::json::string_view jp)
 {
     auto lock = Env().Lock();
     auto& expr_map = injects.get_or_create_object("/%s/expr", group);
-    expr_map[jp] = boost::json::array{e, op};
+    expr_map[jp] = e;
 
     // invalidate cache
     injects("/%s/cache", group).emplace_array();
@@ -106,17 +106,11 @@ boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::strin
             for (auto const& record: *expr_map)
             {
                 boost::json::string_view const record_pointer = record.key();
-                auto const& config = record.value().as_array();
-                Expression const expr (config.at(0));
-                SignalOperatorHandler const op =  env.GetOperatorOrDefault(config.at(1).as_string());
-
+                Expression const expr (record.value());
                 if (expr.is_noop()) continue;
 
                 // TODO: optimize recursive expr
-                Expression::EvalContext ctx{};
-                ctx.op = op;
-                auto v = expr.eval(nofcall, ctx); // TODO: handle errors
-                v = op.decorate(v);
+                auto v = expr.eval(nofcall); // TODO: handle errors
                 temp_node.set_at_pointer(record_pointer, v);
             }
         }

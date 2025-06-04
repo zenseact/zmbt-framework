@@ -74,11 +74,11 @@ nodes:
   N_DecorIn:
     base: N_AliasIn
     transitions:
-      T_As: N_AliasIn
+      T_Map: N_AliasIn
   N_DecorOut:
     base: N_CallFilter
     transitions:
-      T_As: N_CallFilter
+      T_Map: N_CallFilter
   N_KindIn:
     base: N_DecorIn
     transitions:

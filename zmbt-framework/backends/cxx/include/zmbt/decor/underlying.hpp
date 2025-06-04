@@ -53,7 +53,7 @@ struct underlying
 
     std::string stringify() const
     {
-        return json_from(E{value()}).as_string().c_str();
+        return json_from(static_cast<E>(value())).as_string().c_str();
     }
 
     operator decorated_type() const
@@ -124,7 +124,7 @@ struct custom_serialization<decor::underlying<T>> {
                 result = v.get_uint64();
                 break;
             default:
-                throw std::invalid_argument("zmbt::decor::underlying<T> conversion failure");
+                throw zmbt::serialization_error("can't construct zmbt::decor::underlying<T> from `%s`", v);
                 break;
         }
         return result;

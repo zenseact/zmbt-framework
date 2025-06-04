@@ -70,6 +70,8 @@ bool isBinary(Keyword const& k)
     case Keyword::At:
     case Keyword::Lookup:
     case Keyword::C:
+    case Keyword::Decorate:
+    case Keyword::Undecorate:
     case Keyword::Reduce:
     case Keyword::Map:
     case Keyword::Filter:

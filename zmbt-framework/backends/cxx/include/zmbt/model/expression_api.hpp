@@ -458,19 +458,15 @@ extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Bool> const Bool;
 /// \brief Alias for Bool
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Bool> const Truthy;
 
-/// \brief Predicate on boolean transform (aka falsy)
-/// \anchor expr-nil
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
-extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Nil> const Nil;
-/// \brief Alias for Nil
-extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Nil> const Falsy;
-
 /// \brief Logical complement
 /// \anchor expr-not
 /// \details
 /// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Not> const Not;
+/// \brief Alias for Not
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Not> const Falsy;
+/// \brief Alias for Not
+extern dsl::SignatureUnary<::zmbt::dsl::Keyword::Not> const Nil;
 
 /// \brief Logical and
 /// \anchor expr-and
@@ -700,6 +696,16 @@ extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const C;
 /// \brief Alias for C
 extern dsl::SignatureBinary<::zmbt::dsl::Keyword::C> const Let;
 
+/// \brief Reserialize decorated type as decorator
+extern dsl::SignatureDecorate const Decorate;
+/// \brief Alias for Decorate
+extern dsl::SignatureDecorate const Cast;
+
+/// \brief Reserialize decorator as decorated type
+extern dsl::SignatureUndecorate const Undecorate;
+/// \brief Alias for Undecorate
+extern dsl::SignatureUndecorate const Uncast;
+
 /// \brief Reduce sequence with binary operator
 /// \anchor expr-reduce
 /// \details
@@ -776,6 +782,20 @@ extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Recur> const Recur;
 /// \details
 /// Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
 extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Unfold> const Unfold;
+
+/// \brief Bind type-specific operator handler to parameter function
+/// \anchor expr-overload
+/// \details
+/// Expression Overload(f, op) instructs f to use operator op on
+/// invocation instead of the default GenericSignalOperator.
+/// 
+/// Operator parameter can be referenced with string key
+/// if registered previously with Environment::RegisterOperator.
+/// Alternatively, it can be constructed in-place using type tag,
+/// e. g. type<std::complex>.
+extern dsl::SignatureOverload const Overload;
+/// \brief Alias for Overload
+extern dsl::SignatureOverload const Op;
 
 /// \brief !not implemented! bind design-time parameters
 /// \anchor expr-bind
