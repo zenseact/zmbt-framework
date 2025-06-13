@@ -15,6 +15,7 @@
  */
 
 #include <cmath>
+#include <complex>
 #include <boost/json.hpp>
 
 #include "zmbt/model/signal_operator_handler.hpp"
@@ -26,38 +27,45 @@ namespace zmbt {
 boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
 {
     boost::json::value x = Expression(x_).eval(nullptr, ctx++);
+    boost::json::value ret{};
     switch(keyword())
     {
-    case Keyword::Sin: return real_to_number(std::sin(boost::json::value_to<double>(x)));
-    case Keyword::Cos: return real_to_number(std::cos(boost::json::value_to<double>(x)));
-    case Keyword::Tan: return real_to_number(std::tan(boost::json::value_to<double>(x)));
-    case Keyword::Asin: return real_to_number(std::asin(boost::json::value_to<double>(x)));
-    case Keyword::Acos: return real_to_number(std::acos(boost::json::value_to<double>(x)));
-    case Keyword::Atan: return real_to_number(std::atan(boost::json::value_to<double>(x)));
-    case Keyword::Sinh: return real_to_number(std::sinh(boost::json::value_to<double>(x)));
-    case Keyword::Cosh: return real_to_number(std::cosh(boost::json::value_to<double>(x)));
-    case Keyword::Tanh: return real_to_number(std::tanh(boost::json::value_to<double>(x)));
-    case Keyword::Asinh: return real_to_number(std::asinh(boost::json::value_to<double>(x)));
-    case Keyword::Acosh: return real_to_number(std::acosh(boost::json::value_to<double>(x)));
-    case Keyword::Atanh: return real_to_number(std::atanh(boost::json::value_to<double>(x)));
-    case Keyword::Exp: return real_to_number(std::exp(boost::json::value_to<double>(x)));
-    case Keyword::Erf: return real_to_number(std::erf(boost::json::value_to<double>(x)));
-    case Keyword::Erfc: return real_to_number(std::erfc(boost::json::value_to<double>(x)));
-    case Keyword::Gamma: return real_to_number(std::tgamma(boost::json::value_to<double>(x)));
-    case Keyword::Abs: return real_to_number(std::abs(boost::json::value_to<double>(x)));
-    case Keyword::Ceil: return real_to_number(std::ceil(boost::json::value_to<double>(x)));
-    case Keyword::Floor: return real_to_number(std::floor(boost::json::value_to<double>(x)));
-    case Keyword::Round: return real_to_number(std::round(boost::json::value_to<double>(x)));
-    case Keyword::Sqrt: return real_to_number(std::sqrt(boost::json::value_to<double>(x)));
-    case Keyword::Sign: return boost::json::value_to<double>(x) >= 0 ? 1 : -1;
-    case Keyword::ToList: return boost::json::array{x};
-    case Keyword::Parse: return boost::json::parse(x.as_string());
-    case Keyword::Serialize: return {boost::json::serialize(x)};
-    case Keyword::Default: return x.is_null() ? params() : x;
+    case Keyword::Sin: { ret = json_from(std::sin(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Cos: { ret = json_from(std::cos(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Tan: { ret = json_from(std::tan(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Asin: { ret = json_from(std::asin(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Acos: { ret = json_from(std::acos(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Atan: { ret = json_from(std::atan(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Sinh: { ret = json_from(std::sinh(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Cosh: { ret = json_from(std::cosh(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Tanh: { ret = json_from(std::tanh(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Asinh: { ret = json_from(std::asinh(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Acosh: { ret = json_from(std::acosh(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Atanh: { ret = json_from(std::atanh(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Exp: { ret = json_from(std::exp(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Erf: { ret = std::erf(dejsonize<double>(x)); break; }
+    case Keyword::Erfc: { ret = std::erfc(dejsonize<double>(x)); break; }
+    case Keyword::Gamma: { ret = std::tgamma(dejsonize<double>(x)); break; }
+    case Keyword::Abs: { ret = json_from(std::abs(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Ceil: { ret = std::ceil(dejsonize<double>(x)); break; }
+    case Keyword::Floor: { ret = std::floor(dejsonize<double>(x)); break; }
+    case Keyword::Round: { ret = std::round(dejsonize<double>(x)); break; }
+    case Keyword::Sqrt: { ret = json_from(std::sqrt(dejsonize<std::complex<double>>(x))); break; }
+    case Keyword::Sign: { ret = dejsonize<double>(x) >= 0 ? 1 : -1; break; }
+    case Keyword::ToList: { ret = boost::json::array{x}; break; }
+    case Keyword::Parse: { ret = boost::json::parse(x.as_string()); break; }
+    case Keyword::Serialize: { ret = {boost::json::serialize(x)}; break; }
+    case Keyword::Default: { ret = x.is_null() ? params() : x; break; }
     default:
         throw expression_error("got invalid unary math expression: %s", underlying());
-        return nullptr;
     }
+
+    if (ret.is_number())
+    {
+        ret = real_to_number(boost::json::value_to<double>(ret));
+    }
+
+    return ret;
 }
 
 } // namespace zmbt

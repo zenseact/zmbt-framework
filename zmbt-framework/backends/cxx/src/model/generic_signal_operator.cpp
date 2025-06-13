@@ -475,36 +475,49 @@ boost::json::value GenericSignalOperator::operator/(GenericSignalOperator const&
 
 boost::json::value GenericSignalOperator::pow(GenericSignalOperator const& rhs) const
 {
-    if (value_.is_null() || rhs.value_.is_null())
+    boost::json::value ret;
+    if (value_.is_number() && rhs.value_.is_number())
     {
-        return nullptr;
+        auto x = dejsonize<double>(value_);
+        auto y = dejsonize<double>(rhs.value_);
+        ret = json_from(std::pow(x, y));
     }
-    boost::json::kind result_kind =
-        common_arithmetic_kind(value_, rhs.value_);
-
-    if (result_kind == boost::json::kind::null)
+    else
     {
-        throw expression_error("invalid power operands");
+        auto x = dejsonize<std::complex<double>>(value_);
+        auto y = dejsonize<std::complex<double>>(rhs.value_);
+        ret = json_from(std::pow(x, y));
     }
 
-    return real_to_number(std::pow(boost::json::value_to<double>(value_), boost::json::value_to<double>(rhs.value_)));
+    if (ret.is_number())
+    {
+        ret = real_to_number(boost::json::value_to<double>(ret));
+    }
+    return ret;
 }
 
 boost::json::value GenericSignalOperator::log(GenericSignalOperator const& rhs) const
 {
-    if (value_.is_null() || rhs.value_.is_null())
+    boost::json::value ret;
+    if (value_.is_number() && rhs.value_.is_number())
     {
-        return nullptr;
+        auto x = dejsonize<double>(value_);
+        auto y = dejsonize<double>(rhs.value_);
+        ret = json_from(std::log(x) / std::log(y));
     }
-    boost::json::kind result_kind =
-        common_arithmetic_kind(value_, rhs.value_);
-
-    if (result_kind == boost::json::kind::null)
+    else
     {
-        throw expression_error("invalid power operands");
+        auto x = dejsonize<std::complex<double>>(value_);
+        auto y = dejsonize<std::complex<double>>(rhs.value_);
+        ret = json_from(std::log(x) / std::log(y));
     }
 
-    return real_to_number(std::log(boost::json::value_to<double>(value_)) / std::log(boost::json::value_to<double>(rhs.value_)));
+    if (ret.is_number())
+    {
+        ret = real_to_number(boost::json::value_to<double>(ret));
+    }
+    return ret;
+
 }
 
 boost::json::value GenericSignalOperator::quot(GenericSignalOperator const& rhs) const

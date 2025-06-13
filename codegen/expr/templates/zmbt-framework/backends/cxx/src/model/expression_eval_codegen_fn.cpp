@@ -28,15 +28,22 @@ namespace zmbt {
 boost::json::value zmbt::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
 {
     boost::json::value x = Expression(x_).eval(nullptr, ctx++);
+    boost::json::value ret{};
     switch(keyword())
     {
 @for keyword in data.CodegenFns:
-    case Keyword::@keyword.Enum: return @keyword.CodegenValue;
+    case Keyword::@keyword.Enum: { ret = @keyword.CodegenValue; break; }
 @end
     default:
         throw expression_error("got invalid unary math expression: %s", underlying());
-        return nullptr;
     }
+
+    if (ret.is_number())
+    {
+        ret = real_to_number(boost::json::value_to<double>(ret));
+    }
+
+    return ret;
 }
 
 } // namespace zmbt

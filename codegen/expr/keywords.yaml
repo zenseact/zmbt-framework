@@ -100,100 +100,101 @@ keyword_groups:
       imports:
         cxx:
           - cmath
+          - complex
     keywords:
 
       - name: sin
         brief: Sinus
         codegen-value:
-          cxx: real_to_number(std::sin(boost::json::value_to<double>(x)))
+          cxx: json_from(std::sin(dejsonize<std::complex<double>>(x)))
 
       - name: cos
         brief: Cosinus
         codegen-value:
-          cxx: real_to_number(std::cos(boost::json::value_to<double>(x)))
+          cxx: json_from(std::cos(dejsonize<std::complex<double>>(x)))
 
       - name: tan
         brief: Tangens
         codegen-value:
-          cxx: real_to_number(std::tan(boost::json::value_to<double>(x)))
+          cxx: json_from(std::tan(dejsonize<std::complex<double>>(x)))
 
       - name: asin
         brief: Arcsin
         codegen-value:
-          cxx: real_to_number(std::asin(boost::json::value_to<double>(x)))
+          cxx: json_from(std::asin(dejsonize<std::complex<double>>(x)))
 
       - name: acos
         brief: Arccos
         codegen-value:
-          cxx: real_to_number(std::acos(boost::json::value_to<double>(x)))
+          cxx: json_from(std::acos(dejsonize<std::complex<double>>(x)))
 
       - name: atan
         brief: Arctan
         codegen-value:
-          cxx: real_to_number(std::atan(boost::json::value_to<double>(x)))
+          cxx: json_from(std::atan(dejsonize<std::complex<double>>(x)))
 
       - name: sinh
         brief: Hyperbolic sin
         codegen-value:
-          cxx: real_to_number(std::sinh(boost::json::value_to<double>(x)))
+          cxx: json_from(std::sinh(dejsonize<std::complex<double>>(x)))
 
       - name: cosh
         brief: Hyperbolic cos
         codegen-value:
-          cxx: real_to_number(std::cosh(boost::json::value_to<double>(x)))
+          cxx: json_from(std::cosh(dejsonize<std::complex<double>>(x)))
 
       - name: tanh
         brief: Hyperbolic tan
         codegen-value:
-          cxx: real_to_number(std::tanh(boost::json::value_to<double>(x)))
+          cxx: json_from(std::tanh(dejsonize<std::complex<double>>(x)))
 
       - name: asinh
         brief: Hyperbolic arcsin
         codegen-value:
-          cxx: real_to_number(std::asinh(boost::json::value_to<double>(x)))
+          cxx: json_from(std::asinh(dejsonize<std::complex<double>>(x)))
 
       - name: acosh
         brief: Hyperbolic arccos
         codegen-value:
-          cxx: real_to_number(std::acosh(boost::json::value_to<double>(x)))
+          cxx: json_from(std::acosh(dejsonize<std::complex<double>>(x)))
 
       - name: atanh
         brief: Hyperbolic arctan
         codegen-value:
-          cxx: real_to_number(std::atanh(boost::json::value_to<double>(x)))
+          cxx: json_from(std::atanh(dejsonize<std::complex<double>>(x)))
 
       - name: exp
         brief: Exponential (e^x)
         codegen-value:
-          cxx: real_to_number(std::exp(boost::json::value_to<double>(x)))
+          cxx: json_from(std::exp(dejsonize<std::complex<double>>(x)))
 
       - name: erf
         brief: Error function
         codegen-value:
-          cxx: real_to_number(std::erf(boost::json::value_to<double>(x)))
+          cxx: std::erf(dejsonize<double>(x))
 
       - name: erfc
         brief: Error function complement
         codegen-value:
-          cxx: real_to_number(std::erfc(boost::json::value_to<double>(x)))
+          cxx: std::erfc(dejsonize<double>(x))
 
       - name: gamma
         brief: Gamma function
         codegen-value:
-          cxx: real_to_number(std::tgamma(boost::json::value_to<double>(x)))
+          cxx: std::tgamma(dejsonize<double>(x))
 
       - name: abs
         brief: Absolute value
         codegen-value:
-          cxx: real_to_number(std::abs(boost::json::value_to<double>(x)))
+          cxx: json_from(std::abs(dejsonize<std::complex<double>>(x)))
 
       - name: ceil
         codegen-value:
-          cxx: real_to_number(std::ceil(boost::json::value_to<double>(x)))
+          cxx: std::ceil(dejsonize<double>(x))
 
       - name: floor
         codegen-value:
-          cxx: real_to_number(std::floor(boost::json::value_to<double>(x)))
+          cxx: std::floor(dejsonize<double>(x))
 
       - name: round
         brief: Round to nearest integer
@@ -201,18 +202,18 @@ keyword_groups:
           Hint: To round to ndigits precision after the decimal point,
           use Mul(ndigits)|Round|Div(ndigits) combo.
         codegen-value:
-          cxx: real_to_number(std::round(boost::json::value_to<double>(x)))
+          cxx: std::round(dejsonize<double>(x))
 
       - name: sqrt
         brief: Square root
         codegen-value:
-          cxx: real_to_number(std::sqrt(boost::json::value_to<double>(x)))
+          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>(x)))
 
       - name: sign
         domain: real
         codomain: int
         codegen-value:
-          cxx: 'boost::json::value_to<double>(x) >= 0 ? 1 : -1'
+          cxx: 'dejsonize<double>(x) >= 0 ? 1 : -1'
 
   Arithmetic Operators:
     defaults:
