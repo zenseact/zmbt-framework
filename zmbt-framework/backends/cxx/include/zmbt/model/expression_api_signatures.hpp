@@ -14,7 +14,6 @@
 #include "zmbt/model/keyword.hpp"
 #include "zmbt/reflect/serialization.hpp"
 #include "expression.hpp"
-#include "environment.hpp"
 
 namespace zmbt {
 namespace dsl {
@@ -155,7 +154,6 @@ struct SignatureOverload : public SignatureTernary<Keyword::Overload>
     Expression operator()(Expression const& expr, type_tag<T> tag) const
     {
         SignalOperatorHandler const op{tag};
-        Environment().RegisterOperator(op);
         return Expression(Keyword::Overload, {expr, op.annotation()});
     }
 };
@@ -169,7 +167,6 @@ struct SignatureDecorate : public SignatureBinary<Keyword::Decorate>
     Expression operator()(type_tag<T> tag) const
     {
         SignalOperatorHandler const op{tag};
-        Environment().RegisterOperator(op);
         return Expression(Keyword::Decorate, op.annotation());
     }
 };
@@ -183,7 +180,6 @@ struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
     Expression operator()(type_tag<T> tag) const
     {
         SignalOperatorHandler const op{tag};
-        Environment().RegisterOperator(op);
         return Expression(Keyword::Undecorate, op.annotation());
     }
 };

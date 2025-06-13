@@ -18,52 +18,48 @@
 
 
 
-#define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT, R)                                           \
-template <class T>                                                                              \
-static auto handle_##TRAIT(V const& val)                                       \
--> mp_if<has_##TRAIT<T>, R>                                                    \
-{                                                                                               \
-    return boost::json::value_to<R>(json_from(OP dejsonize<T>(val)));                                                     \
-}                                                                                               \
-template <class T>                                                                              \
-static auto handle_##TRAIT(V const&)                                           \
--> mp_if<mp_not<has_##TRAIT<T>>, R>                                            \
-{                                                                                               \
-    throw expression_error("%s has no defined " #OP " operator", type_name<T>());               \
-    return {};                                                                             \
+#define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT, R)                               \
+template <class T>                                                                  \
+static auto handle_##TRAIT(V const& val)                                            \
+-> mp_if<has_##TRAIT<T>, R>                                                         \
+{                                                                                   \
+    return boost::json::value_to<R>(json_from(OP dejsonize<T>(val)));               \
+}                                                                                   \
+template <class T>                                                                  \
+static auto handle_##TRAIT(V const&)                                                \
+-> mp_if<mp_not<has_##TRAIT<T>>, R>                                                 \
+{                                                                                   \
+    throw expression_error("%s has no defined " #OP " operator", type_name<T>());   \
+    return {};                                                                      \
 }
 
-
-#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT, R)                                                \
-template <class T>                                                                              \
-static auto handle_##TRAIT(V const& lhs, V const& rhs)        \
--> mp_if<has_##TRAIT<T>, R>                                                    \
-{                                                                                               \
-    return boost::json::value_to<R>(json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs)));                                   \
-}                                                                                               \
-template <class T>                                                                              \
-static auto handle_##TRAIT(V const&, V const&)                \
--> mp_if<mp_not<has_##TRAIT<T>>, R>                                            \
-{                                                                                               \
-    throw expression_error("%s has no defined " #OP " operator", type_name<T>());               \
-    return {};                                                                             \
+#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT, R)                                     \
+template <class T>                                                                      \
+static auto handle_##TRAIT(V const& lhs, V const& rhs)                                  \
+-> mp_if<has_##TRAIT<T>, R>                                                             \
+{                                                                                       \
+    return boost::json::value_to<R>(json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs))); \
+}                                                                                       \
+template <class T>                                                                      \
+static auto handle_##TRAIT(V const&, V const&)                                          \
+-> mp_if<mp_not<has_##TRAIT<T>>, R>                                                     \
+{                                                                                       \
+    throw expression_error("%s has no defined " #OP " operator", type_name<T>());       \
+    return {};                                                                          \
 }
 
-
-
-#define ZMBT_SOH_GENERIC_UNARY_TRANSFORM(OP, TRAIT, R)                                             \
-static auto generic_##TRAIT(V const& val)                                      \
--> R                                                                           \
-{                                                                                               \
-    return OP zmbt::GenericSignalOperator(val);                                          \
+#define ZMBT_SOH_GENERIC_UNARY_TRANSFORM(OP, TRAIT, R)                          \
+static auto generic_##TRAIT(V const& val)                                       \
+-> R                                                                            \
+{                                                                               \
+    return OP zmbt::GenericSignalOperator(val);                                 \
 }
 
-
-#define ZMBT_SOH_GENERIC_BIN_TRANSFORM(OP, TRAIT, R)                                               \
-static auto generic_##TRAIT(V const& lhs, V const& rhs)       \
--> R                                                                           \
-{                                                                                               \
-    return zmbt::GenericSignalOperator(lhs) OP zmbt::GenericSignalOperator(rhs);         \
+#define ZMBT_SOH_GENERIC_BIN_TRANSFORM(OP, TRAIT, R)                            \
+static auto generic_##TRAIT(V const& lhs, V const& rhs)                         \
+-> R                                                                            \
+{                                                                               \
+    return zmbt::GenericSignalOperator(lhs) OP zmbt::GenericSignalOperator(rhs);\
 }
 
 
@@ -207,6 +203,8 @@ class SignalOperatorHandler
     }
 
     struct Handle {
+
+        boost::json::string annotation{type_name<GenericSignalOperator>()};
         struct D {
             unary_transform     decorate{generic_decorate};
             unary_transform     undecorate{generic_undecorate};
@@ -246,18 +244,52 @@ class SignalOperatorHandler
         } logic;
     };
 
+    template <class T>
+    static Handle makeHandle(type_tag<T>, Config const cfg = Default) {
+        return {
+            format("%s#%d", type_name<T>(), cfg).c_str(),
+            Decor & cfg ? Handle::D{
+                handle_decorate<T>,
+                handle_undecorate<T>
+            } : Handle::D{},
+            Comparison & cfg ? Handle::C{
+                handle_equal_to<T>,
+                handle_less<T>,
+                handle_less_equal<T>
+            } : Handle::C{},
+            Arithmetics & cfg ? Handle::A{
+                handle_negate<T>,
+                handle_plus<T>,
+                handle_minus<T>,
+                handle_multiplies<T>,
+                handle_divides<T>,
+                handle_modulus<T>
+            } : Handle::A{},
+            Bitwise & cfg ? Handle::B{
+                handle_complement<T>,
+                handle_bit_and<T>,
+                handle_bit_or<T>,
+                handle_bit_xor<T>
+            } : Handle::B{},
+            Shift & cfg ? Handle::S{
+                handle_left_shift<T>,
+                handle_right_shift<T>
+            } : Handle::S{},
+            Logic & cfg ? Handle::L{
+                handle_is_truth<T>,
+                handle_logical_and<T>,
+                handle_logical_or<T>
+            } : Handle::L{},
+        };
+    }
 
-    Config config_;
-    boost::json::string annotation_;
     Handle handle_;
 
-
-
-    SignalOperatorHandler(
-        Config const config,
-        std::string const annotation,
+    explicit SignalOperatorHandler(
         Handle const handle
     );
+
+    static bool exchangeHandle(Handle& handle, bool const retrieve);
 
 public:
 
@@ -266,48 +298,20 @@ public:
 
     /// SignalOperatorHandler with T as type decorator
     template <class T>
-    SignalOperatorHandler(type_tag<T>, Config const cfg = Default)
-        : SignalOperatorHandler{
-            cfg,
-            format("%s#%d", type_name<T>(), cfg),
-            {
-                Decor & cfg ? Handle::D{
-                    handle_decorate<T>,
-                    handle_undecorate<T>
-                } : Handle::D{},
-                Comparison & cfg ? Handle::C{
-                    handle_equal_to<T>,
-                    handle_less<T>,
-                    handle_less_equal<T>
-                } : Handle::C{},
-                Arithmetics & cfg ? Handle::A{
-                    handle_negate<T>,
-                    handle_plus<T>,
-                    handle_minus<T>,
-                    handle_multiplies<T>,
-                    handle_divides<T>,
-                    handle_modulus<T>
-                } : Handle::A{},
-                Bitwise & cfg ? Handle::B{
-                    handle_complement<T>,
-                    handle_bit_and<T>,
-                    handle_bit_or<T>,
-                    handle_bit_xor<T>
-                } : Handle::B{},
-                Shift & cfg ? Handle::S{
-                    handle_left_shift<T>,
-                    handle_right_shift<T>
-                } : Handle::S{},
-                Logic & cfg ? Handle::L{
-                    handle_is_truth<T>,
-                    handle_logical_and<T>,
-                    handle_logical_or<T>
-                } : Handle::L{},
-            }
-        }
+    SignalOperatorHandler(type_tag<T> tag, Config const cfg)
+    : SignalOperatorHandler{makeHandle(tag, cfg)}
     {
     }
 
+    /// SignalOperatorHandler with T as type decorator
+    template <class T>
+    SignalOperatorHandler(type_tag<T> tag)
+    : SignalOperatorHandler{tag, Config::Default}
+    {
+    }
+
+    /// Retrieve registered operator instance if it exists, throw otherwise
+    SignalOperatorHandler(boost::json::string_view annotation);
 
     SignalOperatorHandler(SignalOperatorHandler const&) = default;
     SignalOperatorHandler(SignalOperatorHandler &&) = default;
@@ -319,7 +323,7 @@ public:
     /// decorated type name
     boost::json::string annotation() const
     {
-        return annotation_;
+        return handle_.annotation;
     }
 
     /// Reserialize as decorated type

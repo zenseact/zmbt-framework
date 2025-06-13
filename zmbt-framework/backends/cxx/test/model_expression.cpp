@@ -47,7 +47,6 @@ struct TestEvalSample
     }
 };
 
-Environment const env; // keep instance online for Overload test
 
 std::vector<TestEvalSample> const TestSamples
 { // expr                       , x                     , expected

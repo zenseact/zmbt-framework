@@ -789,10 +789,8 @@ extern dsl::SignatureTernary<::zmbt::dsl::Keyword::Unfold> const Unfold;
 /// Expression Overload(f, op) instructs f to use operator op on
 /// invocation instead of the default GenericSignalOperator.
 /// 
-/// Operator parameter can be referenced with string key
-/// if registered previously with Environment::RegisterOperator.
-/// Alternatively, it can be constructed in-place using type tag,
-/// e. g. type<std::complex>.
+/// Operator parameter singleton can be referenced with string key
+/// or constructed in place using type<T> tag.
 extern dsl::SignatureOverload const Overload;
 /// \brief Alias for Overload
 extern dsl::SignatureOverload const Op;

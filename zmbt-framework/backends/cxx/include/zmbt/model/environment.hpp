@@ -547,26 +547,6 @@ class Environment {
     }
 
 
-    /**
-     * @brief Register operator handler to enable FFI for type decoration in the test model runners
-     *
-     * @param op operator handler
-     * @param key string key, unique per environment
-     * @return
-     */
-    //@{
-    Environment& RegisterOperator(boost::json::string_view key, SignalOperatorHandler const& op);
-
-
-    Environment& RegisterOperator(SignalOperatorHandler const& op)
-    {
-        return RegisterOperator(op.annotation(), op);
-    }
-    //@}
-
-
-    SignalOperatorHandler GetOperator(boost::json::string_view name) const;
-
     SignalOperatorHandler GetOperatorOrDefault(boost::json::string_view name) const;
 
 

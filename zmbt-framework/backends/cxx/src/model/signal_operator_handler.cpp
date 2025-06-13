@@ -4,41 +4,79 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include <boost/json.hpp>
-#include <zmbt/core/exceptions.hpp>
-#include <zmbt/core/type_info.hpp>
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <mutex>
+#include <memory>
 #include <string>
+
+#include <boost/json.hpp>
+#include <zmbt/core/exceptions.hpp>
+#include <zmbt/core/type_info.hpp>
 
 #include "zmbt/model/generic_signal_operator.hpp"
 #include "zmbt/model/signal_operator_handler.hpp"
 
 
+namespace
+{
+} // namespace
+
+
 namespace zmbt {
 
-SignalOperatorHandler::SignalOperatorHandler(
-    Config const config,
-    std::string const annotation,
-    Handle const handle
-)
-    : config_{config}
-    , annotation_{annotation}
-    , handle_{handle}
+
+bool SignalOperatorHandler::exchangeHandle(Handle& handle, bool const retrieve)
 {
-}
+    using Table = std::map<boost::json::string, Handle>;
 
+    static std::mutex ctor_mt;
+    std::lock_guard<std::mutex> guard(ctor_mt);
 
-SignalOperatorHandler::SignalOperatorHandler()
-    : SignalOperatorHandler{
-        Config::Full,
-        type_name<GenericSignalOperator>(),
-        {}
+    static std::shared_ptr<Table> table;
+
+    if (not table)
+    {
+        table = std::make_shared<Table>();
     }
+
+    auto const found = table->find(handle.annotation);
+
+    if (!retrieve && found == table->cend())
+    {
+        table->emplace_hint(found, handle.annotation, handle);
+        return true;
+    }
+    else if (retrieve && found != table->cend())
+    {
+        handle = found->second;
+        return true;
+    }
+    else
+    {
+        return found != table->cend();
+    }
+}
+
+SignalOperatorHandler::SignalOperatorHandler() : SignalOperatorHandler{Handle{}}
 {
 }
 
+SignalOperatorHandler::SignalOperatorHandler(Handle const handle) : handle_{handle}
+{
+    exchangeHandle(handle_, false);
+}
+
+SignalOperatorHandler::SignalOperatorHandler(boost::json::string_view annotation)
+    : handle_{}
+{
+    handle_.annotation = annotation;
+    if (!exchangeHandle(handle_, true))
+    {
+        throw expression_error("`%s` operator not found", annotation);
+    }
+}
 
 
 boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const

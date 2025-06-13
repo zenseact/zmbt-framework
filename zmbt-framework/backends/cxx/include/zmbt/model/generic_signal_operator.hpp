@@ -37,11 +37,11 @@ public:
     {
     }
 
-    template<class T>
-    GenericSignalOperator(type_tag<T>)
-        : GenericSignalOperator(reflect::signal_traits<T>::init())
-    {
-    }
+    // template<class T>
+    // GenericSignalOperator(type_tag<T>)
+    //     : GenericSignalOperator(reflect::signal_traits<T>::init())
+    // {
+    // }
 
     bool operator==(GenericSignalOperator const& other) const;
     bool operator!=(GenericSignalOperator const& rhs) const;

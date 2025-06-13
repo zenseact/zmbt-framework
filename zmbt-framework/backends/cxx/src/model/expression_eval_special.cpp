@@ -1124,7 +1124,7 @@ V eval_impl<Keyword::Overload>(V const& x, V const& param, E::EvalContext const&
     auto const operator_reference = E(params.at(1)).eval({}, context++);
     ASSERT(operator_reference.is_string());
     E::EvalContext ctx = context++;
-    ctx.op = zmbt::Environment().GetOperator(operator_reference.get_string());
+    ctx.op = zmbt::SignalOperatorHandler{operator_reference.get_string()};
     auto result = F.eval(x, ctx);
 
     return (F.is_const() && !F.is_boolean()) ? ctx.op.decorate(result) : result;
@@ -1135,7 +1135,7 @@ V eval_impl<Keyword::Decorate>(V const& x, V const& param, E::EvalContext const&
 {
     auto const operator_reference = E(param).eval({}, context++);
     ASSERT(operator_reference.is_string());
-    auto const op = zmbt::Environment().GetOperator(operator_reference.get_string());
+    auto const op = zmbt::SignalOperatorHandler{operator_reference.get_string()};
     return op.decorate(x);
 }
 
@@ -1144,7 +1144,7 @@ V eval_impl<Keyword::Undecorate>(V const& x, V const& param, E::EvalContext cons
 {
     auto const operator_reference = E(param).eval({}, context++);
     ASSERT(operator_reference.is_string());
-    auto const op = zmbt::Environment().GetOperator(operator_reference.get_string());
+    auto const op = zmbt::SignalOperatorHandler{operator_reference.get_string()};
     return op.undecorate(x);
 }
 

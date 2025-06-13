@@ -1355,10 +1355,8 @@ Unfold(Mul(-1), 1) * 3 ==  [1,-1, 1,-1]</pre></td>
         <pre>Expression Overload(f, op) instructs f to use operator op on
 invocation instead of the default GenericSignalOperator.
 
-Operator parameter can be referenced with string key
-if registered previously with Environment::RegisterOperator.
-Alternatively, it can be constructed in-place using type tag,
-e. g. type<std::complex>.</pre>
+Operator parameter singleton can be referenced with string key
+or constructed in place using type<T> tag.</pre>
         <br>Aliases: op
         </td>
         <td><a href="/user-guide/expressions/#syntax">Special</a></td>

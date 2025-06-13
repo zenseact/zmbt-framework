@@ -378,7 +378,6 @@ struct ModelDefinition::T_Map : protected virtual ModelDefinition::BaseTransitio
     /// Apply Overload operator
     Target As(SignalOperatorHandler const& op)
     {
-        state().env.RegisterOperator(op);
         return As(op.annotation());
     }
 };

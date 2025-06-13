@@ -5,6 +5,7 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <mutex>
 
 #include "zmbt/model/environment.hpp"
 
@@ -13,7 +14,6 @@
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/test_failure.hpp>
 #include <zmbt/model/trigger.hpp>
-#include <mutex>
 
 
 namespace zmbt {
@@ -191,23 +191,6 @@ Environment& Environment::RegisterInterface(boost::json::string_view key, interf
     return *this;
 }
 
-
-
-Environment& Environment::RegisterOperator(boost::json::string_view key, SignalOperatorHandler const& op)
-{
-    auto lock = Lock();
-    data_->operators.emplace(key, op);
-    return *this;
-}
-
-
-
-SignalOperatorHandler Environment::GetOperator(boost::json::string_view name) const
-{
-    auto lock = Lock();
-    if(!data_->operators.count(name)) throw model_error("requesting non-registered operator `%s`", name);
-    return data_->operators.at(name);
-}
 
 SignalOperatorHandler Environment::GetOperatorOrDefault(boost::json::string_view name) const
 {

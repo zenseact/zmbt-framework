@@ -69,7 +69,7 @@ interface_id ChannelHandle::interface() const
 
 SignalOperatorHandler ChannelHandle::overload() const
 {
-    return data_.contains("overload") ? env.GetOperator(data_.at("overload").as_string()) : SignalOperatorHandler {};
+    return data_.contains("overload") ? SignalOperatorHandler{data_.at("overload").as_string()} : SignalOperatorHandler {};
 }
 
 
