@@ -12,7 +12,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "signal_operator_handler.hpp"
+#include "operator.hpp"
 #include "keyword.hpp"
 #include "keyword_grammar.hpp"
 #include "keyword_codegen_type.hpp"
@@ -20,6 +20,7 @@
 
 
 namespace zmbt {
+namespace dsl {
 
 /// Expression DSL implementation class.
 /// \details \see \ref expression-dsl "Expression DSL" documentation.
@@ -56,7 +57,7 @@ public:
     struct EvalContext
     {
         /// Operator
-        SignalOperatorHandler op;
+        Operator op;
         /// Evaluation log
         EvalLog log;
         /// Evaluation stack depth
@@ -87,7 +88,7 @@ private:
     boost::json::value eval_HiOrd(boost::json::value const&, EvalContext const&) const;
     boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
 
-    Expression(internal_tag, SignalOperatorHandler const& op);
+    Expression(internal_tag, Operator const& op);
 
 public:
 
@@ -204,12 +205,15 @@ public:
     /// @return
     boost::json::value eval(boost::json::value const& x = nullptr, EvalContext const& ctx = {}) const;
 
-    bool match(boost::json::value const& observed, SignalOperatorHandler const& op = {}) const;
+    bool match(boost::json::value const& observed, Operator const& op = {}) const;
 
 };
 
+ZMBT_INJECT_SERIALIZATION
+}  // namespace dsl
+
 template<class T>
-struct reflect::custom_serialization<T, mp_if<is_base_of<Expression, T>, void>> {
+struct reflect::custom_serialization<T, mp_if<is_base_of<dsl::Expression, T>, void>> {
 
     static boost::json::value
     json_from(T const& t)
@@ -220,11 +224,9 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<Expression, T>, void>> 
     static T
     dejsonize(boost::json::value const& v)
     {
-        return static_cast<T>(Expression(v));
+        return static_cast<T>(dsl::Expression(v));
     }
-
 };
-
 
 }  // namespace zmbt
 

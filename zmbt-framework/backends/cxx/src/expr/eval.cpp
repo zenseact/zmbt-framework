@@ -8,7 +8,7 @@
 #include "zmbt/logging.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "zmbt/expr/signal_operator_handler.hpp"
+#include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/exceptions.hpp"
 #include "zmbt/expr/keyword_codegen_type.hpp"
@@ -20,8 +20,8 @@ namespace
 {
 
 using V = boost::json::value;
-using O = zmbt::SignalOperatorHandler;
-using E = zmbt::Expression;
+using O = zmbt::dsl::Operator;
+using E = zmbt::dsl::Expression;
 using Keyword = zmbt::dsl::Keyword;
 
 static V const kNullValue = nullptr;
@@ -51,6 +51,7 @@ void set_default_param(Keyword const& keyword, V const*& param)
 }
 
 namespace zmbt {
+namespace dsl {
 
 void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) const
 {
@@ -119,5 +120,6 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
 }
 
 
+} // namespace dsl
 } // namespace zmbt
 

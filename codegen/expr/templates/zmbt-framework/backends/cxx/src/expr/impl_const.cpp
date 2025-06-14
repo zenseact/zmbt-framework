@@ -19,13 +19,13 @@
 #include <@library>
 @end
 
-#include "zmbt/expr/signal_operator_handler.hpp"
+#include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 
 
 namespace zmbt {
 
-boost::json::value zmbt::Expression::eval_Const(boost::json::value const&) const
+boost::json::value zmbt::dsl::Expression::eval_Const(boost::json::value const&) const
 {
     switch(keyword())
     {

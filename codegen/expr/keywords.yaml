@@ -1322,7 +1322,7 @@ keyword_groups:
               "fn": ":div",
               "x": 42,
               "op":
-              "zmbt::GenericSignalOperator"
+              "zmbt::dsl::GenericSignalOperator"
           }
 
   Evaluation handlers:

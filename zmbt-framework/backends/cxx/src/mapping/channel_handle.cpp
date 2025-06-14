@@ -7,7 +7,7 @@
 #include <boost/json.hpp>
 
 #include "zmbt/model/environment_interface_record.hpp"
-#include "zmbt/expr/expression_api.hpp"
+#include "zmbt/expr/api.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 
 
@@ -67,9 +67,9 @@ interface_id ChannelHandle::interface() const
     return env.InterfaceId(data_.at("/interface").as_string());
 }
 
-SignalOperatorHandler ChannelHandle::overload() const
+dsl::Operator ChannelHandle::overload() const
 {
-    return data_.contains("overload") ? SignalOperatorHandler{data_.at("overload").as_string()} : SignalOperatorHandler {};
+    return data_.contains("overload") ? dsl::Operator{data_.at("overload").as_string()} : dsl::Operator {};
 }
 
 
@@ -147,29 +147,29 @@ int ChannelHandle::on_call() const
 }
 
 
-void ChannelHandle::inject(Expression e) const
+void ChannelHandle::inject(dsl::Expression e) const
 {
     if (e.is_noop()) return;
     auto handle = Environment::InterfaceHandle(interface(), host());
     auto const op = overload();
-    if (op.annotation() != SignalOperatorHandler{}.annotation())
+    if (op.annotation() != dsl::Operator{}.annotation())
     {
         e = expr::Overload(e, op.annotation());
     }
     handle.Inject(e, data_.at("/kind").as_string(), signal_path());
 }
 
-Expression ChannelHandle::keep() const
+dsl::Expression ChannelHandle::keep() const
 {
     auto const& recur = data_.at("keep");
     if (recur.is_null()) return expr::Noop;
-    else return Expression(recur);
+    else return dsl::Expression(recur);
 }
 
-Expression ChannelHandle::expect() const
+dsl::Expression ChannelHandle::expect() const
 {
     auto const& expect = data_.at("expect");
-    return expect.is_null() ? Expression(expr::Noop) : Expression(expect);
+    return expect.is_null() ? dsl::Expression(expr::Noop) : dsl::Expression(expect);
 }
 
 

@@ -22,7 +22,7 @@ TestDiagnostics& TestDiagnostics::Error(boost::json::string_view origin, boost::
 }
 
 /// report test expectation failure
-TestDiagnostics& TestDiagnostics::Fail(Expression expected, boost::json::value observed)
+TestDiagnostics& TestDiagnostics::Fail(dsl::Expression expected, boost::json::value observed)
 {
     this->result = Result::Fail;
     this->expected = expected.serialize();

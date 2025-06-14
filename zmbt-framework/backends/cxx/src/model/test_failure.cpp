@@ -71,7 +71,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     {
         os << prefix << "expression eval stack: |-"
             << prefix << "  ---\n"; // needed to keep valid yaml string under |-
-        zmbt::Expression::EvalLog::format(os, eval_stack, 8);
+        zmbt::dsl::Expression::EvalLog::format(os, eval_stack, 8);
     }
 }
 

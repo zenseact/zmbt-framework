@@ -63,7 +63,7 @@ namespace
             rhs.cbegin(),
             rhs.cend(),
             [](auto const& l, auto const& r) {
-                return zmbt::GenericSignalOperator(l) < zmbt::GenericSignalOperator(r);
+                return zmbt::dsl::GenericSignalOperator(l) < zmbt::dsl::GenericSignalOperator(r);
             }
         );
     }
@@ -78,6 +78,7 @@ namespace
 
 
 namespace zmbt {
+namespace dsl {
 
 
 
@@ -596,4 +597,5 @@ GenericSignalOperator::operator bool() const
 }
 
 
+} // namespace dsl
 } // namespace zmbt

@@ -9,6 +9,7 @@
 
 
 using namespace zmbt::reflect;
+using namespace zmbt::dsl;
 using namespace zmbt;
 using boost::json::array;
 using boost::json::object;

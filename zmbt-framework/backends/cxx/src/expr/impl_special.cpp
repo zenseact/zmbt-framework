@@ -14,22 +14,21 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/expr/generic_signal_operator.hpp"
-#include "zmbt/expr/signal_operator_handler.hpp"
+#include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/exceptions.hpp"
 
-
-
 #define ASSERT(E)      if (!(E)) { throw zmbt::expression_error("%s#%d - " #E, __FILE__, __LINE__);}
 
-namespace
-{
 
 using V = boost::json::value;
 using L = boost::json::array;
-using O = zmbt::SignalOperatorHandler;
-using E = zmbt::Expression;
+using O = zmbt::dsl::Operator;
+using E = zmbt::dsl::Expression;
 using Keyword = zmbt::dsl::Keyword;
+
+namespace
+{
 
 template <Keyword keyword>
 V eval_impl(V const& x, V const& param, E::EvalContext const& context);
@@ -1123,7 +1122,7 @@ V eval_impl<Keyword::Overload>(V const& x, V const& param, E::EvalContext const&
     auto const operator_reference = E(params.at(1)).eval({}, context++);
     ASSERT(operator_reference.is_string());
     E::EvalContext ctx = context++;
-    ctx.op = zmbt::SignalOperatorHandler{operator_reference.get_string()};
+    ctx.op = O{operator_reference.get_string()};
     auto result = F.eval(x, ctx);
 
     return (F.is_const() && !F.is_boolean()) ? ctx.op.decorate(result) : result;
@@ -1134,7 +1133,7 @@ V eval_impl<Keyword::Decorate>(V const& x, V const& param, E::EvalContext const&
 {
     auto const operator_reference = E(param).eval({}, context++);
     ASSERT(operator_reference.is_string());
-    auto const op = zmbt::SignalOperatorHandler{operator_reference.get_string()};
+    auto const op = O{operator_reference.get_string()};
     return op.decorate(x);
 }
 
@@ -1143,15 +1142,15 @@ V eval_impl<Keyword::Undecorate>(V const& x, V const& param, E::EvalContext cons
 {
     auto const operator_reference = E(param).eval({}, context++);
     ASSERT(operator_reference.is_string());
-    auto const op = zmbt::SignalOperatorHandler{operator_reference.get_string()};
+    auto const op = O{operator_reference.get_string()};
     return op.undecorate(x);
 }
 
 } // namespace
 
 
-namespace zmbt
-{
+namespace zmbt {
+namespace dsl {
 
 
 boost::json::value Expression::eval_Special(boost::json::value const& x, EvalContext const& context) const
@@ -1286,5 +1285,6 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
 }
 
 
+} // namespace dsl
 } // namespace zmbt
 

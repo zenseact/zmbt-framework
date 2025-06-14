@@ -15,6 +15,7 @@
 #include <iostream>
 
 namespace zmbt {
+namespace dsl {
 
 
 /// @brief Generic operator for signal in JSON representation, enabling type erasure.
@@ -94,6 +95,7 @@ public:
 };
 
 
-}
+} // namespace dsl
+} // namespace zmbt
 
 #endif // ZMBT_EXPR_GENERIC_SIGNAL_OPERATOR_HPP_

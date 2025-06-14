@@ -15,18 +15,32 @@
  * 3. Commit changes
  */
 
+#ifndef ZMBT_EXPR_EXPRESSION_API_HPP_
+#define ZMBT_EXPR_EXPRESSION_API_HPP_
 
-#include "zmbt/expr/expression_api.hpp"
+#include "api_signatures.hpp"
 
 namespace zmbt {
 namespace expr {
 
 @for keyword in data.ApiKeywords:
-dsl::@keyword.Class const @keyword.Enum = {};
+
+/// \brief @keyword.DocBrief
+    @if details := keyword.DocDetailsDoxy:
+/// \anchor expr-@keyword.Name
+/// \details
+        @for line in details.split('\n'):
+/// @line
+        @end
+    @end
+extern dsl::@keyword.Class const @keyword.Enum;
 @for alias in keyword.Aliases:
-dsl::@keyword.Class const @alias.capitalize() = @keyword.Enum;
+/// \brief Alias for @keyword.Enum
+extern dsl::@keyword.Class const @alias.capitalize();
 @end
 @end
 
 } // namespace expr
 } // namespace zmbt
+
+#endif // ZMBT_MAPPING_EXPRESSION_HPP_

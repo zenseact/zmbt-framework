@@ -7,14 +7,14 @@
 #ifndef ZMBT_EXPR_HPP_
 #define ZMBT_EXPR_HPP_
 
-#include "expr/signal_operator_handler.hpp"
+#include "expr/operator.hpp"
 #include "expr/keyword.hpp"
 #include "expr/keyword_grammar.hpp"
 #include "expr/keyword_codegen_type.hpp"
 #include "expr/generic_signal_operator.hpp"
 #include "expr/expression.hpp"
-#include "expr/expression_api.hpp"
-#include "expr/expression_api_signatures.hpp"
+#include "expr/api.hpp"
+#include "expr/api_signatures.hpp"
 #include "expr/exceptions.hpp"
 
 #endif // ZMBT_EXPR_HPP_

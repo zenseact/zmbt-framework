@@ -23,6 +23,7 @@ using namespace boost::json;
 using V = boost::json::value;
 using L = boost::json::array;
 using zmbt::dsl::Keyword;
+using zmbt::dsl::Expression;
 
 namespace {
 
@@ -579,7 +580,7 @@ std::vector<TestEvalSample> const TestSamples
                                         {{"err", "zero division"},
                                          {"fn" , {{":div",0}}   },
                                          {"x"  , 42              },
-                                         {"op" , "zmbt::GenericSignalOperator"}}},
+                                         {"op" , "zmbt::dsl::GenericSignalOperator"}}},
 
     {Keyword::Noop              , nullptr                , true                 },
     // test heterogeneous init lists in params

@@ -6,7 +6,7 @@
  */
 
 
-#include "zmbt/expr/expression_api.hpp"
+#include "zmbt/expr/api.hpp"
 
 namespace
 {
@@ -55,7 +55,6 @@ boost::json::value handle_list_init(std::initializer_list<Expression> set)
     }
 }
 } // namespace detail
-} // namespace dsl
 
 Expression operator|(Expression const& lhs, Expression const& rhs)
 {
@@ -110,5 +109,6 @@ boost::json::value operator*(Expression const& expr)
     return expr.eval();
 }
 
+} // namespace dsl
 } // namespace zmbt
 

@@ -22,7 +22,7 @@ using is_param = is_same<remove_cvref_t<T>, Param>;
 
 
 template <class T>
-using is_expr = is_same<remove_cvref_t<T>, Expression>;
+using is_expr = is_same<remove_cvref_t<T>, dsl::Expression>;
 
 template <class T>
 using is_ref = mp_or<boost::json::is_string_like<T>, is_param<T>, is_expr<T>>;

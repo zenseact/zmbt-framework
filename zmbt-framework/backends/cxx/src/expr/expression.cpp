@@ -11,7 +11,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "zmbt/expr/signal_operator_handler.hpp"
+#include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 
 
@@ -72,7 +72,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         buf[n-3] = '.';
         return;
     };
-    using E = zmbt::Expression;
+    using E = zmbt::dsl::Expression;
     E fn(rec.at(1));
 
     boost::json::serializer sr;
@@ -113,6 +113,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
 
 
 namespace zmbt {
+namespace dsl {
 
 Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying)
     : keyword_{keyword}
@@ -297,7 +298,7 @@ bool Expression::is_hiord() const
 }
 
 
-bool Expression::match(boost::json::value const& observed, SignalOperatorHandler const& op) const
+bool Expression::match(boost::json::value const& observed, Operator const& op) const
 {
     auto result = eval(observed, {op, {}, 0});
     if (!result.is_bool())
@@ -396,4 +397,5 @@ Expression::EvalContext Expression::EvalContext::operator++(int) const
     return {op, log, depth + 1};
 }
 
+}  // namespace dsl
 }  // namespace zmbt

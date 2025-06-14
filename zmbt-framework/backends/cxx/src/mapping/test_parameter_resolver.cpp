@@ -34,9 +34,9 @@ try
     auto& description = next_model("/description");
     auto& trigger = next_model("/trigger");
 
-    name = Expression(name).eval();
-    description = Expression(description).eval();
-    trigger = Expression(trigger).eval();
+    name = dsl::Expression(name).eval();
+    description = dsl::Expression(description).eval();
+    trigger = dsl::Expression(trigger).eval();
 
     interface_id trig_ifc;
     object_id    trig_obj;
@@ -63,8 +63,8 @@ try
         auto& interface   = channel.as_object().at("interface");
         auto& signal_path = channel.as_object().at("signal_path");
 
-        interface   = Expression(interface).eval();
-        signal_path = Expression(signal_path).eval();
+        interface   = dsl::Expression(interface).eval();
+        signal_path = dsl::Expression(signal_path).eval();
 
         if (signal_path.is_number())
         {
@@ -85,7 +85,7 @@ try
             if (obj_param == "$default") {
                 obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
             } else {
-                obj_id = object_id{Expression(obj_param).eval()};
+                obj_id = object_id{dsl::Expression(obj_param).eval()};
             }
 
             interface = env.GetOrRegisterInterface(obj_id, ifc_id);

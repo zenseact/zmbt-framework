@@ -153,7 +153,7 @@ struct SignatureOverload : public SignatureTernary<Keyword::Overload>
     template <class T>
     Expression operator()(Expression const& expr, type_tag<T> tag) const
     {
-        SignalOperatorHandler const op{tag};
+        Operator const op{tag};
         return Expression(Keyword::Overload, {expr, op.annotation()});
     }
 };
@@ -166,7 +166,7 @@ struct SignatureDecorate : public SignatureBinary<Keyword::Decorate>
     template <class T>
     Expression operator()(type_tag<T> tag) const
     {
-        SignalOperatorHandler const op{tag};
+        Operator const op{tag};
         return Expression(Keyword::Decorate, op.annotation());
     }
 };
@@ -179,7 +179,7 @@ struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
     template <class T>
     Expression operator()(type_tag<T> tag) const
     {
-        SignalOperatorHandler const op{tag};
+        Operator const op{tag};
         return Expression(Keyword::Undecorate, op.annotation());
     }
 };

@@ -16,18 +16,15 @@
 #include <zmbt/core/type_info.hpp>
 
 #include "zmbt/expr/generic_signal_operator.hpp"
-#include "zmbt/expr/signal_operator_handler.hpp"
+#include "zmbt/expr/operator.hpp"
 
-
-namespace
-{
-} // namespace
 
 
 namespace zmbt {
+namespace dsl {
 
 
-bool SignalOperatorHandler::exchangeHandle(Handle& handle, bool const retrieve)
+bool Operator::exchangeHandle(Handle& handle, bool const retrieve)
 {
     using Table = std::map<boost::json::string, Handle>;
 
@@ -59,16 +56,16 @@ bool SignalOperatorHandler::exchangeHandle(Handle& handle, bool const retrieve)
     }
 }
 
-SignalOperatorHandler::SignalOperatorHandler() : SignalOperatorHandler{Handle{}}
+Operator::Operator() : Operator{Handle{}}
 {
 }
 
-SignalOperatorHandler::SignalOperatorHandler(Handle const handle) : handle_{handle}
+Operator::Operator(Handle const handle) : handle_{handle}
 {
     exchangeHandle(handle_, false);
 }
 
-SignalOperatorHandler::SignalOperatorHandler(boost::json::string_view annotation)
+Operator::Operator(boost::json::string_view annotation)
     : handle_{}
 {
     handle_.annotation = annotation;
@@ -79,53 +76,53 @@ SignalOperatorHandler::SignalOperatorHandler(boost::json::string_view annotation
 }
 
 
-boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
+boost::json::value Operator::apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
 {
     switch (keyword)
     {
-    case dsl::Keyword::Bool: return handle_.logic.bool_(rhs);
-    case dsl::Keyword::Not: return !handle_.logic.bool_(rhs);
-    case dsl::Keyword::And: return handle_.logic.and_(lhs, rhs);
-    case dsl::Keyword::Or: return handle_.logic.or_(lhs, rhs);
+    case Keyword::Bool: return handle_.logic.bool_(rhs);
+    case Keyword::Not: return !handle_.logic.bool_(rhs);
+    case Keyword::And: return handle_.logic.and_(lhs, rhs);
+    case Keyword::Or: return handle_.logic.or_(lhs, rhs);
 
-    case dsl::Keyword::Eq: return handle_.comp.equal_to(lhs, rhs);
-    case dsl::Keyword::Ne: return !handle_.comp.equal_to(lhs, rhs);
+    case Keyword::Eq: return handle_.comp.equal_to(lhs, rhs);
+    case Keyword::Ne: return !handle_.comp.equal_to(lhs, rhs);
 
-    case dsl::Keyword::Le: return handle_.comp.less_equal(lhs, rhs);
-    case dsl::Keyword::Gt: return !handle_.comp.less_equal(lhs, rhs);
-    case dsl::Keyword::Ge: return handle_.comp.less_equal(rhs, lhs);
-    case dsl::Keyword::Lt: return !handle_.comp.less_equal(rhs, lhs);
+    case Keyword::Le: return handle_.comp.less_equal(lhs, rhs);
+    case Keyword::Gt: return !handle_.comp.less_equal(lhs, rhs);
+    case Keyword::Ge: return handle_.comp.less_equal(rhs, lhs);
+    case Keyword::Lt: return !handle_.comp.less_equal(rhs, lhs);
 
-    case dsl::Keyword::Add: return handle_.arithmetics.add(lhs, rhs);
-    case dsl::Keyword::Sub: return handle_.arithmetics.sub(lhs, rhs);
-    case dsl::Keyword::Mul: return handle_.arithmetics.mul(lhs, rhs);
-    case dsl::Keyword::Div: return handle_.arithmetics.div(lhs, rhs);
-    case dsl::Keyword::Mod: return handle_.arithmetics.mod(lhs, rhs);
-    case dsl::Keyword::Neg   : return handle_.arithmetics.neg(rhs);
+    case Keyword::Add: return handle_.arithmetics.add(lhs, rhs);
+    case Keyword::Sub: return handle_.arithmetics.sub(lhs, rhs);
+    case Keyword::Mul: return handle_.arithmetics.mul(lhs, rhs);
+    case Keyword::Div: return handle_.arithmetics.div(lhs, rhs);
+    case Keyword::Mod: return handle_.arithmetics.mod(lhs, rhs);
+    case Keyword::Neg   : return handle_.arithmetics.neg(rhs);
 
-    case dsl::Keyword::BitNot: return handle_.bitwise.compl_(rhs);
-    case dsl::Keyword::BitAnd: return handle_.bitwise.and_(lhs, rhs);
-    case dsl::Keyword::BitOr : return handle_.bitwise.or_(lhs, rhs);
-    case dsl::Keyword::BitXor: return handle_.bitwise.xor_(lhs, rhs);
+    case Keyword::BitNot: return handle_.bitwise.compl_(rhs);
+    case Keyword::BitAnd: return handle_.bitwise.and_(lhs, rhs);
+    case Keyword::BitOr : return handle_.bitwise.or_(lhs, rhs);
+    case Keyword::BitXor: return handle_.bitwise.xor_(lhs, rhs);
 
-    case dsl::Keyword::BitLshift: return handle_.shift.left(lhs, rhs);
-    case dsl::Keyword::BitRshift: return handle_.shift.right(lhs, rhs);
+    case Keyword::BitLshift: return handle_.shift.left(lhs, rhs);
+    case Keyword::BitRshift: return handle_.shift.right(lhs, rhs);
 
-    case dsl::Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
-    case dsl::Keyword::Subset: return is_subset(lhs, rhs);
-    case dsl::Keyword::Superset: return is_subset(rhs, lhs);
-    case dsl::Keyword::ProperSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
-    case dsl::Keyword::ProperSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
+    case Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
+    case Keyword::Subset: return is_subset(lhs, rhs);
+    case Keyword::Superset: return is_subset(rhs, lhs);
+    case Keyword::ProperSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
+    case Keyword::ProperSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
 
-    case dsl::Keyword::In: return contains(rhs, lhs);
-    case dsl::Keyword::Ni: return contains(lhs, rhs);
-    case dsl::Keyword::NotIn: return !contains(rhs, lhs);
-    case dsl::Keyword::NotNi: return !contains(lhs, rhs);
-    case dsl::Keyword::Approx: return is_approx(lhs, rhs);
+    case Keyword::In: return contains(rhs, lhs);
+    case Keyword::Ni: return contains(lhs, rhs);
+    case Keyword::NotIn: return !contains(rhs, lhs);
+    case Keyword::NotNi: return !contains(lhs, rhs);
+    case Keyword::Approx: return is_approx(lhs, rhs);
 
-    case dsl::Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
-    case dsl::Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
-    case dsl::Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
+    case Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
+    case Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
+    case Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
 
     default:
         throw expression_not_implemented("unsupported operator");
@@ -136,7 +133,7 @@ boost::json::value SignalOperatorHandler::apply(dsl::Keyword const& keyword, boo
 
 
 
-bool SignalOperatorHandler::is_approx(boost::json::value const& sample, boost::json::value const& expr) const
+bool Operator::is_approx(boost::json::value const& sample, boost::json::value const& expr) const
 {
     // Based on numpy.isclose
     // absolute(a - b) <= (atol + rtol * absolute(b))
@@ -152,7 +149,7 @@ bool SignalOperatorHandler::is_approx(boost::json::value const& sample, boost::j
 }
 
 /// Is subset of
-bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const
+bool Operator::is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const
 {
     if (lhs.is_array() && rhs.is_array())
     {
@@ -205,7 +202,7 @@ bool SignalOperatorHandler::is_subset(boost::json::value const& lhs, boost::json
 
 
 /// Is element of
-bool SignalOperatorHandler::contains(boost::json::value const& set, boost::json::value const& element) const
+bool Operator::contains(boost::json::value const& set, boost::json::value const& element) const
 {
     // array item
     if (set.if_array())
@@ -239,4 +236,5 @@ bool SignalOperatorHandler::contains(boost::json::value const& set, boost::json:
 }
 
 
+} // namespace dsl
 } // namespace zmbt

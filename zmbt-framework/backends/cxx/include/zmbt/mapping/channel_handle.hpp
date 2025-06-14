@@ -12,7 +12,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/model/environment.hpp"
-#include "zmbt/expr/expression.hpp"
+#include "zmbt/expr.hpp"
 
 namespace zmbt {
 namespace mapping {
@@ -42,7 +42,7 @@ public:
 
     object_id host() const;
     interface_id interface() const;
-    SignalOperatorHandler overload() const;
+    dsl::Operator overload() const;
     boost::json::string full_path() const;
     boost::json::string signal_path() const;
     Kind kind() const;
@@ -60,10 +60,10 @@ public:
     /// Channel alias or index if not set
     boost::json::value alias() const;
     boost::json::array const& captures() const;
-    void inject(Expression expr) const;
+    void inject(dsl::Expression expr) const;
     void inject_fixed() const;
-    Expression keep() const;
-    Expression expect() const;
+    dsl::Expression keep() const;
+    dsl::Expression expect() const;
     boost::json::value observe() const;
 
 

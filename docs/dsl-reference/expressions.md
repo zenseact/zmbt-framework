@@ -1458,7 +1458,7 @@ Try(Add(1)) * "foo" == null</pre></td>
     "fn": ":div",
     "x": 42,
     "op":
-    "zmbt::GenericSignalOperator"
+    "zmbt::dsl::GenericSignalOperator"
 }</pre></td>
     </tr>
 </tbody></table>

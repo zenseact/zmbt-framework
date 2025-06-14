@@ -60,7 +60,7 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
     return env.data_->json_data.at("/prototypes/%s/args", interface());
 }
 
-void Environment::InterfaceHandle::Inject(Expression const& e, boost::json::string_view group, boost::json::string_view jp)
+void Environment::InterfaceHandle::Inject(dsl::Expression const& e, boost::json::string_view group, boost::json::string_view jp)
 {
     auto lock = Env().Lock();
     auto& expr_map = injects.get_or_create_object("/%s/expr", group);
@@ -106,7 +106,7 @@ boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::strin
             for (auto const& record: *expr_map)
             {
                 boost::json::string_view const record_pointer = record.key();
-                Expression const expr (record.value());
+                dsl::Expression const expr (record.value());
                 if (expr.is_noop()) continue;
 
                 // TODO: optimize recursive expr

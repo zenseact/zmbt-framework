@@ -52,18 +52,19 @@ static auto handle_##TRAIT(V const&, V const&)                                  
 static auto generic_##TRAIT(V const& val)                                       \
 -> R                                                                            \
 {                                                                               \
-    return OP zmbt::GenericSignalOperator(val);                                 \
+    return OP zmbt::dsl::GenericSignalOperator(val);                                 \
 }
 
 #define ZMBT_SOH_GENERIC_BIN_TRANSFORM(OP, TRAIT, R)                            \
 static auto generic_##TRAIT(V const& lhs, V const& rhs)                         \
 -> R                                                                            \
 {                                                                               \
-    return zmbt::GenericSignalOperator(lhs) OP zmbt::GenericSignalOperator(rhs);\
+    return zmbt::dsl::GenericSignalOperator(lhs) OP zmbt::dsl::GenericSignalOperator(rhs);\
 }
 
 
 namespace zmbt {
+namespace dsl {
 
 namespace detail
 {
@@ -71,9 +72,8 @@ namespace detail
 ZMBT_HAS_TYPE(decorated_type)
 }
 
-
 /// Signal transformation and comparison handler. Enables type erasure.
-class SignalOperatorHandler
+class Operator
 {
   public:
     enum Config : std::uint32_t
@@ -199,7 +199,7 @@ class SignalOperatorHandler
 
     static auto generic_is_truth(boost::json::value const& a) -> bool
     {
-        return static_cast<bool>(zmbt::GenericSignalOperator(a));
+        return static_cast<bool>(GenericSignalOperator(a));
     }
 
     struct Handle {
@@ -285,7 +285,7 @@ class SignalOperatorHandler
 
     Handle handle_;
 
-    explicit SignalOperatorHandler(
+    explicit Operator(
         Handle const handle
     );
 
@@ -294,30 +294,30 @@ class SignalOperatorHandler
 public:
 
     /// Default operator with GenericSignalOperator as type decorator
-    SignalOperatorHandler();
+    Operator();
 
-    /// SignalOperatorHandler with T as type decorator
+    /// Operator with T as type decorator
     template <class T>
-    SignalOperatorHandler(type_tag<T> tag, Config const cfg)
-    : SignalOperatorHandler{makeHandle(tag, cfg)}
+    Operator(type_tag<T> tag, Config const cfg)
+    : Operator{makeHandle(tag, cfg)}
     {
     }
 
-    /// SignalOperatorHandler with T as type decorator
+    /// Operator with T as type decorator
     template <class T>
-    SignalOperatorHandler(type_tag<T> tag)
-    : SignalOperatorHandler{tag, Config::Default}
+    Operator(type_tag<T> tag)
+    : Operator{tag, Config::Default}
     {
     }
 
     /// Retrieve registered operator instance if it exists, throw otherwise
-    SignalOperatorHandler(boost::json::string_view annotation);
+    Operator(boost::json::string_view annotation);
 
-    SignalOperatorHandler(SignalOperatorHandler const&) = default;
-    SignalOperatorHandler(SignalOperatorHandler &&) = default;
-    virtual ~SignalOperatorHandler() = default;
-    SignalOperatorHandler& operator=(SignalOperatorHandler const&) = default;
-    SignalOperatorHandler& operator=(SignalOperatorHandler &&) = default;
+    Operator(Operator const&) = default;
+    Operator(Operator &&) = default;
+    virtual ~Operator() = default;
+    Operator& operator=(Operator const&) = default;
+    Operator& operator=(Operator &&) = default;
 
 
     /// decorated type name
@@ -362,6 +362,7 @@ private:
 
 };
 
+} // namespace dsl
 } // namespace zmbt
 
 #endif // ZMBT_EXPR_SIGNAL_OPERATOR_HANDLER_HPP_
