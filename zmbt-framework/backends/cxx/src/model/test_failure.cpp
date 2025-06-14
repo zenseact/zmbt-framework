@@ -7,7 +7,7 @@
 
 #include "zmbt/model/test_failure.hpp"
 #include "zmbt/model/exceptions.hpp"
-#include "zmbt/model/expression.hpp"
+#include "zmbt/expr/expression.hpp"
 #include "zmbt/model/environment.hpp"
 
 

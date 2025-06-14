@@ -10,7 +10,7 @@
 #define ZMBT_MAPPING_TEST_DIAGNOSTICS_HPP_
 
 #include <boost/json.hpp>
-#include <zmbt/model/expression.hpp>
+#include <zmbt/expr/expression.hpp>
 
 namespace zmbt {
 namespace mapping {

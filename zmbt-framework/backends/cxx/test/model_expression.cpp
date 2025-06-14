@@ -8,7 +8,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/data/test_case.hpp>
 
-#include "zmbt/model.hpp"
+#include "zmbt/expr.hpp"
 #include "zmbt/decor.hpp"
 
 

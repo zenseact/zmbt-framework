@@ -7,7 +7,7 @@
 #ifndef ZMBT_MAPPING_MODEL_DEFINITION_MAIN_HPP_
 #define ZMBT_MAPPING_MODEL_DEFINITION_MAIN_HPP_
 
-#include "zmbt/model/expression_api.hpp"
+#include "zmbt/expr/expression_api.hpp"
 #include "zmbt/mapping/model_definition.hpp"
 #include "zmbt/mapping/model_definition_states.hpp"
 #include "zmbt/mapping/model_definition_transitions.hpp"

@@ -18,7 +18,6 @@
 #include <type_traits>
 
 
-#include "signal_operator_handler.hpp"
 #include "test_failure.hpp"
 #include "trigger.hpp"
 
@@ -56,7 +55,6 @@ struct EnvironmentData {
     std::map<boost::json::string, Trigger> triggers;
     std::map<interface_id, TriggerIfc> trigger_ifcs;
     std::map<object_id, TriggerObj> trigger_objs;
-    std::map<boost::json::string, SignalOperatorHandler> operators;
 
     mutex_t mutable mutex;
 
@@ -70,7 +68,6 @@ struct EnvironmentData {
         shared = std::move(o.shared);
         json_data = std::move(o.json_data);
         callbacks = std::move(o.callbacks);
-        operators = std::move(o.operators);
         failure_handler = std::move(o.failure_handler);
     }
 
@@ -84,7 +81,6 @@ struct EnvironmentData {
             shared = std::move(o.shared);
             json_data = std::move(o.json_data);
             callbacks = std::move(o.callbacks);
-            operators = std::move(o.operators);
             failure_handler = std::move(o.failure_handler);
         }
         return *this;
@@ -96,7 +92,6 @@ struct EnvironmentData {
         shared = o.shared;
         json_data = o.json_data;
         callbacks = o.callbacks;
-        operators = o.operators;
         failure_handler = o.failure_handler;
     }
 
@@ -110,7 +105,6 @@ struct EnvironmentData {
             shared = o.shared;
             json_data = o.json_data;
             callbacks = o.callbacks;
-            operators = o.operators;
             failure_handler = o.failure_handler;
         }
         return *this;

@@ -15,7 +15,7 @@
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/core/parameter.hpp>
 #include <zmbt/model/environment.hpp>
-#include <zmbt/model/expression.hpp>
+#include <zmbt/expr/expression.hpp>
 #include <zmbt/model/traits.hpp>
 #include <zmbt/model/param_transform.hpp>
 #include <functional>

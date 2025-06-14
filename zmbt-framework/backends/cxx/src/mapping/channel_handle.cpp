@@ -7,7 +7,7 @@
 #include <boost/json.hpp>
 
 #include "zmbt/model/environment_interface_record.hpp"
-#include "zmbt/model/expression_api.hpp"
+#include "zmbt/expr/expression_api.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 
 

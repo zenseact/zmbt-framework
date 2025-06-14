@@ -17,7 +17,6 @@
 #include <zmbt/core/interface_traits.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
-#include <zmbt/model/signal_operator_handler.hpp>
 #include <zmbt/model/test_failure.hpp>
 #include <zmbt/reflect/signal_traits.hpp>
 #include <zmbt/reflect/invocation.hpp>
@@ -545,9 +544,6 @@ class Environment {
         RegisterPrototypes(std::forward<I>(interface));
         return RegisterInterface(autokey(obj_id, interface_id{interface}), interface_id(interface), obj_id);
     }
-
-
-    SignalOperatorHandler GetOperatorOrDefault(boost::json::string_view name) const;
 
 
     PersistentConfig Config() const;

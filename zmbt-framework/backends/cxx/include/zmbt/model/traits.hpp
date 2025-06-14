@@ -9,7 +9,7 @@
 
 
 #include "zmbt/core.hpp"
-#include "zmbt/model/expression.hpp"
+#include "zmbt/expr/expression.hpp"
 
 
 namespace zmbt {

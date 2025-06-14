@@ -8,7 +8,7 @@
 
 #include <zmbt/core/aliases.hpp>
 #include <zmbt/core/format_string.hpp>
-#include <zmbt/model/keyword.hpp>
+#include <zmbt/expr/keyword.hpp>
 #include <zmbt/reflect/serialization.hpp>
 #include <cstddef>
 

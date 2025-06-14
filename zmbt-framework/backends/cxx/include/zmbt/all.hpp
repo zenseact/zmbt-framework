@@ -10,6 +10,7 @@
 
 #include "core.hpp"
 #include "reflect.hpp"
+#include "expr.hpp"
 #include "model.hpp"
 #include "mapping.hpp"
 #include "decor.hpp"

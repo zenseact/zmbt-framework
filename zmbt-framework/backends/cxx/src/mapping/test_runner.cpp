@@ -11,10 +11,10 @@
 #include <zmbt/model/environment.hpp>
 #include <zmbt/model/environment_interface_record.hpp>
 #include <zmbt/model/exceptions.hpp>
-#include <zmbt/model/expression.hpp>
-#include <zmbt/model/expression_api.hpp>
-#include <zmbt/model/keyword.hpp>
-#include <zmbt/model/signal_operator_handler.hpp>
+#include <zmbt/expr/expression.hpp>
+#include <zmbt/expr/expression_api.hpp>
+#include <zmbt/expr/keyword.hpp>
+#include <zmbt/expr/signal_operator_handler.hpp>
 #include <zmbt/core.hpp>
 #include <cstddef>
 #include <exception>

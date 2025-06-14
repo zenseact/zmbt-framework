@@ -13,7 +13,7 @@
 #include <zmbt/core/json_pretty_print.hpp>
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/model/exceptions.hpp>
-#include <zmbt/model/expression.hpp>
+#include <zmbt/expr/expression.hpp>
 #include <cstddef>
 #include <exception>
 #include <iostream>

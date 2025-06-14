@@ -28,16 +28,6 @@ struct environment_error : public base_error {
     using base_error::base_error;
 };
 
-/// Expression evaluation error
-struct expression_error : public base_error {
-    using base_error::base_error;
-};
-
-/// Expression not implemented
-struct expression_not_implemented : public expression_error {
-    using expression_error::expression_error;
-};
-
 }  // namespace zmbt
 
 #endif

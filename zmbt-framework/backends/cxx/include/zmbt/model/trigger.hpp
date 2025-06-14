@@ -9,6 +9,7 @@
 
 #include "zmbt/model/exceptions.hpp"
 #include "zmbt/core.hpp"
+#include "zmbt/reflect.hpp"
 
 namespace zmbt {
 

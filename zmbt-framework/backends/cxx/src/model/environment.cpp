@@ -192,12 +192,6 @@ Environment& Environment::RegisterInterface(boost::json::string_view key, interf
 }
 
 
-SignalOperatorHandler Environment::GetOperatorOrDefault(boost::json::string_view name) const
-{
-    auto lock = Lock();
-    return data_->operators.count(name) ? data_->operators.at(name) : SignalOperatorHandler{};
-}
-
 Environment::PersistentConfig Environment::Config() const
 {
     return *config_;

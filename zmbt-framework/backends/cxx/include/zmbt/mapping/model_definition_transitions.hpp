@@ -13,9 +13,9 @@
 #include <zmbt/core/format_string.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/parameter.hpp>
-#include <zmbt/model/expression.hpp>
-#include <zmbt/model/expression_api.hpp>
-#include <zmbt/model/signal_operator_handler.hpp>
+#include <zmbt/expr/expression.hpp>
+#include <zmbt/expr/expression_api.hpp>
+#include <zmbt/expr/signal_operator_handler.hpp>
 #include <zmbt/model/traits.hpp>
 #include <cstddef>
 #include <tuple>
