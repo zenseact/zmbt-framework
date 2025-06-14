@@ -14,7 +14,6 @@
 #include "zmbt/reflect.hpp"
 #include "keyword.hpp"
 #include "exceptions.hpp"
-#include "generic_signal_operator.hpp"
 
 
 
@@ -48,20 +47,6 @@ static auto handle_##TRAIT(V const&, V const&)                                  
     return {};                                                                          \
 }
 
-#define ZMBT_SOH_GENERIC_UNARY_TRANSFORM(OP, TRAIT, R)                          \
-static auto generic_##TRAIT(V const& val)                                       \
--> R                                                                            \
-{                                                                               \
-    return OP zmbt::dsl::GenericSignalOperator(val);                                 \
-}
-
-#define ZMBT_SOH_GENERIC_BIN_TRANSFORM(OP, TRAIT, R)                            \
-static auto generic_##TRAIT(V const& lhs, V const& rhs)                         \
--> R                                                                            \
-{                                                                               \
-    return zmbt::dsl::GenericSignalOperator(lhs) OP zmbt::dsl::GenericSignalOperator(rhs);\
-}
-
 
 namespace zmbt {
 namespace dsl {
@@ -76,6 +61,9 @@ ZMBT_HAS_TYPE(decorated_type)
 class Operator
 {
   public:
+
+    using V = boost::json::value;
+
     enum Config : std::uint32_t
     {
         Null,
@@ -89,12 +77,37 @@ class Operator
         Full        = Default|Logic,
     };
 
+    static bool generic_is_truth(V const& a);
+    static V generic_decorate(V const& a);
+    static V generic_undecorate(V const& a);
+    static V generic_negate(V const&);
+    static V generic_complement(V const&);
+    static bool generic_logical_not(V const&);
+    static bool generic_equal_to(V const&, V const&);
+    static bool generic_less(V const&, V const&);
+    static bool generic_less_equal(V const&, V const&);
+    static V generic_plus(V const&, V const&);
+    static V generic_minus(V const&, V const&);
+    static V generic_multiplies(V const&, V const&);
+    static V generic_divides(V const&, V const&);
+    static V generic_modulus(V const&, V const&);
+    static V generic_bit_and(V const&, V const&);
+    static V generic_bit_or(V const&, V const&);
+    static V generic_bit_xor(V const&, V const&);
+    static V generic_left_shift(V const&, V const&);
+    static V generic_right_shift(V const&, V const&);
+    static V generic_logical_and(V const&, V const&);
+    static V generic_logical_or(V const&, V const&);
+
+    static V generic_pow(V const&, V const&);
+    static V generic_log(V const&, V const&);
+    static V generic_quot(V const&, V const&);
+
 
   private:
 
     // boost::json::string_view config2Str() const
 
-    using V = boost::json::value;
     using unary_transform = std::function<V(V const&)>;
     using binary_transform = std::function<V(V const&, V const&)>;
     using unary_predicate = std::function<bool(V const&)>;
@@ -119,30 +132,9 @@ class Operator
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(&&, logical_and, V)
     ZMBT_SOH_HANDLE_BIN_TRANSFORM(||, logical_or, V)
 
-    ZMBT_SOH_GENERIC_UNARY_TRANSFORM(-, negate, V)
-    ZMBT_SOH_GENERIC_UNARY_TRANSFORM(~, complement, V)
-    ZMBT_SOH_GENERIC_UNARY_TRANSFORM(!, logical_not, bool)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(==, equal_to, bool)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(<, less, bool)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(<=, less_equal, bool)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(+, plus, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(-, minus, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(*, multiplies, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(/, divides, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(%, modulus, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(&, bit_and, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(|, bit_or, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(^, bit_xor, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(<<, left_shift, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(>>, right_shift, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(&&, logical_and, V)
-    ZMBT_SOH_GENERIC_BIN_TRANSFORM(||, logical_or, V)
-
-
 #undef ZMBT_SOH_HANDLE_UNARY_TRANSFORM
 #undef ZMBT_SOH_HANDLE_BIN_TRANSFORM
-#undef ZMBT_SOH_GENERIC_UNARY_TRANSFORM
-#undef ZMBT_SOH_GENERIC_BIN_TRANSFORM
+
 
     template <class T>
     static auto handle_decorate(boost::json::value const& a)
@@ -187,24 +179,11 @@ class Operator
         return false;
     }
 
-    static auto generic_decorate(boost::json::value const& a) -> boost::json::value
-    {
-        return a;
-    }
 
-    static auto generic_undecorate(boost::json::value const& a) -> boost::json::value
-    {
-        return a;
-    }
-
-    static auto generic_is_truth(boost::json::value const& a) -> bool
-    {
-        return static_cast<bool>(GenericSignalOperator(a));
-    }
 
     struct Handle {
 
-        boost::json::string annotation{type_name<GenericSignalOperator>()};
+        boost::json::string annotation{""};
         struct D {
             unary_transform     decorate{generic_decorate};
             unary_transform     undecorate{generic_undecorate};
@@ -293,7 +272,7 @@ class Operator
 
 public:
 
-    /// Default operator with GenericSignalOperator as type decorator
+    /// Default operator with generic transforms
     Operator();
 
     /// Operator with T as type decorator

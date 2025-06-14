@@ -11,7 +11,6 @@
 #include "expr/keyword.hpp"
 #include "expr/keyword_grammar.hpp"
 #include "expr/keyword_codegen_type.hpp"
-#include "expr/generic_signal_operator.hpp"
 #include "expr/expression.hpp"
 #include "expr/api.hpp"
 #include "expr/api_signatures.hpp"

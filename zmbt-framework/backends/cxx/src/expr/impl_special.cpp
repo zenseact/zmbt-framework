@@ -13,7 +13,6 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "zmbt/expr/generic_signal_operator.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/exceptions.hpp"
@@ -579,12 +578,17 @@ V eval_impl<Keyword::TryCatch>(V const& x, V const& param, E::EvalContext const&
     }
     catch(const std::exception& e)
     {
-        return {
+        boost::json::object report {
             {"err", e.what()       },
             {"fn" , param          },
             {"x"  , x              },
-            {"op" , context.op.annotation()},
         };
+
+        if (!context.op.annotation().empty())
+        {
+            report["op"] = context.op.annotation();
+        }
+        return report;
     }
 }
 

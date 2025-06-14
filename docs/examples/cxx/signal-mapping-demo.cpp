@@ -589,7 +589,7 @@ Benefits from this approach are:
 The predicate expressions described above know nothing about actual
 operations - to apply them to a particular value, they need an operator handler.
 
-By default they use `GenericSignalOperator` which does most of operations in an intuitive
+By default they use generic JSON operators which evaluates most of operations in an intuitive
 way, allowing order checks on strings and array-like structures.
 
 Sometimes you need to apply certain type-specific operators - for such case use the Overload or Cast expressions:

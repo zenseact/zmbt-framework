@@ -15,7 +15,6 @@
 #include <zmbt/core/exceptions.hpp>
 #include <zmbt/core/type_info.hpp>
 
-#include "zmbt/expr/generic_signal_operator.hpp"
 #include "zmbt/expr/operator.hpp"
 
 
@@ -120,9 +119,9 @@ boost::json::value Operator::apply(Keyword const& keyword, boost::json::value co
     case Keyword::NotNi: return !contains(lhs, rhs);
     case Keyword::Approx: return is_approx(lhs, rhs);
 
-    case Keyword::Pow:      return GenericSignalOperator(lhs).pow(rhs);
-    case Keyword::Log:      return GenericSignalOperator(lhs).log(rhs);
-    case Keyword::Quot:     return GenericSignalOperator(lhs).quot(rhs);
+    case Keyword::Pow:      return Operator::generic_pow(lhs, rhs);
+    case Keyword::Log:      return Operator::generic_log(lhs, rhs);
+    case Keyword::Quot:     return Operator::generic_quot(lhs, rhs);
 
     default:
         throw expression_not_implemented("unsupported operator");

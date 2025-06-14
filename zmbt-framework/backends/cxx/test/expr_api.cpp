@@ -579,8 +579,7 @@ std::vector<TestEvalSample> const TestSamples
     {TryCatch(Div(0))           , 42                    ,
                                         {{"err", "zero division"},
                                          {"fn" , {{":div",0}}   },
-                                         {"x"  , 42              },
-                                         {"op" , "zmbt::dsl::GenericSignalOperator"}}},
+                                         {"x"  , 42             }}              },
 
     {Keyword::Noop              , nullptr                , true                 },
     // test heterogeneous init lists in params
