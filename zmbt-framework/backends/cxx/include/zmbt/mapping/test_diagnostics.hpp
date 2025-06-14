@@ -92,7 +92,7 @@ struct TestDiagnostics
     {
         this->channel_id = id; return *this;
     }
-    TestDiagnostics& EvalStack(dsl::Expression::EvalLog const& log)
+    TestDiagnostics& EvalStack(lang::Expression::EvalLog const& log)
     {
         if (log.stack)
         {
@@ -105,7 +105,7 @@ struct TestDiagnostics
     TestDiagnostics& Error(boost::json::string_view origin, boost::json::string_view msg);
 
     /// report test expectation failure
-    TestDiagnostics& Fail(dsl::Expression expected, boost::json::value observed);
+    TestDiagnostics& Fail(lang::Expression expected, boost::json::value observed);
 
     boost::json::value to_json() const;
 };

@@ -20,7 +20,7 @@
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 
 bool Operator::exchangeHandle(Handle& handle, bool const retrieve)
@@ -235,5 +235,5 @@ bool Operator::contains(boost::json::value const& set, boost::json::value const&
 }
 
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt

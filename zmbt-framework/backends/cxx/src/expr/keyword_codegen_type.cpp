@@ -18,7 +18,7 @@
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 namespace detail {
 
 
@@ -179,5 +179,5 @@ bool isVariadic(Keyword const& k)
 }
 
 } // namespace detail
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt

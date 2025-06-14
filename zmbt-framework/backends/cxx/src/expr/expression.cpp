@@ -22,7 +22,7 @@
 
 namespace
 {
-using Keyword = zmbt::dsl::Keyword;
+using Keyword = zmbt::lang::Keyword;
 
 
 boost::json::value const* ptrToParams(Keyword const& keyword, boost::json::value const& underlying)
@@ -72,7 +72,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         buf[n-3] = '.';
         return;
     };
-    using E = zmbt::dsl::Expression;
+    using E = zmbt::lang::Expression;
     E fn(rec.at(1));
 
     boost::json::serializer sr;
@@ -113,7 +113,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying)
     : keyword_{keyword}
@@ -255,8 +255,8 @@ Expression Expression::asPredicate(boost::json::value const& underlying)
 
 bool Expression::is_const() const
 {
-    using dsl::detail::CodegenType;
-    using dsl::detail::getCodegenType;
+    using lang::detail::CodegenType;
+    using lang::detail::getCodegenType;
     if (is(Keyword::Compose))
     {
         return Expression(params().as_array().back()).is_const();
@@ -270,9 +270,9 @@ bool Expression::is_const() const
 
 bool Expression::is_boolean() const
 {
-    using dsl::detail::CodegenType;
-    using dsl::detail::getCodegenType;
-    using dsl::detail::isBoolean;
+    using lang::detail::CodegenType;
+    using lang::detail::getCodegenType;
+    using lang::detail::isBoolean;
     if(is_literal())
     {
         return params().is_bool();
@@ -294,7 +294,7 @@ bool Expression::is_boolean() const
 
 bool Expression::is_hiord() const
 {
-    return dsl::detail::isHiOrd(keyword());
+    return lang::detail::isHiOrd(keyword());
 }
 
 
@@ -397,5 +397,5 @@ Expression::EvalContext Expression::EvalContext::operator++(int) const
     return {op, log, depth + 1};
 }
 
-}  // namespace dsl
+}  // namespace lang
 }  // namespace zmbt

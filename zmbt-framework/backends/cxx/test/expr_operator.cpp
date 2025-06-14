@@ -8,7 +8,7 @@
 #include <boost/test/unit_test.hpp>
 #include "zmbt/model.hpp"
 
-using namespace zmbt::dsl;
+using namespace zmbt::lang;
 
 
 std::vector<boost::json::array> const OrderTestData

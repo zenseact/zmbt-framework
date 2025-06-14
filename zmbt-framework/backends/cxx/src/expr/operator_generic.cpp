@@ -63,7 +63,7 @@ namespace
             rhs.cbegin(),
             rhs.cend(),
             [](auto const& l, auto const& r) {
-                return zmbt::dsl::Operator::generic_less(l, r);
+                return zmbt::lang::Operator::generic_less(l, r);
             }
         );
     }
@@ -78,7 +78,7 @@ namespace
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 
 
@@ -579,5 +579,5 @@ bool Operator::generic_is_truth(V const& x)
 }
 
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt

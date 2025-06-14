@@ -67,9 +67,9 @@ interface_id ChannelHandle::interface() const
     return env.InterfaceId(data_.at("/interface").as_string());
 }
 
-dsl::Operator ChannelHandle::overload() const
+lang::Operator ChannelHandle::overload() const
 {
-    return data_.contains("overload") ? dsl::Operator{data_.at("overload").as_string()} : dsl::Operator {};
+    return data_.contains("overload") ? lang::Operator{data_.at("overload").as_string()} : lang::Operator {};
 }
 
 
@@ -147,29 +147,29 @@ int ChannelHandle::on_call() const
 }
 
 
-void ChannelHandle::inject(dsl::Expression e) const
+void ChannelHandle::inject(lang::Expression e) const
 {
     if (e.is_noop()) return;
     auto handle = Environment::InterfaceHandle(interface(), host());
     auto const op = overload();
-    if (op.annotation() != dsl::Operator{}.annotation())
+    if (op.annotation() != lang::Operator{}.annotation())
     {
         e = expr::Overload(e, op.annotation());
     }
     handle.Inject(e, data_.at("/kind").as_string(), signal_path());
 }
 
-dsl::Expression ChannelHandle::keep() const
+lang::Expression ChannelHandle::keep() const
 {
     auto const& recur = data_.at("keep");
     if (recur.is_null()) return expr::Noop;
-    else return dsl::Expression(recur);
+    else return lang::Expression(recur);
 }
 
-dsl::Expression ChannelHandle::expect() const
+lang::Expression ChannelHandle::expect() const
 {
     auto const& expect = data_.at("expect");
-    return expect.is_null() ? dsl::Expression(expr::Noop) : dsl::Expression(expect);
+    return expect.is_null() ? lang::Expression(expr::Noop) : lang::Expression(expect);
 }
 
 

@@ -296,7 +296,7 @@ struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::Base
 
     /// Interface return clause
     /// Refers to the return subsignal at the given JSON Pointer
-    Target Return(dsl::Expression const& e = "")
+    Target Return(lang::Expression const& e = "")
     {
         state().set_channel_sp("return", e);
         return transit_to<Target>();
@@ -311,7 +311,7 @@ struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::Base
 
     /// Interface argument clause
     /// Refers to the arguments subsignal at the given JSON Pointer
-    Target Args(dsl::Expression const& e = "$default")
+    Target Args(lang::Expression const& e = "$default")
     {
         state().set_channel_sp("args", e);
         return transit_to<Target>();
@@ -376,7 +376,7 @@ struct ModelDefinition::T_Map : protected virtual ModelDefinition::BaseTransitio
     }
 
     /// Apply Overload operator
-    Target As(dsl::Operator const& op)
+    Target As(lang::Operator const& op)
     {
         return As(op.annotation());
     }
@@ -432,7 +432,7 @@ template <class Target>
 struct ModelDefinition::T_Keep : protected virtual ModelDefinition::BaseTransition
 {
     /// Set fixed input condition
-    Target Keep(dsl::Expression const& expr)
+    Target Keep(lang::Expression const& expr)
     {
         state().model("/channels/@/keep") = expr;
         auto const curcnl = state().cur_cnl_idx();
@@ -454,7 +454,7 @@ template <class Target>
 struct ModelDefinition::T_Expect : protected virtual ModelDefinition::BaseTransition
 {
     /// Set fixed output assertion
-    Target Expect(dsl::Expression const& expr)
+    Target Expect(lang::Expression const& expr)
     {
         state().model("/channels/@/expect") = expr;
         auto const curcnl = state().cur_cnl_idx();
@@ -480,49 +480,49 @@ struct ModelDefinition::T_Test : protected virtual ModelDefinition::BaseTransiti
     {
         return transit_to<Target>()();
     }
-    Target Test(dsl::Expression const& e0)
+    Target Test(lang::Expression const& e0)
     {
         return transit_to<Target>()(e0);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1)
     {
         return transit_to<Target>()(e0, e1);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2)
     {
         return transit_to<Target>()(e0, e1, e2);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3)
     {
         return transit_to<Target>()(e0, e1, e2, e3);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                    dsl::Expression const& e4)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                    lang::Expression const& e4)
     {
         return transit_to<Target>()(e0, e1, e2, e3, e4);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                    dsl::Expression const& e4, dsl::Expression const& e5)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                    lang::Expression const& e4, lang::Expression const& e5)
     {
         return transit_to<Target>()(e0, e1, e2, e3, e4, e5);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                    dsl::Expression const& e4, dsl::Expression const& e5, dsl::Expression const& e6)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                    lang::Expression const& e4, lang::Expression const& e5, lang::Expression const& e6)
     {
         return transit_to<Target>()(e0, e1, e2, e3, e4, e5, e6);
     }
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                    dsl::Expression const& e4, dsl::Expression const& e5, dsl::Expression const& e6, dsl::Expression const& e7)
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                    lang::Expression const& e4, lang::Expression const& e5, lang::Expression const& e6, lang::Expression const& e7)
     {
         return transit_to<Target>()(e0, e1, e2, e3, e4, e5, e6, e7);
     }
 
     template <class... Rest>
-    Target Test(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                    dsl::Expression const& e4, dsl::Expression const& e5, dsl::Expression const& e6, dsl::Expression const& e7,
+    Target Test(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                    lang::Expression const& e4, lang::Expression const& e5, lang::Expression const& e6, lang::Expression const& e7,
                     Rest&&... rest)
     {
-        return transit_to<Target>()(e0, e1, e2, e3, e4, e5, e6, e7, dsl::Expression(rest)...);
+        return transit_to<Target>()(e0, e1, e2, e3, e4, e5, e6, e7, lang::Expression(rest)...);
     }
 };
 
@@ -535,57 +535,57 @@ struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTrans
         return transit_to<Target>();
     }
 
-    Target operator()(dsl::Expression const& e0)
+    Target operator()(lang::Expression const& e0)
     {
         state().add_test_case({e0});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1)
     {
         state().add_test_case({e0, e1});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2)
     {
         state().add_test_case({e0, e1, e2});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3)
     {
         state().add_test_case({e0, e1, e2, e3});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                          dsl::Expression const& e4)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                          lang::Expression const& e4)
     {
         state().add_test_case({e0, e1, e2, e3, e4});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                          dsl::Expression const& e4, dsl::Expression const& e5)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                          lang::Expression const& e4, lang::Expression const& e5)
     {
         state().add_test_case({e0, e1, e2, e3, e4, e5});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                          dsl::Expression const& e4, dsl::Expression const& e5, dsl::Expression const& e6)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                          lang::Expression const& e4, lang::Expression const& e5, lang::Expression const& e6)
     {
         state().add_test_case({e0, e1, e2, e3, e4, e5, e6});
         return transit_to<Target>();
     }
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                          dsl::Expression const& e4, dsl::Expression const& e5, dsl::Expression const& e6, dsl::Expression const& e7)
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                          lang::Expression const& e4, lang::Expression const& e5, lang::Expression const& e6, lang::Expression const& e7)
     {
         state().add_test_case({e0, e1, e2, e3, e4, e5, e6, e7});
         return transit_to<Target>();
     }
 
     template <class... Rest>
-    Target operator()(dsl::Expression const& e0, dsl::Expression const& e1, dsl::Expression const& e2, dsl::Expression const& e3,
-                          dsl::Expression const& e4, dsl::Expression const& e5, dsl::Expression const& e6, dsl::Expression const& e7,
+    Target operator()(lang::Expression const& e0, lang::Expression const& e1, lang::Expression const& e2, lang::Expression const& e3,
+                          lang::Expression const& e4, lang::Expression const& e5, lang::Expression const& e6, lang::Expression const& e7,
                           Rest&&... rest)
     {
-        state().add_test_case({e0, e1, e2, e3, e4, e5, e6, e7, dsl::Expression(rest)...});
+        state().add_test_case({e0, e1, e2, e3, e4, e5, e6, e7, lang::Expression(rest)...});
         return transit_to<Target>();
     }
 };

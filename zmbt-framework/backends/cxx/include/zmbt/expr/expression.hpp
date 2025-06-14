@@ -20,15 +20,15 @@
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
-/// Expression DSL implementation class.
-/// \details \see \ref expression-dsl "Expression DSL" documentation.
+/// Expression Language implementation class.
+/// \details \see \ref expression-lang "Expression Language" documentation.
 class Expression
 {
 public:
     using V = boost::json::value;
-    using Keyword = dsl::Keyword;
+    using Keyword = lang::Keyword;
 
     /// Expression evaluation log
     struct EvalLog
@@ -210,10 +210,10 @@ public:
 };
 
 ZMBT_INJECT_SERIALIZATION
-}  // namespace dsl
+}  // namespace lang
 
 template<class T>
-struct reflect::custom_serialization<T, mp_if<is_base_of<dsl::Expression, T>, void>> {
+struct reflect::custom_serialization<T, mp_if<is_base_of<lang::Expression, T>, void>> {
 
     static boost::json::value
     json_from(T const& t)
@@ -224,7 +224,7 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<dsl::Expression, T>, vo
     static T
     dejsonize(boost::json::value const& v)
     {
-        return static_cast<T>(dsl::Expression(v));
+        return static_cast<T>(lang::Expression(v));
     }
 };
 

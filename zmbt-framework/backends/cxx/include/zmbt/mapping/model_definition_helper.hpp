@@ -107,7 +107,7 @@ class DefinitionHelper {
         {
             param_type |= cnl_prm_key;
         }
-        else if (!dsl::Expression(node).is_literal())
+        else if (!lang::Expression(node).is_literal())
         {
             param_type |= cnl_prm_defer_key;
         }
@@ -163,7 +163,7 @@ class DefinitionHelper {
 
     void set_channel_sp(boost::json::string_view kind, boost::json::value const& sp);
 
-    void add_test_case(std::vector<dsl::Expression> const& tv);
+    void add_test_case(std::vector<lang::Expression> const& tv);
 
     DefinitionHelper();
 

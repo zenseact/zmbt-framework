@@ -22,9 +22,9 @@ namespace zmbt {
 namespace expr {
 
 @for keyword in data.ApiKeywords:
-dsl::@keyword.Class const @keyword.Enum = {};
+lang::@keyword.Class const @keyword.Enum = {};
 @for alias in keyword.Aliases:
-dsl::@keyword.Class const @alias.capitalize() = @keyword.Enum;
+lang::@keyword.Class const @alias.capitalize() = @keyword.Enum;
 @end
 @end
 

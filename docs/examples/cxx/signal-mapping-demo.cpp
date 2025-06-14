@@ -20,7 +20,7 @@ using namespace zmbt::expr; //(2)
 ```
 
 1. Main testing API namespace
-2. Expression DSL namespace
+2. Expression Language namespace
 
 
 ## Basic example
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
     [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
 
 
-For more detailes, see [Expression Guide](expressions.md) and [Expression DSL Reference](../dsl-reference/expressions.md).
+For more detailes, see [Expression Guide](expressions.md) and [Expression Language Reference](../dsl-reference/expressions.md).
 
 
 ## Mocks

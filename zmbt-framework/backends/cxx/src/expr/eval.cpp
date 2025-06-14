@@ -20,9 +20,9 @@ namespace
 {
 
 using V = boost::json::value;
-using O = zmbt::dsl::Operator;
-using E = zmbt::dsl::Expression;
-using Keyword = zmbt::dsl::Keyword;
+using O = zmbt::lang::Operator;
+using E = zmbt::lang::Expression;
+using Keyword = zmbt::lang::Keyword;
 
 static V const kNullValue = nullptr;
 static V const kDefaultKeyFn = E(Keyword::Id);
@@ -51,7 +51,7 @@ void set_default_param(Keyword const& keyword, V const*& param)
 }
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) const
 {
@@ -81,8 +81,8 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
 
 boost::json::value Expression::eval(boost::json::value const& x, EvalContext const& ctx) const
 {
-    using dsl::detail::CodegenType;
-    using dsl::detail::getCodegenType;
+    using lang::detail::CodegenType;
+    using lang::detail::getCodegenType;
 
     boost::json::value result {};
 
@@ -120,6 +120,6 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
 }
 
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt
 

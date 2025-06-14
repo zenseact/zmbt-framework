@@ -22,9 +22,9 @@
 
 using V = boost::json::value;
 using L = boost::json::array;
-using O = zmbt::dsl::Operator;
-using E = zmbt::dsl::Expression;
-using Keyword = zmbt::dsl::Keyword;
+using O = zmbt::lang::Operator;
+using E = zmbt::lang::Expression;
+using Keyword = zmbt::lang::Keyword;
 
 namespace
 {
@@ -1154,7 +1154,7 @@ V eval_impl<Keyword::Undecorate>(V const& x, V const& param, E::EvalContext cons
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 
 boost::json::value Expression::eval_Special(boost::json::value const& x, EvalContext const& context) const
@@ -1163,7 +1163,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
     V maybe_param;
     V const* x_ptr {nullptr};
     V const* param_ptr {nullptr};
-    if (dsl::detail::isBinary(keyword()))
+    if (lang::detail::isBinary(keyword()))
     {
         handle_binary_args(x, x_ptr, param_ptr);
     }
@@ -1179,7 +1179,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
 
 
     V pp = *param_ptr;
-    if (dsl::detail::isVariadic(keyword()) && pp.is_array())
+    if (lang::detail::isVariadic(keyword()) && pp.is_array())
     {
         for (auto& fn: pp.get_array())
         {
@@ -1242,7 +1242,7 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
 {
     V const* x_ptr {nullptr};
     V const* param_ptr {nullptr};
-    if (dsl::detail::isBinary(keyword()))
+    if (lang::detail::isBinary(keyword()))
     {
         handle_binary_args(x, x_ptr, param_ptr);
     }
@@ -1289,6 +1289,6 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
 }
 
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt
 

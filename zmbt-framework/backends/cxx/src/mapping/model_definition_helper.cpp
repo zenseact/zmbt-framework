@@ -184,7 +184,7 @@ void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json
     set_deferred_param(format("%s/signal_path", cnl_ptr), sp);
 }
 
-void DefinitionHelper::add_test_case(std::vector<dsl::Expression> const& tv)
+void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
 {
     auto const N = model.at("/tests").as_array().size();
 

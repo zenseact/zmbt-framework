@@ -18,13 +18,13 @@ namespace
 {
 
 using V = boost::json::value;
-using O = zmbt::dsl::Operator;
-using E = zmbt::dsl::Expression;
-using Keyword = zmbt::dsl::Keyword;
+using O = zmbt::lang::Operator;
+using E = zmbt::lang::Expression;
+using Keyword = zmbt::lang::Keyword;
 }
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 boost::json::value Expression::eval_UnaryOp(boost::json::value const& x, EvalContext const& ctx) const
 {
@@ -44,6 +44,6 @@ boost::json::value Expression::eval_BinaryOp(boost::json::value const& x, EvalCo
 }
 
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt
 

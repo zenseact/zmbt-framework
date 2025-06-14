@@ -16,7 +16,7 @@
 #include "expression.hpp"
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 namespace detail {
     boost::json::value handle_list_init(std::initializer_list<Expression> set);
 }
@@ -184,7 +184,7 @@ struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
     }
 };
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt
 
 #endif // ZMBT_EXPR_EXPRESSION_API_SIGNATURES_HPP_

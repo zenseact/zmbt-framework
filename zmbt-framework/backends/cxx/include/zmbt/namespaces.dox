@@ -22,8 +22,8 @@
  */
 
 /**
- * @namespace zmbt::dsl
- * @brief Expression DSL implementation.
+ * @namespace zmbt::lang
+ * @brief Expression Language implementation.
  */
 
 /**
@@ -33,7 +33,7 @@
 
 /**
  * @namespace zmbt::expr
- * @brief Expression DSL
+ * @brief Expression Language API
  */
 
 

@@ -49,7 +49,7 @@ static auto handle_##TRAIT(V const&, V const&)                                  
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 namespace detail
 {
@@ -320,12 +320,12 @@ public:
 
     /// \brief Apply operands
     /// \details For unary operators, lhs is nullptr
-    boost::json::value apply(dsl::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
+    boost::json::value apply(lang::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
 
     /// Is true
     bool is_truth(boost::json::value const& a) const
     {
-        return apply(dsl::Keyword::Bool, nullptr, a).get_bool();
+        return apply(lang::Keyword::Bool, nullptr, a).get_bool();
     }
 
 private:
@@ -341,7 +341,7 @@ private:
 
 };
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt
 
 #endif // ZMBT_EXPR_SIGNAL_OPERATOR_HANDLER_HPP_

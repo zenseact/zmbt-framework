@@ -33,10 +33,10 @@ namespace expr {
 /// @line
         @end
     @end
-extern dsl::@keyword.Class const @keyword.Enum;
+extern lang::@keyword.Class const @keyword.Enum;
 @for alias in keyword.Aliases:
 /// \brief Alias for @keyword.Enum
-extern dsl::@keyword.Class const @alias.capitalize();
+extern lang::@keyword.Class const @alias.capitalize();
 @end
 @end
 

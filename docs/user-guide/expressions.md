@@ -130,7 +130,7 @@ Other useful keywords are:
 - `Saturate`, `All`, `Any`, `Count` - matcher building elements
 
 
-For the complete information see [Expression DSL reference](\ref expression-dsl-reference-high-order).
+For the complete information see [Expression Language Reference](/dsl-reference/expressions/#high-order).
 
 
 ## Parameter evaluation
@@ -181,8 +181,8 @@ For the complete log data refer to JSON log.
 
 
 ```plantuml
-@startebnf expression_dsl_syntax
-title Expression DSL syntax
+@startebnf expression_lang_syntax
+title Expression Language syntax
 
 !define LB "("
 !define RB ")"

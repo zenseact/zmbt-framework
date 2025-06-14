@@ -25,7 +25,7 @@
 
 namespace zmbt {
 
-boost::json::value zmbt::dsl::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
+boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
 {
     boost::json::value x = Expression(x_).eval(nullptr, ctx++);
     boost::json::value ret{};

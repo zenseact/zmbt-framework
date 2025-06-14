@@ -23,7 +23,7 @@
 
 namespace zmbt {
 
-boost::json::value zmbt::dsl::Expression::eval_Const(boost::json::value const&) const
+boost::json::value zmbt::lang::Expression::eval_Const(boost::json::value const&) const
 {
     switch(keyword())
     {

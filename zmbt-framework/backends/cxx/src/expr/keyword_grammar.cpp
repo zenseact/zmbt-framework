@@ -23,7 +23,7 @@
 namespace qi = boost::spirit::qi;
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 
 KeywordSymbol::KeywordSymbol()
@@ -384,5 +384,5 @@ Keyword tag_invoke(boost::json::value_to_tag<Keyword> const&, boost::json::value
     return keyword_out;
 }
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt

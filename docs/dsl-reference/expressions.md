@@ -10,7 +10,7 @@
     3. Commit changes
 -->
 
-# Expression DSL Reference
+# Expression Language Reference
 
 
 ## Constants
@@ -1353,7 +1353,7 @@ Unfold(Mul(-1), 1) * 3 ==  [1,-1, 1,-1]</pre></td>
         </td>
         <td>Bind type-specific operator handler to parameter function
         <pre>Expression Overload(f, op) instructs f to use operator op on
-invocation instead of the default GenericSignalOperator.
+invocation instead of the default generic.
 
 Operator parameter singleton can be referenced with string key
 or constructed in place using type<T> tag.</pre>
@@ -1457,8 +1457,7 @@ Try(Add(1)) * "foo" == null</pre></td>
     "err": "zero division",
     "fn": ":div",
     "x": 42,
-    "op":
-    "zmbt::dsl::GenericSignalOperator"
+    "op": ""
 }</pre></td>
     </tr>
 </tbody></table>

@@ -22,8 +22,8 @@ using namespace boost::json;
 
 using V = boost::json::value;
 using L = boost::json::array;
-using zmbt::dsl::Keyword;
-using zmbt::dsl::Expression;
+using zmbt::lang::Keyword;
+using zmbt::lang::Expression;
 
 namespace {
 
@@ -871,6 +871,6 @@ BOOST_AUTO_TEST_CASE(TestEvalShift)
 
 BOOST_AUTO_TEST_CASE(CodegenType)
 {
-    auto const test = zmbt::dsl::detail::getCodegenType(Keyword::Abs);
-    BOOST_CHECK(test == zmbt::dsl::detail::CodegenType::CodegenFn);
+    auto const test = zmbt::lang::detail::getCodegenType(Keyword::Abs);
+    BOOST_CHECK(test == zmbt::lang::detail::CodegenType::CodegenFn);
 }

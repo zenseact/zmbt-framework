@@ -141,13 +141,13 @@ public:
     /// \param e expression
     /// \param group return | args | exception
     /// \param jp JSON Pointer
-    void Inject(dsl::Expression const& e, boost::json::string_view group, boost::json::string_view jp = "");
+    void Inject(lang::Expression const& e, boost::json::string_view group, boost::json::string_view jp = "");
 
 
     /// \brief Set injection return subsignal at nofcall
     /// \param e
     /// \param jp JSON Pointer
-    void InjectReturn(dsl::Expression const& e, boost::json::string_view jp = "")
+    void InjectReturn(lang::Expression const& e, boost::json::string_view jp = "")
     {
         return Inject(e, "return", jp);
     }
@@ -155,7 +155,7 @@ public:
     /// \brief Set injection args subsignal at nofcall
     /// \param e
     /// \param jp JSON Pointer
-    void InjectArgs(dsl::Expression const& e, boost::json::string_view jp = "")
+    void InjectArgs(lang::Expression const& e, boost::json::string_view jp = "")
     {
         return Inject(e, "args", jp);
     }

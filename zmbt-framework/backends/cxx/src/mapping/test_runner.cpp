@@ -34,7 +34,7 @@ namespace
 {
 using namespace zmbt;
 using namespace zmbt::mapping;
-using Keyword = zmbt::dsl::Keyword;
+using Keyword = zmbt::lang::Keyword;
 
 class InstanceTestRunner
 {
@@ -66,7 +66,7 @@ class InstanceTestRunner
 
     bool observe_results(boost::json::array const& test_vector, TestDiagnostics diagnostics);
 
-    bool eval_assertion(std::list<ChannelHandle> const& channel_group, dsl::Expression expr, TestDiagnostics& diagnostics);
+    bool eval_assertion(std::list<ChannelHandle> const& channel_group, lang::Expression expr, TestDiagnostics& diagnostics);
 
 
 public:
@@ -177,7 +177,7 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
     }
 }
 
-bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, dsl::Expression e, TestDiagnostics& diagnostics)
+bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, lang::Expression e, TestDiagnostics& diagnostics)
 {
     bool assertion_passed{true};
 
@@ -205,7 +205,7 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
             {
                 observed = channel_group.cbegin()->observe();
                 auto const op = channel_group.cbegin()->overload();
-                if (op.annotation() != dsl::Operator{}.annotation())
+                if (op.annotation() != lang::Operator{}.annotation())
                 {
                     e = expr::Overload(e, op.annotation());
                 }
@@ -224,7 +224,7 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
         {
             if (not (e.match(observed)))
             {
-                dsl::Expression::EvalContext ctx {{}, dsl::Expression::EvalLog::make(), 0};
+                lang::Expression::EvalContext ctx {{}, lang::Expression::EvalLog::make(), 0};
                 e.eval(observed, ctx);
 
                 diagnostics
@@ -253,10 +253,10 @@ bool InstanceTestRunner::eval_fixed_assertions(TestDiagnostics diagnostics)
 
     for (auto const& group: static_outputs_)
     {
-        dsl::Expression expect = group.back().expect();
+        lang::Expression expect = group.back().expect();
         try
         {
-            expect = dsl::Expression::asPredicate(expect);
+            expect = lang::Expression::asPredicate(expect);
         }
         catch(const std::exception& e)
         {
@@ -304,7 +304,7 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
             continue;
         }
 
-        test_case_passed = eval_assertion(channel_group, dsl::Expression::asPredicate(test_vector.at(condition_idx)), diagnostics) && test_case_passed;
+        test_case_passed = eval_assertion(channel_group, lang::Expression::asPredicate(test_vector.at(condition_idx)), diagnostics) && test_case_passed;
 
         if (!test_case_passed)
         {

@@ -81,7 +81,7 @@ class Keyword:
         if self.IsInternal:
             return None
         elif self.Signature != 'Special':
-            return f"Signature{self.Signature}<::zmbt::dsl::Keyword::{self.Enum}>"
+            return f"Signature{self.Signature}<::zmbt::lang::Keyword::{self.Enum}>"
         else:
             return f"Signature{self.Enum}"
 

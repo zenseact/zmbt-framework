@@ -28,7 +28,7 @@
 
 
 namespace zmbt {
-namespace dsl {
+namespace lang {
 
 
 /// ZMBT Expression keyword
@@ -51,7 +51,7 @@ bool isBoolean(Keyword const& k);
 } // namespace detail
 
 
-} // namespace dsl
+} // namespace lang
 } // namespace zmbt
 
 

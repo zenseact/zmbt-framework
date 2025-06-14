@@ -23,7 +23,7 @@ using zmbt::type;
 using zmbt::Environment;
 using zmbt::InterfaceRecord;
 
-using dsl::Expression;
+using lang::Expression;
 
 namespace decor = zmbt::decor;
 namespace expr = zmbt::expr;
@@ -44,7 +44,7 @@ class Environment {};
 auto InterfaceRecord(...);
 /// Alias for zmbt::precise
 class precise {};
-/// Alias for dsl::Expression
+/// Alias for lang::Expression
 class Expression {};
 /// Alias for zmbt::mapping::SignalMapping
 class SignalMapping {};
@@ -53,7 +53,7 @@ class SignalMapping {};
 /// \details \see zmbt::decor
 namespace decor {}
 
-/// \brief Expression DSL keywords
+/// \brief Expression Language API
 /// \details \see zmbt::expr
 namespace expr {}
 
