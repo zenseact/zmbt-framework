@@ -265,7 +265,7 @@ bool Expression::is_const() const
     {
         return Expression(params()).is_const();
     }
-    return is(Keyword::Literal) || is(Keyword::C) || (CodegenType::Const == getCodegenType(keyword()));
+    return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Error) || (CodegenType::Const == getCodegenType(keyword()));
 }
 
 bool Expression::is_boolean() const

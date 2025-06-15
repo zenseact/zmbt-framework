@@ -184,6 +184,38 @@ struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
     }
 };
 
+struct SignatureError : public SignatureBase<Keyword::Error>
+{
+    using SignatureBase<Keyword::Error>::SignatureBase;
+
+    /// \brief Error message and context
+    Expression operator()(boost::json::string_view msg, boost::json::string_view ctx = "") const
+    {
+        boost::json::object err {{"message", msg}};
+        if (!ctx.empty())
+        {
+            err["context"] = ctx;
+        }
+        return Expression(Keyword::Error, err);
+    }
+
+    /// \brief Error type, message, and context
+    template <class T>
+    Expression operator()(type_tag<T>, boost::json::string_view msg = "", boost::json::string_view ctx = "") const
+    {
+        boost::json::object err {{"type", zmbt::type_name<T>()}};
+        if (!msg.empty())
+        {
+            err["message"] = msg;
+        }
+        if (!ctx.empty())
+        {
+            err["context"] = ctx;
+        }
+        return Expression(Keyword::Error, err);
+    }
+};
+
 } // namespace lang
 } // namespace zmbt
 

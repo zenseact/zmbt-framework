@@ -99,6 +99,7 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Parse:
     case Keyword::Serialize:
     case Keyword::Default:
+    case Keyword::Error:
         return CodegenType::CodegenFn;
     default:
         return CodegenType::None;

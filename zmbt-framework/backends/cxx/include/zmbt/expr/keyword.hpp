@@ -416,6 +416,9 @@ enum class Keyword
     /// default
     Default,
 
+    /// error
+    Error,
+
     _count
 };
 

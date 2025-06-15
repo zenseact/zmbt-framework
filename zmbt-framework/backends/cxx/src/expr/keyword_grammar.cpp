@@ -210,6 +210,7 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "try-catch", Keyword::TryCatch)
     (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
     (ZMBT_KEYWORD_PREFIX "d", Keyword::Default)
+    (ZMBT_KEYWORD_PREFIX "error", Keyword::Error)
     ;
 }
 
@@ -361,6 +362,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "try"; break; }
     case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "try-catch"; break; }
     case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
+    case Keyword::Error: { v = ZMBT_KEYWORD_PREFIX "error"; break; }
         // TODO: throw
         default: v = ":undefined";
     }

@@ -161,6 +161,7 @@ lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Default> const Default = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Default> const D = Default;
+lang::SignatureError const Error = {};
 
 } // namespace expr
 } // namespace zmbt

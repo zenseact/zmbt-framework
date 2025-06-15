@@ -1484,4 +1484,12 @@ Try(Add(1)) * "foo" == null</pre></td>
         <td><pre>Default(42) * null == 42
 Default(42) * 13 == 13</pre></td>
     </tr>
+    <tr>
+        <td><a id ="error"> Error
+        </td>
+        <td>Error
+        <pre>Error object</pre>
+        </td>
+        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
+    </tr>
 </tbody></table>

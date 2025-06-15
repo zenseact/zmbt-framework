@@ -92,6 +92,7 @@ keyword_groups:
         codegen-value:
           cxx: zmbt::get_tid().c_str()
 
+
   Math Functions:
     defaults:
       signature: Unary
@@ -1339,3 +1340,11 @@ keyword_groups:
         examples: |-
           Default(42) * null == 42
           Default(42) * 13 == 13
+
+      - name: error
+        brief: Error
+        signature: Special
+        details: |-
+          Error object
+        codegen-value:
+          cxx: underlying()
