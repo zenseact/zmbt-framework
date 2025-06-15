@@ -29,19 +29,20 @@ The method creates an extension to the environment that manages the signal recor
 
 The following methods may be needed in user code:
 
-- Mock call rerouting: [`Hook(args...)`](\ref zmbt::Environment::TypedInterfaceHandle::Hook)
+- Mock call rerouting: [`Hook`](/CxxRef/classzmbt_1_1Environment_1_1TypedInterfaceHandle/#function-hook-12)
     - This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values. 
     <!-- See [examples](#signal-mapping-model-overview-mocks). -->
 
-- stimuli setters:
-[`InjectArgs(value, json_ptr = "", nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::InjectArgs),
-[`InjectReturn(value, json_ptr = "", nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::InjectReturn)
-    - Set corresponding value subsignal at specified JSON pointer and nofcall. The nofcall parameter corresponds to the interface call counter, where -1 is equivalent to `last value`, i.e. default.
+- Stimuli setters:
+[`InjectArgs`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-injectargs),
+[`InjectReturn`](http://localhost:8001/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-injectreturn)
+    - Set generating function for corresponding subsignal at specified JSON pointer. See also
+    [Signal Mapping: Generating functions](/user-guide/signal-mapping/#generating-functions.png).
 
-- stimuli getters:
-[`GetInjectionArgs(json_ptr, nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::GetInjectionArgs),
-[`GetInjectionReturn(json_ptr, nofcall = -1)`](\ref zmbt::Environment::InterfaceHandle::GetInjectionReturn)
-    - Set corresponding values at JSON pointer and nofcall. Negative nofcall parameters used for reverse indexation.
+- Stimuli getters:
+[`GetInjectionArgs`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-getinjectionargs-12),
+[`GetInjectionReturn`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-getinjectionreturn-12)
+    - Get corresponding values at JSON pointer and nofcall. Negative nofcall parameters used for reverse indexation.
 
 
 ## Arbitrary data management

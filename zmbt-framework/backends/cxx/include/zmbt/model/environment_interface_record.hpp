@@ -136,23 +136,26 @@ public:
         return GetInjectionArgs("", nofcall);
     }
 
-
-    /// \brief Set injection return subsignal at nofcall
-    /// \param e expression
+    /// \brief Set generating function for injection
+    /// \param e generating funcion expression
     /// \param group return | args | exception
     /// \param jp JSON Pointer
     void Inject(lang::Expression const& e, boost::json::string_view group, boost::json::string_view jp = "");
 
 
-    /// \brief Set injection return subsignal at nofcall
-    /// \param e
+    /// \brief Set generating function for injection return
+    /// \details The intput conditions are evaluated from the corresponding expressions with
+    /// 0-based call index as an argument.
+    /// \param e generating funcion expression
     /// \param jp JSON Pointer
     void InjectReturn(lang::Expression const& e, boost::json::string_view jp = "")
     {
         return Inject(e, "return", jp);
     }
 
-    /// \brief Set injection args subsignal at nofcall
+    /// \brief Set generating function for injection args
+    /// \details The intput conditions are evaluated from the corresponding expressions with
+    /// 0-based call index as an argument.
     /// \param e
     /// \param jp JSON Pointer
     void InjectArgs(lang::Expression const& e, boost::json::string_view jp = "")

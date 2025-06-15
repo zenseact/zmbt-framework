@@ -27,228 +27,162 @@ namespace expr {
 /// \anchor expr-noop
 /// \details
 /// Returns true without input validation.
-/// Used in place of matchers for uninteresting signals.\see \ref const-syntactic-forms "Const Syntatic Forms"
+/// Used in place of matchers for uninteresting signals.
 extern lang::SignatureConst<::zmbt::lang::Keyword::Noop> const Noop;
 /// \brief Alias for Noop
 extern lang::SignatureConst<::zmbt::lang::Keyword::Noop> const _;
 
 /// \brief Null value
 /// \anchor expr-null
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::Null> const Null;
 
 /// \brief Logical true
 /// \anchor expr-true
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::True> const True;
 
 /// \brief Logical false
 /// \anchor expr-false
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::False> const False;
 
 /// \brief Pi constant
 /// \anchor expr-pi
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::Pi> const Pi;
 
 /// \brief Euler's number
 /// \anchor expr-e
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::E> const E;
 
 /// \brief Infinity
 /// \anchor expr-inf
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::Inf> const Inf;
 
 /// \brief Machine epsilon
 /// \anchor expr-eps
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::Eps> const Eps;
 
 /// \brief Not a number
 /// \anchor expr-nan
-/// \details
-/// \see \ref const-syntactic-forms "Const Syntatic Forms"
 extern lang::SignatureConst<::zmbt::lang::Keyword::NaN> const NaN;
 
 /// \brief Thread id
 /// \anchor expr-thread
 /// \details
 /// Not really a constant, but useful for
-/// branching the test input conditions.\see \ref const-syntactic-forms "Const Syntatic Forms"
+/// branching the test input conditions.
 extern lang::SignatureConst<::zmbt::lang::Keyword::Thread> const Thread;
 
 /// \brief Sinus
 /// \anchor expr-sin
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Sin> const Sin;
 
 /// \brief Cosinus
 /// \anchor expr-cos
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Cos> const Cos;
 
 /// \brief Tangens
 /// \anchor expr-tan
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Tan> const Tan;
 
 /// \brief Arcsin
 /// \anchor expr-asin
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Asin> const Asin;
 
 /// \brief Arccos
 /// \anchor expr-acos
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Acos> const Acos;
 
 /// \brief Arctan
 /// \anchor expr-atan
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Atan> const Atan;
 
 /// \brief Hyperbolic sin
 /// \anchor expr-sinh
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Sinh> const Sinh;
 
 /// \brief Hyperbolic cos
 /// \anchor expr-cosh
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Cosh> const Cosh;
 
 /// \brief Hyperbolic tan
 /// \anchor expr-tanh
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Tanh> const Tanh;
 
 /// \brief Hyperbolic arcsin
 /// \anchor expr-asinh
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Asinh> const Asinh;
 
 /// \brief Hyperbolic arccos
 /// \anchor expr-acosh
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Acosh> const Acosh;
 
 /// \brief Hyperbolic arctan
 /// \anchor expr-atanh
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Atanh> const Atanh;
 
 /// \brief Exponential (e^x)
 /// \anchor expr-exp
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Exp> const Exp;
 
 /// \brief Error function
 /// \anchor expr-erf
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Erf> const Erf;
 
 /// \brief Error function complement
 /// \anchor expr-erfc
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Erfc> const Erfc;
 
 /// \brief Gamma function
 /// \anchor expr-gamma
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Gamma> const Gamma;
 
 /// \brief Absolute value
 /// \anchor expr-abs
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Abs> const Abs;
 
 /// \brief Ceil
 /// \anchor expr-ceil
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Ceil> const Ceil;
 
 /// \brief Floor
 /// \anchor expr-floor
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Floor> const Floor;
 
 /// \brief Round to nearest integer
 /// \anchor expr-round
 /// \details
 /// Hint: To round to ndigits precision after the decimal point,
-/// use Mul(ndigits)|Round|Div(ndigits) combo.\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// use Mul(ndigits)|Round|Div(ndigits) combo.
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Round> const Round;
 
 /// \brief Square root
 /// \anchor expr-sqrt
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Sqrt> const Sqrt;
 
 /// \brief Sign
 /// \anchor expr-sign
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Sign> const Sign;
 
 /// \brief Negate
 /// \anchor expr-neg
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Neg> const Neg;
 
 /// \brief Addition
 /// \anchor expr-add
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Add> const Add;
 
 /// \brief Subtraction
 /// \anchor expr-sub
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Sub> const Sub;
 
 /// \brief Multiplication
 /// \anchor expr-mul
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Mul> const Mul;
 
 /// \brief Division
 /// \anchor expr-div
 /// \details
 /// 1. [ ] |-> [x, y] |-> x / y
-/// 2. [y] |-> [x]    |-> x / y\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// 2. [y] |-> [x]    |-> x / y
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Div> const Div;
 
 /// \brief To power
@@ -256,7 +190,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Div> const Div;
 /// \details
 /// X to power p
 ///   1. [ ] |-> [x, p] |-> x^p
-///   2. [p] |-> [x]    |-> x^p\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   2. [p] |-> [x]    |-> x^p
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Pow> const Pow;
 
 /// \brief Logarithm
@@ -264,7 +198,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Pow> const Pow;
 /// \details
 /// Logarithm with base b:
 ///   1. [ ] |-> [x, b] |-> log_b(x)
-///   2. [b] |-> [x]    |-> log_b(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   2. [b] |-> [x]    |-> log_b(x)
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Log> const Log;
 
 /// \brief Modulo
@@ -272,7 +206,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Log> const Log;
 /// \details
 /// Modulo of x:
 ///   1. [ ] |-> [x, m] |-> x % m
-///   2. [m] |-> [x]    |-> x % m\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   2. [m] |-> [x]    |-> x % m
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Mod> const Mod;
 
 /// \brief Quotient
@@ -280,81 +214,61 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Mod> const Mod;
 /// \details
 /// Quotient of x:
 ///   1. [ ] |-> [x, d] |-> x // d
-///   2. [d] |-> [x]    |-> x // d\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   2. [d] |-> [x]    |-> x // d
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Quot> const Quot;
 
 /// \brief Bitwise not
 /// \anchor expr-b-not
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::BitNot> const BitNot;
 
 /// \brief Bitwise and
 /// \anchor expr-b-and
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitAnd> const BitAnd;
 
 /// \brief Bitwise or
 /// \anchor expr-b-or
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitOr> const BitOr;
 
 /// \brief Bitwise xor
 /// \anchor expr-b-xor
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitXor> const BitXor;
 
 /// \brief Bitwise left shift
 /// \anchor expr-b-lshift
 /// \details
 /// 1. [ ] |-> [x, s] |-> x << s
-/// 2. [s] |-> [x]    |-> x << s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// 2. [s] |-> [x]    |-> x << s
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitLshift> const BitLshift;
 
 /// \brief Bitwise right shift
 /// \anchor expr-b-rshift
 /// \details
 /// 1. [ ] |-> [x, s] |-> x * s
-/// 2. [s] |-> [x]    |-> x * s\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// 2. [s] |-> [x]    |-> x * s
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitRshift> const BitRshift;
 
 /// \brief Is equal
 /// \anchor expr-eq
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Eq> const Eq;
 
 /// \brief Not equal
 /// \anchor expr-ne
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Ne> const Ne;
 
 /// \brief Lesser than
 /// \anchor expr-lt
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Lt> const Lt;
 
 /// \brief Lesser or equal
 /// \anchor expr-le
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Le> const Le;
 
 /// \brief Greater than
 /// \anchor expr-gt
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Gt> const Gt;
 
 /// \brief Greater or equal
 /// \anchor expr-ge
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Ge> const Ge;
 
 /// \brief Floating point approximately equal
@@ -371,97 +285,69 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Ge> const Ge;
 ///   1. ref                -> [ref, default, default]
 ///   2. [ref]              -> [ref, default, default]
 ///   3. [ref, rtol]        -> [ref, rtol   , default]
-///   4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Approx> const Approx;
 /// \brief Alias for Approx
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Approx> const Near;
 
 /// \brief Set union
 /// \anchor expr-union
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Union> const Union;
 
 /// \brief Set intersection
 /// \anchor expr-intersect
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Intersect> const Intersect;
 
 /// \brief Set difference
 /// \anchor expr-set-diff
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Diff> const Diff;
 
 /// \brief Equal as set
 /// \anchor expr-set-eq
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::SetEq> const SetEq;
 
 /// \brief Is subset
 /// \anchor expr-subset
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Subset> const Subset;
 
 /// \brief Is superset
 /// \anchor expr-superset
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Superset> const Superset;
 
 /// \brief Is proper subset
 /// \anchor expr-p-subset
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::ProperSubset> const ProperSubset;
 
 /// \brief Is proper superset
 /// \anchor expr-p-superset
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::ProperSuperset> const ProperSuperset;
 
 /// \brief Element is in
 /// \anchor expr-in
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::In> const In;
 
 /// \brief Element is not in
 /// \anchor expr-not-in
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::NotIn> const NotIn;
 
 /// \brief Contains element
 /// \anchor expr-ni
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Ni> const Ni;
 /// \brief Alias for Ni
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Ni> const Contains;
 
 /// \brief Not contains element
 /// \anchor expr-not-ni
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::NotNi> const NotNi;
 
 /// \brief Predicate on boolean transform (aka truthy)
 /// \anchor expr-bool
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Bool> const Bool;
 /// \brief Alias for Bool
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Bool> const Truthy;
 
 /// \brief Logical complement
 /// \anchor expr-not
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Not> const Not;
 /// \brief Alias for Not
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Not> const Falsy;
@@ -472,80 +358,64 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Not> const Nil;
 /// \anchor expr-and
 /// \details
 /// Generic behavior:
-///   if first operand is truthy, returns second operand, otherwise first\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   if first operand is truthy, returns second operand, otherwise first
 extern lang::SignatureBinary<::zmbt::lang::Keyword::And> const And;
 
 /// \brief Logical or
 /// \anchor expr-or
 /// \details
 /// Generic behavior:
-///   if first operand is truthy, returns first operand, second otherwise\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///   if first operand is truthy, returns first operand, second otherwise
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Or> const Or;
 
 /// \brief Identity function
 /// \anchor expr-id
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Id> const Id;
 
 /// \brief Transpose multidimensional list, turning rows into columns
 /// \anchor expr-transp
 /// \details
-/// May be used to zip sequences of equal length.\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// May be used to zip sequences of equal length.
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Transp> const Transp;
 
 /// \brief Cartesian product
 /// \anchor expr-cartesian
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Cartesian> const Cartesian;
 
 /// \brief Reverse sequence
 /// \anchor expr-reverse
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Reverse> const Reverse;
 
 /// \brief Filter unique elements
 /// \anchor expr-uniques
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Uniques> const Uniques;
 
 /// \brief Extract key-value pairs from object
 /// \anchor expr-items
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Items> const Items;
 
 /// \brief Extract keys from object
 /// \anchor expr-keys
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Keys> const Keys;
 
 /// \brief Extract values from object
 /// \anchor expr-values
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Values> const Values;
 
 /// \brief Enumerate sequence
 /// \anchor expr-enumerate
 /// \details
-/// Enumerate sequence with index.\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// Enumerate sequence with index.
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Enumerate> const Enumerate;
 
 /// \brief Flatten nested list
 /// \anchor expr-flatten
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Flatten> const Flatten;
 
 /// \brief Put argument into a list
 /// \anchor expr-to-list
 /// \details
-/// Equivalent to At([""])\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// Equivalent to At([""])
 extern lang::SignatureUnary<::zmbt::lang::Keyword::ToList> const ToList;
 
 /// \brief Generate range of numbers
@@ -561,19 +431,15 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::ToList> const ToList;
 /// Parameters dynamic evaluation:
 ///   1. stop: int            -> [0, stop, 1]
 ///   2. [start, stop]        -> [start, stop, 1]
-///   3. [start, stop, step]  -> [start, stop, step]\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+///   3. [start, stop, step]  -> [start, stop, step]
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Arange> const Arange;
 
 /// \brief Parse string as json
 /// \anchor expr-parse
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Parse> const Parse;
 
 /// \brief Serialize json as string
 /// \anchor expr-serialize
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Serialize> const Serialize;
 /// \brief Alias for Serialize
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Serialize> const Str;
@@ -581,7 +447,7 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Serialize> const Str;
 /// \brief Regular expression match
 /// \anchor expr-re
 /// \details
-/// If input is not a string, match it's serialized form.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// If input is not a string, match it's serialized form.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Re;
 /// \brief Alias for Re
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Regex;
@@ -590,79 +456,67 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Regex;
 /// \anchor expr-format
 /// \details
 /// Constant expressions are supported for the token list,
-/// s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"\see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
+/// s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Format> const Format;
 /// \brief Alias for Format
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Format> const Fmt;
 
 /// \brief Set cardinality (uniques count)
 /// \anchor expr-card
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Card> const Card;
 
 /// \brief Sequence size
 /// \anchor expr-size
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Size> const Size;
 
 /// \brief Summation reduction
 /// \anchor expr-sum
 /// \details
-/// Equivalent to Reduce(Add)\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// Equivalent to Reduce(Add)
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Sum> const Sum;
 
 /// \brief Multiplication reduction
 /// \anchor expr-prod
 /// \details
-/// Equivalent to Reduce(Mul)\see \ref unary-syntactic-forms "Unary Syntatic Forms"
+/// Equivalent to Reduce(Mul)
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Prod> const Prod;
 
 /// \brief Arythmetic average
 /// \anchor expr-avg
-/// \details
-/// \see \ref unary-syntactic-forms "Unary Syntatic Forms"
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Avg> const Avg;
 
 /// \brief Sliding-window iteration
 /// \anchor expr-slide
 /// \details
-/// Sliding window iteration by specified window width.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Sliding window iteration by specified window width.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Slide> const Slide;
 
 /// \brief Striding iteration
 /// \anchor expr-stride
 /// \details
 /// Striding iteration by specified step width.
-/// Reminder subsequence smaller then step width is discarded.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Reminder subsequence smaller then step width is discarded.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Stride> const Stride;
 
 /// \brief Split into chunks of specified max width
 /// \anchor expr-chunks
 /// \details
 /// Similar to Stride, but includes the last subsequence
-/// smaller then step width.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// smaller then step width.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Chunks> const Chunks;
 
 /// \brief Repeat value in list
 /// \anchor expr-repeat
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Repeat> const Repeat;
 
 /// \brief Concatenate sequences
 /// \anchor expr-concat
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Concat> const Concat;
 /// \brief Alias for Concat
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Concat> const Cat;
 
 /// \brief Push element into a front of sequence
 /// \anchor expr-push
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Push> const Push;
 
 /// \brief Transform json value with given query
@@ -674,7 +528,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Push> const Push;
 ///   3. q: str   |-> x: any   |-> x at JSON Pointer q
 ///   4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
 ///   5. {"key": q1, "$q2": q3, ...} |-> x: any |->
-///       { "key1": x at q1, "$(x at q2)": x at q3, ...}\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+///       { "key1": x at q1, "$(x at q2)": x at q3, ...}
 extern lang::SignatureBinary<::zmbt::lang::Keyword::At> const At;
 
 /// \brief Lookup table function
@@ -683,7 +537,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::At> const At;
 /// Parametrized at design time with fixed array or object,
 /// produces the value at corresponding At query given
 /// as eval-time argument.
-/// Equivalent to Flip(At(...))\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Equivalent to Flip(At(...))
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 
 /// \brief User-defined constant
@@ -691,17 +545,19 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 /// \details
 /// Produced expression will return the design-time parameter
 /// on evaluation, ignoring input.
-/// C(x) is a shorthand for x|Id or And(false)|Or(x)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// C(x) is a shorthand for x|Id or And(false)|Or(x)
 extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const C;
 /// \brief Alias for C
 extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const Let;
 
 /// \brief Reserialize decorated type as decorator
+/// \anchor expr-decorate
 extern lang::SignatureDecorate const Decorate;
 /// \brief Alias for Decorate
 extern lang::SignatureDecorate const Cast;
 
 /// \brief Reserialize decorator as decorated type
+/// \anchor expr-undecorate
 extern lang::SignatureUndecorate const Undecorate;
 /// \brief Alias for Undecorate
 extern lang::SignatureUndecorate const Uncast;
@@ -712,75 +568,59 @@ extern lang::SignatureUndecorate const Uncast;
 /// To set specific initial value, use composition with Push, e.g.
 /// Push(0)|Reduce(Add)
 /// 
-/// For reverse operation, see Unfold\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// For reverse operation, see Unfold
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Reduce> const Reduce;
 /// \brief Alias for Reduce
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Reduce> const Fold;
 
 /// \brief Apply param expr to every element of sequence
 /// \anchor expr-map
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Map> const Map;
 
 /// \brief Filter sequence by predicate param
 /// \anchor expr-filter
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Filter> const Filter;
 
 /// \brief Count matches by predicate param
 /// \anchor expr-count
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Count> const Count;
 
 /// \brief Test predicate for each item in a sequence
 /// \anchor expr-each
 /// \details
-/// Equivalent to Count(p|Not)|Eq(0)\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// Equivalent to Count(p|Not)|Eq(0)
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Each> const Each;
 
 /// \brief Sort list by key function
 /// \anchor expr-sort
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Sort> const Sort;
 
 /// \brief Min value by key function
 /// \anchor expr-min
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Min> const Min;
 
 /// \brief Max value by key function
 /// \anchor expr-max
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Max> const Max;
 
 /// \brief Min value index by key function
 /// \anchor expr-argmin
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Argmin> const Argmin;
 
 /// \brief Max value index by key function
 /// \anchor expr-argmax
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Argmax> const Argmax;
 
 /// \brief Apply recursion to parameter expr and initial value
 /// \anchor expr-recur
 /// \details
-/// Recur(f, x) * n = ◯ⁿ f(x)\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+/// Recur(f, x) * n = ◯ⁿ f(x)
 extern lang::SignatureTernary<::zmbt::lang::Keyword::Recur> const Recur;
 
 /// \brief Put results of recursive fn call on initial value into an array
 /// \anchor expr-unfold
 /// \details
-/// Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]\see \ref ternary-syntactic-forms "Ternary Syntatic Forms"
+/// Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]
 extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
 
 /// \brief Bind type-specific operator handler to parameter function
@@ -797,38 +637,28 @@ extern lang::SignatureOverload const Op;
 
 /// \brief !not implemented! bind design-time parameters
 /// \anchor expr-bind
-/// \details
-/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Bind> const Bind;
 
 /// \brief Match any predicate
 /// \anchor expr-any
-/// \details
-/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;
 
 /// \brief Match all predicates
 /// \anchor expr-all
-/// \details
-/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::All> const All;
 
 /// \brief Saturate matches in order
 /// \anchor expr-saturate
-/// \details
-/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate;
 
 /// \brief Compose functions
 /// \anchor expr-compose
-/// \details
-/// \see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Compose> const Compose;
 
 /// \brief Pack results from enveloped functions into an array
 /// \anchor expr-pack
 /// \details
-/// Allows to combine different properties in a single expression\see \ref variadic-syntactic-forms "Variadic Syntatic Forms"
+/// Allows to combine different properties in a single expression
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pack> const Pack;
 
 /// \brief Flips design-time and eval-time parameters for enveloped expression.
@@ -836,25 +666,19 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pack> const Pack;
 /// \details
 /// Useful for binding lhs operands to non-commutative operators.
 /// Unlike Haskell's flip, won't change the order or eval-time parameters
-/// - for that case use the Reverse keyword instead.\see \ref binary-syntactic-forms "Binary Syntatic Forms"
+/// - for that case use the Reverse keyword instead.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
 
 /// \brief Evaluate enveloped function and return result or null if it throws
 /// \anchor expr-try
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;
 
 /// \brief Evaluate enveloped function and return result or error info if it throws
 /// \anchor expr-try-catch
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch;
 
 /// \brief Return x if not null, else return default value
 /// \anchor expr-default
-/// \details
-/// \see \ref binary-syntactic-forms "Binary Syntatic Forms"
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Default> const Default;
 /// \brief Alias for Default
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Default> const D;

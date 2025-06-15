@@ -117,14 +117,6 @@ class Keyword:
         # return complete_doc
 
     @property
-    def DocDetailsDoxy(self) -> str:
-        signature_ref = ""
-        if self.Signature != 'Special':
-            signature_ref = f'\see \\ref {self.Signature.lower()}-syntactic-forms "{self.Signature} Syntatic Forms"'
-
-        return self.DocDetails + signature_ref
-
-    @property
     def Symbol(self) -> str:
         return self._definition.get('symbol', "")
 

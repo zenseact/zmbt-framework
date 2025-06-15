@@ -64,7 +64,7 @@ void Environment::InterfaceHandle::Inject(lang::Expression const& e, boost::json
 {
     auto lock = Env().Lock();
     auto& expr_map = injects.get_or_create_object("/%s/expr", group);
-    expr_map[jp] = e;
+    expr_map[jp] = e; // boost::json::object holds insertion order
 
     // invalidate cache
     injects("/%s/cache", group).emplace_array();

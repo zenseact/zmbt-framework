@@ -709,6 +709,10 @@ BOOST_AUTO_TEST_CASE(BatchInputs)
 3. Simple generating function
 4. Lookup function with Default 42 as generator
 
+
+Note that if same the interface is used with different subsignals specified with JSON Pointer at `Args` or `Return` clause
+parameters, the corresponding injections expression are evaluated in order of appearance. See [more details below](#order-matters).
+
 ### Fixed channels
 
 Both input and output channels can be excluded from the test matrix
@@ -1060,9 +1064,11 @@ The pre-run task will reset the stimulus to 42 before each test.
 On the first test case, this stimulus is overwritten by the value from the
 test vector, but in the second case, `Noop` tells the runner to skip injection.
 
-For non-scalar stimuli configured on pre-run stage, any injection will only
-update the nodes specified with JSON Pointer, keeping other state unchanged.
-
+The order of `InjectReturn` or `InjectArgs` calls on `InterfaceRecord` has the same effect as order
+of injections on channel clauses (see [Order matters](#order-matters)).
+For such a such simple logic as in the given example it is recommended to use [fixed channels](#fixed-channels)
+instead, but the tasks can be useful in handling side-effects not accessible in Expressions,
+like SUT reset or extra logging.
 
 ## Diagnostic output
 

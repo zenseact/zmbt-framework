@@ -23,7 +23,7 @@ namespace zmbt {
 namespace lang {
 
 /// Expression Language implementation class.
-/// \details \see \ref expression-lang "Expression Language" documentation.
+/// \details \see <A HREF="/user-guide/expressions/">Expression Language documentation</A>.
 class Expression
 {
 public:

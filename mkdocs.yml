@@ -25,25 +25,25 @@ nav:
       - dsl-reference/expressions.md
 
   - C++ API:
-    # - "ZmbtCxxApiReference/links.md"
+    # - "CxxRef/links.md"
     - "Namespaces":
-        - "Namespace List": "ZmbtCxxApiReference/namespaces.md"
-        - "Namespace Members": "ZmbtCxxApiReference/namespace_members.md"
-        - "Namespace Member Functions": "ZmbtCxxApiReference/namespace_member_functions.md"
-        - "Namespace Member Variables": "ZmbtCxxApiReference/namespace_member_variables.md"
-        - "Namespace Member Typedefs": "ZmbtCxxApiReference/namespace_member_typedefs.md"
-        - "Namespace Member Enumerations": "ZmbtCxxApiReference/namespace_member_enums.md"
+        - "Namespace List": "CxxRef/namespaces.md"
+        - "Namespace Members": "CxxRef/namespace_members.md"
+        - "Namespace Member Functions": "CxxRef/namespace_member_functions.md"
+        - "Namespace Member Variables": "CxxRef/namespace_member_variables.md"
+        - "Namespace Member Typedefs": "CxxRef/namespace_member_typedefs.md"
+        - "Namespace Member Enumerations": "CxxRef/namespace_member_enums.md"
     - "Classes":
-        - "Class List": "ZmbtCxxApiReference/annotated.md"
-        - "Class Index": "ZmbtCxxApiReference/classes.md"
-        - "Class Hierarchy": "ZmbtCxxApiReference/hierarchy.md"
-        - "Class Members": "ZmbtCxxApiReference/class_members.md"
-        - "Class Member Functions": "ZmbtCxxApiReference/class_member_functions.md"
-        - "Class Member Variables": "ZmbtCxxApiReference/class_member_variables.md"
-        - "Class Member Typedefs": "ZmbtCxxApiReference/class_member_typedefs.md"
-        - "Class Member Enumerations": "ZmbtCxxApiReference/class_member_enums.md"
-    - "Macros": "ZmbtCxxApiReference/macros.md"
-    - "Files": "ZmbtCxxApiReference/files.md"
+        - "Class List": "CxxRef/annotated.md"
+        - "Class Index": "CxxRef/classes.md"
+        - "Class Hierarchy": "CxxRef/hierarchy.md"
+        - "Class Members": "CxxRef/class_members.md"
+        - "Class Member Functions": "CxxRef/class_member_functions.md"
+        - "Class Member Variables": "CxxRef/class_member_variables.md"
+        - "Class Member Typedefs": "CxxRef/class_member_typedefs.md"
+        - "Class Member Enumerations": "CxxRef/class_member_enums.md"
+    - "Macros": "CxxRef/macros.md"
+    - "Files": "CxxRef/files.md"
 
 theme:
   name: material
@@ -92,7 +92,7 @@ plugins:
 
   - mkdoxy:
       projects:
-        ZmbtCxxApiReference: # name of project must be alphanumeric + numbers (without spaces)
+        CxxRef: # name of project must be alphanumeric + numbers (without spaces)
           src-dirs: zmbt-framework/backends/cxx # path to source code (support multiple paths separated by space) => INPUT
           # full-doc: True # if you want to generate full documentation
           doxy-cfg-file: docs/doxygen/Doxyfile

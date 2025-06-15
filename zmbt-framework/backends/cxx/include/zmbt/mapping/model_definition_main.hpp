@@ -17,8 +17,7 @@ namespace zmbt {
 namespace mapping {
 
 /// \brief Signal Mapping Test Model
-/// \see \ref signal-mapping-model "Signal Mapping Model"
-// using SignalMapping = ModelDefinition::N_Main;
+/// \see <A HREF="/user-guide/signal-mapping/">Signal Mapping model</A>
 class SignalMapping : public ModelDefinition::N_Main
 {
   public:

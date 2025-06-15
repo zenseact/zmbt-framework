@@ -44,6 +44,7 @@ namespace zmbt {
  * @brief Controlled environment data storage
  *
  * @details Handles signal values and calls counters to/from environment, using interface pointers as keys
+ * @see <A HREF="/user-guide/environment/">Environment API</A>
  *
  */
 class Environment {
