@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE(RegAction)
     Environment env {};
     int test_var {0};
 
-    env.RegisterAction([&](){ test_var++; }, "increment test_var");
+    env.RegisterAction("increment test_var", [&](){ test_var++; });
     env.RunAction("increment test_var");
     BOOST_CHECK_EQUAL(test_var, 1);
 
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(RegAction)
 
     BOOST_CHECK_THROW(env.RunAction("none"), environment_error);
 
-    env.RegisterAction([&](){ throw std::runtime_error("lol"); }, "I will throw");
+    env.RegisterAction("I will throw", [&](){ throw std::runtime_error("lol"); });
     BOOST_CHECK_THROW(env.RunAction("I will throw"), std::runtime_error);
 }
 

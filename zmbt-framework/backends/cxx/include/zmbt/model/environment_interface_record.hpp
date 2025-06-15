@@ -227,8 +227,13 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         return nofcall;
     }
 
+
+    void HookReturnImpl(type_tag<void>, std::size_t const)
+    {
+    }
+
     template <class T>
-    auto HookReturnImpl(std::size_t const nofcall) -> mp_if<mp_and<mp_not<is_reference<T>>, mp_not<is_void<T>>>, T>
+    auto HookReturnImpl(type_tag<T>, std::size_t const nofcall) -> mp_if<mp_not<is_reference<T>>, T>
     {
         boost::json::value result;
         try
@@ -253,32 +258,18 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         }
     }
 
-
     template <class T>
-    auto HookReturnImpl(std::size_t const nofcall) -> mp_if<is_reference<T>, T>
+    auto HookReturnImpl(type_tag<T>, std::size_t const nofcall) -> mp_if<is_reference<T>, T>
     {
         using TT = remove_cvref_t<T>;
 
-        TT result = HookReturnImpl<TT>(nofcall);
+        TT value = HookReturnImpl(type<TT>, nofcall);
         auto const key = format("$$ret-ref-%s-%s", interface(), refobj());
-
-        auto shared = Env().template GetShared<TT>(key);
-        if (!shared)
-        {
-            shared = std::make_shared<TT>(result);
-            Env().SetShared(shared, key);
-        }
-        else
-        {
-            *shared = result;
-        }
-        return *shared;
+        TT& ref = Env().template GetSharedRef<TT>(key, reflect::signal_traits<TT>::init());
+        ref = value;
+        return ref;
     }
 
-    template <class T>
-    auto HookReturnImpl(std::size_t const nofcall) -> mp_if<is_void<T>, T>
-    {
-    }
 
 
     public:
@@ -319,7 +310,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
                 , e.what(), json_from(args));
             }
 
-        return HookReturnImpl<return_t>(nofcall);
+        return HookReturnImpl(type<return_t>, nofcall);
     }
 
     /**

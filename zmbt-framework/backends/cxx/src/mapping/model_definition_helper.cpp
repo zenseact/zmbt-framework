@@ -77,7 +77,7 @@ void DefinitionHelper::add_task(std::function<void()> fn, bool const pre)
     boost::json::string_view pref = pre ? "pre" : "post";
     boost::json::string ref{
         format("%s:%s#%s", object_id(this).key(), pref, model.get_or_create_array("/%s-run", pref).size())};
-    env.RegisterAction(fn, ref);
+    env.RegisterAction(ref, fn);
     add_task(ref, pre);
 }
 

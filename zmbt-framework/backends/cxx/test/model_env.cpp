@@ -40,26 +40,13 @@ BOOST_AUTO_TEST_CASE(JsonVariables)
     BOOST_CHECK("kek" == env.GetVarOrUpdate("test 2", { {"lol", "kek"} }).as_object()["lol"]);
 }
 
-BOOST_AUTO_TEST_CASE(AssociatedVariables)
-{
-    Environment env {};
-
-    int object1, object2;
-
-    env.SetVar(&object1, "var", 13);
-    env.SetVar(&object2, "var", 42);
-
-    BOOST_CHECK(13 == env.GetVar(&object1, "var"));
-    BOOST_CHECK(42 == env.GetVar(&object2, "var"));
-}
-
 
 BOOST_AUTO_TEST_CASE(SharedData)
 {
     Environment env {};
 
     auto shared_data = std::make_shared<int>(13);
-    env.SetShared(shared_data, "key");
+    env.SetShared("key", shared_data);
     auto retrieved_data = env.GetShared<int>("key");
 
     BOOST_ASSERT(retrieved_data != nullptr);

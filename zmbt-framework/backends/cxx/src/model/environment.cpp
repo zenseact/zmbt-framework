@@ -256,4 +256,95 @@ object_id Environment::DefaultObjectId(interface_id const& ifc_id) const
 }
 
 
+void Environment::SetVar(lang::Expression const& key_expr, boost::json::value var)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    data_->json_data(key) = var;
+}
+
+boost::json::value Environment::GetVar(lang::Expression const& key_expr)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    if (auto const ptr = data_->json_data.find_pointer(key))
+    {
+        return *ptr;
+    }
+    else
+    {
+        throw environment_error("Environment variable `%s` not found", key);
+        return nullptr;
+    }
+}
+
+boost::json::value Environment::GetVarOrUpdate(lang::Expression const& key_expr, boost::json::value update_value)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    if (auto const ptr = data_->json_data.find_pointer(key))
+    {
+        return *ptr;
+    }
+    else
+    {
+        data_->json_data(key) = update_value;
+        return update_value;
+    }
+}
+
+boost::json::value Environment::GetVarOrDefault(lang::Expression const& key_expr, boost::json::value default_value)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    if (auto const ptr = data_->json_data.find_pointer(key))
+    {
+        return *ptr;
+    }
+    else
+    {
+        return default_value;
+    }
+}
+
+bool Environment::ContainsShared(lang::Expression const& key_expr) const
+{
+    boost::json::string key = key_expr.eval().as_string();
+    auto lock = Lock();
+    return data_->shared.count(key) > 0;
+}
+
+Environment& Environment::RegisterAction(lang::Expression const& key_expr, std::function<void()> action)
+{
+    boost::json::string const key = key_expr.eval().as_string();
+    auto lock = Lock();
+    if (data_->callbacks.count(key))
+    {
+        throw environment_error("Callback registering failed: key \"%s\" already exists", key);
+    }
+    data_->callbacks.emplace(key, action);
+    data_->json_data("/callbacks/%s", key) = 0; // TODO: timestamp
+    return *this;
+}
+
+
+Environment& Environment::RunAction(lang::Expression const& key_expr)
+{
+    boost::json::string const key = key_expr.eval().as_string();
+    if (0 == data_->callbacks.count(key))
+    {
+        throw environment_error("Callback execution failed: %s is not registered", key);
+    }
+
+    try
+    {
+        data_->callbacks.at(key).operator()();
+    }
+    catch(const std::exception& e)
+    {
+        throw environment_error("Callback execution failed: %s throws %s", key, e.what());
+    }
+    return *this;
+}
+
 }  // namespace zmbt

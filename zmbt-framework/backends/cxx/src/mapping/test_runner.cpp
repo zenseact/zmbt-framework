@@ -86,7 +86,7 @@ bool InstanceTestRunner::exec_prerun_tasks(TestDiagnostics diagnostics)
     if (!model_.contains("/pre-run")) return true;
     for (const auto& action : model_.at("/pre-run").as_array()) {
         try {
-            env.RunAction(action.as_string());
+            env.RunAction(action);
         }
         catch (std::exception const& error) {
             report_failure(diagnostics.Error("pre-run", error.what()));
@@ -122,7 +122,7 @@ void InstanceTestRunner::exec_postrun_tasks(TestDiagnostics diagnostics)
     if (!model_.contains("/post-run")) return;
     for (const auto& action : model_.at("/post-run").as_array()) {
         try {
-            env.RunAction(action.as_string());
+            env.RunAction(action);
         }
         catch (std::exception const& error) {
             report_failure(diagnostics.Error("pre-run", error.what()));
