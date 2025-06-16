@@ -401,8 +401,8 @@ enum class Keyword
     /// compose
     Compose,
 
-    /// pack
-    Pack,
+    /// fork
+    Fork,
 
     /// flip
     Flip,

@@ -250,7 +250,7 @@ struct ModelDefinition::T_Union : protected virtual ModelDefinition::BaseTransit
 template <class Target>
 struct ModelDefinition::T_With : protected virtual ModelDefinition::BaseTransition
 {
-    /// Combine channel outputs into an array similarly to Pack keyword
+    /// Pack channel outputs into an array similarly to Fork keyword
     /// X with Y with Z -> [X, Y, Z]
     template <class C>
     require_not_str<C, Target>

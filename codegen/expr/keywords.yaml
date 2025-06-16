@@ -105,32 +105,32 @@ keyword_groups:
     keywords:
 
       - name: sin
-        brief: Sinus
+        brief: Sinus function
         codegen-value:
           cxx: json_from(std::sin(dejsonize<std::complex<double>>(x)))
 
       - name: cos
-        brief: Cosinus
+        brief: Cosinus function
         codegen-value:
           cxx: json_from(std::cos(dejsonize<std::complex<double>>(x)))
 
       - name: tan
-        brief: Tangens
+        brief: Tangens function
         codegen-value:
           cxx: json_from(std::tan(dejsonize<std::complex<double>>(x)))
 
       - name: asin
-        brief: Arcsin
+        brief: Arcsin function
         codegen-value:
           cxx: json_from(std::asin(dejsonize<std::complex<double>>(x)))
 
       - name: acos
-        brief: Arccos
+        brief: Arccos function
         codegen-value:
           cxx: json_from(std::acos(dejsonize<std::complex<double>>(x)))
 
       - name: atan
-        brief: Arctan
+        brief: Arctan function
         codegen-value:
           cxx: json_from(std::atan(dejsonize<std::complex<double>>(x)))
 
@@ -201,7 +201,7 @@ keyword_groups:
         brief: Round to nearest integer
         details: |-
           Hint: To round to ndigits precision after the decimal point,
-          use Mul(ndigits)|Round|Div(ndigits) combo.
+          use `Mul(ndigits) | Round | Div(ndigits)` combo.
         codegen-value:
           cxx: std::round(dejsonize<double>(x))
 
@@ -229,80 +229,80 @@ keyword_groups:
         domain: real
         codomain: real
         examples: |-
-          Neg * 42 == -42
+          42 | Neg ↦ -42
 
       - name: add
         brief: Addition
         symbol: '+'
         examples: |-
-          Add * [2, -1] == 1
-          Add(-1) * 2  == 1
+          [2, -1] | Add ↦ 1
+          2 | Add(-1) ↦ 1
 
       - name: sub
         brief: Subtraction
         symbol: '-'
         examples: |-
-          Sub * [2, 1] == -1
-          Sub(1) * 2   == 1
+          [2, 1] | Sub ↦ -1
+          2 | Sub(1) ↦ 1
 
       - name: mul
         brief: Multiplication
         symbol: '*'
         examples: |-
-          Mul * [2, 3] == 6
-          Mul(3) * 2   == 6
+          [2, 3] | Mul ↦ 6
+          2 | Mul(3) ↦ 6
 
       - name: div
         brief: Division
         symbol: '/'
         details: |-
-          1. [ ] |-> [x, y] |-> x / y
-          2. [y] |-> [x]    |-> x / y
+          1. $[ ] \mapsto [x, y] \mapsto x / y$
+          2. $[y] \mapsto [x]    \mapsto x / y$
         examples: |-
-          Div * [6, 3] == 2
-          Div(3) * 6   == 2
+          [6, 3] | Div ↦ 2
+          6 | Div(3) ↦ 2
 
       - name: pow
         brief: To power
         details: |-
           X to power p
-            1. [ ] |-> [x, p] |-> x^p
-            2. [p] |-> [x]    |-> x^p
+            1. $[ ] \mapsto [x, p] \mapsto x^p$
+            2. $[p] \mapsto [x]    \mapsto x^p$
         examples: |-
-          Pow * [2, 3] == 8
-          Pow(3) * 2   == 8
+          [2, 3] | Pow ↦ 8
+          2 | Pow(3) ↦ 8
 
       - name: log
         brief: Logarithm
         details: |-
           Logarithm with base b:
-            1. [ ] |-> [x, b] |-> log_b(x)
-            2. [b] |-> [x]    |-> log_b(x)
+            1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
+            2. $[b] \mapsto [x]    \mapsto log_b(x)$
         examples: |-
-          Log * [8, 2] == 3
-          Log(2) * 8   == 3
+          [8, 2] | Log ↦ 3
+          8 | Log(2) ↦ 3
 
       - name: mod
         brief: Modulo
         symbol: '%'
         details: |-
           Modulo of x:
-            1. [ ] |-> [x, m] |-> x % m
-            2. [m] |-> [x]    |-> x % m
+            1. $[ ] \mapsto [x, m] \mapsto x % m$
+            2. $[m] \mapsto [x]    \mapsto x % m$
         examples: |-
-          Mod * [7, 4] == 3
-          Mod(4) * 7   == 3
+          [7, 4] | Mod ↦ 3
+          7 | Mod(4) ↦ 3
 
       - name: quot
         brief: Quotient
         symbol: '//'
         details: |-
           Quotient of x:
-            1. [ ] |-> [x, d] |-> x // d
-            2. [d] |-> [x]    |-> x // d
+            1. $[ ] \mapsto [x, d] \mapsto x // d$
+            2. $[d] \mapsto [x]    \mapsto x // d$
         examples: |-
-          Quot * [7, 4] == 1
-          Quot(4) * 7   == 1
+          [7, 4] | Quot ↦ 1
+          7 | Quot(4) ↦ 1
 
       - name: b-not
         signature: Unary
@@ -312,7 +312,7 @@ keyword_groups:
         domain: uint
         codomain: uint
         examples: |-
-          BitNot * 0b1010 == 0b0101
+          0b1010 | BitNot ↦ 0b0101
 
       - name: b-and
         brief: Bitwise and
@@ -321,7 +321,7 @@ keyword_groups:
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          BitAnd * [0b1010, 0b1100] == 0b1000
+          [0b1010, 0b1100] | BitAnd ↦ 0b1000
 
       - name: b-or
         brief: Bitwise or
@@ -330,7 +330,7 @@ keyword_groups:
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          BitOr * [0b1010, 0b1100] == 0b1110
+          [0b1010, 0b1100] | BitOr ↦ 0b1110
 
       - name: b-xor
         brief: Bitwise xor
@@ -339,31 +339,31 @@ keyword_groups:
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          BitXor * [0b1010, 0b1100] == 0b0110
+          [0b1010, 0b1100] | BitXor ↦ 0b0110
 
       - name: b-lshift
         brief: Bitwise left shift
         enum: BitLshift
         symbol: '<<'
         details: |-
-          1. [ ] |-> [x, s] |-> x << s
-          2. [s] |-> [x]    |-> x << s
+          1. $[ ] \mapsto [x, s] \mapsto x \texttt{ << } s$
+          2. $[s] \mapsto [x]    \mapsto x \texttt{ << } s$
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          BitLshift * [0b1010, 2] == 0b101000
+          [0b1010, 2] | BitLshift ↦ 0b101000
 
       - name: b-rshift
         brief: Bitwise right shift
         enum: BitRshift
         symbol: '>>'
         details: |-
-          1. [ ] |-> [x, s] |-> x * s
-          2. [s] |-> [x]    |-> x * s
+          1. $[ ] ↦ [x, s] ↦ x \texttt{ >> } s$
+          2. $[s] ↦ [x]    ↦ x \texttt{ >> } s$
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          BitRshift * [0b1010, 2] == 0b0010
+          [0b1010, 2] | BitRshift ↦ 0b0010
 
   Relation Operators:
     defaults:
@@ -377,53 +377,54 @@ keyword_groups:
         brief: Is equal
         symbol: '='
         examples: |-
-          Eq * [1, 1] == true
-          Eq(42) * 41 == false
+          [1, 1] | Eq ↦ true
+          41 | Eq(42) ↦ false
 
 
       - name: ne
         brief: Not equal
         symbol: '≠'
         examples: |-
-          Ne * [1, 2] == true
-          Ne(42) * 42 == false
+          [1, 2] | Ne ↦ true
+          42 | Ne(42) ↦ false
 
       - name: lt
         brief: Lesser than
         symbol: '<'
         commutative-dual: ge
         examples: |-
-          Lt * [1, 2] == true
-          Lt(42) * 41 == false
+          [1, 2] | Lt ↦ true
+          41 | Lt(42) ↦ false
 
       - name: le
         brief: Lesser or equal
         symbol: '≤'
         commutative-dual: gt
         examples: |-
-          Le * [1, 2] == true
-          Le(42) * 42 == true
+          [1, 2] | Le ↦ true
+          42 | Le(42) ↦ true
 
       - name: gt
         brief: Greater than
         symbol: '>'
         commutative-dual: le
         examples: |-
-          Gt * [2, 1] == true
-          Gt(42) * 43 == false
+          [2, 1] | Gt ↦ true
+          43 | Gt(42) ↦ false
 
       - name: ge
         brief: Greater or equal
         symbol: '≥'
         commutative-dual: lt
         examples: |-
-          Ge * [2, 1] == true
-          Ge(42) * 42 == true
+          [2, 1] | Ge ↦ true
+          42 | Ge(42) ↦ true
 
       - name: approx
         brief: Floating point approximately equal
         details: |-
-          Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
+          Based on numpy.isclose:
+            abs(x - ref) <= (atol + rtol * abs(ref))
 
           Rhs parameters:
             ref: reference value
@@ -441,14 +442,14 @@ keyword_groups:
         codomain: bool
         commutative: false
         examples: |-
-          Approx * [42, 42] == true
-          Approx(42.0 + 1e-09) * 42 == true
-          Approx(42.001) * 42 == false
+          [42, 42] | Approx ↦ true
+          42 | Approx(42.0 + 1e-09) ↦ true
+          42 | Approx(42.001) ↦ false
 
           Relative tolerance 1e-03
-          Approx([3.14, 0.001]) * pi == true
+          pi | Approx([3.14, 0.001]) ↦ true
           Absolute tolerance 0.01
-          Approx([3.14, 0, 0.01]) * pi == true
+          pi | Approx([3.14, 0, 0.01]) ↦ true
 
   Set Operators:
     defaults:
@@ -461,22 +462,22 @@ keyword_groups:
         brief: Set union
         symbol: '∪'
         examples: |-
-          Union * [[1, 2], [2, 3]] == [1, 2, 3]
-          Union([2, 3]) * [1, 2] == [1, 2, 3]
+          [[1, 2], [2, 3]] | Union ↦ [1, 2, 3]
+          [1, 2] | Union([2, 3]) ↦ [1, 2, 3]
 
       - name: intersect
         brief: Set intersection
         symbol: '∩'
         examples: |-
-          Intersect * [[1, 2], [2, 3]] == [2]
-          Intersect([2, 3]) * [1, 2] == [2]
+          [[1, 2], [2, 3]] | Intersect ↦ [2]
+          [1, 2] | Intersect([2, 3]) ↦ [2]
 
       - name: set-diff
         enum: Diff
         brief: Set difference
         examples: |-
-          Diff * [[1, 2], [2, 3]] == [1]
-          Diff([2, 3]) * [1, 2] == [1]
+          [[1, 2], [2, 3]] | Diff ↦ [1]
+          [1, 2] | Diff([2, 3]) ↦ [1]
 
   Set Relation Operators:
     defaults:
@@ -491,36 +492,36 @@ keyword_groups:
         brief: Equal as set
         symbol: '≡'
         examples: |-
-          SetEq * [[1, 2], [2, 1]] == true
-          SetEq([2, 1]) * [1, 2] == true
+          [[1, 2], [2, 1]] | SetEq ↦ true
+          [1, 2] | SetEq([2, 1]) ↦ true
 
       - name: subset
         brief: Is subset
         symbol: '⊆'
         commutative-dual: p-superset
         examples: |-
-          Subset * [[1, 2], [1, 2, 3]] == true
-          Subset([1, 2, 3]) * [1, 2] == true
+          [[1, 2], [1, 2, 3]] | Subset ↦ true
+          [1, 2] | Subset([1, 2, 3]) ↦ true
 
-          Subset * [[1, 2, 3], [2, 3]] == false
-          Subset([2, 3]) * [1, 2, 3] == false
+          [[1, 2, 3], [2, 3]] | Subset ↦ false
+          [1, 2, 3] | Subset([2, 3]) ↦ false
 
-          Subset * [[1, 2], []] == true
-          Subset * [[], []] == true
+          [[1, 2], []] | Subset ↦ true
+          [[], []] | Subset ↦ true
 
       - name: superset
         brief: is superset
         symbol: '⊇'
         commutative-dual: p-subset
         examples: |-
-          Superset * [[1, 2, 3], [1, 2]] == true
-          Superset([1, 2]) * [1, 2, 3] == true
+          [[1, 2, 3], [1, 2]] | Superset ↦ true
+          [1, 2, 3] | Superset([1, 2]) ↦ true
 
-          Superset * [[2, 3], [1, 2, 3]] == false
-          Superset([1, 2, 3]) * [2, 3] == false
+          [[2, 3], [1, 2, 3]] | Superset ↦ false
+          [2, 3] | Superset([1, 2, 3]) ↦ false
 
-          Superset * [[], [1, 2]] == true
-          Superset * [[], []] == true
+          [[], [1, 2]] | Superset ↦ true
+          [[], []] | Superset ↦ true
 
       - name: p-subset
         enum: ProperSubset
@@ -528,14 +529,14 @@ keyword_groups:
         symbol: '⊂'
         commutative-dual: superset
         examples: |-
-          ProperSubset * [[1, 2], [1, 2, 3]] == true
-          ProperSubset([1, 2, 3]) * [1, 2] == true
+          [[1, 2], [1, 2, 3]] | ProperSubset ↦ true
+          [1, 2] | ProperSubset([1, 2, 3]) ↦ true
 
-          ProperSubset * [[1, 2, 3], [2, 3]] == false
-          ProperSubset([2, 3]) * [1, 2, 3] == false
+          [[1, 2, 3], [2, 3]] | ProperSubset ↦ false
+          [1, 2, 3] | ProperSubset([2, 3]) ↦ false
 
-          ProperSubset * [[1, 2], []] == true
-          ProperSubset * [[], []] == false
+          [[1, 2], []] | ProperSubset ↦ true
+          [[], []] | ProperSubset ↦ false
 
       - name: p-superset
         enum: ProperSuperset
@@ -543,14 +544,14 @@ keyword_groups:
         symbol: '⊃'
         commutative-dual: subset
         examples: |-
-          ProperSuperset * [[1, 2, 3], [1, 2]] == true
-          ProperSuperset([1, 2]) * [1, 2, 3] == true
+          [[1, 2, 3], [1, 2]] | ProperSuperset ↦ true
+          [1, 2, 3] | ProperSuperset([1, 2]) ↦ true
 
-          ProperSuperset * [[2, 3], [1, 2, 3]] == false
-          ProperSuperset([1, 2, 3]) * [2, 3] == false
+          [[2, 3], [1, 2, 3]] | ProperSuperset ↦ false
+          [2, 3] | ProperSuperset([1, 2, 3]) ↦ false
 
-          ProperSuperset * [[], [1, 2]] == true
-          ProperSuperset * [[], []] == false
+          [[], [1, 2]] | ProperSuperset ↦ true
+          [[], []] | ProperSuperset ↦ false
 
       - name: in
         brief: Element is in
@@ -558,8 +559,8 @@ keyword_groups:
         domain: [any, set]
         commutative-dual: ni
         examples: |-
-          In * [1, [1, 2]] == true
-          In([1, 2]) * 3 == false
+          [1, [1, 2]] | In ↦ true
+          3 | In([1, 2]) ↦ false
 
       - name: not-in
         enum: NotIn
@@ -568,8 +569,8 @@ keyword_groups:
         domain: [any, set]
         commutative-dual: not-ni
         examples: |-
-          NotIn * [3, [1, 2]] == true
-          NotIn([1, 2]) * 1 == false
+          [3, [1, 2]] | NotIn ↦ true
+          1 | NotIn([1, 2]) ↦ false
 
       - name: ni
         brief: Contains element
@@ -579,8 +580,8 @@ keyword_groups:
         commutative-dual: in
         domain: [set, any]
         examples: |-
-          Ni * [[1, 2], 1] == true
-          Ni([1, 2]) * 3 == false
+          [[1, 2], 1] | Ni ↦ true
+          3 | Ni([1, 2]) ↦ false
 
       - name: not-ni
         brief: Not contains element
@@ -589,8 +590,8 @@ keyword_groups:
         commutative-dual: not-in
         domain: [set, any]
         examples: |-
-          NotNi * [[1, 2], 3] == true
-          NotNi([1, 2]) * 1 == false
+          [[1, 2], 3] | NotNi ↦ true
+          1 | NotNi([1, 2]) ↦ false
 
   Branching Operators:
     defaults:
@@ -608,14 +609,14 @@ keyword_groups:
         codomain: bool
         aliases: [ 'truthy' ]
         examples: |-
-          Bool * 42 == true
-          Bool * 0 == false
-          Bool * "false" == true
-          Bool * "" == false
-          Bool * [1] == true
-          Bool * [] == false
-          Bool * {} == false
-          Bool * null == false
+          42 | Bool ↦ true
+          0 | Bool ↦ false
+          "false" | Bool ↦ true
+          "" | Bool ↦ false
+          [1] | Bool ↦ true
+          [] | Bool ↦ false
+          {} | Bool ↦ false
+          null | Bool ↦ false
 
       - name: not
         signature: Unary
@@ -624,50 +625,56 @@ keyword_groups:
         codomain: bool
         aliases: [ 'falsy', 'nil' ]
         examples: |-
-          Nil * 42 == false
-          Nil * 0 == true
+          42 | Nil ↦ false
+          0 | Nil ↦ true
 
       - name: and
         brief: Logical and
         details: |-
           Generic behavior:
-            if first operand is truthy, returns second operand, otherwise first
+            if first operand is truthy,
+            returns second operand, otherwise first
         symbol: ∧
         examples: |-
-          And * [true, false] == false
-          And * [true, true] == true
+          [true, false] | And ↦ false
+          [true, true] | And ↦ true
 
-          Generic behavior:
-          And * ["foo", [42, 43]] == [42, 43]
-          And * [""   , [42, 43]] == ""
+          **Generic behavior**:
 
-          And(42) * 13 == 42
-          And(42) * [] == []
+          ["foo", [42, 43]] | And ↦ [42, 43]
+          [""   , [42, 43]] | And ↦ ""
 
-          If-Else using composition:
-          And(42)|Or(13) * true  == 42
-          And(42)|Or(13) * false == 13
+          13 | And(42) ↦ 42
+          [] | And(42) ↦ []
+
+          **If-Else using composition**:
+
+          true | And(42) | Or(13) ↦ 42
+          false | And(42) | Or(13) ↦ 13
 
       - name: or
         brief: Logical or
         symbol: ∨
         details: |-
           Generic behavior:
-            if first operand is truthy, returns first operand, second otherwise
+            if first operand is truthy,
+            returns first operand, second otherwise
         examples: |-
-          Or * [true, false] == true
-          Or * [false, false] == false
+          [true, false] | Or ↦ true
+          [false, false] | Or ↦ false
 
-          Generic behavior:
-          Or * ["foo", [42, 43]] == "foo"
-          Or * [""   , [42, 43]] == [42, 43]
+          **Generic behavior**:
 
-          Or(42) * 13 == 13
-          Or(42) * [] == 42
+          ["foo", [42, 43]] | Or ↦ "foo"
+          [""   , [42, 43]] | Or ↦ [42, 43]
 
-          If-Else using composition:
-          And(42)|Or(13) * true  == 42
-          And(42)|Or(13) * false == 13
+          13 | Or(42) ↦ 13
+          [] | Or(42) ↦ 42
+
+          **If-Else using composition**:
+
+          true | And(42) | Or(13) ↦ 42
+          false | And(42) | Or(13) ↦ 13
 
 
   Unary Structural transforms:
@@ -679,7 +686,7 @@ keyword_groups:
         domain: any
         codomain: any
         examples: |-
-          Id * 42 == 42
+          42 | Id ↦ 42
 
       - name: transp
         brief: Transpose multidimensional list, turning rows into columns
@@ -688,7 +695,7 @@ keyword_groups:
         domain: list[list]
         codomain: list[list]
         examples: |-
-          Transp * [[1, 2, 3], [4, 5, 6]] == [[1, 4], [2, 5], [3, 6]]
+          [[1, 2, 3], [4, 5, 6]] | Transp ↦ [[1, 4], [2, 5], [3, 6]]
 
       - name: cartesian
         brief: Cartesian product
@@ -696,42 +703,42 @@ keyword_groups:
         domain: list[set]
         codomain: list[list]
         examples: |-
-          Cartesian * [[1, 2], [3, 4]] == [[1, 3], [1, 4], [2, 3], [2, 4]]
+          [[1, 2], [3, 4]] | Cartesian ↦ [[1, 3], [1, 4], [2, 3], [2, 4]]
 
       - name: reverse
         brief: Reverse sequence
         domain: list[set]
         codomain: list[list]
         examples: |-
-          Reverse * [1, 2, 3] == [3, 2, 1]
+          [1, 2, 3] | Reverse ↦ [3, 2, 1]
 
       - name: uniques
         brief: Filter unique elements
         domain: list
         codomain: set
         examples: |-
-          Uniques * [1, 2, 1, 3, 2] == [1, 2, 3]
+          [1, 2, 1, 3, 2] | Uniques ↦ [1, 2, 3]
 
       - name: items
         brief: Extract key-value pairs from object
         domain: object
         codomain: list[list]
         examples: |-
-          Items * {"a": 1, "b": 2} == [["a", 1], ["b", 2]]
+          {"a": 1, "b": 2} | Items ↦ [["a", 1], ["b", 2]]
 
       - name: keys
         brief: Extract keys from object
         domain: object
         codomain: list
         examples: |-
-          Keys * {"a": 1, "b": 2} == ["a", "b"]
+          {"a": 1, "b": 2} | Keys ↦ ["a", "b"]
 
       - name: values
         brief: Extract values from object
         domain: object
         codomain: list
         examples: |-
-          Values * {"a": 1, "b": 2} == [1, 2]
+          {"a": 1, "b": 2} | Values ↦ [1, 2]
 
       - name: enumerate
         brief: Enumerate sequence
@@ -740,14 +747,14 @@ keyword_groups:
         domain: list
         codomain: list[list]
         examples: |-
-          Enumerate * [1, 2, 3] == [[0, 1], [1, 2], [2, 3]]
+          [1, 2, 3] | Enumerate ↦ [[0, 1], [1, 2], [2, 3]]
 
       - name: flatten
         brief: Flatten nested list
         domain: list
         codomain: list
         examples: |-
-          Flatten * [[1, 2], [3, 4]] == [1, 2, 3, 4]
+          [[1, 2], [3, 4]] | Flatten ↦ [1, 2, 3, 4]
 
       - name: to-list
         brief: Put argument into a list
@@ -755,7 +762,7 @@ keyword_groups:
         domain: any
         codomain: list
         examples: |-
-          List * 42 == [42]
+          42 | List ↦ [42]
         codegen-value:
           cxx: boost::json::array{x}
 
@@ -781,14 +788,14 @@ keyword_groups:
         domain: any
         codomain: list
         examples: |-
-          Arange * 6 == [0,1,2,3,4,5]
-          Arange * [2,6]     == [2,3,4,5]
-          Arange * [1,9,2]   == [1,3,5,7]
-          Arange * [5,1,-1]  == [5,4,3,2]
+          6 | Arange ↦ [0,1,2,3,4,5]
+          [2,6] | Arange ↦ [2,3,4,5]
+          [1,9,2] | Arange ↦ [1,3,5,7]
+          [5,1,-1] | Arange ↦ [5,4,3,2]
 
-          Arange * "2:6"     == [2,3,4,5]
-          Arange * "1:9:2"   == [1,3,5,7]
-          Arange * "5:1:-1"  == [5,4,3,2]
+          "2:6" | Arange ↦ [2,3,4,5]
+          "1:9:2" | Arange ↦ [1,3,5,7]
+          "5:1:-1" | Arange ↦ [5,4,3,2]
 
   String Transforms:
     keywords:
@@ -803,7 +810,7 @@ keyword_groups:
           cxx:
             - boost/json.hpp
         examples: |-
-          Parse * '{"a": 42}' == {"a": 42}
+          '{"a": 42}' | Parse ↦ {"a": 42}
 
       - name: serialize
         aliases: [ str ]
@@ -817,7 +824,7 @@ keyword_groups:
           cxx:
             - boost/json.hpp
         examples: |-
-          Serialize * {"a": 42} == '{"a":42}'
+          {"a": 42} | Serialize ↦ '{"a":42}'
 
       - name: re
         brief: Regular expression match
@@ -830,21 +837,21 @@ keyword_groups:
         params:
           - label: pattern
         examples: |-
-          Re * ["[0-9]+", "42"] == true
-          Re("[0-9]+") * "42" == true
+          ["[0-9]+", "42"] | Re ↦ true
+          "42" | Re("[0-9]+") ↦ true
 
       - name: format
         aliases: [ fmt ]
         brief: Format string with the given parameter list.
         details: |-
           Constant expressions are supported for the token list,
-          s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"
+          s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
         signature: Variadic
         domain: [str, list]
         codomain: str
         examples: |-
-          Format * ["Hello, %s!", ["world"]] == "Hello, world!"
-          Format(2,2,4) * "%d + %d = %d" == "2 + 2 = 4"
+          ["Hello, %s!", ["world"]] | Format ↦ "Hello, world!"
+          "%d + %d = %d" | Format(2,2,4) ↦ "2 + 2 = 4"
 
   Structural properties:
     defaults:
@@ -855,16 +862,16 @@ keyword_groups:
         domain: union[list, object]
         codomain: uint
         examples: |-
-          Card * [1, 2, 1, 3, 2] == 3
-          Card * {"a": 1, "b": 2} == 2
+          [1, 2, 1, 3, 2] | Card ↦ 3
+          {"a": 1, "b": 2} | Card ↦ 2
 
       - name: size
         brief: Sequence size
         domain: union[list, object]
         codomain: uint
         examples: |-
-          Size * [1, 1, 1] == 3
-          Size * {"a": 1, "b": 2} == 2
+          [1, 1, 1] | Size ↦ 3
+          {"a": 1, "b": 2} | Size ↦ 2
 
       - name: sum
         brief: Summation reduction
@@ -873,7 +880,7 @@ keyword_groups:
         domain: list
         codomain: any
         examples: |-
-          Sum * [1, 2, 3] == 6
+          [1, 2, 3] | Sum ↦ 6
 
       - name: prod
         brief: Multiplication reduction
@@ -882,14 +889,14 @@ keyword_groups:
         domain: list
         codomain: any
         examples: |-
-          Prod * [1, 2, 3] == 6
+          [1, 2, 3] | Prod ↦ 6
 
       - name: avg
         brief: Arythmetic average
         domain: list
         codomain: any
         examples: |-
-          Avg * [1, 2, 3] == 2
+          [1, 2, 3] | Avg ↦ 2
 
   Binary Structural transforms:
     defaults:
@@ -906,8 +913,8 @@ keyword_groups:
         params:
           - label: window width
         examples: |-
-          Slide(3) * [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]
-          Slide(42) * [1,2,3,4,5] == []
+          [1,2,3,4,5] | Slide(3) ↦ [[1,2,3],[2,3,4],[3,4,5]]
+          [1,2,3,4,5] | Slide(42) ↦ []
 
       - name: stride
         brief: Striding iteration
@@ -920,8 +927,8 @@ keyword_groups:
         params:
           - label: step width
         examples: |-
-          Stride(2) * [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
-          Stride(3) * [1,2,3,4,5]   == [[1,2,3]]
+          [1,2,3,4,5,6] | Stride(2) ↦ [[1,2],[3,4],[5,6]]
+          [1,2,3,4,5] | Stride(3) ↦ [[1,2,3]]
 
       - name: chunks
         brief: Split into chunks of specified max width
@@ -934,8 +941,8 @@ keyword_groups:
         params:
           - label: step width
         examples: |-
-          Chunks(2) * [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
-          Chunks(3) * [1,2,3,4,5]   == [[1,2,3],[4,5]]
+          [1,2,3,4,5,6] | Chunks(2) ↦ [[1,2],[3,4],[5,6]]
+          [1,2,3,4,5] | Chunks(3) ↦ [[1,2,3],[4,5]]
 
 
       - name: repeat
@@ -946,8 +953,8 @@ keyword_groups:
         params:
           - label: count
         examples: |-
-          Repeat(3) * 42 == [42, 42, 42]
-          Repeat(3)|Repeat(2) * 1 == [[1,1,1],[1,1,1]]
+          42 | Repeat(3) ↦ [42, 42, 42]
+          1 | Repeat(3) | Repeat(2) ↦ [[1,1,1],[1,1,1]]
 
 
       - name: concat
@@ -956,8 +963,8 @@ keyword_groups:
         aliases: [ cat ]
         codomain: any
         examples: |-
-          Concat * [[1, 2], [3, 4]] == [1, 2, 3, 4]
-          Concat("World!") * "Hello, " == "Hello, World!"
+          [[1, 2], [3, 4]] | Concat ↦ [1, 2, 3, 4]
+          "Hello, " | Concat("World!") ↦ "Hello, World!"
 
 
       - name: push
@@ -965,46 +972,53 @@ keyword_groups:
         domain: [any, list]
         codomain: any
         examples: |-
-          Push * [[1, 2], 3] == [3, 1, 2]
-          Push(3) * [1, 2]   == [3, 1, 2]
+          [[1, 2], 3] | Push ↦ [3, 1, 2]
+          [1, 2] | Push(3) ↦ [3, 1, 2]
 
       - name: at
         brief: Transform JSON value with given query
         details: |-
           Query evaluation rules:
-            1. q: int   |-> x: list  |-> x at index q (negative -> reverse)
-            2. q: slice |-> x: list  |-> x[start:stop:step]
-            3. q: str   |-> x: any   |-> x at JSON Pointer q
-            4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
-            5. {"key": q1, "$q2": q3, ...} |-> x: any |->
-                { "key1": x at q1, "$(x at q2)": x at q3, ...}
+
+            1. Array index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
+            2. Array slice: $q: slice \mapsto x: list  \mapsto x[start:stop:step]$
+            3. JSON Pointer: $q: str   \mapsto x: any   \mapsto x_q$
+            4. Array pack: $q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]$
+            5. Object pack:
+              $\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}$
         commutative: false
         domain: [any, union: [int, str, list, object]]
         codomain: any
         params:
           - label: query
         examples: |-
-          • Index query:
-          At(2) * [1, 2, 3] == 3
-          At(3) * [1, 2, 3] == nullptr
-          At(0) * 42 == nullptr
+          **Array index**:
 
-          • JSON Pointer query:
-          At("")   * "foo" == "foo"
-          At("/a") * {"a": 42, "b": 13} == 42
+          [1, 2, 3] | At(2) ↦ 3
+          [1, 2, 3] | At(3) ↦ nullptr
+          42 | At(0) ↦ nullptr
 
-          • List query:
-          At(["/a", "/b"])  * {"a": 42, "b": 13} == [42, 13]
-          At([""])          * 42 ==  [42]
+          **Array slice**:
 
-          • Object query:
-          At({"f": "/a", "g": "/b"})  * {"a": 42, "b": 13} == {"f": 42, "g": 13}
-          At({"$/b": "/a"})           * {"a": 42, "b": 13} == {"13": 42}
+          [1,2,3,4,5,6,7,8] | At("::2")     ↦ [1,3,5,7]
+          [1,2,3,4,5,6,7,8] | At("4:")      ↦ [5,6,7,8]
+          [1,2,3,4,5,6,7,8] | At("-1:0:-1") ↦ [8,7,6,5,4,3,2,1]
 
-          • Slice query:
-          At("::2")     * [1,2,3,4,5,6,7,8] == [1,3,5,7]
-          At("4:")      * [1,2,3,4,5,6,7,8] == [5,6,7,8]
-          At("-1:0:-1") * [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]
+          **JSON Pointer**:
+
+          "foo" | At("")   ↦ "foo"
+          {"a": 42, "b": 13} | At("/a") ↦ 42
+
+          **Array pack**:
+
+          {"a": 42, "b": 13} | At(["/a", "/b"])  ↦ [42, 13]
+          42 | At([""])          ↦  [42]
+
+          **Object pack**:
+
+          {"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  ↦ {"f": 42, "g": 13}
+          {"a": 42, "b": 13} | At({"$/b": "/a"})           ↦ {"13": 42}
+
 
       - name: lookup
         signature: Binary
@@ -1020,8 +1034,8 @@ keyword_groups:
 
         codomain: any
         examples: |-
-          Lookup([1,2,3]) * 0 ==  1
-          Lookup([1,2,3]) * "/foo" ==  null
+          0 | Lookup([1,2,3]) ↦  1
+          "/foo" | Lookup([1,2,3]) ↦  null
 
 
       - name: c
@@ -1030,11 +1044,10 @@ keyword_groups:
         details: |-
           Produced expression will return the design-time parameter
           on evaluation, ignoring input.
-          C(x) is a shorthand for x|Id or And(false)|Or(x)
         domain: [any, any]
         codomain: any
         examples: |-
-          C(42) * 13 == 42
+          13 | C(42) ↦ 42
 
       - name: decorate
         signature: Special
@@ -1063,14 +1076,14 @@ keyword_groups:
         brief: Reduce sequence with binary operator
         details: |-
           To set specific initial value, use composition with Push, e.g.
-          Push(0)|Reduce(Add)
+          `Push(0) | Reduce(Add)`
 
           For reverse operation, see Unfold
         domain: [list, fn]
         codomain: any
         examples: |-
-          Reduce(Add) * [-1, 2, 3] ==  4
-          Reduce(Mul) * [-1, 2, 3] == -6
+          [-1, 2, 3] | Reduce(Add) ↦  4
+          [-1, 2, 3] | Reduce(Mul) ↦ -6
 
       - name: map
         signature: Binary
@@ -1078,7 +1091,7 @@ keyword_groups:
         domain: [list, fn]
         codomain: list
         examples: |-
-          Map(Add(1)) * [1, 2, 3] == [2, 3, 4]
+          [1, 2, 3] | Map(Add(1)) ↦ [2, 3, 4]
 
 
       - name: filter
@@ -1088,7 +1101,7 @@ keyword_groups:
         domain: [list, predicate]
         codomain: list
         examples: |-
-          Filter(Gt(2)) * [1, 2, 3, 4] == [3, 4]
+          [1, 2, 3, 4] | Filter(Gt(2)) ↦ [3, 4]
 
       - name: count
         signature: Binary
@@ -1097,18 +1110,18 @@ keyword_groups:
         literals-as-eq: true
         codomain: uint
         examples: |-
-          Count(Gt(2)) * [1, 2, 3, 4] == 2
+          [1, 2, 3, 4] | Count(Gt(2)) ↦ 2
 
       - name: each
         signature: Binary
         brief: Test predicate for each item in a sequence
-        details: Equivalent to Count(p|Not)|Eq(0)
+        details: Equivalent to `Count(p | Not) | Eq(0)`
         literals-as-eq: true
         domain: [list, predicate]
         codomain: bool
         examples: |-
-          Each(Gt(2)) * [1, 2, 3, 4] == false
-          Slide(2)|Each(Lt) * [1, 2, 3, 4] == true
+          [1, 2, 3, 4] | Each(Gt(2)) ↦ false
+          [1, 2, 3, 4] | Slide(2) | Each(Lt) ↦ true
 
       - name: sort
         signature: Binary
@@ -1117,10 +1130,10 @@ keyword_groups:
         default: Id
         codomain: list
         examples: |-
-          Sort * [3, 1, 2] == [1, 2, 3]
-          Sort(Id) * [3, 1, 2] == [1, 2, 3]
-          Sort(Abs) * [-3, 1, -2] == [1, -2, -3]
-          Sort|Reverse * [3, 1, 2] == [3, 2, 1]
+          [3, 1, 2] | Sort ↦ [1, 2, 3]
+          [3, 1, 2] | Sort(Id) ↦ [1, 2, 3]
+          [-3, 1, -2] | Sort(Abs) ↦ [1, -2, -3]
+          [3, 1, 2] | Sort | Reverse ↦ [3, 2, 1]
 
       - name: min
         signature: Binary
@@ -1129,8 +1142,8 @@ keyword_groups:
         default: Id
         codomain: any
         examples: |-
-          Min      * [-3, 1, -2] ==  1
-          Min(Abs) * [-3, 1, -2] == -3
+          [-3, 1, -2] | Min      ↦  1
+          [-3, 1, -2] | Min(Abs) ↦ -3
 
       - name: max
         signature: Binary
@@ -1139,8 +1152,8 @@ keyword_groups:
         default: Id
         codomain: any
         examples: |-
-          Max      * [-3, 1, -2] ==  1
-          Max(Abs) * [-3, 1, -2] == -3
+          [-3, 1, -2] | Max      ↦  1
+          [-3, 1, -2] | Max(Abs) ↦ -3
 
       - name: argmin
         signature: Binary
@@ -1149,8 +1162,8 @@ keyword_groups:
         default: Id
         codomain: uint
         examples: |-
-          Argmin      * [-3, 1, -2] == 0
-          Argmin(Abs) * [-3, 1, -2] == 1
+          [-3, 1, -2] | Argmin      ↦ 0
+          [-3, 1, -2] | Argmin(Abs) ↦ 1
 
       - name: argmax
         signature: Binary
@@ -1159,39 +1172,41 @@ keyword_groups:
         default: Id
         codomain: uint
         examples: |-
-          Argmax      * [-3, 1, -2] == 1
-          Argmax(Abs) * [-3, 1, -2] == 0
+          [-3, 1, -2] | Argmax      ↦ 1
+          [-3, 1, -2] | Argmax(Abs) ↦ 0
 
       - name: recur
         signature: Ternary
         brief: Apply recursion to parameter expr and initial value
-        details: Recur(f, x) * n = ◯ⁿ f(x)
+        details: |-
+          `n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
         domain: any
         codomain: any
         params:
           - type: fn
           - label: initial
         examples: |-
-          Recur(Add(1), 0)  * 0 ==  3
-          Recur(Mul(-1), 1) * 3 == -1
+          0 | Recur(Add(1), 0)  ↦  3
+          3 | Recur(Mul(-1), 1) ↦ -1
 
       - name: unfold
         signature: Ternary
         brief: Put results of recursive fn call on initial value into an array
-        details: Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]
+        details: |-
+          `n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
         domain: any
         codomain: list
         params:
           - type: fn
           - label: initial
         examples: |-
-          Unfold(Add(1),  0) * 3 ==  [0, 1, 2, 3]
-          Unfold(Mul(-1), 1) * 3 ==  [1,-1, 1,-1]
+          3 | Unfold(Add(1),  0) ↦  [0, 1, 2, 3]
+          3 | Unfold(Mul(-1), 1) ↦  [1,-1, 1,-1]
 
       - name: overload
         aliases: [ op ]
         signature: Special
-        brief: Bind type-specific operator handler to parameter function
+        brief: Bind type-specific operator handler to function
         details: |-
           Expression Overload(f, op) instructs f to use operator op on
           invocation instead of the default generic.
@@ -1204,7 +1219,7 @@ keyword_groups:
           - type: fn
           - label: operator
         examples: |-
-          Overload(Add(1), "complex") * [0.5, 2] == [1.5, 2]
+          [0.5, 2] | Overload(Add(1), "complex") ↦ [1.5, 2]
 
       - name: bind
         signature: Variadic
@@ -1224,8 +1239,8 @@ keyword_groups:
           - label: predicates
             type: list[predicate]
         examples: |-
-          Any(Gt(2), Lt(0)) * 3 == true
-          Any(Gt(2), Lt(0)) * 0 == false
+          3 | Any(Gt(2), Lt(0)) ↦ true
+          0 | Any(Gt(2), Lt(0)) ↦ false
 
       - name: all
         signature: Variadic
@@ -1237,8 +1252,8 @@ keyword_groups:
           - label: predicates
             type: list[predicate]
         examples: |-
-          All(Gt(2), Lt(0)) * 3 == false
-          All(Gt(2), Lt(3)) * 2.5 == true
+          3 | All(Gt(2), Lt(0)) ↦ false
+          2.5 | All(Gt(2), Lt(3)) ↦ true
 
       - name: saturate
         signature: Variadic
@@ -1250,12 +1265,12 @@ keyword_groups:
           - label: predicates
             type: list[predicate]
         examples: |-
-          Saturate(Gt(2), Lt(0)) * 3 == true
-          Saturate(Gt(2), Lt(0)) * 0 == false
+          3 | Saturate(Gt(2), Lt(0)) ↦ true
+          0 | Saturate(Gt(2), Lt(0)) ↦ false
 
-          Saturate(42, Mod(2)|0) * [2,4,8,42,1,2] == true
-          Saturate(42, Mod(2)|0) * [2,4,8,41,2]   == false
-          Saturate(42, Mod(2)|0) * [2,4,8,42]     == false
+          [2,4,8,42,1,2] | Saturate(42, Mod(2)|0) ↦ true
+          [2,4,8,41,2] | Saturate(42, Mod(2)|0) ↦ false
+          [2,4,8,42] | Saturate(42, Mod(2)|0) ↦ false
 
       - name: compose
         signature: Variadic
@@ -1267,14 +1282,15 @@ keyword_groups:
           - label: functions
             type: list[expr]
         examples: |-
-          Compose(Add(1), Mul(2)) * 3 == 7
-          Compose(Add(1), Mul(2)) * 4 == 9
+          3 | Compose(Add(1), Mul(2)) ↦ 7
+          4 | Compose(Add(1), Mul(2)) ↦ 9
 
-          • Infix operator form (pipe):
-          Add(1)|Mul(2) ≡ Compose(Add(1), Mul(2))
-          Add(1)|Mul(2) * 3 == 7
+          **Infix operator form (pipe)**:
 
-      - name: pack
+          Add(1) | Mul(2) ≡ Compose(Mul(2), Add(1))
+          3 | Add(1) | Mul(2) ↦ 7
+
+      - name: fork
         signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
@@ -1285,45 +1301,47 @@ keyword_groups:
           - label: functions
             type: list[expr]
         examples: |-
-          Pack(Reduce(Add), Size) * [1,2,3] == [6,3]
+          [1,2,3] | Fork(Reduce(Add), Size) ↦ [6,3]
 
-          • Infix operator form (ampersand):
-          Reduce(Add) & Size * [1,2,3] == [6,3]
-          Reduce(Add) & Size | Div * [1,2,3] == 2
+          **Infix operator form (ampersand):**
+
+          Add(1) & Mul(2) ≡ Fork(Add(1), Mul(2))
+          [1,2,3] | Reduce(Add) & Size ↦ [6,3]
+          [1,2,3] | Reduce(Add) & Size | Div ↦ 2
 
       - name: flip
         signature: Binary
-        brief: Flips design-time and eval-time parameters for enveloped expression.
+        brief: Flips design-time and eval-time parameters.
         details: |-
-          Useful for binding lhs operands to non-commutative operators.
-          Unlike Haskell's flip, won't change the order or eval-time parameters
-          - for that case use the Reverse keyword instead.
+          Useful for binding lhs operands to non-commutative
+          operators. Unlike Haskell's flip, won't change the
+          order or eval-time parameters - for that case use
+          the Reverse keyword instead.
         domain: [fn, any]
         codomain: any
         examples: |-
-          Div(1) * 2 == 2
-          Flip(Div(1)) * 2 == 0.5
+          2 | Div(1) ↦ 2
+          2 | Flip(Div(1)) ↦ 0.5
 
 
       - name: try
         signature: Binary
-        brief: Evaluate enveloped function and return result or null if it throws
+        brief: Evaluate function and return result or null if it throws
         domain: [fn, any]
         examples: |-
-          Try(Add(1)) * 42    == 43
-          Try(Add(1)) * "foo" == null
+          42 | Try(Add(1)) ↦ 43
+          "foo" | Try(Add(1)) ↦ null
 
       - name: try-catch
         signature: Binary
-        brief: Evaluate enveloped function and return result or error info if it throws
+        brief: Evaluate function and return result or error info if it throws
         domain: [fn, any]
         examples: |-
-          TryCatch(Div(0)) * 42 == {
+          `42 | TryCatch(Div(0))` $\mapsto$ `{
               "err": "zero division",
               "fn": ":div",
-              "x": 42,
-              "op": ""
-          }
+              "x": 42
+          }`
 
   Evaluation handlers:
     defaults:
@@ -1338,13 +1356,13 @@ keyword_groups:
         codegen-value:
           cxx: 'x.is_null() ? params() : x'
         examples: |-
-          Default(42) * null == 42
-          Default(42) * 13 == 13
+          null | Default(42) ↦ 42
+          13 | Default(42) ↦ 13
 
       - name: error
         brief: Error
         signature: Special
         details: |-
-          Error object
+          Error object (work in progress)
         codegen-value:
           cxx: underlying()

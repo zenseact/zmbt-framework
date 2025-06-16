@@ -279,7 +279,7 @@ std::vector<TestEvalSample> const TestSamples
     {Slide(42)                  , L{}                   , L{}                   },
     {Try(Slide(-1))             , L{}                   , nullptr               },
 
-    {Pack(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
+    {Fork(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
     {(Size|4) & Size & Card     , {2,2,3,3}             , {true, 4, 2}          },
     {At(0) & At(1) & At(2)      , {1,2,3}               , {1,2,3}               },
     {Reduce(Add) & Size | Div   , {2,2,3,3}             , 2.5                   },

@@ -17,43 +17,26 @@
 
 ## @group
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        @if 'Operators' in group:
-        <th>Symbol</th>
-        @end
-        <th>Description</th>
-        <th>Syntax</th>
-        @if group not in ('Constants', 'Math Functions'):
-        <th>Examples</th>
-        @end
-    </tr>
-<thead>
-<tbody>
 @for keyword in data.GetGroup(group):
-    <tr>
-        <td><a id ="@keyword.Enum.lower()"> @keyword.Enum
-        </td>
-    @if 'Operators' in group:
-        <td>@keyword.Symbol</td>
-    @end
-        <td>@keyword.DocBrief
-    @if details := keyword.DocDetails:
-        <pre>@details</pre>
-    @end
-    @if aliases := keyword.Aliases:
-        <br>Aliases: @{", ".join(aliases)}
-    @end
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">@keyword.Signature</a></td>
-    @if group not in ('Constants', 'Math Functions'):
-        @if examples := keyword.Examples:
-        <td><pre>@examples</pre></td>
-        @end
-    @end
-    </tr>
+### @keyword.Enum
+
+*Signature*: [@keyword.Signature](/user-guide/expressions/#syntax)
+
+@if aliases := keyword.Aliases:
+*Aliases*: @{", ".join(aliases)}
 @end
-</tbody></table>
+
+@keyword.DocBrief
+
+@if details := keyword.DocDetails:
+@details
+@end
+
+@if examples := keyword.Examples:
+*Examples*:
+
+@examples
+@end
+
+@end
 @end

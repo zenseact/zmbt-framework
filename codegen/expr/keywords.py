@@ -13,6 +13,16 @@ class Keyword:
         self._definition = definition
         self._backend = backend
 
+        if 'examples' in definition:
+            examples: str = definition['examples']
+            lines = []
+            for line in examples.splitlines(keepends=False):
+                if '↦' in line or '≡' in line:
+                    line = line.replace('↦', '`$\mapsto$`').replace('≡', '`$\equiv$`')
+                    line = f" * `{line}`"
+                lines.append(line)
+            definition['examples'] = '\n'.join(lines)
+
     @staticmethod
     def map(signature, definitions):
         return map(lambda d: Keyword(signature, d), definitions)

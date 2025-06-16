@@ -116,7 +116,7 @@ public:
     /// s.t. `a | b` is equivalent to `Compose(b, a)`. \see zmbt::expr::Compose
     friend Expression operator|(Expression const& lhs, Expression const& rhs);
 
-    /// \brief Pack expression results into an array. \see zmbt::expr::Pack.
+    /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
     friend Expression operator&(Expression const& lhs, Expression const& rhs);
 
     /// \brief Evaluate x to lhs expression.

@@ -796,7 +796,7 @@ V eval_impl<Keyword::Avg>(V const& x, V const& param, E::EvalContext const& cont
 }
 
 template <>
-V eval_impl<Keyword::Pack>(V const& x, V const& param, E::EvalContext const& context)
+V eval_impl<Keyword::Fork>(V const& x, V const& param, E::EvalContext const& context)
 {
     static_cast<void>(context);
     ASSERT(param.is_array());
@@ -1269,7 +1269,7 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
         case Keyword::Saturate: return eval_impl<Keyword::Saturate>(*x_ptr, *param_ptr, context);
         case Keyword::Try:      return eval_impl<Keyword::Try>     (*x_ptr, *param_ptr, context);
         case Keyword::TryCatch: return eval_impl<Keyword::TryCatch>(*x_ptr, *param_ptr, context);
-        case Keyword::Pack:     return eval_impl<Keyword::Pack>    (*x_ptr, *param_ptr, context);
+        case Keyword::Fork:     return eval_impl<Keyword::Fork>    (*x_ptr, *param_ptr, context);
         case Keyword::Flip:     return eval_impl<Keyword::Flip>    (*x_ptr, *param_ptr, context);
         case Keyword::Sort:     return eval_impl<Keyword::Sort>    (*x_ptr, *param_ptr, context);
         case Keyword::Argmin:   return eval_impl<Keyword::Argmin>  (*x_ptr, *param_ptr, context);

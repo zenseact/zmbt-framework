@@ -15,516 +15,604 @@
 
 ## Constants
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="noop"> Noop
-        </td>
-        <td>No operation
-        <pre>Returns true without input validation.
-Used in place of matchers for uninteresting signals.</pre>
-        <br>Aliases: _
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="null"> Null
-        </td>
-        <td>Null value
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="true"> True
-        </td>
-        <td>Logical true
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="false"> False
-        </td>
-        <td>Logical false
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="pi"> Pi
-        </td>
-        <td>Pi constant
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="e"> E
-        </td>
-        <td>Euler's number
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="inf"> Inf
-        </td>
-        <td>Infinity
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="eps"> Eps
-        </td>
-        <td>Machine epsilon
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="nan"> NaN
-        </td>
-        <td>Not a number
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-    <tr>
-        <td><a id ="thread"> Thread
-        </td>
-        <td>Thread id
-        <pre>Not really a constant, but useful for
-branching the test input conditions.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Const</a></td>
-    </tr>
-</tbody></table>
+### Noop
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+*Aliases*: _
+
+No operation
+
+Returns true without input validation.
+Used in place of matchers for uninteresting signals.
+
+
+### Null
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Null value
+
+
+
+### True
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Logical true
+
+
+
+### False
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Logical false
+
+
+
+### Pi
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Pi constant
+
+
+
+### E
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Euler's number
+
+
+
+### Inf
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Infinity
+
+
+
+### Eps
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Machine epsilon
+
+
+
+### NaN
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Not a number
+
+
+
+### Thread
+
+*Signature*: [Const](/user-guide/expressions/#syntax)
+
+
+Thread id
+
+Not really a constant, but useful for
+branching the test input conditions.
+
+
 
 ## Math Functions
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="sin"> Sin
-        </td>
-        <td>Sinus
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="cos"> Cos
-        </td>
-        <td>Cosinus
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="tan"> Tan
-        </td>
-        <td>Tangens
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="asin"> Asin
-        </td>
-        <td>Arcsin
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="acos"> Acos
-        </td>
-        <td>Arccos
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="atan"> Atan
-        </td>
-        <td>Arctan
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="sinh"> Sinh
-        </td>
-        <td>Hyperbolic sin
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="cosh"> Cosh
-        </td>
-        <td>Hyperbolic cos
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="tanh"> Tanh
-        </td>
-        <td>Hyperbolic tan
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="asinh"> Asinh
-        </td>
-        <td>Hyperbolic arcsin
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="acosh"> Acosh
-        </td>
-        <td>Hyperbolic arccos
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="atanh"> Atanh
-        </td>
-        <td>Hyperbolic arctan
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="exp"> Exp
-        </td>
-        <td>Exponential (e^x)
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="erf"> Erf
-        </td>
-        <td>Error function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="erfc"> Erfc
-        </td>
-        <td>Error function complement
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="gamma"> Gamma
-        </td>
-        <td>Gamma function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="abs"> Abs
-        </td>
-        <td>Absolute value
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="ceil"> Ceil
-        </td>
-        <td>Ceil
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="floor"> Floor
-        </td>
-        <td>Floor
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="round"> Round
-        </td>
-        <td>Round to nearest integer
-        <pre>Hint: To round to ndigits precision after the decimal point,
-use Mul(ndigits)|Round|Div(ndigits) combo.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="sqrt"> Sqrt
-        </td>
-        <td>Square root
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-    <tr>
-        <td><a id ="sign"> Sign
-        </td>
-        <td>Sign
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-    </tr>
-</tbody></table>
+### Sin
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Sinus function
+
+
+
+### Cos
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Cosinus function
+
+
+
+### Tan
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Tangens function
+
+
+
+### Asin
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Arcsin function
+
+
+
+### Acos
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Arccos function
+
+
+
+### Atan
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Arctan function
+
+
+
+### Sinh
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Hyperbolic sin
+
+
+
+### Cosh
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Hyperbolic cos
+
+
+
+### Tanh
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Hyperbolic tan
+
+
+
+### Asinh
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Hyperbolic arcsin
+
+
+
+### Acosh
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Hyperbolic arccos
+
+
+
+### Atanh
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Hyperbolic arctan
+
+
+
+### Exp
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Exponential (e^x)
+
+
+
+### Erf
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Error function
+
+
+
+### Erfc
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Error function complement
+
+
+
+### Gamma
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Gamma function
+
+
+
+### Abs
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Absolute value
+
+
+
+### Ceil
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Ceil
+
+
+
+### Floor
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Floor
+
+
+
+### Round
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Round to nearest integer
+
+Hint: To round to ndigits precision after the decimal point,
+use `Mul(ndigits) | Round | Div(ndigits)` combo.
+
+
+### Sqrt
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Square root
+
+
+
+### Sign
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Sign
+
+
+
 
 ## Arithmetic Operators
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Symbol</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="neg"> Neg
-        </td>
-        <td></td>
-        <td>Negate
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Neg * 42 == -42</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="add"> Add
-        </td>
-        <td>+</td>
-        <td>Addition
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Add * [2, -1] == 1
-Add(-1) * 2  == 1</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="sub"> Sub
-        </td>
-        <td>-</td>
-        <td>Subtraction
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Sub * [2, 1] == -1
-Sub(1) * 2   == 1</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="mul"> Mul
-        </td>
-        <td>*</td>
-        <td>Multiplication
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Mul * [2, 3] == 6
-Mul(3) * 2   == 6</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="div"> Div
-        </td>
-        <td>/</td>
-        <td>Division
-        <pre>1. [ ] |-> [x, y] |-> x / y
-2. [y] |-> [x]    |-> x / y</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Div * [6, 3] == 2
-Div(3) * 6   == 2</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="pow"> Pow
-        </td>
-        <td></td>
-        <td>To power
-        <pre>X to power p
-  1. [ ] |-> [x, p] |-> x^p
-  2. [p] |-> [x]    |-> x^p</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Pow * [2, 3] == 8
-Pow(3) * 2   == 8</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="log"> Log
-        </td>
-        <td></td>
-        <td>Logarithm
-        <pre>Logarithm with base b:
-  1. [ ] |-> [x, b] |-> log_b(x)
-  2. [b] |-> [x]    |-> log_b(x)</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Log * [8, 2] == 3
-Log(2) * 8   == 3</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="mod"> Mod
-        </td>
-        <td>%</td>
-        <td>Modulo
-        <pre>Modulo of x:
-  1. [ ] |-> [x, m] |-> x % m
-  2. [m] |-> [x]    |-> x % m</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Mod * [7, 4] == 3
-Mod(4) * 7   == 3</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="quot"> Quot
-        </td>
-        <td>//</td>
-        <td>Quotient
-        <pre>Quotient of x:
-  1. [ ] |-> [x, d] |-> x // d
-  2. [d] |-> [x]    |-> x // d</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Quot * [7, 4] == 1
-Quot(4) * 7   == 1</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bitnot"> BitNot
-        </td>
-        <td>~</td>
-        <td>Bitwise not
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>BitNot * 0b1010 == 0b0101</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bitand"> BitAnd
-        </td>
-        <td>&</td>
-        <td>Bitwise and
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitAnd * [0b1010, 0b1100] == 0b1000</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bitor"> BitOr
-        </td>
-        <td>|</td>
-        <td>Bitwise or
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitOr * [0b1010, 0b1100] == 0b1110</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bitxor"> BitXor
-        </td>
-        <td>^</td>
-        <td>Bitwise xor
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitXor * [0b1010, 0b1100] == 0b0110</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bitlshift"> BitLshift
-        </td>
-        <td><<</td>
-        <td>Bitwise left shift
-        <pre>1. [ ] |-> [x, s] |-> x << s
-2. [s] |-> [x]    |-> x << s</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitLshift * [0b1010, 2] == 0b101000</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bitrshift"> BitRshift
-        </td>
-        <td>>></td>
-        <td>Bitwise right shift
-        <pre>1. [ ] |-> [x, s] |-> x * s
-2. [s] |-> [x]    |-> x * s</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>BitRshift * [0b1010, 2] == 0b0010</pre></td>
-    </tr>
-</tbody></table>
+### Neg
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Negate
+
+
+*Examples*:
+
+ * `42 | Neg `$\mapsto$` -42`
+
+### Add
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Addition
+
+
+*Examples*:
+
+ * `[2, -1] | Add `$\mapsto$` 1`
+ * `2 | Add(-1) `$\mapsto$` 1`
+
+### Sub
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Subtraction
+
+
+*Examples*:
+
+ * `[2, 1] | Sub `$\mapsto$` -1`
+ * `2 | Sub(1) `$\mapsto$` 1`
+
+### Mul
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Multiplication
+
+
+*Examples*:
+
+ * `[2, 3] | Mul `$\mapsto$` 6`
+ * `2 | Mul(3) `$\mapsto$` 6`
+
+### Div
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Division
+
+1. $[ ] \mapsto [x, y] \mapsto x / y$
+2. $[y] \mapsto [x]    \mapsto x / y$
+
+*Examples*:
+
+ * `[6, 3] | Div `$\mapsto$` 2`
+ * `6 | Div(3) `$\mapsto$` 2`
+
+### Pow
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+To power
+
+X to power p
+  1. $[ ] \mapsto [x, p] \mapsto x^p$
+  2. $[p] \mapsto [x]    \mapsto x^p$
+
+*Examples*:
+
+ * `[2, 3] | Pow `$\mapsto$` 8`
+ * `2 | Pow(3) `$\mapsto$` 8`
+
+### Log
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Logarithm
+
+Logarithm with base b:
+  1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
+  2. $[b] \mapsto [x]    \mapsto log_b(x)$
+
+*Examples*:
+
+ * `[8, 2] | Log `$\mapsto$` 3`
+ * `8 | Log(2) `$\mapsto$` 3`
+
+### Mod
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Modulo
+
+Modulo of x:
+  1. $[ ] \mapsto [x, m] \mapsto x % m$
+  2. $[m] \mapsto [x]    \mapsto x % m$
+
+*Examples*:
+
+ * `[7, 4] | Mod `$\mapsto$` 3`
+ * `7 | Mod(4) `$\mapsto$` 3`
+
+### Quot
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Quotient
+
+Quotient of x:
+  1. $[ ] \mapsto [x, d] \mapsto x // d$
+  2. $[d] \mapsto [x]    \mapsto x // d$
+
+*Examples*:
+
+ * `[7, 4] | Quot `$\mapsto$` 1`
+ * `7 | Quot(4) `$\mapsto$` 1`
+
+### BitNot
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Bitwise not
+
+
+*Examples*:
+
+ * `0b1010 | BitNot `$\mapsto$` 0b0101`
+
+### BitAnd
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Bitwise and
+
+
+*Examples*:
+
+ * `[0b1010, 0b1100] | BitAnd `$\mapsto$` 0b1000`
+
+### BitOr
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Bitwise or
+
+
+*Examples*:
+
+ * `[0b1010, 0b1100] | BitOr `$\mapsto$` 0b1110`
+
+### BitXor
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Bitwise xor
+
+
+*Examples*:
+
+ * `[0b1010, 0b1100] | BitXor `$\mapsto$` 0b0110`
+
+### BitLshift
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Bitwise left shift
+
+1. $[ ] \mapsto [x, s] \mapsto x \texttt{ << } s$
+2. $[s] \mapsto [x]    \mapsto x \texttt{ << } s$
+
+*Examples*:
+
+ * `[0b1010, 2] | BitLshift `$\mapsto$` 0b101000`
+
+### BitRshift
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Bitwise right shift
+
+1. $[ ] ↦ [x, s] ↦ x \texttt{ >> } s$
+2. $[s] ↦ [x]    ↦ x \texttt{ >> } s$
+
+*Examples*:
+
+ * `[0b1010, 2] | BitRshift `$\mapsto$` 0b0010`
+
 
 ## Relation Operators
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Symbol</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="eq"> Eq
-        </td>
-        <td>=</td>
-        <td>Is equal
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Eq * [1, 1] == true
-Eq(42) * 41 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="ne"> Ne
-        </td>
-        <td>≠</td>
-        <td>Not equal
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Ne * [1, 2] == true
-Ne(42) * 42 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="lt"> Lt
-        </td>
-        <td><</td>
-        <td>Lesser than
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Lt * [1, 2] == true
-Lt(42) * 41 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="le"> Le
-        </td>
-        <td>≤</td>
-        <td>Lesser or equal
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Le * [1, 2] == true
-Le(42) * 42 == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="gt"> Gt
-        </td>
-        <td>></td>
-        <td>Greater than
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Gt * [2, 1] == true
-Gt(42) * 43 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="ge"> Ge
-        </td>
-        <td>≥</td>
-        <td>Greater or equal
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Ge * [2, 1] == true
-Ge(42) * 42 == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="approx"> Approx
-        </td>
-        <td></td>
-        <td>Floating point approximately equal
-        <pre>Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
+### Eq
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Is equal
+
+
+*Examples*:
+
+ * `[1, 1] | Eq `$\mapsto$` true`
+ * `41 | Eq(42) `$\mapsto$` false`
+
+### Ne
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Not equal
+
+
+*Examples*:
+
+ * `[1, 2] | Ne `$\mapsto$` true`
+ * `42 | Ne(42) `$\mapsto$` false`
+
+### Lt
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Lesser than
+
+
+*Examples*:
+
+ * `[1, 2] | Lt `$\mapsto$` true`
+ * `41 | Lt(42) `$\mapsto$` false`
+
+### Le
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Lesser or equal
+
+
+*Examples*:
+
+ * `[1, 2] | Le `$\mapsto$` true`
+ * `42 | Le(42) `$\mapsto$` true`
+
+### Gt
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Greater than
+
+
+*Examples*:
+
+ * `[2, 1] | Gt `$\mapsto$` true`
+ * `43 | Gt(42) `$\mapsto$` false`
+
+### Ge
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Greater or equal
+
+
+*Examples*:
+
+ * `[2, 1] | Ge `$\mapsto$` true`
+ * `42 | Ge(42) `$\mapsto$` true`
+
+### Approx
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: near
+
+Floating point approximately equal
+
+Based on numpy.isclose:
+  abs(x - ref) <= (atol + rtol * abs(ref))
 
 Rhs parameters:
   ref: reference value
@@ -535,407 +623,450 @@ Rhs dynamic evaluation:
   1. ref                -> [ref, default, default]
   2. [ref]              -> [ref, default, default]
   3. [ref, rtol]        -> [ref, rtol   , default]
-  4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]</pre>
-        <br>Aliases: near
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Approx * [42, 42] == true
-Approx(42.0 + 1e-09) * 42 == true
-Approx(42.001) * 42 == false
+  4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]
+
+*Examples*:
+
+ * `[42, 42] | Approx `$\mapsto$` true`
+ * `42 | Approx(42.0 + 1e-09) `$\mapsto$` true`
+ * `42 | Approx(42.001) `$\mapsto$` false`
 
 Relative tolerance 1e-03
-Approx([3.14, 0.001]) * pi == true
+ * `pi | Approx([3.14, 0.001]) `$\mapsto$` true`
 Absolute tolerance 0.01
-Approx([3.14, 0, 0.01]) * pi == true</pre></td>
-    </tr>
-</tbody></table>
+ * `pi | Approx([3.14, 0, 0.01]) `$\mapsto$` true`
+
 
 ## Set Operators
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Symbol</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="union"> Union
-        </td>
-        <td>∪</td>
-        <td>Set union
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Union * [[1, 2], [2, 3]] == [1, 2, 3]
-Union([2, 3]) * [1, 2] == [1, 2, 3]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="intersect"> Intersect
-        </td>
-        <td>∩</td>
-        <td>Set intersection
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Intersect * [[1, 2], [2, 3]] == [2]
-Intersect([2, 3]) * [1, 2] == [2]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="diff"> Diff
-        </td>
-        <td></td>
-        <td>Set difference
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Diff * [[1, 2], [2, 3]] == [1]
-Diff([2, 3]) * [1, 2] == [1]</pre></td>
-    </tr>
-</tbody></table>
+### Union
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Set union
+
+
+*Examples*:
+
+ * `[[1, 2], [2, 3]] | Union `$\mapsto$` [1, 2, 3]`
+ * `[1, 2] | Union([2, 3]) `$\mapsto$` [1, 2, 3]`
+
+### Intersect
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Set intersection
+
+
+*Examples*:
+
+ * `[[1, 2], [2, 3]] | Intersect `$\mapsto$` [2]`
+ * `[1, 2] | Intersect([2, 3]) `$\mapsto$` [2]`
+
+### Diff
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Set difference
+
+
+*Examples*:
+
+ * `[[1, 2], [2, 3]] | Diff `$\mapsto$` [1]`
+ * `[1, 2] | Diff([2, 3]) `$\mapsto$` [1]`
+
 
 ## Set Relation Operators
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Symbol</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="seteq"> SetEq
-        </td>
-        <td>≡</td>
-        <td>Equal as set
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>SetEq * [[1, 2], [2, 1]] == true
-SetEq([2, 1]) * [1, 2] == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="subset"> Subset
-        </td>
-        <td>⊆</td>
-        <td>Is subset
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Subset * [[1, 2], [1, 2, 3]] == true
-Subset([1, 2, 3]) * [1, 2] == true
+### SetEq
 
-Subset * [[1, 2, 3], [2, 3]] == false
-Subset([2, 3]) * [1, 2, 3] == false
+*Signature*: [Binary](/user-guide/expressions/#syntax)
 
-Subset * [[1, 2], []] == true
-Subset * [[], []] == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="superset"> Superset
-        </td>
-        <td>⊇</td>
-        <td>Is superset
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Superset * [[1, 2, 3], [1, 2]] == true
-Superset([1, 2]) * [1, 2, 3] == true
 
-Superset * [[2, 3], [1, 2, 3]] == false
-Superset([1, 2, 3]) * [2, 3] == false
+Equal as set
 
-Superset * [[], [1, 2]] == true
-Superset * [[], []] == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="propersubset"> ProperSubset
-        </td>
-        <td>⊂</td>
-        <td>Is proper subset
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>ProperSubset * [[1, 2], [1, 2, 3]] == true
-ProperSubset([1, 2, 3]) * [1, 2] == true
 
-ProperSubset * [[1, 2, 3], [2, 3]] == false
-ProperSubset([2, 3]) * [1, 2, 3] == false
+*Examples*:
 
-ProperSubset * [[1, 2], []] == true
-ProperSubset * [[], []] == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="propersuperset"> ProperSuperset
-        </td>
-        <td>⊃</td>
-        <td>Is proper superset
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>ProperSuperset * [[1, 2, 3], [1, 2]] == true
-ProperSuperset([1, 2]) * [1, 2, 3] == true
+ * `[[1, 2], [2, 1]] | SetEq `$\mapsto$` true`
+ * `[1, 2] | SetEq([2, 1]) `$\mapsto$` true`
 
-ProperSuperset * [[2, 3], [1, 2, 3]] == false
-ProperSuperset([1, 2, 3]) * [2, 3] == false
+### Subset
 
-ProperSuperset * [[], [1, 2]] == true
-ProperSuperset * [[], []] == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="in"> In
-        </td>
-        <td>∈</td>
-        <td>Element is in
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>In * [1, [1, 2]] == true
-In([1, 2]) * 3 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="notin"> NotIn
-        </td>
-        <td>∉</td>
-        <td>Element is not in
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>NotIn * [3, [1, 2]] == true
-NotIn([1, 2]) * 1 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="ni"> Ni
-        </td>
-        <td>∋</td>
-        <td>Contains element
-        <br>Aliases: contains
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Ni * [[1, 2], 1] == true
-Ni([1, 2]) * 3 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="notni"> NotNi
-        </td>
-        <td>∌</td>
-        <td>Not contains element
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>NotNi * [[1, 2], 3] == true
-NotNi([1, 2]) * 1 == false</pre></td>
-    </tr>
-</tbody></table>
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Is subset
+
+
+*Examples*:
+
+ * `[[1, 2], [1, 2, 3]] | Subset `$\mapsto$` true`
+ * `[1, 2] | Subset([1, 2, 3]) `$\mapsto$` true`
+
+ * `[[1, 2, 3], [2, 3]] | Subset `$\mapsto$` false`
+ * `[1, 2, 3] | Subset([2, 3]) `$\mapsto$` false`
+
+ * `[[1, 2], []] | Subset `$\mapsto$` true`
+ * `[[], []] | Subset `$\mapsto$` true`
+
+### Superset
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Is superset
+
+
+*Examples*:
+
+ * `[[1, 2, 3], [1, 2]] | Superset `$\mapsto$` true`
+ * `[1, 2, 3] | Superset([1, 2]) `$\mapsto$` true`
+
+ * `[[2, 3], [1, 2, 3]] | Superset `$\mapsto$` false`
+ * `[2, 3] | Superset([1, 2, 3]) `$\mapsto$` false`
+
+ * `[[], [1, 2]] | Superset `$\mapsto$` true`
+ * `[[], []] | Superset `$\mapsto$` true`
+
+### ProperSubset
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Is proper subset
+
+
+*Examples*:
+
+ * `[[1, 2], [1, 2, 3]] | ProperSubset `$\mapsto$` true`
+ * `[1, 2] | ProperSubset([1, 2, 3]) `$\mapsto$` true`
+
+ * `[[1, 2, 3], [2, 3]] | ProperSubset `$\mapsto$` false`
+ * `[1, 2, 3] | ProperSubset([2, 3]) `$\mapsto$` false`
+
+ * `[[1, 2], []] | ProperSubset `$\mapsto$` true`
+ * `[[], []] | ProperSubset `$\mapsto$` false`
+
+### ProperSuperset
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Is proper superset
+
+
+*Examples*:
+
+ * `[[1, 2, 3], [1, 2]] | ProperSuperset `$\mapsto$` true`
+ * `[1, 2, 3] | ProperSuperset([1, 2]) `$\mapsto$` true`
+
+ * `[[2, 3], [1, 2, 3]] | ProperSuperset `$\mapsto$` false`
+ * `[2, 3] | ProperSuperset([1, 2, 3]) `$\mapsto$` false`
+
+ * `[[], [1, 2]] | ProperSuperset `$\mapsto$` true`
+ * `[[], []] | ProperSuperset `$\mapsto$` false`
+
+### In
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Element is in
+
+
+*Examples*:
+
+ * `[1, [1, 2]] | In `$\mapsto$` true`
+ * `3 | In([1, 2]) `$\mapsto$` false`
+
+### NotIn
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Element is not in
+
+
+*Examples*:
+
+ * `[3, [1, 2]] | NotIn `$\mapsto$` true`
+ * `1 | NotIn([1, 2]) `$\mapsto$` false`
+
+### Ni
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: contains
+
+Contains element
+
+
+*Examples*:
+
+ * `[[1, 2], 1] | Ni `$\mapsto$` true`
+ * `3 | Ni([1, 2]) `$\mapsto$` false`
+
+### NotNi
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Not contains element
+
+
+*Examples*:
+
+ * `[[1, 2], 3] | NotNi `$\mapsto$` true`
+ * `1 | NotNi([1, 2]) `$\mapsto$` false`
+
 
 ## Branching Operators
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Symbol</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="bool"> Bool
-        </td>
-        <td>?</td>
-        <td>Predicate on boolean transform (aka truthy)
-        <br>Aliases: truthy
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Bool * 42 == true
-Bool * 0 == false
-Bool * "false" == true
-Bool * "" == false
-Bool * [1] == true
-Bool * [] == false
-Bool * {} == false
-Bool * null == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="not"> Not
-        </td>
-        <td></td>
-        <td>Logical complement
-        <br>Aliases: falsy, nil
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Nil * 42 == false
-Nil * 0 == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="and"> And
-        </td>
-        <td>∧</td>
-        <td>Logical and
-        <pre>Generic behavior:
-  if first operand is truthy, returns second operand, otherwise first</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>And * [true, false] == false
-And * [true, true] == true
+### Bool
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+*Aliases*: truthy
+
+Predicate on boolean transform (aka truthy)
+
+
+*Examples*:
+
+ * `42 | Bool `$\mapsto$` true`
+ * `0 | Bool `$\mapsto$` false`
+ * `"false" | Bool `$\mapsto$` true`
+ * `"" | Bool `$\mapsto$` false`
+ * `[1] | Bool `$\mapsto$` true`
+ * `[] | Bool `$\mapsto$` false`
+ * `{} | Bool `$\mapsto$` false`
+ * `null | Bool `$\mapsto$` false`
+
+### Not
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+*Aliases*: falsy, nil
+
+Logical complement
+
+
+*Examples*:
+
+ * `42 | Nil `$\mapsto$` false`
+ * `0 | Nil `$\mapsto$` true`
+
+### And
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Logical and
 
 Generic behavior:
-And * ["foo", [42, 43]] == [42, 43]
-And * [""   , [42, 43]] == ""
+  if first operand is truthy,
+  returns second operand, otherwise first
 
-And(42) * 13 == 42
-And(42) * [] == []
+*Examples*:
 
-If-Else using composition:
-And(42)|Or(13) * true  == 42
-And(42)|Or(13) * false == 13</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="or"> Or
-        </td>
-        <td>∨</td>
-        <td>Logical or
-        <pre>Generic behavior:
-  if first operand is truthy, returns first operand, second otherwise</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Or * [true, false] == true
-Or * [false, false] == false
+ * `[true, false] | And `$\mapsto$` false`
+ * `[true, true] | And `$\mapsto$` true`
+
+**Generic behavior**:
+
+ * `["foo", [42, 43]] | And `$\mapsto$` [42, 43]`
+ * `[""   , [42, 43]] | And `$\mapsto$` ""`
+
+ * `13 | And(42) `$\mapsto$` 42`
+ * `[] | And(42) `$\mapsto$` []`
+
+**If-Else using composition**:
+
+ * `true | And(42) | Or(13) `$\mapsto$` 42`
+ * `false | And(42) | Or(13) `$\mapsto$` 13`
+
+### Or
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Logical or
 
 Generic behavior:
-Or * ["foo", [42, 43]] == "foo"
-Or * [""   , [42, 43]] == [42, 43]
+  if first operand is truthy,
+  returns first operand, second otherwise
 
-Or(42) * 13 == 13
-Or(42) * [] == 42
+*Examples*:
 
-If-Else using composition:
-And(42)|Or(13) * true  == 42
-And(42)|Or(13) * false == 13</pre></td>
-    </tr>
-</tbody></table>
+ * `[true, false] | Or `$\mapsto$` true`
+ * `[false, false] | Or `$\mapsto$` false`
+
+**Generic behavior**:
+
+ * `["foo", [42, 43]] | Or `$\mapsto$` "foo"`
+ * `[""   , [42, 43]] | Or `$\mapsto$` [42, 43]`
+
+ * `13 | Or(42) `$\mapsto$` 13`
+ * `[] | Or(42) `$\mapsto$` 42`
+
+**If-Else using composition**:
+
+ * `true | And(42) | Or(13) `$\mapsto$` 42`
+ * `false | And(42) | Or(13) `$\mapsto$` 13`
+
 
 ## Unary Structural transforms
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="id"> Id
-        </td>
-        <td>Identity function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Id * 42 == 42</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="transp"> Transp
-        </td>
-        <td>Transpose multidimensional list, turning rows into columns
-        <pre>May be used to zip sequences of equal length.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Transp * [[1, 2, 3], [4, 5, 6]] == [[1, 4], [2, 5], [3, 6]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="cartesian"> Cartesian
-        </td>
-        <td>Cartesian product
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Cartesian * [[1, 2], [3, 4]] == [[1, 3], [1, 4], [2, 3], [2, 4]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="reverse"> Reverse
-        </td>
-        <td>Reverse sequence
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Reverse * [1, 2, 3] == [3, 2, 1]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="uniques"> Uniques
-        </td>
-        <td>Filter unique elements
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Uniques * [1, 2, 1, 3, 2] == [1, 2, 3]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="items"> Items
-        </td>
-        <td>Extract key-value pairs from object
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Items * {"a": 1, "b": 2} == [["a", 1], ["b", 2]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="keys"> Keys
-        </td>
-        <td>Extract keys from object
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Keys * {"a": 1, "b": 2} == ["a", "b"]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="values"> Values
-        </td>
-        <td>Extract values from object
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Values * {"a": 1, "b": 2} == [1, 2]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="enumerate"> Enumerate
-        </td>
-        <td>Enumerate sequence
-        <pre>Enumerate sequence with index.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Enumerate * [1, 2, 3] == [[0, 1], [1, 2], [2, 3]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="flatten"> Flatten
-        </td>
-        <td>Flatten nested list
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Flatten * [[1, 2], [3, 4]] == [1, 2, 3, 4]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="tolist"> ToList
-        </td>
-        <td>Put argument into a list
-        <pre>Equivalent to At([""])</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>List * 42 == [42]</pre></td>
-    </tr>
-</tbody></table>
+### Id
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Identity function
+
+
+*Examples*:
+
+ * `42 | Id `$\mapsto$` 42`
+
+### Transp
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Transpose multidimensional list, turning rows into columns
+
+May be used to zip sequences of equal length.
+
+*Examples*:
+
+ * `[[1, 2, 3], [4, 5, 6]] | Transp `$\mapsto$` [[1, 4], [2, 5], [3, 6]]`
+
+### Cartesian
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Cartesian product
+
+
+*Examples*:
+
+ * `[[1, 2], [3, 4]] | Cartesian `$\mapsto$` [[1, 3], [1, 4], [2, 3], [2, 4]]`
+
+### Reverse
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Reverse sequence
+
+
+*Examples*:
+
+ * `[1, 2, 3] | Reverse `$\mapsto$` [3, 2, 1]`
+
+### Uniques
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Filter unique elements
+
+
+*Examples*:
+
+ * `[1, 2, 1, 3, 2] | Uniques `$\mapsto$` [1, 2, 3]`
+
+### Items
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Extract key-value pairs from object
+
+
+*Examples*:
+
+ * `{"a": 1, "b": 2} | Items `$\mapsto$` [["a", 1], ["b", 2]]`
+
+### Keys
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Extract keys from object
+
+
+*Examples*:
+
+ * `{"a": 1, "b": 2} | Keys `$\mapsto$` ["a", "b"]`
+
+### Values
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Extract values from object
+
+
+*Examples*:
+
+ * `{"a": 1, "b": 2} | Values `$\mapsto$` [1, 2]`
+
+### Enumerate
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Enumerate sequence
+
+Enumerate sequence with index.
+
+*Examples*:
+
+ * `[1, 2, 3] | Enumerate `$\mapsto$` [[0, 1], [1, 2], [2, 3]]`
+
+### Flatten
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Flatten nested list
+
+
+*Examples*:
+
+ * `[[1, 2], [3, 4]] | Flatten `$\mapsto$` [1, 2, 3, 4]`
+
+### ToList
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Put argument into a list
+
+Equivalent to At([""])
+
+*Examples*:
+
+ * `42 | List `$\mapsto$` [42]`
+
 
 ## Unary Generators
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="arange"> Arange
-        </td>
-        <td>Generate range of numbers
-        <pre>Return evenly spaced values within a given interval.
+### Arange
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Generate range of numbers
+
+Return evenly spaced values within a given interval.
 
 Parameters:
   1. start: start value
@@ -945,551 +1076,672 @@ Parameters:
 Parameters dynamic evaluation:
   1. stop: int            -> [0, stop, 1]
   2. [start, stop]        -> [start, stop, 1]
-  3. [start, stop, step]  -> [start, stop, step]</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Arange * 6 == [0,1,2,3,4,5]
-Arange * [2,6]     == [2,3,4,5]
-Arange * [1,9,2]   == [1,3,5,7]
-Arange * [5,1,-1]  == [5,4,3,2]
+  3. [start, stop, step]  -> [start, stop, step]
 
-Arange * "2:6"     == [2,3,4,5]
-Arange * "1:9:2"   == [1,3,5,7]
-Arange * "5:1:-1"  == [5,4,3,2]</pre></td>
-    </tr>
-</tbody></table>
+*Examples*:
+
+ * `6 | Arange `$\mapsto$` [0,1,2,3,4,5]`
+ * `[2,6] | Arange `$\mapsto$` [2,3,4,5]`
+ * `[1,9,2] | Arange `$\mapsto$` [1,3,5,7]`
+ * `[5,1,-1] | Arange `$\mapsto$` [5,4,3,2]`
+
+ * `"2:6" | Arange `$\mapsto$` [2,3,4,5]`
+ * `"1:9:2" | Arange `$\mapsto$` [1,3,5,7]`
+ * `"5:1:-1" | Arange `$\mapsto$` [5,4,3,2]`
+
 
 ## String Transforms
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="parse"> Parse
-        </td>
-        <td>Parse string as json
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Parse * '{"a": 42}' == {"a": 42}</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="serialize"> Serialize
-        </td>
-        <td>Serialize json as string
-        <br>Aliases: str
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Serialize * {"a": 42} == '{"a":42}'</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="re"> Re
-        </td>
-        <td>Regular expression match
-        <pre>If input is not a string, match it's serialized form.</pre>
-        <br>Aliases: regex
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Re * ["[0-9]+", "42"] == true
-Re("[0-9]+") * "42" == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="format"> Format
-        </td>
-        <td>Format string with the given parameter list.
-        <pre>Constant expressions are supported for the token list,
-s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"</pre>
-        <br>Aliases: fmt
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Format * ["Hello, %s!", ["world"]] == "Hello, world!"
-Format(2,2,4) * "%d + %d = %d" == "2 + 2 = 4"</pre></td>
-    </tr>
-</tbody></table>
+### Parse
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Parse string as json
+
+
+*Examples*:
+
+ * `'{"a": 42}' | Parse `$\mapsto$` {"a": 42}`
+
+### Serialize
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+*Aliases*: str
+
+Serialize json as string
+
+
+*Examples*:
+
+ * `{"a": 42} | Serialize `$\mapsto$` '{"a":42}'`
+
+### Re
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: regex
+
+Regular expression match
+
+If input is not a string, match it's serialized form.
+
+*Examples*:
+
+ * `["[0-9]+", "42"] | Re `$\mapsto$` true`
+ * `"42" | Re("[0-9]+") `$\mapsto$` true`
+
+### Format
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+*Aliases*: fmt
+
+Format string with the given parameter list.
+
+Constant expressions are supported for the token list,
+s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
+
+*Examples*:
+
+ * `["Hello, %s!", ["world"]] | Format `$\mapsto$` "Hello, world!"`
+ * `"%d + %d = %d" | Format(2,2,4) `$\mapsto$` "2 + 2 = 4"`
+
 
 ## Structural properties
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="card"> Card
-        </td>
-        <td>Set cardinality (uniques count)
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Card * [1, 2, 1, 3, 2] == 3
-Card * {"a": 1, "b": 2} == 2</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="size"> Size
-        </td>
-        <td>Sequence size
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Size * [1, 1, 1] == 3
-Size * {"a": 1, "b": 2} == 2</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="sum"> Sum
-        </td>
-        <td>Summation reduction
-        <pre>Equivalent to Reduce(Add)</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Sum * [1, 2, 3] == 6</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="prod"> Prod
-        </td>
-        <td>Multiplication reduction
-        <pre>Equivalent to Reduce(Mul)</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Prod * [1, 2, 3] == 6</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="avg"> Avg
-        </td>
-        <td>Arythmetic average
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Unary</a></td>
-        <td><pre>Avg * [1, 2, 3] == 2</pre></td>
-    </tr>
-</tbody></table>
+### Card
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Set cardinality (uniques count)
+
+
+*Examples*:
+
+ * `[1, 2, 1, 3, 2] | Card `$\mapsto$` 3`
+ * `{"a": 1, "b": 2} | Card `$\mapsto$` 2`
+
+### Size
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Sequence size
+
+
+*Examples*:
+
+ * `[1, 1, 1] | Size `$\mapsto$` 3`
+ * `{"a": 1, "b": 2} | Size `$\mapsto$` 2`
+
+### Sum
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Summation reduction
+
+Equivalent to Reduce(Add)
+
+*Examples*:
+
+ * `[1, 2, 3] | Sum `$\mapsto$` 6`
+
+### Prod
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Multiplication reduction
+
+Equivalent to Reduce(Mul)
+
+*Examples*:
+
+ * `[1, 2, 3] | Prod `$\mapsto$` 6`
+
+### Avg
+
+*Signature*: [Unary](/user-guide/expressions/#syntax)
+
+
+Arythmetic average
+
+
+*Examples*:
+
+ * `[1, 2, 3] | Avg `$\mapsto$` 2`
+
 
 ## Binary Structural transforms
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="slide"> Slide
-        </td>
-        <td>Sliding-window iteration
-        <pre>Sliding window iteration by specified window width.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Slide(3) * [1,2,3,4,5] == [[1,2,3],[2,3,4],[3,4,5]]
-Slide(42) * [1,2,3,4,5] == []</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="stride"> Stride
-        </td>
-        <td>Striding iteration
-        <pre>Striding iteration by specified step width.
-Reminder subsequence smaller then step width is discarded.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Stride(2) * [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
-Stride(3) * [1,2,3,4,5]   == [[1,2,3]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="chunks"> Chunks
-        </td>
-        <td>Split into chunks of specified max width
-        <pre>Similar to Stride, but includes the last subsequence
-smaller then step width.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Chunks(2) * [1,2,3,4,5,6] == [[1,2],[3,4],[5,6]]
-Chunks(3) * [1,2,3,4,5]   == [[1,2,3],[4,5]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="repeat"> Repeat
-        </td>
-        <td>Repeat value in list
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Repeat(3) * 42 == [42, 42, 42]
-Repeat(3)|Repeat(2) * 1 == [[1,1,1],[1,1,1]]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="concat"> Concat
-        </td>
-        <td>Concatenate sequences
-        <br>Aliases: cat
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Concat * [[1, 2], [3, 4]] == [1, 2, 3, 4]
-Concat("World!") * "Hello, " == "Hello, World!"</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="push"> Push
-        </td>
-        <td>Push element into a front of sequence
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Push * [[1, 2], 3] == [3, 1, 2]
-Push(3) * [1, 2]   == [3, 1, 2]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="at"> At
-        </td>
-        <td>Transform json value with given query
-        <pre>Query evaluation rules:
-  1. q: int   |-> x: list  |-> x at index q (negative -> reverse)
-  2. q: slice |-> x: list  |-> x[start:stop:step]
-  3. q: str   |-> x: any   |-> x at JSON Pointer q
-  4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
-  5. {"key": q1, "$q2": q3, ...} |-> x: any |->
-      { "key1": x at q1, "$(x at q2)": x at q3, ...}</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>• Index query:
-At(2) * [1, 2, 3] == 3
-At(3) * [1, 2, 3] == nullptr
-At(0) * 42 == nullptr
+### Slide
 
-• JSON Pointer query:
-At("")   * "foo" == "foo"
-At("/a") * {"a": 42, "b": 13} == 42
+*Signature*: [Binary](/user-guide/expressions/#syntax)
 
-• List query:
-At(["/a", "/b"])  * {"a": 42, "b": 13} == [42, 13]
-At([""])          * 42 ==  [42]
 
-• Object query:
-At({"f": "/a", "g": "/b"})  * {"a": 42, "b": 13} == {"f": 42, "g": 13}
-At({"$/b": "/a"})           * {"a": 42, "b": 13} == {"13": 42}
+Sliding-window iteration
 
-• Slice query:
-At("::2")     * [1,2,3,4,5,6,7,8] == [1,3,5,7]
-At("4:")      * [1,2,3,4,5,6,7,8] == [5,6,7,8]
-At("-1:0:-1") * [1,2,3,4,5,6,7,8] == [8,7,6,5,4,3,2,1]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="lookup"> Lookup
-        </td>
-        <td>Lookup table function
-        <pre>Parametrized at design time with fixed array or object,
+Sliding window iteration by specified window width.
+
+*Examples*:
+
+ * `[1,2,3,4,5] | Slide(3) `$\mapsto$` [[1,2,3],[2,3,4],[3,4,5]]`
+ * `[1,2,3,4,5] | Slide(42) `$\mapsto$` []`
+
+### Stride
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Striding iteration
+
+Striding iteration by specified step width.
+Reminder subsequence smaller then step width is discarded.
+
+*Examples*:
+
+ * `[1,2,3,4,5,6] | Stride(2) `$\mapsto$` [[1,2],[3,4],[5,6]]`
+ * `[1,2,3,4,5] | Stride(3) `$\mapsto$` [[1,2,3]]`
+
+### Chunks
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Split into chunks of specified max width
+
+Similar to Stride, but includes the last subsequence
+smaller then step width.
+
+*Examples*:
+
+ * `[1,2,3,4,5,6] | Chunks(2) `$\mapsto$` [[1,2],[3,4],[5,6]]`
+ * `[1,2,3,4,5] | Chunks(3) `$\mapsto$` [[1,2,3],[4,5]]`
+
+### Repeat
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Repeat value in list
+
+
+*Examples*:
+
+ * `42 | Repeat(3) `$\mapsto$` [42, 42, 42]`
+ * `1 | Repeat(3) | Repeat(2) `$\mapsto$` [[1,1,1],[1,1,1]]`
+
+### Concat
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: cat
+
+Concatenate sequences
+
+
+*Examples*:
+
+ * `[[1, 2], [3, 4]] | Concat `$\mapsto$` [1, 2, 3, 4]`
+ * `"Hello, " | Concat("World!") `$\mapsto$` "Hello, World!"`
+
+### Push
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Push element into a front of sequence
+
+
+*Examples*:
+
+ * `[[1, 2], 3] | Push `$\mapsto$` [3, 1, 2]`
+ * `[1, 2] | Push(3) `$\mapsto$` [3, 1, 2]`
+
+### At
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Transform json value with given query
+
+Query evaluation rules:
+
+  1. Array index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
+  2. Array slice: $q: slice \mapsto x: list  \mapsto x[start:stop:step]$
+  3. JSON Pointer: $q: str   \mapsto x: any   \mapsto x_q$
+  4. Array pack: $q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]$
+  5. Object pack:
+    $\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}$
+
+*Examples*:
+
+**Array index**:
+
+ * `[1, 2, 3] | At(2) `$\mapsto$` 3`
+ * `[1, 2, 3] | At(3) `$\mapsto$` nullptr`
+ * `42 | At(0) `$\mapsto$` nullptr`
+
+**Array slice**:
+
+ * `[1,2,3,4,5,6,7,8] | At("::2")     `$\mapsto$` [1,3,5,7]`
+ * `[1,2,3,4,5,6,7,8] | At("4:")      `$\mapsto$` [5,6,7,8]`
+ * `[1,2,3,4,5,6,7,8] | At("-1:0:-1") `$\mapsto$` [8,7,6,5,4,3,2,1]`
+
+**JSON Pointer**:
+
+ * `"foo" | At("")   `$\mapsto$` "foo"`
+ * `{"a": 42, "b": 13} | At("/a") `$\mapsto$` 42`
+
+**Array pack**:
+
+ * `{"a": 42, "b": 13} | At(["/a", "/b"])  `$\mapsto$` [42, 13]`
+ * `42 | At([""])          `$\mapsto$`  [42]`
+
+**Object pack**:
+
+ * `{"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  `$\mapsto$` {"f": 42, "g": 13}`
+ * `{"a": 42, "b": 13} | At({"$/b": "/a"})           `$\mapsto$` {"13": 42}`
+
+### Lookup
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Lookup table function
+
+Parametrized at design time with fixed array or object,
 produces the value at corresponding At query given
 as eval-time argument.
-Equivalent to Flip(At(...))</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Lookup([1,2,3]) * 0 ==  1
-Lookup([1,2,3]) * "/foo" ==  null</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="c"> C
-        </td>
-        <td>User-defined constant
-        <pre>Produced expression will return the design-time parameter
+Equivalent to Flip(At(...))
+
+*Examples*:
+
+ * `0 | Lookup([1,2,3]) `$\mapsto$`  1`
+ * `"/foo" | Lookup([1,2,3]) `$\mapsto$`  null`
+
+### C
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: let
+
+User-defined constant
+
+Produced expression will return the design-time parameter
 on evaluation, ignoring input.
-C(x) is a shorthand for x|Id or And(false)|Or(x)</pre>
-        <br>Aliases: let
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>C(42) * 13 == 42</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="decorate"> Decorate
-        </td>
-        <td>Reserialize decorated type as decorator
-        <br>Aliases: cast
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
-    </tr>
-    <tr>
-        <td><a id ="undecorate"> Undecorate
-        </td>
-        <td>Reserialize decorator as decorated type
-        <br>Aliases: uncast
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
-    </tr>
-</tbody></table>
+
+*Examples*:
+
+ * `13 | C(42) `$\mapsto$` 42`
+
+### Decorate
+
+*Signature*: [Special](/user-guide/expressions/#syntax)
+
+*Aliases*: cast
+
+Reserialize decorated type as decorator
+
+
+
+### Undecorate
+
+*Signature*: [Special](/user-guide/expressions/#syntax)
+
+*Aliases*: uncast
+
+Reserialize decorator as decorated type
+
+
+
 
 ## High-Order
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="reduce"> Reduce
-        </td>
-        <td>Reduce sequence with binary operator
-        <pre>To set specific initial value, use composition with Push, e.g.
-Push(0)|Reduce(Add)
+### Reduce
 
-For reverse operation, see Unfold</pre>
-        <br>Aliases: fold
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Reduce(Add) * [-1, 2, 3] ==  4
-Reduce(Mul) * [-1, 2, 3] == -6</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="map"> Map
-        </td>
-        <td>Apply param expr to every element of sequence
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Map(Add(1)) * [1, 2, 3] == [2, 3, 4]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="filter"> Filter
-        </td>
-        <td>Filter sequence by predicate param
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Filter(Gt(2)) * [1, 2, 3, 4] == [3, 4]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="count"> Count
-        </td>
-        <td>Count matches by predicate param
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Count(Gt(2)) * [1, 2, 3, 4] == 2</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="each"> Each
-        </td>
-        <td>Test predicate for each item in a sequence
-        <pre>Equivalent to Count(p|Not)|Eq(0)</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Each(Gt(2)) * [1, 2, 3, 4] == false
-Slide(2)|Each(Lt) * [1, 2, 3, 4] == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="sort"> Sort
-        </td>
-        <td>Sort list by key function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Sort * [3, 1, 2] == [1, 2, 3]
-Sort(Id) * [3, 1, 2] == [1, 2, 3]
-Sort(Abs) * [-3, 1, -2] == [1, -2, -3]
-Sort|Reverse * [3, 1, 2] == [3, 2, 1]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="min"> Min
-        </td>
-        <td>Min value by key function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Min      * [-3, 1, -2] ==  1
-Min(Abs) * [-3, 1, -2] == -3</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="max"> Max
-        </td>
-        <td>Max value by key function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Max      * [-3, 1, -2] ==  1
-Max(Abs) * [-3, 1, -2] == -3</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="argmin"> Argmin
-        </td>
-        <td>Min value index by key function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Argmin      * [-3, 1, -2] == 0
-Argmin(Abs) * [-3, 1, -2] == 1</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="argmax"> Argmax
-        </td>
-        <td>Max value index by key function
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Argmax      * [-3, 1, -2] == 1
-Argmax(Abs) * [-3, 1, -2] == 0</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="recur"> Recur
-        </td>
-        <td>Apply recursion to parameter expr and initial value
-        <pre>Recur(f, x) * n = ◯ⁿ f(x)</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Recur(Add(1), 0)  * 0 ==  3
-Recur(Mul(-1), 1) * 3 == -1</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="unfold"> Unfold
-        </td>
-        <td>Put results of recursive fn call on initial value into an array
-        <pre>Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Ternary</a></td>
-        <td><pre>Unfold(Add(1),  0) * 3 ==  [0, 1, 2, 3]
-Unfold(Mul(-1), 1) * 3 ==  [1,-1, 1,-1]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="overload"> Overload
-        </td>
-        <td>Bind type-specific operator handler to parameter function
-        <pre>Expression Overload(f, op) instructs f to use operator op on
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: fold
+
+Reduce sequence with binary operator
+
+To set specific initial value, use composition with Push, e.g.
+`Push(0) | Reduce(Add)`
+
+For reverse operation, see Unfold
+
+*Examples*:
+
+ * `[-1, 2, 3] | Reduce(Add) `$\mapsto$`  4`
+ * `[-1, 2, 3] | Reduce(Mul) `$\mapsto$` -6`
+
+### Map
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Apply param expr to every element of sequence
+
+
+*Examples*:
+
+ * `[1, 2, 3] | Map(Add(1)) `$\mapsto$` [2, 3, 4]`
+
+### Filter
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Filter sequence by predicate param
+
+
+*Examples*:
+
+ * `[1, 2, 3, 4] | Filter(Gt(2)) `$\mapsto$` [3, 4]`
+
+### Count
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Count matches by predicate param
+
+
+*Examples*:
+
+ * `[1, 2, 3, 4] | Count(Gt(2)) `$\mapsto$` 2`
+
+### Each
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Test predicate for each item in a sequence
+
+Equivalent to `Count(p | Not) | Eq(0)`
+
+*Examples*:
+
+ * `[1, 2, 3, 4] | Each(Gt(2)) `$\mapsto$` false`
+ * `[1, 2, 3, 4] | Slide(2) | Each(Lt) `$\mapsto$` true`
+
+### Sort
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Sort list by key function
+
+
+*Examples*:
+
+ * `[3, 1, 2] | Sort `$\mapsto$` [1, 2, 3]`
+ * `[3, 1, 2] | Sort(Id) `$\mapsto$` [1, 2, 3]`
+ * `[-3, 1, -2] | Sort(Abs) `$\mapsto$` [1, -2, -3]`
+ * `[3, 1, 2] | Sort | Reverse `$\mapsto$` [3, 2, 1]`
+
+### Min
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Min value by key function
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | Min      `$\mapsto$`  1`
+ * `[-3, 1, -2] | Min(Abs) `$\mapsto$` -3`
+
+### Max
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Max value by key function
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | Max      `$\mapsto$`  1`
+ * `[-3, 1, -2] | Max(Abs) `$\mapsto$` -3`
+
+### Argmin
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Min value index by key function
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | Argmin      `$\mapsto$` 0`
+ * `[-3, 1, -2] | Argmin(Abs) `$\mapsto$` 1`
+
+### Argmax
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Max value index by key function
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | Argmax      `$\mapsto$` 1`
+ * `[-3, 1, -2] | Argmax(Abs) `$\mapsto$` 0`
+
+### Recur
+
+*Signature*: [Ternary](/user-guide/expressions/#syntax)
+
+
+Apply recursion to parameter expr and initial value
+
+`n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
+
+*Examples*:
+
+ * `0 | Recur(Add(1), 0)  `$\mapsto$`  3`
+ * `3 | Recur(Mul(-1), 1) `$\mapsto$` -1`
+
+### Unfold
+
+*Signature*: [Ternary](/user-guide/expressions/#syntax)
+
+
+Put results of recursive fn call on initial value into an array
+
+`n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
+
+*Examples*:
+
+ * `3 | Unfold(Add(1),  0) `$\mapsto$`  [0, 1, 2, 3]`
+ * `3 | Unfold(Mul(-1), 1) `$\mapsto$`  [1,-1, 1,-1]`
+
+### Overload
+
+*Signature*: [Special](/user-guide/expressions/#syntax)
+
+*Aliases*: op
+
+Bind type-specific operator handler to function
+
+Expression Overload(f, op) instructs f to use operator op on
 invocation instead of the default generic.
 
 Operator parameter singleton can be referenced with string key
-or constructed in place using type<T> tag.</pre>
-        <br>Aliases: op
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
-        <td><pre>Overload(Add(1), "complex") * [0.5, 2] == [1.5, 2]</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="bind"> Bind
-        </td>
-        <td>!not implemented! bind design-time parameters
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-    </tr>
-    <tr>
-        <td><a id ="any"> Any
-        </td>
-        <td>Match any predicate
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Any(Gt(2), Lt(0)) * 3 == true
-Any(Gt(2), Lt(0)) * 0 == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="all"> All
-        </td>
-        <td>Match all predicates
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>All(Gt(2), Lt(0)) * 3 == false
-All(Gt(2), Lt(3)) * 2.5 == true</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="saturate"> Saturate
-        </td>
-        <td>Saturate matches in order
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Saturate(Gt(2), Lt(0)) * 3 == true
-Saturate(Gt(2), Lt(0)) * 0 == false
+or constructed in place using type<T> tag.
 
-Saturate(42, Mod(2)|0) * [2,4,8,42,1,2] == true
-Saturate(42, Mod(2)|0) * [2,4,8,41,2]   == false
-Saturate(42, Mod(2)|0) * [2,4,8,42]     == false</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="compose"> Compose
-        </td>
-        <td>Compose functions
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Compose(Add(1), Mul(2)) * 3 == 7
-Compose(Add(1), Mul(2)) * 4 == 9
+*Examples*:
 
-• Infix operator form (pipe):
-Add(1)|Mul(2) ≡ Compose(Add(1), Mul(2))
-Add(1)|Mul(2) * 3 == 7</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="pack"> Pack
-        </td>
-        <td>Pack results from enveloped functions into an array
-        <pre>Allows to combine different properties in a single expression</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Variadic</a></td>
-        <td><pre>Pack(Reduce(Add), Size) * [1,2,3] == [6,3]
+ * `[0.5, 2] | Overload(Add(1), "complex") `$\mapsto$` [1.5, 2]`
 
-• Infix operator form (ampersand):
-Reduce(Add) & Size * [1,2,3] == [6,3]
-Reduce(Add) & Size | Div * [1,2,3] == 2</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="flip"> Flip
-        </td>
-        <td>Flips design-time and eval-time parameters for enveloped expression.
-        <pre>Useful for binding lhs operands to non-commutative operators.
-Unlike Haskell's flip, won't change the order or eval-time parameters
-- for that case use the Reverse keyword instead.</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Div(1) * 2 == 2
-Flip(Div(1)) * 2 == 0.5</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="try"> Try
-        </td>
-        <td>Evaluate enveloped function and return result or null if it throws
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Try(Add(1)) * 42    == 43
-Try(Add(1)) * "foo" == null</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="trycatch"> TryCatch
-        </td>
-        <td>Evaluate enveloped function and return result or error info if it throws
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>TryCatch(Div(0)) * 42 == {
+### Bind
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+
+!not implemented! bind design-time parameters
+
+
+
+### Any
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+
+Match any predicate
+
+
+*Examples*:
+
+ * `3 | Any(Gt(2), Lt(0)) `$\mapsto$` true`
+ * `0 | Any(Gt(2), Lt(0)) `$\mapsto$` false`
+
+### All
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+
+Match all predicates
+
+
+*Examples*:
+
+ * `3 | All(Gt(2), Lt(0)) `$\mapsto$` false`
+ * `2.5 | All(Gt(2), Lt(3)) `$\mapsto$` true`
+
+### Saturate
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+
+Saturate matches in order
+
+
+*Examples*:
+
+ * `3 | Saturate(Gt(2), Lt(0)) `$\mapsto$` true`
+ * `0 | Saturate(Gt(2), Lt(0)) `$\mapsto$` false`
+
+ * `[2,4,8,42,1,2] | Saturate(42, Mod(2)|0) `$\mapsto$` true`
+ * `[2,4,8,41,2] | Saturate(42, Mod(2)|0) `$\mapsto$` false`
+ * `[2,4,8,42] | Saturate(42, Mod(2)|0) `$\mapsto$` false`
+
+### Compose
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+
+Compose functions
+
+
+*Examples*:
+
+ * `3 | Compose(Add(1), Mul(2)) `$\mapsto$` 7`
+ * `4 | Compose(Add(1), Mul(2)) `$\mapsto$` 9`
+
+**Infix operator form (pipe)**:
+
+ * `Add(1) | Mul(2) `$\equiv$` Compose(Mul(2), Add(1))`
+ * `3 | Add(1) | Mul(2) `$\mapsto$` 7`
+
+### Fork
+
+*Signature*: [Variadic](/user-guide/expressions/#syntax)
+
+
+Pack results from enveloped functions into an array
+
+Allows to combine different properties in a single expression
+
+*Examples*:
+
+ * `[1,2,3] | Fork(Reduce(Add), Size) `$\mapsto$` [6,3]`
+
+**Infix operator form (ampersand):**
+
+ * `Add(1) & Mul(2) `$\equiv$` Fork(Add(1), Mul(2))`
+ * `[1,2,3] | Reduce(Add) & Size `$\mapsto$` [6,3]`
+ * `[1,2,3] | Reduce(Add) & Size | Div `$\mapsto$` 2`
+
+### Flip
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Flips design-time and eval-time parameters.
+
+Useful for binding lhs operands to non-commutative
+operators. Unlike Haskell's flip, won't change the
+order or eval-time parameters - for that case use
+the Reverse keyword instead.
+
+*Examples*:
+
+ * `2 | Div(1) `$\mapsto$` 2`
+ * `2 | Flip(Div(1)) `$\mapsto$` 0.5`
+
+### Try
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Evaluate function and return result or null if it throws
+
+
+*Examples*:
+
+ * `42 | Try(Add(1)) `$\mapsto$` 43`
+ * `"foo" | Try(Add(1)) `$\mapsto$` null`
+
+### TryCatch
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+
+Evaluate function and return result or error info if it throws
+
+
+*Examples*:
+
+`42 | TryCatch(Div(0))` $\mapsto$ `{
     "err": "zero division",
     "fn": ":div",
-    "x": 42,
-    "op": ""
-}</pre></td>
-    </tr>
-</tbody></table>
+    "x": 42
+}`
+
 
 ## Evaluation handlers
 
-<table>
-<thead>
-    <tr>
-        <th>Keyword</th>
-        <th>Description</th>
-        <th>Syntax</th>
-        <th>Examples</th>
-    </tr>
-<thead>
-<tbody>
-    <tr>
-        <td><a id ="default"> Default
-        </td>
-        <td>Return x if not null, else return default value
-        <br>Aliases: d
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Binary</a></td>
-        <td><pre>Default(42) * null == 42
-Default(42) * 13 == 13</pre></td>
-    </tr>
-    <tr>
-        <td><a id ="error"> Error
-        </td>
-        <td>Error
-        <pre>Error object</pre>
-        </td>
-        <td><a href="/user-guide/expressions/#syntax">Special</a></td>
-    </tr>
-</tbody></table>
+### Default
+
+*Signature*: [Binary](/user-guide/expressions/#syntax)
+
+*Aliases*: d
+
+Return x if not null, else return default value
+
+
+*Examples*:
+
+ * `null | Default(42) `$\mapsto$` 42`
+ * `13 | Default(42) `$\mapsto$` 13`
+
+### Error
+
+*Signature*: [Special](/user-guide/expressions/#syntax)
+
+
+Error
+
+Error object (work in progress)
+
+

@@ -1098,11 +1098,11 @@ We can add negation at the matcher end as `| Not` to fail the test and check the
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: {":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}
+      expected: {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}
       observed: [1,2,3,4]
       condition: [3,1]
       comment: "Computing average"
-      test vector: [{":apply":[":arange","1:5"]},{":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}]
+      test vector: [{":apply":[":arange","1:5"]},{":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}]
       expression eval stack: |-
         ---
                  ┌── ":add"([1,2]) = 3
@@ -1110,11 +1110,11 @@ We can add negation at the matcher end as `| Not` to fail the test and check the
                  ├── ":add"([6,4]) = 10
               ┌── {":reduce":":add"}([1,2,3,4]) = 10
               ├── ":size"([1,2,3,4]) = 4
-           ┌── {":pack":[{":reduce":":add"},":size"]}([1,2,3,4]) = [10,4]
+           ┌── {":fork":[{":reduce":":add"},":size"]}([1,2,3,4]) = [10,4]
            ├── ":div"([10,4]) = 2.5E0
            ├── {":eq":2.5E0}(2.5E0) = true
            ├── ":not"(true) = false
-        □  {":compose":[":not",{":eq":2.5E0},":div",{":pack":[{":reduce":":add"},":size"]}]}([1,2,3,4]) = false
+        □  {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}([1,2,3,4]) = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.

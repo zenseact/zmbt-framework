@@ -61,22 +61,22 @@ extern lang::SignatureConst<::zmbt::lang::Keyword::NaN> const NaN;
 /// branching the test input conditions.
 extern lang::SignatureConst<::zmbt::lang::Keyword::Thread> const Thread;
 
-/// \brief Sinus
+/// \brief Sinus function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Sin> const Sin;
 
-/// \brief Cosinus
+/// \brief Cosinus function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Cos> const Cos;
 
-/// \brief Tangens
+/// \brief Tangens function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Tan> const Tan;
 
-/// \brief Arcsin
+/// \brief Arcsin function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Asin> const Asin;
 
-/// \brief Arccos
+/// \brief Arccos function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Acos> const Acos;
 
-/// \brief Arctan
+/// \brief Arctan function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Atan> const Atan;
 
 /// \brief Hyperbolic sin
@@ -121,7 +121,7 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Floor> const Floor;
 /// \brief Round to nearest integer
 /// \details
 /// Hint: To round to ndigits precision after the decimal point,
-/// use Mul(ndigits)|Round|Div(ndigits) combo.
+/// use `Mul(ndigits) | Round | Div(ndigits)` combo.
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Round> const Round;
 
 /// \brief Square root
@@ -144,36 +144,36 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Mul> const Mul;
 
 /// \brief Division
 /// \details
-/// 1. [ ] |-> [x, y] |-> x / y
-/// 2. [y] |-> [x]    |-> x / y
+/// 1. $[ ] \mapsto [x, y] \mapsto x / y$
+/// 2. $[y] \mapsto [x]    \mapsto x / y$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Div> const Div;
 
 /// \brief To power
 /// \details
 /// X to power p
-///   1. [ ] |-> [x, p] |-> x^p
-///   2. [p] |-> [x]    |-> x^p
+///   1. $[ ] \mapsto [x, p] \mapsto x^p$
+///   2. $[p] \mapsto [x]    \mapsto x^p$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Pow> const Pow;
 
 /// \brief Logarithm
 /// \details
 /// Logarithm with base b:
-///   1. [ ] |-> [x, b] |-> log_b(x)
-///   2. [b] |-> [x]    |-> log_b(x)
+///   1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
+///   2. $[b] \mapsto [x]    \mapsto log_b(x)$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Log> const Log;
 
 /// \brief Modulo
 /// \details
 /// Modulo of x:
-///   1. [ ] |-> [x, m] |-> x % m
-///   2. [m] |-> [x]    |-> x % m
+///   1. $[ ] \mapsto [x, m] \mapsto x % m$
+///   2. $[m] \mapsto [x]    \mapsto x % m$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Mod> const Mod;
 
 /// \brief Quotient
 /// \details
 /// Quotient of x:
-///   1. [ ] |-> [x, d] |-> x // d
-///   2. [d] |-> [x]    |-> x // d
+///   1. $[ ] \mapsto [x, d] \mapsto x // d$
+///   2. $[d] \mapsto [x]    \mapsto x // d$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Quot> const Quot;
 
 /// \brief Bitwise not
@@ -190,14 +190,14 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::BitXor> const BitXor;
 
 /// \brief Bitwise left shift
 /// \details
-/// 1. [ ] |-> [x, s] |-> x << s
-/// 2. [s] |-> [x]    |-> x << s
+/// 1. $[ ] \mapsto [x, s] \mapsto x \texttt{ << } s$
+/// 2. $[s] \mapsto [x]    \mapsto x \texttt{ << } s$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitLshift> const BitLshift;
 
 /// \brief Bitwise right shift
 /// \details
-/// 1. [ ] |-> [x, s] |-> x * s
-/// 2. [s] |-> [x]    |-> x * s
+/// 1. $[ ] ↦ [x, s] ↦ x \texttt{ >> } s$
+/// 2. $[s] ↦ [x]    ↦ x \texttt{ >> } s$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::BitRshift> const BitRshift;
 
 /// \brief Is equal
@@ -220,7 +220,8 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Ge> const Ge;
 
 /// \brief Floating point approximately equal
 /// \details
-/// Based on numpy.isclose: abs(x - ref) <= (atol + rtol * abs(ref))
+/// Based on numpy.isclose:
+///   abs(x - ref) <= (atol + rtol * abs(ref))
 /// 
 /// Rhs parameters:
 ///   ref: reference value
@@ -289,13 +290,15 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Not> const Nil;
 /// \brief Logical and
 /// \details
 /// Generic behavior:
-///   if first operand is truthy, returns second operand, otherwise first
+///   if first operand is truthy,
+///   returns second operand, otherwise first
 extern lang::SignatureBinary<::zmbt::lang::Keyword::And> const And;
 
 /// \brief Logical or
 /// \details
 /// Generic behavior:
-///   if first operand is truthy, returns first operand, second otherwise
+///   if first operand is truthy,
+///   returns first operand, second otherwise
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Or> const Or;
 
 /// \brief Identity function
@@ -370,7 +373,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Regex;
 /// \brief Format string with the given parameter list.
 /// \details
 /// Constant expressions are supported for the token list,
-/// s.t. "%s"|Fmt(Pi)  produces "3.141592653589793E0"
+/// s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Format> const Format;
 /// \brief Alias for Format
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Format> const Fmt;
@@ -425,12 +428,13 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Push> const Push;
 /// \brief Transform json value with given query
 /// \details
 /// Query evaluation rules:
-///   1. q: int   |-> x: list  |-> x at index q (negative -> reverse)
-///   2. q: slice |-> x: list  |-> x[start:stop:step]
-///   3. q: str   |-> x: any   |-> x at JSON Pointer q
-///   4. q: list  |-> x: any   |-> [x at q1, x at q2, ...]
-///   5. {"key": q1, "$q2": q3, ...} |-> x: any |->
-///       { "key1": x at q1, "$(x at q2)": x at q3, ...}
+/// 
+///   1. Array index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
+///   2. Array slice: $q: slice \mapsto x: list  \mapsto x[start:stop:step]$
+///   3. JSON Pointer: $q: str   \mapsto x: any   \mapsto x_q$
+///   4. Array pack: $q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]$
+///   5. Object pack:
+///     $\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::At> const At;
 
 /// \brief Lookup table function
@@ -445,7 +449,6 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 /// \details
 /// Produced expression will return the design-time parameter
 /// on evaluation, ignoring input.
-/// C(x) is a shorthand for x|Id or And(false)|Or(x)
 extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const C;
 /// \brief Alias for C
 extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const Let;
@@ -463,7 +466,7 @@ extern lang::SignatureUndecorate const Uncast;
 /// \brief Reduce sequence with binary operator
 /// \details
 /// To set specific initial value, use composition with Push, e.g.
-/// Push(0)|Reduce(Add)
+/// `Push(0) | Reduce(Add)`
 /// 
 /// For reverse operation, see Unfold
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Reduce> const Reduce;
@@ -481,7 +484,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Count> const Count;
 
 /// \brief Test predicate for each item in a sequence
 /// \details
-/// Equivalent to Count(p|Not)|Eq(0)
+/// Equivalent to `Count(p | Not) | Eq(0)`
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Each> const Each;
 
 /// \brief Sort list by key function
@@ -501,15 +504,15 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Argmax> const Argmax;
 
 /// \brief Apply recursion to parameter expr and initial value
 /// \details
-/// Recur(f, x) * n = ◯ⁿ f(x)
+/// `n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
 extern lang::SignatureTernary<::zmbt::lang::Keyword::Recur> const Recur;
 
 /// \brief Put results of recursive fn call on initial value into an array
 /// \details
-/// Unfold(f, x) * n = [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]
+/// `n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
 extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
 
-/// \brief Bind type-specific operator handler to parameter function
+/// \brief Bind type-specific operator handler to function
 /// \details
 /// Expression Overload(f, op) instructs f to use operator op on
 /// invocation instead of the default generic.
@@ -538,19 +541,20 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Compose> const Compose;
 /// \brief Pack results from enveloped functions into an array
 /// \details
 /// Allows to combine different properties in a single expression
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pack> const Pack;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
-/// \brief Flips design-time and eval-time parameters for enveloped expression.
+/// \brief Flips design-time and eval-time parameters.
 /// \details
-/// Useful for binding lhs operands to non-commutative operators.
-/// Unlike Haskell's flip, won't change the order or eval-time parameters
-/// - for that case use the Reverse keyword instead.
+/// Useful for binding lhs operands to non-commutative
+/// operators. Unlike Haskell's flip, won't change the
+/// order or eval-time parameters - for that case use
+/// the Reverse keyword instead.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
 
-/// \brief Evaluate enveloped function and return result or null if it throws
+/// \brief Evaluate function and return result or null if it throws
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;
 
-/// \brief Evaluate enveloped function and return result or error info if it throws
+/// \brief Evaluate function and return result or error info if it throws
 extern lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch;
 
 /// \brief Return x if not null, else return default value
@@ -560,7 +564,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Default> const D;
 
 /// \brief Error
 /// \details
-/// Error object
+/// Error object (work in progress)
 extern lang::SignatureError const Error;
 
 } // namespace expr
