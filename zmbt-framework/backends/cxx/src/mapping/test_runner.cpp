@@ -49,8 +49,9 @@ class InstanceTestRunner
 
 
 
-    void report_failure(TestDiagnostics const& report);
+    bool run_test_procedure(boost::json::array const& test_vector, std::size_t const idx);
 
+    void report_failure(TestDiagnostics const& report);
 
     bool exec_prerun_tasks(TestDiagnostics diagnostics);
 
@@ -207,7 +208,7 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
                 auto const op = channel_group.cbegin()->overload();
                 if (op.annotation() != lang::Operator{}.annotation())
                 {
-                    e = expr::Overload(e, op.annotation());
+                    e = expr::Overload(op.annotation(), e);
                 }
             }
         }
@@ -387,10 +388,51 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
 }
 
 
+bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vector, std::size_t const idx)
+{
+    bool success {true};
+
+    auto to_string = [](boost::json::value const& node) {
+        return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
+    };
+
+    auto diagnostics = TestDiagnostics(to_string(model_("/name")))
+        .Description(to_string(model_("/description")))
+        .Vector(test_vector)
+        .TestRow(idx)
+        .Comment(model_.get_or_default(format("/comments/%d", idx), "").as_string());
+        ;
+
+    env.ResetInterfaceData();
+    success = success && exec_prerun_tasks(diagnostics);
+    success = success && inject_fixed_inputs(diagnostics);
+    success = success && inject_dynamic_inputs(test_vector, diagnostics);
+    success = success && execute_trigger(diagnostics);
+    success = success && eval_fixed_assertions(diagnostics);
+    success = success && observe_results(test_vector, diagnostics);
+
+    exec_postrun_tasks(diagnostics);
+
+    if (!success)
+    {
+        // TODO: handle
+    }
+
+    return success;
+}
+
+
 void InstanceTestRunner::Run()
 {
+
     auto const N = dynamic_inputs_.size() + dynamic_outputs_.size();
     boost::json::array const& tests = model_("/tests").as_array();
+
+
+    if (N == 0 && tests.empty())
+    {
+        run_test_procedure({}, 0); // no Test() clause
+    }
 
     for (std::size_t i = 0; i < tests.size(); i++)
     {
@@ -400,33 +442,7 @@ void InstanceTestRunner::Run()
             throw model_error("inconsistent test vecor size at test case %d", i);
         }
 
-        bool success {true};
-
-        auto to_string = [](boost::json::value const& node) {
-            return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
-        };
-
-        auto diagnostics = TestDiagnostics(to_string(model_("/name")))
-            .Description(to_string(model_("/description")))
-            .Vector(test_vector)
-            .TestRow(i)
-            .Comment(model_.get_or_default(format("/comments/%d", i), "").as_string());
-            ;
-
-        env.ResetInterfaceData();
-        success = success && exec_prerun_tasks(diagnostics);
-        success = success && inject_fixed_inputs(diagnostics);
-        success = success && inject_dynamic_inputs(test_vector, diagnostics);
-        success = success && execute_trigger(diagnostics);
-        success = success && eval_fixed_assertions(diagnostics);
-        success = success && observe_results(test_vector, diagnostics);
-
-        exec_postrun_tasks(diagnostics);
-
-        if (!success)
-        {
-            // TODO: handle
-        }
+        run_test_procedure(test_vector, i);
     }
 }
 

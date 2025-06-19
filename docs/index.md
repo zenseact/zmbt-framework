@@ -10,20 +10,43 @@ The framework conceptualizes a software test as a mathematical problem.
 It enables users to define test parameters and goals using a declarative
 modeling syntax, upon which automated verification procedures are applied.
 
-## Quick example
+## Quick examples
 
+Simple tabular test:
 ```c++
-auto sum = [](int x, int y){ return x + y; };
+auto sum = [](double x, double y){ return x + y; };
 
-SignalMapping("test int summation")
+SignalMapping("Simple test with non-scalar input")
 .OnTrigger(sum)
     .InjectTo  (sum)
     .ObserveOn (sum)
 .Test
-    ( {2, 2}, 4 )
-    ( {2,-2}, 0 )
+    ( { 2,   2},    4 )
+    ( { 2,  -2},    0 )
+    ( {42, 0.1}, 42.1 )
 ;
 ```
+
+Example of batch test with mock, generating function on input, and range matcher on output:
+```c++
+struct Mock {
+    double produce() {
+        return InterfaceRecord(&Mock::produce).Hook(); //(1)
+    }
+} mock {};
+
+auto sut = [&mock]() { return mock.produce(); };
+
+SignalMapping("Keep clause")
+.OnTrigger(sut) .Repeat(250)
+    .InjectTo (&Mock::produce)  .Keep(Add(1)) //(2)
+    .ObserveOn(sut).CallRange() .Expect(Slide(2) | Each(Lt)) //(3)
+;
+```
+
+1. Rerouting mock call to ZMBT environment
+1. Generating function `Add(1)` accept index call, producing `[1,2,3...]` for mock call series
+2. Sliding window matcher asserting increasing delta
 
 ## Model-Based testing
 

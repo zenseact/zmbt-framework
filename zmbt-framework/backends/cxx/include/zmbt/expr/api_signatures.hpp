@@ -151,10 +151,10 @@ struct SignatureOverload : public SignatureTernary<Keyword::Overload>
     using SignatureTernary<Keyword::Overload>::operator();
 
     template <class T>
-    Expression operator()(Expression const& expr, type_tag<T> tag) const
+    Expression operator()(type_tag<T> tag, Expression const& expr) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Overload, {expr, op.annotation()});
+        return Expression(Keyword::Overload, {op.annotation(), expr});
     }
 };
 

@@ -366,7 +366,7 @@ struct ModelDefinition::T_CallCount : protected virtual ModelDefinition::BaseTra
 
 
 template <class Target>
-struct ModelDefinition::T_Map : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_As : protected virtual ModelDefinition::BaseTransition
 {
     /// Apply Overload operator
     Target As(boost::json::string_view ref)
@@ -827,6 +827,124 @@ struct ModelDefinition::T_Prod : protected virtual ModelDefinition::BaseTransiti
         return transit_to<Target>()(p, std::forward<A>(args)...);
     }
 };
+
+template <class Target>
+struct ModelDefinition::T_Pairwise : protected virtual ModelDefinition::BaseTransition
+{
+    Target Pairwise(Param const& p, boost::json::value const& v0)
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0);
+    }
+    Target Pairwise(Param const& p, boost::json::value const& v0, boost::json::value const& v1)
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1);
+    }
+
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2);
+    }
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2,
+        boost::json::value const& v3
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2, v3);
+    }
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2,
+        boost::json::value const& v3,
+        boost::json::value const& v4
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2, v3, v4);
+    }
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2,
+        boost::json::value const& v3,
+        boost::json::value const& v4,
+        boost::json::value const& v5
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2, v3, v4, v5);
+    }
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2,
+        boost::json::value const& v3,
+        boost::json::value const& v4,
+        boost::json::value const& v5,
+        boost::json::value const& v6
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2, v3, v4, v5, v6);
+    }
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2,
+        boost::json::value const& v3,
+        boost::json::value const& v4,
+        boost::json::value const& v5,
+        boost::json::value const& v6,
+        boost::json::value const& v7
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2, v3, v4, v5, v6, v7);
+    }
+
+    template <class... A>
+    Target Pairwise(Param const& p,
+        boost::json::value const& v0,
+        boost::json::value const& v1,
+        boost::json::value const& v2,
+        boost::json::value const& v3,
+        boost::json::value const& v4,
+        boost::json::value const& v5,
+        boost::json::value const& v6,
+        boost::json::value const& v7,
+        A&&... args
+    )
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, v0, v1, v2, v3, v4, v5, v6, v7, std::forward<A>(args)...);
+    }
+    template <class... A>
+    Target Pairwise(Param const& p, A&&... args)
+    {
+        state().init_pairwise();
+        return transit_to<Target>()(p, std::forward<A>(args)...);
+    }
+};
+template <class Target>
+struct ModelDefinition::T_Parametrize : protected virtual ModelDefinition::BaseTransition
+{
+    Target Parametrize(lang::Expression const&)
+    {
+        state().init_parametrize();
+        return transit_to<Target>();
+    }
+};
+
 
 template <class Target>
 struct ModelDefinition::T_ParamRow : protected virtual ModelDefinition::BaseTransition

@@ -25,13 +25,15 @@ nodes:
     transitions:
       T_Zip: N_ParamTable
       T_Prod: N_ParamTable
+      T_Pairwise: N_ParamTable
+      T_Parametrize: N_Param
   N_TestTable:
     base: N_Param
     transitions:
       T_TestRow: N_TestTable
       T_TestComment: N_TestTable
   N_Test:
-    base: null
+    base: N_Param
     transitions:
       T_Test: N_TestTable
   N_Channel:
@@ -74,11 +76,11 @@ nodes:
   N_DecorIn:
     base: N_AliasIn
     transitions:
-      T_Map: N_AliasIn
+      T_As: N_AliasIn
   N_DecorOut:
     base: N_CallFilter
     transitions:
-      T_Map: N_CallFilter
+      T_As: N_CallFilter
   N_KindIn:
     base: N_DecorIn
     transitions:

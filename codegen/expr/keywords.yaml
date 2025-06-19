@@ -1208,7 +1208,7 @@ keyword_groups:
         signature: Special
         brief: Bind type-specific operator handler to function
         details: |-
-          Expression Overload(f, op) instructs f to use operator op on
+          Expression Overload(op, f) instructs f to use operator op on
           invocation instead of the default generic.
 
           Operator parameter singleton can be referenced with string key
@@ -1216,10 +1216,10 @@ keyword_groups:
         domain: any
         codomain: any
         params:
-          - type: fn
           - label: operator
+          - type: fn
         examples: |-
-          [0.5, 2] | Overload(Add(1), "complex") ↦ [1.5, 2]
+          [0.5, 2] | Overload("complex", Add(1)) ↦ [1.5, 2]
 
       - name: bind
         signature: Variadic

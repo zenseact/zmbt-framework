@@ -62,6 +62,10 @@ class DefinitionHelper {
 
     void init_prod();
 
+    void init_pairwise();
+    void init_parametrize();
+
+
     enum cnl_param : uint32_t {
         cnl_prm_none = 0,
         cnl_prm_cal = 1U << 0,

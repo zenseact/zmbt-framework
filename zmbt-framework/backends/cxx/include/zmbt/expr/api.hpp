@@ -514,7 +514,7 @@ extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
 
 /// \brief Bind type-specific operator handler to function
 /// \details
-/// Expression Overload(f, op) instructs f to use operator op on
+/// Expression Overload(op, f) instructs f to use operator op on
 /// invocation instead of the default generic.
 /// 
 /// Operator parameter singleton can be referenced with string key

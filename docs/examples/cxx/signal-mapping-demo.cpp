@@ -66,15 +66,16 @@ The same test can be expressed with a single channel for both arguments:
 */
 BOOST_AUTO_TEST_CASE(NonScalarValues)
 {
-    auto sum = [](int x, int y){ return x + y; };
+    auto sum = [](double x, double y){ return x + y; };
 
     SignalMapping("Simple test with non-scalar input")
     .OnTrigger(sum)
         .InjectTo  (sum)
         .ObserveOn (sum)
     .Test
-        ( {2, 2}, 4 )
-        ( {2,-2}, 0 )
+        ( { 2,   2},    4 )
+        ( { 2,  -2},    0 )
+        ( {42, 0.1}, 42.1 )
     ;
 }
 /*
@@ -595,7 +596,7 @@ way, allowing order checks on strings and array-like structures.
 Sometimes you need to apply certain type-specific operators - for such case use the Overload or Cast expressions:
 
 ```cpp
-Overload(f, type<std::complex>)
+Overload(type<std::complex>, f)
 ```
 
 The operator handler constructed from `type<std::complex>` will provide to the `f`
@@ -607,8 +608,8 @@ If some of subexpressions returns type other than T in JSON representation, it m
 behavior, e.g., boolean result from predicate will be casted to T if passed further:
 
 ```cpp
-Overload(Eq(x), type<T>)|Not // good
-Overload(Eq(x)|Not, type<T>) // bad
+Overload(type<T>, Eq(x)) | Not // good
+Overload(type<T>, Eq(x) | Not) // bad
 ```
 
 ## Type decoration
@@ -701,6 +702,7 @@ BOOST_AUTO_TEST_CASE(BatchInputs)
         (3, Add(42)/*(3)*/       , {42, 43, 44}         )
         (4, Lookup({1,2,3})|D(42), {1,2,3,42}           )//(4)
     ;
+}
 /*
 ```
 
@@ -724,13 +726,21 @@ or even use only the fixed channels, switching to a more functional style:
 
 ```c++
 */
+BOOST_AUTO_TEST_CASE(FixedChannels)
+{
+    struct Mock {
+        double produce() {
+            return InterfaceRecord(&Mock::produce).Hook();
+        }
+    } mock {};
+
+    auto sut = [&mock]() { return mock.produce(); };
+
     SignalMapping("Keep clause")
-    .OnTrigger(sut)
-        .InjectTo (sut)            .Keep(6)
-        .InjectTo (&Mock::produce) .Keep(Add(42))
-        .ObserveOn(sut)            .Expect(Each(Ge(42)))
-        .ObserveOn(sut)            .Expect(Slide(2)|Each(Lt))
-    .Test();
+    .OnTrigger(sut).Repeat(250)
+        .InjectTo (&Mock::produce)  .Keep(Add(1))
+        .ObserveOn(sut).CallRange() .Expect(Slide(2) | Each(Lt))
+    ;
 }
 /*
 ```

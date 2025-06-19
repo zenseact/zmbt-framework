@@ -1058,8 +1058,7 @@ BOOST_AUTO_TEST_CASE(TestFixedChannels)
             {"a",  1},
             {"b", 42},
         })
-
-    .Test();
+    ;
 }
 
 

@@ -608,9 +608,9 @@ std::vector<TestEvalSample> const TestSamples
     {Cast(type<Foo>)            , int(Foo::Baz)         , "Baz"                 },
 
 
-    {Overload(Eq(42), type<unsigned>)            , 42     , true                },
-    {Try(Overload(Eq(42), type<unsigned>))       , -42    , nullptr             },
-    {Overload(Add(1), type<std::complex<double>>), {.5, 2}, {1.5, 2}            },
+    {Overload(type<unsigned>, Eq(42))            , 42     , true                },
+    {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },
+    {Overload(type<std::complex<double>>, Add(1)), {.5, 2}, {1.5, 2}            },
 
     {Error("foo")           , {}              , {{":error", {
                                                     {"message", "foo"}

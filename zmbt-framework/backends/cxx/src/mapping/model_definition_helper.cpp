@@ -123,6 +123,15 @@ void DefinitionHelper::init_prod()
     model("/param_groups").as_array().push_back("Prod");
 }
 
+void DefinitionHelper::init_pairwise()
+{
+    throw model_error("Pairwise clause not implemented");
+}
+void DefinitionHelper::init_parametrize()
+{
+    throw model_error("Parametrize clause not implemented");
+}
+
 
 void DefinitionHelper::combine_channels(boost::json::string_view combo)
 {

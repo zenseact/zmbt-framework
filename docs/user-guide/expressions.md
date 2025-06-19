@@ -6,17 +6,17 @@
 :construction: *This document is in progress* :construction:
 
 ZMBT utilizes an embedded functional programming language for the test data manipulation and matching,
-referred in the documentation simply as *expressions*.
+referred to in the documentation simply as *expressions*.
 
 The language resides in the `zmbt::expr` namespace and consists of keywords that can be parametrized and combined into a single expression, resulting in a pure `JSON -> JSON` function, which is evaluated by test model runners. The language belongs to a family of [tacit programming languages](https://en.wikipedia.org/wiki/Tacit_programming).
 As it operates on JSON, certain elements may resemble the [jq language](https://jqlang.org/), however, *expressions* focus more on a simpler syntax
-and certain test-specific features like typed operator handling.
+and certain test-specific features such as typed operator handling.
 
-The main purpose of using an embedded language over the common C++ functions is to give the model runners a full control
+The main purpose of using an embedded language over common C++ functions is to give the model runners a full control
 over test inputs, notably:
 
 - serialization: any complex transformations are represented in JSON
-- introspection: model runnner can [explain in detail each step of evaluation](#debug) without any additional efforts from user
+- introspection: model runner can [explain in detail each step of evaluation](#debug) without any additional effort from user
 - reflection: model runner can change terms of expressions to enable high-level parametrization
 
 !!! note
@@ -27,29 +27,29 @@ over test inputs, notably:
 
 General syntax: `Keyword` or `Keyword(<Expression list>...)`, where the second form is a design-time parametrization, but not yet an evaluation.
 Both forms yield a `Expression` object with an `eval` method, used by the framework at runtime.
-E.g., `Add` (first form) is an addition function that expect a pair of operands on evaluation input, and `Add(2)` (second form)
+E.g., `Add` (first form) is an addition function that accepts a pair of operands on evaluation input, and `Add(2)` (second form)
 is a function with bound right-hand-side operand.
 
 
 ### Composition
 
-The pipe operator `|` represents a function composition in a human-readable left-to-right order. It is a syntactic sugar to `Compose` expression,
+The pipe operator `|` represents a function composition in a human-readable left-to-right order. It is syntactic sugar for the `Compose` expression,
 s.t. `A | B | C` is equivalent to `Compose(C, B, A)`, evaluating operands as `C(B(A(x)))`.
 
 Each expression has the same `JSON -> JSON` evaluation type, which is also applicable to both builtin and user-defined constants like `Pi` or JSON literals.
 E.g., `42` renders a function $x \mapsto 42$. Such function simply discards any evaluation input, unlike conventional constant functions in C++ that has no arguments.
 
 *Everything is a function* principle allows to compose different kinds of expressions using uniform syntactic rules.
-Using a constant or a literal as initial term renders all chain a constant expression.
+Using a constant or a literal as initial term renders the entire chain a constant expression.
 
 ### Fork
 
-Another special operator is ampersand `&`, used to forks evaluation flow, packing results from operand expressions into an array:
+Another special operator is ampersand `&`, used to fork the evaluation flow, packing results from operand expressions into an array:
 `42 | Add(1) & Sub(1)` $\mapsto$ `[43, 41]`. It is also a syntactic sugar to `Fork` expression.
 
 ### Arity forms
 
-Expression keywords are grouped by their design-time + eval-time parameters arity.
+Expression keywords are grouped by their design-time plus eval-time parameters arity.
 
 |Form    | Resulting Expression Type                                  |ExampleExpression                               |
 |--------|------------------------------------------------------------|------------------------------------------------|
@@ -63,13 +63,13 @@ Expression keywords are grouped by their design-time + eval-time parameters arit
 |Literal₁|Evaluated as Const where a value is expected                |`Map(Eq(0))` $\not\equiv$ `Map(0)`              |
 |Literal₂|Evaluated as `Eq(value)` where a predicate is expected |`Filter(42)`     $\equiv$ `Filter(Eq(42))`      |
 
-The **Const** keywords creates constant functions. They are syntactically equivalent to **Unary**,
+The **Const** keywords create constant functions. They are syntactically equivalent to **Unary**,
 with the difference that constants will ignore the eval input value.
 
 Custom constants can be created with `C` or `Let` keyworda, e.g. `C(42)`.
 JSON or JSON-convertible literals also create constants, except in a predicate context - then it yields an equality check `Eq(x)`.
 
-**Binary** keywords have the most flexible syntax. The canonic **Binary₁** form with no parameters like `Add` expects
+**Binary** keywords have the most flexible syntax. The canonical **Binary₁** form with no parameters like `Add` expects
 a pair of operands at eval input, but **Binary₂** form like `Add(42)` essentially creates a curried unary
 functor with bound ***right-hand side*** operand. To curry a left-hand side operand instead, the `Flip` keyword may be helpful.
 This is especially useful for non-commutative operators, e.g.:
@@ -78,10 +78,10 @@ This is especially useful for non-commutative operators, e.g.:
 * `2 | Flip(Div(1))` $\mapsto 0.5$
 
 For the **Binary₁** the composition with `Reverse` can be utilized instead of `Flip` to get the proper commutation,
-as `Flip` only swaps the design-time and eval-time arguments, which differs it from Huskell flip.
+as `Flip` only swaps the design-time and eval-time arguments, which differs from Haskell's `flip`.
 
 The predicates in **Binary₂** form are very similar to GoogleTest matchers, e.g. `Eq(42)` or `Lt(0.5)`.
-It may be also helpful for understanding to look this form from OOP perspective, considering it as
+It may also be helpful to view this form from an OOP perspective, considering it as
 a class method on eval-time argument object. E.g.,
 
 ```js
@@ -100,7 +100,7 @@ is a default parameter (a key function in this case).
 
 
 The **Ternary** and **Variadic** keywords, with a few exceptions,
-follows the same evaluation rule as **Binary1** vs **Binary₂** for cases with no design-time parameters, e.g. variadic `Format`:
+follow the same evaluation rule as **Binary1** vs **Binary₂** for cases with no design-time parameters, e.g. variadic `Format`:
 
 * `"%s, %s!"|Format("Hello", "world")` $\mapsto$ `"Hello, world!"`
 * `["%s, %s!", ["Hello", "world"]] | Format` $\mapsto$ `"Hello, world!"`
@@ -108,21 +108,21 @@ follows the same evaluation rule as **Binary1** vs **Binary₂** for cases with 
 
 ## Parameter evaluation
 
-Design time parameters are constant expressions too. By the fact,
+Design time parameters are constant expressions too, e.g.,
 `Lt(42)` is a syntactic sugar for `Lt(C(42))`. A simple use case
 is to utilize math constants like `Lt(Pi)`, but any complex expression can be used as long as it is constant,
 e. g. `Lt(Pi|Div(2))`.
 
-The only context where design parameters are not evaluated are high-order expressions - any callable parameter
+The only context where design-time parameters are not evaluated is in high-order expressions - any callable parameter
 is taken as is.
 
 ## High-order keywords and structural transforms
 
-Several keywords produce high-order expressions that are useful for creating a complex matchers or generators.
+Several keywords produce high-order expressions that are useful for creating a more complex matchers or generators.
 
 The most powerful in this group are `Compose` and `Fork`.
-Ina ddition to what descrived above, composition also has a special rule for literals beyond the initial term - they are interpreted as predicates,
-e.g. `[1,2,3]|Size|3` is equivalent to `[1,2,3]|Size|Eq(3)`. To treat 3 as constant expression, envelop it in user-defined constant as `C(3)`.
+In addition to what is descrived above, composition also has a special rule for literals beyond the initial term - they are interpreted as predicates,
+e.g. `[1,2,3]|Size|3` is equivalent to `[1,2,3]|Size|Eq(3)`. To treat literal `3` as a constant expression, envelop it in user-defined constant as `C(3)`.
 
 
 Other useful keywords are:
@@ -136,7 +136,7 @@ Other useful keywords are:
          [4, "four" ],
       ] | Filter(At(1)|Lt(3)) | Map(At(0)) |-> ["one", "two"]
       ```
-- `At`, `Transp`, `Slide` - powerfool data transformers, e.g.:
+- `At`, `Transp`, `Slide` - powerful data transformers, e.g.:
       - `Slide(3)|Map(Avg)`: moving average with step width = 3
       - `At("key")`, `At(0)` - simple element getters
       - `At("/foo/bar")` - JSON pointer query
@@ -175,11 +175,11 @@ Produced output is printed bottom-up in order of evaluation:
 Log lines are formatted as `f(x) = result`, and connected with line-drawing to show the expression terms hierarchy.
 
 In model tests, the evaluation stack is logged on failing tests.
-For the bulky log messages the elements are trimmed with `...` while trying to keep evaluation result visible:
+For the bulky log messages the elements are trimmed with `...` while trying to keep the evaluation result visible:
 ``` json
 {":compose":[":div",{":fork":[{":reduce":":add"},":size"]}]}([1,2,3,...) = 5
 ```
-For the complete log data refer to JSON log.
+For the complete log data refer to the JSON log.
 
 ## Grammar
 

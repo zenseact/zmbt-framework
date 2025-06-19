@@ -154,7 +154,7 @@ void ChannelHandle::inject(lang::Expression e) const
     auto const op = overload();
     if (op.annotation() != lang::Operator{}.annotation())
     {
-        e = expr::Overload(e, op.annotation());
+        e = expr::Overload(op.annotation(), e);
     }
     handle.Inject(e, data_.at("/kind").as_string(), signal_path());
 }

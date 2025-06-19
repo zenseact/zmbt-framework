@@ -1122,8 +1122,8 @@ V eval_impl<Keyword::Overload>(V const& x, V const& param, E::EvalContext const&
     ASSERT(param.is_array());
     auto const& params = param.get_array();
     ASSERT(params.size() == 2);
-    auto const F = E(params.at(0));
-    auto const operator_reference = E(params.at(1)).eval({}, context++);
+    auto const operator_reference = E(params.at(0)).eval({}, context++);
+    auto const F = E(params.at(1));
     ASSERT(operator_reference.is_string());
     E::EvalContext ctx = context++;
     ctx.op = O{operator_reference.get_string()};

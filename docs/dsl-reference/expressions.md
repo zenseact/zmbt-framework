@@ -1573,7 +1573,7 @@ Put results of recursive fn call on initial value into an array
 
 Bind type-specific operator handler to function
 
-Expression Overload(f, op) instructs f to use operator op on
+Expression Overload(op, f) instructs f to use operator op on
 invocation instead of the default generic.
 
 Operator parameter singleton can be referenced with string key
@@ -1581,7 +1581,7 @@ or constructed in place using type<T> tag.
 
 *Examples*:
 
- * `[0.5, 2] | Overload(Add(1), "complex") `$\mapsto$` [1.5, 2]`
+ * `[0.5, 2] | Overload("complex", Add(1)) `$\mapsto$` [1.5, 2]`
 
 ### Bind
 
