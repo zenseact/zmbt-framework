@@ -5,7 +5,7 @@ copyright: |-
 repo_url: https://github.com/zenseact/zmbt-framework
 # docs_dir: '.'
 
-strict: true
+strict: !ENV [ENABLE_MKDOXY, True]
 hooks:
   - docs/hooks/preprocessor.py
 nav:
@@ -95,6 +95,7 @@ plugins:
       javascript_dir: js
 
   - mkdoxy:
+      enabled: !ENV [ENABLE_MKDOXY, True]
       projects:
         CxxRef: # name of project must be alphanumeric + numbers (without spaces)
           src-dirs: zmbt-framework/backends/cxx # path to source code (support multiple paths separated by space) => INPUT
