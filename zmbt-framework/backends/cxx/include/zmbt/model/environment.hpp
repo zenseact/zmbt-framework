@@ -419,7 +419,7 @@ class Environment {
     //@}
 
     template <class H, class I>
-    boost::json::string RegisterAnonymousTrigger(H&& host, I&& interface)
+    boost::json::string RegisterAnonymousTrigger(I&& interface, H&& host)
     {
         auto key = autokey(host, interface);
         RegisterTrigger(key, interface, host);

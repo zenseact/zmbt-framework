@@ -64,7 +64,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
     template <class O, class I>
     require_literal<O, I, Target>
     OnTrigger(I&& ifc, O&& obj) {
-        auto key = state().env.RegisterAnonymousTrigger(obj, ifc);
+        auto key = state().env.RegisterAnonymousTrigger(ifc, obj);
         return OnTrigger(key);
     }
 
