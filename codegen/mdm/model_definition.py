@@ -32,6 +32,6 @@ class Node:
 class DefinitionMachine:
     def __init__(self, data: dict):
         nodes = data.get('nodes')
-        self.Nodes = tuple(Node(cls, n['base'], n['transitions']) for cls, n in nodes.items() if cls != TERMINAL_NODE)
+        self.Nodes = tuple(Node(cls, n['base'], n['trans']) for cls, n in nodes.items() if cls != TERMINAL_NODE)
         self.Transitions = tuple(dict.fromkeys(t for n in self.Nodes for t in n.Transitions))
         self.AbstractTransitions = tuple(sorted(set(t.Class for n in self.Nodes for t in n.Transitions)))
