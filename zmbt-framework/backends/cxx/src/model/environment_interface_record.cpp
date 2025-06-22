@@ -151,20 +151,20 @@ boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
 }
 
 
-boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path, int start, int stop, int const step)
+boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path, int start, int stop, int const step) const
 {
     auto lock = Env().Lock();
     return slice(captures().as_array(), signal_path, start, stop, step);
 }
 
-boost::json::array const& Environment::InterfaceHandle::Captures()
+boost::json::array const& Environment::InterfaceHandle::Captures() const
 {
     auto lock = Env().Lock();
     return captures().as_array();
 }
 
 
-boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcall)
+boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcall) const
 {
     auto lock = Env().Lock();
     auto const N = captures().as_array().size();

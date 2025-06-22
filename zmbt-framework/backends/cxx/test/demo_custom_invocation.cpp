@@ -80,8 +80,7 @@ BOOST_AUTO_TEST_CASE(CustomInvocationInModel)
 
     SignalMapping("SignalMapping test")
     .OnTrigger(&Foo::bar, foo)
-        .ObserveOn (&Foo::bar).Args(0).As(type<int>)
-    .Test(42)
+        .At(&Foo::bar).Args(0).As(type<int>).Expect(42)
     ;
 }
 

@@ -119,23 +119,24 @@ struct ModelDefinition::T_Repeat : protected virtual ModelDefinition::BaseTransi
     }
 };
 
+
 template <class Target>
-struct ModelDefinition::T_InjectTo : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_At : protected virtual ModelDefinition::BaseTransition
 {
     /// Create input channel with an interface literal
     template <class C>
     require_not_str<C, Target>
-    InjectTo(C&& cal, object_id const& obj)
+    At(C&& cal, object_id const& obj)
     {
-        state().add_channel(obj, std::forward<C>(cal), "inject");
+        state().add_channel(obj, std::forward<C>(cal));
         return transit_to<Target>();
     }
 
     template <class C>
     require_not_str<C, Target>
-    InjectTo(C&& cal, Param const& obj)
+    At(C&& cal, Param const& obj)
     {
-        state().add_channel(obj, std::forward<C>(cal), "inject");
+        state().add_channel(obj, std::forward<C>(cal));
         return transit_to<Target>();
     }
 
@@ -143,155 +144,52 @@ struct ModelDefinition::T_InjectTo : protected virtual ModelDefinition::BaseTran
     /// Create input channel
     template <class C>
     require_not_str<C, Target>
-    InjectTo(C&& cal)
+    At(C&& cal)
     {
-        state().add_channel(std::forward<C>(cal), "inject");
+        state().add_channel(std::forward<C>(cal));
         return transit_to<Target>();
     }
 
     template <class... T>
     Target
-    InjectTo(boost::json::string_view key, T&&... fmtargs)
+    At(boost::json::string_view key, T&&... fmtargs)
     {
-        state().add_channel(key | expr::Fmt(fmtargs...), "inject");
+        state().add_channel(key | expr::Fmt(fmtargs...));
         return transit_to<Target>();
     }
 };
 
 
 template <class Target>
-struct ModelDefinition::T_ObserveOn : protected virtual ModelDefinition::BaseTransition
-{
-    /// Create input channel with an interface literal
-    template <class C>
-    require_not_str<C, Target>
-    ObserveOn(C&& cal, object_id const& obj)
-    {
-        state().add_channel(obj, std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class C>
-    require_not_str<C, Target>
-    ObserveOn(C&& cal, Param const& obj)
-    {
-        state().add_channel(obj, std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    /// Create input channel
-    template <class C>
-    require_not_str<C, Target>
-    ObserveOn(C&& cal)
-    {
-        state().add_channel(std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class... T>
-    Target
-    ObserveOn(boost::json::string_view key, T&&... fmtargs)
-    {
-        state().add_channel(key | expr::Fmt(fmtargs...), "observe");
-        return transit_to<Target>();
-    }
-};
-
-template <class Target>
-struct ModelDefinition::T_Union : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Blend : protected virtual ModelDefinition::BaseTransition
 {
     /// Combine channel outputs in time series
     ///
     /// Combined channels produce a list of pairs [channel alias, requested signal],
     /// sorted by timestamp. Use it in combination with Saturate expr for testing strict or partial
     /// order on mock calls.
-    ///
-    /// The output is affected by CallRange/Call/CallCount clauses:
-    /// - CallRange: take all samples at specified range
-    /// - Call (default clause with param = -1 for latest): take only one sample at specified call number
-    /// - CallCount: take call count as a sample value and timestamp from the most recent call
-    template <class C>
-    require_not_str<C, Target>
-    Union(C&& cal, object_id const& obj)
+    Target Blend()
     {
         state().combine_channels("union");
-        state().add_channel(obj, std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class C>
-    require_not_str<C, Target>
-    Union(C&& cal, Param const& obj)
-    {
-        state().combine_channels("union");
-        state().add_channel(obj, std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class C>
-    require_not_str<C, Target>
-    Union(C&& cal)
-    {
-        state().combine_channels("union");
-        state().add_channel(std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class... T>
-    Target
-    Union(boost::json::string_view key, T&&... fmtargs)
-    {
-        state().combine_channels("union");
-        state().add_channel(key | expr::Format(fmtargs...), "observe");
         return transit_to<Target>();
     }
 };
 
 template <class Target>
-struct ModelDefinition::T_With : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Group : protected virtual ModelDefinition::BaseTransition
 {
     /// Pack channel outputs into an array similarly to Fork keyword
     /// X with Y with Z -> [X, Y, Z]
-    template <class C>
-    require_not_str<C, Target>
-    With(C&& cal, object_id const& obj)
+    Target Group()
     {
         state().combine_channels("with");
-        state().add_channel(obj, std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class C>
-    require_not_str<C, Target>
-    With(C&& cal, Param const& obj)
-    {
-        state().combine_channels("with");
-        state().add_channel(obj, std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class C>
-    require_not_str<C, Target>
-    With(C&& cal)
-    {
-        state().combine_channels("with");
-        state().add_channel(std::forward<C>(cal), "observe");
-        return transit_to<Target>();
-    }
-
-    template <class... T>
-    Target
-    With(boost::json::string_view key, T&&... fmtargs)
-    {
-        state().combine_channels("with");
-        state().add_channel(key | expr::Format(fmtargs...), "observe");
         return transit_to<Target>();
     }
 };
 
 
 template <class Target>
-struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_FilterSignal : protected virtual ModelDefinition::BaseTransition
 {
 
     /// Interface return clause
@@ -334,7 +232,7 @@ struct ModelDefinition::T_SignalFilter : protected virtual ModelDefinition::Base
 };
 
 template <class Target>
-struct ModelDefinition::T_SignalProperty : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_FilterProperty : protected virtual ModelDefinition::BaseTransition
 {
     /// Output capture timestamp
     Target Timestamp()
@@ -351,11 +249,7 @@ struct ModelDefinition::T_SignalProperty : protected virtual ModelDefinition::Ba
         state().model("/channels/@/signal_path") = "";
         return transit_to<Target>();
     }
-};
 
-template <class Target>
-struct ModelDefinition::T_CallCount : protected virtual ModelDefinition::BaseTransition
-{
     Target CallCount()
     {
         state().model("/channels/@/kind") = "call_count";
@@ -382,36 +276,14 @@ struct ModelDefinition::T_As : protected virtual ModelDefinition::BaseTransition
     }
 };
 
+
 template <class Target>
-struct ModelDefinition::T_CallFilter : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Via : protected virtual ModelDefinition::BaseTransition
 {
-    /// Interface call number (0-based index). Negative value is resolved as a reverse index,
-    /// with -1 referring to the last call (default)
-    Target Call(int cnt)
+    /// Apply pre/post transformation
+    Target Via(lang::Expression const& expr)
     {
-        state().model("/channels/@/call") = cnt;
-        return transit_to<Target>();
-    }
-
-    Target Call(Param const& param)
-    {
-        state().params("/%s/pointers/+", param) = format("%s/call", state().head_channel());
-        state().model("/channels/@/call") = param;
-        return transit_to<Target>();
-    }
-
-    /// Access mock data as list using slice semantic (0-based, inclusive boundaries)
-    Target CallRange(int start = 0, int stop = -1, int step = 1)
-    {
-        state().model("/channels/@/call") = {start, stop, step};
-        return transit_to<Target>();
-    }
-
-    /// Access mock captures as list using slice semantic (0-based, inclusive boundaries)
-    Target CallRange(Param const& param)
-    {
-        state().params("/%s/pointers/+", param) = format("%s/call", state().head_channel());
-        state().model("/channels/@/call") = param;
+        state().model("/channels/@/transform") = expr;
         return transit_to<Target>();
     }
 };
@@ -429,47 +301,66 @@ struct ModelDefinition::T_Alias : protected virtual ModelDefinition::BaseTransit
 
 
 template <class Target>
-struct ModelDefinition::T_Keep : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Inject : protected virtual ModelDefinition::BaseTransition
 {
-    /// Set fixed input condition
-    Target Keep(lang::Expression const& expr)
+    Target Inject()
     {
-        state().model("/channels/@/keep") = expr;
-        auto const curcnl = state().cur_cnl_idx();
-        auto& params = state().params;
-
-        JsonTraverse([&](boost::json::value const& v, std::string const jp){
-            if (Param::isParam(v)) {
-                params("/%s/pointers/+", v) = format(
-                            "/channels/%d/keep%s", curcnl, jp);
-            }
-            return false;
-        })(expr.underlying());
-
+        state().model("/channels/@/role") = "inject";
+        return transit_to<Target>();
+    }
+    /// Set fixed input condition
+    Target Inject(lang::Expression const& expr)
+    {
+        state().model("/channels/@/role") = "inject";
+        state().model("/channels/@/expr") = expr;
+        state().set_expr(expr);
         return transit_to<Target>();
     }
 };
 
+
 template <class Target>
 struct ModelDefinition::T_Expect : protected virtual ModelDefinition::BaseTransition
 {
+    Target Expect()
+    {
+        state().model("/channels/@/role") = "expect";
+        return transit_to<Target>();
+    }
     /// Set fixed output assertion
     Target Expect(lang::Expression const& expr)
     {
-        state().model("/channels/@/expect") = expr;
-        auto const curcnl = state().cur_cnl_idx();
-        auto& params = state().params;
-
-        JsonTraverse([&](boost::json::value const& v, std::string const jp){
-            if (Param::isParam(v)) {
-                params("/%s/pointers/+", v) = format(
-                            "/channels/%d/expect%s", curcnl, jp);
-            }
-            return false;
-        })(expr.underlying());
-
+        state().model("/channels/@/role") = "expect";
+        state().set_expr(expr);
         return transit_to<Target>();
     }
+
+    Target ExpectBatch(lang::Expression const& expr)
+    {
+        state().model("/channels/@/role") = "expect_batch";
+        state().set_expr(expr);
+        return transit_to<Target>();
+
+    }
+    Target ExpectBatch()
+    {
+        state().model("/channels/@/role") = "expect_batch";
+        return transit_to<Target>();
+    }
+
+    Target ExpectOne(lang::Expression const& expr)
+    {
+        state().model("/channels/@/role") = "expect_one";
+        state().set_expr(expr);
+        return transit_to<Target>();
+    }
+    Target ExpectOne()
+    {
+        state().model("/channels/@/role") = "expect_one";
+        return transit_to<Target>();
+    }
+
+    // TODO: add Assert* clauses
 };
 
 
@@ -525,6 +416,7 @@ struct ModelDefinition::T_Test : protected virtual ModelDefinition::BaseTransiti
         return transit_to<Target>()(e0, e1, e2, e3, e4, e5, e6, e7, lang::Expression(rest)...);
     }
 };
+
 
 template <class Target>
 struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTransition
@@ -590,6 +482,7 @@ struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTrans
     }
 };
 
+
 template <class Target>
 struct ModelDefinition::T_TestComment : protected virtual ModelDefinition::BaseTransition
 {
@@ -599,6 +492,7 @@ struct ModelDefinition::T_TestComment : protected virtual ModelDefinition::BaseT
         return transit_to<Target>();
     }
 };
+
 
 template <class Target>
 struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseTransition
@@ -610,6 +504,7 @@ struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseT
         return transit_to<Target>();
     }
 };
+
 
 template <class Target>
 struct ModelDefinition::T_Zip : protected virtual ModelDefinition::BaseTransition
@@ -720,6 +615,7 @@ struct ModelDefinition::T_Zip : protected virtual ModelDefinition::BaseTransitio
     }
 };
 
+
 template <class Target>
 struct ModelDefinition::T_Prod : protected virtual ModelDefinition::BaseTransition
 {
@@ -828,6 +724,7 @@ struct ModelDefinition::T_Prod : protected virtual ModelDefinition::BaseTransiti
     }
 };
 
+
 template <class Target>
 struct ModelDefinition::T_Pairwise : protected virtual ModelDefinition::BaseTransition
 {
@@ -935,6 +832,8 @@ struct ModelDefinition::T_Pairwise : protected virtual ModelDefinition::BaseTran
         return transit_to<Target>()(p, std::forward<A>(args)...);
     }
 };
+
+
 template <class Target>
 struct ModelDefinition::T_Parametrize : protected virtual ModelDefinition::BaseTransition
 {
@@ -1054,6 +953,7 @@ struct ModelDefinition::T_ParamRow : protected virtual ModelDefinition::BaseTran
     }
 };
 
+
 template <class Target>
 struct ModelDefinition::T_PreRun : protected virtual ModelDefinition::BaseTransition
 {
@@ -1065,6 +965,7 @@ struct ModelDefinition::T_PreRun : protected virtual ModelDefinition::BaseTransi
     }
 };
 
+
 template <class Target>
 struct ModelDefinition::T_PostRun : protected virtual ModelDefinition::BaseTransition
 {
@@ -1075,7 +976,6 @@ struct ModelDefinition::T_PostRun : protected virtual ModelDefinition::BaseTrans
         return transit_to<Target>();
     }
 };
-
 
 }  // namespace mapping
 }  // namespace zmbt

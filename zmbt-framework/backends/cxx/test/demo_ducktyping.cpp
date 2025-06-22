@@ -58,9 +58,9 @@ ducks::Grey DuckQuack(ducks::Grey what)
 BOOST_FIXTURE_TEST_CASE(GenericTest, ModelTestFixture)
 {
     SignalMapping("Ducktyping example: use enum nominal values")
-        .OnTrigger (DuckQuack)
-        .InjectTo  (DuckQuack)
-        .ObserveOn (DuckQuack)
+    .OnTrigger(DuckQuack)
+        .At(DuckQuack).Inject()
+        .At(DuckQuack).Expect()
     .Test
         ( ducks::Grey ::Quack , ducks::Grey ::Poop   )
         ( ducks::Grey ::Poop  , ducks::Grey ::Quack  )

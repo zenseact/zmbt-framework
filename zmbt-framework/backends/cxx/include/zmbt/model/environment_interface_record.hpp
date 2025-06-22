@@ -172,12 +172,12 @@ public:
     boost::json::array ObservedArgs(int const nofcall = -1);
 
 
-    boost::json::array CaptureSlice(boost::json::string_view signal_path, int start = 0, int stop = -1, int const step = 1);
+    boost::json::array CaptureSlice(boost::json::string_view signal_path, int start = 0, int stop = -1, int const step = 1) const;
 
-    boost::json::array const& Captures();
+    boost::json::array const& Captures() const;
 
     /// Observed return value at nofcall
-    boost::json::value ObservedReturn(int const nofcall = -1);
+    boost::json::value ObservedReturn(int const nofcall = -1) const;
 
     boost::json::string const& key() const;
 

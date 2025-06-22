@@ -40,25 +40,25 @@ BOOST_AUTO_TEST_CASE(FunctionTrigger, *boost::unit_test::disabled())
     SignalMapping("SignalMapping on function: compilation test with channels")
     .OnTrigger(foo)
 
-    .InjectTo  (foo)
-    .InjectTo  (foo).Args(0)
-    .InjectTo  (foo).Args("")
-    .InjectTo  (foo).Args("%s-%s", Param(1), 42)
-    .InjectTo  (foo).Return("")
-    .InjectTo  (foo).Return("%s", Param(2))
-    .InjectTo  (foo).Return()
-    .InjectTo  (foo).Args()
-    .InjectTo  (foo).As(type<int>)
+    .At(foo).Inject()
+    .At(foo).Args(0).Inject()
+    .At(foo).Args("").Inject()
+    .At(foo).Args("%s-%s", Param(1), 42).Inject()
+    .At(foo).Return("").Inject()
+    .At(foo).Return("%s", Param(2)).Inject()
+    .At(foo).Return().Inject()
+    .At(foo).Args().Inject()
+    .At(foo).As(type<int>).Inject()
 
-    .InjectTo  (foo, nullptr)
-    .InjectTo  (foo, nullptr).Args(0)
-    .InjectTo  (foo, nullptr).Args("")
-    .InjectTo  (foo, nullptr).Args("%s", Param(3))
-    .InjectTo  (foo, nullptr).Return("")
-    .InjectTo  (foo, nullptr).Return("%s", Param(4))
-    .InjectTo  (foo, nullptr).Return()
-    .InjectTo  (foo, nullptr).Args()
-    .InjectTo  (foo, nullptr).As(type<int>)
+    .At(foo, nullptr).Inject()
+    .At(foo, nullptr).Args(0).Inject()
+    .At(foo, nullptr).Args("").Inject()
+    .At(foo, nullptr).Args("%s", Param(3)).Inject()
+    .At(foo, nullptr).Return("").Inject()
+    .At(foo, nullptr).Return("%s", Param(4)).Inject()
+    .At(foo, nullptr).Return().Inject()
+    .At(foo, nullptr).Args().Inject()
+    .At(foo, nullptr).As(type<int>).Inject()
     .Test(_)
     ;
 
@@ -74,21 +74,21 @@ BOOST_AUTO_TEST_CASE(FunctorTrigger, *boost::unit_test::disabled())
     SignalMapping("SignalMapping on functor: compilation test")
     .OnTrigger(fctor)
 
-    .InjectTo  (fctor)
-    .InjectTo  (fctor).Args(0)
-    .InjectTo  (fctor).Args("")
-    .InjectTo  (fctor).As(type<int>)
-    .InjectTo  (fctor).Return("")
-    .InjectTo  (fctor).Return()
-    .InjectTo  (fctor).Args()
+    .At(fctor).Inject()
+    .At(fctor).Args(0).Inject()
+    .At(fctor).Args("").Inject()
+    .At(fctor).As(type<int>).Inject()
+    .At(fctor).Return("").Inject()
+    .At(fctor).Return().Inject()
+    .At(fctor).Args().Inject()
 
-    .InjectTo  (fctor, nullptr)
-    .InjectTo  (fctor, nullptr).Args(0)
-    .InjectTo  (fctor, nullptr).Args("")
-    .InjectTo  (fctor, nullptr).As(type<int>)
-    .InjectTo  (fctor, nullptr).Return("")
-    .InjectTo  (fctor, nullptr).Return()
-    .InjectTo  (fctor, nullptr).Args()
+    .At(fctor, nullptr).Inject()
+    .At(fctor, nullptr).Args(0).Inject()
+    .At(fctor, nullptr).Args("").Inject()
+    .At(fctor, nullptr).As(type<int>).Inject()
+    .At(fctor, nullptr).Return("").Inject()
+    .At(fctor, nullptr).Return().Inject()
+    .At(fctor, nullptr).Args().Inject()
     .Test(_);
 }
 
@@ -96,8 +96,8 @@ BOOST_AUTO_TEST_CASE(ModelExecutor)
 {
     SignalMapping("Mapping execution test: type default")
     .OnTrigger (foo)
-        .InjectTo  (foo)
-        .ObserveOn (foo)
+        .At(foo).Inject()
+        .At(foo).Expect()
     .Test
         (42,     42)
         (13, Ne(14))
@@ -109,8 +109,8 @@ BOOST_AUTO_TEST_CASE(ModelExecutorDecorated)
 {
     SignalMapping("Mapping execution test: type<int>")
     .OnTrigger (foo)
-        .InjectTo  (foo).As(type<int>)
-        .ObserveOn (foo).As(type<int>)
+        .At(foo).As(type<int>).Inject()
+        .At(foo).As(type<int>).Expect()
     .Test
         ( 0,  0)
         (-1, -1)
@@ -122,8 +122,8 @@ BOOST_AUTO_TEST_CASE(ModelExecutorReturnVoid)
 {
     SignalMapping("Mapping execution test: return void")
     .OnTrigger (bar)
-        .InjectTo  (bar)
-        .ObserveOn (bar)
+        .At(bar).Inject()
+        .At(bar).Expect()
     .Test
         (11, Noop)
     ;
@@ -140,8 +140,8 @@ BOOST_AUTO_TEST_CASE(TestVectorInitList)
 
     SignalMapping("Mapping execution test: init list")
     .OnTrigger (Identity)
-        .InjectTo  (Identity)
-        .ObserveOn (Identity)
+        .At(Identity).Inject()
+        .At(Identity).Expect()
     .Test
         (42   , 42   )
         ("lol", "lol")
@@ -227,14 +227,14 @@ BOOST_AUTO_TEST_CASE(VirtualMethod)
 
     SignalMapping("Test virtual method on a parent")
     .OnTrigger(&Base::foo, base)
-        .ObserveOn (&Base::foo, base)
+        .At(&Base::foo, base).Expect()
     .Test("Base")
     ;
 
 
     SignalMapping("Test virtual method on a subclass")
     .OnTrigger(&Base::foo, final)
-        .ObserveOn (&Base::foo, final)
+        .At(&Base::foo, final).Expect()
     .Test("Final")
     ;
 }
@@ -247,13 +247,13 @@ BOOST_AUTO_TEST_CASE(VirtualMethodDefaultRefobj)
 
     SignalMapping("Test virtual method on a parent")
         .OnTrigger (&Base::foo, base)
-        .ObserveOn (&Base::foo)
+        .At(&Base::foo).Expect()
     .Test("Base")
     ;
 
     SignalMapping("Test virtual method on a subclass")
         .OnTrigger (&Base::foo, fin)
-        .ObserveOn (&Base::foo)
+        .At(&Base::foo).Expect()
     .Test("Final")
     ;
 }
@@ -269,8 +269,8 @@ BOOST_AUTO_TEST_CASE(SubclassSignalSlicing)
 
     SignalMapping("Object slicing on default serialization")
     .OnTrigger(callTestMethod)
-        .InjectTo (callTestMethod)
-        .ObserveOn(callTestMethod)
+        .At(callTestMethod).Inject()
+        .At(callTestMethod).Expect()
     .Test
         (Base  {}, "Base")
         (Final {}, "Base")
@@ -288,8 +288,8 @@ BOOST_AUTO_TEST_CASE(SubclassSignalData)
 
     SignalMapping("Test inherited data on a subclass")
     .OnTrigger(identity)
-        .InjectTo  (identity)
-        .ObserveOn (identity).Return("/test_field")
+        .At(identity).Inject()
+        .At(identity).Return("/test_field").Expect()
     .Test
         (Base  {  },  0)
         (Base  {13}, 13)
@@ -309,8 +309,8 @@ BOOST_AUTO_TEST_CASE(ZipModel)
 
     SignalMapping("Test inherited data on a subclass")
     .OnTrigger(identity)
-        .InjectTo  (identity).Args("/%d/%s", 0, FieldParam)
-        .ObserveOn (identity).Return("/%s", FieldParam)
+        .At(identity).Args("/%d/%s", 0, FieldParam).Inject()
+        .At(identity).Return("/%s", FieldParam).Expect()
     .Test
         ( 0,  0)
         (13, 13)
@@ -337,8 +337,8 @@ BOOST_AUTO_TEST_CASE(LongZipModel)
 
     SignalMapping("Test long zip wrapping")
     .OnTrigger(sut)
-        .ObserveOn (sut).Return("/%d/0", IndexA)
-        .ObserveOn (sut).Return("/%d/1", IndexB)
+        .At(sut).Return("/%d/0", IndexA).Expect()
+        .At(sut).Return("/%d/1", IndexB).Expect()
     .Test
         ( 42,  43)
     .Zip
@@ -368,10 +368,10 @@ BOOST_AUTO_TEST_CASE(ZipContinuation)
 
     SignalMapping("Test inherited data on a subclass")
     .OnTrigger(sut)
-        .InjectTo  (sut).Args(0)
-        .InjectTo  (sut).Args(1)
-        .InjectTo  (sut).Args(2)
-        .ObserveOn (sut).Return()
+        .At(sut).Args(0).Inject()
+        .At(sut).Args(1).Inject()
+        .At(sut).Args(2).Inject()
+        .At(sut).Return().Expect()
     .Test
         (X, Y, C, Ret)
 
@@ -399,8 +399,8 @@ BOOST_AUTO_TEST_CASE(ZipProdBrackets)
 
     SignalMapping("Test Zip/Prod clauses compiletaion with json bracket init")
     .OnTrigger(identity)
-        .InjectTo  (identity)
-        .ObserveOn (identity)
+        .At(identity).Inject()
+        .At(identity).Expect()
     .Test
         (X, X)
     .Zip
@@ -441,10 +441,10 @@ BOOST_AUTO_TEST_CASE(ModelWithMocks)
 
     SignalMapping("Test side effect mocking")
     .OnTrigger(SUT)
-        .InjectTo  (SUT)
-        .InjectTo  (&TestObject::in_out).Args("/1")
-        .ObserveOn (&TestObject::in_out).Args("/0")
-        .ObserveOn (SUT)
+        .At(SUT).Inject()
+        .At(&TestObject::in_out).Args("/1").Inject()
+        .At(&TestObject::in_out).Args("/0").Expect()
+        .At(SUT).Expect()
     .Test
         ( _,  _,  _,  _)
         ( 1,  _,  1,  _)
@@ -478,8 +478,8 @@ BOOST_AUTO_TEST_CASE(OnCallInject)
     auto const F = false;
     SignalMapping("Test Call Inject")
     .OnTrigger(SUT)
-        .InjectTo  (&Mock::break_loop).Return()
-        .ObserveOn (&Mock::break_loop).CallCount()
+        .At(&Mock::break_loop).Return().Inject()
+        .At(&Mock::break_loop).CallCount().Expect()
     .Test
         ( Eq(3)|And(T)|Or(F), 4 )
         ( Lookup({F,F,F,T}) , 4 )
@@ -506,13 +506,13 @@ BOOST_AUTO_TEST_CASE(OnCallObserve)
 
     SignalMapping("Test Call Observe")
     .OnTrigger(SUT)
-        .InjectTo  (SUT)
-        .ObserveOn (&Mock::consume_value).Args().Call(0)
-        .ObserveOn (&Mock::consume_value).Args().Call(1)
-        .ObserveOn (&Mock::consume_value).Args().Call(2)
+        .At(SUT).Inject()
+        .At(&Mock::consume_value).Args().Via(At(0)).Expect()
+        .At(&Mock::consume_value).Args().Via(At(1)).Expect()
+        .At(&Mock::consume_value).Args().Via(At(2)).Expect()
     .Test
-        (  0,  1,  2,  3 )
-        ( 42, 43, 44, 45 )
+        (  0, At(0)| 1, At(1)| 2, At(2)| 3 )
+        ( 42, At(0)|43, At(1)|44, At(2)|45 )
     ;
 }
 
@@ -532,9 +532,9 @@ BOOST_AUTO_TEST_CASE(OnCallParametric)
     auto NofCall = Param(1);
     SignalMapping("Parametric call # match")
     .OnTrigger(SUT)
-        .InjectTo  (&TestObject::get_value)
-        .ObserveOn (SUT).Return()
-        .ObserveOn (SUT).Return("/%d", NofCall)
+        .At(&TestObject::get_value).Inject()
+        .At(SUT).Return().Expect()
+        .At(SUT).Return("/%d", NofCall).Expect()
     .Test
         ( Ne(NofCall)|And(13)|Or(0) , Superset({13,  0}),  0)
         ( Eq(NofCall)|And(-1)|Or(13), Superset({13, -1}), -1)
@@ -544,31 +544,24 @@ BOOST_AUTO_TEST_CASE(OnCallParametric)
     ;
 }
 
-BOOST_AUTO_TEST_CASE(KeepClause)
+BOOST_AUTO_TEST_CASE(ExpressionClauses)
 {
-    auto SUT = [](boost::json::value const& x){
+    auto identity = [](boost::json::value const& x){
         return x;
     };
 
-    SignalMapping("Parametric Keep function 2")
-    .OnTrigger(SUT).Repeat(5)
-        .InjectTo  (SUT).Keep(Flip(Sub(5)))
-        .ObserveOn (SUT).CallRange()
-    .Test
-        ({5,4,3,2,1})
-    ;
-
     auto N = Param(1);
 
-    SignalMapping("Parametric Keep Id + observe Unfold")
-    .OnTrigger(SUT).Repeat(N)
-        .InjectTo  (SUT).Keep(Recur(Pow(2), 2))
-        .ObserveOn (SUT).CallRange()
+    SignalMapping("Parametric Repeat")
+    .OnTrigger(identity).Repeat(N)
+        .At(identity).Inject()
+        .At(identity).ExpectBatch()
     .Test
-        (Id & (N|Sub(1)|Unfold(Pow(2), 2)) | Eq)
+        (Id               , N | Arange                    )
+        (Flip(Sub(N))     , "%d:0:-1" | Fmt(N) | Arange   )
+        (Recur(Pow(2), 2) , N | Sub(1) | Unfold(Pow(2), 2))
     .Zip
-        (N, 1)
-    ;
+        (N, 1, 42);
 }
 
 
@@ -591,8 +584,8 @@ BOOST_AUTO_TEST_CASE(ZipRegisteredInterfaces)
 
     SignalMapping("Test interface zipping")
     .OnTrigger(SUT)
-        .InjectTo  (SUT)
-        .ObserveOn (SUT)
+        .At(SUT).Inject()
+        .At(SUT).Expect()
     .Test
         (  0,   0)
         ( -1,  -1)
@@ -621,8 +614,8 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceFunctorLiterals)
 
     SignalMapping("Test interface zipping")
     .OnTrigger(SUT)
-        .InjectTo  (SUT)
-        .ObserveOn (SUT)
+        .At(SUT).Inject()
+        .At(SUT).Expect()
     .Test
         (  0,   0)
         ( -1,  -1)
@@ -642,8 +635,8 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceFreeFnLiterals)
 
     SignalMapping("Test interface zipping over free functions")
     .OnTrigger(SUT)
-        .InjectTo  (SUT)
-        .ObserveOn (SUT)
+        .At(SUT).Inject()
+        .At(SUT).Expect()
     .Test(_, _)
     .Zip
         (SUT, foo, bar)
@@ -671,8 +664,8 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiteralsInvariantSut)
 
     SignalMapping("Test interface zipping")
     .OnTrigger(IFC, SUT)
-        .InjectTo  (IFC, SUT)
-        .ObserveOn (IFC, SUT)
+        .At(IFC, SUT).Inject()
+        .At(IFC, SUT).Expect()
     .Test
         ( Noop,  42)
         ( Noop,  42)
@@ -716,8 +709,8 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiteralsMock)
 
     SignalMapping("Test interface zipping")
     .OnTrigger(&Consumer::foo, SUT)
-        .InjectTo  (IFC).Return()
-        .ObserveOn (&Consumer::foo, SUT)
+        .At(IFC).Return().Inject()
+        .At(&Consumer::foo, SUT).Expect()
     .Test
         ( 42, 42 )
         ( 13, 13 )
@@ -743,8 +736,8 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiterals)
 
     SignalMapping("Test interface zipping")
     .OnTrigger(IFC, SUT)
-        .InjectTo  (IFC, SUT)
-        .ObserveOn (IFC, SUT)
+        .At(IFC, SUT).Inject()
+        .At(IFC, SUT).Expect()
     .Test
         ( Noop,  42)
         ( Noop,  42)
@@ -792,8 +785,8 @@ BOOST_AUTO_TEST_CASE(ZipInterfaceMfpLiteralsUnsafe)
 
     SignalMapping("Test interface zipping")
     .OnTrigger(IFC, SUT)
-        .InjectTo  (IFC, SUT)
-        .ObserveOn (IFC, SUT)
+        .At(IFC, SUT).Inject()
+        .At(IFC, SUT).Expect()
     .Test
         ( Noop,  42)
         ( Noop,  42)
@@ -833,8 +826,8 @@ BOOST_AUTO_TEST_CASE(ZipWithExpressionParams)
 
     SignalMapping("Test ifc + expr zip")
     .OnTrigger(SUT)
-        .InjectTo  (SUT)
-        .ObserveOn (SUT)
+        .At(SUT).Inject()
+        .At(SUT).Expect()
     .Test
         (ARG, RET)
     .Zip
@@ -863,7 +856,7 @@ BOOST_AUTO_TEST_CASE(ZipWithDeferredReferences)
 
     SignalMapping("Test interface zipping")
     .OnTrigger("sut-%d", N)
-    .ObserveOn("sut-%d", N)
+    .At("sut-%d", N).Expect()
     .Test(N)
     .Zip(N, 1, 2, 3)
     ;
@@ -885,9 +878,9 @@ BOOST_AUTO_TEST_CASE(ProdModel)
 
     SignalMapping("Test prod")
     .OnTrigger(sut)
-        .InjectTo  (sut).Args("/0/%s", FieldParam)
-        .InjectTo  (sut).Args("/1")
-        .ObserveOn (sut)
+        .At(sut).Args("/0/%s", FieldParam).Inject()
+        .At(sut).Args("/1").Inject()
+        .At(sut).Expect()
     .Test
         ( 0, CoefParam,  0)
         (13, CoefParam, 13)
@@ -914,8 +907,8 @@ BOOST_AUTO_TEST_CASE(DeepParamExpression)
 
     SignalMapping("Test parametrized expressions")
     .OnTrigger(sut)
-        .InjectTo  (sut)
-        .ObserveOn (sut)
+        .At(sut).Inject()
+        .At(sut).Expect()
     .Test
         (input, At(at_ptr)|expect)
     .Zip
@@ -941,16 +934,16 @@ BOOST_AUTO_TEST_CASE(TestWith)
 {
     auto test_pair = [](int x, int y){ return std::make_pair(x, y); };
 
-    SignalMapping("With clause test")
+    SignalMapping("And clause test")
     .OnTrigger(test_pair)
 
-        .InjectTo  (test_pair).Args(0)
-        .InjectTo  (test_pair).Args(1)
+        .At(test_pair) .Args(0) .Inject()
+        .At(test_pair) .Args(1) .Inject()
 
-        .ObserveOn (test_pair) .Return()
+        .At(test_pair) .Return() .Expect()
 
-        .ObserveOn (test_pair) .Return(1)
-             .With (test_pair) .Return(0)
+        .At(test_pair) .Return(1) .Group()
+        .At(test_pair) .Return(0) .Expect()
 
     .Test
         (  _ ,  _ ,  Size|2  ,  Size|2  )
@@ -963,12 +956,12 @@ BOOST_AUTO_TEST_CASE(TestWith)
     using test_map_t = std::map<int, int>;
     auto test_map = [](test_map_t const& map){ return map; };
 
-    SignalMapping("With clause test")
+    SignalMapping("And clause test")
     .OnTrigger(test_map)
 
-        .InjectTo  (test_map)
-        .ObserveOn (test_map).Return("/0/1")
-             .With (test_map).Return("/1/1")
+        .At(test_map) .Inject()
+        .At(test_map) .Return("/0/1") .Group()
+        .At(test_map) .Return("/1/1") .Expect()
 
     .Test
         (_             ,  _   )
@@ -1003,20 +996,22 @@ BOOST_AUTO_TEST_CASE(TestUnion)
 
     SignalMapping("Test series with default clause")
     .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).Alias("f")
-            .Union (&Mock::bar).Alias("b")
+        .At(test).Inject({1,2,3,4})
 
-    .Test
-        ({1,2,3,4}, L{{"f", 3}, {"b", 4}})
+        .At(&Mock::foo).Alias("f").Blend()
+        .At(&Mock::bar).Alias("b").Expect(L{
+            {"f", 1},
+            {"b", 2},
+            {"f", 3},
+            {"b", 4}
+        })
     ;
 
     SignalMapping("Test series with range")
     .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).CallRange().Alias("f")
-            .Union (&Mock::bar).CallRange().Alias("b")
-
+        .At(test).Inject()
+        .At(&Mock::foo).Alias("f").Blend()
+        .At(&Mock::bar).Alias("b").Expect()
     .Test
         ({1,2,3,4}, L{{"f", 1}, {"b", 2}, {"f", 3}, {"b", 4}})
         ({1,2,3,4}, Saturate({"f", 1}, {"b", 2}, {"f", 3}, {"b", 4}))
@@ -1024,13 +1019,9 @@ BOOST_AUTO_TEST_CASE(TestUnion)
 
     SignalMapping("Test series with CallCount clause")
     .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).CallCount().Alias("f")
-            .Union (&Mock::bar).CallCount().Alias("b")
-
-    .Test
-        ({1,2,3,4,5,6,7}, L{{"b", 3}, {"f", 4}}) ["f is called last"]
-    ;
+        .At(test).Inject({1,2,3,4,5,6,7})
+        .At(&Mock::foo).CallCount().Alias("f").Blend()
+        .At(&Mock::bar).CallCount().Alias("b").Expect(L{{"b", 3}, {"f", 4}});
 }
 
 
@@ -1038,23 +1029,22 @@ BOOST_AUTO_TEST_CASE(TestFixedChannels)
 {
     auto sut = [](boost::json::value const& x){ return x; };
 
-    SignalMapping("Test fixing clauses Keep and Expect")
+    SignalMapping("Test fixing clauses Inject and Expect")
     .OnTrigger(sut)
 
-    .InjectTo (sut) .Args("/0")   .Keep({0,0,0})
-    .InjectTo (sut) .Args("/0/%d", 0|Add(1)) .Keep(1)
-    .InjectTo (sut) .Args("/0/%d", 0|Add(2)) .Keep(42)
+    .At(sut) .Args("/0")              .Inject({0,0,0})
+    .At(sut) .Args("/0/%d", 0|Add(1)) .Inject(1)
+    .At(sut) .Args("/0/%d", 0|Add(2)) .Inject(42)
 
-    .ObserveOn(sut) .Return("/1") .Expect(1)
-    .ObserveOn(sut) .Return("/2") .Expect(42)
+    .At(sut) .Return("/1") .Expect(1)
+    .At(sut) .Return("/2") .Expect(42)
 
-    .ObserveOn(sut)  .Return("/2")
-         .With(sut)  .Return("/1")
-        .Expect({42,1})
+    .At(sut) .Return("/2") .Group()
+    .At(sut) .Return("/1") .Expect({42,1})
 
-    .ObserveOn(sut) .Return("/1") .Alias("a")
-        .Union(sut) .Return("/2") .Alias("b")
-        .Expect(L{
+    .At(sut) .Return("/1") .Alias("a").Blend()
+    .At(sut) .Return("/2") .Alias("b").Expect(
+        L{
             {"a",  1},
             {"b", 42},
         })
@@ -1070,8 +1060,7 @@ BOOST_AUTO_TEST_CASE(TriggerReturnRef)
 
     SignalMapping("trigger return reference")
     .OnTrigger (getx)
-        .ObserveOn (getx).Return().Expect(42)
-    .Test();
+        .At(getx).Return().Expect(42);
 }
 
 
@@ -1096,9 +1085,9 @@ BOOST_AUTO_TEST_CASE(MockReturnRef)
 
     SignalMapping("mock return reference")
     .OnTrigger (SUT)
-        .InjectTo(&Mock::x, &mock1)
-        .InjectTo(&Mock::y, &mock2)
-        .ObserveOn (SUT).Return()
+        .At(&Mock::x, &mock1).Inject()
+        .At(&Mock::y, &mock2).Inject()
+        .At(SUT).Return().Expect()
     .Test
         ( 2,  2,  4)
         ( 3,  3,  6)

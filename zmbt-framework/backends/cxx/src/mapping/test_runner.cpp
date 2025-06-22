@@ -57,7 +57,7 @@ class InstanceTestRunner
 
     void exec_postrun_tasks(TestDiagnostics diagnostics);
 
-    bool inject_fixed_inputs(TestDiagnostics diagnostics);
+    bool inject_expression_inputs(TestDiagnostics diagnostics);
 
     bool eval_fixed_assertions(TestDiagnostics diagnostics);
 
@@ -97,14 +97,14 @@ bool InstanceTestRunner::exec_prerun_tasks(TestDiagnostics diagnostics)
     return true;
 }
 
-bool InstanceTestRunner::inject_fixed_inputs(TestDiagnostics diagnostics)
+bool InstanceTestRunner::inject_expression_inputs(TestDiagnostics diagnostics)
 {
     (void) diagnostics;
     for (auto const& static_cnl: static_inputs_)
     {
         try
         {
-            static_cnl.inject_fixed();
+            static_cnl.inject_expression();
         }
         catch(const std::exception& e)
         {
@@ -254,7 +254,7 @@ bool InstanceTestRunner::eval_fixed_assertions(TestDiagnostics diagnostics)
 
     for (auto const& group: static_outputs_)
     {
-        lang::Expression expect = group.back().expect();
+        lang::Expression expect = group.back().expression();
         try
         {
             expect = lang::Expression::asPredicate(expect);
@@ -366,7 +366,7 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
 
         if (group_head.is_input())
         {
-            if (group_head.is_fixed_input())
+            if (group_head.has_expression())
             {
                 static_inputs_.push_back(group_head);
             }
@@ -375,7 +375,7 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
                 dynamic_inputs_.push_back({condition_index++, group_head});
             }
         }
-        else if (group_tail.is_fixed_output())
+        else if (group_tail.has_expression())
         {
             static_outputs_.push_back(std::move(channel_groups.front()));
         }
@@ -405,7 +405,7 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 
     env.ResetInterfaceData();
     success = success && exec_prerun_tasks(diagnostics);
-    success = success && inject_fixed_inputs(diagnostics);
+    success = success && inject_expression_inputs(diagnostics);
     success = success && inject_dynamic_inputs(test_vector, diagnostics);
     success = success && execute_trigger(diagnostics);
     success = success && eval_fixed_assertions(diagnostics);

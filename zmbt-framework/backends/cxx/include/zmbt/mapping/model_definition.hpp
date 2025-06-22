@@ -44,27 +44,30 @@ class ModelDefinition
     /// T_As transition
     template <class Target>
     struct T_As;
-    /// T_CallCount transition
+    /// T_At transition
     template <class Target>
-    struct T_CallCount;
-    /// T_CallFilter transition
+    struct T_At;
+    /// T_Blend transition
     template <class Target>
-    struct T_CallFilter;
+    struct T_Blend;
     /// T_Description transition
     template <class Target>
     struct T_Description;
     /// T_Expect transition
     template <class Target>
     struct T_Expect;
-    /// T_InjectTo transition
+    /// T_FilterProperty transition
     template <class Target>
-    struct T_InjectTo;
-    /// T_Keep transition
+    struct T_FilterProperty;
+    /// T_FilterSignal transition
     template <class Target>
-    struct T_Keep;
-    /// T_ObserveOn transition
+    struct T_FilterSignal;
+    /// T_Group transition
     template <class Target>
-    struct T_ObserveOn;
+    struct T_Group;
+    /// T_Inject transition
+    template <class Target>
+    struct T_Inject;
     /// T_OnTrigger transition
     template <class Target>
     struct T_OnTrigger;
@@ -89,12 +92,6 @@ class ModelDefinition
     /// T_Repeat transition
     template <class Target>
     struct T_Repeat;
-    /// T_SignalFilter transition
-    template <class Target>
-    struct T_SignalFilter;
-    /// T_SignalProperty transition
-    template <class Target>
-    struct T_SignalProperty;
     /// T_Test transition
     template <class Target>
     struct T_Test;
@@ -104,12 +101,9 @@ class ModelDefinition
     /// T_TestRow transition
     template <class Target>
     struct T_TestRow;
-    /// T_Union transition
+    /// T_Via transition
     template <class Target>
-    struct T_Union;
-    /// T_With transition
-    template <class Target>
-    struct T_With;
+    struct T_Via;
     /// T_Zip transition
     template <class Target>
     struct T_Zip;
@@ -129,30 +123,20 @@ class ModelDefinition
     class N_TestTable;
     /// N_Test node
     class N_Test;
-    /// N_Channel node
-    class N_Channel;
-    /// N_ChannelOut node
-    class N_ChannelOut;
-    /// N_CombineOut node
-    class N_CombineOut;
-    /// N_EndIn node
-    class N_EndIn;
-    /// N_EndOut node
-    class N_EndOut;
-    /// N_AliasIn node
-    class N_AliasIn;
-    /// N_AliasOut node
-    class N_AliasOut;
-    /// N_CallFilter node
-    class N_CallFilter;
-    /// N_DecorIn node
-    class N_DecorIn;
-    /// N_DecorOut node
-    class N_DecorOut;
-    /// N_KindIn node
-    class N_KindIn;
-    /// N_KindOut node
-    class N_KindOut;
+    /// N_MaybeChannel node
+    class N_MaybeChannel;
+    /// N_ContinuePipe node
+    class N_ContinuePipe;
+    /// N_ChannelEnd node
+    class N_ChannelEnd;
+    /// N_Alias node
+    class N_Alias;
+    /// N_Via node
+    class N_Via;
+    /// N_Decor node
+    class N_Decor;
+    /// N_Filter node
+    class N_Filter;
     /// N_Repeat node
     class N_Repeat;
     /// N_Main node

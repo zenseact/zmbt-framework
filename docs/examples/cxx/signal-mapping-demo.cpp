@@ -33,9 +33,9 @@ BOOST_AUTO_TEST_CASE(BasicExample)
 
     SignalMapping("Simple function test")
     .OnTrigger(sum)
-        .InjectTo  (sum) .Args(0)
-        .InjectTo  (sum) .Args(1)
-        .ObserveOn (sum) .Return()
+        .At(sum) .Args(0)  .Inject()
+        .At(sum) .Args(1)  .Inject()
+        .At(sum) .Return() .Expect()
     .Test
         ( 2,  2,  4 )
         ( 2, -2,  0 )
@@ -48,20 +48,19 @@ BOOST_AUTO_TEST_CASE(BasicExample)
 This example defines a simple mapping with two inputs and one output.
 
  * `OnTrigger(sum)` specifies the trigger - an entry point of the test execution.
- * `InjectTo(sum).Args(n)` tells the model runner where to inject input values.
- * `ObserveOn(sum).Return()` specifies where to observe the function's return value.
+ * `At(sum).Args(n).Inject()` tells the model runner where to inject input values.
+ * `At(sum).Return().Expect()` specifies where to observe the interesting signal.
 
 The Test clause defines a list of test vectors using cascade of `operator()` calls,
 where each line represents one test case.
-The `InjectTo` and `ObserveOn` lines form a list of channels, which act as headers
+The `At(sum)...` lines form a list of signal pipes, which can be viewed as headers
 for the corresponding columns in the test matrix. The channel-to-column indexation
-is 1-to-1 for most cases; however, certain clauses, such as `Keep`, `Expect`, `Union`, and `With`,
-will implicitly reduce the expected test vector size.
+is 1-to-1 for pipes with empty `Inject()` or `Expect()` clauses;
 
 For each test case, the runner invokes `sum` with the first two values as inputs
 and checks whether the result matches the third value.
 
-The same test can be expressed with a single channel for both arguments:
+The same test can be expressed with a single channel for both input arguments:
 ```c++
 */
 BOOST_AUTO_TEST_CASE(NonScalarValues)
@@ -70,8 +69,8 @@ BOOST_AUTO_TEST_CASE(NonScalarValues)
 
     SignalMapping("Simple test with non-scalar input")
     .OnTrigger(sum)
-        .InjectTo  (sum)
-        .ObserveOn (sum)
+        .At(sum) .Inject()
+        .At(sum) .Expect()
     .Test
         ( { 2,   2},    4 )
         ( { 2,  -2},    0 )
@@ -81,13 +80,13 @@ BOOST_AUTO_TEST_CASE(NonScalarValues)
 /*
 ```
 
-The default `InjectTo(sum)` expands to `InjectTo(sum).Args("")` for non-unary triggers.
-This means the entire argument tuple is treated as a JSON array and passed as a single value.
+Following the default configuration rules, `.At(sum).Inject()` is equivalent to `.At(sum).Args("").Inject()`
+for non-unary triggers. This means the entire argument tuple is treated as a JSON array and passed as a single value.
 More on the `Args` parameters later.
 
 ## Expressions
 
-The framework provides an embedded functional scripting language
+The framework provides an embedded functional programming language
 that enables flexible matchers and more complex test data manipulation:
 
 ```c++
@@ -98,8 +97,8 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 
     SignalMapping("Expressions example")
     .OnTrigger(id)
-        .InjectTo  (id)
-        .ObserveOn (id)
+        .At(id).Inject()
+        .At(id).Expect()
     .Test
         ( 42             , Eq(42)                             )
         ( 42             , 42     /*(1)*/                     )
@@ -113,10 +112,10 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 /*
 ```
 
-1. `Eq` may be omitted in this context (predicate is expected).
+1. `Eq` may be omitted in the context of predicate.
 2. Expression composition with pipe operator. Equivalent to `Compose(Eq(3), Size)`.
 3. Optional comment.
-4. Saturate matchers in order over sequence input.
+4. Saturate the matchers over sequence input in given order.
 5. Ampersand operator packs evaluation into array as `f & g ↦ x ↦ [f(x), g(x)]`.
     Output is processed as `(((Reduce(Add) & Size) | Div) | Eq(2.5))`
     in the following steps:
@@ -133,7 +132,7 @@ For more detailes, see [Expression Guide](expressions.md) and [Expression Langua
 
 ## Mocks
 
-So far, we’ve used the same function reference for `OnTrigger`, `InjectTo`, and `ObserveOn` clauses.
+So far, we’ve used the same function reference for `OnTrigger` and `At` clauses.
 The reason each clause accepts a function reference is that you can also attach to mock interfaces,
 processing side effects the same way as trigger arguments and return values:
 
@@ -160,10 +159,10 @@ BOOST_AUTO_TEST_CASE(SingletoneMock)
 
     SignalMapping("Test with mock")
     .OnTrigger(sut)
-        .InjectTo  (&Mock::set_values) .Return() // (5)
-        .InjectTo  (&Mock::set_values) .Args(0)  // (6)
-        .InjectTo  (&Mock::set_values) .Args(1)
-        .ObserveOn (sut)               .Return()
+        .At(&Mock::set_values) .Return() .Inject() // (5)
+        .At(&Mock::set_values) .Args(0)  .Inject() // (6)
+        .At(&Mock::set_values) .Args(1)  .Inject()
+        .At(sut)               .Return() .Expect()
     .Test
         (true , 2,  2, 4)
         (true , 2, -2, 0)
@@ -182,10 +181,10 @@ BOOST_AUTO_TEST_CASE(SingletoneMock)
     mocks, as it is done in GMock.
 4. In this example the trigger is a functor - an object with a single `operator()` overload.
 5. `Return()` clause observes the mock’s return value.
-    This can be omitted - it’s the default expansion for `InjectTo(mock)` channels.
+    This can be omitted - it’s the default expansion for `At(mock)` channels.
 6. `Args(index)` clause gives access to individual mock arguments by index.
-    `InjectTo(mock).Args(...)` will handle the mutable references as outputs,
-    but their incoming values are also accessible with `ObserveOn`.
+    `At(mock).Args(...).Inject()` will handle the mutable references as outputs,
+    but their incoming values are also accessible separately with `At(mock).Args(...).Expect()`.
 
 In this example, the stimuli are injected into the mock object
 rather than directly into the trigger.
@@ -233,9 +232,9 @@ BOOST_AUTO_TEST_CASE(MultipleMocks)
 
     SignalMapping("Test with multiple mocks")
     .OnTrigger(sut)
-        .InjectTo  (&Mock::set_value, mock_x) .Args()
-        .InjectTo  (&Mock::set_value, mock_y) .Args()
-        .ObserveOn (sut)
+        .At(&Mock::set_value, mock_x) .Args() .Inject()
+        .At(&Mock::set_value, mock_y) .Args() .Inject()
+        .At(sut) .Expect()
     .Test
         ( 2,  2, 4)
         ( 2, -2, 0)
@@ -271,9 +270,8 @@ BOOST_AUTO_TEST_CASE(MockReferencingByString)
 
     SignalMapping("Test interface associated with string")
     .OnTrigger(SUT)
-        .ObserveOn(&Mock::foo, "lol").CallCount()
-        .ObserveOn(&Mock::foo, "kek").CallCount()
-    .Test( 1, 1 )
+        .At(&Mock::foo, "lol").CallCount().Expect(1)
+        .At(&Mock::foo, "kek").CallCount().Expect(1)
     ;
 }
 /*
@@ -310,11 +308,8 @@ BOOST_AUTO_TEST_CASE(ZipParametrization)
 
     SignalMapping("Test with zip params on %s", Name /*(2)*/)
     .OnTrigger(Method, sut)
-        .ObserveOn (&Mock::log)
-
-    .Test
-        ( All(Contains(Name/*(3)*/), Contains("Sut")) )
-
+        .At(&Mock::log)
+            .Expect( All(Contains(Name/*(3)*/), Contains("Sut")))
     .Zip // (4)
         (Name   , "Sut::foo", "Sut::bar", "Sut::baz") // (5)
         (Method , &Sut::foo , &Sut::bar , &Sut::baz ) // (6)
@@ -435,9 +430,9 @@ Signal serialization allows specifying the particular subsignal with string
 (we call it signal path), e. g.
 
 ```cpp
-.InjectTo (sut).Args("/0/foo/bar")
-.InjectTo (sut).Args("/1/foo/bar")
-.ObserveOn(sut).Return("/foo/bar")
+.At(sut).Args("/0/foo/bar")  .Inject()
+.At(sut).Args("/1/foo/bar")  .Inject()
+.At(sut).Return("/foo/bar")  .Expect()
 ```
 
 which refers to `<signal>.foo.bar` field on the corresponding argument or
@@ -455,9 +450,9 @@ accepts constant expression that evaluates to JSON Pointer string or index integ
 If you need to parametrize only a part of signal path, use an expr::Fmt or a printf-like overload:
 
 ```cpp
-.InjectTo (sut).Args("/%d/%s/bar"|Fmt(Index, Field))
+.At(sut) .Args("/%d/%s/bar"|Fmt(Index, Field))
 // or
-.InjectTo (sut).Args("/%d/%s/bar", Index, Field)
+.At(sut) .Args("/%d/%s/bar", Index, Field)
 ```
 
 Considering the *Index* and *Field* are parameter keys, the signal path here is
@@ -498,11 +493,11 @@ BOOST_AUTO_TEST_CASE(UserDataTypes)
 
     SignalMapping("Test Call")
     .OnTrigger(sut)
-        .InjectTo (sut).Args("/0/x")
-        .InjectTo (sut).Args("/1/x")
-        .InjectTo (sut).Args("/0/foo")
-        .InjectTo (sut).Args("/1/foo")
-        .ObserveOn(sut).Return("/foo")
+        .At(sut).Args("/0/x")   .Inject()
+        .At(sut).Args("/1/x")   .Inject()
+        .At(sut).Args("/0/foo") .Inject()
+        .At(sut).Args("/1/foo") .Inject()
+        .At(sut).Return("/foo") .Expect()
     .Test
         (1, 0, Foo::A, Foo::B, Foo::A)
         (0, 1, Foo::A, Foo::B, Foo::B)
@@ -566,11 +561,9 @@ BOOST_AUTO_TEST_CASE(UsingRegistry)
 
     SignalMapping("Test with zip params on %s", Method)
     .OnTrigger(Method)
-        .ObserveOn("Mock::log")
-    .Test
-        ( Eq(Method) )
-    .Zip
-        (Method, "Sut::foo", "Sut::bar", "Sut::baz")
+        .At("Mock::log")
+            .Expect(Eq(Method))
+    .Zip(Method, "Sut::foo", "Sut::bar", "Sut::baz")
     ;
 }
 /*
@@ -626,8 +619,8 @@ BOOST_AUTO_TEST_CASE(DecorUnderlying)
 
     SignalMapping("Decorate int -> int as Foo -> Foo")
     .OnTrigger(id)
-        .InjectTo  (id) .As(Underlying<Foo>)
-        .ObserveOn (id) .As(Underlying<Foo>)
+        .At(id).As(Underlying<Foo>).Inject()
+        .At(id).As(Underlying<Foo>).Expect()
     .Test
         (Foo::A, Foo::A    )
         (Foo::B, Foo::B    )
@@ -649,14 +642,13 @@ the model will throw exception on attempt to cast string representation of Foo:A
 Batch test conditions may be more convenient, expressive, and resource efficient
 then atomic conditions like in examples before.
 
-The SignalMapping model provides the following functionality for batch testing:
+The SignalMapping model provides the following functionality for flexible batch testing:
 
  - Generating input functions
  - `Repeat` clause for triggers.
- - `CallRange` and `Call` clauses for output filters.
- - Output combination clauses like `With` and `Union`.
+ - `Group` and `Blend` clauses for condition pipes
  - `ThreadId`, `Timestamp`, `Alias` - clauses for additional information useful in batch tests.
- - `Keep` and `Expect` channels clauses for fixed expressions.
+ - `Inject` and `Expect` clause arguments for fixed expressions.
 
 ### Generating functions
 
@@ -693,9 +685,9 @@ BOOST_AUTO_TEST_CASE(BatchInputs)
 
     SignalMapping("Input expressions")
     .OnTrigger(sut)
-        .InjectTo (sut)
-        .InjectTo (&Mock::produce)
-        .ObserveOn(sut)
+        .At(sut)             .Inject()
+        .At(&Mock::produce)  .Inject()
+        .At(sut)             .Expect()
     .Test
         (2, 42/*(1)*/            , {42, 42}             )
         (2, Pi/*(2)*/            , At(0)|Approx(3.14159))
@@ -715,18 +707,17 @@ BOOST_AUTO_TEST_CASE(BatchInputs)
 Note that if same the interface is used with different subsignals specified with JSON Pointer at `Args` or `Return` clause
 parameters, the corresponding injections expression are evaluated in order of appearance. See [more details below](#order-matters).
 
-### Fixed channels
+### Fixed conditions
 
-Both input and output channels can be excluded from the test matrix
-by providing a fixed input generator or an expectation matcher directly
-at channel definition with `Keep` and `Expect` clauses.
+Both input and output conditions can be excluded from the test matrix
+by passing expression directly to with `Inject` or `Expect` clauses.
 
-This techique allows to reduce the test matrix size, omitting invariant conditions,
-or even use only the fixed channels, switching to a more functional style:
+This allows to reduce the test matrix size, omitting repretitive conditions.
+Using only fixed conditions without `Test` clause is also possible:
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(FixedChannels)
+BOOST_AUTO_TEST_CASE(FixedConditions)
 {
     struct Mock {
         double produce() {
@@ -736,10 +727,10 @@ BOOST_AUTO_TEST_CASE(FixedChannels)
 
     auto sut = [&mock]() { return mock.produce(); };
 
-    SignalMapping("Keep clause")
+    SignalMapping("Fixed conditions")
     .OnTrigger(sut).Repeat(250)
-        .InjectTo (&Mock::produce)  .Keep(Add(1))
-        .ObserveOn(sut).CallRange() .Expect(Slide(2) | Each(Lt))
+        .At(&Mock::produce)  .Inject(Add(1))
+        .At(sut)             .Expect(Slide(2) | Each(Lt))
     ;
 }
 /*
@@ -747,25 +738,17 @@ BOOST_AUTO_TEST_CASE(FixedChannels)
 
 
 
-### CallRange and Repeat
+### ExpectBatch and Repeat
 
-In the previous example we used a dynamic number of mock calls as a test condition,
-and the resulting vector was populated in the trigger.
+In the previous example we used `Repeat` clause for calling the sut multiple times before
+passing the collected samples to matcher. When omitted, it's default value is 1.
 
-We can have a batch test a simpler trigger, using `Repeat` clause for input and
-`CallRange` on output.
-
-`Repeat` is a unique clause following `OnTrigger`. When omitted, it's default value is 1.
-
-The `CallRange` and `Call` clauses are mutually exclusive variant filters specific to output channels,
-either trigger or mock. Default is `Call(-1)`, which stand for the latest captured call.
-
-When `CallRange()` with no parameters specified, the output matcher will get an array of all
-captured signals as an argument:
+The `Expect` clause have a special behavior when number of observed signals is 0 or 1,
+so to avoid this we can use `ExpectBatch` clause to always match on signal series.
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(CallRange)
+BOOST_AUTO_TEST_CASE(BatchTest)
 {
     struct Mock {
         void consume(boost::json::value const& x) {
@@ -782,10 +765,10 @@ BOOST_AUTO_TEST_CASE(CallRange)
     };
 
 
-    SignalMapping("Repeat and CallRange clauses")
+    SignalMapping("Repeat clauses with batch output")
     .OnTrigger(sut).Repeat(3)
-        .InjectTo  (&Mock::produce)
-        .ObserveOn (&Mock::consume).CallRange()
+        .At(&Mock::produce).Inject()
+        .At(&Mock::consume).ExpectBatch()
     .Test
         ( Add(1)                               , {1, 2, 3}          )
         ( Recur(Add(1), 0)                     , {0, 1, 2}          )
@@ -803,8 +786,8 @@ Same example with parametric trigger repeats and more complex matchers:
 
     SignalMapping("Batch test with complex expressions for N=%d", N)
     .OnTrigger(sut).Repeat(N)
-        .InjectTo  (&Mock::produce)
-        .ObserveOn (&Mock::consume).CallRange()
+        .At(&Mock::produce).Inject()
+        .At(&Mock::consume).ExpectBatch()
     .Test
         (Add(1)       , (N | Div(2) | Add(0.5)) & Avg | Eq      /*(1)*/)
         (Flip(Sub(N)) , Slide(2) | Map(Sub|Eq(1)) | Reduce(And) /*(2)*/)
@@ -827,51 +810,10 @@ Same example with parametric trigger repeats and more complex matchers:
     3. `Reduce(And)` produces `true`
 
 
-### Filtering specific calls
-
-! TODO
-
-`CallRange` supports slice semantic, s.t. `CallRange(-1, 0, -1)`
-will provide reversed list of call data. Both `CallRange` and `Call` use
-0-based indexation. The difference on observation channels is that `CallRange`
-will return all captures that falls in the scpecified span or an empty array,
-while `Call` will throw an exception if the call index is outside of the captures span.
-
-The `Call` clause is a useful filter when only a specific output capture is interesting.
-
-```c++
-*/
-BOOST_AUTO_TEST_CASE(Call)
-{
-    struct Mock {
-        int get_value() {
-            return InterfaceRecord(&Mock::get_value).Hook();
-        }
-    };
-
-    auto sut = []() {
-        Mock mock{};
-        int x = mock.get_value();
-        int y = mock.get_value();
-        return x + y;
-    };
-
-    SignalMapping("Test Call")
-    .OnTrigger(sut)
-        .InjectTo (&Mock::get_value)
-        .ObserveOn(sut)
-    .Test
-        (Lookup({2,  2}), 4)
-        (Lookup({2, -2}), 0)
-    ;
-}
-/*
-```
-
 ### CallCount
 
-`CallCount` channel specifier allows to test how many times the corresponding
-mock interface was invoked from the SUT, efficiently replacing the combination of `CallRange()`
+`CallCount` specifier allows to test how many times the corresponding
+mock interface was invoked from the SUT, efficiently replacing the combination of `ExpectBatch()`
 with `Size` expression:
 
 ```c++
@@ -894,8 +836,7 @@ BOOST_AUTO_TEST_CASE(CallCount)
 
     SignalMapping("CallCount clause")
     .OnTrigger(sut).Repeat(N)
-        .ObserveOn (&Mock::foo).CallCount()
-    .Test(X)
+        .At(&Mock::foo).CallCount().Expect(X)
     .Zip
         (N, 0   , 42)
         (X, Nil , 42)
@@ -904,20 +845,20 @@ BOOST_AUTO_TEST_CASE(CallCount)
 /*
 ```
 
-### With and Union
+### Multi-channel pipes
 
-When testing the relationship between different channels, it may be necessary to put their outputs into a single column in the test matrix.
-It can be made with clauses like `With` or `Union`, which begin an output channel definition similar to `ObserveOn`.
-It is possible to chain multiple channels in a single combo, but mixing different combo types in a chain will not work.
-The `ObserveOn` clause will break a chain, starting a new channel or combo.
+When testing the relationship between different channels, it may be necessary to apply a single condition on them.
+It can be made with clauses like `Group` or `Blend`, placed in place of terminal `Inject` or `Expect` clauses.
+It is possible to chain multiple channels in a condition pipe with a single test expression,
+but mixing different types in a chain will not work.
 
-The test runner will combine the captured outputs from the chained channels according to certain rules.
-The result is passed then to the matcher expression from the corresponding test matrix column or the `Expect` clause argument.
+For piped outputs, the test runner will combine the captured samples from the chained channels according to certain rules.
+The result is passed then to the matcher expression specified at `Expect` clause argument or on the corresponding test matrix column.
 
-The `Union` chain merges captured samples in a time series, producing a list of pairs `[alias, signal]`, sorted by timestamp.
-Alias, if not defined explicitly with `Alias` clause, is a channel index (counting each channel in a chain separately).
+The `Blend` chain merges captured samples in a time series, producing a list of pairs `[id, signal]`, sorted by timestamp.
+Id, if not defined explicitly with `Alias` clause, is a channel absolute index (ignoring pipe boundaries).
 
-In combination with `Saturate` or other custom matchers, the `Union` output can be used for testing a strict or partial order on mock calls.
+In combination with `Saturate` or other custom matchers, the `Blend` output can be used for testing a strict or partial order on mock calls.
 
 ```c++
 */
@@ -942,12 +883,11 @@ BOOST_AUTO_TEST_CASE(TestOrderUnion)
         }
     };
 
-    SignalMapping("Test order with Union channel combo")
+    SignalMapping("Test order with Or pipe")
     .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).CallRange().Alias("f")
-            .Union (&Mock::bar).CallRange().Alias("b")
-
+        .At(test) .Inject()
+        .At(&Mock::foo).Alias("f").Blend()
+        .At(&Mock::bar).Alias("b").Expect()
     .Test
         (  2, Serialize | R"([["f",1],["b",0]])"                 )
         ( 42, Map(At(0)) | All(Count("f")|21, Count("b")|21)     )
@@ -957,7 +897,7 @@ BOOST_AUTO_TEST_CASE(TestOrderUnion)
 /*
 ```
 
-The `With` clause will simply pack the outputs of the combined channels into an
+The `Group` clause will simply pack the outputs of the combined channels into an
 array.
 
 ```c++
@@ -984,10 +924,9 @@ BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
 
     SignalMapping("Test join with auto expr match on pair")
     .OnTrigger(test)
-        .InjectTo  (test)
-        .ObserveOn (&Mock::foo).CallRange()
-             .With (&Mock::bar).CallRange()
-
+        .At(test).Inject()
+        .At(&Mock::foo).Group()
+        .At(&Mock::bar).Expect()
     .Test
         ({1, 42, 13}, Flatten | Gt            )
         ({3, 42, 13}, {{42,42,42}, {13,13,13}})
@@ -997,9 +936,7 @@ BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
 /*
 ```
 
-As it is stated previously, the channel list acts as a table header for the test matrix(1),
-however, the fixing or combination clauses will break the 1-to-1 indexation.
-It is important to keep this in mind when defining the test matrix or investigating the output reports.
+As it is stated previously, the list of non-fixed pipes acts as a table header for the test matrix (1).
 { .annotate }
 
 1. Defined with the `Test` clause
@@ -1009,11 +946,11 @@ It is important to keep this in mind when defining the test matrix or investigat
 
 The input injections are evaluated in the order of their definition in a channel list.
 The injection may be overwritten fully or partially by the following injections when channels share the same interface.
-However, all the fixed inputs(1) are evaluated before the non-fixed,
+However, all the fixed inputs(1) are evaluated before the test table inputs,
 so it is recommended to group them at the beginning for clarity.
 { .annotate }
 
-1. Defined with the `Keep` clause
+1. Passed to `Inject` clause directly
 
 The input evaluation order can be utilized to do some preparations before injecting at a specific subsignal.
 It is especially useful with dynamic structures like STL containers or variant types like boost::json::value itself.
@@ -1025,8 +962,8 @@ auto sut = [](std::vector<int> const& x){ ... };
 we may need to initialize a non-empty input before injecting to speciic elements:
 
 ```c++
-    .InjectTo (sut) .Args("/0").Keep(0|Repeat(64))
-    .InjectTo (sut) .Args("/0/1") // (1)
+    .At(sut) .Args("/0").Inject(0|Repeat(64))
+    .At(sut) .Args("/0/1") // (1)
 ```
 
 1. Injecting to the second element will fail without the previous line, as the default vector is empty.
@@ -1054,8 +991,8 @@ BOOST_AUTO_TEST_CASE(FixtureTasks)
 
     SignalMapping("Test pre- and post-run tasks")
     .OnTrigger(sut)
-        .InjectTo (&Mock::get_value)
-        .ObserveOn(sut)
+        .At(&Mock::get_value).Inject()
+        .At(sut)             .Expect()
     .Test
         (13    , 13)
         (Noop  , 42)
@@ -1076,7 +1013,7 @@ test vector, but in the second case, `Noop` tells the runner to skip injection.
 
 The order of `InjectReturn` or `InjectArgs` calls on `InterfaceRecord` has the same effect as order
 of injections on channel clauses (see [Order matters](#order-matters)).
-For such a such simple logic as in the given example it is recommended to use [fixed channels](#fixed-channels)
+For such a such simple logic as in the given example it is recommended to use [fixed conditions](#fixed-conditions)
 instead, but the tasks can be useful in handling side-effects not accessible in Expressions,
 like SUT reset or extra logging.
 
@@ -1091,10 +1028,8 @@ auto id = [](boost::json::value const& x){ return x; };
 
 SignalMapping("SignalMapping test")
 .OnTrigger(id)
-    .InjectTo  (id)
-    .ObserveOn (id)
-.Test
-    ("1:5"|Arange, Reduce(Add) & Size | Div | Eq(2.5)) //(1)
+    .At(id).Inject("1:5"|Arange)
+    .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5)) //(1)
 ;
 }
 /*

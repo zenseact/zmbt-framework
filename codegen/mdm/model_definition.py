@@ -1,6 +1,7 @@
 # (c) Copyright 2025 Zenseact AB
 # SPDX-License-Identifier: Apache-2.0
 
+import re
 TERMINAL_NODE = 'N_Term'
 
 class Transition:
@@ -31,7 +32,9 @@ class Node:
 
 class DefinitionMachine:
     def __init__(self, data: dict):
-        nodes = data.get('nodes')
+        nodes: dict = data.get('nodes')
+        params: dict = data.get('params')
+
         self.Nodes = tuple(Node(cls, n['base'], n['trans']) for cls, n in nodes.items() if cls != TERMINAL_NODE)
         self.Transitions = tuple(dict.fromkeys(t for n in self.Nodes for t in n.Transitions))
         self.AbstractTransitions = tuple(sorted(set(t.Class for n in self.Nodes for t in n.Transitions)))

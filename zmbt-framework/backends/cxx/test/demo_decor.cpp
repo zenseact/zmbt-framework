@@ -26,8 +26,8 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToFloat)
 
     SignalMapping("Test comparison assertions on IdentityFunctor")
     .OnTrigger(IdentityTest)
-        .InjectTo  (IdentityTest).As(Precise<float>)
-        .ObserveOn (IdentityTest).As(Precise<float>)
+        .At(IdentityTest).As(Precise<float>).Inject()
+        .At(IdentityTest).As(Precise<float>).Expect()
     .Test
         (0           , "0x0p+0")
         (  1.f       , 1.f        )
@@ -52,8 +52,8 @@ BOOST_AUTO_TEST_CASE(DecorPreciseFloatToDouble)
 
     SignalMapping("Test comparison assertions on FloatToDouble")
     .OnTrigger(FloatToDouble)
-        .InjectTo  (FloatToDouble) .As(Precise<float>)
-        .ObserveOn (FloatToDouble) .As(Precise<float>)
+        .At(FloatToDouble) .As(Precise<float>) .Inject()
+        .At(FloatToDouble) .As(Precise<float>) .Expect()
     // .Description("Literal vectors")
     .Test
         // will fail: "1.1f" is parsed py strtod, not strtof
@@ -99,8 +99,8 @@ BOOST_AUTO_TEST_CASE(DecorPreciseDoubleToFloat)
 
     SignalMapping("Test comparison assertions on FloatToDouble")
     .OnTrigger(DoubleToFloat)
-        .InjectTo  (DoubleToFloat) .As(Precise<double>)
-        .ObserveOn (DoubleToFloat) .As(Precise<float>)
+        .At(DoubleToFloat) .As(Precise<double>) .Inject()
+        .At(DoubleToFloat) .As(Precise<float>)  .Expect()
     // .Description("Literal vectors")
     .Test
         (0                     , 0               )

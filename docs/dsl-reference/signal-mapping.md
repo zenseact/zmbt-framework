@@ -1,11 +1,11 @@
 <!-- (c) Copyright 2024 Zenseact AB -->
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-# Signal Mapping Definition Machine
+# Signal Mapping Test Model
 
 :construction: *This document is in progress* :construction:
 
-The model definition machine utilizes method cascading with an entry point at
+The model API utilizes method cascading with an entry point at
 [SignalMapping](/CxxRef/classzmbt_1_1mapping_1_1SignalMapping/) class, which consumes a model name.
 
 Each subsequent method call consumes parameters and transitions to a
@@ -32,19 +32,11 @@ title Mapping model definition machine
 !define REST(x) {CM, x}-
 !define ONEORMORE(x) x, REST(x)
 
-MODEL = SignalMapping, OnTrigger, [Repeat], {Channel}-, Params, Tests, [Tasks], [Description];
+MODEL = SignalMapping, OnTrigger, [Repeat], {Condition_Pipe}-, [Tests], [Params], [Tasks], [Description];
 
-Channel = Input | Output ;
+Condition_Pipe  = Channel, {(Group | Blend), Channel}, (Inject | Expect | Assert);
 
-Input = InjectTo, CommonChannelOptions, [Alias], [Keep];
-
-
-Output = ObserveOn, ({OutputChannelOptions, [Alias], With}- | {OutputChannelOptions, [Alias], Union}-), [Expect];
-
-CommonChannelOptions = ([(Return | Args | Exception)], [As]);
-
-OutputChannelOptions = (((CommonChannelOptions | ThreadId | Timestamp), [(Call | CallRange)]) | CallCount);
-
+Channel = At, (([(Return | Args | Exception)], [As]) | ThreadId | Timestamp | CallCount), [Via], [Alias];
 
 Tests = ".Test", {LB, ONEORMORE(Expression), RB, ["[", ?comment?, "]" ]}-;
 
@@ -57,43 +49,69 @@ Tasks =  [".PreRun", LB, ONEORMORE(?task?), RB], [".PostRun", LB, ONEORMORE(?tas
 
 
 
-
-
 !!! warning
 
-    Clauses marked with :construction: below are not implemented and will throw exception.
+    Clauses marked with :construction: below are work  in progress and will throw *not implemented* exception.
 
 
 
-## Model init clauses
+## Model init clause
 
- - [SignalMapping](/CxxRef/classzmbt_1_1mapping_1_1SignalMapping/): test model opening with name parameter
+[SignalMapping](/CxxRef/classzmbt_1_1mapping_1_1SignalMapping/): test model opening with name parameter
+
+## Trigger config
+
  - [OnTrigger](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger/): test execution entry point
  - [Repeat](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Repeat/): number of trigger calls per test, default 1
 
-## Channel clauses
+## Condition pipes and channels
 
-Each channel node of the model definition starts with `InjectTo` or `ObserveOn` method,
-followed with optional parameter clauses. Many clauses assume default value if not specified.
+Condition pipe is a specific input or output *test condition* composed of parameters,
+through which the test runner interacts with SUT.
 
-The channel definition node is terminated once the new channel started with the
-`InjectTo` or `ObserveOn` method, or when the definition switches to `Parameters`
-or `Tests` nodes.
+The pipe configuration is a set of interface endpoints, signal filters,
+signal transformation rules, identifiers for referencing, and a single injection or matcher expression.
+
+Each pipe is composed from one or more signal channel, which holds configuration for a
+single interface.
+
+Channel is defined with [interface clause](#channel-interface), followed by optional parameter clauses.
+The complete pipe is terminated with `Inject` clause for inputs or `Expect*|Assert*` clauses for outputs
+that holds the corresponding test condition expression. Empty terminal clause means that the corresponding
+expression is delegated to [Test Vectors](#test-vectors) table.
+
+Examples:
+
+``` c++
+.At(f).Inject(42) // 1-channel input pipe
+.At(g).Expect()   // 1-channel output pipe
+
+// 3-channel input pipe
+.At(&Producer::get_x).Blend()
+.At(&Producer::get_y).Blend()
+.At(&Producer::get_z).Inject(MyGenerator)
+
+// 3-channel output pipe with additional filters
+.At(&Consumer::set_x)                           .Blend()
+.At(&Consumer::set_y).Args(0)                   .Blend()
+.At(&Consumer::set_z).Return().As(type<MyType>) .Expect(MyMatcher)
+```
 
 
+### Channel Interface
 
-### Interface
+The following clauses initiate channel definition chain.
 
-These clauses initiate channel definition chain.
+ - [At](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At/):  begin channel on a given interface and **initiate a pipe**.
+ - [And](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__And/): begin channel on a given interface and **continue pipe**.
+ - [Or](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Or/): begin channel on a given interface and **continue pipe**.
 
- - [InjectTo](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__InjectTo/): start stimulus definition on a specified interface.
- - [ObserveOn](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ObserveOn/): start response observation definition on a specified interface.
- - [With](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__With/), [Union](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Union/): start output combination following `ObserveOn` or same combination clause.
-
-Inputs to these clauses are `(interface[, refobj])` - same syntax as for `InterfaceRecord`
+Arguments to these clauses are `(interface[, refobj])` - same syntax as for `InterfaceRecord`
 with one exception: default refobj resolves as trigger if compatible mfp provided.
 
-### CommonChannelOptions
+### Channel Filters
+
+#### Signal Selectors
 
  - [Return](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Return/): address the interface return value by a signal path (JSON Pointer).
      - default (no args): `"/"`.
@@ -119,33 +137,69 @@ The default resolution logic follows intuition and conventional function syntax 
 - default observation on mock is taken on args
 
 You may need to handle mutable reference argument in mock or trigger - these cases are fully supported:
-`InjectTo(mock).Args()` or `Observe(trigger).Args()`.
+`At(ifc).Args()`.
 
 `As` clause is an equivalent to wrapping the corresponding test conditions with
 [`Overload`](/dsl-reference/expressions/#overload) expression. It is used to reduce repetitive `Overload` in `Test` clause table.
 
-### OutputChannelOptions
+#### Interface Properties
 
  - [Timestamp](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Timestamp/)
  - [ThreadId](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ThreadId/)
- - [Call](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__CallFilter/): specify the interface call number (0-based).
-     - Negative value is resolved as a reverse index, with -1 referring to the last call.
-     - default: `-1`
- - [CallRange](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__CallFilter/): specify the interface call range in 0-based slice with inclusive boundaries.
  - [CallCount](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__CallCount/): address the number of observed interface calls (used for mocks).
 
-### Alias
+#### Alias
 
- - [Alias](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Alias/): specify how the channel is referenced in log and in `Union` output. Default is channel absolute index.
+ - [Alias](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Alias/): specify how the channel is referenced in log and in `Blend` output.
+    Default is channel absolute index.
 
-### Fixed conditions
+### Test Conditions
 
- - [Keep](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Keep/): input generator expression, accepting interface call number on evaluation
- - [Expect](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Expect/): output matcher expression
+Test condition clauses terminate a pipe, configuring it's role as stimulus injection or response observation:
 
-If `Keep` or `Expect` specified, the corresponding channel is omitted from `Test` clause.
+ - [Inject](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Inject/)
+ - [Expect](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Expect/)
+ - [ExpectOne](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ExpectOne/)
+ - [ExpectBatch](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ExpectBatch/)
+ - :construction:[Assert](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Assert/)
+ - :construction:[AssertOne](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__AssertOne/)
+ - :construction:[AssertBatch](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__AssertBatch/)
 
-## Tests
+All of the listed clauses accept [Expression](/dsl-reference/expression) condition, or can be specified without arguments
+to indicate that the condition for the corresponding pipe is provided in [Test Vectors](#test-vectors) table.
+
+
+#### Input generator
+
+`Inject` clause takes an input generator expression of type
+$\mathbb{N}^0 \mapsto JSON$
+
+An argument to generator is a call counter managed by test runner.
+In :construction: `Group` pipes, each channel has a dedicated counter.
+In :construction: `Blend` pipes, all channels share the same counter.
+
+#### Output matcher
+
+Output condition clauses takes matchers of type
+$JSON \mapsto bool$. In this context any constant expression `x` interpreted as an `Eq(x)` predicate.
+
+The difference between `Expect*` and `Assert*` clauses is thet the formar reports failed matcher without terminating test execution whle latter applies early stop.
+
+The `*One` and `*Batch` variants are for explicit request of a single value or a batch.
+
+The `*One` clauses assume the observed interface expected to be invoked once from the SUT.
+The observed sample is passed directly to the matcher.
+Zero or more than one calls considered an error.
+
+The `*Batch` clauses assume the matcher is applied to the whole captured sample batch (possibly empty).
+
+The main `Expect` and `Assert` clauses without suffixes resolves this configuration implicitly using the folowing rules:
+
+ - if [Repeat](#trigger-config) = 1 and number of observed samples = 1: pass observed sample to the matcher directly (same as `*One`)
+ - if [Repeat](#trigger-config) != 1 and number of observed samples != 1: pass observed samples batch to the matcher as array (same as `*batch`)
+
+
+## Test vectors
 
 A tabular clause with cascading [operator()](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test/) calls for test vector plus an optional comment in [operator[]](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestComment/).
 
@@ -164,7 +218,7 @@ Using this syntax instead of conventional containers allows using literals of JS
     (MyEnum::Lol, MyEnum::Kek)
 ```
 
-The values in each test vectors are mapped to non-fixed channels (those without `Keep` or `Expect` clauses)
+The values in each test vectors are mapped to non-fixed channels (those without `Inject` or `Expect` clauses)
 in the order of their definition. For the sake of clarity it is recommended to group fixed channels separately from dynamic ones.
 
 ## Params

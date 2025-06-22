@@ -2,34 +2,29 @@
 # SPDX-License-Identifier: Apache-2.0
 
 nodes:
-  N_Descr:      { base: N_Term,       trans: { T_Description:     N_Term        } }
-  N_Post:       { base: N_Descr,      trans: { T_PostRun:         N_Descr       } }
-  N_Pre:        { base: N_Post,       trans: { T_PreRun:          N_Post        } }
-  N_ParamTable: { base: N_Pre,        trans: { T_ParamRow:        N_ParamTable  ,
-                                               T_Zip:             N_ParamTable  ,
-                                               T_Prod:            N_ParamTable  } }
-  N_Param:      { base: N_Pre,        trans: { T_Zip:             N_ParamTable  ,
-                                               T_Prod:            N_ParamTable  ,
-                                               T_Pairwise:        N_ParamTable  ,
-                                               T_Parametrize:     N_Param       } }
-  N_TestTable:  { base: N_Param,      trans: { T_TestRow:         N_TestTable   ,
-                                               T_TestComment:     N_TestTable   } }
-  N_Test:       { base: N_Param,      trans: { T_Test:            N_TestTable   } }
-  N_Channel:    { base: N_Test,       trans: { T_InjectTo:        N_KindIn      ,
-                                               T_ObserveOn:       N_KindOut     } }
-  N_ChannelOut: { base: N_Test,       trans: { T_ObserveOn:       N_KindOut     } }
-  N_CombineOut: { base: N_Channel,    trans: { T_Union:           N_KindOut     ,
-                                               T_With:            N_KindOut     } }
-  N_EndIn:      { base: N_Channel,    trans: { T_Keep:            N_Channel     } }
-  N_EndOut:     { base: N_CombineOut, trans: { T_Expect:          N_Channel     } }
-  N_AliasIn:    { base: N_EndIn,      trans: { T_Alias:           N_EndIn       } }
-  N_AliasOut:   { base: N_EndOut,     trans: { T_Alias:           N_EndOut      } }
-  N_CallFilter: { base: N_AliasOut,   trans: { T_CallFilter:      N_AliasOut    } }
-  N_DecorIn:    { base: N_AliasIn,    trans: { T_As:              N_AliasIn     } }
-  N_DecorOut:   { base: N_CallFilter, trans: { T_As:              N_CallFilter  } }
-  N_KindIn:     { base: N_DecorIn,    trans: { T_SignalFilter:    N_DecorIn     } }
-  N_KindOut:    { base: N_DecorOut,   trans: { T_SignalFilter:    N_DecorOut    ,
-                                               T_SignalProperty:  N_CallFilter  ,
-                                               T_CallCount:       N_AliasOut    } }
-  N_Repeat:     { base: N_Channel,    trans: { T_Repeat:          N_Channel     } }
-  N_Main:       { base: null,         trans: { T_OnTrigger:       N_Repeat      } }
+  N_Descr:        { base: N_Term,         trans: { T_Description:     N_Term          } }
+  N_Post:         { base: N_Descr,        trans: { T_PostRun:         N_Descr         } }
+  N_Pre:          { base: N_Post,         trans: { T_PreRun:          N_Post          } }
+  N_ParamTable:   { base: N_Pre,          trans: { T_ParamRow:        N_ParamTable    ,
+                                                   T_Zip:             N_ParamTable    ,
+                                                   T_Prod:            N_ParamTable    } }
+  N_Param:        { base: N_Pre,          trans: { T_Zip:             N_ParamTable    ,
+                                                   T_Prod:            N_ParamTable    ,
+                                                   T_Pairwise:        N_ParamTable    ,
+                                                   T_Parametrize:     N_Param         } }
+  N_TestTable:    { base: N_Param,        trans: { T_TestRow:         N_TestTable     ,
+                                                   T_TestComment:     N_TestTable     } }
+  N_Test:         { base: N_Param,        trans: { T_Test:            N_TestTable     } }
+  N_MaybeChannel: { base: N_Test,         trans: { T_At:              N_Filter        } }
+  N_ContinuePipe: { base: null  ,         trans: { T_At:              N_Filter        } }
+  N_ChannelEnd:   { base: null,           trans: { T_Inject:          N_MaybeChannel  ,
+                                                   T_Expect:          N_MaybeChannel  ,
+                                                   T_Group:           N_ContinuePipe  ,
+                                                   T_Blend:           N_ContinuePipe  } }
+  N_Alias:        { base: N_ChannelEnd,   trans: { T_Alias:           N_ChannelEnd    } }
+  N_Via:          { base: N_Alias,        trans: { T_Via:             N_Alias         } }
+  N_Decor:        { base: N_Via,          trans: { T_As:              N_Via           } }
+  N_Filter:       { base: N_Decor,        trans: { T_FilterSignal:    N_Decor         ,
+                                                   T_FilterProperty:  N_Alias         } }
+  N_Repeat:       { base: N_MaybeChannel, trans: { T_Repeat:          N_MaybeChannel  } }
+  N_Main:         { base: null,           trans: { T_OnTrigger:       N_Repeat        } }

@@ -144,15 +144,14 @@ void DefinitionHelper::combine_channels(boost::json::string_view combo)
     model("%s/combine", head_channel()) = combo;
 }
 
-void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, boost::json::string_view role, uint32_t const param_type)
+void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t const param_type)
 {
     auto const idx = cur_cnl_idx();
     model("/channels/+") = {
         {"interface", ifc},
-        {"role", role},
+        {"role", nullptr},
         {"signal_path", "$default"},
         {"kind", "$default"},
-        {"call", role == "observe" ? -1 : 0},
         {"index", idx},
         {"alias", idx},
     };
@@ -209,6 +208,20 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
         })(expr.underlying());
     }
     model("/tests/+") = json_from(tv);
+}
+
+void DefinitionHelper::set_expr(lang::Expression const& expr)
+{
+    model("/channels/@/expr") = expr;
+    auto const curcnl = cur_cnl_idx();
+
+    JsonTraverse([&](boost::json::value const& v, std::string const jp){
+        if (Param::isParam(v)) {
+            params("/%s/pointers/+", v) = format(
+                        "/channels/%d/expr%s", curcnl, jp);
+        }
+        return false;
+    })(expr.underlying());
 }
 
 }  // namespace detail

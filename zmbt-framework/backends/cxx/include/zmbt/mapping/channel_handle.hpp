@@ -33,8 +33,7 @@ public:
     ChannelHandle(JsonNode& model, boost::json::string_view cnl_ptr);
 
     bool is_input() const;
-    bool is_fixed_input() const;
-    bool is_fixed_output() const;
+    bool has_expression() const;
     bool is_output() const;
     bool operator==(boost::json::value const& v);
     boost::json::string key() const;
@@ -46,7 +45,7 @@ public:
     boost::json::string full_path() const;
     boost::json::string signal_path() const;
     Kind kind() const;
-    bool is_range() const;
+    bool is_batch() const;
     std::tuple<int,int,int> call() const;
     int on_call() const;
 
@@ -61,10 +60,9 @@ public:
     boost::json::value alias() const;
     boost::json::array const& captures() const;
     void inject(lang::Expression expr) const;
-    void inject_fixed() const;
-    lang::Expression keep() const;
-    lang::Expression expect() const;
-    boost::json::value observe() const;
+    void inject_expression() const;
+    lang::Expression expression() const;
+    boost::json::value observe(boost::json::string const& default_role = "") const;
 
 
     static boost::json::value observe_with(std::list<ChannelHandle> channels);

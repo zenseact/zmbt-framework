@@ -120,10 +120,10 @@ class DefinitionHelper {
 
     void combine_channels(boost::json::string_view combo);
 
-    void add_channel_impl(boost::json::value const& ifc, boost::json::string_view role, uint32_t const param_type);
+    void add_channel_impl(boost::json::value const& ifc, uint32_t const param_type);
 
     template <class O, class C>
-    void add_channel(O&& obj, C&& cal, boost::json::string_view role)
+    void add_channel(O&& obj, C&& cal)
     {
         uint32_t param_type = cnl_prm_none;
         boost::json::value obj_node = handle_obj_p(obj, param_type);
@@ -132,7 +132,7 @@ class DefinitionHelper {
         add_channel_impl({
             {"obj", obj_node},
             {"ifc", cal_node},
-        }, role, param_type);
+        }, param_type);
 
         if (cnl_prm_none == param_type) {
             env.RegisterAnonymousInterface(interface_id(cal_node), object_id(obj_node));
@@ -141,7 +141,7 @@ class DefinitionHelper {
 
     template <class T>
     require_cal<T>
-    add_channel(T&& cal, boost::json::string_view role)
+    add_channel(T&& cal)
     {
         uint32_t param_type = cnl_prm_none;
         boost::json::value cal_node = handle_cal_p(cal, param_type);
@@ -149,7 +149,7 @@ class DefinitionHelper {
         add_channel_impl({
             {"obj", "$default"},
             {"ifc", cal_node},
-        }, role, param_type);
+        }, param_type);
 
         if (cnl_prm_none == param_type) {
             env.RegisterAnonymousInterface(interface_id(cal_node), ifc_host_nullptr<T>);
@@ -158,16 +158,18 @@ class DefinitionHelper {
 
     template <class T>
     require_not_cal<T>
-    add_channel(T&& key, boost::json::string_view role)
+    add_channel(T&& key)
     {
         uint32_t param_type {cnl_prm_none};
         boost::json::value key_node = handle_key_p(std::forward<T>(key), param_type);
-        add_channel_impl(key_node, role, param_type);
+        add_channel_impl(key_node, param_type);
     }
 
     void set_channel_sp(boost::json::string_view kind, boost::json::value const& sp);
 
     void add_test_case(std::vector<lang::Expression> const& tv);
+
+    void set_expr(lang::Expression const& expr);
 
     DefinitionHelper();
 

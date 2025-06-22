@@ -16,10 +16,10 @@ Simple tabular test:
 ```c++
 auto sum = [](double x, double y){ return x + y; };
 
-SignalMapping("Simple test with non-scalar input")
+SignalMapping("Non-scalar input")
 .OnTrigger(sum)
-    .InjectTo  (sum)
-    .ObserveOn (sum)
+    .At(sum) .Inject()
+    .At(sum) .Expect()
 .Test
     ( { 2,   2},    4 )
     ( { 2,  -2},    0 )
@@ -37,16 +37,16 @@ struct Mock {
 
 auto sut = [&mock]() { return mock.produce(); };
 
-SignalMapping("Keep clause")
+SignalMapping("Mock input")
 .OnTrigger(sut) .Repeat(250)
-    .InjectTo (&Mock::produce)  .Keep(Add(1)) //(2)
-    .ObserveOn(sut).CallRange() .Expect(Slide(2) | Each(Lt)) //(3)
+    .At(&Mock::produce) .Inject(Add(1)) //(2)
+    .At(sut)            .Expect(Slide(2) | Each(Lt)) //(3)
 ;
 ```
 
 1. Rerouting mock call to ZMBT environment
 1. Generating function `Add(1)` accept index call, producing `[1,2,3...]` for mock call series
-2. Sliding window matcher asserting increasing delta
+2. Sliding window matcher for increasing delta
 
 ## Model-Based testing
 
