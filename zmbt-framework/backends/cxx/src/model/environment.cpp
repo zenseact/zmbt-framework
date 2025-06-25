@@ -71,6 +71,8 @@ void Environment::ResetInterfaceData()
 {
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().clear();
+    data_->input_generators.clear();
+
 }
 
 
@@ -78,6 +80,7 @@ void Environment::ResetInterfaceDataFor(object_id obj)
 {
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().erase(obj.str());
+    data_->input_generators[obj].clear();
 }
 
 
@@ -87,6 +90,7 @@ void Environment::ResetAll()
     auto lock = Lock();
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
+    data_->input_generators.clear();
 }
 
 
@@ -96,6 +100,7 @@ void Environment::ResetAllFor(object_id obj)
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().erase(obj.str());
     data_->json_data("/vars").as_object().erase(obj.str());
+    data_->input_generators[obj].clear();
 }
 
 
@@ -104,7 +109,7 @@ boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const&
     bool const is_obj_ok = data_->trigger_objs.count(obj_id);
     bool const is_ifc_ok = data_->trigger_ifcs.count(ifc_id);
     bool const is_complete_trigger = data_->triggers.count(ifc_id.str());
-        
+
     if (is_obj_ok && is_ifc_ok)
     {
         TriggerObj const& obj = data_->trigger_objs.at(obj_id);

@@ -12,15 +12,42 @@
 
 namespace zmbt {
 
+Generator::Generator(boost::json::array const& serialized)
+    : underlying_{serialized} {}
+
+Generator::Generator(lang::Expression const& expr) : underlying_{0UL, expr} {}
+
+boost::json::value Generator::operator()()
+{
+    auto& counter = underlying_.at(0).as_uint64();
+    auto const e = lang::Expression(underlying_.at(1));
+    return e.eval(counter++);
+}
+
+void Generator::reset()
+{
+    underlying_.at(0).emplace_uint64();
+}
+
+boost::json::array Generator::underlying() const
+{
+    return underlying_;
+}
+
+bool Generator::is_noop() const
+{
+    return lang::Expression(underlying()).is_noop();
+}
+
+
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id const& interface, object_id refobj)
-    : env{e}
-    , refobj_{refobj}
+    : refobj_{refobj}
     , interface_{interface}
+    , env{e}
 {
     auto lock = Env().Lock();
     auto& ifc_rec = Env().data_->json_data;
     captures = ifc_rec.branch(boost::json::kind::array, "/interface_records/%s/%s/captures", refobj, interface);
-    injects = ifc_rec.branch(boost::json::kind::object, "/interface_records/%s/%s/injects", refobj, interface);
 }
 
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, boost::json::string_view ref)
@@ -60,68 +87,44 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
     return env.data_->json_data.at("/prototypes/%s/args", interface());
 }
 
-void Environment::InterfaceHandle::Inject(lang::Expression const& e, boost::json::string_view group, boost::json::string_view jp)
+void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> e, ChannelKind const kind, boost::json::string_view jp)
 {
     auto lock = Env().Lock();
-    auto& expr_map = injects.get_or_create_object("/%s/expr", group);
-    expr_map[jp] = e; // boost::json::object holds insertion order
-
-    // invalidate cache
-    injects("/%s/cache", group).emplace_array();
+    env.data_->input_generators[refobj_][interface_][kind][jp] = e;
 }
 
 
-boost::json::value Environment::InterfaceHandle::GetInjection(boost::json::string_view group, boost::json::string_view jp, int const nofcall)
+boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
     auto lock = Env().Lock();
-    auto& injection_cache = injects.get_or_create_array("/%s/cache", group);
+    auto& inputs = env.data_->input_generators[refobj_][interface_][kind];
 
-    if (injection_cache.empty())
+    boost::json::value result_value;
+
+    if (ChannelKind::Return == kind)
     {
-        injection_cache.push_back(nullptr);
-        injection_cache.push_back(nullptr);
+        result_value = PrototypeReturn();
     }
-    auto& cache_nofcall = injection_cache.at(0);
-    auto& cache_value = injection_cache.at(1);
-
-    if (cache_nofcall != nofcall) // compute and store inject at n
+    else if (ChannelKind::Args == kind)
     {
-        boost::json::value temp_node;
-
-        if ("return" == group)
-        {
-            temp_node = PrototypeReturn();
-        }
-        else if ("args" == group)
-        {
-            temp_node = PrototypeArgs();
-        }
-        else
-        {
-            throw model_error("%s injection not implemented", group);
-        }
-
-        if (auto expr_map = injects("/%s/expr",group).if_object())
-        {
-            for (auto const& record: *expr_map)
-            {
-                boost::json::string_view const record_pointer = record.key();
-                lang::Expression const expr (record.value());
-                if (expr.is_noop()) continue;
-
-                // TODO: optimize recursive expr
-                auto v = expr.eval(nofcall); // TODO: handle errors
-                temp_node.set_at_pointer(record_pointer, v);
-            }
-        }
-        cache_value = temp_node;
-        cache_nofcall = nofcall;
+        result_value = PrototypeArgs();
+    }
+    else
+    {
+        throw model_error("%s injection not implemented", json_from(kind));
     }
 
-    boost::json::error_code ec;
-    auto p = cache_value.find_pointer(jp, ec);
+    for (auto& record: inputs)
+    {
+        boost::json::string_view const record_pointer = record.first;
+        auto& generator = *record.second;
+        if (generator.is_noop()) continue;
 
-    return p ? *p : nullptr;
+        // TODO: optimize recursive expr
+        auto const v = generator(); // TODO: handle errors and log
+        result_value.set_at_pointer(record_pointer, v);
+    }
+    return result_value;
 }
 
 
@@ -227,7 +230,7 @@ Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(std::si
 
     try
     {
-        args = GetInjectionArgs(nofcall);
+        args = YieldInjection(ChannelKind::Args);
     }
     catch(const std::exception& e)
     {

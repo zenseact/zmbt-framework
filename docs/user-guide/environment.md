@@ -33,16 +33,15 @@ The following methods may be needed in user code:
     - This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values. 
     <!-- See [examples](#signal-mapping-model-overview-mocks). -->
 
-- Stimuli setters:
+<!-- - Stimuli setters:
 [`InjectArgs`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-injectargs),
 [`InjectReturn`](http://localhost:8001/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-injectreturn)
     - Set generating function for corresponding subsignal at specified JSON pointer. See also
-    [Signal Mapping: Generating functions](/user-guide/signal-mapping/#generating-functions.png).
-
-- Stimuli getters:
-[`GetInjectionArgs`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-getinjectionargs-12),
-[`GetInjectionReturn`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-getinjectionreturn-12)
-    - Get corresponding values at JSON pointer and nofcall. Negative nofcall parameters used for reverse indexation.
+    [Signal Mapping: Generating functions](/user-guide/signal-mapping/#generating-functions.png). -->
+<!-- 
+- Stimuli getter:
+[`YieldInjection`]
+    - Get corresponding values at JSON pointer and nofcall. Negative nofcall parameters used for reverse indexation. -->
 
 
 ## Arbitrary data management

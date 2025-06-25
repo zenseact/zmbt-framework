@@ -47,24 +47,18 @@ class ModelDefinition
     /// T_At transition
     template <class Target>
     struct T_At;
-    /// T_Blend transition
+    /// T_ContinuePipe transition
     template <class Target>
-    struct T_Blend;
+    struct T_ContinuePipe;
     /// T_Description transition
     template <class Target>
     struct T_Description;
     /// T_Expect transition
     template <class Target>
     struct T_Expect;
-    /// T_FilterProperty transition
+    /// T_Filter transition
     template <class Target>
-    struct T_FilterProperty;
-    /// T_FilterSignal transition
-    template <class Target>
-    struct T_FilterSignal;
-    /// T_Group transition
-    template <class Target>
-    struct T_Group;
+    struct T_Filter;
     /// T_Inject transition
     template <class Target>
     struct T_Inject;
@@ -115,26 +109,26 @@ class ModelDefinition
     class N_Post;
     /// N_Pre node
     class N_Pre;
-    /// N_ParamTable node
-    class N_ParamTable;
     /// N_Param node
     class N_Param;
-    /// N_TestTable node
-    class N_TestTable;
+    /// N_ParamTable node
+    class N_ParamTable;
     /// N_Test node
     class N_Test;
+    /// N_TestTable node
+    class N_TestTable;
+    /// N_Channel node
+    class N_Channel;
     /// N_MaybeChannel node
     class N_MaybeChannel;
-    /// N_ContinuePipe node
-    class N_ContinuePipe;
     /// N_ChannelEnd node
     class N_ChannelEnd;
+    /// N_Decor node
+    class N_Decor;
     /// N_Alias node
     class N_Alias;
     /// N_Via node
     class N_Via;
-    /// N_Decor node
-    class N_Decor;
     /// N_Filter node
     class N_Filter;
     /// N_Repeat node

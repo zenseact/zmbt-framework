@@ -24,6 +24,7 @@ DefinitionHelper::DefinitionHelper()
     , model{{
         {"name"        , nullptr     },
         {"description" , ""          },
+        {"pipes"       , boost::json::array() },
         {"channels"    , boost::json::array() },
         {"tests"       , boost::json::array() },
         {"param_groups", boost::json::array() },
@@ -37,16 +38,17 @@ DefinitionHelper::~DefinitionHelper()
 {
 }
 
-std::size_t DefinitionHelper::cur_cnl_idx() const
+boost::json::object& DefinitionHelper::cur_pipe()
 {
-    return model.at("/channels").as_array().size() - 1;
+    return model("/pipes/@").as_object();
+}
+
+boost::json::object& DefinitionHelper::cur_channel()
+{
+    return model(head_pointer_).as_object();
 }
 
 
-boost::json::string DefinitionHelper::head_channel() const
-{
-    return format("/channels/%d", cur_cnl_idx()).c_str();
-}
 
 void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, boost::json::value const& param)
 {
@@ -133,28 +135,47 @@ void DefinitionHelper::init_parametrize()
 }
 
 
-void DefinitionHelper::combine_channels(boost::json::string_view combo)
+void DefinitionHelper::continue_pipe(boost::json::string_view combo)
 {
-    auto const curcnl = cur_cnl_idx();
-    if (combo != model.get_or_default(format("/channels/%s/combine", curcnl - 1), combo))
+    if ((not head_pipe_type_.is_null()) and (head_pipe_type_ != combo)) // already a pipe continuation
     {
-        throw model_error("can't chain different combination clauses");
+        throw model_error("can't chain different combination clauses, %s vs %s", head_pipe_type_, combo);
     }
 
-    model("%s/combine", head_channel()) = combo;
+    model("/pipes/@/type") = combo;
+    head_pipe_type_ = combo;
 }
 
 void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t const param_type)
 {
-    auto const idx = cur_cnl_idx();
-    model("/channels/+") = {
+
+    auto& pipes = model("/pipes").as_array();
+
+    if (head_pipe_type_.is_null())
+    {
+        channel_rel_count_ = 0;
+        pipes.push_back({
+            {"channels", boost::json::array{}},
+            {"index", pipe_count_++},
+        });
+    }
+
+    auto& channels = pipes.back().as_object().at("channels").as_array();
+    channels.push_back({
         {"interface", ifc},
         {"role", nullptr},
         {"signal_path", "$default"},
         {"kind", "$default"},
-        {"index", idx},
-        {"alias", idx},
-    };
+        {"index_abs", channel_abs_count_},
+        {"index_rel", channel_rel_count_},
+        {"alias", channel_abs_count_},
+    });
+
+    channel_abs_count_++;
+    channel_rel_count_++;
+    head_pointer_ = format("/pipes/%d/channels/%d", (pipe_count_ - 1), (channel_rel_count_ - 1));
+    auto const interface_ptr = format("%s/interface", head_pointer_);
+
 
     if (param_type & cnl_prm_key & cnl_prm_obj & cnl_prm_cal)
     {
@@ -163,33 +184,32 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 
     if (param_type & cnl_prm_defer_key)
     {
-        set_deferred_param(format("%s/interface", head_channel()), ifc);
+        set_deferred_param(interface_ptr, ifc);
     }
 
     if (param_type & cnl_prm_key)
     {
-        params("/%s/pointers/+", ifc) = format("%s/interface", head_channel());
+        params("/%s/pointers/+", ifc) = interface_ptr;
     }
 
     if (param_type & cnl_prm_obj)
     {
         auto const& p = ifc.at_pointer("/obj");
-        params("/%s/pointers/+", p) = format("%s/interface/obj", head_channel());
+        params("/%s/pointers/+", p) = interface_ptr + "/obj";
     }
 
     if (param_type & cnl_prm_cal)
     {
         auto const& p = ifc.at_pointer("/ifc");
-        params("/%s/pointers/+", p) = format("%s/interface/ifc", head_channel());
+        params("/%s/pointers/+", p) = interface_ptr + "/ifc";
     }
 }
 
 
 void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json::value const& sp)
 {
-    auto cnl_ptr = head_channel();
-    model("%s/kind", cnl_ptr) = kind;
-    set_deferred_param(format("%s/signal_path", cnl_ptr), sp);
+    model("%s/kind", head_pointer_) = kind;
+    set_deferred_param(format("%s/signal_path", head_pointer_), sp);
 }
 
 void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
@@ -212,13 +232,12 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
 
 void DefinitionHelper::set_expr(lang::Expression const& expr)
 {
-    model("/channels/@/expr") = expr;
-    auto const curcnl = cur_cnl_idx();
+    cur_pipe()["expr"] = expr;
 
     JsonTraverse([&](boost::json::value const& v, std::string const jp){
         if (Param::isParam(v)) {
             params("/%s/pointers/+", v) = format(
-                        "/channels/%d/expr%s", curcnl, jp);
+                        "/pipes/%d/expr%s", (pipe_count_ - 1), jp);
         }
         return false;
     })(expr.underlying());

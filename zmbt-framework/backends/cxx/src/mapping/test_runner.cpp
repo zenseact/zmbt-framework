@@ -38,14 +38,14 @@ using Keyword = zmbt::lang::Keyword;
 
 class InstanceTestRunner
 {
-    using ChannelCombo = std::list<ChannelHandle>;
+    using ConditionPipe = std::list<ChannelHandle>;
     JsonNode model_;
     Environment env;
 
-    std::vector<ChannelHandle> static_inputs_;
-    std::vector<ChannelCombo> static_outputs_;
-    std::vector<std::pair<std::size_t, ChannelHandle>> dynamic_inputs_;
-    std::vector<std::pair<std::size_t, ChannelCombo>> dynamic_outputs_;
+    std::vector<PipeHandle> static_inputs_;
+    std::vector<PipeHandle> static_outputs_;
+    std::vector<PipeHandle> dynamic_inputs_;
+    std::vector<PipeHandle> dynamic_outputs_;
 
 
 
@@ -57,7 +57,7 @@ class InstanceTestRunner
 
     void exec_postrun_tasks(TestDiagnostics diagnostics);
 
-    bool inject_expression_inputs(TestDiagnostics diagnostics);
+    bool inject_fixed_inputs(TestDiagnostics diagnostics);
 
     bool eval_fixed_assertions(TestDiagnostics diagnostics);
 
@@ -67,7 +67,7 @@ class InstanceTestRunner
 
     bool observe_results(boost::json::array const& test_vector, TestDiagnostics diagnostics);
 
-    bool eval_assertion(std::list<ChannelHandle> const& channel_group, lang::Expression expr, TestDiagnostics& diagnostics);
+    bool eval_assertion(PipeHandle const& condition_pipe, lang::Expression expr, TestDiagnostics& diagnostics);
 
 
 public:
@@ -97,20 +97,20 @@ bool InstanceTestRunner::exec_prerun_tasks(TestDiagnostics diagnostics)
     return true;
 }
 
-bool InstanceTestRunner::inject_expression_inputs(TestDiagnostics diagnostics)
+bool InstanceTestRunner::inject_fixed_inputs(TestDiagnostics diagnostics)
 {
     (void) diagnostics;
-    for (auto const& static_cnl: static_inputs_)
+    for (auto const& pipe: static_inputs_)
     {
         try
         {
-            static_cnl.inject_expression();
+            pipe.inject(pipe.expression());
         }
         catch(const std::exception& e)
         {
             report_failure(diagnostics
                 .Error("fixed input injection", e.what())
-                .ChannelId(static_cnl.alias()));
+                .ChannelId(pipe.index()));
             return false;
         }
     }
@@ -138,14 +138,13 @@ bool InstanceTestRunner::inject_dynamic_inputs(boost::json::array const& test_ve
     bool no_exception_met{true};
 
     std::size_t col_idx {};
-    for (auto const& input: dynamic_inputs_)
+    for (auto const& pipe: dynamic_inputs_)
     {
-        auto const& condition_idx = input.first;
-        auto const& channel = input.second;
+        auto const& condition_idx = pipe.column();
         auto const& test_expr = test_vector.at(condition_idx);
 
         try {
-            channel.inject(test_expr);
+            pipe.inject(test_expr);
         }
         catch (std::exception const& error) {
             report_failure(diagnostics
@@ -178,49 +177,31 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
     }
 }
 
-bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_group, lang::Expression e, TestDiagnostics& diagnostics)
+bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::Expression e, TestDiagnostics& diagnostics)
 {
-    bool assertion_passed{true};
 
     if (e.is_noop())
     {
         return true;
     }
 
-    boost::json::value observed {};
 
-    // getting observed value
-    if (assertion_passed)
+    boost::json::value observed;
+    bool observe_success{true};
+
+    try
     {
-        auto const& combo = channel_group.cbegin()->combine();
-        try {
-            if (combo == "union")
-            {
-                observed = ChannelHandle::observe_union(channel_group);
-            }
-            else if (combo == "with")
-            {
-                observed = ChannelHandle::observe_with(channel_group);
-            }
-            else
-            {
-                observed = channel_group.cbegin()->observe();
-                auto const op = channel_group.cbegin()->overload();
-                if (op.annotation() != lang::Operator{}.annotation())
-                {
-                    e = expr::Overload(op.annotation(), e);
-                }
-            }
-        }
-        catch (std::exception const& error) {
-            diagnostics.Error("output observation",error.what());
-            assertion_passed = false;
-        }
+        observed = condition_pipe.observe();
+    }
+    catch (std::exception const& error) {
+        diagnostics.Error("output observation",error.what());
+        observe_success = false;
     }
 
     // testing observed value
-    if (assertion_passed)
+    if (observe_success)
     {
+        e = condition_pipe.overload(e);
         try
         {
             if (not (e.match(observed)))
@@ -232,19 +213,17 @@ bool InstanceTestRunner::eval_assertion(std::list<ChannelHandle> const& channel_
                     .Fail(e, observed)
                     .EvalStack(ctx.log);
 
-                assertion_passed = false;
+                return false;
             }
         }
         catch(const std::exception& e)
         {
             diagnostics
                 .Error("output match evaluation", e.what());
-
-            assertion_passed = false;
+            return false;
         }
     }
-
-    return assertion_passed;
+    return true;
 }
 
 
@@ -252,40 +231,27 @@ bool InstanceTestRunner::eval_fixed_assertions(TestDiagnostics diagnostics)
 {
     bool passed {true};
 
-    for (auto const& group: static_outputs_)
+    for (auto const& pipe: static_outputs_)
     {
-        lang::Expression expect = group.back().expression();
+        lang::Expression expect = pipe.expression();
         try
         {
             expect = lang::Expression::asPredicate(expect);
         }
         catch(const std::exception& e)
         {
-            diagnostics.Error("fixed expectation eval", e.what());
+            diagnostics.Error("evaluating expression as predicate", e.what());
             passed = false;
         }
 
         if (passed)
         {
-            passed = eval_assertion(group, expect, diagnostics) && passed;
+            passed = eval_assertion(pipe, expect, diagnostics) && passed;
         }
 
         if (!passed)
         {
-            boost::json::value ids;
-            if (group.size() > 1)
-            {
-                ids.emplace_array();
-                for (auto const& cnl: group)
-                {
-                    ids.get_array().push_back(cnl.alias());
-                }
-            }
-            else
-            {
-                ids = group.back().alias();
-            }
-            report_failure(diagnostics.ChannelId(ids));
+            report_failure(diagnostics.ChannelId(pipe.index()));
         }
     }
     return passed;
@@ -295,22 +261,15 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
 {
     bool test_case_passed {true};
 
-    for (auto const& output: dynamic_outputs_)
+    for (auto const& pipe: dynamic_outputs_)
     {
-        auto const  condition_idx = output.first;
-        auto const& channel_group = output.second;
 
-        if (!channel_group.cbegin()->is_output())
-        {
-            continue;
-        }
-
-        test_case_passed = eval_assertion(channel_group, lang::Expression::asPredicate(test_vector.at(condition_idx)), diagnostics) && test_case_passed;
+        test_case_passed = eval_assertion(pipe, lang::Expression::asPredicate(test_vector.at(pipe.column())), diagnostics) && test_case_passed;
 
         if (!test_case_passed)
         {
             report_failure(diagnostics
-                .TestCol(condition_idx));
+                .TestCol(pipe.column()));
         }
     }
 
@@ -322,68 +281,39 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
     : model_(model)
 {
 
-    std::list<std::list<ChannelHandle>> channel_groups;
-
-    // Step 1 - fill the group list
-    channel_groups.push_back({});
-    auto group_it = channel_groups.rbegin();
-    auto const N = model_.at("/channels").as_array().size();
+    auto const N = model_.at("/pipes").as_array().size();
+    std::list<PipeHandle> pipes_list;
     for (std::size_t i = 0; i < N; i++)
     {
-        ChannelHandle channel{model_, format("/channels/%d", i)};
-
-        bool switch_group {true};
-
-        if (group_it->empty())
-        {
-            switch_group = false;
-        }
-        else if (channel.combine().is_null())
-        {
-            switch_group = group_it->cbegin()->combine().is_null();
-        }
-        else
-        {
-            switch_group = channel.combine() != group_it->cbegin()->combine();
-        }
-
-        if (switch_group)
-        {
-            channel_groups.push_back({});
-            group_it = channel_groups.rbegin();
-        }
-
-        group_it->push_back(channel);
+        pipes_list.emplace_back(model_, i);
     }
 
+
+
     // Step 2 - split static and dynamic
-    std::size_t condition_index{0};
-    while (!channel_groups.empty())
+    while (!pipes_list.empty())
     {
-        auto const& group_head = *channel_groups.front().cbegin();
-        auto const& group_tail = *channel_groups.front().crbegin();
 
-
-        if (group_head.is_input())
+        if (pipes_list.front().is_input())
         {
-            if (group_head.has_expression())
+            if (pipes_list.front().has_expression())
             {
-                static_inputs_.push_back(group_head);
+                static_inputs_.push_back(std::move(pipes_list.front()));
             }
             else
             {
-                dynamic_inputs_.push_back({condition_index++, group_head});
+                dynamic_inputs_.push_back(std::move(pipes_list.front()));
             }
         }
-        else if (group_tail.has_expression())
+        else if (pipes_list.front().has_expression())
         {
-            static_outputs_.push_back(std::move(channel_groups.front()));
+            static_outputs_.push_back(std::move(pipes_list.front()));
         }
         else
         {
-            dynamic_outputs_.push_back({condition_index++, std::move(channel_groups.front())});
+            dynamic_outputs_.push_back(std::move(pipes_list.front()));
         }
-        channel_groups.pop_front();
+        pipes_list.pop_front();
     }
 }
 
@@ -405,7 +335,7 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 
     env.ResetInterfaceData();
     success = success && exec_prerun_tasks(diagnostics);
-    success = success && inject_expression_inputs(diagnostics);
+    success = success && inject_fixed_inputs(diagnostics);
     success = success && inject_dynamic_inputs(test_vector, diagnostics);
     success = success && execute_trigger(diagnostics);
     success = success && eval_fixed_assertions(diagnostics);

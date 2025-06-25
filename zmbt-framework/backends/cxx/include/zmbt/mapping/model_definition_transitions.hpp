@@ -120,6 +120,115 @@ struct ModelDefinition::T_Repeat : protected virtual ModelDefinition::BaseTransi
 };
 
 
+
+template <class Target>
+struct ModelDefinition::T_Filter : protected virtual ModelDefinition::BaseTransition
+{
+
+    /// Interface return clause
+    /// Refers to the return subsignal at the given JSON Pointer
+    Target Return(lang::Expression const& e = "")
+    {
+        state().set_channel_sp("return", e);
+        return transit_to<Target>();
+    }
+
+    /// Interface return clause with printf-like format
+    template <class T, class... Rest>
+    Target Return(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
+    {
+        return Return(fmt | expr::Fmt(arg1, args_rest...));
+    }
+
+    /// Interface argument clause
+    /// Refers to the arguments subsignal at the given JSON Pointer
+    Target Args(lang::Expression const& e = "$default")
+    {
+        state().set_channel_sp("args", e);
+        return transit_to<Target>();
+    }
+
+    /// Interface argument clause with printf-like format
+    template <class T, class... Rest>
+    Target Args(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
+    {
+        return Args(fmt | expr::Format(arg1, args_rest...));
+    }
+
+    /// Interface exception
+    Target Exception()
+    {
+        state().cur_channel()["kind"] = "exception";
+        state().cur_channel()["signal_path"] = "";
+        return transit_to<Target>();
+    }
+
+    /// Output capture timestamp
+    Target Timestamp()
+    {
+        state().cur_channel()["kind"] = "ts";
+        state().cur_channel()["signal_path"] = "";
+        return transit_to<Target>();
+    }
+
+    /// Output capture thread id
+    Target ThreadId()
+    {
+        state().cur_channel()["kind"] = "tid";
+        state().cur_channel()["signal_path"] = "";
+        return transit_to<Target>();
+    }
+
+    Target CallCount()
+    {
+        state().cur_channel()["kind"] = "call_count";
+        state().cur_channel()["signal_path"] = "";
+        return transit_to<Target>();
+    }
+};
+
+
+template <class Target>
+struct ModelDefinition::T_As : protected virtual ModelDefinition::BaseTransition
+{
+    /// Apply Overload operator
+    Target As(boost::json::string_view ref)
+    {
+        state().cur_pipe()["overload"] = ref;
+        return transit_to<Target>();
+    }
+
+    /// Apply Overload operator
+    Target As(lang::Operator const& op)
+    {
+        return As(op.annotation());
+    }
+};
+
+
+template <class Target>
+struct ModelDefinition::T_Via : protected virtual ModelDefinition::BaseTransition
+{
+    /// Apply pre/post transformation
+    Target Via(lang::Expression const& expr)
+    {
+        state().cur_channel()["transform"] = expr;
+        return transit_to<Target>();
+    }
+};
+
+
+template <class Target>
+struct ModelDefinition::T_Alias : protected virtual ModelDefinition::BaseTransition
+{
+    Target Alias(boost::json::string_view alias)
+    {
+        state().cur_channel()["alias"] = alias;
+        return transit_to<Target>();
+    }
+};
+
+
 template <class Target>
 struct ModelDefinition::T_At : protected virtual ModelDefinition::BaseTransition
 {
@@ -161,7 +270,7 @@ struct ModelDefinition::T_At : protected virtual ModelDefinition::BaseTransition
 
 
 template <class Target>
-struct ModelDefinition::T_Blend : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_ContinuePipe : protected virtual ModelDefinition::BaseTransition
 {
     /// Combine channel outputs in time series
     ///
@@ -170,131 +279,15 @@ struct ModelDefinition::T_Blend : protected virtual ModelDefinition::BaseTransit
     /// order on mock calls.
     Target Blend()
     {
-        state().combine_channels("union");
+        state().continue_pipe("blend");
         return transit_to<Target>();
     }
-};
 
-template <class Target>
-struct ModelDefinition::T_Group : protected virtual ModelDefinition::BaseTransition
-{
     /// Pack channel outputs into an array similarly to Fork keyword
     /// X with Y with Z -> [X, Y, Z]
     Target Group()
     {
-        state().combine_channels("with");
-        return transit_to<Target>();
-    }
-};
-
-
-template <class Target>
-struct ModelDefinition::T_FilterSignal : protected virtual ModelDefinition::BaseTransition
-{
-
-    /// Interface return clause
-    /// Refers to the return subsignal at the given JSON Pointer
-    Target Return(lang::Expression const& e = "")
-    {
-        state().set_channel_sp("return", e);
-        return transit_to<Target>();
-    }
-
-    /// Interface return clause with printf-like format
-    template <class T, class... Rest>
-    Target Return(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
-    {
-        return Return(fmt | expr::Fmt(arg1, args_rest...));
-    }
-
-    /// Interface argument clause
-    /// Refers to the arguments subsignal at the given JSON Pointer
-    Target Args(lang::Expression const& e = "$default")
-    {
-        state().set_channel_sp("args", e);
-        return transit_to<Target>();
-    }
-
-    /// Interface argument clause with printf-like format
-    template <class T, class... Rest>
-    Target Args(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
-    {
-        return Args(fmt | expr::Format(arg1, args_rest...));
-    }
-
-    /// Interface exception
-    Target Exception()
-    {
-        state().model("/channels/@/kind") = "exception";
-        state().model("/channels/@/signal_path") = "";
-        return transit_to<Target>();
-    }
-};
-
-template <class Target>
-struct ModelDefinition::T_FilterProperty : protected virtual ModelDefinition::BaseTransition
-{
-    /// Output capture timestamp
-    Target Timestamp()
-    {
-        state().model("/channels/@/kind") = "ts";
-        state().model("/channels/@/signal_path") = "";
-        return transit_to<Target>();
-    }
-
-    /// Output capture thread id
-    Target ThreadId()
-    {
-        state().model("/channels/@/kind") = "tid";
-        state().model("/channels/@/signal_path") = "";
-        return transit_to<Target>();
-    }
-
-    Target CallCount()
-    {
-        state().model("/channels/@/kind") = "call_count";
-        state().model("/channels/@/signal_path") = "";
-        return transit_to<Target>();
-    }
-};
-
-
-template <class Target>
-struct ModelDefinition::T_As : protected virtual ModelDefinition::BaseTransition
-{
-    /// Apply Overload operator
-    Target As(boost::json::string_view ref)
-    {
-        state().model("/channels/@/overload") = ref;
-        return transit_to<Target>();
-    }
-
-    /// Apply Overload operator
-    Target As(lang::Operator const& op)
-    {
-        return As(op.annotation());
-    }
-};
-
-
-template <class Target>
-struct ModelDefinition::T_Via : protected virtual ModelDefinition::BaseTransition
-{
-    /// Apply pre/post transformation
-    Target Via(lang::Expression const& expr)
-    {
-        state().model("/channels/@/transform") = expr;
-        return transit_to<Target>();
-    }
-};
-
-
-template <class Target>
-struct ModelDefinition::T_Alias : protected virtual ModelDefinition::BaseTransition
-{
-    Target Alias(boost::json::string_view alias)
-    {
-        state().model("/channels/@/alias") = alias;
+        state().continue_pipe("group");
         return transit_to<Target>();
     }
 };
@@ -305,14 +298,16 @@ struct ModelDefinition::T_Inject : protected virtual ModelDefinition::BaseTransi
 {
     Target Inject()
     {
-        state().model("/channels/@/role") = "inject";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["column"] = state().test_column_count_++;
+        state().cur_pipe()["role"] = "inject";
         return transit_to<Target>();
     }
     /// Set fixed input condition
     Target Inject(lang::Expression const& expr)
     {
-        state().model("/channels/@/role") = "inject";
-        state().model("/channels/@/expr") = expr;
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["role"] = "inject";
         state().set_expr(expr);
         return transit_to<Target>();
     }
@@ -324,39 +319,48 @@ struct ModelDefinition::T_Expect : protected virtual ModelDefinition::BaseTransi
 {
     Target Expect()
     {
-        state().model("/channels/@/role") = "expect";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["column"] = state().test_column_count_++;
+        state().cur_pipe()["role"] = "expect";
         return transit_to<Target>();
     }
     /// Set fixed output assertion
     Target Expect(lang::Expression const& expr)
     {
-        state().model("/channels/@/role") = "expect";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["role"] = "expect";
         state().set_expr(expr);
         return transit_to<Target>();
     }
 
     Target ExpectBatch(lang::Expression const& expr)
     {
-        state().model("/channels/@/role") = "expect_batch";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["role"] = "expect_batch";
         state().set_expr(expr);
         return transit_to<Target>();
 
     }
     Target ExpectBatch()
     {
-        state().model("/channels/@/role") = "expect_batch";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["column"] = state().test_column_count_++;
+        state().cur_pipe()["role"] = "expect_batch";
         return transit_to<Target>();
     }
 
     Target ExpectOne(lang::Expression const& expr)
     {
-        state().model("/channels/@/role") = "expect_one";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["role"] = "expect_one";
         state().set_expr(expr);
         return transit_to<Target>();
     }
     Target ExpectOne()
     {
-        state().model("/channels/@/role") = "expect_one";
+        state().head_pipe_type_.emplace_null();
+        state().cur_pipe()["column"] = state().test_column_count_++;
+        state().cur_pipe()["role"] = "expect_one";
         return transit_to<Target>();
     }
 

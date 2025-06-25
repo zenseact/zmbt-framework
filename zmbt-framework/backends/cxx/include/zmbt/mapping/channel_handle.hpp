@@ -17,6 +17,7 @@
 namespace zmbt {
 namespace mapping {
 
+
 /// Channel clause handle for SignalMapping model
 class ChannelHandle
 {
@@ -24,31 +25,22 @@ class ChannelHandle
     Environment env;
 
 public:
-    enum class Kind
-    {
-        Undefined, Args, Return, Exception, Timestamp, ThreadId, CallCount,
-    };
+    using ConditionPipe = std::list<ChannelHandle>;
+    using Kind = ChannelKind;
 
     ~ChannelHandle() = default;
     ChannelHandle(JsonNode& model, boost::json::string_view cnl_ptr);
 
-    bool is_input() const;
-    bool has_expression() const;
-    bool is_output() const;
-    bool operator==(boost::json::value const& v);
     boost::json::string key() const;
-    boost::json::value combine() const;
 
     object_id host() const;
     interface_id interface() const;
-    lang::Operator overload() const;
     boost::json::string full_path() const;
     boost::json::string signal_path() const;
     Kind kind() const;
-    bool is_batch() const;
-    std::tuple<int,int,int> call() const;
-    int on_call() const;
+    std::tuple<int,int,int> slice() const;
 
+    bool operator==(boost::json::value const& v) const;
 
     operator boost::json::value() const
     {
@@ -58,15 +50,48 @@ public:
     std::size_t index() const;
     /// Channel alias or index if not set
     boost::json::value alias() const;
-    boost::json::array const& captures() const;
-    void inject(lang::Expression expr) const;
-    void inject_expression() const;
+
+    boost::json::array captures() const;
+
+};
+
+
+
+class PipeHandle
+{
+    JsonNode data_;
+    Environment env;
+
+    std::list<ChannelHandle> channels_;
+    boost::json::value observe_blend() const;
+
+
+public:
+    ~PipeHandle() = default;
+    PipeHandle(JsonNode& model, std::size_t const pipe_idx)
+        : data_(model.branch("/pipes/%d", pipe_idx))
+    {
+        auto const N = data_.at("/channels").as_array().size();
+        auto const ptr_pref = data_.node_ptr();
+        for (std::size_t i = 0; i < N; i++)
+        {
+            channels_.push_back({model, format("%s/channels/%d", data_.node_ptr(), i)});
+        }
+    }
+
+
+    boost::json::value type() const;
+    bool is_input() const;
+    bool is_output() const;
+    bool has_expression() const;
     lang::Expression expression() const;
-    boost::json::value observe(boost::json::string const& default_role = "") const;
+    lang::Expression overload(lang::Expression const& e) const;
 
+    void inject(lang::Expression expr) const;
+    boost::json::value observe() const;
 
-    static boost::json::value observe_with(std::list<ChannelHandle> channels);
-    static boost::json::value observe_union(std::list<ChannelHandle> channels);
+    int column() const;
+    boost::json::value index() const;
 
 };
 

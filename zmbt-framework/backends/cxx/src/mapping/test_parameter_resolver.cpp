@@ -56,64 +56,67 @@ try
         throw model_error("invalid trigger: %s", trigger);
     }
 
-    for (auto& channel: next_model("/channels").as_array())
+    for(auto& pipe: next_model("/pipes").as_array())
     {
-        auto const& role = channel.as_object().at("role");
-        auto& kind        = channel.as_object().at("kind");
-        auto& interface   = channel.as_object().at("interface");
-        auto& signal_path = channel.as_object().at("signal_path");
-
-        interface   = lang::Expression(interface).eval();
-        signal_path = lang::Expression(signal_path).eval();
-
-        if (signal_path.is_number())
+        auto const& role = pipe.as_object().at("role");
+        for (auto& channel: pipe.as_object()["channels"].as_array())
         {
-            signal_path = format("/%d", signal_path);
-        }
+            auto& kind        = channel.as_object().at("kind");
+            auto& interface   = channel.as_object().at("interface");
+            auto& signal_path = channel.as_object().at("signal_path");
 
-        interface_id ifc_id;
+            interface   = lang::Expression(interface).eval();
+            signal_path = lang::Expression(signal_path).eval();
 
-        if (interface.is_string())
-        {
-            ifc_id = env.InterfaceId(interface.get_string());
-        }
-        else if (interface.is_object())
-        {
-            ifc_id = interface_id(interface.as_object().at("ifc"));
-            auto const& obj_param = interface.as_object().at("obj");
-            object_id obj_id;
-            if (obj_param == "$default") {
-                obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
-            } else {
-                obj_id = object_id{lang::Expression(obj_param).eval()};
+            if (signal_path.is_number())
+            {
+                signal_path = format("/%d", signal_path);
             }
 
-            interface = env.GetOrRegisterInterface(obj_id, ifc_id);
-        }
-        else{
-            throw model_error("invalid interface: %s", interface);
-        }
+            interface_id ifc_id;
 
-
-        if (kind == "$default")
-        {
-            bool const on_trigger = trigger == interface;
-            bool const is_inject = role == "inject";
-            if (is_inject) {
-                kind = on_trigger ? "args" : "return";
-            } else {
-                kind = on_trigger ? "return" : "args";
+            if (interface.is_string())
+            {
+                ifc_id = env.InterfaceId(interface.get_string());
             }
-        }
+            else if (interface.is_object())
+            {
+                ifc_id = interface_id(interface.as_object().at("ifc"));
+                auto const& obj_param = interface.as_object().at("obj");
+                object_id obj_id;
+                if (obj_param == "$default") {
+                    obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
+                } else {
+                    obj_id = object_id{lang::Expression(obj_param).eval()};
+                }
 
-        if (signal_path == "$default")
-        {
-            bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
-            signal_path = (is_unary && (kind == "args")) ? "/0" : "";
-        }
-        else if (!signal_path.is_string())
-        {
-            throw model_error("invalid signal_path: %s", signal_path);
+                interface = env.GetOrRegisterInterface(obj_id, ifc_id);
+            }
+            else{
+                throw model_error("invalid interface: %s", interface);
+            }
+
+
+            if (kind == "$default")
+            {
+                bool const on_trigger = trigger == interface;
+                bool const is_inject = role == "inject";
+                if (is_inject) {
+                    kind = on_trigger ? "args" : "return";
+                } else {
+                    kind = on_trigger ? "return" : "args";
+                }
+            }
+
+            if (signal_path == "$default")
+            {
+                bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
+                signal_path = (is_unary && (kind == "args")) ? "/0" : "";
+            }
+            else if (!signal_path.is_string())
+            {
+                throw model_error("invalid signal_path: %s", signal_path);
+            }
         }
     }
 }

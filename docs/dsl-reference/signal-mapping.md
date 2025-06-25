@@ -34,9 +34,9 @@ title Mapping model definition machine
 
 MODEL = SignalMapping, OnTrigger, [Repeat], {Condition_Pipe}-, [Tests], [Params], [Tasks], [Description];
 
-Condition_Pipe  = Channel, {(Group | Blend), Channel}, (Inject | Expect | Assert);
+Condition_Pipe  = Channel, {(Group | Blend), Channel}, [As], (Inject | Expect | Assert);
 
-Channel = At, (([(Return | Args | Exception)], [As]) | ThreadId | Timestamp | CallCount), [Via], [Alias];
+Channel = At, [Return | Args | Exception | ThreadId | Timestamp | CallCount], [Via], [Alias];
 
 Tests = ".Test", {LB, ONEORMORE(Expression), RB, ["[", ?comment?, "]" ]}-;
 
@@ -118,7 +118,6 @@ with one exception: default refobj resolves as trigger if compatible mfp provide
  - [Args](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Args/): address the interface arguments **tuple** by a signal path (JSON Pointer).
      - default (no args): `"/0"` for unary interfaces, `"/"` otherwise (follows the Boost JSON logic).
  - [Exception](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Exception/) (:construction:): address the interface thrown or observed exceptions.
- - [As](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__As/): set the default overload operator for channel
 
 Inputs to `Args` and `Return` are constant string expressions. Optional overloads support printf-like syntax,
 e.g. `Args("/%s/%d", "foo", 42)` is a syntactic sugar for `Args("/%s/%d" | Format("foo", 42))`.
@@ -139,9 +138,6 @@ The default resolution logic follows intuition and conventional function syntax 
 You may need to handle mutable reference argument in mock or trigger - these cases are fully supported:
 `At(ifc).Args()`.
 
-`As` clause is an equivalent to wrapping the corresponding test conditions with
-[`Overload`](/dsl-reference/expressions/#overload) expression. It is used to reduce repetitive `Overload` in `Test` clause table.
-
 #### Interface Properties
 
  - [Timestamp](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Timestamp/)
@@ -152,6 +148,13 @@ You may need to handle mutable reference argument in mock or trigger - these cas
 
  - [Alias](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Alias/): specify how the channel is referenced in log and in `Blend` output.
     Default is channel absolute index.
+
+### Operator overload
+
+ - [As](/CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__As/): set the default overload operator for pipe
+
+`As` clause is an equivalent to wrapping the corresponding test conditions with
+[`Overload`](/dsl-reference/expressions/#overload) expression. It is used to reduce repetitive `Overload` in `Test` clause table.
 
 ### Test Conditions
 
@@ -175,8 +178,8 @@ to indicate that the condition for the corresponding pipe is provided in [Test V
 $\mathbb{N}^0 \mapsto JSON$
 
 An argument to generator is a call counter managed by test runner.
-In :construction: `Group` pipes, each channel has a dedicated counter.
-In :construction: `Blend` pipes, all channels share the same counter.
+In `Group` pipes, each channel has a dedicated counter.
+In `Blend` pipes, all channels share the same counter.
 
 #### Output matcher
 

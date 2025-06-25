@@ -11,6 +11,33 @@
 #include "zmbt/mapping/channel_handle.hpp"
 
 
+namespace
+{
+    boost::json::value flatten_response(boost::json::string_view role, boost::json::array const& observed)
+    {
+        if (role.ends_with("one"))
+        {
+            if (observed.size() == 1)
+            {
+                return observed.at(0);
+            }
+            else
+            {
+                // TODO: return Error
+                throw zmbt::model_error("expected single value capture, but got ", observed.size());
+            }
+        }
+        else if (role.ends_with("batch"))
+        {
+            return observed;
+        }
+        else
+        {
+            return observed.size() == 1 ? observed.at(0) : observed;
+        }
+    }
+}
+
 namespace zmbt {
 namespace mapping {
 
@@ -19,23 +46,9 @@ ChannelHandle::ChannelHandle(JsonNode& model, boost::json::string_view cnl_ptr)
 {
 }
 
-bool ChannelHandle::is_input() const
-{
-    return data_.at("/role") == "inject";
-}
 
 
-bool ChannelHandle::is_output() const
-{
-    return data_.at("/role") != "inject";
-}
-
-bool ChannelHandle::has_expression() const
-{
-    return data_.contains("/expr");
-}
-
-bool ChannelHandle::operator==(boost::json::value const& v)
+bool ChannelHandle::operator==(boost::json::value const& v) const
 {
     return data_.node() == v;
 }
@@ -50,20 +63,11 @@ object_id ChannelHandle::host() const
     return env.ObjectId(data_.at("/interface").as_string());
 }
 
-boost::json::value ChannelHandle::combine() const
-{
-    return data_.get_or_default("/combine", nullptr);
-}
 
 
 interface_id ChannelHandle::interface() const
 {
     return env.InterfaceId(data_.at("/interface").as_string());
-}
-
-lang::Operator ChannelHandle::overload() const
-{
-    return data_.contains("overload") ? lang::Operator{data_.at("overload").as_string()} : lang::Operator {};
 }
 
 
@@ -93,23 +97,12 @@ boost::json::value ChannelHandle::alias() const
 
 ChannelHandle::Kind ChannelHandle::kind() const
 {
-    boost::json::string const& k = data_.at("/kind").as_string();
-
-    if("args"       == k) return Kind::Args;
-    if("return"     == k) return Kind::Return;
-    if("call_count" == k) return Kind::CallCount;
-    if("exception"  == k) return Kind::Exception;
-    if("ts"         == k) return Kind::Timestamp;
-    if("tid"        == k) return Kind::ThreadId;
-    return Kind::Undefined;
+    return dejsonize<ChannelKind>(data_.at("/kind"));
 }
 
-bool ChannelHandle::is_batch() const
-{
-    return not data_.at("role").as_string().ends_with("one");
-}
 
-std::tuple<int,int,int> ChannelHandle::call() const
+
+std::tuple<int,int,int> ChannelHandle::slice() const
 {
     return {0, -1, 1};
     // if (is_batch())
@@ -124,63 +117,11 @@ std::tuple<int,int,int> ChannelHandle::call() const
     // }
 }
 
-int ChannelHandle::on_call() const
+boost::json::array ChannelHandle::captures() const
 {
-    if (data_.at("call") == "all")
-    {
-        return 0;
-    }
-    else if (data_.at("call").is_int64())
-    {
-        return data_.at("call").get_int64();
-    }
-    else
-    {
-        throw model_error("unresolved parameter in model execution: %s", data_.at("call"));
-        return 0;
-    }
-}
-
-
-void ChannelHandle::inject(lang::Expression e) const
-{
-    if (e.is_noop()) return;
-    auto handle = Environment::InterfaceHandle(interface(), host());
-    auto const op = overload();
-    if (op.annotation() != lang::Operator{}.annotation())
-    {
-        e = expr::Overload(op.annotation(), e);
-    }
-    handle.Inject(e, data_.at("/kind").as_string(), signal_path());
-}
-
-lang::Expression ChannelHandle::expression() const
-{
-    lang::Expression e = expr::Noop;
-
-    if (auto const p =  data_.find_pointer("expr"))
-    {
-        e = *p;
-    }
-    return e;
-}
-
-
-void ChannelHandle::inject_expression() const
-{
-    return inject(expression());
-}
-
-
-boost::json::value ChannelHandle::observe(boost::json::string const& default_role) const
-{
-    if (!is_output())
-    {
-        throw model_error("calling observe on non-output channel");
-    }
 
     int start, stop, step;
-    std::tie(start, stop, step) = call();
+    std::tie(start, stop, step) = slice();
     boost::json::array observed;
     auto const ifc_handle = Environment::InterfaceHandle(interface(), host());
     switch (kind())
@@ -208,52 +149,121 @@ boost::json::value ChannelHandle::observe(boost::json::string const& default_rol
         break;
     }
 
-    auto const& role = data_.at("role").is_string() ? data_.at("role").get_string() : default_role;
-    if (role.ends_with("one"))
+    return observed;
+}
+
+
+boost::json::value PipeHandle::type() const
+{
+    return data_.get_or_default("/type", nullptr);
+}
+
+
+
+lang::Expression PipeHandle::expression() const
+{
+    lang::Expression e = expr::Noop;
+
+    if (auto const p =  data_.find_pointer("expr"))
     {
-        if (observed.size() == 1)
-        {
-            return observed.at(0);
-        }
-        else
-        {
-            // TODO: return Error
-            throw model_error("expected single value capture, but got ", observed.size());
-        }
+        e = *p;
     }
-    else if (role.ends_with("batch"))
+    return e;
+}
+
+bool PipeHandle::is_input() const
+{
+    return data_.at("/role") == "inject";
+}
+
+
+bool PipeHandle::is_output() const
+{
+    return data_.at("/role") != "inject";
+}
+
+bool PipeHandle::has_expression() const
+{
+    return data_.contains("/expr");
+}
+
+
+lang::Expression PipeHandle::overload(lang::Expression const& e) const
+{
+    if (data_.contains("overload"))
     {
-        return observed;
+        return expr::Overload(data_.at("overload").as_string(), e);
+    }
+    return e;
+}
+
+void PipeHandle::inject(lang::Expression e) const
+{
+    if (e.is_noop()) return;
+    e = overload(e);
+
+    bool const is_blend = type() == "blend";
+
+    if (is_blend)
+    {
+        auto generator = std::make_shared<Generator>(e);
+        for (auto const& channel: channels_)
+        {
+            auto handle = Environment::InterfaceHandle(channel.interface(), channel.host());
+            handle.Inject(generator, channel.kind(), channel.signal_path());
+        }
     }
     else
     {
-        return observed.size() == 1 ? observed.at(0) : observed;
+        for (auto const& channel: channels_)
+        {
+            auto handle = Environment::InterfaceHandle(channel.interface(), channel.host());
+            handle.Inject(std::make_shared<Generator>(e), channel.kind(), channel.signal_path());
+        }
     }
-    return nullptr;
+
 }
 
-boost::json::array const& ChannelHandle::captures() const
+boost::json::value PipeHandle::observe() const
 {
-    auto ifc_handle = Environment::InterfaceHandle(interface(), host());
-    return ifc_handle.Captures();
-}
-
-boost::json::value ChannelHandle::observe_with(std::list<ChannelHandle> channels)
-{
-    boost::json::array union_signal {};
-    auto const& default_role = channels.back().data_.at("role").as_string();
-
-    for (auto const& channel: channels)
+    if (!is_output())
     {
-        union_signal.push_back(channel.observe(default_role));
+        throw model_error("calling observe on non-output channel");
+    }
+    auto const& role = data_.at("role").as_string();
+    boost::json::value result;
+    auto const pipe_type = type();
+    if ("group" == pipe_type)
+    {
+        result.emplace_array();
+        auto& group_result = result.get_array();
+        for (auto const& channel: channels_)
+        {
+
+            group_result.push_back(flatten_response(role, channel.captures()));
+        }
+    }
+    else if ("blend" == pipe_type)
+    {
+        if (role.ends_with("one"))
+        {
+            throw model_error("cant use %s on blend pipe, try without -One", role);
+        }
+        return observe_blend();
+    }
+    else
+    {
+        result = flatten_response(role, channels_.back().captures());
     }
 
-    return union_signal;
+    return result;
 }
 
-boost::json::value ChannelHandle::observe_union(std::list<ChannelHandle> channels)
+
+
+boost::json::value PipeHandle::observe_blend() const
 {
-    if (channels.empty())
+    if (channels_.empty())
     {
         return boost::json::array{};
     }
@@ -265,15 +275,15 @@ boost::json::value ChannelHandle::observe_union(std::list<ChannelHandle> channel
         return a.as_array().at(2).as_uint64() < b.as_array().at(2).as_uint64();
     };
 
-    while(!channels.empty())
+    for (auto const& channel: channels_)
     {
-        ChannelHandle const channel {std::move(channels.front())};
-        channels.pop_front();
         auto const& alias = channel.alias();
-        auto const& captures = channel.captures();
-
         auto ifc_handle = Environment::InterfaceHandle(channel.interface(), channel.host());
-        if (channel.kind() == Kind::CallCount)
+        // Captures()
+        auto const& captures = ifc_handle.Captures();
+        //  channel.captures();
+
+        if (channel.kind() == ChannelKind::CallCount)
         {
             boost::json::array record {
                 alias,
@@ -290,7 +300,7 @@ boost::json::value ChannelHandle::observe_union(std::list<ChannelHandle> channel
         auto const& full_path = channel.full_path();
 
         int start, stop, step;
-        std::tie(start, stop, step) = channel.call();
+        std::tie(start, stop, step) = channel.slice();
         auto captures_slice = make_slice_const_generator(captures, start, stop, step);
         auto insert_begin = join_captures.begin();
         auto capture = captures.cend();
@@ -320,6 +330,19 @@ boost::json::value ChannelHandle::observe_union(std::list<ChannelHandle> channel
 
     return join_captures;
 }
+
+
+int PipeHandle::column() const
+{
+    return data_.get_or_default("column", -1).as_int64();
+}
+
+
+boost::json::value PipeHandle::index() const
+{
+    return data_.at("index");
+}
+
 
 } // namespace mapping
 } // namespace zmbt

@@ -38,16 +38,16 @@ namespace zmbt {
 class Environment::InterfaceHandle
 {
 
-    mutable zmbt::Environment env;
+private:
     object_id refobj_;
     interface_id interface_;
 
 protected:
 
+    mutable zmbt::Environment env;
     JsonNode captures;
-    JsonNode injects;
-
 public:
+
 
     interface_id interface() const
     {
@@ -97,50 +97,25 @@ public:
 
     boost::json::value const& PrototypeArgs() const;
 
+    /// \brief Yield input generator
+    boost::json::value YieldInjection(ChannelKind const kind);
+
     /// \brief Injection at nofcall
-    /// \param group return | args | exception
-    /// \param jp JSON pointer
-    /// \param nofcall number of call
-    boost::json::value GetInjection(boost::json::string_view group, boost::json::string_view jp, int const nofcall);
-
-    /// \brief Injection return signal at nofcall
-    /// \param jp JSON Pointer
-    /// \param nofcall
-    boost::json::value GetInjectionReturn(boost::json::string_view jp, std::size_t const nofcall = 0)
+    boost::json::value YieldInjectionArgs()
     {
-        return GetInjection("return", jp, nofcall);
+        return YieldInjection(ChannelKind::Args);
     }
 
-    /// \brief Injection return signal at nofcall
-    /// \param nofcall
-    boost::json::value GetInjectionReturn(std::size_t const nofcall = 0)
+    boost::json::value YieldInjectionReturn()
     {
-        return GetInjectionReturn("", nofcall);
-    }
-
-    /// \brief Injection args subsignal at nofcall
-    /// \param value
-    /// \param jp JSON Pointer
-    /// \param nofcall
-    boost::json::value GetInjectionArgs(boost::json::string_view jp, std::size_t const nofcall = 0)
-    {
-        return GetInjection("args", jp, nofcall);
-    }
-
-
-    /// \brief Injection args at nofcall
-    /// \param value
-    /// \param nofcall
-    boost::json::value GetInjectionArgs(std::size_t const nofcall = 0)
-    {
-        return GetInjectionArgs("", nofcall);
+        return YieldInjection(ChannelKind::Return);
     }
 
     /// \brief Set generating function for injection
-    /// \param e generating funcion expression
+    /// \param e input generator
     /// \param group return | args | exception
     /// \param jp JSON Pointer
-    void Inject(lang::Expression const& e, boost::json::string_view group, boost::json::string_view jp = "");
+    void Inject(std::shared_ptr<Generator> e, ChannelKind const kind, boost::json::string_view jp = "");
 
 
     /// \brief Set generating function for injection return
@@ -150,7 +125,7 @@ public:
     /// \param jp JSON Pointer
     void InjectReturn(lang::Expression const& e, boost::json::string_view jp = "")
     {
-        return Inject(e, "return", jp);
+        return Inject(std::make_shared<Generator>(e), ChannelKind::Return, jp);
     }
 
     /// \brief Set generating function for injection args
@@ -160,7 +135,7 @@ public:
     /// \param jp JSON Pointer
     void InjectArgs(lang::Expression const& e, boost::json::string_view jp = "")
     {
-        return Inject(e, "args", jp);
+        return Inject(std::make_shared<Generator>(e), ChannelKind::Args, jp);
     }
 
 
@@ -201,7 +176,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
     using hookout_args_t = mp_transform<rvalue_reference_to_value, args_t>;
 
-    std::size_t HookArgsImpl(hookout_args_t & args)
+    void HookArgsImpl(hookout_args_t & args)
     {
         auto const ts = get_ts();
         std::string const tid = get_tid();
@@ -213,8 +188,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
             {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
         };
 
-        auto nofcall = captures().as_array().size() - 1;
-        auto const injection = GetInjectionArgs(nofcall).as_array();
+        auto const injection = YieldInjection(ChannelKind::Args) .as_array();
         if (injection.size() != std::tuple_size<unqf_args_t>())
         {
             throw model_error("invalid inject arguments arity");
@@ -222,27 +196,24 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
         auto args_out = dejsonize<unqf_args_t>(injection);
         tuple_exchange(args, args_out);
-
-        // Produce
-        return nofcall;
     }
 
 
-    void HookReturnImpl(type_tag<void>, std::size_t const)
+    void HookReturnImpl(type_tag<void>)
     {
     }
 
     template <class T>
-    auto HookReturnImpl(type_tag<T>, std::size_t const nofcall) -> mp_if<mp_not<is_reference<T>>, T>
+    auto HookReturnImpl(type_tag<T>) -> mp_if<mp_not<is_reference<T>>, T>
     {
         boost::json::value result;
         try
         {
-            result = GetInjectionReturn(nofcall);
+            result = YieldInjection(ChannelKind::Return);
         }
         catch(const std::exception& e)
         {
-            throw model_error("Hook #%d %s return evaluation error: `%s`", nofcall, interface(), e.what());
+            throw model_error("Hook %s return evaluation error: `%s`", interface(), e.what());
             return dejsonize<T>(nullptr);
         }
 
@@ -252,18 +223,18 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         }
         catch(const std::exception& e)
         {
-            throw model_error("Hook #%d %s return evaluation error, can't deserialize %s as %s",
-                nofcall, interface(), boost::json::serialize(result), type_name<T>());
+            throw model_error("Hook %s return evaluation error, can't deserialize %s as %s",
+                interface(), boost::json::serialize(result), type_name<T>());
             return dejsonize<T>(nullptr);
         }
     }
 
     template <class T>
-    auto HookReturnImpl(type_tag<T>, std::size_t const nofcall) -> mp_if<is_reference<T>, T>
+    auto HookReturnImpl(type_tag<T>) -> mp_if<is_reference<T>, T>
     {
         using TT = remove_cvref_t<T>;
 
-        TT value = HookReturnImpl(type<TT>, nofcall);
+        TT value = HookReturnImpl(type<TT>);
         auto const key = format("$$ret-ref-%s-%s", interface(), refobj());
         TT& ref = Env().template GetSharedRef<TT>(key, reflect::signal_traits<TT>::init());
         ref = value;
@@ -301,16 +272,15 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
         try
         {
-            nofcall = HookArgsImpl(args);
+            HookArgsImpl(args);
         }
         catch(const std::exception& e)
         {
-            throw model_error("Hook #%d %s capture error: `%s`, args: %s"
-                , nofcall, interface()
-                , e.what(), json_from(args));
+            throw model_error("Hook %s capture error: `%s`, args: %s",
+                interface(), e.what(), json_from(args));
             }
 
-        return HookReturnImpl(type<return_t>, nofcall);
+        return HookReturnImpl(type<return_t>);
     }
 
     /**

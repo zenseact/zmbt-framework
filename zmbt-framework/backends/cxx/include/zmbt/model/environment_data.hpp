@@ -20,9 +20,13 @@
 
 #include "test_failure.hpp"
 #include "trigger.hpp"
+#include "generator.hpp"
+#include "channel_kind.hpp"
 
 
 namespace zmbt {
+
+
 
 
 /// Data container for the Environment
@@ -35,6 +39,9 @@ struct EnvironmentData {
     using shared_data_table = std::map<boost::json::string, shared_data_record>;
     using FailureHandler = std::function<void(boost::json::value const&)>;
 
+
+
+
     static boost::json::value init_json_data();
 
     shared_data_table shared;
@@ -45,6 +52,12 @@ struct EnvironmentData {
     std::map<boost::json::string, Trigger> triggers;
     std::map<interface_id, TriggerIfc> trigger_ifcs;
     std::map<object_id, TriggerObj> trigger_objs;
+    std::map<object_id,                  // ifc
+        std::map<interface_id,           // obj
+        std::map<ChannelKind,            // grp
+        std::map<boost::json::string,    // jptr
+        Generator::Shared>>>> input_generators;
+
 
     mutex_t mutable mutex;
 

@@ -849,61 +849,69 @@ BOOST_AUTO_TEST_CASE(CallCount)
 
 When testing the relationship between different channels, it may be necessary to apply a single condition on them.
 It can be made with clauses like `Group` or `Blend`, placed in place of terminal `Inject` or `Expect` clauses.
-It is possible to chain multiple channels in a condition pipe with a single test expression,
-but mixing different types in a chain will not work.
+Channels separated by such clauses will be combined in a single *condition pipe*.
+
+Input pipes will reuse generator, and output pipes will compose observed samples into a single structure
+as following:
+
+|        | Group                           | Blend                                         |
+| ------ | ------------------------------- | --------------------------------------------- |
+| Input  | Copy generator for each channel | Share single generator between channels       |
+| Output | Pack samples into a tuple       | Merge samples into a series of `[id, sample]` |
 
 For piped outputs, the test runner will combine the captured samples from the chained channels according to certain rules.
 The result is passed then to the matcher expression specified at `Expect` clause argument or on the corresponding test matrix column.
 
-The `Blend` chain merges captured samples in a time series, producing a list of pairs `[id, signal]`, sorted by timestamp.
-Id, if not defined explicitly with `Alias` clause, is a channel absolute index (ignoring pipe boundaries).
+Input `Group` pipe simply reduces repetition by reusing the same condition for different channels,
+while keeping their evaluation independent.
 
-In combination with `Saturate` or other custom matchers, the `Blend` output can be used for testing a strict or partial order on mock calls.
 
-```c++
-*/
-BOOST_AUTO_TEST_CASE(TestOrderUnion)
-{
-    struct Mock {
-        void foo(int x) {
-            return InterfaceRecord(&Mock::foo).Hook(x);
-        }
-        void bar(int x) {
-            return InterfaceRecord(&Mock::bar).Hook(x);
-        }
-    };
+Input `Blend` pipe will share the same generator instance, and the difference with `Group` will be
+visible on non-constant generators.
 
-    auto test = [](int count){
-        Mock mock{};
-        bool flip {};
-        while (--count, count >=0)
-        {
-            if (flip = !flip) mock.foo(count);
-            else mock.bar(count);
-        }
-    };
 
-    SignalMapping("Test order with Or pipe")
-    .OnTrigger(test)
-        .At(test) .Inject()
-        .At(&Mock::foo).Alias("f").Blend()
-        .At(&Mock::bar).Alias("b").Expect()
-    .Test
-        (  2, Serialize | R"([["f",1],["b",0]])"                 )
-        ( 42, Map(At(0)) | All(Count("f")|21, Count("b")|21)     )
-        ( 42, Map(At(1)) | Slide(2) | Map(Sub) | Count(1) | 41   )
-    ;
-}
-/*
-```
+The output `Blend` pipr merges captured samples in a time series, producing a list of pairs `[id, signal]`, sorted by timestamp.
+Id field, if not defined explicitly with `Alias` clause, is a channel absolute index (ignoring the pipe boundaries).
 
-The `Group` clause will simply pack the outputs of the combined channels into an
-array.
+In combination with `Saturate` or other custom matchers, the `Blend` output can be utilized for testing a strict or partial order on mock calls.
 
 ```c++
 */
 BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
 {
+
+    auto const repack = [](int a, int b, int c){
+        return boost::json::object{
+            {"a", a},
+            {"b", b},
+            {"c", c},
+        };
+    };
+
+    SignalMapping("Test Group on input")
+    .OnTrigger(repack).Repeat(16)
+        .At(repack).Args(0).Group()
+        .At(repack).Args(1).Group()
+        .At(repack).Args(2).Inject(42)
+
+        .At(repack).Return("/a").Group()
+        .At(repack).Return("/b").Group()
+        .At(repack).Return("/c").Expect(Each(42|Repeat(16)))
+    ;
+
+
+    SignalMapping("Test Blend on input")
+    .OnTrigger(repack).Repeat(2)
+        .At(repack).Args(0).Blend()
+        .At(repack).Args(1).Blend()
+        .At(repack).Args(2).Inject(Id)
+
+        .At(repack).Return("/a").Group()
+        .At(repack).Return("/b").Group()
+        .At(repack).Return("/c").Expect({{0,3},{1,4},{2,5}})
+    ;
+
+
     struct Mock {
         void foo(int x) {
             return InterfaceRecord(&Mock::foo).Hook(x);
@@ -911,26 +919,30 @@ BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
         void bar(int x) {
             return InterfaceRecord(&Mock::bar).Hook(x);
         }
+    } mock;
+    bool flip {};
+    int count{};
+
+    auto const SUT = [&](){
+        if (flip = !flip) mock.foo(count++);
+        else mock.bar(count++);
     };
 
-    auto test = [](int reps, int x, int y){
-        Mock mock{};
-        for (int i = 0; i < reps; ++i)
-        {
-            mock.foo(x);
-            mock.bar(y);
-        }
-    };
+    Param const N{"N"};
+    Param const Match{"Match"};
 
-    SignalMapping("Test join with auto expr match on pair")
-    .OnTrigger(test)
-        .At(test).Inject()
-        .At(&Mock::foo).Group()
-        .At(&Mock::bar).Expect()
-    .Test
-        ({1, 42, 13}, Flatten | Gt            )
-        ({3, 42, 13}, {{42,42,42}, {13,13,13}})
-        ({0, 42, 13}, Serialize | "[[],[]]"   )
+    SignalMapping("Test Blend on output")
+    .OnTrigger(SUT).Repeat(N)
+        .At(SUT) .Inject()
+        .At(&Mock::foo).Alias("f").Blend()
+        .At(&Mock::bar).Alias("b").Expect(Match)
+    .Zip
+        (N,  2)
+        (Match, Serialize | R"([["f",0],["b",1]])")
+    .Zip
+        (N, 42)
+        (Match, Map(At(0)) | All(Count("f")|21, Count("b")|21))
+        (Match, Map(At(1)) | Slide(2) | Map(Sub) | Count(1) | 41)
     ;
 }
 /*
@@ -946,7 +958,7 @@ As it is stated previously, the list of non-fixed pipes acts as a table header f
 
 The input injections are evaluated in the order of their definition in a channel list.
 The injection may be overwritten fully or partially by the following injections when channels share the same interface.
-However, all the fixed inputs(1) are evaluated before the test table inputs,
+However, all the fixed inputs(1) are injected before the test table inputs,
 so it is recommended to group them at the beginning for clarity.
 { .annotate }
 
