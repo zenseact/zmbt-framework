@@ -52,9 +52,11 @@ struct TestDiagnostics
     size_t tc  {};
 
     boost::json::value channel_id  {};
+    boost::json::value pipe_id  {};
 
     boost::json::array eval_stack  {};
     Result result                  {};
+    bool tabular_condition_failure_{};
 
 
     TestDiagnostics(boost::json::string_view model_name) : model_name{model_name} {}
@@ -80,9 +82,10 @@ struct TestDiagnostics
     {
         this->vector = val; return *this;
     }
-    TestDiagnostics& TestCol(std::size_t const c)
+    TestDiagnostics& TabularConditionFailure(std::size_t const col)
     {
-        this->tc = c; return *this;
+        tabular_condition_failure_ = true;
+        this->tc = col; return *this;
     }
     TestDiagnostics& TestRow(std::size_t const r)
     {
@@ -91,6 +94,10 @@ struct TestDiagnostics
     TestDiagnostics& ChannelId(boost::json::value const& id)
     {
         this->channel_id = id; return *this;
+    }
+    TestDiagnostics& PipeId(boost::json::value const& id)
+    {
+        this->pipe_id = id; return *this;
     }
     TestDiagnostics& EvalStack(lang::Expression::EvalLog const& log)
     {

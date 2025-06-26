@@ -612,6 +612,12 @@ std::vector<TestEvalSample> const TestSamples
     {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },
     {Overload(type<std::complex<double>>, Add(1)), {.5, 2}, {1.5, 2}            },
 
+    {Overload(type<int>, Eq(42) | Not|Not)            , 41     , false                }, // overload by default ignores boolean keywords
+
+    {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41     , true                    },
+    // {Overload(type<int>, Add(1) | Serialize | Eq("42")  ), 41     , true                    },
+    {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41     , true                    },
+
     {Error("foo")           , {}              , {{":error", {
                                                     {"message", "foo"}
                                                 }}}                             },
@@ -650,10 +656,10 @@ std::set<Keyword> const CoveredInTestEval = []{
 
 BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
+    Expression::EvalContext context{};
+    context.log = Expression::EvalLog::make();
     try
     {
-        Expression::EvalContext context{};
-        context.log = Expression::EvalLog::make();
         auto const result = sample.expr.eval(sample.x, context);
         BOOST_TEST_INFO("Eval log: \n" << context.log);
         BOOST_CHECK_EQUAL(result, sample.expected);
@@ -667,6 +673,7 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     }
     catch(const std::exception& e)
     {
+        BOOST_TEST_INFO("Eval log: \n" << context.log);
         BOOST_FAIL("Exception thrown: " << e.what());
     }
 }

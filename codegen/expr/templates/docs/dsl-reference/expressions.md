@@ -20,7 +20,7 @@
 @for keyword in data.GetGroup(group):
 ### @keyword.Enum
 
-*Signature*: [@keyword.Signature](/user-guide/expressions/#syntax)
+*Signature*: [@keyword.Signature](../user-guide/expressions.md#syntax)
 
 @if aliases := keyword.Aliases:
 *Aliases*: @{", ".join(aliases)}

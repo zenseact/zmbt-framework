@@ -49,15 +49,19 @@ boost::json::value TestDiagnostics::to_json() const
         break;
     }
 
+    boost::json::value cond = tabular_condition_failure_
+        ? boost::json::value{this->tr, this->tc}
+        : boost::json::value{{"pipe", this->pipe_id}};
+
     return boost::json::object {
         {"model"         , this->model_name  },
-        {"condition"     , {this->tr, this->tc}},
+        {"condition"     , cond              },
         {"channel"       , this->channel_id  },
         {"verdict"       , verdict           },
         {"message"       , this->message     },
         {"expected"      , this->expected    },
         {"observed"      , this->observed    },
-        {"test vector"   , this->vector      },
+        // {"test vector"   , this->vector      }, // TODO: refine with respect to inline conditions
         {"description"   , this->description },
         {"comment"       , this->comment     },
         {"eval_stack"    , this->eval_stack  },

@@ -3,31 +3,56 @@
  * @copyright (c) Copyright 2024 Zenseact AB
  * @license SPDX-License-Identifier: Apache-2.0
  */
-
-
 /*
 
-We'll start the examples by including the following dependencies:
+
+**Signal Mapping** models the interaction with the system under test (SUT) as a trace-level mapping
+from generated input sequences to observable outputs, evaluated via matchers.
+While the SUT may retain internal state or side effects, the test model abstracts it as a function over time,
+capturing only what is exposed through interfaces.
+
+Instead of embedding logic in procedural test code, the framework defines inputs, outputs,
+and expectations as condition pipes — structured, composable expressions tied to interface contracts.
+It shifts focus from “what happens when” to “what is observed where”, utilizing powerful and expressive
+generators and matchers, and structural introspection of the test model.
+
+Its embedded DSL enforces valid composition rules and eliminates ambiguity, guiding users toward correct-by-construction
+test designs and making misconfigurations easier to catch — often at compile time.
+
+The following guide illustrates the model DSL using code examples from
+[examples/cxx/signal-mapping-demo.cpp](../examples/cxx/signal-mapping-demo.cpp).
+For complete documentation, refer to the [Signal Mapping DSL Reference](../dsl-reference/signal-mapping.md).
+
+
+## Quick Start
+
+### Requirements
+
+- *C++ 14* or later
+- *Boost C++ 1.84* or later
 
 ```c++
 */
-#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test.hpp> //(1)
 #include <zenseact-mbt.hpp>
 
-using namespace zmbt::api;  //(1)
-using namespace zmbt::expr; //(2)
+namespace utf = boost::unit_test;
+using namespace zmbt::api;  //(2)
+using namespace zmbt::expr; //(3)
 /*
 ```
 
-1. Main testing API namespace
-2. Expression Language namespace
+1. These examples use Boost.Test as a host framework, but ZMBT can be embedded into any other. A standalone suite runner is also in development.
+2. Main testing API namespace
+3. Expression Language namespace
 
 
-## Basic example
+
+### Minimal Example
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(BasicExample)
+BOOST_AUTO_TEST_CASE(QuickExample)
 {
     auto sum = [](int x, int y){ return x + y; };
 
@@ -45,11 +70,23 @@ BOOST_AUTO_TEST_CASE(BasicExample)
 /*
 ```
 
-This example defines a simple mapping with two inputs and one output.
+This example defines a basic signal mapping model with two inputs and one output.
 
- * `OnTrigger(sum)` specifies the trigger - an entry point of the test execution.
- * `At(sum).Args(n).Inject()` tells the model runner where to inject input values.
- * `At(sum).Return().Expect()` specifies where to observe the interesting signal.
+ * `OnTrigger(sum)` defines the entry point: the function under test.
+ * `At(sum).Args(n).Inject()` maps inputs by position in the argument tuple.
+ * `At(sum).Return().Expect()` defines the expected output to observe.
+
+
+The `.Test(...)` clause defines list of test vectors using chained operator() calls.
+Each column corresponds 1:1 with an input or output channel defined in the pipe configuration above.
+
+In this case, the runner:
+
+1. Takes the first two values as inputs to sum
+2. Calls `sum(x, y)`
+3. Checks whether the result matches the third value
+
+
 
 The Test clause defines a list of test vectors using cascade of `operator()` calls,
 where each line represents one test case.
@@ -82,9 +119,149 @@ BOOST_AUTO_TEST_CASE(NonScalarValues)
 
 Following the default configuration rules, `.At(sum).Inject()` is equivalent to `.At(sum).Args("").Inject()`
 for non-unary triggers. This means the entire argument tuple is treated as a JSON array and passed as a single value.
-More on the `Args` parameters later.
 
-## Expressions
+## Basic Concepts
+
+### Structure Overview
+
+**Signal Mapping** tests are defined declaratively using a **Domain-Specific Language (DSL)** embedded in C++.
+Each test case specifies how the system under test (SUT) is exercised and observed using the following elements:
+
+* [**Clauses**](../dsl-reference/signal-mapping.md#clauses) — chained method calls that define test configuration.
+* **Trigger** — the interface that initiates test execution.
+* **Test Conditions** — input generators and output matchers.
+* **Channels** — individual signal selectors associated with interface.
+* **Condition Pipes** — combinations of channels that share a test condition.
+
+
+### Pipes and Channels
+
+* A **channel** represents a specific interface point (e.g., function input, return, or exception) with optional filters.
+* A **pipe** is a group of one or more channels that share the same condition.
+* Channels can be grouped into pipes using `.Group()` or `.Blend()` to express different composition logic (see below).
+
+```c++
+// One-channel pipe
+.At(f).Args(0).Inject(42);
+
+// Multi-channel pipe
+.At(x).Args(0).Group().At(y).Args(0).Inject(42);
+```
+
+### Test Conditions
+
+
+An **input condition** is a **generating function** — a mapping from the call index to a value.
+An **output condition** is a **matcher** — a predicate that maps an observed value to a boolean result.
+
+Literals, constants, and constant expressions are interpreted differently depending on context:
+
+* **Input**: constants are treated as a subset of generators that always return the same value. See [Input generators](#input-generators).
+* **Output**: constants are implicitly converted to equality matchers (`Eq(value)`).
+
+The embedded [expression language](#expressions) supports constructing conditions of arbitrary complexity in both input and output contexts.
+
+Test conditions can be specified:
+
+* **Inline**, directly on pipes using `.Inject` and `.Expect*` or `.Assert*` clause parameters, or
+* **Externally**, using the `.Test` clause to provide tabular test vectors.
+
+#### 1. **Inline Conditions**
+
+Attach expressions directly to the pipe using `.Inject` or `.Expect`.
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(InlineConditions)
+{
+    auto sum = [](double x, double y){ return x + y; };
+
+    SignalMapping("Inline condition example")
+    .OnTrigger(sum).Repeat(100) //(1)
+        .At(sum).Args(0).Inject(42) //(2)
+        .At(sum).Args(1).Inject(Add(1)) //(3)
+        .At(sum).Return().Expect(Each(Ge(42))) //(4)
+        .At(sum).Return().Expect(Slide(2) | Each(Lt)) //(5)
+    ;
+}
+/*
+```
+1. Repeat sum 100 times and apply matchers to an array of collected outputs instead of an atomic value
+2. The first argument is fixed to 42.
+3. The second input increments per call.
+4. Check all outputs are >= 42
+5. Check the output is increasing using sliding window matcher
+
+
+#### 2. **Tabular Conditions**
+
+Leave `.Inject()` or `.Expect()` empty, and use `.Test` to supply values:
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(TabularConditions)
+{
+    auto sum = [](double x, double y){ return x + y; };
+
+    SignalMapping("Tabular condition example")
+    .OnTrigger(sum).Repeat(100)
+        .At(sum).Args(0).Inject()
+        .At(sum).Args(1).Inject()
+        .At(sum).Return().Expect()
+        .At(sum).Return().Expect()
+    .Test
+        ( 42, Add(1) , Each(Ge(42)), Slide(2) | Each(Lt) )
+        ( 13, Mul(-1), Each(Le(13)), At(-1) | Lt(0)      )
+    ;
+}
+/*
+```
+
+Each value in a test vector under `.Test` clause corresponds to one tabular pipe, by the order of declaration.
+
+
+#### 3. **Mixed Mode**
+
+Mix inline and tabular pipes in the same test:
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(MixedConditions)
+{
+    auto sum = [](double x, double y){ return x + y; };
+
+    SignalMapping("Mixed condition example")
+    .OnTrigger(sum)
+        .At(sum).Args(0).Inject(42)    // Fixed
+        .At(sum).Args(1).Inject()      // Tabular
+        .At(sum).Return().Expect()     // Tabular
+    .Test
+        (  1, 43 )
+        ( -1, 41 )
+    ;
+}
+/*
+```
+
+Here, `.Inject(42)` is constant across all test cases, while the second input and output vary per row.
+
+### Test Procedure
+
+The following procedure is applied to each model instance
+obtained from the parameter resolver over each test vector:
+
+1. Reset the environment (drop all input test data).
+2. Execute pre-run tasks.
+3. Inject the input generators into the environment.
+4. Execute the trigger.
+5. Observe the responses captured in the environment and verify them against expectations.
+6. Execute post-run tasks.
+7. Report the results.
+
+
+## Advanced Topics
+
+### Expressions
 
 The framework provides an embedded functional programming language
 that enables flexible matchers and more complex test data manipulation:
@@ -127,10 +304,280 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
     [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
 
 
-For more detailes, see [Expression Guide](expressions.md) and [Expression Language Reference](../dsl-reference/expressions.md).
+For more detailes, see [Expression Guide](../user-guide/expressions.md) and [Expression Language Reference](../dsl-reference/expressions.md).
+
+### Input generators
+
+Inputs in SignalMapping are not limited to fixed values - they can be
+dynamic generators that produce a new value on each call, created from
+expressions of type $\mathbb{N}^0 \mapsto JSON$, (aka [indexed families](https://en.wikipedia.org/wiki/Indexed_family)).
+
+A constant input like `Inject(42)` is just a trivial generator that ignores the index.
+Generators allows to define input streams that evolve over time, for example:
+
+- `Add(1)` $\mapsto 1, 2, 3, ...$
+- `Format("item_%d", Id)` $\mapsto$ `"item_0", "item_1", ...`
+
+Internally, the framework keeps track on generator counters and allocation to channels.
+On each interface call, either trigger or mock, the test runner pulls values from a set of
+allocated generators and compose a returning value.
+In `Blend` pipes, the test condition is a unique generator shared between all pipe channels,
+See [Combining channels in pipes](#combining-channels-in-pipes) for details.
 
 
-## Mocks
+```c++
+*/
+BOOST_AUTO_TEST_CASE(InputsGenerators)
+{
+    auto const id = [](boost::json::value const& x) { return x; };
+
+    SignalMapping("Input generators")
+    .OnTrigger(id).Repeat(3)
+        .At(id)             .Inject()
+        .At(id)             .Expect()
+    .Test
+        (42/*(1)*/          , {42, 42, 42}         )
+        (Pi/*(2)*/          , At(0)|Approx(3.14159))
+        (Add(42)/*(3)*/     , {42, 43, 44}         )
+        (Lookup({1,2})|D(42), {1,2,42}             )//(4)
+    ;
+}
+/*
+```
+
+1. Top level JSON literal input stands for constant, a canonical form would be `C(42)`
+2. Mathematical constant
+3. Simple generating function
+4. Lookup function with Default 42 as generator
+
+
+#### Order matters
+
+The input injections are evaluated in the order of their definition in a channel list,
+with exception that all inline inuts evaluated before tabular inputs
+(so it is recommended to group them at the beginning for clarity).
+
+The injection may be overwritten fully or partially by the following injections when channels share
+the same interface and selector.
+
+The input evaluation order can be utilized to do some preparations before injecting more specific subsignal.
+It is especially useful with dynamic structures like STL containers or variant types like boost::json::value itself.
+
+E.g. having an interface with vector input,
+```c++
+auto sut = [](std::vector<int> const& x){ ... };
+```
+we may need to initialize a non-empty input before injecting to speciic elements:
+
+```c++
+    .At(sut) .Args("/0").Inject(0|Repeat(64))
+    .At(sut) .Args("/0/1") // (1)
+```
+
+1. Injecting to the second element will fail without the previous line, as the default vector is empty.
+
+
+### Output matchers
+
+Output condition are **matchers** of type $JSON \mapsto bool$ (predicates).
+
+In this context, any **constant expression** like `42` is interpreted as an equality check:
+`Expect(42)` is equivalent to `Expect(Eq(42))`.
+
+
+ZMBT provides several matcher clauses with varying behavior:
+
+* `Expect`, `ExpectOne`, `ExpectBatch`
+* `Assert`, `AssertOne`, `AssertBatch`
+
+The difference between the `Expect*` and `Assert*` sets is in test control:
+
+* `Expect*` records matcher failure but **allows the test to continue**.
+* `Assert*` triggers an **immediate failure**, stopping execution.
+
+
+#### Batch vs atomic sample
+
+The `*Batch` clause variants provide captured sample series directly to the matcher.
+The `*One` clause flattens the response if there is a single value (i.e., passes this sample rather then array),
+or yields a failure otherwise.
+
+The adaptive base clauses `Expect` and `Assert` switches to one of these behaviors
+automatically based on test configuration and the number of observed values:
+
+1. Tests with .Repeat(N) (where N > 1) or `Blend` pipes never flatten the response (i.e., same as `*Batch`)
+2. Same for captures with more then one sample - they are passed to matcher as is
+3. Otherwise, flatten if a single sample captured or yield a failure if none.
+
+
+This implicit flattening makes tests ergonomic:
+
+```c++
+OnTrigger(f)
+    .At(f).Expect(42);
+```
+vs
+```c++
+OnTrigger(f).Repeat(N)
+    .At(f).Expect(Each(Eq(42)));
+```
+
+
+### JSON Serialization
+
+ZMBT internally operates on JSON data, using Boost.JSON as the backend.
+All injected inputs, observed outputs, and expressions are evaluated in terms of JSON values.
+This means that **any type used in the model shall be serializable to and from JSON**.
+Out of the box, it works for fundamental types and STL containers,
+and any user-defined types can be supported with Boost.Describe library
+or by specializing `zmbt::reflect::custom_serialization` template (see [Reflection guide](../user-guide/reflection/)).
+
+
+#### JSON Pointer
+
+ZMBT supports **signal path addressing** using [JSON Pointer](https://tools.ietf.org/html/rfc6901) strings.
+This allows fine-grained control over which subsignals (fields or array elements) are injected or matched:
+
+```cpp
+.At(sut).Args("/0/foo/bar")  .Inject()
+.At(sut).Args("/1/foo/bar")  .Inject()
+.At(sut).Return("/foo/bar")  .Expect()
+```
+
+Each path refers to a subsignal within the arguments or return value. The pointer syntax resembles Unix-style paths, with key differences:
+
+* `""` (empty string) means the root of the JSON structure.
+* `"/"` addresses anonymous fields.
+* `"/0"`, `"/1"` refer to elements in the argument tuple (index-based).
+
+Recall the default behavior:
+
+> *Unary function arguments resolve to path `"/0"`*, making scalar injection and observation intuitive.
+
+#### Custom Types
+
+ZMBT uses Boost.JSON with Boost.Describe to serialize and access custom C++ types:
+
+```cpp
+*/
+namespace {
+enum class Foo { A, B, C };
+
+struct Bar {
+    Foo foo;
+    int x;
+    Bar() = delete;
+    Bar(Foo br, int x) : foo{br}, x{x} {}
+};
+
+BOOST_DESCRIBE_ENUM(Foo, A, B, C) //(1)
+BOOST_DESCRIBE_STRUCT(Bar, (void), (foo, x)) //(2)
+ZMBT_INJECT_JSON_TAG_INVOKE //(3)
+}
+
+ZMBT_DEFINE_CUSTOM_INIT(Bar, (Foo::A, 0)) //(4)
+/*
+```
+
+1. **Boost.Describe** reflection for enum `Foo`.
+2. **Boost.Describe** struct support for `Bar` (with no base class).
+3. **JSON serialization support** via argument-dependent lookup.
+4. **Default initialization** for custom types, required for signals with deleted default constructor.
+
+Example usage:
+
+```cpp
+*/
+BOOST_AUTO_TEST_CASE(UserDataTypes)
+{
+    auto sut = [](Bar a, Bar b) {
+        Foo foo = a.x > b.x ? a.foo : b.foo;
+        int x = a.x + b.x;
+        return Bar {foo, x};
+    };
+
+    SignalMapping("Test Call")
+    .OnTrigger(sut)
+        .At(sut).Args("/0/x")   .Inject()
+        .At(sut).Args("/1/x")   .Inject()
+        .At(sut).Args("/0/foo") .Inject()
+        .At(sut).Args("/1/foo") .Inject()
+        .At(sut).Return("/foo") .Expect()
+    .Test
+        (1, 0, Foo::A, Foo::B, Foo::A)
+        (0, 1, Foo::A, Foo::B, Foo::B)
+    ;
+}
+/*
+```
+
+This test validates logic involving structured inputs and enum matching via JSON field access.
+
+#### Parametrized Paths
+
+`Args` and `Return` accept [constant expressions](#expressions),
+which are evaluated to a JSON pointer string or integer index.
+This allows dynamic construction of paths based on parameters:
+
+```cpp
+.At(sut).Args("/%d/%s/bar" | Fmt(Index, Field))
+// or printf-like overload:
+.At(sut).Args("/%d/%s/bar", Index, Field)
+```
+
+`Index` and `Field` can be constants or literals, as well as [ZMBT model parameters](#parametrization)
+which are resolved during test model instantiation.
+
+
+#### Operator overloading
+
+ZMBT serialization mechanism lacks type information, and Expressions by default operate on JSON values
+following a most intuitive interpretation of their type, e.g. pair of real numbers is treated
+as complex `[real, img]` in arithmetic operations.
+
+`Overload` expression can be utilized to apply certain type-specific operators in expressions:
+
+```cpp
+Overload(type<Foo>, f)
+```
+
+The operator handler constructed from `type<Foo>` tag will provide to the enveloped `f`
+expression all existing operators for this type. If specific type does not support certain operators,
+they will be substituted with stubs that will fail in runtime without blocking compilation.
+
+
+The `.As` clause that precedes pipe condition can be used to specify the default overload per
+pipe to avoid repetition in `.Test` table.
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(DecorUnderlying)
+{
+
+    auto const id = [](int x) -> int { return x; };
+    using decor::Underlying;
+
+    SignalMapping("Decorate int -> int as Foo -> Foo")
+    .OnTrigger(id)
+        .At(id).As(Underlying<Foo>).Inject()
+        .At(id).As(Underlying<Foo>).Expect()
+    .Test
+        (Foo::A, Foo::A        )
+        (Foo::B, Foo::B        )
+        (Foo::A, Eq(Foo::B)|Not)
+        (Foo::B, Eq(Foo::C)|Not)
+    ;
+}
+
+/*
+```
+
+In this example we utilize a signal decorator `zmbt::decor::Underlying`,
+that maps input Foo to int before passing to trigger function. Without this cast
+the model will throw exception on attempt to cast string representation of Foo:A to integer.
+
+
+### Mocks
 
 So far, we’ve used the same function reference for `OnTrigger` and `At` clauses.
 The reason each clause accepts a function reference is that you can also attach to mock interfaces,
@@ -188,13 +635,11 @@ BOOST_AUTO_TEST_CASE(SingletoneMock)
 
 In this example, the stimuli are injected into the mock object
 rather than directly into the trigger.
-The mock also returns a boolean flag to indicate success.
-As before, we inject conditions with `.Args(0)` and `.Args(1)`, but this time the
-interface is mock. We also control the mock’s return value as part of the test.
 
 The mocking mechanism uses `InterfaceRecord`, which reroutes calls to the `Environment`
 - the central test harness state accessed by the test runner.
-This API works uniformly for all callables, including templates.
+This API works uniformly for all callables, including templates, deducing arguments and return type
+from callable signature.
 
 By default, the mock behaves as a singleton — all Mock instances delegate to the same record.
 If a singleton mock is not sufficient and you need to differentiate
@@ -203,7 +648,7 @@ This allows the `Environment` to distinguish calls from separate instances:
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(MultipleMocks)
+BOOST_AUTO_TEST_CASE(MultiInstanceMock)
 {
     struct Mock {
         void set_value(int& x) const {
@@ -212,32 +657,33 @@ BOOST_AUTO_TEST_CASE(MultipleMocks)
         }
     };
 
-    struct Sut {
+    struct ConsumeAndSubstract {
         Mock const& mock_x;
         Mock const& mock_y;
 
-        Sut(Mock const& mx, Mock const& my) : mock_x{mx}, mock_y{my} {}
+        ConsumeAndSubstract(Mock const& mx, Mock const& my) : mock_x{mx}, mock_y{my} {}
 
         int operator()() {
             int x, y;
             mock_x.set_value(x);
             mock_y.set_value(y);
-            return x + y;
+            return x - y; //(2)
         }
     };
 
     Mock mock_x {};
     Mock mock_y {};
-    Sut sut {mock_x, mock_y};
+    ConsumeAndSubstract sut {mock_x, mock_y};
 
-    SignalMapping("Test with multiple mocks")
+    SignalMapping("Test with multi-instance mock")
     .OnTrigger(sut)
         .At(&Mock::set_value, mock_x) .Args() .Inject()
         .At(&Mock::set_value, mock_y) .Args() .Inject()
         .At(sut) .Expect()
     .Test
-        ( 2,  2, 4)
-        ( 2, -2, 0)
+        ( 2,  2,  0)
+        ( 2, -2,  4)
+        (-2,  2, -4)
     ;
 }
 /*
@@ -246,21 +692,23 @@ BOOST_AUTO_TEST_CASE(MultipleMocks)
 1. The `this` pointer is used as a reference object here, but it can be any
     `void*` pointer - it simply serves as an identifier to find the interface
     record in the `Environment`. The default reference object is `nullptr`.
+2. Using non-commutative op here to demonstrate the mock instance tracing.
 
+
+Example of using string key instead of this pointer to reference the mock instance in test:
 
 ```c++
 */
 BOOST_AUTO_TEST_CASE(MockReferencingByString)
 {
     struct Mock {
+        std::string const id_;
+
         Mock(std::string const id) : id_{id} {}
 
         void foo() {
-            auto const ir = InterfaceRecord(&Mock::foo, id_);
             return InterfaceRecord(&Mock::foo, id_).Hook();
         }
-
-        std::string const id_;
     };
 
     auto SUT = []{
@@ -277,7 +725,7 @@ BOOST_AUTO_TEST_CASE(MockReferencingByString)
 /*
 ```
 
-## Parametrization
+### Parametrization
 
 The previous examples used invariant test models with all components and condition values hardcoded.
 The example below demonstrates how to define parametrized test models for greater flexibility and reusability:
@@ -423,100 +871,7 @@ Here each clause initiates a separate product or zip set, resulting in
 (1, 10), (1, 20), (2, 30), (2, 40), (3, 50), (3, 60), (4, 50), (4, 60)
 ```
 
-## Serialization and JSON Pointer
-
-
-Signal serialization allows specifying the particular subsignal with string
-(we call it signal path), e. g.
-
-```cpp
-.At(sut).Args("/0/foo/bar")  .Inject()
-.At(sut).Args("/1/foo/bar")  .Inject()
-.At(sut).Return("/foo/bar")  .Expect()
-```
-
-which refers to `<signal>.foo.bar` field on the corresponding argument or
-return value. The subsignal specification in a string is a [JSON Pointer](https://tools.ietf.org/html/rfc6901),
-which syntax resembles a unix path, with the main difference that `""` stands
-for root, and `"/"` stands for anonymous field in a JSON structure. Array elements are
-referenced by index, so `"/0"` and `"/1"` in the example means first and second
-elements of the arguments tuple. Recall the default channel kind deduction rule -
-now you see that *unary function args resolves to value...* means
-the default signal path for unary function is `"/0"`.
-
-This works with parametrization well - the `Args` and `Return` clauses
-accepts constant expression that evaluates to JSON Pointer string or index integer.
-
-If you need to parametrize only a part of signal path, use an expr::Fmt or a printf-like overload:
-
-```cpp
-.At(sut) .Args("/%d/%s/bar"|Fmt(Index, Field))
-// or
-.At(sut) .Args("/%d/%s/bar", Index, Field)
-```
-
-Considering the *Index* and *Field* are parameter keys, the signal path here is
-evaluated to an actual string by the model resolver when the parameter values are known.
-Parameters can be composed with other expressions, e.g. `Index|Add(1)` will be evaluated with +1 offset.
-
-The example below shows how to use JSON serialization with custom types.
-```c++
-*/
-
-namespace { // user data
-
-enum class Foo { A, B, C };
-
-struct Bar {
-    Foo foo;
-    int x;
-
-    Bar() = delete;
-    Bar(Foo br, int x) : foo{br}, x{x} {}
-};
-
-BOOST_DESCRIBE_ENUM(Foo, A, B, C)//(1)
-BOOST_DESCRIBE_STRUCT(Bar, (void), (foo, x))//(2)
-
-ZMBT_INJECT_JSON_TAG_INVOKE//(3)
-}
-
-ZMBT_DEFINE_CUSTOM_INIT(Bar, (Foo::A, 0))//(4)
-
-BOOST_AUTO_TEST_CASE(UserDataTypes)
-{
-    auto sut = [](Bar a, Bar b) {
-        Foo foo = a.x > b.x ? a.foo : b.foo;
-        int x = a.x + b.x;
-        return Bar {foo, x};
-    };
-
-    SignalMapping("Test Call")
-    .OnTrigger(sut)
-        .At(sut).Args("/0/x")   .Inject()
-        .At(sut).Args("/1/x")   .Inject()
-        .At(sut).Args("/0/foo") .Inject()
-        .At(sut).Args("/1/foo") .Inject()
-        .At(sut).Return("/foo") .Expect()
-    .Test
-        (1, 0, Foo::A, Foo::B, Foo::A)
-        (0, 1, Foo::A, Foo::B, Foo::B)
-    ;
-}
-/*
-```
-
-1. The [Boost.Describe](https://www.boost.org/doc/libs/master/libs/describe/doc/html/describe.html) library enables type reflection.
-   Must be placed in the same namespace as the type definition.
-2. (void) token here tells that there are no parent classes for this type.
-    It is a patched version to avoid empty varargs errors, the original API is just `()` for this case.
-3. Enable argument-dependent lookup for JSON serialization. Must be placed in the same
-   namespace as the type definition.
-4. Custom initialization macro, useful for classes with no default ctor
-    Must be placed in the global namespace.
-
-
-## Registering non-serializable components
+#### Registering non-serializable components
 
 Any non-serializable model component may be registered in the `Environment` and
 referenced by a string key. This is what actually happens under the hood when we
@@ -578,274 +933,7 @@ Benefits from this approach are:
  - reuse string parameters in different roles (like `Method` in the example)
 
 
-## Operator overloading
-
-The predicate expressions described above know nothing about actual
-operations - to apply them to a particular value, they need an operator handler.
-
-By default they use generic JSON operators which evaluates most of operations in an intuitive
-way, allowing order checks on strings and array-like structures.
-
-Sometimes you need to apply certain type-specific operators - for such case use the Overload or Cast expressions:
-
-```cpp
-Overload(type<std::complex>, f)
-```
-
-The operator handler constructed from `type<std::complex>` will provide to the `f`
-expression all existing operators for this type. If specific type does not support certain operators,
-they will be substituted with stubs that will fail in runtime instead of blocking compilation.
-
-Operator handler is propagated downstream to all terminal subexpressions.
-If some of subexpressions returns type other than T in JSON representation, it may lead to undesired
-behavior, e.g., boolean result from predicate will be casted to T if passed further:
-
-```cpp
-Overload(type<T>, Eq(x)) | Not // good
-Overload(type<T>, Eq(x) | Not) // bad
-```
-
-## Type decoration
-
-The `Decorate` (alias `Cast`) expression allows utilizing type decorators in place of actual signal types:
-
-```c++
-*/
-BOOST_AUTO_TEST_CASE(DecorUnderlying)
-{
-
-    auto const id = [](int x) -> int { return x; };
-    using decor::Underlying;
-
-    SignalMapping("Decorate int -> int as Foo -> Foo")
-    .OnTrigger(id)
-        .At(id).As(Underlying<Foo>).Inject()
-        .At(id).As(Underlying<Foo>).Expect()
-    .Test
-        (Foo::A, Foo::A    )
-        (Foo::B, Foo::B    )
-        (Foo::A, Eq(Foo::B)|Not)
-        (Foo::B, Eq(Foo::C)|Not)
-    ;
-}
-
-/*
-```
-
-In this example we utilize a signal decorator `zmbt::decor::Underlying`,
-that maps input Foo to int before passing to trigger function. Without this cast
-the model will throw exception on attempt to cast string representation of Foo:A to integer.
-
-
-## Signal batch testing
-
-Batch test conditions may be more convenient, expressive, and resource efficient
-then atomic conditions like in examples before.
-
-The SignalMapping model provides the following functionality for flexible batch testing:
-
- - Generating input functions
- - `Repeat` clause for triggers.
- - `Group` and `Blend` clauses for condition pipes
- - `ThreadId`, `Timestamp`, `Alias` - clauses for additional information useful in batch tests.
- - `Inject` and `Expect` clause arguments for fixed expressions.
-
-### Generating functions
-
-In the previous examples the input conditions were specified as JSON literals,
-which intuitively reads as an instruction for the test runner to set the input value
-on a corresponding channel.
-
-More generally the input signals are specified with [generating functions](https://en.wikipedia.org/wiki/Generating_function).
-When an interface specified in the input channels is called multiple times in the test,
-the intput conditions are evaluated from the corresponding expressions with 0-based call index as an argument.
-The [constant](user-guide/expressions/#syntax) functions are considered here a subset of generating functions,
-as they discard input argument.
-The top-level JSON literals in the input context of SignalMapping are treated as constants for brevity.
-
-
-```c++
-*/
-BOOST_AUTO_TEST_CASE(BatchInputs)
-{
-    struct Mock {
-        double produce() {
-            return InterfaceRecord(&Mock::produce).Hook();
-        }
-    } mock {};
-
-    auto sut = [&mock](std::size_t count) {
-        std::vector<double> result;
-        for (size_t i = 0; i < count; i++)
-        {
-            result.push_back(mock.produce());
-        }
-        return result;
-    };
-
-    SignalMapping("Input expressions")
-    .OnTrigger(sut)
-        .At(sut)             .Inject()
-        .At(&Mock::produce)  .Inject()
-        .At(sut)             .Expect()
-    .Test
-        (2, 42/*(1)*/            , {42, 42}             )
-        (2, Pi/*(2)*/            , At(0)|Approx(3.14159))
-        (3, Add(42)/*(3)*/       , {42, 43, 44}         )
-        (4, Lookup({1,2,3})|D(42), {1,2,3,42}           )//(4)
-    ;
-}
-/*
-```
-
-1. Top level JSON literal input stands for constant, a canonical form would be `C(42)`
-2. Mathematical constant
-3. Simple generating function
-4. Lookup function with Default 42 as generator
-
-
-Note that if same the interface is used with different subsignals specified with JSON Pointer at `Args` or `Return` clause
-parameters, the corresponding injections expression are evaluated in order of appearance. See [more details below](#order-matters).
-
-### Fixed conditions
-
-Both input and output conditions can be excluded from the test matrix
-by passing expression directly to with `Inject` or `Expect` clauses.
-
-This allows to reduce the test matrix size, omitting repretitive conditions.
-Using only fixed conditions without `Test` clause is also possible:
-
-```c++
-*/
-BOOST_AUTO_TEST_CASE(FixedConditions)
-{
-    struct Mock {
-        double produce() {
-            return InterfaceRecord(&Mock::produce).Hook();
-        }
-    } mock {};
-
-    auto sut = [&mock]() { return mock.produce(); };
-
-    SignalMapping("Fixed conditions")
-    .OnTrigger(sut).Repeat(250)
-        .At(&Mock::produce)  .Inject(Add(1))
-        .At(sut)             .Expect(Slide(2) | Each(Lt))
-    ;
-}
-/*
-```
-
-
-
-### ExpectBatch and Repeat
-
-In the previous example we used `Repeat` clause for calling the sut multiple times before
-passing the collected samples to matcher. When omitted, it's default value is 1.
-
-The `Expect` clause have a special behavior when number of observed signals is 0 or 1,
-so to avoid this we can use `ExpectBatch` clause to always match on signal series.
-
-```c++
-*/
-BOOST_AUTO_TEST_CASE(BatchTest)
-{
-    struct Mock {
-        void consume(boost::json::value const& x) {
-            return InterfaceRecord(&Mock::consume).Hook(x);
-        }
-
-        boost::json::value produce() {
-            return InterfaceRecord(&Mock::produce).Hook();
-        }
-    } mock {};
-
-    auto sut = [&mock]() {
-        mock.consume(mock.produce());
-    };
-
-
-    SignalMapping("Repeat clauses with batch output")
-    .OnTrigger(sut).Repeat(3)
-        .At(&Mock::produce).Inject()
-        .At(&Mock::consume).ExpectBatch()
-    .Test
-        ( Add(1)                               , {1, 2, 3}          )
-        ( Recur(Add(1), 0)                     , {0, 1, 2}          )
-        ( Lookup({{"1","foo"}})|D("bar")/*(1)*/, {"bar","foo","bar"})
-    ;
-/*
-```
-
-1. Input generator from lookup table - inject "foo" at second call, or "bar" by default.
-
-Same example with parametric trigger repeats and more complex matchers:
-```c++
-*/
-    Param const N {"N"};
-
-    SignalMapping("Batch test with complex expressions for N=%d", N)
-    .OnTrigger(sut).Repeat(N)
-        .At(&Mock::produce).Inject()
-        .At(&Mock::consume).ExpectBatch()
-    .Test
-        (Add(1)       , (N | Div(2) | Add(0.5)) & Avg | Eq      /*(1)*/)
-        (Flip(Sub(N)) , Slide(2) | Map(Sub|Eq(1)) | Reduce(And) /*(2)*/)
-    .Zip
-        (N, 3, 42, 100)
-    .Description("Verify that avg(1,2,...,N,N+1) == N/2+0.5")
-    ;
-}
-/*
-```
-
-1. Matcher expression:
-    1. `N | Div(2) | Add(0.5)` produces N/2+0.5, ignoring input
-    2. `Avg` computes average of the input `#!js [1,2,...,N,N+1]`
-    3. `(N/2+0.5) & Avg | Eq` produces `true`
-2. Matcher expression:
-    1. `Slide(2)` over `#!js [N+1,N,...,2,1]`
-        produces `#!js [[N+1,N],[N,N-1],...,[2,1]]`
-    2. `Map(Sub|Eq(1))` produces `[true, true, ...]`
-    3. `Reduce(And)` produces `true`
-
-
-### CallCount
-
-`CallCount` specifier allows to test how many times the corresponding
-mock interface was invoked from the SUT, efficiently replacing the combination of `ExpectBatch()`
-with `Size` expression:
-
-```c++
-*/
-BOOST_AUTO_TEST_CASE(CallCount)
-{
-    struct Mock {
-        Bar foo() {
-            return InterfaceRecord(&Mock::foo).Hook();
-        }
-    };
-
-    auto sut = []() {
-        Mock mock{};
-        mock.foo();
-    };
-
-    Param const N{"Trigger runs"};
-    Param const X{"Call Count expectation"};
-
-    SignalMapping("CallCount clause")
-    .OnTrigger(sut).Repeat(N)
-        .At(&Mock::foo).CallCount().Expect(X)
-    .Zip
-        (N, 0   , 42)
-        (X, Nil , 42)
-    ;
-}
-/*
-```
-
-### Multi-channel pipes
+### Combining channels in pipes
 
 When testing the relationship between different channels, it may be necessary to apply a single condition on them.
 It can be made with clauses like `Group` or `Blend`, placed in place of terminal `Inject` or `Expect` clauses.
@@ -877,7 +965,7 @@ In combination with `Saturate` or other custom matchers, the `Blend` output can 
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(TestWithAutoArgs)
+BOOST_AUTO_TEST_CASE(TestMultichannelPipes)
 {
 
     auto const repack = [](int a, int b, int c){
@@ -954,33 +1042,8 @@ As it is stated previously, the list of non-fixed pipes acts as a table header f
 1. Defined with the `Test` clause
 
 
-## Order matters
 
-The input injections are evaluated in the order of their definition in a channel list.
-The injection may be overwritten fully or partially by the following injections when channels share the same interface.
-However, all the fixed inputs(1) are injected before the test table inputs,
-so it is recommended to group them at the beginning for clarity.
-{ .annotate }
-
-1. Passed to `Inject` clause directly
-
-The input evaluation order can be utilized to do some preparations before injecting at a specific subsignal.
-It is especially useful with dynamic structures like STL containers or variant types like boost::json::value itself.
-
-E.g. having an interface with vector input,
-```c++
-auto sut = [](std::vector<int> const& x){ ... };
-```
-we may need to initialize a non-empty input before injecting to speciic elements:
-
-```c++
-    .At(sut) .Args("/0").Inject(0|Repeat(64))
-    .At(sut) .Args("/0/1") // (1)
-```
-
-1. Injecting to the second element will fail without the previous line, as the default vector is empty.
-
-## Fixture tasks
+### Fixture tasks
 
 The signal mapping models are tested in a presumably clean environment, which
 mean that you can't affect the model execution from outside by injecting some
@@ -1025,23 +1088,23 @@ test vector, but in the second case, `Noop` tells the runner to skip injection.
 
 The order of `InjectReturn` or `InjectArgs` calls on `InterfaceRecord` has the same effect as order
 of injections on channel clauses (see [Order matters](#order-matters)).
-For such a such simple logic as in the given example it is recommended to use [fixed conditions](#fixed-conditions)
+For such a such simple logic as in the given example it is recommended to use [inline conditions](#inline-conditions)
 instead, but the tasks can be useful in handling side-effects not accessible in Expressions,
 like SUT reset or extra logging.
 
-## Diagnostic output
+### Diagnostic output
 
 Consider the following example:
 ```cpp
 */
-BOOST_AUTO_TEST_CASE(ExpressionDiagnostics)
+BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
 {
 auto id = [](boost::json::value const& x){ return x; };
 
 SignalMapping("SignalMapping test")
 .OnTrigger(id)
     .At(id).Inject("1:5"|Arange)
-    .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5)) //(1)
+    .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5) | Not) //(1)
 ;
 }
 /*
@@ -1049,7 +1112,7 @@ SignalMapping("SignalMapping test")
 
 1. Naive average computation - use Avg instead for real tasks.
 
-We can add negation at the matcher end as `| Not` to fail the test and check the log message:
+Negation at the matcher end lead to test failure, and the log message is following:
 
 ```yaml
   - ZMBT FAIL:
@@ -1057,9 +1120,7 @@ We can add negation at the matcher end as `| Not` to fail the test and check the
       message: "expectation match failed"
       expected: {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}
       observed: [1,2,3,4]
-      condition: [3,1]
-      comment: "Computing average"
-      test vector: [{":apply":[":arange","1:5"]},{":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}]
+      condition: {"pipe":1}
       expression eval stack: |-
         ---
                  ┌── ":add"([1,2]) = 3

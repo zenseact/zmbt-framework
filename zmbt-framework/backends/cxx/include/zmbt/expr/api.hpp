@@ -519,6 +519,10 @@ extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
 /// 
 /// Operator parameter singleton can be referenced with string key
 /// or constructed in place using type<T> tag.
+/// 
+/// This operator handler is propagated downstream to all terminal
+/// subexpression in `f`. Result of `f(x)` is also reserialized (undecorated)
+/// as operator type, unless f is constant or boolean expression.
 extern lang::SignatureOverload const Overload;
 /// \brief Alias for Overload
 extern lang::SignatureOverload const Op;

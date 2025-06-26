@@ -27,21 +27,7 @@ Method: `zmbt::InterfaceRecord`
 
 The method creates an extension to the environment that manages the signal records for particular interface. It owns an instance of environment, prolonging its lifetime.
 
-The following methods may be needed in user code:
-
-- Mock call rerouting: [`Hook`](/CxxRef/classzmbt_1_1Environment_1_1TypedInterfaceHandle/#function-hook-12)
-    - This method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values. 
-    <!-- See [examples](#signal-mapping-model-overview-mocks). -->
-
-<!-- - Stimuli setters:
-[`InjectArgs`](/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-injectargs),
-[`InjectReturn`](http://localhost:8001/CxxRef/classzmbt_1_1Environment_1_1InterfaceHandle/#function-injectreturn)
-    - Set generating function for corresponding subsignal at specified JSON pointer. See also
-    [Signal Mapping: Generating functions](/user-guide/signal-mapping/#generating-functions.png). -->
-<!-- 
-- Stimuli getter:
-[`YieldInjection`]
-    - Get corresponding values at JSON pointer and nofcall. Negative nofcall parameters used for reverse indexation. -->
+The resulting object provides an interface for mock call rerouting: [`Hook`](../user-guide/signal-mapping.md#mocks) - this method registers an interface call in the environment, recording the argument values, and returns an injected stimuli or default values.
 
 
 ## Arbitrary data management

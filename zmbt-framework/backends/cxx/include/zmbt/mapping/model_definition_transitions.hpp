@@ -294,7 +294,7 @@ struct ModelDefinition::T_ContinuePipe : protected virtual ModelDefinition::Base
 
 
 template <class Target>
-struct ModelDefinition::T_Inject : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_TerminatePipe : protected virtual ModelDefinition::BaseTransition
 {
     Target Inject()
     {
@@ -311,12 +311,7 @@ struct ModelDefinition::T_Inject : protected virtual ModelDefinition::BaseTransi
         state().set_expr(expr);
         return transit_to<Target>();
     }
-};
 
-
-template <class Target>
-struct ModelDefinition::T_Expect : protected virtual ModelDefinition::BaseTransition
-{
     Target Expect()
     {
         state().head_pipe_type_.emplace_null();
@@ -425,6 +420,13 @@ struct ModelDefinition::T_Test : protected virtual ModelDefinition::BaseTransiti
 template <class Target>
 struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTransition
 {
+    /// test comment
+    Target operator[](boost::json::string_view comment)
+    {
+        state().set_comment(comment);
+        return transit_to<Target>();
+    }
+
     Target operator()()
     {
         state().add_test_case({});
@@ -488,17 +490,6 @@ struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTrans
 
 
 template <class Target>
-struct ModelDefinition::T_TestComment : protected virtual ModelDefinition::BaseTransition
-{
-    Target operator[](boost::json::string_view comment)
-    {
-        state().set_comment(comment);
-        return transit_to<Target>();
-    }
-};
-
-
-template <class Target>
 struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseTransition
 {
     template <class... T>
@@ -511,7 +502,7 @@ struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseT
 
 
 template <class Target>
-struct ModelDefinition::T_Zip : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Param : protected virtual ModelDefinition::BaseTransition
 {
 
     Target Zip(Param const& p, boost::json::value const& v0)
@@ -617,12 +608,7 @@ struct ModelDefinition::T_Zip : protected virtual ModelDefinition::BaseTransitio
         state().init_zip();
         return transit_to<Target>()(p, std::forward<A>(args)...);
     }
-};
 
-
-template <class Target>
-struct ModelDefinition::T_Prod : protected virtual ModelDefinition::BaseTransition
-{
     Target Prod(Param const& p, boost::json::value const& v0)
     {
         state().init_prod();
@@ -726,12 +712,7 @@ struct ModelDefinition::T_Prod : protected virtual ModelDefinition::BaseTransiti
         state().init_prod();
         return transit_to<Target>()(p, std::forward<A>(args)...);
     }
-};
 
-
-template <class Target>
-struct ModelDefinition::T_Pairwise : protected virtual ModelDefinition::BaseTransition
-{
     Target Pairwise(Param const& p, boost::json::value const& v0)
     {
         state().init_pairwise();
@@ -839,7 +820,7 @@ struct ModelDefinition::T_Pairwise : protected virtual ModelDefinition::BaseTran
 
 
 template <class Target>
-struct ModelDefinition::T_Parametrize : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_CustomParam : protected virtual ModelDefinition::BaseTransition
 {
     Target Parametrize(lang::Expression const&)
     {

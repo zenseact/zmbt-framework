@@ -83,10 +83,8 @@ class ModelDefinition::N_Pre
 
 class ModelDefinition::N_Param 
     : public ModelDefinition::N_Pre
-    , public ModelDefinition::T_Zip<ModelDefinition::N_ParamTable>
-    , public ModelDefinition::T_Prod<ModelDefinition::N_ParamTable>
-    , public ModelDefinition::T_Pairwise<ModelDefinition::N_ParamTable>
-    , public ModelDefinition::T_Parametrize<ModelDefinition::N_Param>
+    , public ModelDefinition::T_Param<ModelDefinition::N_ParamTable>
+    , public ModelDefinition::T_CustomParam<ModelDefinition::N_Param>
 {
   private:
     friend class ModelDefinition;
@@ -144,7 +142,6 @@ class ModelDefinition::N_Test
 class ModelDefinition::N_TestTable 
     : public ModelDefinition::N_Param
     , public ModelDefinition::T_TestRow<ModelDefinition::N_TestTable>
-    , public ModelDefinition::T_TestComment<ModelDefinition::N_TestTable>
 {
   private:
     friend class ModelDefinition;
@@ -199,8 +196,7 @@ class ModelDefinition::N_MaybeChannel
 };
 
 class ModelDefinition::N_ChannelEnd 
-    : public ModelDefinition::T_Inject<ModelDefinition::N_MaybeChannel>
-    , public ModelDefinition::T_Expect<ModelDefinition::N_MaybeChannel>
+    : public ModelDefinition::T_TerminatePipe<ModelDefinition::N_MaybeChannel>
     , public ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel>
 {
   private:
@@ -335,17 +331,13 @@ class ModelDefinition::N_Main
 extern template class ModelDefinition::T_Description<ModelDefinition::N_Term>;
 extern template class ModelDefinition::T_PostRun<ModelDefinition::N_Descr>;
 extern template class ModelDefinition::T_PreRun<ModelDefinition::N_Post>;
-extern template class ModelDefinition::T_Zip<ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Prod<ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Pairwise<ModelDefinition::N_ParamTable>;
-extern template class ModelDefinition::T_Parametrize<ModelDefinition::N_Param>;
+extern template class ModelDefinition::T_Param<ModelDefinition::N_ParamTable>;
+extern template class ModelDefinition::T_CustomParam<ModelDefinition::N_Param>;
 extern template class ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable>;
 extern template class ModelDefinition::T_Test<ModelDefinition::N_TestTable>;
 extern template class ModelDefinition::T_TestRow<ModelDefinition::N_TestTable>;
-extern template class ModelDefinition::T_TestComment<ModelDefinition::N_TestTable>;
 extern template class ModelDefinition::T_At<ModelDefinition::N_Filter>;
-extern template class ModelDefinition::T_Inject<ModelDefinition::N_MaybeChannel>;
-extern template class ModelDefinition::T_Expect<ModelDefinition::N_MaybeChannel>;
+extern template class ModelDefinition::T_TerminatePipe<ModelDefinition::N_MaybeChannel>;
 extern template class ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_As<ModelDefinition::N_ChannelEnd>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_Decor>;

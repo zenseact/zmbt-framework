@@ -13,27 +13,36 @@
 
 namespace
 {
-    boost::json::value flatten_response(boost::json::string_view role, boost::json::array const& observed)
+    bool should_flatten_response(std::size_t const repeat_trigger, std::size_t const observed_size, boost::json::string_view role)
     {
+        if (repeat_trigger > 1)
+        {
+            return false;
+        }
+
         if (role.ends_with("one"))
         {
-            if (observed.size() == 1)
+            if (observed_size == 1)
             {
-                return observed.at(0);
+                return true;
             }
             else
             {
                 // TODO: return Error
-                throw zmbt::model_error("expected single value capture, but got ", observed.size());
+                throw zmbt::model_error("expected single value capture, but got %s samples", observed_size);
             }
         }
         else if (role.ends_with("batch"))
         {
-            return observed;
+            return false;
         }
         else
         {
-            return observed.size() == 1 ? observed.at(0) : observed;
+            if (observed_size == 0)
+            {
+                throw zmbt::model_error("expected non-empty capture, but got 0 samples");
+            }
+            return observed_size == 1;
         }
     }
 }
@@ -233,14 +242,16 @@ boost::json::value PipeHandle::observe() const
     auto const& role = data_.at("role").as_string();
     boost::json::value result;
     auto const pipe_type = type();
+    auto const repeat_trigger = boost::json::value_to<std::size_t>(data_.root_node().get_or_default("/repeat_trigger", 1));
     if ("group" == pipe_type)
     {
         result.emplace_array();
         auto& group_result = result.get_array();
         for (auto const& channel: channels_)
         {
-
-            group_result.push_back(flatten_response(role, channel.captures()));
+            auto const captures = channel.captures();
+            bool const flatten = should_flatten_response(repeat_trigger, captures.size(), role);
+            group_result.push_back(flatten ? captures.at(0) : captures);
         }
     }
     else if ("blend" == pipe_type)
@@ -253,7 +264,9 @@ boost::json::value PipeHandle::observe() const
     }
     else
     {
-        result = flatten_response(role, channels_.back().captures());
+        auto const captures = channels_.back().captures();
+        bool const flatten = should_flatten_response(repeat_trigger, captures.size(), role);
+        result = flatten ? captures.at(0) : captures;
     }
 
     return result;

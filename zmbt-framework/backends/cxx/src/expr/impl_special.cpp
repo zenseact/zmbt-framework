@@ -87,7 +87,23 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
         {
             if (value.is_array())
             {
-                query = value.get_array().at(boost::json::value_to<std::size_t>(at));
+                auto const& arr = value.get_array();
+                std::size_t idx{};
+                switch (at.kind())
+                {
+                case boost::json::kind::int64:
+                case boost::json::kind::double_:
+                    {
+                        std::int64_t at_idx = boost::json::value_to<std::int64_t>(at);
+                        idx = (at_idx >= 0) ? at_idx : (at_idx + arr.size()); // TODO: handle overflow
+                    }
+                    break;
+                case boost::json::kind::uint64:
+                    idx = at.get_uint64();
+                default:
+                    break;
+                }
+                query = value.get_array().at(idx);
             }
             else if (value.is_object())
             {

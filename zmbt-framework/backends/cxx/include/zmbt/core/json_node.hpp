@@ -104,6 +104,8 @@ public:
 
     std::shared_ptr<boost::json::value> const& root() const { return root_; }
 
+    JsonNode root_node() const { return JsonNode{root()}; }
+
     boost::json::string_view node_ptr() const { return node_ptr_; }
 
     JsonNode copy() const

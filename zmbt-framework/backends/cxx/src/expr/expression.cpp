@@ -255,6 +255,7 @@ Expression Expression::asPredicate(boost::json::value const& underlying)
 
 bool Expression::is_const() const
 {
+    // TODO: test it and clarify param evaluation
     using lang::detail::CodegenType;
     using lang::detail::getCodegenType;
     if (is(Keyword::Compose))
@@ -263,7 +264,7 @@ bool Expression::is_const() const
     }
     else if (is(Keyword::Overload))
     {
-        return Expression(params()).is_const();
+        return Expression(params().as_array().back()).is_const();
     }
     return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Error) || (CodegenType::Const == getCodegenType(keyword()));
 }

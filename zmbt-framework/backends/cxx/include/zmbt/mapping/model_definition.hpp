@@ -50,57 +50,45 @@ class ModelDefinition
     /// T_ContinuePipe transition
     template <class Target>
     struct T_ContinuePipe;
+    /// T_CustomParam transition
+    template <class Target>
+    struct T_CustomParam;
     /// T_Description transition
     template <class Target>
     struct T_Description;
-    /// T_Expect transition
-    template <class Target>
-    struct T_Expect;
     /// T_Filter transition
     template <class Target>
     struct T_Filter;
-    /// T_Inject transition
-    template <class Target>
-    struct T_Inject;
     /// T_OnTrigger transition
     template <class Target>
     struct T_OnTrigger;
-    /// T_Pairwise transition
+    /// T_Param transition
     template <class Target>
-    struct T_Pairwise;
+    struct T_Param;
     /// T_ParamRow transition
     template <class Target>
     struct T_ParamRow;
-    /// T_Parametrize transition
-    template <class Target>
-    struct T_Parametrize;
     /// T_PostRun transition
     template <class Target>
     struct T_PostRun;
     /// T_PreRun transition
     template <class Target>
     struct T_PreRun;
-    /// T_Prod transition
-    template <class Target>
-    struct T_Prod;
     /// T_Repeat transition
     template <class Target>
     struct T_Repeat;
+    /// T_TerminatePipe transition
+    template <class Target>
+    struct T_TerminatePipe;
     /// T_Test transition
     template <class Target>
     struct T_Test;
-    /// T_TestComment transition
-    template <class Target>
-    struct T_TestComment;
     /// T_TestRow transition
     template <class Target>
     struct T_TestRow;
     /// T_Via transition
     template <class Target>
     struct T_Via;
-    /// T_Zip transition
-    template <class Target>
-    struct T_Zip;
 
 // NODES forward declarations
     /// N_Descr node

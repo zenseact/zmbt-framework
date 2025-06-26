@@ -5,19 +5,14 @@ nodes:
   N_Descr:        { base: N_Term,         trans: { T_Description:     N_Term          } }
   N_Post:         { base: N_Descr,        trans: { T_PostRun:         N_Descr         } }
   N_Pre:          { base: N_Post,         trans: { T_PreRun:          N_Post          } }
-  N_Param:        { base: N_Pre,          trans: { T_Zip:             N_ParamTable    ,
-                                                   T_Prod:            N_ParamTable    ,
-                                                   T_Pairwise:        N_ParamTable    ,
-                                                   T_Parametrize:     N_Param         } }
+  N_Param:        { base: N_Pre,          trans: { T_Param:           N_ParamTable    ,
+                                                   T_CustomParam:     N_Param         } }
   N_ParamTable:   { base: N_Param,        trans: { T_ParamRow:        N_ParamTable    } }
-
   N_Test:         { base: N_Param,        trans: { T_Test:            N_TestTable     } }
-  N_TestTable:    { base: N_Param,        trans: { T_TestRow:         N_TestTable     ,
-                                                   T_TestComment:     N_TestTable     } }
+  N_TestTable:    { base: N_Param,        trans: { T_TestRow:         N_TestTable     } }
   N_Channel:      { base: null  ,         trans: { T_At:              N_Filter        } }
   N_MaybeChannel: { base: N_Test,         trans: { T_At:              N_Filter        } }
-  N_ChannelEnd:   { base: null,           trans: { T_Inject:          N_MaybeChannel  ,
-                                                   T_Expect:          N_MaybeChannel  ,
+  N_ChannelEnd:   { base: null,           trans: { T_TerminatePipe:   N_MaybeChannel  ,
                                                    T_ContinuePipe:    N_Channel       } }
   N_Decor:        { base: N_ChannelEnd,   trans: { T_As:              N_ChannelEnd    } }
   N_Alias:        { base: N_Decor,        trans: { T_Alias:           N_Decor         } }

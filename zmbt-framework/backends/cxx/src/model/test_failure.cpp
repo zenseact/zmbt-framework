@@ -46,7 +46,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     };
 
 
-    os << "  - ZMBT " << verdict << ":";
+    os << "\n  - ZMBT " << verdict << ":";
     print_string("model");
     print_string("message");
 
@@ -60,7 +60,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
         print_js_section("observed");
         os << prefix << "condition: " << sts.at("condition");
         print_string("comment");
-        print_js_section("test vector");
+        // print_js_section("test vector");
     }
 
     print_string("description");

@@ -42,10 +42,10 @@ class InstanceTestRunner
     JsonNode model_;
     Environment env;
 
-    std::vector<PipeHandle> static_inputs_;
-    std::vector<PipeHandle> static_outputs_;
-    std::vector<PipeHandle> dynamic_inputs_;
-    std::vector<PipeHandle> dynamic_outputs_;
+    std::vector<PipeHandle> inline_inputs_;
+    std::vector<PipeHandle> inline_outputs_;
+    std::vector<PipeHandle> tabular_inputs_;
+    std::vector<PipeHandle> tabular_outputs_;
 
 
 
@@ -57,11 +57,11 @@ class InstanceTestRunner
 
     void exec_postrun_tasks(TestDiagnostics diagnostics);
 
-    bool inject_fixed_inputs(TestDiagnostics diagnostics);
+    bool inject_inline_inputs(TestDiagnostics diagnostics);
 
-    bool eval_fixed_assertions(TestDiagnostics diagnostics);
+    bool eval_inline_assertions(TestDiagnostics diagnostics);
 
-    bool inject_dynamic_inputs(boost::json::array const& test_vector, TestDiagnostics diagnostics);
+    bool inject_tabular_inputs(boost::json::array const& test_vector, TestDiagnostics diagnostics);
 
     bool execute_trigger(TestDiagnostics diagnostics);
 
@@ -97,10 +97,10 @@ bool InstanceTestRunner::exec_prerun_tasks(TestDiagnostics diagnostics)
     return true;
 }
 
-bool InstanceTestRunner::inject_fixed_inputs(TestDiagnostics diagnostics)
+bool InstanceTestRunner::inject_inline_inputs(TestDiagnostics diagnostics)
 {
     (void) diagnostics;
-    for (auto const& pipe: static_inputs_)
+    for (auto const& pipe: inline_inputs_)
     {
         try
         {
@@ -109,8 +109,8 @@ bool InstanceTestRunner::inject_fixed_inputs(TestDiagnostics diagnostics)
         catch(const std::exception& e)
         {
             report_failure(diagnostics
-                .Error("fixed input injection", e.what())
-                .ChannelId(pipe.index()));
+                .Error("inline input injection", e.what())
+                .PipeId(pipe.index()));
             return false;
         }
     }
@@ -133,12 +133,11 @@ void InstanceTestRunner::exec_postrun_tasks(TestDiagnostics diagnostics)
 
 
 
-bool InstanceTestRunner::inject_dynamic_inputs(boost::json::array const& test_vector, TestDiagnostics diagnostics)
+bool InstanceTestRunner::inject_tabular_inputs(boost::json::array const& test_vector, TestDiagnostics diagnostics)
 {
     bool no_exception_met{true};
 
-    std::size_t col_idx {};
-    for (auto const& pipe: dynamic_inputs_)
+    for (auto const& pipe: tabular_inputs_)
     {
         auto const& condition_idx = pipe.column();
         auto const& test_expr = test_vector.at(condition_idx);
@@ -149,11 +148,10 @@ bool InstanceTestRunner::inject_dynamic_inputs(boost::json::array const& test_ve
         catch (std::exception const& error) {
             report_failure(diagnostics
                 .Error("test input injection", error.what())
-                .TestCol(col_idx)
+                .PipeId(pipe.index())
             );
             no_exception_met = false;
         }
-        ++col_idx;
     }
 
     return no_exception_met;
@@ -227,11 +225,11 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
 }
 
 
-bool InstanceTestRunner::eval_fixed_assertions(TestDiagnostics diagnostics)
+bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
 {
     bool passed {true};
 
-    for (auto const& pipe: static_outputs_)
+    for (auto const& pipe: inline_outputs_)
     {
         lang::Expression expect = pipe.expression();
         try
@@ -251,7 +249,9 @@ bool InstanceTestRunner::eval_fixed_assertions(TestDiagnostics diagnostics)
 
         if (!passed)
         {
-            report_failure(diagnostics.ChannelId(pipe.index()));
+            report_failure(
+                diagnostics
+                .PipeId(pipe.index()));
         }
     }
     return passed;
@@ -261,7 +261,7 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
 {
     bool test_case_passed {true};
 
-    for (auto const& pipe: dynamic_outputs_)
+    for (auto const& pipe: tabular_outputs_)
     {
 
         test_case_passed = eval_assertion(pipe, lang::Expression::asPredicate(test_vector.at(pipe.column())), diagnostics) && test_case_passed;
@@ -269,7 +269,7 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
         if (!test_case_passed)
         {
             report_failure(diagnostics
-                .TestCol(pipe.column()));
+                .TabularConditionFailure(pipe.column()));
         }
     }
 
@@ -290,7 +290,7 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
 
 
 
-    // Step 2 - split static and dynamic
+    // Step 2 - split inline and tabular
     while (!pipes_list.empty())
     {
 
@@ -298,20 +298,20 @@ InstanceTestRunner::InstanceTestRunner(JsonNode const& model)
         {
             if (pipes_list.front().has_expression())
             {
-                static_inputs_.push_back(std::move(pipes_list.front()));
+                inline_inputs_.push_back(std::move(pipes_list.front()));
             }
             else
             {
-                dynamic_inputs_.push_back(std::move(pipes_list.front()));
+                tabular_inputs_.push_back(std::move(pipes_list.front()));
             }
         }
         else if (pipes_list.front().has_expression())
         {
-            static_outputs_.push_back(std::move(pipes_list.front()));
+            inline_outputs_.push_back(std::move(pipes_list.front()));
         }
         else
         {
-            dynamic_outputs_.push_back(std::move(pipes_list.front()));
+            tabular_outputs_.push_back(std::move(pipes_list.front()));
         }
         pipes_list.pop_front();
     }
@@ -335,10 +335,10 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 
     env.ResetInterfaceData();
     success = success && exec_prerun_tasks(diagnostics);
-    success = success && inject_fixed_inputs(diagnostics);
-    success = success && inject_dynamic_inputs(test_vector, diagnostics);
+    success = success && inject_inline_inputs(diagnostics);
+    success = success && inject_tabular_inputs(test_vector, diagnostics);
     success = success && execute_trigger(diagnostics);
-    success = success && eval_fixed_assertions(diagnostics);
+    success = success && eval_inline_assertions(diagnostics);
     success = success && observe_results(test_vector, diagnostics);
 
     exec_postrun_tasks(diagnostics);
@@ -355,7 +355,7 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 void InstanceTestRunner::Run()
 {
 
-    auto const N = dynamic_inputs_.size() + dynamic_outputs_.size();
+    auto const N = tabular_inputs_.size() + tabular_outputs_.size();
     boost::json::array const& tests = model_("/tests").as_array();
 
 
