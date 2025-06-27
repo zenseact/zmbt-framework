@@ -2,9 +2,7 @@ name: Publish Docs
 
 on:
   push:
-    tags: [ "*" ]
-    branches: [ "main" ]
-  pull_request:
+    tags: [ "*-docs" ]
     branches: [ "main" ]
 
 permissions:
