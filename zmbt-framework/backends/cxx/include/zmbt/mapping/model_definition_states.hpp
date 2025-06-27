@@ -252,28 +252,28 @@ class ModelDefinition::N_Alias
     }
 };
 
-class ModelDefinition::N_Via 
+class ModelDefinition::N_Take 
     : public ModelDefinition::N_Alias
     , public ModelDefinition::T_Take<ModelDefinition::N_Alias>
 {
   private:
     friend class ModelDefinition;
-    N_Via(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
+    N_Take(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
-    N_Via(N_Via const&) = delete;
-    N_Via(N_Via&&) = default;
+    N_Take(N_Take const&) = delete;
+    N_Take(N_Take&&) = default;
 
   public:
-    N_Via() : N_Via(detail::DefinitionHelper{}) {}
-    virtual ~N_Via()
+    N_Take() : N_Take(detail::DefinitionHelper{}) {}
+    virtual ~N_Take()
     {
     }
 };
 
 class ModelDefinition::N_Filter 
-    : public ModelDefinition::N_Via
-    , public ModelDefinition::T_Filter<ModelDefinition::N_Via>
+    : public ModelDefinition::N_Take
+    , public ModelDefinition::T_Filter<ModelDefinition::N_Take>
 {
   private:
     friend class ModelDefinition;
@@ -342,7 +342,7 @@ extern template class ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel
 extern template class ModelDefinition::T_As<ModelDefinition::N_ChannelEnd>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_Decor>;
 extern template class ModelDefinition::T_Take<ModelDefinition::N_Alias>;
-extern template class ModelDefinition::T_Filter<ModelDefinition::N_Via>;
+extern template class ModelDefinition::T_Filter<ModelDefinition::N_Take>;
 extern template class ModelDefinition::T_Repeat<ModelDefinition::N_MaybeChannel>;
 extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>;
 

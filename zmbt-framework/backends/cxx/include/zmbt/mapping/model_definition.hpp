@@ -115,8 +115,8 @@ class ModelDefinition
     class N_Decor;
     /// N_Alias node
     class N_Alias;
-    /// N_Via node
-    class N_Via;
+    /// N_Take node
+    class N_Take;
     /// N_Filter node
     class N_Filter;
     /// N_Repeat node
