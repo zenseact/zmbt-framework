@@ -1099,13 +1099,13 @@ Consider the following example:
 */
 BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
 {
-auto id = [](boost::json::value const& x){ return x; };
+    auto id = [](boost::json::value const& x){ return x; };
 
-SignalMapping("SignalMapping test")
-.OnTrigger(id)
-    .At(id).Inject("1:5"|Arange)
-    .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5) | Not) //(1)
-;
+    SignalMapping("SignalMapping test")
+    .OnTrigger(id)
+        .At(id).Inject("1:5"|Arange)
+        .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5) | Not) //(1)
+    ;
 }
 /*
 ```

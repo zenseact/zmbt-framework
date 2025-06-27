@@ -36,7 +36,7 @@ MODEL = SignalMapping, OnTrigger, [Repeat], {Condition_Pipe}-, [Tests], [Params]
 
 Condition_Pipe  = Channel, {(Group | Blend), Channel}, [As], (Inject | Expect | Assert);
 
-Channel = At, [Return | Args | Exception | ThreadId | Timestamp | CallCount], [Via], [Alias];
+Channel = At, [Return | Args | Exception | ThreadId | Timestamp | CallCount], [Take], [Alias];
 
 Tests = ".Test", {LB, ONEORMORE(Expression), RB, ["[", ?comment?, "]" ]}-;
 
@@ -57,7 +57,7 @@ Tasks =  [".PreRun", LB, ONEORMORE(?task?), RB], [".PostRun", LB, ONEORMORE(?tas
 | `Repeat`                                               |`@T_Repeat`                 | Sets the number of trigger invocations per test case.     |
 | `At`                                                   |`@T_At`                     | Starts a **signal channel** on a specific interface.      |
 | `Args`, `Return`, `Exception`, `Timestamp`, `ThreadId` |`@T_Filter`                 | Select data from the interface call.                      |
-| `Via`                                                  |`@T_Via`                    | Applies a transformation expression to the channel value. |
+| `Take`                                                 |`@T_Take`                    | Applies a transformation expression to the channel value. |
 | `Alias`                                                |`@T_Alias`                  | Annotates the channel for identification/logging.         |
 | `Group`, `Blend`                                       |`@T_ContinuePipe`           | Combine channels into a single **pipe**.                  |
 | `As`                                                   |`@T_Decor`                  | Applies operator overloading on the pipe.                 |

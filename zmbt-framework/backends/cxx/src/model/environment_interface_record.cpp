@@ -87,10 +87,10 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
     return env.data_->json_data.at("/prototypes/%s/args", interface());
 }
 
-void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> e, ChannelKind const kind, boost::json::string_view jp)
+void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
     auto lock = Env().Lock();
-    env.data_->input_generators[refobj_][interface_][kind][jp] = e;
+    env.data_->input_generators[refobj_][interface_][kind][jp] = {gen, tf};
 }
 
 
@@ -117,11 +117,14 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
     for (auto& record: inputs)
     {
         boost::json::string_view const record_pointer = record.first;
-        auto& generator = *record.second;
+        auto& generator = *record.second.first;
+        auto const& tf = record.second.second;
         if (generator.is_noop()) continue;
 
         // TODO: optimize recursive expr
-        auto const v = generator(); // TODO: handle errors and log
+        auto v = generator(); // TODO: handle errors and log
+        v = tf.is_noop() ? v : tf.eval(v);
+
         result_value.set_at_pointer(record_pointer, v);
     }
     return result_value;

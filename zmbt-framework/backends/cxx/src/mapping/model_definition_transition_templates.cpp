@@ -33,7 +33,7 @@ template class ModelDefinition::T_TerminatePipe<ModelDefinition::N_MaybeChannel>
 template class ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel>;
 template class ModelDefinition::T_As<ModelDefinition::N_ChannelEnd>;
 template class ModelDefinition::T_Alias<ModelDefinition::N_Decor>;
-template class ModelDefinition::T_Via<ModelDefinition::N_Alias>;
+template class ModelDefinition::T_Take<ModelDefinition::N_Alias>;
 template class ModelDefinition::T_Filter<ModelDefinition::N_Via>;
 template class ModelDefinition::T_Repeat<ModelDefinition::N_MaybeChannel>;
 template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>;

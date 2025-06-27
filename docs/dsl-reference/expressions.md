@@ -17,7 +17,7 @@
 
 ### Noop
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 *Aliases*: _
 
@@ -29,7 +29,7 @@ Used in place of matchers for uninteresting signals.
 
 ### Null
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Null value
@@ -38,7 +38,7 @@ Null value
 
 ### True
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Logical true
@@ -47,7 +47,7 @@ Logical true
 
 ### False
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Logical false
@@ -56,7 +56,7 @@ Logical false
 
 ### Pi
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Pi constant
@@ -65,7 +65,7 @@ Pi constant
 
 ### E
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Euler's number
@@ -74,7 +74,7 @@ Euler's number
 
 ### Inf
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Infinity
@@ -83,7 +83,7 @@ Infinity
 
 ### Eps
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Machine epsilon
@@ -92,7 +92,7 @@ Machine epsilon
 
 ### NaN
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Not a number
@@ -101,7 +101,7 @@ Not a number
 
 ### Thread
 
-*Signature*: [Const](../user-guide/expressions/#syntax)
+*Signature*: [Const](../user-guide/expressions.md#syntax)
 
 
 Thread id
@@ -115,7 +115,7 @@ branching the test input conditions.
 
 ### Sin
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Sinus function
@@ -124,7 +124,7 @@ Sinus function
 
 ### Cos
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Cosinus function
@@ -133,7 +133,7 @@ Cosinus function
 
 ### Tan
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Tangens function
@@ -142,7 +142,7 @@ Tangens function
 
 ### Asin
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Arcsin function
@@ -151,7 +151,7 @@ Arcsin function
 
 ### Acos
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Arccos function
@@ -160,7 +160,7 @@ Arccos function
 
 ### Atan
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Arctan function
@@ -169,7 +169,7 @@ Arctan function
 
 ### Sinh
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Hyperbolic sin
@@ -178,7 +178,7 @@ Hyperbolic sin
 
 ### Cosh
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Hyperbolic cos
@@ -187,7 +187,7 @@ Hyperbolic cos
 
 ### Tanh
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Hyperbolic tan
@@ -196,7 +196,7 @@ Hyperbolic tan
 
 ### Asinh
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Hyperbolic arcsin
@@ -205,7 +205,7 @@ Hyperbolic arcsin
 
 ### Acosh
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Hyperbolic arccos
@@ -214,7 +214,7 @@ Hyperbolic arccos
 
 ### Atanh
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Hyperbolic arctan
@@ -223,7 +223,7 @@ Hyperbolic arctan
 
 ### Exp
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Exponential (e^x)
@@ -232,7 +232,7 @@ Exponential (e^x)
 
 ### Erf
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Error function
@@ -241,7 +241,7 @@ Error function
 
 ### Erfc
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Error function complement
@@ -250,7 +250,7 @@ Error function complement
 
 ### Gamma
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Gamma function
@@ -259,7 +259,7 @@ Gamma function
 
 ### Abs
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Absolute value
@@ -268,7 +268,7 @@ Absolute value
 
 ### Ceil
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Ceil
@@ -277,7 +277,7 @@ Ceil
 
 ### Floor
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Floor
@@ -286,7 +286,7 @@ Floor
 
 ### Round
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Round to nearest integer
@@ -297,7 +297,7 @@ use `Mul(ndigits) | Round | Div(ndigits)` combo.
 
 ### Sqrt
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Square root
@@ -306,7 +306,7 @@ Square root
 
 ### Sign
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Sign
@@ -318,7 +318,7 @@ Sign
 
 ### Neg
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Negate
@@ -330,7 +330,7 @@ Negate
 
 ### Add
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Addition
@@ -343,7 +343,7 @@ Addition
 
 ### Sub
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Subtraction
@@ -356,7 +356,7 @@ Subtraction
 
 ### Mul
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Multiplication
@@ -369,7 +369,7 @@ Multiplication
 
 ### Div
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Division
@@ -384,7 +384,7 @@ Division
 
 ### Pow
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 To power
@@ -400,7 +400,7 @@ X to power p
 
 ### Log
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Logarithm
@@ -416,7 +416,7 @@ Logarithm with base b:
 
 ### Mod
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Modulo
@@ -432,7 +432,7 @@ Modulo of x:
 
 ### Quot
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Quotient
@@ -448,7 +448,7 @@ Quotient of x:
 
 ### BitNot
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Bitwise not
@@ -460,7 +460,7 @@ Bitwise not
 
 ### BitAnd
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Bitwise and
@@ -472,7 +472,7 @@ Bitwise and
 
 ### BitOr
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Bitwise or
@@ -484,7 +484,7 @@ Bitwise or
 
 ### BitXor
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Bitwise xor
@@ -496,7 +496,7 @@ Bitwise xor
 
 ### BitLshift
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Bitwise left shift
@@ -510,7 +510,7 @@ Bitwise left shift
 
 ### BitRshift
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Bitwise right shift
@@ -527,7 +527,7 @@ Bitwise right shift
 
 ### Eq
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Is equal
@@ -540,7 +540,7 @@ Is equal
 
 ### Ne
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Not equal
@@ -553,7 +553,7 @@ Not equal
 
 ### Lt
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Lesser than
@@ -566,7 +566,7 @@ Lesser than
 
 ### Le
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Lesser or equal
@@ -579,7 +579,7 @@ Lesser or equal
 
 ### Gt
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Greater than
@@ -592,7 +592,7 @@ Greater than
 
 ### Ge
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Greater or equal
@@ -605,7 +605,7 @@ Greater or equal
 
 ### Approx
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: near
 
@@ -641,7 +641,7 @@ Absolute tolerance 0.01
 
 ### Union
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Set union
@@ -654,7 +654,7 @@ Set union
 
 ### Intersect
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Set intersection
@@ -667,7 +667,7 @@ Set intersection
 
 ### Diff
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Set difference
@@ -683,7 +683,7 @@ Set difference
 
 ### SetEq
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Equal as set
@@ -696,7 +696,7 @@ Equal as set
 
 ### Subset
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Is subset
@@ -715,7 +715,7 @@ Is subset
 
 ### Superset
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Is superset
@@ -734,7 +734,7 @@ Is superset
 
 ### ProperSubset
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Is proper subset
@@ -753,7 +753,7 @@ Is proper subset
 
 ### ProperSuperset
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Is proper superset
@@ -772,7 +772,7 @@ Is proper superset
 
 ### In
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Element is in
@@ -785,7 +785,7 @@ Element is in
 
 ### NotIn
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Element is not in
@@ -798,7 +798,7 @@ Element is not in
 
 ### Ni
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: contains
 
@@ -812,7 +812,7 @@ Contains element
 
 ### NotNi
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Not contains element
@@ -828,7 +828,7 @@ Not contains element
 
 ### Bool
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 *Aliases*: truthy
 
@@ -848,7 +848,7 @@ Predicate on boolean transform (aka truthy)
 
 ### Not
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 *Aliases*: falsy, nil
 
@@ -862,7 +862,7 @@ Logical complement
 
 ### And
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Logical and
@@ -891,7 +891,7 @@ Generic behavior:
 
 ### Or
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Logical or
@@ -923,7 +923,7 @@ Generic behavior:
 
 ### Id
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Identity function
@@ -935,7 +935,7 @@ Identity function
 
 ### Transp
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Transpose multidimensional list, turning rows into columns
@@ -948,7 +948,7 @@ May be used to zip sequences of equal length.
 
 ### Cartesian
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Cartesian product
@@ -960,7 +960,7 @@ Cartesian product
 
 ### Reverse
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Reverse sequence
@@ -972,7 +972,7 @@ Reverse sequence
 
 ### Uniques
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Filter unique elements
@@ -984,7 +984,7 @@ Filter unique elements
 
 ### Items
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Extract key-value pairs from object
@@ -996,7 +996,7 @@ Extract key-value pairs from object
 
 ### Keys
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Extract keys from object
@@ -1008,7 +1008,7 @@ Extract keys from object
 
 ### Values
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Extract values from object
@@ -1020,7 +1020,7 @@ Extract values from object
 
 ### Enumerate
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Enumerate sequence
@@ -1033,7 +1033,7 @@ Enumerate sequence with index.
 
 ### Flatten
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Flatten nested list
@@ -1045,7 +1045,7 @@ Flatten nested list
 
 ### ToList
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Put argument into a list
@@ -1061,7 +1061,7 @@ Equivalent to At([""])
 
 ### Arange
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Generate range of numbers
@@ -1094,7 +1094,7 @@ Parameters dynamic evaluation:
 
 ### Parse
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Parse string as json
@@ -1106,7 +1106,7 @@ Parse string as json
 
 ### Serialize
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 *Aliases*: str
 
@@ -1119,7 +1119,7 @@ Serialize json as string
 
 ### Re
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: regex
 
@@ -1134,7 +1134,7 @@ If input is not a string, match it's serialized form.
 
 ### Format
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 *Aliases*: fmt
 
@@ -1153,7 +1153,7 @@ s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
 
 ### Card
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Set cardinality (uniques count)
@@ -1166,7 +1166,7 @@ Set cardinality (uniques count)
 
 ### Size
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Sequence size
@@ -1179,7 +1179,7 @@ Sequence size
 
 ### Sum
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Summation reduction
@@ -1192,7 +1192,7 @@ Equivalent to Reduce(Add)
 
 ### Prod
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Multiplication reduction
@@ -1205,7 +1205,7 @@ Equivalent to Reduce(Mul)
 
 ### Avg
 
-*Signature*: [Unary](../user-guide/expressions/#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
 Arythmetic average
@@ -1220,7 +1220,7 @@ Arythmetic average
 
 ### Slide
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Sliding-window iteration
@@ -1234,7 +1234,7 @@ Sliding window iteration by specified window width.
 
 ### Stride
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Striding iteration
@@ -1249,7 +1249,7 @@ Reminder subsequence smaller then step width is discarded.
 
 ### Chunks
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Split into chunks of specified max width
@@ -1264,7 +1264,7 @@ smaller then step width.
 
 ### Repeat
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Repeat value in list
@@ -1277,7 +1277,7 @@ Repeat value in list
 
 ### Concat
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: cat
 
@@ -1291,7 +1291,7 @@ Concatenate sequences
 
 ### Push
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Push element into a front of sequence
@@ -1304,7 +1304,7 @@ Push element into a front of sequence
 
 ### At
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Transform json value with given query
@@ -1349,7 +1349,7 @@ Query evaluation rules:
 
 ### Lookup
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Lookup table function
@@ -1366,7 +1366,7 @@ Equivalent to Flip(At(...))
 
 ### C
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: let
 
@@ -1381,7 +1381,7 @@ on evaluation, ignoring input.
 
 ### Decorate
 
-*Signature*: [Special](../user-guide/expressions/#syntax)
+*Signature*: [Special](../user-guide/expressions.md#syntax)
 
 *Aliases*: cast
 
@@ -1391,7 +1391,7 @@ Reserialize decorated type as decorator
 
 ### Undecorate
 
-*Signature*: [Special](../user-guide/expressions/#syntax)
+*Signature*: [Special](../user-guide/expressions.md#syntax)
 
 *Aliases*: uncast
 
@@ -1404,7 +1404,7 @@ Reserialize decorator as decorated type
 
 ### Reduce
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: fold
 
@@ -1422,7 +1422,7 @@ For reverse operation, see Unfold
 
 ### Map
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Apply param expr to every element of sequence
@@ -1434,7 +1434,7 @@ Apply param expr to every element of sequence
 
 ### Filter
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Filter sequence by predicate param
@@ -1446,7 +1446,7 @@ Filter sequence by predicate param
 
 ### Count
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Count matches by predicate param
@@ -1458,7 +1458,7 @@ Count matches by predicate param
 
 ### Each
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Test predicate for each item in a sequence
@@ -1472,7 +1472,7 @@ Equivalent to `Count(p | Not) | Eq(0)`
 
 ### Sort
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Sort list by key function
@@ -1487,7 +1487,7 @@ Sort list by key function
 
 ### Min
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Min value by key function
@@ -1500,7 +1500,7 @@ Min value by key function
 
 ### Max
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Max value by key function
@@ -1513,7 +1513,7 @@ Max value by key function
 
 ### Argmin
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Min value index by key function
@@ -1526,7 +1526,7 @@ Min value index by key function
 
 ### Argmax
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Max value index by key function
@@ -1539,7 +1539,7 @@ Max value index by key function
 
 ### Recur
 
-*Signature*: [Ternary](../user-guide/expressions/#syntax)
+*Signature*: [Ternary](../user-guide/expressions.md#syntax)
 
 
 Apply recursion to parameter expr and initial value
@@ -1553,7 +1553,7 @@ Apply recursion to parameter expr and initial value
 
 ### Unfold
 
-*Signature*: [Ternary](../user-guide/expressions/#syntax)
+*Signature*: [Ternary](../user-guide/expressions.md#syntax)
 
 
 Put results of recursive fn call on initial value into an array
@@ -1567,7 +1567,7 @@ Put results of recursive fn call on initial value into an array
 
 ### Overload
 
-*Signature*: [Special](../user-guide/expressions/#syntax)
+*Signature*: [Special](../user-guide/expressions.md#syntax)
 
 *Aliases*: op
 
@@ -1589,7 +1589,7 @@ as operator type, unless f is constant or boolean expression.
 
 ### Bind
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 !not implemented! bind design-time parameters
@@ -1598,7 +1598,7 @@ as operator type, unless f is constant or boolean expression.
 
 ### Any
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Match any predicate
@@ -1611,7 +1611,7 @@ Match any predicate
 
 ### All
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Match all predicates
@@ -1624,7 +1624,7 @@ Match all predicates
 
 ### Saturate
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Saturate matches in order
@@ -1641,7 +1641,7 @@ Saturate matches in order
 
 ### Compose
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Compose functions
@@ -1659,7 +1659,7 @@ Compose functions
 
 ### Fork
 
-*Signature*: [Variadic](../user-guide/expressions/#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Pack results from enveloped functions into an array
@@ -1678,7 +1678,7 @@ Allows to combine different properties in a single expression
 
 ### Flip
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Flips design-time and eval-time parameters.
@@ -1695,7 +1695,7 @@ the Reverse keyword instead.
 
 ### Try
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Evaluate function and return result or null if it throws
@@ -1708,7 +1708,7 @@ Evaluate function and return result or null if it throws
 
 ### TryCatch
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Evaluate function and return result or error info if it throws
@@ -1727,7 +1727,7 @@ Evaluate function and return result or error info if it throws
 
 ### Default
 
-*Signature*: [Binary](../user-guide/expressions/#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: d
 
@@ -1741,7 +1741,7 @@ Return x if not null, else return default value
 
 ### Error
 
-*Signature*: [Special](../user-guide/expressions/#syntax)
+*Signature*: [Special](../user-guide/expressions.md#syntax)
 
 
 Error

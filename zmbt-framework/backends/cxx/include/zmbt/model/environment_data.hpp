@@ -56,7 +56,7 @@ struct EnvironmentData {
         std::map<interface_id,           // obj
         std::map<ChannelKind,            // grp
         std::map<boost::json::string,    // jptr
-        Generator::Shared>>>> input_generators;
+        std::pair<Generator::Shared, lang::Expression>>>>> input_generators;
 
 
     mutex_t mutable mutex;

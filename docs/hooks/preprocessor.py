@@ -26,7 +26,7 @@ def on_post_page(output: str, page: Page, **kwargs) -> str:
         return output
     elif page.file.url == SM_DSL:
         log.info(f'preprocessing {page.file.url}')
-        output = re.sub(API_LINK, r'<a href="../CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__\1/">T_\1</a>', output)
+        output = re.sub(API_LINK, r'<a href="../../CxxRef/structzmbt_1_1mapping_1_1ModelDefinition_1_1T__\1/">T_\1</a>', output)
         return output
     else:
         return output

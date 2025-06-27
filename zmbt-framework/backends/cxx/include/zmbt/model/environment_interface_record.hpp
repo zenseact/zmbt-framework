@@ -115,7 +115,8 @@ public:
     /// \param e input generator
     /// \param group return | args | exception
     /// \param jp JSON Pointer
-    void Inject(std::shared_ptr<Generator> e, ChannelKind const kind, boost::json::string_view jp = "");
+    void Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp = "");
+
 
 
     /// \brief Set generating function for injection return
@@ -125,7 +126,7 @@ public:
     /// \param jp JSON Pointer
     void InjectReturn(lang::Expression const& e, boost::json::string_view jp = "")
     {
-        return Inject(std::make_shared<Generator>(e), ChannelKind::Return, jp);
+        return Inject(std::make_shared<Generator>(e), expr::Noop, ChannelKind::Return, jp);
     }
 
     /// \brief Set generating function for injection args
@@ -135,7 +136,7 @@ public:
     /// \param jp JSON Pointer
     void InjectArgs(lang::Expression const& e, boost::json::string_view jp = "")
     {
-        return Inject(std::make_shared<Generator>(e), ChannelKind::Args, jp);
+        return Inject(std::make_shared<Generator>(e), expr::Noop, ChannelKind::Args, jp);
     }
 
 

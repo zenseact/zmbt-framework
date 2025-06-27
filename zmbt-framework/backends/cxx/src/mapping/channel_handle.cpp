@@ -73,6 +73,16 @@ object_id ChannelHandle::host() const
 }
 
 
+lang::Expression ChannelHandle::transform() const
+{
+    lang::Expression e = expr::Noop;
+
+    if (auto const p =  data_.find_pointer("transform"))
+    {
+        e = *p;
+    }
+    return e;
+}
 
 interface_id ChannelHandle::interface() const
 {
@@ -219,7 +229,7 @@ void PipeHandle::inject(lang::Expression e) const
         for (auto const& channel: channels_)
         {
             auto handle = Environment::InterfaceHandle(channel.interface(), channel.host());
-            handle.Inject(generator, channel.kind(), channel.signal_path());
+            handle.Inject(generator, channel.transform(), channel.kind(), channel.signal_path());
         }
     }
     else
@@ -227,11 +237,13 @@ void PipeHandle::inject(lang::Expression e) const
         for (auto const& channel: channels_)
         {
             auto handle = Environment::InterfaceHandle(channel.interface(), channel.host());
-            handle.Inject(std::make_shared<Generator>(e), channel.kind(), channel.signal_path());
+            handle.Inject(std::make_shared<Generator>(e), channel.transform(), channel.kind(), channel.signal_path());
         }
     }
 
+
 }
+
 
 boost::json::value PipeHandle::observe() const
 {
@@ -250,8 +262,12 @@ boost::json::value PipeHandle::observe() const
         for (auto const& channel: channels_)
         {
             auto const captures = channel.captures();
+            auto const tf = channel.transform();
+
             bool const flatten = should_flatten_response(repeat_trigger, captures.size(), role);
-            group_result.push_back(flatten ? captures.at(0) : captures);
+            auto o = flatten ? captures.at(0) : captures;
+            o = tf.is_noop() ? o : tf.eval(o);
+            group_result.push_back(o);
         }
     }
     else if ("blend" == pipe_type)
@@ -260,13 +276,16 @@ boost::json::value PipeHandle::observe() const
         {
             throw model_error("cant use %s on blend pipe, try without -One", role);
         }
-        return observe_blend();
+        result = observe_blend();
     }
     else
     {
         auto const captures = channels_.back().captures();
+        auto const tf = channels_.back().transform();
+
         bool const flatten = should_flatten_response(repeat_trigger, captures.size(), role);
         result = flatten ? captures.at(0) : captures;
+        result = tf.is_noop() ? result : tf.eval(result);
     }
 
     return result;
@@ -318,14 +337,23 @@ boost::json::value PipeHandle::observe_blend() const
         auto insert_begin = join_captures.begin();
         auto capture = captures.cend();
 
+        auto const tf = channel.transform();
+
 
         while ((capture = captures_slice()) != captures.cend())
         {
+            boost::json::value signal_value;
             boost::json::error_code ec;
-            boost::json::value const* signal_value = capture->find_pointer(full_path, ec);
+
+            if (auto const p = capture->find_pointer(full_path, ec))
+            {
+
+                signal_value = tf.is_noop() ? *p : tf.eval(*p);
+            }
+
             boost::json::array record {
                 alias,
-                signal_value ? *signal_value : nullptr,
+                signal_value,
                 capture->at_pointer("/ts")
             };
 

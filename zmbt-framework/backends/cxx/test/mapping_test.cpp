@@ -487,7 +487,7 @@ BOOST_AUTO_TEST_CASE(OnCallInject)
 }
 
 
-BOOST_AUTO_TEST_CASE(OnCallObserve)
+BOOST_AUTO_TEST_CASE(ViaClause)
 {
     struct Mock
     {
@@ -506,13 +506,13 @@ BOOST_AUTO_TEST_CASE(OnCallObserve)
 
     SignalMapping("Test Call Observe")
     .OnTrigger(SUT)
-        .At(SUT).Inject()
-        .At(&Mock::consume_value).Args().Via(At(0)).Expect()
-        .At(&Mock::consume_value).Args().Via(At(1)).Expect()
-        .At(&Mock::consume_value).Args().Via(At(2)).Expect()
+        .At(SUT).Take(At(0)).Inject()
+        .At(&Mock::consume_value).Args().Take(At(0)).Expect()
+        .At(&Mock::consume_value).Args().Take(At(1)).Expect()
+        .At(&Mock::consume_value).Args().Take(At(2)).Expect()
     .Test
-        (  0, At(0)| 1, At(1)| 2, At(2)| 3 )
-        ( 42, At(0)|43, At(1)|44, At(2)|45 )
+        ( L{ 0},  1,  2,  3 )
+        ( L{42}, 43, 44, 45 )
     ;
 }
 

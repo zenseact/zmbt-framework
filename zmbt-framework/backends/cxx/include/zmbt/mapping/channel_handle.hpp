@@ -53,6 +53,8 @@ public:
 
     boost::json::array captures() const;
 
+    lang::Expression transform() const;
+
 };
 
 

@@ -16,7 +16,7 @@ nodes:
                                                    T_ContinuePipe:    N_Channel       } }
   N_Decor:        { base: N_ChannelEnd,   trans: { T_As:              N_ChannelEnd    } }
   N_Alias:        { base: N_Decor,        trans: { T_Alias:           N_Decor         } }
-  N_Via:          { base: N_Alias,        trans: { T_Via:             N_Alias         } }
+  N_Via:          { base: N_Alias,        trans: { T_Take:             N_Alias         } }
   N_Filter:       { base: N_Via,          trans: { T_Filter:          N_Via           } }
   N_Repeat:       { base: N_MaybeChannel, trans: { T_Repeat:          N_MaybeChannel  } }
   N_Main:         { base: null,           trans: { T_OnTrigger:       N_Repeat        } }

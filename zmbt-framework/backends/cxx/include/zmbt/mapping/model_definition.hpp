@@ -77,6 +77,9 @@ class ModelDefinition
     /// T_Repeat transition
     template <class Target>
     struct T_Repeat;
+    /// T_Take transition
+    template <class Target>
+    struct T_Take;
     /// T_TerminatePipe transition
     template <class Target>
     struct T_TerminatePipe;
@@ -86,9 +89,6 @@ class ModelDefinition
     /// T_TestRow transition
     template <class Target>
     struct T_TestRow;
-    /// T_Via transition
-    template <class Target>
-    struct T_Via;
 
 // NODES forward declarations
     /// N_Descr node

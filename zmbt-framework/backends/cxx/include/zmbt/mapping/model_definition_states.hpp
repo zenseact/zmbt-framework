@@ -254,7 +254,7 @@ class ModelDefinition::N_Alias
 
 class ModelDefinition::N_Via 
     : public ModelDefinition::N_Alias
-    , public ModelDefinition::T_Via<ModelDefinition::N_Alias>
+    , public ModelDefinition::T_Take<ModelDefinition::N_Alias>
 {
   private:
     friend class ModelDefinition;
@@ -341,7 +341,7 @@ extern template class ModelDefinition::T_TerminatePipe<ModelDefinition::N_MaybeC
 extern template class ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_As<ModelDefinition::N_ChannelEnd>;
 extern template class ModelDefinition::T_Alias<ModelDefinition::N_Decor>;
-extern template class ModelDefinition::T_Via<ModelDefinition::N_Alias>;
+extern template class ModelDefinition::T_Take<ModelDefinition::N_Alias>;
 extern template class ModelDefinition::T_Filter<ModelDefinition::N_Via>;
 extern template class ModelDefinition::T_Repeat<ModelDefinition::N_MaybeChannel>;
 extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>;
