@@ -17,11 +17,12 @@
 #include <zmbt/core/interface_traits.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
-#include <zmbt/model/signal_operator_handler.hpp>
+#include <zmbt/model/test_failure.hpp>
 #include <zmbt/reflect/signal_traits.hpp>
 #include <zmbt/reflect/invocation.hpp>
 #include <zmbt/reflect/prototypes.hpp>
 #include <zmbt/reflect/serialization.hpp>
+#include <zmbt/expr.hpp>
 #include <exception>
 #include <functional>
 #include <iosfwd>
@@ -44,6 +45,7 @@ namespace zmbt {
  * @brief Controlled environment data storage
  *
  * @details Handles signal values and calls counters to/from environment, using interface pointers as keys
+ * @see <A HREF="/user-guide/environment/">Environment API</A>
  *
  */
 class Environment {
@@ -70,8 +72,22 @@ class Environment {
 
     std::shared_ptr<EnvironmentData> data_;
 
+    // TODO: move to persistent config
+    using FailureHandler = std::function<void(boost::json::value const&)>;
+    struct PersistentConfig
+    {
+        FailureHandler failure_handler {&zmbt::default_test_failure};
+        bool pretty_print {false};
+    };
+
+    std::shared_ptr<PersistentConfig> config_;
+
+
   public:
-    class IfcRec;
+    class InterfaceHandle;
+
+    template <class Interface>
+    class TypedInterfaceHandle;
 
 
     JsonNode& json_data()
@@ -117,22 +133,16 @@ class Environment {
      * @brief Set the environment variable
      *
      * @tparam T
-     * @param obj
-     * @param key
+     * @param key_expr key constant expression
      * @param var
      */
     //@{
-    template <class T>
-    void SetVar(object_id obj, std::string key, T var)
-    {
-        auto lock = Lock();
-        data_->json_data("/vars/%s/%s", obj, key) = json_from(var);
-    }
+    void SetVar(lang::Expression const& key_expr, boost::json::value var);
 
     template <class T>
-    void SetVar(std::string key, T var)
+    void SetVar(lang::Expression const& key_expr, T var)
     {
-        return SetVar(nullptr, key, var);
+        return SetVar(key_expr, json_from(var));
     }
     //@}
 
@@ -147,30 +157,12 @@ class Environment {
      * @return T
      */
     //@{
-    template <class T>
-    T GetVarOrUpdate(object_id obj, std::string key, T update_value)
-    {
-        auto lock = Lock();
-        boost::json::object& varmap = data_->json_data.get_or_create_object("/vars/%s", obj);
-        varmap.insert({{key, json_from(update_value)}});
-        return dejsonize<T>(varmap[key]);
-    }
-
+    boost::json::value GetVarOrUpdate(lang::Expression const& key_expr, boost::json::value update_value);
 
     template <class T>
-    T GetVarOrUpdate(std::string key, T update_value)
+    T GetVarOrUpdate(lang::Expression const& key_expr, T update_value)
     {
-        return GetVarOrUpdate<T>(nullptr, key, update_value);
-    }
-
-    boost::json::value GetVarOrUpdate(object_id obj, std::string key, boost::json::value update_value)
-    {
-        return GetVarOrUpdate<boost::json::value>(obj, key, update_value);
-    }
-
-    boost::json::value GetVarOrUpdate(std::string key, boost::json::value update_value)
-    {
-        return GetVarOrUpdate(nullptr, key, update_value);
+        return dejsonize<T>(GetVarOrUpdate(key_expr, json_from(update_value)));
     }
     //@}
 
@@ -185,30 +177,12 @@ class Environment {
      * @return T
      */
     //@{
-    template <class T>
-    T GetVarOrDefault(object_id obj, std::string key, T default_value = reflect::signal_traits<T>::init())
-    {
-        auto lock = Lock();
-        boost::json::object& varmap = data_->json_data.get_or_create_object("/vars/%s", obj);
-        return varmap.contains(key)
-            ? dejsonize<T>(varmap.at(key))
-            : default_value;
-    }
+    boost::json::value GetVarOrDefault(lang::Expression const& key_expr, boost::json::value default_value = {});
 
     template <class T>
-    T GetVarOrDefault(std::string key, T default_value = reflect::signal_traits<T>::init())
+    T GetVarOrDefault(lang::Expression const& key_expr, T default_value = reflect::signal_traits<T>::init())
     {
-        return GetVarOrDefault<T>(nullptr, key, default_value);
-    }
-
-    boost::json::value GetVarOrDefault(object_id obj, std::string key, boost::json::value default_value = nullptr)
-    {
-        return GetVarOrDefault<boost::json::value>(obj, key, default_value);
-    }
-
-    boost::json::value GetVarOrDefault(std::string key, boost::json::value default_value = nullptr)
-    {
-        return GetVarOrDefault(nullptr, key, default_value);
+        return dejsonize<T>(GetVarOrDefault(key_expr, json_from(default_value)));
     }
     //@}
 
@@ -222,35 +196,12 @@ class Environment {
      * @return T
      */
     //@{
-    template <class T>
-    T GetVar(object_id obj, std::string key)
-    {
-        auto lock = Lock();
-        boost::json::object& varmap = data_->json_data.get_or_create_object("/vars/%s", obj);
-        if (varmap.contains(key))
-        {
-            return dejsonize<T>(varmap[key]);
-        }
-        else
-        {
-            throw environment_error("Environment does not have a variable with the specified key");
-        }
-    }
+    boost::json::value GetVar(lang::Expression const& key_expr);
 
     template <class T>
-    T GetVar(std::string key)
+    T GetVar(lang::Expression const& key_expr)
     {
-        return GetVar<T>(nullptr, key);
-    }
-
-    boost::json::value GetVar(object_id obj, std::string key)
-    {
-        return GetVar<boost::json::value>(obj, key);
-    }
-
-    boost::json::value GetVar(std::string key)
-    {
-        return GetVar<boost::json::value>(nullptr, key);
+        return dejsonize<T>(GetVar(key_expr));
     }
     //@}
 
@@ -258,18 +209,15 @@ class Environment {
     /**
      * @brief Set the shared data associated with key
      *
-     * @details this will prolong the original data lifetime
-     *
      * @tparam T
      * @tparam A
+     * @param key_expr
      * @param data
-     * @param fmtstr key format string
-     * @param arg key format arguments
      */
-    template <class T, class... A>
-    void SetShared(std::shared_ptr<T> data, boost::json::string_view fmtstr, A&&... arg)
+    template <class T>
+    void SetShared(lang::Expression const& key_expr, std::shared_ptr<T> data)
     {
-        boost::json::string key {format(fmtstr, std::forward<A>(arg)...)};
+        boost::json::string const key = key_expr.eval().as_string();
         EnvironmentData::shared_data_record const record { typeid(T), data };
 
         auto lock = Lock();
@@ -298,33 +246,63 @@ class Environment {
      * @param arg key format arguments
      * @return std::shared_ptr<T>
      */
-    template <class T, class... A>
-    std::shared_ptr<T> GetShared(boost::json::string_view fmtstr, A&&... arg) const
+    template <class T>
+    std::shared_ptr<T> GetShared(lang::Expression const& key_expr) const
     {
-        boost::json::string key {format(fmtstr, std::forward<A>(arg)...)};
-        auto lock = Lock();
-        if (0 == data_->shared.count(key))
+        boost::json::string const key = key_expr.eval().as_string();
+        auto found = data_->shared.cend();
+        {
+            auto lock = Lock();
+            found = data_->shared.find(key);
+        }
+        if (found == data_->shared.cend())
         {
             return nullptr;
         }
 
-        auto record = data_->shared.at(key);
+        auto const record = found->second;
         if (std::type_index(typeid(T)) != record.first)
         {
-            throw environment_error("GetShared invoked with incompatible type");
+            throw environment_error("GetShared invoked with incompatible type for `%s`", key);
         }
 
         return std::static_pointer_cast<T>(record.second);
     }
 
-    /// Check if shared variable exists
-    template <class... A>
-    bool ContainsShared(boost::json::string_view fmtstr, A&&... arg) const
+    /// @brief Get reference to shared var, creating it if necessary
+    /// @tparam T
+    /// @tparam ...A Constructor args for initial value
+    /// @param key_expr
+    /// @return
+    template <class T, class... A>
+    T& GetSharedRef(lang::Expression const& key_expr, A&&... args)
     {
-        boost::json::string key {format(fmtstr, std::forward<A>(arg)...)};
+        boost::json::string const key = key_expr.eval().as_string();
         auto lock = Lock();
-        return data_->shared.count(key) > 0;
+        auto found = data_->shared.find(key);
+        if (found == data_->shared.cend())
+        {
+            auto const shared = std::make_shared<T>(std::forward<A>(args)...);
+            EnvironmentData::shared_data_record const record { typeid(T), shared };
+
+            if (not data_->shared.emplace(key, record).second)
+            {
+                throw environment_error("GetSharedRef failed to create shared object at `%s`", key);
+            }
+            return *shared;
+        }
+
+        auto const record = found->second;
+        if (std::type_index(typeid(T)) != record.first)
+        {
+            throw environment_error("GetSharedRef invoked with incompatible type for `%s`", key);
+        }
+
+        return *std::static_pointer_cast<T>(record.second);
     }
+
+    /// Check if shared variable exists
+    bool ContainsShared(lang::Expression const& key_expr) const;
 
 
     /**
@@ -360,40 +338,10 @@ class Environment {
     void ResetAllFor(object_id obj);
 
 
-    template <class... A>
-    Environment& RegisterAction(std::function<void()> action, boost::json::string_view fmtstr, A&&... arg)
-    {
-        boost::json::string key {format(fmtstr, std::forward<A>(arg)...)};
-        auto lock = Lock();
-        if (data_->callbacks.count(key))
-        {
-            throw environment_error("Callback registering failed: key \"%s\" already exists", key);
-        }
-        data_->callbacks.emplace(key, action);
-        data_->json_data("/callbacks/%s", key) = 0; // TODO: timestamp
-        return *this;
-    }
+    Environment& RegisterAction(lang::Expression const& key_expr, std::function<void()> action);
 
 
-    template <class... A>
-    Environment& RunAction(boost::json::string_view fmtstr, A&&... arg)
-    {
-        boost::json::string key {format(fmtstr, std::forward<A>(arg)...)};
-        if (0 == data_->callbacks.count(key))
-        {
-            throw environment_error("Callback execution failed: %s is not registered", key);
-        }
-
-        try
-        {
-            data_->callbacks.at(key).operator()();
-        }
-        catch(const std::exception& e)
-        {
-            throw environment_error("Callback execution failed: %s throws %s", key, e.what());
-        }
-        return *this;
-    }
+    Environment& RunAction(lang::Expression const& key_expr);
 
 
     template <class I>
@@ -402,9 +350,10 @@ class Environment {
         RegisterPrototypes(interface);
         TriggerIfc trigger_ifc{std::forward<I>(interface)};
         interface_id ifc_id{trigger_ifc.id()};
+        auto key = format("/trigger_ifcs/%s", ifc_id);
         auto lock = Lock();
         data_->trigger_ifcs.emplace(ifc_id, std::move(trigger_ifc));
-        data_->json_data("/trigger_ifcs/%s", ifc_id) = 0; // TODO: timestamp
+        data_->json_data(key) = 0; // TODO: timestamp
         return ifc_id;
     }
 
@@ -413,10 +362,11 @@ class Environment {
     {
         TriggerObj trigger_obj{std::forward<T>(obj)};
         object_id obj_id{trigger_obj.id()};
+        auto key = format("/trigger_objs/%s", obj_id);
 
         auto lock = Lock();
         data_->trigger_objs.emplace(obj_id, std::move(trigger_obj));
-        data_->json_data("/trigger_objs/%s", obj_id) = 0; // TODO: timestamp
+        data_->json_data(key) = 0; // TODO: timestamp
         return obj_id;
     }
 
@@ -438,47 +388,41 @@ class Environment {
      * @return
      */
     //@{
-    template <class H, class I>
-    Environment& RegisterTrigger(H&& host, I&& interface, boost::json::string_view key)
+    template <class I, class H>
+    Environment& RegisterTrigger(boost::json::string_view key, I&& interface, H&& host)
     {
         Trigger trigger{std::forward<H>(host), interface};
-
+        auto const json_data_key = format("/triggers/%s", key);
+        auto const err_msg = format("Trigger registering failed: key \"%s\" is taken", key);
         auto lock = Lock();
         auto const trigger_found =  data_->triggers.find(key);
         if (trigger_found != data_->triggers.cend())
         {
             if (trigger_found->second != trigger)
             {
-                throw environment_error(
-                    "Trigger registering failed: key \"%s\" already refers to {%s, %s}",
-                    key,
-                    trigger_found->second.obj_id(),
-                    trigger_found->second.ifc_id()
-                );
+                throw environment_error(err_msg);
             }
-            else {
-                return *this;
-            }
+            return *this;
         }
         data_->triggers.emplace(key, trigger);
-        data_->json_data("/triggers/%s", key) = 0; // TODO: timestamp
-        RegisterInterface(trigger.obj_id(), interface, key);
+        data_->json_data(json_data_key) = 0; // TODO: timestamp
+        RegisterInterface(key, interface, trigger.obj_id());
         return *this;
     }
 
 
     template <class I>
-    Environment& RegisterTrigger(I&& interface, boost::json::string_view key)
+    Environment& RegisterTrigger(boost::json::string_view key, I&& interface)
     {
-        return RegisterTrigger(ifc_host_nullptr<I>, std::forward<I>(interface), key);
+        return RegisterTrigger(key, std::forward<I>(interface), ifc_host_nullptr<I>);
     }
     //@}
 
     template <class H, class I>
-    boost::json::string RegisterTriggerLiteral(H&& host, I&& interface)
+    boost::json::string RegisterAnonymousTrigger(I&& interface, H&& host)
     {
         auto key = autokey(host, interface);
-        RegisterTrigger(host, interface, key);
+        RegisterTrigger(key, interface, host);
         return key;
     }
 
@@ -492,10 +436,18 @@ class Environment {
     Environment& RegisterPrototypes(I&& interface)
     {
         static_assert(is_ifc_handle<I>::value, "");
+        auto const ifc_id = interface_id(interface);
+        auto const obj_id = object_id{ifc_host_nullptr<I>};
+        auto const proto_key = format("/prototypes/%s", ifc_id);
+        auto const defobj_key = format("/refs/defobj/%s", ifc_id);
+        auto const prototypes = reflect::prototypes<I>();
 
         auto lock = Lock();
-        data_->json_data("/prototypes/%s", interface_id(interface)) = reflect::prototypes<I>();
-        data_->json_data("/refs/defobj/%s", interface_id(interface)) = object_id{ifc_host_nullptr<I>};
+        if (!data_->json_data.contains(proto_key))
+        {
+            data_->json_data(proto_key) = prototypes;
+            data_->json_data(defobj_key) = obj_id;
+        }
         return *this;
     }
 
@@ -507,64 +459,36 @@ class Environment {
      * @param key string key, unique per environment
      * @return
      */
-    //@{
-    Environment& RegisterInterface(object_id const& obj_id, interface_id const& ifc_id, boost::json::string_view key);
+    Environment& RegisterInterface(boost::json::string_view key, interface_id const& ifc_id, object_id const& obj_id);
 
-    Environment& RegisterInterface(object_id const& obj_id, interface_id const& ifc_id);
+    Environment& RegisterAnonymousInterface(interface_id const& ifc_id, object_id const& obj_id)
+    {
+        return RegisterInterface(autokey(obj_id, ifc_id), ifc_id, obj_id);
+    }
+
 
     template <class I>
     enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(object_id const& obj_id, I&& interface, boost::json::string_view key)
+    RegisterInterface(boost::json::string_view key, I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
         RegisterPrototypes(std::forward<I>(interface));
-        return RegisterInterface(obj_id, interface_id{std::forward<I>(interface)}, key);
+        return RegisterInterface(key, interface_id{std::forward<I>(interface)}, obj_id);
     }
 
     template <class I>
     enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(object_id const& obj_id, I&& interface)
+    RegisterAnonymousInterface(I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
-        return RegisterInterface(obj_id, interface_id{interface}, autokey(obj_id, interface_id{interface}));
+        RegisterPrototypes(std::forward<I>(interface));
+        return RegisterInterface(autokey(obj_id, interface_id{interface}), interface_id(interface), obj_id);
     }
 
 
-    template <class I>
-    enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(I&& interface, boost::json::string_view key)
-    {
-        return RegisterInterface<I>(ifc_host_nullptr<I>, std::forward<I>(interface), key);
-    }
-
-    template <class I>
-    enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(I&& interface)
-    {
-        return RegisterInterface<I>(ifc_host_nullptr<I>, std::forward<I>(interface));
-    }
-    //@}
+    PersistentConfig Config() const;
 
 
-    /**
-     * @brief Register operator handler to enable FFI for type decoration in the test model runners
-     *
-     * @param op operator handler
-     * @param key string key, unique per environment
-     * @return
-     */
-    //@{
-    Environment& RegisterOperator(SignalOperatorHandler const& op, boost::json::string_view key);
-
-
-    Environment& RegisterOperator(SignalOperatorHandler const& op)
-    {
-        return RegisterOperator(op, op.annotation());
-    }
-    //@}
-
-
-    SignalOperatorHandler GetOperator(boost::json::string_view name) const;
-
-    SignalOperatorHandler GetOperatorOrDefault(boost::json::string_view name) const;
+    /// Set pretty print JSON values
+    Environment& SetPrettyPrint(bool const pretty_print = true);
 
     /// Set custom test failure handler
     Environment& SetFailureHandler(std::function<void(boost::json::value const&)> const& fn);

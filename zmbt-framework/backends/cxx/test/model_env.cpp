@@ -40,26 +40,13 @@ BOOST_AUTO_TEST_CASE(JsonVariables)
     BOOST_CHECK("kek" == env.GetVarOrUpdate("test 2", { {"lol", "kek"} }).as_object()["lol"]);
 }
 
-BOOST_AUTO_TEST_CASE(AssociatedVariables)
-{
-    Environment env {};
-
-    int object1, object2;
-
-    env.SetVar(&object1, "var", 13);
-    env.SetVar(&object2, "var", 42);
-
-    BOOST_CHECK(13 == env.GetVar(&object1, "var"));
-    BOOST_CHECK(42 == env.GetVar(&object2, "var"));
-}
-
 
 BOOST_AUTO_TEST_CASE(SharedData)
 {
     Environment env {};
 
     auto shared_data = std::make_shared<int>(13);
-    env.SetShared(shared_data, "key");
+    env.SetShared("key", shared_data);
     auto retrieved_data = env.GetShared<int>("key");
 
     BOOST_ASSERT(retrieved_data != nullptr);
@@ -84,7 +71,7 @@ BOOST_AUTO_TEST_CASE(SetGetReturn)
 {
     Environment env {};
     InterfaceRecord(test_function).InjectReturn(13.5);
-    BOOST_CHECK(13.5 == InterfaceRecord(test_function).GetInjectionReturn().as_double());
+    BOOST_CHECK_EQUAL(13.5, InterfaceRecord(test_function).YieldInjectionReturn());
 }
 
 BOOST_AUTO_TEST_CASE(SetGetArgs)
@@ -95,18 +82,18 @@ BOOST_AUTO_TEST_CASE(SetGetArgs)
 
     // args as tuple
     InterfaceRecord(test_function).InjectArgs({13, "kek"});
-    BOOST_CHECK(A(13, "kek") == InterfaceRecord(test_function).GetInjectionArgs());
+    BOOST_CHECK_EQUAL(A(13, "kek"), InterfaceRecord(test_function).YieldInjectionArgs());
 
     // args as parameter pack
     InterfaceRecord(test_function).InjectArgs({42, "lol"});
-    BOOST_CHECK(A(42, "lol") == InterfaceRecord(test_function).GetInjectionArgs());
+    BOOST_CHECK_EQUAL(A(42, "lol"), InterfaceRecord(test_function).YieldInjectionArgs());
 
 
-    InterfaceRecord(empty).InjectArgs({});
-    BOOST_CHECK(0 == InterfaceRecord(empty).GetInjectionArgs().size());
+    InterfaceRecord(empty).InjectArgs(boost::json::array{});
+    BOOST_CHECK_EQUAL(0, InterfaceRecord(empty).YieldInjectionArgs().as_array().size());
 
-    InterfaceRecord(empty_void).InjectArgs({});
-    BOOST_CHECK(0 == InterfaceRecord(empty_void).GetInjectionArgs().size());
+    InterfaceRecord(empty_void).InjectArgs(boost::json::array{});
+    BOOST_CHECK_EQUAL(0, InterfaceRecord(empty_void).YieldInjectionArgs().as_array().size());
 }
 
 
@@ -115,7 +102,7 @@ BOOST_AUTO_TEST_CASE(Lifetime)
     {
         zmbt::Environment env {};
         env.SetVar("lol", 42);
-        BOOST_CHECK(42 == env.GetVar("lol"));
+        BOOST_CHECK_EQUAL(42, env.GetVar("lol"));
     }
     {
         zmbt::Environment env2 {};
@@ -126,11 +113,11 @@ BOOST_AUTO_TEST_CASE(Lifetime)
 
     {
         env.SetVar("lol", 13);
-        BOOST_CHECK(13 == env.GetVar("lol"));
+        BOOST_CHECK_EQUAL(13, env.GetVar("lol"));
 
         {
             zmbt::Environment env2  {};
-            BOOST_CHECK(13 == env2.GetVar("lol"));
+            BOOST_CHECK_EQUAL(13, env2.GetVar("lol"));
         }
     }
 }
@@ -143,6 +130,7 @@ BOOST_AUTO_TEST_CASE(Hook)
 
     auto producing_mock = [&](int v, int&& rv, int const& c, int& lv)
     {
+        // Environment().DumpJsonData(std::cerr);
         return handle.Hook(v, rv, c, lv );
     };
 
@@ -151,27 +139,25 @@ BOOST_AUTO_TEST_CASE(Hook)
 
     int arg_out = -1;
 
-    BOOST_CHECK(13 == producing_mock(10, 20, 30, arg_out)); // Hook shall return what was set with InjectReturn
-    BOOST_CHECK(42 == arg_out); // Hook shall update output args
-    BOOST_CHECK(1 == handle.ObservedCalls());
+    BOOST_CHECK_EQUAL(13, producing_mock(10, 20, 30, arg_out)); // Hook shall return what was set with InjectReturn
+    BOOST_CHECK_EQUAL(42, arg_out); // Hook shall update output args
+    BOOST_CHECK_EQUAL(1, handle.ObservedCalls());
 
     handle.InjectArgs({0,0,0,43});
-    BOOST_CHECK(13 == producing_mock(11, 21, 31, arg_out)); // Hook shall return what was set with InjectReturn
-    BOOST_CHECK(43 == arg_out); // Hook shall update output args
-
-    BOOST_CHECK(2 == handle.ObservedCalls());
+    BOOST_CHECK_EQUAL(13, producing_mock(11, 21, 31, arg_out)); // Hook shall return what was set with InjectReturn
+    BOOST_CHECK_EQUAL(43, arg_out); // Hook shall update output args
+    BOOST_CHECK_EQUAL(2, handle.ObservedCalls());
     auto observed_args_1_call =  handle.ObservedArgs(-2);
     auto observed_args_2_call =  handle.ObservedArgs();
 
-    BOOST_CHECK(10 == observed_args_1_call[0]); // Hook shall capture values
-    BOOST_CHECK(20 == observed_args_1_call[1]); // Hook shall capture rvalue refs
-    BOOST_CHECK(30 == observed_args_1_call[2]); // Hook shall capture const refs
-    BOOST_CHECK(-1 == observed_args_1_call[3]); // Hook shall capture non-const ref inputs
-
-    BOOST_CHECK(11 == observed_args_2_call[0]); // Hook shall capture values
-    BOOST_CHECK(21 == observed_args_2_call[1]); // Hook shall capture rvalue refs
-    BOOST_CHECK(31 == observed_args_2_call[2]); // Hook shall capture const refs
-    BOOST_CHECK(42 == observed_args_2_call[3]); // Hook shall capture non-const ref inputs
+    BOOST_CHECK_EQUAL(10, observed_args_1_call[0]); // Hook shall capture values
+    BOOST_CHECK_EQUAL(20, observed_args_1_call[1]); // Hook shall capture rvalue refs
+    BOOST_CHECK_EQUAL(30, observed_args_1_call[2]); // Hook shall capture const refs
+    BOOST_CHECK_EQUAL(-1, observed_args_1_call[3]); // Hook shall capture non-const ref inputs
+    BOOST_CHECK_EQUAL(11, observed_args_2_call[0]); // Hook shall capture values
+    BOOST_CHECK_EQUAL(21, observed_args_2_call[1]); // Hook shall capture rvalue refs
+    BOOST_CHECK_EQUAL(31, observed_args_2_call[2]); // Hook shall capture const refs
+    BOOST_CHECK_EQUAL(42, observed_args_2_call[3]); // Hook shall capture non-const ref inputs
 }
 
 
@@ -182,23 +168,23 @@ BOOST_AUTO_TEST_CASE(InterfaceHandleLambda)
     auto handle = InterfaceRecord(test_fun);
 
     handle.InjectReturn(42);
-    BOOST_CHECK(42 == handle.GetInjectionReturn());
+    BOOST_CHECK_EQUAL(42, handle.YieldInjectionReturn());
 
     handle.InjectArgs({1,2,3,4});
-    auto args = handle.GetInjectionArgs();
+    auto args = handle.YieldInjectionArgs().as_array();
 
-    BOOST_CHECK(1 == args[0].as_int64());
-    BOOST_CHECK(2 == args[1].as_int64());
-    BOOST_CHECK(3 == args[2].as_int64());
-    BOOST_CHECK(4 == args[3].as_int64());
+    BOOST_CHECK_EQUAL(1, args[0].as_int64());
+    BOOST_CHECK_EQUAL(2, args[1].as_int64());
+    BOOST_CHECK_EQUAL(3, args[2].as_int64());
+    BOOST_CHECK_EQUAL(4, args[3].as_int64());
 
     handle.InjectArgs({10, 20, 30, 40});
-    args = handle.GetInjectionArgs();
+    args = handle.YieldInjectionArgs().as_array();
 
-    BOOST_CHECK(10 == args[0].as_int64());
-    BOOST_CHECK(20 == args[1].as_int64());
-    BOOST_CHECK(30 == args[2].as_int64());
-    BOOST_CHECK(40 == args[3].as_int64());
+    BOOST_CHECK_EQUAL(10, args[0].as_int64());
+    BOOST_CHECK_EQUAL(20, args[1].as_int64());
+    BOOST_CHECK_EQUAL(30, args[2].as_int64());
+    BOOST_CHECK_EQUAL(40, args[3].as_int64());
 }
 
 BOOST_AUTO_TEST_CASE(InterfaceHandleMemfun)
@@ -221,10 +207,10 @@ BOOST_AUTO_TEST_CASE(InterfaceHandleVoid)
     auto test_fun = [](){};
     auto handle = InterfaceRecord(test_fun);
 
-    BOOST_CHECK_NO_THROW(handle.GetInjectionReturn());
-    BOOST_CHECK_NO_THROW(handle.InjectArgs({}));
+    BOOST_CHECK_NO_THROW(handle.YieldInjectionReturn());
+    BOOST_CHECK_NO_THROW(handle.InjectArgs(boost::json::array{}));
 
-    BOOST_CHECK(0 == handle.GetInjectionArgs().size());
+    BOOST_CHECK(0 == handle.YieldInjectionArgs().as_array().size());
     BOOST_CHECK_NO_THROW(handle.Hook());
     BOOST_CHECK(1 == handle.ObservedCalls());
 }

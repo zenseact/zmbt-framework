@@ -9,17 +9,14 @@
 #define ZMBT_MAPPING_HPP_
 
 #include "mapping/channel_handle.hpp"
-#include "mapping/definition_helper.hpp"
-#include "mapping/definition_machine.hpp"
-#include "mapping/definition_machine_transitions.hpp"
-#include "mapping/definition_machine_states.hpp"
-#include "mapping/definition_machine_pp.hpp"
-#include "mapping/definition_machine_tt.hpp"
+#include "mapping/model_definition_helper.hpp"
+#include "mapping/model_definition.hpp"
+#include "mapping/model_definition_transitions.hpp"
+#include "mapping/model_definition_node.hpp"
+#include "mapping/model_definition_states.hpp"
+#include "mapping/model_definition_main.hpp"
 #include "mapping/test_parameter_resolver.hpp"
 #include "mapping/test_runner.hpp"
 #include "mapping/test_diagnostics.hpp"
-
-
-#include "mapping/extern_templates.hpp"
 
 #endif // ZMBT_MAPPING_HPP_

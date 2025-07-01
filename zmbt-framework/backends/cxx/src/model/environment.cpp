@@ -5,6 +5,7 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <mutex>
 
 #include "zmbt/model/environment.hpp"
 
@@ -13,7 +14,6 @@
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/test_failure.hpp>
 #include <zmbt/model/trigger.hpp>
-#include <mutex>
 
 
 namespace zmbt {
@@ -32,6 +32,14 @@ Environment::Environment()
     {
         data_ = std::make_shared<EnvironmentData>();
         instance = data_;
+    }
+
+    static std::shared_ptr<PersistentConfig> config;
+    config_ = config;
+    if (not config_)
+    {
+        config_ = std::make_shared<PersistentConfig>();
+        config = config_;
     }
 }
 
@@ -63,6 +71,8 @@ void Environment::ResetInterfaceData()
 {
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().clear();
+    data_->input_generators.clear();
+
 }
 
 
@@ -70,6 +80,7 @@ void Environment::ResetInterfaceDataFor(object_id obj)
 {
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().erase(obj.str());
+    data_->input_generators[obj].clear();
 }
 
 
@@ -79,6 +90,7 @@ void Environment::ResetAll()
     auto lock = Lock();
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
+    data_->input_generators.clear();
 }
 
 
@@ -88,19 +100,59 @@ void Environment::ResetAllFor(object_id obj)
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().erase(obj.str());
     data_->json_data("/vars").as_object().erase(obj.str());
+    data_->input_generators[obj].clear();
 }
 
 
 boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id)
 {
-    TriggerObj const& obj = data_->trigger_objs.at(obj_id);
-    TriggerIfc const& ifc = data_->trigger_ifcs.at(ifc_id);
-    Trigger trigger {obj, ifc};
-    auto key = GetOrRegisterInterface(obj_id, ifc_id);
-    auto lock = Lock();
-    data_->triggers.emplace(key, std::move(trigger));
-    data_->json_data("/triggers/%s", key) = 0; // TODO: timestamp
-    return key;
+    bool const is_obj_ok = data_->trigger_objs.count(obj_id);
+    bool const is_ifc_ok = data_->trigger_ifcs.count(ifc_id);
+    bool const is_complete_trigger = data_->triggers.count(ifc_id.str());
+
+    if (is_obj_ok && is_ifc_ok)
+    {
+        TriggerObj const& obj = data_->trigger_objs.at(obj_id);
+        TriggerIfc const& ifc = data_->trigger_ifcs.at(ifc_id);
+        Trigger trigger {obj, ifc};
+        auto key = GetOrRegisterInterface(obj_id, ifc_id);
+        auto lock = Lock();
+        data_->triggers.emplace(key, std::move(trigger));
+        data_->json_data("/triggers/%s", key) = 0; // TODO: timestamp
+        return key;
+    }
+    else if (is_obj_ok && is_complete_trigger)
+    {
+        throw environment_error(
+            "`%s` is registered as complete trigger and can't be used together object reference",
+            ifc_id
+        );
+        return "";
+    }
+    else if (!is_obj_ok && is_ifc_ok)
+    {
+        throw environment_error(
+            "`%s` is registered as interface and can't be used together object reference",
+            ifc_id
+        );
+        return "";
+    }
+    else if (!is_obj_ok && is_ifc_ok)
+    {
+        throw environment_error(
+            "%s object id is not found in registered triggers",
+            obj_id
+        );
+        return "";
+    }
+    else
+    {
+        throw environment_error(
+            "Can't resolve registered trigger for (%s, %s)", obj_id, ifc_id
+        );
+        return "";
+    }
+
 }
 
 
@@ -120,7 +172,7 @@ bool Environment::HasAction(boost::json::string_view key) const
 
 
 
-Environment& Environment::RegisterInterface(object_id const& obj_id, interface_id const& ifc_id, boost::json::string_view key)
+Environment& Environment::RegisterInterface(boost::json::string_view key, interface_id const& ifc_id, object_id const& obj_id)
 {
 
     JsonNode refs_ids =  data_->json_data.branch("/refs/key2ids/%s", key);
@@ -144,48 +196,33 @@ Environment& Environment::RegisterInterface(object_id const& obj_id, interface_i
     return *this;
 }
 
-Environment& Environment::RegisterInterface(object_id const& obj_id, interface_id const& ifc_id)
+
+Environment::PersistentConfig Environment::Config() const
 {
-    return RegisterInterface(obj_id, ifc_id, autokey(obj_id, ifc_id));
+    return *config_;
 }
 
-
-Environment& Environment::RegisterOperator(SignalOperatorHandler const& op, boost::json::string_view key)
+Environment& Environment::SetPrettyPrint(bool const pretty_print)
 {
-    auto lock = Lock();
-    data_->operators.emplace(key, op);
+    config_->pretty_print = pretty_print;
     return *this;
-}
-
-
-
-SignalOperatorHandler Environment::GetOperator(boost::json::string_view name) const
-{
-    auto lock = Lock();
-    return data_->operators.at(name);
-}
-
-SignalOperatorHandler Environment::GetOperatorOrDefault(boost::json::string_view name) const
-{
-    auto lock = Lock();
-    return data_->operators.count(name) ? data_->operators.at(name) : SignalOperatorHandler{};
 }
 
 Environment& Environment::SetFailureHandler(std::function<void(boost::json::value const&)> const& fn)
 {
-    data_->failure_handler = fn;
+    config_->failure_handler = fn;
     return *this;
 }
 
 Environment& Environment::ResetFailureHandler()
 {
-    data_->failure_handler = default_test_failure;
+    config_->failure_handler = default_test_failure;
     return *this;
 }
 
 Environment& Environment::HandleTestFailure(boost::json::value const& diagnostics)
 {
-    data_->failure_handler(diagnostics);
+    config_->failure_handler(diagnostics);
     return *this;
 }
 
@@ -209,7 +246,7 @@ boost::json::string Environment::GetOrRegisterInterface(object_id const& obj_id,
     if (!json_data().contains(ptr))
     {
         auto key = autokey(obj_id, ifc_id);
-        RegisterInterface(obj_id, ifc_id, key);
+        RegisterInterface(key, ifc_id, obj_id);
         return key;
     }
     else {
@@ -223,5 +260,96 @@ object_id Environment::DefaultObjectId(interface_id const& ifc_id) const
     return object_id{json_data().at("/refs/defobj/%s", ifc_id)};
 }
 
+
+void Environment::SetVar(lang::Expression const& key_expr, boost::json::value var)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    data_->json_data(key) = var;
+}
+
+boost::json::value Environment::GetVar(lang::Expression const& key_expr)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    if (auto const ptr = data_->json_data.find_pointer(key))
+    {
+        return *ptr;
+    }
+    else
+    {
+        throw environment_error("Environment variable `%s` not found", key);
+        return nullptr;
+    }
+}
+
+boost::json::value Environment::GetVarOrUpdate(lang::Expression const& key_expr, boost::json::value update_value)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    if (auto const ptr = data_->json_data.find_pointer(key))
+    {
+        return *ptr;
+    }
+    else
+    {
+        data_->json_data(key) = update_value;
+        return update_value;
+    }
+}
+
+boost::json::value Environment::GetVarOrDefault(lang::Expression const& key_expr, boost::json::value default_value)
+{
+    auto const key = format("/vars/%s", key_expr.eval());
+    auto lock = Lock();
+    if (auto const ptr = data_->json_data.find_pointer(key))
+    {
+        return *ptr;
+    }
+    else
+    {
+        return default_value;
+    }
+}
+
+bool Environment::ContainsShared(lang::Expression const& key_expr) const
+{
+    boost::json::string key = key_expr.eval().as_string();
+    auto lock = Lock();
+    return data_->shared.count(key) > 0;
+}
+
+Environment& Environment::RegisterAction(lang::Expression const& key_expr, std::function<void()> action)
+{
+    boost::json::string const key = key_expr.eval().as_string();
+    auto lock = Lock();
+    if (data_->callbacks.count(key))
+    {
+        throw environment_error("Callback registering failed: key \"%s\" already exists", key);
+    }
+    data_->callbacks.emplace(key, action);
+    data_->json_data("/callbacks/%s", key) = 0; // TODO: timestamp
+    return *this;
+}
+
+
+Environment& Environment::RunAction(lang::Expression const& key_expr)
+{
+    boost::json::string const key = key_expr.eval().as_string();
+    if (0 == data_->callbacks.count(key))
+    {
+        throw environment_error("Callback execution failed: %s is not registered", key);
+    }
+
+    try
+    {
+        data_->callbacks.at(key).operator()();
+    }
+    catch(const std::exception& e)
+    {
+        throw environment_error("Callback execution failed: %s throws %s", key, e.what());
+    }
+    return *this;
+}
 
 }  // namespace zmbt

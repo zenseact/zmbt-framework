@@ -9,5 +9,6 @@
 #define ZMBT_DECOR_HPP_
 
 #include "decor/precise_real.hpp"
+#include "decor/underlying.hpp"
 
 #endif // ZMBT_DECOR_HPP_

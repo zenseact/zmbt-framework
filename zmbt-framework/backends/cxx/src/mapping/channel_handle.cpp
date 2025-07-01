@@ -7,25 +7,45 @@
 #include <boost/json.hpp>
 
 #include "zmbt/model/environment_interface_record.hpp"
+#include "zmbt/expr/api.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 
 
 namespace
 {
-boost::json::value get_at_pointer(boost::json::value const& val, boost::json::string_view ptr)
-{
-    try
+    bool should_flatten_response(std::size_t const repeat_trigger, std::size_t const observed_size, boost::json::string_view role)
     {
-        return val.at_pointer(ptr);
-    }
-    catch(const std::exception& e)
-    {
-        throw zmbt::model_error("failed to retrieve `%s` from `%s`, %s", ptr, val, e.what());
-    }
-    return nullptr;
-}
-} // namespace
+        if (repeat_trigger > 1)
+        {
+            return false;
+        }
 
+        if (role.ends_with("one"))
+        {
+            if (observed_size == 1)
+            {
+                return true;
+            }
+            else
+            {
+                // TODO: return Error
+                throw zmbt::model_error("expected single value capture, but got %s samples", observed_size);
+            }
+        }
+        else if (role.ends_with("batch"))
+        {
+            return false;
+        }
+        else
+        {
+            if (observed_size == 0)
+            {
+                throw zmbt::model_error("expected non-empty capture, but got 0 samples");
+            }
+            return observed_size == 1;
+        }
+    }
+}
 
 namespace zmbt {
 namespace mapping {
@@ -35,19 +55,9 @@ ChannelHandle::ChannelHandle(JsonNode& model, boost::json::string_view cnl_ptr)
 {
 }
 
-bool ChannelHandle::is_input() const
-{
-    return data_.at("/role") == "inject";
-}
 
 
-bool ChannelHandle::is_output() const
-{
-    return data_.at("/role") == "observe";
-}
-
-
-bool ChannelHandle::operator==(boost::json::value const& v)
+bool ChannelHandle::operator==(boost::json::value const& v) const
 {
     return data_.node() == v;
 }
@@ -62,21 +72,21 @@ object_id ChannelHandle::host() const
     return env.ObjectId(data_.at("/interface").as_string());
 }
 
-boost::json::value ChannelHandle::combine() const
-{
-    return data_.get_or_default("/combine", nullptr);
-}
 
+lang::Expression ChannelHandle::transform() const
+{
+    lang::Expression e = expr::Noop;
+
+    if (auto const p =  data_.find_pointer("transform"))
+    {
+        e = *p;
+    }
+    return e;
+}
 
 interface_id ChannelHandle::interface() const
 {
     return env.InterfaceId(data_.at("/interface").as_string());
-}
-
-
-SignalOperatorHandler ChannelHandle::op() const
-{
-    return data_.contains("operator") ? env.GetOperator(data_.at("operator").as_string()) : SignalOperatorHandler {};
 }
 
 
@@ -91,6 +101,13 @@ boost::json::string ChannelHandle::signal_path() const
     return data_.at("/signal_path").as_string();
 }
 
+
+std::size_t ChannelHandle::index() const
+{
+    return data_.at("/index").as_uint64();
+
+}
+
 boost::json::value ChannelHandle::alias() const
 {
     return data_.at("/alias");
@@ -99,153 +116,50 @@ boost::json::value ChannelHandle::alias() const
 
 ChannelHandle::Kind ChannelHandle::kind() const
 {
-    static std::unordered_map<boost::json::string, Kind> const map =
-    {
-        {"call_count", Kind::CallCount},
-        {"exception" , Kind::Exception},
-        {"ts"        , Kind::Timestamp},
-        {"tid"       , Kind::ThreadId },
-        {"args"      , Kind::Args     },
-        {"return"    , Kind::Return   }
-    };
-    boost::json::string const& k = data_.at("/kind").as_string();
-    return map.at(k);
-}
-
-bool ChannelHandle::is_range() const
-{
-    return data_.at("call").is_array();
-}
-
-std::tuple<int,int,int> ChannelHandle::call() const
-{
-    if (is_range())
-    {
-        return boost::json::value_to<std::tuple<int,int,int>>(data_.at("call"));
-    }
-    else
-    {
-        // make one-element range from scalar spec
-        int const idx = data_.at("call").as_int64();
-        return {idx, idx, 1};
-    }
-}
-
-int ChannelHandle::on_call() const
-{
-    if (data_.at("call") == "all")
-    {
-        return 0;
-    }
-    else if (data_.at("call").is_int64())
-    {
-        return data_.at("call").get_int64();
-    }
-    else
-    {
-        throw model_error("unresolved parameter in model execution: %s", data_.at("call"));
-        return 0;
-    }
+    return dejsonize<ChannelKind>(data_.at("/kind"));
 }
 
 
-void ChannelHandle::inject(boost::json::value value) const
-{
-    auto handle = Environment::IfcRec(host(), interface());
-    value = op().decorate(value);
-    bool success {false};
 
+std::tuple<int,int,int> ChannelHandle::slice() const
+{
+    return {0, -1, 1};
+    // if (is_batch())
+    // {
+    //     return boost::json::value_to<std::tuple<int,int,int>>(data_.at("call"));
+    // }
+    // else
+    // {
+    //     // make one-element range from scalar spec
+    //     int const idx = data_.at("call").as_int64();
+    //     return {idx, idx, 1};
+    // }
+}
+
+boost::json::array ChannelHandle::captures() const
+{
+
+    int start, stop, step;
+    std::tie(start, stop, step) = slice();
+    boost::json::array observed;
+    auto const ifc_handle = Environment::InterfaceHandle(interface(), host());
     switch (kind())
     {
     case Kind::Return:
-    case Kind::Args:
-    {
-        bool const is_args = kind() == ChannelHandle::Kind::Args;
-        if (is_range())
-        {
-            boost::json::string_view group = is_args ? "/args%s" : "/return%s";
-            boost::json::string jp {format(group, signal_path())};
-            handle.SetInjectsRange(value, jp);
-            success = true;
-        }
-        else {
-            boost::json::error_code ec;
-            boost::json::value signal_node;
-            bool const is_args = kind() == ChannelHandle::Kind::Args;
-            signal_node = is_args ? handle.GetInjectionArgs(on_call()) : handle.GetInjectionReturn(on_call());
-            success = signal_node.set_at_pointer(signal_path(), value, ec);
-            if (success)
-            {
-                is_args ? handle.InjectArgs(signal_node.as_array(), on_call()) : handle.InjectReturn(signal_node, on_call());
-            }
-            else {
-                // TODO: log
-                throw model_error("%s node not found at %s", signal_path(), signal_node);
-            }
-        }
-    }
-    break;
-    case Kind::Exception:
-        // TODO: impl
-        throw model_error("Exception clause not implemented");
-        break;
-    default:
-        throw model_error("invalid injection kind");
-        break;
-    }
-}
-
-boost::json::value ChannelHandle::observe() const
-{
-    if (is_input())
-    {
-        throw model_error("calling observe on input channel");
-    }
-    auto ifc_handle = Environment::IfcRec(host(), interface());
-    switch (kind())
-    {
-    case Kind::Return:
-        {
-            return get_at_pointer(ifc_handle.ObservedReturn(on_call()), signal_path());
-        }
+        observed = ifc_handle.CaptureSlice(format("/return%s", signal_path()), start, stop, step);
         break;
     case Kind::Args:
-        {
-            boost::json::string jp {format("/args%s", signal_path())};
-            int start, stop, step;
-            std::tie(start, stop, step) = call();
-            boost::json::array arg_list = ifc_handle.CaptureSlice(jp, start, stop, step);
-            if (!is_range() && arg_list.empty())
-            {
-                throw model_error("no captures for requested channel");
-            }
-            return is_range() ? arg_list : arg_list.at(0);
-        }
+        observed = ifc_handle.CaptureSlice(format("/args%s", signal_path()), start, stop, step);
         break;
     case Kind::Timestamp:
-    {
-        int start, stop, step;
-        std::tie(start, stop, step) = call();
-        boost::json::array ts_list = ifc_handle.CaptureSlice("/ts", start, stop, step);
-        if (!is_range() && ts_list.empty())
-        {
-            throw model_error("no captures for requested channel");
-        }
-        return is_range() ? ts_list : ts_list.at(0);
-    }
+        observed = ifc_handle.CaptureSlice("/ts", start, stop, step);
+        break;
     case Kind::ThreadId:
-    {
-        int start, stop, step;
-        std::tie(start, stop, step) = call();
-        boost::json::array tid_list = ifc_handle.CaptureSlice("/tid", start, stop, step);
-        if (!is_range() && tid_list.empty())
-        {
-            throw model_error("no captures for requested channel");
-        }
-        return is_range() ? tid_list : tid_list.at(0);
-    }
+        observed = ifc_handle.CaptureSlice("/tid", start, stop, step);
+        break;
     case Kind::CallCount:
-        return ifc_handle.ObservedCalls();
+        observed.push_back(ifc_handle.ObservedCalls());
+        break;
     case ChannelHandle::Kind::Exception:
         throw model_error("Exception channel not implemented");
         break;
@@ -253,30 +167,135 @@ boost::json::value ChannelHandle::observe() const
         throw model_error("invalid channel kind");
         break;
     }
-    return nullptr;
+
+    return observed;
 }
 
-boost::json::array const& ChannelHandle::captures() const
+
+boost::json::value PipeHandle::type() const
 {
-    auto ifc_handle = Environment::IfcRec(host(), interface());
-    return ifc_handle.Captures();
+    return data_.get_or_default("/type", nullptr);
 }
 
-boost::json::value ChannelHandle::observe_join(std::list<ChannelHandle> channels)
-{
-    boost::json::array union_signal {};
 
-    for (auto const& channel: channels)
+
+lang::Expression PipeHandle::expression() const
+{
+    lang::Expression e = expr::Noop;
+
+    if (auto const p =  data_.find_pointer("expr"))
     {
-        union_signal.push_back(channel.observe());
+        e = *p;
+    }
+    return e;
+}
+
+bool PipeHandle::is_input() const
+{
+    return data_.at("/role") == "inject";
+}
+
+
+bool PipeHandle::is_output() const
+{
+    return data_.at("/role") != "inject";
+}
+
+bool PipeHandle::has_expression() const
+{
+    return data_.contains("/expr");
+}
+
+
+lang::Expression PipeHandle::overload(lang::Expression const& e) const
+{
+    if (data_.contains("overload"))
+    {
+        return expr::Overload(data_.at("overload").as_string(), e);
+    }
+    return e;
+}
+
+void PipeHandle::inject(lang::Expression e) const
+{
+    if (e.is_noop()) return;
+    e = overload(e);
+
+    bool const is_blend = type() == "blend";
+
+    if (is_blend)
+    {
+        auto generator = std::make_shared<Generator>(e);
+        for (auto const& channel: channels_)
+        {
+            auto handle = Environment::InterfaceHandle(channel.interface(), channel.host());
+            handle.Inject(generator, channel.transform(), channel.kind(), channel.signal_path());
+        }
+    }
+    else
+    {
+        for (auto const& channel: channels_)
+        {
+            auto handle = Environment::InterfaceHandle(channel.interface(), channel.host());
+            handle.Inject(std::make_shared<Generator>(e), channel.transform(), channel.kind(), channel.signal_path());
+        }
     }
 
-    return union_signal;
+
 }
 
-boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channels)
+
+boost::json::value PipeHandle::observe() const
 {
-    if (channels.empty())
+    if (!is_output())
+    {
+        throw model_error("calling observe on non-output channel");
+    }
+    auto const& role = data_.at("role").as_string();
+    boost::json::value result;
+    auto const pipe_type = type();
+    auto const repeat_trigger = boost::json::value_to<std::size_t>(data_.root_node().get_or_default("/repeat_trigger", 1));
+    if ("group" == pipe_type)
+    {
+        result.emplace_array();
+        auto& group_result = result.get_array();
+        for (auto const& channel: channels_)
+        {
+            auto const captures = channel.captures();
+            auto const tf = channel.transform();
+
+            bool const flatten = should_flatten_response(repeat_trigger, captures.size(), role);
+            auto o = flatten ? captures.at(0) : captures;
+            o = tf.is_noop() ? o : tf.eval(o);
+            group_result.push_back(o);
+        }
+    }
+    else if ("blend" == pipe_type)
+    {
+        if (role.ends_with("one"))
+        {
+            throw model_error("cant use %s on blend pipe, try without -One", role);
+        }
+        result = observe_blend();
+    }
+    else
+    {
+        auto const captures = channels_.back().captures();
+        auto const tf = channels_.back().transform();
+
+        bool const flatten = should_flatten_response(repeat_trigger, captures.size(), role);
+        result = flatten ? captures.at(0) : captures;
+        result = tf.is_noop() ? result : tf.eval(result);
+    }
+
+    return result;
+}
+
+
+
+boost::json::value PipeHandle::observe_blend() const
+{
+    if (channels_.empty())
     {
         return boost::json::array{};
     }
@@ -288,15 +307,15 @@ boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channe
         return a.as_array().at(2).as_uint64() < b.as_array().at(2).as_uint64();
     };
 
-    while(!channels.empty())
+    for (auto const& channel: channels_)
     {
-        ChannelHandle const channel {std::move(channels.front())};
-        channels.pop_front();
         auto const& alias = channel.alias();
-        auto const& captures = channel.captures();
+        auto ifc_handle = Environment::InterfaceHandle(channel.interface(), channel.host());
+        // Captures()
+        auto const& captures = ifc_handle.Captures();
+        //  channel.captures();
 
-        auto ifc_handle = Environment::IfcRec(channel.host(), channel.interface());
-        if (channel.kind() == Kind::CallCount)
+        if (channel.kind() == ChannelKind::CallCount)
         {
             boost::json::array record {
                 alias,
@@ -313,22 +332,28 @@ boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channe
         auto const& full_path = channel.full_path();
 
         int start, stop, step;
-        std::tie(start, stop, step) = channel.call();
-        // handle 1-based indexation
-        if (start > 0) { start -= 1; }
-        if (stop  > 0) { stop  -= 1; }
+        std::tie(start, stop, step) = channel.slice();
         auto captures_slice = make_slice_const_generator(captures, start, stop, step);
         auto insert_begin = join_captures.begin();
         auto capture = captures.cend();
 
+        auto const tf = channel.transform();
+
 
         while ((capture = captures_slice()) != captures.cend())
         {
+            boost::json::value signal_value;
             boost::json::error_code ec;
-            boost::json::value const* signal_value = capture->find_pointer(full_path, ec);
+
+            if (auto const p = capture->find_pointer(full_path, ec))
+            {
+
+                signal_value = tf.is_noop() ? *p : tf.eval(*p);
+            }
+
             boost::json::array record {
                 alias,
-                signal_value ? *signal_value : nullptr,
+                signal_value,
                 capture->at_pointer("/ts")
             };
 
@@ -346,6 +371,19 @@ boost::json::value ChannelHandle::observe_series(std::list<ChannelHandle> channe
 
     return join_captures;
 }
+
+
+int PipeHandle::column() const
+{
+    return data_.get_or_default("column", -1).as_int64();
+}
+
+
+boost::json::value PipeHandle::index() const
+{
+    return data_.at("index");
+}
+
 
 } // namespace mapping
 } // namespace zmbt

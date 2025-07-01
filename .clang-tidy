@@ -5,4 +5,3 @@ Checks: >
   -cppcoreguidelines-pro-type-reinterpret-cast,
 WarningsAsErrors: true
 HeaderFilterRegex: '.*'
-AnalyzeTemporaryDtors: false

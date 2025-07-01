@@ -8,12 +8,10 @@
 #define ZMBT_APPLICATION_INIT_ZMBT_HPP_
 
 namespace zmbt {
-namespace appconfig {
 
 /// Initialize test application
 void InitZmbt(int argc, char **argv);
 
-} // namespace appconfig
 } // namespace zmbt
 
 #endif // ZMBT_APPLICATION_INIT_ZMBT_HPP_

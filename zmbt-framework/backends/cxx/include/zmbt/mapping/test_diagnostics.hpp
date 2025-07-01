@@ -10,8 +10,7 @@
 #define ZMBT_MAPPING_TEST_DIAGNOSTICS_HPP_
 
 #include <boost/json.hpp>
-#include <zmbt/model/expression.hpp>
-#include <zmbt/model/signal_operator_handler.hpp>
+#include <zmbt/expr/expression.hpp>
 
 namespace zmbt {
 namespace mapping {
@@ -26,23 +25,41 @@ struct TestDiagnostics
         Error
     };
 
+    // print_string("model");
+    // print_string("message");
+    // print_js_section("expected");
+    // print_js_section("observed");
 
-    boost::json::string model;
-    boost::json::string description{};
-    boost::json::string comment {};
+    // os << prefix << "condition: [" << sts.at("test") << "," << sts.at("channel") << "]";
+
+    // print_string("description");
+    // print_string("comment");
+
+    // print_js_section("test vector");
+
+    // auto const& eval_stack = sts.at("eval_stack").as_array();
+
+
+    boost::json::string model_name;
     boost::json::string message    {};
+    boost::json::string description{};
+    boost::json::string comment    {};
+
     boost::json::value expected    {};
     boost::json::value observed    {};
-    boost::json::value decorator   {};
     boost::json::value vector      {};
-    boost::json::value nof_channel {};
-    boost::json::value nof_vector  {};
-    boost::json::value trigger     {};
-    boost::json::array channels    {};
-    Result kind           {};
+    size_t tr  {};
+    size_t tc  {};
+
+    boost::json::value channel_id  {};
+    boost::json::value pipe_id  {};
+
+    boost::json::array eval_stack  {};
+    Result result                  {};
+    bool tabular_condition_failure_{};
 
 
-    TestDiagnostics(boost::json::string_view model) : model{model} {}
+    TestDiagnostics(boost::json::string_view model_name) : model_name{model_name} {}
 
     TestDiagnostics(TestDiagnostics const&) = default;
     TestDiagnostics(TestDiagnostics &&) = default;
@@ -65,30 +82,37 @@ struct TestDiagnostics
     {
         this->vector = val; return *this;
     }
-    TestDiagnostics& ChannelIdx(int idx)
+    TestDiagnostics& TabularConditionFailure(std::size_t const col)
     {
-        this->nof_channel = idx; return *this;
+        tabular_condition_failure_ = true;
+        this->tc = col; return *this;
     }
-    TestDiagnostics& VectorIdx(int idx)
+    TestDiagnostics& TestRow(std::size_t const r)
     {
-        this->nof_vector  = idx; return *this;
+        this->tr = r; return *this;
     }
-
-
-    TestDiagnostics& Channels(boost::json::value const& cnls)
+    TestDiagnostics& ChannelId(boost::json::value const& id)
     {
-        this->channels = cnls.as_array(); return *this;
+        this->channel_id = id; return *this;
     }
-    TestDiagnostics& Trigger(boost::json::value const& trig)
+    TestDiagnostics& PipeId(boost::json::value const& id)
     {
-        this->trigger = trig; return *this;
+        this->pipe_id = id; return *this;
+    }
+    TestDiagnostics& EvalStack(lang::Expression::EvalLog const& log)
+    {
+        if (log.stack)
+        {
+            this->eval_stack = *log.stack;
+        }
+        return *this;
     }
 
     /// report test setup or execution error
     TestDiagnostics& Error(boost::json::string_view origin, boost::json::string_view msg);
 
     /// report test expectation failure
-    TestDiagnostics& Fail(Expression expected, boost::json::value observed, SignalOperatorHandler op);
+    TestDiagnostics& Fail(lang::Expression expected, boost::json::value observed);
 
     boost::json::value to_json() const;
 };

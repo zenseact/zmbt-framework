@@ -23,10 +23,10 @@ using zmbt::type;
 using zmbt::Environment;
 using zmbt::InterfaceRecord;
 
-using zmbt::Expression;
+using lang::Expression;
 
-using namespace zmbt::decor;
-using namespace zmbt::expr;
+namespace decor = zmbt::decor;
+namespace expr = zmbt::expr;
 
 using zmbt::mapping::SignalMapping;
 
@@ -44,10 +44,18 @@ class Environment {};
 auto InterfaceRecord(...);
 /// Alias for zmbt::precise
 class precise {};
-/// Alias for zmbt::Expression
+/// Alias for lang::Expression
 class Expression {};
 /// Alias for zmbt::mapping::SignalMapping
 class SignalMapping {};
+
+/// \brief Signal type decorators API
+/// \details \see zmbt::decor
+namespace decor {}
+
+/// \brief Expression Language API
+/// \details \see zmbt::expr
+namespace expr {}
 
 #endif
 

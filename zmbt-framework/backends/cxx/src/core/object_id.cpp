@@ -19,6 +19,11 @@ boost::json::string zmbt::object_id::to_string(void const* ptr)
     return ss.str().c_str();
 }
 
+boost::json::string zmbt::object_id::to_string(boost::json::string_view str)
+{
+    return str;
+}
+
 template <>
 struct std::hash<zmbt::object_id>
 {

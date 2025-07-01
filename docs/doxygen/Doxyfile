@@ -238,7 +238,7 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES += license="\par License^^"
+ALIASES = license="\par License^^"
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -789,7 +789,7 @@ WARN_LOGFILE           =
 # directories like /usr/src/myproject. Separate the files or directories with
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
-INPUT                  += ../../zmbt-framework/backends/cxx/include/zmbt
+INPUT                  = ../../zmbt-framework/backends/cxx/include/zmbt
 INPUT                  += ../../zmbt-framework/backends/cxx/include/zenseact-mbt.hpp
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -899,9 +899,11 @@ EXCLUDE_PATTERNS       =
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories use the pattern */test/*
 
-EXCLUDE_SYMBOLS        += *::detail *::detail::*
+EXCLUDE_SYMBOLS         = *::detail *::detail::*
+EXCLUDE_SYMBOLS        += std boost
 EXCLUDE_SYMBOLS        += zmbt::*<T, enable_if*
 EXCLUDE_SYMBOLS        += zmbt::*<T, void_t*
+# EXCLUDE_SYMBOLS        += zmbt::*<T, detail::* zmbt::*<S, detail::*
 EXCLUDE_SYMBOLS        += zmbt::first_or_void<*
 
 
@@ -930,7 +932,7 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             = ../diagrams/
+IMAGE_PATH             = ../
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
@@ -986,9 +988,9 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-INPUT += ../../README.md
-INPUT += ../
-USE_MDFILE_AS_MAINPAGE = ../../README.md
+# INPUT += ../../README.md
+# INPUT += ../
+# USE_MDFILE_AS_MAINPAGE = index.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -1537,7 +1539,7 @@ FORMULA_TRANSPARENT    = YES
 # The default value is: NO.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-USE_MATHJAX            = NO
+USE_MATHJAX            = YES
 
 # When MathJax is enabled you can set the default output format to be used for
 # the MathJax output. See the MathJax site (see:
@@ -1950,7 +1952,7 @@ MAN_LINKS              = NO
 # captures the structure of the code including all documentation.
 # The default value is: NO.
 
-GENERATE_XML           = NO
+GENERATE_XML           = YES
 
 # The XML_OUTPUT tag is used to specify where the XML pages will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of

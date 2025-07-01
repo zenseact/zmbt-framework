@@ -10,6 +10,7 @@
 #include "zenseact-mbt.hpp"
 
 using namespace zmbt::api;
+using namespace zmbt::expr;
 
 #if defined(__clang__)
     #pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
@@ -57,9 +58,9 @@ ducks::Grey DuckQuack(ducks::Grey what)
 BOOST_FIXTURE_TEST_CASE(GenericTest, ModelTestFixture)
 {
     SignalMapping("Ducktyping example: use enum nominal values")
-        .OnTrigger (DuckQuack)
-        .InjectTo  (DuckQuack)
-        .ObserveOn (DuckQuack)
+    .OnTrigger(DuckQuack)
+        .At(DuckQuack).Inject()
+        .At(DuckQuack).Expect()
     .Test
         ( ducks::Grey ::Quack , ducks::Grey ::Poop   )
         ( ducks::Grey ::Poop  , ducks::Grey ::Quack  )
@@ -69,45 +70,4 @@ BOOST_FIXTURE_TEST_CASE(GenericTest, ModelTestFixture)
         (              "Poop" ,              "Quack" )
     ;
 
-}
-
-
-template <class Duck>
-struct Decorator
-{
-    using decorated_type = Duck;
-    decorated_type value_;
-
-    // decorated type transformations
-
-    explicit Decorator(decorated_type const& v) : value_{v} {}
-
-    operator decorated_type() const {
-        return value_;
-    }
-
-    // serialization
-
-    explicit Decorator(boost::json::value const& v)
-    : value_{v.is_string()
-        ? zmbt::dejsonize<decorated_type>(v)
-        : decorated_type(boost::json::value_to<int>(v))
-    } {}
-
-    operator boost::json::value() const {
-        return zmbt::json_from(value_);
-    }
-};
-
-BOOST_FIXTURE_TEST_CASE(DecoratorTest, ModelTestFixture)
-{
-    SignalMapping("Ducktyping example: decorator for testing underlying value")
-    .OnTrigger(DuckQuack)
-        .InjectTo  (DuckQuack).As(type<Decorator<ducks::Grey>>)
-        .ObserveOn (DuckQuack).As(type<Decorator<ducks::Grey>>)
-    .Test
-        (0,   1)
-        (1,   0)
-        (2, 255)
-    ;
 }

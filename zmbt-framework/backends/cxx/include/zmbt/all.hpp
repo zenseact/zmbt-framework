@@ -10,11 +10,11 @@
 
 #include "core.hpp"
 #include "reflect.hpp"
+#include "expr.hpp"
 #include "model.hpp"
 #include "mapping.hpp"
 #include "decor.hpp"
 #include "api.hpp"
-#include "appconfig.hpp"
 
 
 #endif  // ZMBT_ALL_HPP_

@@ -141,8 +141,8 @@ BOOST_FIXTURE_TEST_CASE(ObjFunctorRef, TestMappingTrigger)
 BOOST_FIXTURE_TEST_CASE(AddressEquivalence, TestMappingTrigger)
 {
     O obj {11};
-    BOOST_CHECK_EQUAL(Trigger(&obj, &O::set_x).obj_id(), InterfaceRecord(&obj, &O::set_x).refobj());
-    BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , InterfaceRecord(obj, &O::set_x).refobj());
+    BOOST_CHECK_EQUAL(Trigger(&obj, &O::set_x).obj_id(), InterfaceRecord(&O::set_x, &obj).refobj());
+    BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , InterfaceRecord(&O::set_x, obj ).refobj());
     BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , Trigger(&obj, &O::set_x).obj_id());
 
     BOOST_CHECK_EQUAL(Trigger(nullptr, return_int).obj_id(), object_id(nullptr));
@@ -152,7 +152,7 @@ BOOST_FIXTURE_TEST_CASE(AddressEquivalence, TestMappingTrigger)
 BOOST_FIXTURE_TEST_CASE(PointerObjectMemberPointer, TestMappingTrigger)
 {
     O obj {11};
-    auto ifc_rec = InterfaceRecord(obj, &O::set_x);
+    auto ifc_rec = InterfaceRecord(&O::set_x, obj);
     auto trigger = Trigger(&obj, &O::set_x);
     trigger(13);
     BOOST_CHECK_EQUAL(obj.x, 13);
@@ -163,7 +163,7 @@ BOOST_FIXTURE_TEST_CASE(ExecSharedActuator, TestActuator)
 {
     auto obj = std::make_shared<O>(11.5);
     auto actuator = Trigger(obj, &O::set_x);
-    InterfaceRecord(actuator.obj_id(), &O::set_x);
+    InterfaceRecord(&O::set_x, actuator.obj_id());
     actuator(13);
     BOOST_CHECK_EQUAL(obj->x, 13);
 }
@@ -202,8 +202,8 @@ struct Final final : public virtual Base
 
 BOOST_FIXTURE_TEST_CASE(TriggerObjCtor, TestMappingTrigger, *boost::unit_test::disabled())
 {
-    TriggerObj(&Base::test_method);
-    TriggerObj(&Base::test_field);
+    auto const trig_test_method = TriggerObj(&Base::test_method);
+    auto const trig_test_field = TriggerObj(&Base::test_field);
     using free_fn_ptr = decltype(&return_int);
     using free_fn_ref = decltype(return_int);
 
@@ -256,4 +256,12 @@ BOOST_FIXTURE_TEST_CASE(PolymorphicUnsafeRef, TestMappingTrigger)
         auto result = Trigger(base_ref, &Base::test_method).execute().as_object().at("return");
         BOOST_CHECK_EQUAL(result, "Final");
     }
+}
+
+
+BOOST_FIXTURE_TEST_CASE(ReturnRef, TestMappingTrigger)
+{
+    int x = 42;
+    auto const getx = [&x] () -> int& { return x; };
+    BOOST_CHECK_EQUAL(Trigger(nullptr, getx).execute().as_object().at("return"), 42);
 }

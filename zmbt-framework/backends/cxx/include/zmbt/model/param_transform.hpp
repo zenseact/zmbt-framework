@@ -89,7 +89,7 @@ struct param_transform_interface<T, require_cal<T>> : public param_transform_bas
         }
         if (Kind::trig_node & pkind)
         {
-            pvalue = env.RegisterTriggerLiteral(ifc_host_nullptr<T>, arg);
+            pvalue = env.RegisterAnonymousTrigger(arg, ifc_host_nullptr<T>);
         }
         else if (Kind::trig_ifc & pkind)
         {

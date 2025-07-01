@@ -33,37 +33,36 @@ BOOST_AUTO_TEST_SUITE(EnvironementTests);
 
 BOOST_AUTO_TEST_CASE(Function)
 {
-    BOOST_CHECK(Environment::IfcRec(nullptr,  return_int)    .interface() == interface_id(return_int));
-    BOOST_CHECK(Environment::IfcRec(nullptr,  increment_args).interface() == interface_id(increment_args));
-
-    BOOST_CHECK(Environment::IfcRec(nullptr, &return_int).interface()     == interface_id(&return_int)    );
-    BOOST_CHECK(Environment::IfcRec(nullptr, &increment_args).interface() == interface_id(&increment_args));
+    BOOST_CHECK(Environment::InterfaceHandle( return_int    , nullptr)    .interface() == interface_id(return_int));
+    BOOST_CHECK(Environment::InterfaceHandle( increment_args, nullptr).interface() == interface_id(increment_args));
+    BOOST_CHECK(Environment::InterfaceHandle(&return_int    , nullptr).interface()     == interface_id(&return_int)    );
+    BOOST_CHECK(Environment::InterfaceHandle(&increment_args, nullptr).interface() == interface_id(&increment_args));
 }
 
 BOOST_AUTO_TEST_CASE(Functor)
 {
     O fn {};
-    BOOST_CHECK(Environment::IfcRec(nullptr, fn) .interface() == interface_id(fn));
-    BOOST_CHECK(Environment::IfcRec(nullptr, &fn).interface() == interface_id(&fn));
+    BOOST_CHECK(Environment::InterfaceHandle(fn , nullptr) .interface() == interface_id(fn));
+    BOOST_CHECK(Environment::InterfaceHandle(&fn, nullptr).interface() == interface_id(&fn));
 }
 
 BOOST_AUTO_TEST_CASE(MemberFunctionInterfaceId)
 {
     O obj {};
-    BOOST_CHECK(Environment::IfcRec(&obj, &O::set_x).interface()    == interface_id(&O::set_x));
-    BOOST_CHECK(Environment::IfcRec(&obj, &O::set_x).interface()    == interface_id(&O::set_x));
-    BOOST_CHECK(Environment::IfcRec(nullptr, &O::set_x).interface() == interface_id(&O::set_x));
+    BOOST_CHECK(Environment::InterfaceHandle(&O::set_x, &obj).interface()    == interface_id(&O::set_x));
+    BOOST_CHECK(Environment::InterfaceHandle(&O::set_x, &obj).interface()    == interface_id(&O::set_x));
+    BOOST_CHECK(Environment::InterfaceHandle(&O::set_x, nullptr).interface() == interface_id(&O::set_x));
 }
 
 BOOST_AUTO_TEST_CASE(RefobjNullptr)
 {
-    BOOST_CHECK(Environment::IfcRec(nullptr, &O::set_x).refobj() == object_id(nullptr));
+    BOOST_CHECK(Environment::InterfaceHandle(&O::set_x, nullptr).refobj() == object_id(nullptr));
 }
 
 BOOST_AUTO_TEST_CASE(RefobjRefVsPtr)
 {
     O obj {};
-    BOOST_CHECK(Environment::IfcRec(obj, &O::set_x).refobj() == Environment::IfcRec(&obj, &O::set_x).refobj());
+    BOOST_CHECK_EQUAL(Environment::InterfaceHandle(&O::set_x, obj).refobj(), Environment::InterfaceHandle(&O::set_x, &obj).refobj());
 }
 
 BOOST_AUTO_TEST_SUITE_END();
@@ -75,26 +74,26 @@ BOOST_AUTO_TEST_SUITE(InterfaceRecordTests);
 
 BOOST_AUTO_TEST_CASE(IRFunction)
 {
-    BOOST_CHECK(InterfaceRecord(nullptr,  return_int)    .interface() == interface_id(return_int));
-    BOOST_CHECK(InterfaceRecord(nullptr,  increment_args).interface() == interface_id(increment_args));
-    BOOST_CHECK(InterfaceRecord(nullptr, &return_int)    .interface() == interface_id(&return_int));
-    BOOST_CHECK(InterfaceRecord(nullptr, &increment_args).interface() == interface_id(&increment_args));
+    BOOST_CHECK(InterfaceRecord( return_int    , nullptr)    .interface() == interface_id(return_int));
+    BOOST_CHECK(InterfaceRecord( increment_args, nullptr).interface() == interface_id(increment_args));
+    BOOST_CHECK(InterfaceRecord(&return_int    , nullptr)    .interface() == interface_id(&return_int));
+    BOOST_CHECK(InterfaceRecord(&increment_args, nullptr).interface() == interface_id(&increment_args));
 }
 
 BOOST_AUTO_TEST_CASE(IRFunctor)
 {
     O fn {};
-    BOOST_CHECK(InterfaceRecord(nullptr, fn) .interface() == interface_id(fn));
-    BOOST_CHECK(InterfaceRecord(nullptr, &fn).interface() == interface_id(&fn));
+    BOOST_CHECK(InterfaceRecord(fn , nullptr) .interface() == interface_id(fn));
+    BOOST_CHECK(InterfaceRecord(&fn, nullptr).interface() == interface_id(&fn));
 }
 
 
 BOOST_AUTO_TEST_CASE(IRMemberFunctionInterfaceId)
 {
     O obj {};
-    BOOST_CHECK(InterfaceRecord(obj, &O::set_x)    .interface() == interface_id(&O::set_x));
-    BOOST_CHECK(InterfaceRecord(&obj, &O::set_x)   .interface() == interface_id(&O::set_x));
-    BOOST_CHECK(InterfaceRecord(nullptr, &O::set_x).interface() == interface_id(&O::set_x));
+    BOOST_CHECK(InterfaceRecord(&O::set_x, obj    )    .interface() == interface_id(&O::set_x));
+    BOOST_CHECK(InterfaceRecord(&O::set_x, &obj   )   .interface() == interface_id(&O::set_x));
+    BOOST_CHECK(InterfaceRecord(&O::set_x, nullptr).interface() == interface_id(&O::set_x));
 }
 
 
@@ -102,16 +101,16 @@ BOOST_AUTO_TEST_CASE(IRRefobjNullptr)
 {
     auto lambda = [](){};
     BOOST_CHECK_EQUAL(InterfaceRecord(lambda).refobj().annotation(), type_name<nullptr_t>());
-    BOOST_CHECK_EQUAL(InterfaceRecord(nullptr, lambda).refobj().annotation(), type_name<nullptr_t>());
+    BOOST_CHECK_EQUAL(InterfaceRecord(lambda, nullptr).refobj().annotation(), type_name<nullptr_t>());
 
     BOOST_CHECK_EQUAL(InterfaceRecord(&O::set_x).refobj().annotation(), type_name<O>());
-    BOOST_CHECK_EQUAL(InterfaceRecord(nullptr, &O::set_x).refobj().annotation(), type_name<nullptr_t>());
+    BOOST_CHECK_EQUAL(InterfaceRecord(&O::set_x, nullptr).refobj().annotation(), type_name<nullptr_t>());
 }
 
 BOOST_AUTO_TEST_CASE(IRRefobjRefVsPtr)
 {
     O obj {};
-    BOOST_CHECK(InterfaceRecord(obj, &O::set_x).refobj() == InterfaceRecord(&obj, &O::set_x).refobj());
+    BOOST_CHECK_EQUAL(InterfaceRecord(&O::set_x, obj).refobj(), InterfaceRecord(&O::set_x, &obj).refobj());
 }
 
 BOOST_AUTO_TEST_SUITE_END();

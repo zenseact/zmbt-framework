@@ -37,7 +37,7 @@ namespace {
 BOOST_DEFINE_ENUM_CLASS(TestEnum, A, B)
 
 struct TestStruct { double x, y; };
-BOOST_DESCRIBE_STRUCT(TestStruct, (), (x, y))
+BOOST_DESCRIBE_STRUCT(TestStruct, (void), (x, y))
 
 
 inline bool operator<(const TestStruct& lhs, const TestStruct& rhs)
@@ -45,10 +45,6 @@ inline bool operator<(const TestStruct& lhs, const TestStruct& rhs)
     return (lhs.x < rhs.x) or (lhs.y < rhs.y);
 }
 
-inline bool operator==(const TestStruct& lhs, const TestStruct& rhs)
-{
-    return (lhs.x == rhs.x) and (lhs.y == rhs.y);
-}
 }
 
 template<> struct std::hash<TestStruct>
@@ -123,21 +119,6 @@ using UmapStr2VectorEnum   = std::unordered_map<TestString, VectorEnum>  ;  DEF_
 using UmapStr2VectorStruct = std::unordered_map<TestString, VectorStruct>;  DEF_TEST_VAL(UmapStr2VectorStruct, TEST_KV_PAIR_S(VectorStruct))
 using UmapStr2VectorString = std::unordered_map<TestString, VectorString>;  DEF_TEST_VAL(UmapStr2VectorString, TEST_KV_PAIR_S(VectorString))
 
-
-using TestTuple = std::tuple<
-    ArrayInt,
-    ArrayDouble,
-    ArrayEnum,
-    ArrayStruct,
-    ArrayString
->;
-DEF_TEST_VAL(TestTuple, {
-    test_value_for<ArrayInt>(),
-    test_value_for<ArrayDouble>(),
-    test_value_for<ArrayEnum>(),
-    test_value_for<ArrayStruct>(),
-    test_value_for<ArrayString>()
-})
 
 
 using SmokeTestTypes = mp_list<
@@ -231,8 +212,8 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, SmokeTestTypes)
 
     SignalMapping("identity<%s>", type_name<T>())
     .OnTrigger (&TestInterface::identity<T>)
-        .InjectTo  (&TestInterface::identity<T>)
-        .ObserveOn (&TestInterface::identity<T>)
+        .At(&TestInterface::identity<T>).Inject()
+        .At(&TestInterface::identity<T>).Expect()
     .Test
         ( Noop        , Noop         )
         ( _             , _              )
@@ -244,12 +225,12 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, SmokeTestTypes)
 BOOST_AUTO_TEST_CASE_TEMPLATE(Init, T, SmokeTestTypes)
 {
 
-    auto init_value = zmbt::reflect::signal_traits<T>::init();
+    auto const init_value = zmbt::reflect::signal_traits<T>::init();
 
     SignalMapping("init<%s>", type_name<T>())
     .OnTrigger (&TestInterface::init<T>)
-        .InjectTo  (&TestInterface::init<T>)
-        .ObserveOn (&TestInterface::init<T>)
+        .At(&TestInterface::init<T>).Inject()
+        .At(&TestInterface::init<T>).Expect()
     .Test
         ( Noop  , Noop         )
         ( Noop  , init_value     )
@@ -267,8 +248,8 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(InitRef, T, SmokeTestTypes)
 
     SignalMapping("initRef<%s>", type_name<T>())
     .OnTrigger (&TestInterface::initRef<T>)
-        .InjectTo  (&TestInterface::initRef<T>).Args(0)
-        .ObserveOn (&TestInterface::initRef<T>).Args(0)
+        .At(&TestInterface::initRef<T>).Args(0).Inject()
+        .At(&TestInterface::initRef<T>).Args(0).Expect()
     .Test
         ( Noop      , Noop      )
         ( Noop      , init_value  )
@@ -286,11 +267,11 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Ignore, T, SmokeTestTypes)
 
     SignalMapping("ignore<%s>", type_name<T>())
     .OnTrigger (&TestInterface::ignore<T>)
-        .InjectTo  (&TestInterface::ignore<T>).Args(0)
-        .InjectTo  (&TestInterface::ignore<T>).Args(1)
-        .ObserveOn (&TestInterface::ignore<T>)
+        .At(&TestInterface::ignore<T>).Args(0)  .Inject()
+        .At(&TestInterface::ignore<T>).Args(1)  .Inject()
+        .At(&TestInterface::ignore<T>)          .Expect()
     .Test
-        ( Noop     , Noop     , Noop )
+        ( Noop       , Noop       , Noop )
         ( init_value , init_value , Noop )
         ( test_value , test_value , Noop )
     ;

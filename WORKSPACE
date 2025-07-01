@@ -4,6 +4,40 @@
 workspace(name = "com_github_zenseact_zmbt_framework")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+
+##############################
+# Bazel packaging
+##############################
+
+http_archive(
+    name = "rules_pkg",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.9.1/rules_pkg-0.9.1.tar.gz",
+        "https://github.com/bazelbuild/rules_pkg/releases/download/0.9.1/rules_pkg-0.9.1.tar.gz",
+    ],
+    sha256 = "8f9ee2dc10c1ae514ee599a8b42ed99fa262b757058f65ad3c384289ff70c4b8",
+)
+load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
+rules_pkg_dependencies()
+
+##############################
+# GCC toolchain
+##############################
+
+gcc_toolchain_version = "0.6.0"
+gcc_toolchain_sha = "8aa7129247f06e12ab356797f79eea13f2387f32ae8f7184074e8e6402790299"
+
+http_archive(
+    name = "gcc_toolchain",
+    urls = [
+        "https://github.com/f0rmiga/gcc-toolchain/archive/refs/tags/{}.tar.gz".format(
+            gcc_toolchain_version
+        ),
+    ],
+    sha256 = gcc_toolchain_sha,
+    strip_prefix = "gcc-toolchain-{}".format(gcc_toolchain_version),
+)
+
 ##############################
 # Boost C++ Libraries
 ##############################
@@ -15,6 +49,10 @@ http_archive(
     url = "https://github.com/nelhage/rules_boost/archive/{}.tar.gz".format(
         rules_boost_version,
     ),
+    patch_args = ["-p1"],
+    patches = [
+        "//patches/rules_boost:0001-Fix-Wgnu-zero-variadic-macro-arguments-in-BOOST_DESC.patch"
+    ],
     strip_prefix = "rules_boost-{}".format(rules_boost_version),
     sha256 = rules_boost_sha256,
 )
@@ -27,7 +65,7 @@ boost_deps()
 ##############################
 
 http_archive(
-  name = "com_google_googletest",
+  name = "googletest",
   urls = ["https://github.com/google/googletest/archive/5ab508a01f9eb089207ee87fd547d290da39d015.zip"],
   strip_prefix = "googletest-5ab508a01f9eb089207ee87fd547d290da39d015",
   sha256 = "755f9a39bc7205f5a0c428e920ddad092c33c8a1b46997def3f1d4a82aded6e1",

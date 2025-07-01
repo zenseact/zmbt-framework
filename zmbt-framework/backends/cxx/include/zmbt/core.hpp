@@ -10,7 +10,6 @@
 
 #include "core/aliases.hpp"
 #include "core/exceptions.hpp"
-#include "core/deferred_format.hpp"
 #include "core/file_parser.hpp"
 #include "core/format_string.hpp"
 #include "core/generic_traits.hpp"
@@ -18,6 +17,7 @@
 #include "core/interface_traits.hpp"
 #include "core/json_iter.hpp"
 #include "core/json_node.hpp"
+#include "core/json_number_cast.hpp"
 #include "core/json_traverse.hpp"
 #include "core/json_pretty_print.hpp"
 #include "core/slice.hpp"

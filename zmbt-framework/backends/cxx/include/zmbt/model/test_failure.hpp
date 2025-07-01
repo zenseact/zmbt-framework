@@ -16,6 +16,10 @@
 
 namespace zmbt {
 
+/// default failure report formatter
+void format_failure_report(std::ostream& os, boost::json::value const& report);
+
+/// default test failure handler
 void default_test_failure(boost::json::value const& report);
 
 }

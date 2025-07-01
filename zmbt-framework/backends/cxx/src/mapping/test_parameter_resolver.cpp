@@ -8,12 +8,12 @@
 
 #include <boost/json.hpp>
 #include <zmbt/core/aliases.hpp>
-#include <zmbt/core/deferred_format.hpp>
 #include <zmbt/core/entity_id.hpp>
 #include <zmbt/core/interface_id.hpp>
 #include <zmbt/core/json_pretty_print.hpp>
 #include <zmbt/core/object_id.hpp>
 #include <zmbt/model/exceptions.hpp>
+#include <zmbt/expr/expression.hpp>
 #include <cstddef>
 #include <exception>
 #include <iostream>
@@ -31,98 +31,99 @@ try
 {
 
     auto& name = next_model("/name");
-    if (DeferredFormat::isDeferredFormat(name))
-    {
-        name = DeferredFormat(name).to_string();
-    }
-
     auto& description = next_model("/description");
-    if (DeferredFormat::isDeferredFormat(description))
-    {
-        description = DeferredFormat(description).to_string();
-    }
-
-
     auto& trigger = next_model("/trigger");
+
+    name = lang::Expression(name).eval();
+    description = lang::Expression(description).eval();
+    trigger = lang::Expression(trigger).eval();
+
     interface_id trig_ifc;
     object_id    trig_obj;
 
-    if (DeferredFormat::isDeferredFormat(trigger))
+    if (trigger.is_string())
     {
-        trigger = DeferredFormat(trigger).to_string();
-        trig_ifc = env.InterfaceId(trigger.as_string());
-        trig_obj = env.ObjectId(trigger.as_string());
+        trig_ifc = env.InterfaceId(trigger.get_string());
+        trig_obj = env.ObjectId(trigger.get_string());
     }
-    else if (trigger.is_object())
+    else if (trigger.is_object() && trigger.get_object().contains("ifc"))
     {
         trig_ifc = interface_id (trigger.as_object().at("ifc"));
         trig_obj = object_id    (trigger.as_object().at("obj"));
         trigger = env.GetOrRegisterParametricTrigger(trig_obj, trig_ifc);
     }
     else{
-        trig_ifc = env.InterfaceId(trigger.as_string());
-        trig_obj = env.ObjectId(trigger.as_string());
+        throw model_error("invalid trigger: %s", trigger);
     }
 
-    for (auto& channel: next_model("/channels").as_array())
+    for(auto& pipe: next_model("/pipes").as_array())
     {
-        auto& interface   = channel.as_object().at("interface");
-        auto& kind        = channel.as_object().at("kind");
-        auto& signal_path = channel.as_object().at("signal_path");
-        auto const& role = channel.as_object().at("role");
-        // auto const& call = channel.as_object().at("call");
-        interface_id ifc_id;
-
-
-        if (DeferredFormat::isDeferredFormat(interface))
+        auto const& role = pipe.as_object().at("role");
+        for (auto& channel: pipe.as_object()["channels"].as_array())
         {
-            interface = DeferredFormat(interface).to_string();
-            ifc_id = env.InterfaceId(interface.as_string());
-        }
-        else if (interface.is_object())
-        {
-            ifc_id = interface_id(interface.as_object().at("ifc"));
-            auto const& obj_str = interface.as_object().at("obj");
-            object_id obj_id;
-            if (obj_str == "$default") {
-                obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
-            } else {
-                obj_id = object_id{obj_str};
+            auto& kind        = channel.as_object().at("kind");
+            auto& interface   = channel.as_object().at("interface");
+            auto& signal_path = channel.as_object().at("signal_path");
+
+            interface   = lang::Expression(interface).eval();
+            signal_path = lang::Expression(signal_path).eval();
+
+            if (signal_path.is_number())
+            {
+                signal_path = format("/%d", signal_path);
             }
 
-            interface = env.GetOrRegisterInterface(obj_id, ifc_id);
-        }
-        else{
-            ifc_id = env.InterfaceId(interface.as_string());
-        }
+            interface_id ifc_id;
 
-
-        if (kind == "$default")
-        {
-            bool const on_trigger = trigger == interface;
-            bool const is_inject = role == "inject";
-            if (is_inject) {
-                kind = on_trigger ? "args" : "return";
-            } else {
-                kind = on_trigger ? "return" : "args";
+            if (interface.is_string())
+            {
+                ifc_id = env.InterfaceId(interface.get_string());
             }
-        }
+            else if (interface.is_object())
+            {
+                ifc_id = interface_id(interface.as_object().at("ifc"));
+                auto const& obj_param = interface.as_object().at("obj");
+                object_id obj_id;
+                if (obj_param == "$default") {
+                    obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
+                } else {
+                    obj_id = object_id{lang::Expression(obj_param).eval()};
+                }
 
-        if (signal_path == "$default")
-        {
-            bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
-            signal_path = (is_unary && (kind == "args")) ? "/0" : "";
-        }
-        else if (signal_path.is_object())
-        {
-            signal_path = DeferredFormat(signal_path).to_string();
+                interface = env.GetOrRegisterInterface(obj_id, ifc_id);
+            }
+            else{
+                throw model_error("invalid interface: %s", interface);
+            }
+
+
+            if (kind == "$default")
+            {
+                bool const on_trigger = trigger == interface;
+                bool const is_inject = role == "inject";
+                if (is_inject) {
+                    kind = on_trigger ? "args" : "return";
+                } else {
+                    kind = on_trigger ? "return" : "args";
+                }
+            }
+
+            if (signal_path == "$default")
+            {
+                bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
+                signal_path = (is_unary && (kind == "args")) ? "/0" : "";
+            }
+            else if (!signal_path.is_string())
+            {
+                throw model_error("invalid signal_path: %s", signal_path);
+            }
         }
     }
 }
 catch (std::exception const& e)
 {
     print_debug(next_model);
-    throw model_error("Resolving deferred parameters failed with `%s`", e.what());
+    throw model_error("Resolving model parameters failed with `%s`", e.what());
 }
 
 
@@ -157,67 +158,47 @@ void TestParameterResolver::init_param_iters()
         }
     }
 
-    // if (zip) // validate and handle continuation
-    // {
-        for (std::size_t grp_idx = 0; grp_idx < group_count; grp_idx++)
+    for (std::size_t grp_idx = 0; grp_idx < group_count; grp_idx++)
+    {
+        if (model_param_groups.at(grp_idx) == "Prod")
         {
-            if (model_param_groups.at(grp_idx) == "Prod")
-            {
-                iterators_.push_back(
-                    std::make_shared<JsonProdIter>(std::move(parameter_groups.at(grp_idx)))
-                );
-                continue;
-            }
-            auto& p_group = parameter_groups.at(grp_idx);
-            std::vector<std::size_t> continuation_parameters;
-            std::size_t zip_length {0};
-            for (std::size_t i = 0; i < p_group.size(); i++)
-            {
-                std::size_t const N = p_group.at(i).as_array().size();
-                if (N == 1)
-                {
-                    continuation_parameters.push_back(i);
-                }
-                else if (zip_length && (N != zip_length)) {
-                    throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
-                }
-                else
-                {
-                    zip_length = N;
-                }
-            }
-            // TODO: handle this in zip iterator to avoid repeated value allocation
-            if (continuation_parameters.size() < p_group.size())
-            {
-                for (std::size_t const i: continuation_parameters)
-                {
-                    boost::json::array continue_param (zip_length);
-                    std::fill(continue_param.begin(), continue_param.end(), p_group[i].as_array().at(0));
-                    p_group[i] = continue_param;
-                }
-            }
             iterators_.push_back(
-                std::make_shared<JsonZipIter>(std::move(parameter_groups.at(grp_idx)))
+                std::make_shared<JsonProdIter>(std::move(parameter_groups.at(grp_idx)))
             );
+            continue;
         }
-        // while(!parameter_groups.empty())
-        // {
-        //     iterators_.push_back(
-        //         std::make_shared<JsonZipIter>(std::move(parameter_groups.back()))
-        //     );
-        //     parameter_groups.pop_back();
-        // }
-    // }
-    // else {
-    //     while(!parameter_groups.empty())
-    //     {
-    //         iterators_.push_back(
-    //             std::make_shared<JsonProdIter>(std::move(parameter_groups.back()))
-    //         );
-    //         parameter_groups.pop_back();
-    //     }
-    // }
-
+        auto& p_group = parameter_groups.at(grp_idx);
+        std::vector<std::size_t> continuation_parameters;
+        std::size_t zip_length {0};
+        for (std::size_t i = 0; i < p_group.size(); i++)
+        {
+            std::size_t const N = p_group.at(i).as_array().size();
+            if (N == 1)
+            {
+                continuation_parameters.push_back(i);
+            }
+            else if (zip_length && (N != zip_length)) {
+                throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
+            }
+            else
+            {
+                zip_length = N;
+            }
+        }
+        // TODO: handle this in zip iterator to avoid repeated value allocation
+        if (continuation_parameters.size() < p_group.size())
+        {
+            for (std::size_t const i: continuation_parameters)
+            {
+                boost::json::array continue_param (zip_length);
+                std::fill(continue_param.begin(), continue_param.end(), p_group[i].as_array().at(0));
+                p_group[i] = continue_param;
+            }
+        }
+        iterators_.push_back(
+            std::make_shared<JsonZipIter>(std::move(parameter_groups.at(grp_idx)))
+        );
+    }
 }
 
 

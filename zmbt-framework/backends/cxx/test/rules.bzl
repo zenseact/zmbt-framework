@@ -1,13 +1,21 @@
 # (c) Copyright 2024 Zenseact AB
 
-def unit_test_group(lib, srcs):
+def make_unit_tests(srcs):
     for src in srcs:
         native.cc_test(
             name = src.replace(".cpp", ""),
             srcs = [src],
             deps = [
-                lib,
-                "//zmbt-framework/backends/cxx:main_boost",
+                "//zmbt-framework/backends/cxx:zmbt",
+                "//zmbt-framework/backends/cxx:zmbt_main_boost",
+            ],
+            copts = [
+                "-std=c++14",
+                "-Werror",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "-Wno-parentheses", # allow `x & y | z` in tests
             ],
             linkopts = [
                 '-lm'

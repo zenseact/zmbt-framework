@@ -15,7 +15,7 @@
 #include "zmbt/core.hpp"
 
 
-#define USE_IMLPEMENTATION_TYPEDEFS  \
+#define DEFAULT_INVOCATION_TYPEDEFS  \
 using host_t   = ifc_host_t<type>;   \
 using return_t = ifc_return_t<type>; \
 using args_t   = ifc_args_t<type>;
@@ -86,7 +86,7 @@ using enable_default_invocation = first_if_t<void,
 template <class T>
 using enable_custom_invocation = first_if_t<void, has_custom_invocation<ifc_pointer_t<T>>>;
 
-
+} // namespace detail
 
 /**
  * @brief Interface reflection metafunction
@@ -105,7 +105,7 @@ template <class S>
 struct default_invocation<S, first_if_t<void, ifc_is_member_handle<S>>>
 {
     using type = S;
-    USE_IMLPEMENTATION_TYPEDEFS
+    DEFAULT_INVOCATION_TYPEDEFS
 
     template <class H>
     static return_t apply(H&& object, type ifc, args_t args)
@@ -118,7 +118,7 @@ template <class S>
 struct default_invocation<S, first_if_any_t<void, ifc_is_fn_handle<S>, ifc_is_functor_ref<S>>>
 {
     using type = S;
-    USE_IMLPEMENTATION_TYPEDEFS
+    DEFAULT_INVOCATION_TYPEDEFS
 
     static return_t apply(host_t, type ifc, args_t args)
     {
@@ -131,7 +131,7 @@ template <class S>
 struct default_invocation<S, first_if_t<void, ifc_is_functor_ptr<S>>>
 {
     using type = S;
-    USE_IMLPEMENTATION_TYPEDEFS
+    DEFAULT_INVOCATION_TYPEDEFS
 
     static return_t apply(host_t, type ifc, args_t args)
     {
@@ -140,12 +140,11 @@ struct default_invocation<S, first_if_t<void, ifc_is_functor_ptr<S>>>
     }
 };
 
-} // detail
 
 
 
 template <class S>
-struct invocation<S, detail::enable_default_invocation<S>> : detail::default_invocation<ifc_pointer_t<S>> {};
+struct invocation<S, detail::enable_default_invocation<S>> : default_invocation<ifc_pointer_t<S>> {};
 
 template <class S>
 struct invocation<S, detail::enable_custom_invocation<S>> : custom_invocation<ifc_pointer_t<S>> {};
@@ -231,4 +230,6 @@ using invocation_unqf_host_t = remove_cvref_t<invocation_host_t<T>>;
 }  // namespace reflect
 }  // namespace zmbt
 
+
+#undef DEFAULT_INVOCATION_TYPEDEFS
 #endif  // ZMBT_REFLECT_INTERFACE_PLUGIN_DEFAULT_HPP_

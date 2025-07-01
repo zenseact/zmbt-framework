@@ -18,12 +18,15 @@
 #include <type_traits>
 
 
-#include "signal_operator_handler.hpp"
 #include "test_failure.hpp"
 #include "trigger.hpp"
+#include "generator.hpp"
+#include "channel_kind.hpp"
 
 
 namespace zmbt {
+
+
 
 
 /// Data container for the Environment
@@ -34,91 +37,41 @@ struct EnvironmentData {
 
     using shared_data_record = std::pair<std::type_index, std::shared_ptr<void>>;
     using shared_data_table = std::map<boost::json::string, shared_data_record>;
-    shared_data_table shared;
-
-
     using FailureHandler = std::function<void(boost::json::value const&)>;
+
+
+
+
+    static boost::json::value init_json_data();
+
+    shared_data_table shared;
     FailureHandler failure_handler {default_test_failure};
-
-
-    static boost::json::value init_json_data()
-    {
-        return {
-            {"interface_records", boost::json::object()},
-            {"prototypes"       , boost::json::object()},
-            {"vars"             , boost::json::object()},
-            {"refs"             , boost::json::object()}
-        };
-    }
     JsonNode json_data {init_json_data()};
 
     std::map<boost::json::string, std::function<void()>> callbacks;
     std::map<boost::json::string, Trigger> triggers;
     std::map<interface_id, TriggerIfc> trigger_ifcs;
     std::map<object_id, TriggerObj> trigger_objs;
-    std::map<boost::json::string, SignalOperatorHandler> operators;
+    std::map<object_id,                  // ifc
+        std::map<interface_id,           // obj
+        std::map<ChannelKind,            // grp
+        std::map<boost::json::string,    // jptr
+        std::pair<Generator::Shared, lang::Expression>>>>> input_generators;
+
 
     mutex_t mutable mutex;
 
-    EnvironmentData()
-    {
-    }
+    EnvironmentData();
 
-    EnvironmentData(EnvironmentData &&o)
-    {
-        lock_t lock(o.mutex);
-        shared = std::move(o.shared);
-        json_data = std::move(o.json_data);
-        callbacks = std::move(o.callbacks);
-        operators = std::move(o.operators);
-        failure_handler = std::move(o.failure_handler);
-    }
+    EnvironmentData(EnvironmentData &&o);
 
-    EnvironmentData& operator=(EnvironmentData &&o)
-    {
-        if (this != &o)
-        {
-            lock_t l_lock(mutex, std::defer_lock);
-            lock_t r_lock(o.mutex, std::defer_lock);
-            std::lock(l_lock, r_lock);
-            shared = std::move(o.shared);
-            json_data = std::move(o.json_data);
-            callbacks = std::move(o.callbacks);
-            operators = std::move(o.operators);
-            failure_handler = std::move(o.failure_handler);
-        }
-        return *this;
-    }
+    EnvironmentData& operator=(EnvironmentData &&o);
 
-    EnvironmentData(EnvironmentData const& o)
-    {
-        lock_t lock(o.mutex);
-        shared = o.shared;
-        json_data = o.json_data;
-        callbacks = o.callbacks;
-        operators = o.operators;
-        failure_handler = o.failure_handler;
-    }
+    EnvironmentData(EnvironmentData const& o);
 
-    EnvironmentData& operator=(EnvironmentData const& o)
-    {
-        if (this != &o)
-        {
-            lock_t l_lock(mutex, std::defer_lock);
-            lock_t r_lock(o.mutex, std::defer_lock);
-            std::lock(l_lock, r_lock);
-            shared = o.shared;
-            json_data = o.json_data;
-            callbacks = o.callbacks;
-            operators = o.operators;
-            failure_handler = o.failure_handler;
-        }
-        return *this;
-    }
+    EnvironmentData& operator=(EnvironmentData const& o);
 
-
-    virtual ~EnvironmentData() {
-    }
+    virtual ~EnvironmentData();
 };
 
 

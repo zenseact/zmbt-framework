@@ -157,10 +157,10 @@ using is_nothrow_constructible = std::is_nothrow_constructible<T, Args...>;
 
 
 template <class T>
-using remove_cvref = remove_cv<remove_reference_t<T>>;
+using remove_cvref_t = remove_cv_t<remove_reference_t<T>>;
 
 template <class T>
-using remove_cvref_t = typename remove_cvref<T>::type;
+using remove_cvptr_t = remove_cv_t<remove_pointer_t<T>>;
 
 
 template< bool B, class T = void >

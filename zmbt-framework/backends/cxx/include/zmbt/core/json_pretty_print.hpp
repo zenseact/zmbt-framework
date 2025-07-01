@@ -22,7 +22,7 @@ namespace zmbt {
  * @param indent initial indent
  * @return std::ostream&
  */
-std::ostream& pretty_print(std::ostream& os, boost::json::value const& jv, std::string indent = "");
+std::ostream& pretty_print(std::ostream& os, boost::json::value const& jv, int const indent = 0);
 
 
 

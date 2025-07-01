@@ -1,0 +1,1373 @@
+# (c) Copyright 2024-2025 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+keyword_groups:
+
+  Internal:
+    defaults:
+      internal: true
+    keywords:
+      - name: literal
+        brief: Literal value
+        details: |-
+          Literal value keyword with no expression API.
+          in evaluation context works as Eq(x)
+      - name: void
+        brief: empty value
+
+  Constants:
+    defaults:
+      signature: Const
+      domain: null
+      codomain: real
+      imports:
+        cxx:
+          - limits
+          - boost/math/constants/constants.hpp
+    keywords:
+      - name: noop
+        brief: No operation
+        details: |-
+          Returns true without input validation.
+          Used in place of matchers for uninteresting signals.
+        domain: any
+        codomain: any
+        aliases: [ '_' ]
+        codegen-value:
+          cxx: 'true'
+
+      - name: 'null'
+        brief: Null value
+        domain: any
+        codomain: any
+        codegen-value:
+          cxx: 'nullptr'
+
+      - name: 'true'
+        brief: Logical true
+        symbol: T
+        codomain: bool
+        codegen-value:
+          cxx: 'true'
+
+      - name: 'false'
+        brief: Logical false
+        symbol: ⊥
+        codomain: bool
+        codegen-value:
+          cxx: 'false'
+
+      - name: pi
+        brief: Pi constant
+        symbol: π
+        codegen-value:
+          cxx: boost::math::constants::pi<double>()
+
+      - name: e
+        brief: Euler's number
+        codegen-value:
+          cxx: boost::math::constants::e<double>()
+
+      - name: inf
+        brief: Infinity
+        codegen-value:
+          cxx: std::numeric_limits<double>::infinity()
+
+      - name: eps
+        brief: Machine epsilon
+        codegen-value:
+          cxx: std::numeric_limits<double>::epsilon()
+
+      - name: nan
+        enum: NaN
+        brief: Not a number
+        codegen-value:
+          cxx: std::numeric_limits<double>::quiet_NaN()
+
+      - name: thread
+        brief: Thread id
+        details: |-
+          Not really a constant, but useful for
+          branching the test input conditions.
+        codegen-value:
+          cxx: zmbt::get_tid().c_str()
+
+
+  Math Functions:
+    defaults:
+      signature: Unary
+      domain: real
+      codomain: real
+      imports:
+        cxx:
+          - cmath
+          - complex
+    keywords:
+
+      - name: sin
+        brief: Sinus function
+        codegen-value:
+          cxx: json_from(std::sin(dejsonize<std::complex<double>>(x)))
+
+      - name: cos
+        brief: Cosinus function
+        codegen-value:
+          cxx: json_from(std::cos(dejsonize<std::complex<double>>(x)))
+
+      - name: tan
+        brief: Tangens function
+        codegen-value:
+          cxx: json_from(std::tan(dejsonize<std::complex<double>>(x)))
+
+      - name: asin
+        brief: Arcsin function
+        codegen-value:
+          cxx: json_from(std::asin(dejsonize<std::complex<double>>(x)))
+
+      - name: acos
+        brief: Arccos function
+        codegen-value:
+          cxx: json_from(std::acos(dejsonize<std::complex<double>>(x)))
+
+      - name: atan
+        brief: Arctan function
+        codegen-value:
+          cxx: json_from(std::atan(dejsonize<std::complex<double>>(x)))
+
+      - name: sinh
+        brief: Hyperbolic sin
+        codegen-value:
+          cxx: json_from(std::sinh(dejsonize<std::complex<double>>(x)))
+
+      - name: cosh
+        brief: Hyperbolic cos
+        codegen-value:
+          cxx: json_from(std::cosh(dejsonize<std::complex<double>>(x)))
+
+      - name: tanh
+        brief: Hyperbolic tan
+        codegen-value:
+          cxx: json_from(std::tanh(dejsonize<std::complex<double>>(x)))
+
+      - name: asinh
+        brief: Hyperbolic arcsin
+        codegen-value:
+          cxx: json_from(std::asinh(dejsonize<std::complex<double>>(x)))
+
+      - name: acosh
+        brief: Hyperbolic arccos
+        codegen-value:
+          cxx: json_from(std::acosh(dejsonize<std::complex<double>>(x)))
+
+      - name: atanh
+        brief: Hyperbolic arctan
+        codegen-value:
+          cxx: json_from(std::atanh(dejsonize<std::complex<double>>(x)))
+
+      - name: exp
+        brief: Exponential (e^x)
+        codegen-value:
+          cxx: json_from(std::exp(dejsonize<std::complex<double>>(x)))
+
+      - name: erf
+        brief: Error function
+        codegen-value:
+          cxx: std::erf(dejsonize<double>(x))
+
+      - name: erfc
+        brief: Error function complement
+        codegen-value:
+          cxx: std::erfc(dejsonize<double>(x))
+
+      - name: gamma
+        brief: Gamma function
+        codegen-value:
+          cxx: std::tgamma(dejsonize<double>(x))
+
+      - name: abs
+        brief: Absolute value
+        codegen-value:
+          cxx: json_from(std::abs(dejsonize<std::complex<double>>(x)))
+
+      - name: ceil
+        codegen-value:
+          cxx: std::ceil(dejsonize<double>(x))
+
+      - name: floor
+        codegen-value:
+          cxx: std::floor(dejsonize<double>(x))
+
+      - name: round
+        brief: Round to nearest integer
+        details: |-
+          Hint: To round to ndigits precision after the decimal point,
+          use `Mul(ndigits) | Round | Div(ndigits)` combo.
+        codegen-value:
+          cxx: std::round(dejsonize<double>(x))
+
+      - name: sqrt
+        brief: Square root
+        codegen-value:
+          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>(x)))
+
+      - name: sign
+        domain: real
+        codomain: int
+        codegen-value:
+          cxx: 'dejsonize<double>(x) >= 0 ? 1 : -1'
+
+  Arithmetic Operators:
+    defaults:
+      signature: Binary
+      tags: [op]
+      domain: [real, real]
+      codomain: real
+    keywords:
+      - name: neg
+        signature: Unary
+        brief: Negate
+        domain: real
+        codomain: real
+        examples: |-
+          42 | Neg ↦ -42
+
+      - name: add
+        brief: Addition
+        symbol: '+'
+        examples: |-
+          [2, -1] | Add ↦ 1
+          2 | Add(-1) ↦ 1
+
+      - name: sub
+        brief: Subtraction
+        symbol: '-'
+        examples: |-
+          [2, 1] | Sub ↦ -1
+          2 | Sub(1) ↦ 1
+
+      - name: mul
+        brief: Multiplication
+        symbol: '*'
+        examples: |-
+          [2, 3] | Mul ↦ 6
+          2 | Mul(3) ↦ 6
+
+      - name: div
+        brief: Division
+        symbol: '/'
+        details: |-
+          1. $[ ] \mapsto [x, y] \mapsto x / y$
+          2. $[y] \mapsto [x]    \mapsto x / y$
+        examples: |-
+          [6, 3] | Div ↦ 2
+          6 | Div(3) ↦ 2
+
+      - name: pow
+        brief: To power
+        details: |-
+          X to power p
+            1. $[ ] \mapsto [x, p] \mapsto x^p$
+            2. $[p] \mapsto [x]    \mapsto x^p$
+        examples: |-
+          [2, 3] | Pow ↦ 8
+          2 | Pow(3) ↦ 8
+
+      - name: log
+        brief: Logarithm
+        details: |-
+          Logarithm with base b:
+            1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
+            2. $[b] \mapsto [x]    \mapsto log_b(x)$
+        examples: |-
+          [8, 2] | Log ↦ 3
+          8 | Log(2) ↦ 3
+
+      - name: mod
+        brief: Modulo
+        symbol: '%'
+        details: |-
+          Modulo of x:
+            1. $[ ] \mapsto [x, m] \mapsto x % m$
+            2. $[m] \mapsto [x]    \mapsto x % m$
+        examples: |-
+          [7, 4] | Mod ↦ 3
+          7 | Mod(4) ↦ 3
+
+      - name: quot
+        brief: Quotient
+        symbol: '//'
+        details: |-
+          Quotient of x:
+            1. $[ ] \mapsto [x, d] \mapsto x // d$
+            2. $[d] \mapsto [x]    \mapsto x // d$
+        examples: |-
+          [7, 4] | Quot ↦ 1
+          7 | Quot(4) ↦ 1
+
+      - name: b-not
+        signature: Unary
+        brief: Bitwise not
+        enum: BitNot
+        symbol: '~'
+        domain: uint
+        codomain: uint
+        examples: |-
+          0b1010 | BitNot ↦ 0b0101
+
+      - name: b-and
+        brief: Bitwise and
+        enum: BitAnd
+        symbol: '&'
+        domain: [uint, uint]
+        codomain: uint
+        examples: |-
+          [0b1010, 0b1100] | BitAnd ↦ 0b1000
+
+      - name: b-or
+        brief: Bitwise or
+        enum: BitOr
+        symbol: '|'
+        domain: [uint, uint]
+        codomain: uint
+        examples: |-
+          [0b1010, 0b1100] | BitOr ↦ 0b1110
+
+      - name: b-xor
+        brief: Bitwise xor
+        enum: BitXor
+        symbol: '^'
+        domain: [uint, uint]
+        codomain: uint
+        examples: |-
+          [0b1010, 0b1100] | BitXor ↦ 0b0110
+
+      - name: b-lshift
+        brief: Bitwise left shift
+        enum: BitLshift
+        symbol: '<<'
+        details: |-
+          1. $[ ] \mapsto [x, s] \mapsto x \texttt{ << } s$
+          2. $[s] \mapsto [x]    \mapsto x \texttt{ << } s$
+        domain: [uint, uint]
+        codomain: uint
+        examples: |-
+          [0b1010, 2] | BitLshift ↦ 0b101000
+
+      - name: b-rshift
+        brief: Bitwise right shift
+        enum: BitRshift
+        symbol: '>>'
+        details: |-
+          1. $[ ] ↦ [x, s] ↦ x \texttt{ >> } s$
+          2. $[s] ↦ [x]    ↦ x \texttt{ >> } s$
+        domain: [uint, uint]
+        codomain: uint
+        examples: |-
+          [0b1010, 2] | BitRshift ↦ 0b0010
+
+  Relation Operators:
+    defaults:
+      signature: Binary
+      domain: [any, any]
+      codomain: bool
+      tags: [op]
+    keywords:
+
+      - name: eq
+        brief: Is equal
+        symbol: '='
+        examples: |-
+          [1, 1] | Eq ↦ true
+          41 | Eq(42) ↦ false
+
+
+      - name: ne
+        brief: Not equal
+        symbol: '≠'
+        examples: |-
+          [1, 2] | Ne ↦ true
+          42 | Ne(42) ↦ false
+
+      - name: lt
+        brief: Lesser than
+        symbol: '<'
+        commutative-dual: ge
+        examples: |-
+          [1, 2] | Lt ↦ true
+          41 | Lt(42) ↦ false
+
+      - name: le
+        brief: Lesser or equal
+        symbol: '≤'
+        commutative-dual: gt
+        examples: |-
+          [1, 2] | Le ↦ true
+          42 | Le(42) ↦ true
+
+      - name: gt
+        brief: Greater than
+        symbol: '>'
+        commutative-dual: le
+        examples: |-
+          [2, 1] | Gt ↦ true
+          43 | Gt(42) ↦ false
+
+      - name: ge
+        brief: Greater or equal
+        symbol: '≥'
+        commutative-dual: lt
+        examples: |-
+          [2, 1] | Ge ↦ true
+          42 | Ge(42) ↦ true
+
+      - name: approx
+        brief: Floating point approximately equal
+        details: |-
+          Based on numpy.isclose:
+            abs(x - ref) <= (atol + rtol * abs(ref))
+
+          Rhs parameters:
+            ref: reference value
+            rtol: relative tolerance, default = 1e-05
+            atol: absolute tolerance, default = 1e-08
+
+          Rhs dynamic evaluation:
+            1. ref                -> [ref, default, default]
+            2. [ref]              -> [ref, default, default]
+            3. [ref, rtol]        -> [ref, rtol   , default]
+            4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]
+
+        aliases: [ 'near' ]
+        domain: [real, list]
+        codomain: bool
+        commutative: false
+        examples: |-
+          [42, 42] | Approx ↦ true
+          42 | Approx(42.0 + 1e-09) ↦ true
+          42 | Approx(42.001) ↦ false
+
+          Relative tolerance 1e-03
+          pi | Approx([3.14, 0.001]) ↦ true
+          Absolute tolerance 0.01
+          pi | Approx([3.14, 0, 0.01]) ↦ true
+
+  Set Operators:
+    defaults:
+      signature: Binary
+      domain: [set, set]
+      codomain: set
+    keywords:
+
+      - name: union
+        brief: Set union
+        symbol: '∪'
+        examples: |-
+          [[1, 2], [2, 3]] | Union ↦ [1, 2, 3]
+          [1, 2] | Union([2, 3]) ↦ [1, 2, 3]
+
+      - name: intersect
+        brief: Set intersection
+        symbol: '∩'
+        examples: |-
+          [[1, 2], [2, 3]] | Intersect ↦ [2]
+          [1, 2] | Intersect([2, 3]) ↦ [2]
+
+      - name: set-diff
+        enum: Diff
+        brief: Set difference
+        examples: |-
+          [[1, 2], [2, 3]] | Diff ↦ [1]
+          [1, 2] | Diff([2, 3]) ↦ [1]
+
+  Set Relation Operators:
+    defaults:
+      signature: Binary
+      tags: [op]
+      domain: [set, set]
+      codomain: bool
+    keywords:
+
+      - name: set-eq
+        enum: SetEq
+        brief: Equal as set
+        symbol: '≡'
+        examples: |-
+          [[1, 2], [2, 1]] | SetEq ↦ true
+          [1, 2] | SetEq([2, 1]) ↦ true
+
+      - name: subset
+        brief: Is subset
+        symbol: '⊆'
+        commutative-dual: p-superset
+        examples: |-
+          [[1, 2], [1, 2, 3]] | Subset ↦ true
+          [1, 2] | Subset([1, 2, 3]) ↦ true
+
+          [[1, 2, 3], [2, 3]] | Subset ↦ false
+          [1, 2, 3] | Subset([2, 3]) ↦ false
+
+          [[1, 2], []] | Subset ↦ true
+          [[], []] | Subset ↦ true
+
+      - name: superset
+        brief: is superset
+        symbol: '⊇'
+        commutative-dual: p-subset
+        examples: |-
+          [[1, 2, 3], [1, 2]] | Superset ↦ true
+          [1, 2, 3] | Superset([1, 2]) ↦ true
+
+          [[2, 3], [1, 2, 3]] | Superset ↦ false
+          [2, 3] | Superset([1, 2, 3]) ↦ false
+
+          [[], [1, 2]] | Superset ↦ true
+          [[], []] | Superset ↦ true
+
+      - name: p-subset
+        enum: ProperSubset
+        brief: Is proper subset
+        symbol: '⊂'
+        commutative-dual: superset
+        examples: |-
+          [[1, 2], [1, 2, 3]] | ProperSubset ↦ true
+          [1, 2] | ProperSubset([1, 2, 3]) ↦ true
+
+          [[1, 2, 3], [2, 3]] | ProperSubset ↦ false
+          [1, 2, 3] | ProperSubset([2, 3]) ↦ false
+
+          [[1, 2], []] | ProperSubset ↦ true
+          [[], []] | ProperSubset ↦ false
+
+      - name: p-superset
+        enum: ProperSuperset
+        brief: Is proper superset
+        symbol: '⊃'
+        commutative-dual: subset
+        examples: |-
+          [[1, 2, 3], [1, 2]] | ProperSuperset ↦ true
+          [1, 2, 3] | ProperSuperset([1, 2]) ↦ true
+
+          [[2, 3], [1, 2, 3]] | ProperSuperset ↦ false
+          [2, 3] | ProperSuperset([1, 2, 3]) ↦ false
+
+          [[], [1, 2]] | ProperSuperset ↦ true
+          [[], []] | ProperSuperset ↦ false
+
+      - name: in
+        brief: Element is in
+        symbol: '∈'
+        domain: [any, set]
+        commutative-dual: ni
+        examples: |-
+          [1, [1, 2]] | In ↦ true
+          3 | In([1, 2]) ↦ false
+
+      - name: not-in
+        enum: NotIn
+        brief: Element is not in
+        symbol: '∉'
+        domain: [any, set]
+        commutative-dual: not-ni
+        examples: |-
+          [3, [1, 2]] | NotIn ↦ true
+          1 | NotIn([1, 2]) ↦ false
+
+      - name: ni
+        brief: Contains element
+        enum: Ni
+        symbol: '∋'
+        aliases: [ 'contains' ]
+        commutative-dual: in
+        domain: [set, any]
+        examples: |-
+          [[1, 2], 1] | Ni ↦ true
+          3 | Ni([1, 2]) ↦ false
+
+      - name: not-ni
+        brief: Not contains element
+        enum: NotNi
+        symbol: '∌'
+        commutative-dual: not-in
+        domain: [set, any]
+        examples: |-
+          [[1, 2], 3] | NotNi ↦ true
+          1 | NotNi([1, 2]) ↦ false
+
+  Branching Operators:
+    defaults:
+      signature: Binary
+      domain: [any, any]
+      codomain: any
+      tags: [op]
+    keywords:
+
+      - name: bool
+        signature: Unary
+        brief: Predicate on boolean transform (aka Truthy)
+        symbol: '?'
+        domain: any
+        codomain: bool
+        aliases: [ 'truthy' ]
+        examples: |-
+          42 | Bool ↦ true
+          0 | Bool ↦ false
+          "false" | Bool ↦ true
+          "" | Bool ↦ false
+          [1] | Bool ↦ true
+          [] | Bool ↦ false
+          {} | Bool ↦ false
+          null | Bool ↦ false
+
+      - name: not
+        signature: Unary
+        brief: Logical complement
+        domain: any
+        codomain: bool
+        aliases: [ 'falsy', 'nil' ]
+        examples: |-
+          42 | Nil ↦ false
+          0 | Nil ↦ true
+
+      - name: and
+        brief: Logical and
+        details: |-
+          Generic behavior:
+            if first operand is truthy,
+            returns second operand, otherwise first
+        symbol: ∧
+        examples: |-
+          [true, false] | And ↦ false
+          [true, true] | And ↦ true
+
+          **Generic behavior**:
+
+          ["foo", [42, 43]] | And ↦ [42, 43]
+          [""   , [42, 43]] | And ↦ ""
+
+          13 | And(42) ↦ 42
+          [] | And(42) ↦ []
+
+          **If-Else using composition**:
+
+          true | And(42) | Or(13) ↦ 42
+          false | And(42) | Or(13) ↦ 13
+
+      - name: or
+        brief: Logical or
+        symbol: ∨
+        details: |-
+          Generic behavior:
+            if first operand is truthy,
+            returns first operand, second otherwise
+        examples: |-
+          [true, false] | Or ↦ true
+          [false, false] | Or ↦ false
+
+          **Generic behavior**:
+
+          ["foo", [42, 43]] | Or ↦ "foo"
+          [""   , [42, 43]] | Or ↦ [42, 43]
+
+          13 | Or(42) ↦ 13
+          [] | Or(42) ↦ 42
+
+          **If-Else using composition**:
+
+          true | And(42) | Or(13) ↦ 42
+          false | And(42) | Or(13) ↦ 13
+
+
+  Unary Structural transforms:
+    defaults:
+      signature: Unary
+    keywords:
+      - name: id
+        brief: Identity function
+        domain: any
+        codomain: any
+        examples: |-
+          42 | Id ↦ 42
+
+      - name: transp
+        brief: Transpose multidimensional list, turning rows into columns
+        details: |-
+          May be used to zip sequences of equal length.
+        domain: list[list]
+        codomain: list[list]
+        examples: |-
+          [[1, 2, 3], [4, 5, 6]] | Transp ↦ [[1, 4], [2, 5], [3, 6]]
+
+      - name: cartesian
+        brief: Cartesian product
+        symbol: '×'
+        domain: list[set]
+        codomain: list[list]
+        examples: |-
+          [[1, 2], [3, 4]] | Cartesian ↦ [[1, 3], [1, 4], [2, 3], [2, 4]]
+
+      - name: reverse
+        brief: Reverse sequence
+        domain: list[set]
+        codomain: list[list]
+        examples: |-
+          [1, 2, 3] | Reverse ↦ [3, 2, 1]
+
+      - name: uniques
+        brief: Filter unique elements
+        domain: list
+        codomain: set
+        examples: |-
+          [1, 2, 1, 3, 2] | Uniques ↦ [1, 2, 3]
+
+      - name: items
+        brief: Extract key-value pairs from object
+        domain: object
+        codomain: list[list]
+        examples: |-
+          {"a": 1, "b": 2} | Items ↦ [["a", 1], ["b", 2]]
+
+      - name: keys
+        brief: Extract keys from object
+        domain: object
+        codomain: list
+        examples: |-
+          {"a": 1, "b": 2} | Keys ↦ ["a", "b"]
+
+      - name: values
+        brief: Extract values from object
+        domain: object
+        codomain: list
+        examples: |-
+          {"a": 1, "b": 2} | Values ↦ [1, 2]
+
+      - name: enumerate
+        brief: Enumerate sequence
+        details: |-
+          Enumerate sequence with index.
+        domain: list
+        codomain: list[list]
+        examples: |-
+          [1, 2, 3] | Enumerate ↦ [[0, 1], [1, 2], [2, 3]]
+
+      - name: flatten
+        brief: Flatten nested list
+        domain: list
+        codomain: list
+        examples: |-
+          [[1, 2], [3, 4]] | Flatten ↦ [1, 2, 3, 4]
+
+      - name: to-list
+        brief: Put argument into a list
+        details: Equivalent to At([""])
+        domain: any
+        codomain: list
+        examples: |-
+          42 | List ↦ [42]
+        codegen-value:
+          cxx: boost::json::array{x}
+
+
+  Unary Generators:
+    defaults:
+      signature: Unary
+    keywords:
+      - name: arange
+        brief: Generate range of numbers
+        details: |-
+          Return evenly spaced values within a given interval.
+
+          Parameters:
+            1. start: start value
+            2. stop: stop value
+            3. step: step value
+
+          Parameters dynamic evaluation:
+            1. stop: int            -> [0, stop, 1]
+            2. [start, stop]        -> [start, stop, 1]
+            3. [start, stop, step]  -> [start, stop, step]
+        domain: any
+        codomain: list
+        examples: |-
+          6 | Arange ↦ [0,1,2,3,4,5]
+          [2,6] | Arange ↦ [2,3,4,5]
+          [1,9,2] | Arange ↦ [1,3,5,7]
+          [5,1,-1] | Arange ↦ [5,4,3,2]
+
+          "2:6" | Arange ↦ [2,3,4,5]
+          "1:9:2" | Arange ↦ [1,3,5,7]
+          "5:1:-1" | Arange ↦ [5,4,3,2]
+
+  String Transforms:
+    keywords:
+      - name: parse
+        brief: Parse string as JSON
+        signature: Unary
+        domain: str
+        codomain: any
+        codegen-value:
+          cxx: boost::json::parse(x.as_string())
+        imports:
+          cxx:
+            - boost/json.hpp
+        examples: |-
+          '{"a": 42}' | Parse ↦ {"a": 42}
+
+      - name: serialize
+        aliases: [ str ]
+        brief: Serialize JSON as string
+        signature: Unary
+        domain: any
+        codomain: str
+        codegen-value:
+          cxx: '{boost::json::serialize(x)}'
+        imports:
+          cxx:
+            - boost/json.hpp
+        examples: |-
+          {"a": 42} | Serialize ↦ '{"a":42}'
+
+      - name: re
+        brief: Regular expression match
+        signature: Binary
+        details: If input is not a string, match it's serialized form.
+        aliases: [ 'regex' ]
+        commutative: false
+        domain: [any, str]
+        codomain: bool
+        params:
+          - label: pattern
+        examples: |-
+          ["[0-9]+", "42"] | Re ↦ true
+          "42" | Re("[0-9]+") ↦ true
+
+      - name: format
+        aliases: [ fmt ]
+        brief: Format string with the given parameter list.
+        details: |-
+          Constant expressions are supported for the token list,
+          s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
+        signature: Variadic
+        domain: [str, list]
+        codomain: str
+        examples: |-
+          ["Hello, %s!", ["world"]] | Format ↦ "Hello, world!"
+          "%d + %d = %d" | Format(2,2,4) ↦ "2 + 2 = 4"
+
+  Structural properties:
+    defaults:
+      signature: Unary
+    keywords:
+      - name: card
+        brief: Set cardinality (uniques count)
+        domain: union[list, object]
+        codomain: uint
+        examples: |-
+          [1, 2, 1, 3, 2] | Card ↦ 3
+          {"a": 1, "b": 2} | Card ↦ 2
+
+      - name: size
+        brief: Sequence size
+        domain: union[list, object]
+        codomain: uint
+        examples: |-
+          [1, 1, 1] | Size ↦ 3
+          {"a": 1, "b": 2} | Size ↦ 2
+
+      - name: sum
+        brief: Summation reduction
+        details: Equivalent to Reduce(Add)
+        symbol: Σ
+        domain: list
+        codomain: any
+        examples: |-
+          [1, 2, 3] | Sum ↦ 6
+
+      - name: prod
+        brief: Multiplication reduction
+        details: Equivalent to Reduce(Mul)
+        symbol: Π
+        domain: list
+        codomain: any
+        examples: |-
+          [1, 2, 3] | Prod ↦ 6
+
+      - name: avg
+        brief: Arythmetic average
+        domain: list
+        codomain: any
+        examples: |-
+          [1, 2, 3] | Avg ↦ 2
+
+  Binary Structural transforms:
+    defaults:
+      signature: Binary
+    keywords:
+
+      - name: slide
+        brief: Sliding-window iteration
+        details: |-
+          Sliding window iteration by specified window width.
+        commutative: false
+        domain: [list, int]
+        codomain: list[list]
+        params:
+          - label: window width
+        examples: |-
+          [1,2,3,4,5] | Slide(3) ↦ [[1,2,3],[2,3,4],[3,4,5]]
+          [1,2,3,4,5] | Slide(42) ↦ []
+
+      - name: stride
+        brief: Striding iteration
+        details: |-
+          Striding iteration by specified step width.
+          Reminder subsequence smaller then step width is discarded.
+        commutative: false
+        domain: [list, int]
+        codomain: list[list]
+        params:
+          - label: step width
+        examples: |-
+          [1,2,3,4,5,6] | Stride(2) ↦ [[1,2],[3,4],[5,6]]
+          [1,2,3,4,5] | Stride(3) ↦ [[1,2,3]]
+
+      - name: chunks
+        brief: Split into chunks of specified max width
+        details: |-
+          Similar to Stride, but includes the last subsequence
+          smaller then step width.
+        commutative: false
+        domain: [list, int]
+        codomain: list[list]
+        params:
+          - label: step width
+        examples: |-
+          [1,2,3,4,5,6] | Chunks(2) ↦ [[1,2],[3,4],[5,6]]
+          [1,2,3,4,5] | Chunks(3) ↦ [[1,2,3],[4,5]]
+
+
+      - name: repeat
+        brief: Repeat value in list
+        commutative: false
+        domain: [any, int]
+        codomain: list
+        params:
+          - label: count
+        examples: |-
+          42 | Repeat(3) ↦ [42, 42, 42]
+          1 | Repeat(3) | Repeat(2) ↦ [[1,1,1],[1,1,1]]
+
+
+      - name: concat
+        brief: Concatenate sequences
+        domain: [any, any]
+        aliases: [ cat ]
+        codomain: any
+        examples: |-
+          [[1, 2], [3, 4]] | Concat ↦ [1, 2, 3, 4]
+          "Hello, " | Concat("World!") ↦ "Hello, World!"
+
+
+      - name: push
+        brief: Push element into a front of sequence
+        domain: [any, list]
+        codomain: any
+        examples: |-
+          [[1, 2], 3] | Push ↦ [3, 1, 2]
+          [1, 2] | Push(3) ↦ [3, 1, 2]
+
+      - name: at
+        brief: Transform JSON value with given query
+        details: |-
+          Query evaluation rules:
+
+            1. Array index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
+            2. Array slice: $q: slice \mapsto x: list  \mapsto x[start:stop:step]$
+            3. JSON Pointer: $q: str   \mapsto x: any   \mapsto x_q$
+            4. Array pack: $q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]$
+            5. Object pack:
+              $\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}$
+        commutative: false
+        domain: [any, union: [int, str, list, object]]
+        codomain: any
+        params:
+          - label: query
+        examples: |-
+          **Array index**:
+
+          [1, 2, 3] | At(2) ↦ 3
+          [1, 2, 3] | At(3) ↦ nullptr
+          42 | At(0) ↦ nullptr
+
+          **Array slice**:
+
+          [1,2,3,4,5,6,7,8] | At("::2")     ↦ [1,3,5,7]
+          [1,2,3,4,5,6,7,8] | At("4:")      ↦ [5,6,7,8]
+          [1,2,3,4,5,6,7,8] | At("-1:0:-1") ↦ [8,7,6,5,4,3,2,1]
+
+          **JSON Pointer**:
+
+          "foo" | At("")   ↦ "foo"
+          {"a": 42, "b": 13} | At("/a") ↦ 42
+
+          **Array pack**:
+
+          {"a": 42, "b": 13} | At(["/a", "/b"])  ↦ [42, 13]
+          42 | At([""])          ↦  [42]
+
+          **Object pack**:
+
+          {"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  ↦ {"f": 42, "g": 13}
+          {"a": 42, "b": 13} | At({"$/b": "/a"})           ↦ {"13": 42}
+
+
+      - name: lookup
+        signature: Binary
+        brief: Lookup table function
+        commutative-dual: at
+        details: |-
+          Parametrized at design time with fixed array or object,
+          produces the value at corresponding At query given
+          as eval-time argument.
+          Equivalent to Flip(At(...))
+
+        domain: [union: [int, str, list, object], any]
+
+        codomain: any
+        examples: |-
+          0 | Lookup([1,2,3]) ↦  1
+          "/foo" | Lookup([1,2,3]) ↦  null
+
+
+      - name: c
+        aliases: [let]
+        brief: User-defined constant
+        details: |-
+          Produced expression will return the design-time parameter
+          on evaluation, ignoring input.
+        domain: [any, any]
+        codomain: any
+        examples: |-
+          13 | C(42) ↦ 42
+
+      - name: decorate
+        signature: Special
+        aliases: [cast]
+        brief: Reserialize decorated type as decorator
+        # details: |-
+        domain: [any, any]
+        codomain: any
+
+      - name: undecorate
+        signature: Special
+        aliases: [uncast]
+        brief: Reserialize decorator as decorated type
+        # details: |-
+        domain: [any, any]
+        codomain: any
+
+
+  High-Order:
+    defaults: {}
+    keywords:
+
+      - name: reduce
+        signature: Binary
+        aliases: [ fold ]
+        brief: Reduce sequence with binary operator
+        details: |-
+          To set specific initial value, use composition with Push, e.g.
+          `Push(0) | Reduce(Add)`
+
+          For reverse operation, see Unfold
+        domain: [list, fn]
+        codomain: any
+        examples: |-
+          [-1, 2, 3] | Reduce(Add) ↦  4
+          [-1, 2, 3] | Reduce(Mul) ↦ -6
+
+      - name: map
+        signature: Binary
+        brief: Apply param expr to every element of sequence
+        domain: [list, fn]
+        codomain: list
+        examples: |-
+          [1, 2, 3] | Map(Add(1)) ↦ [2, 3, 4]
+
+
+      - name: filter
+        signature: Binary
+        brief: Filter sequence by predicate param
+        literals-as-eq: true
+        domain: [list, predicate]
+        codomain: list
+        examples: |-
+          [1, 2, 3, 4] | Filter(Gt(2)) ↦ [3, 4]
+
+      - name: count
+        signature: Binary
+        brief: Count matches by predicate param
+        domain: [list, predicate]
+        literals-as-eq: true
+        codomain: uint
+        examples: |-
+          [1, 2, 3, 4] | Count(Gt(2)) ↦ 2
+
+      - name: each
+        signature: Binary
+        brief: Test predicate for each item in a sequence
+        details: Equivalent to `Count(p | Not) | Eq(0)`
+        literals-as-eq: true
+        domain: [list, predicate]
+        codomain: bool
+        examples: |-
+          [1, 2, 3, 4] | Each(Gt(2)) ↦ false
+          [1, 2, 3, 4] | Slide(2) | Each(Lt) ↦ true
+
+      - name: sort
+        signature: Binary
+        brief: 'Sort list by key function'
+        domain: [list, fn]
+        default: Id
+        codomain: list
+        examples: |-
+          [3, 1, 2] | Sort ↦ [1, 2, 3]
+          [3, 1, 2] | Sort(Id) ↦ [1, 2, 3]
+          [-3, 1, -2] | Sort(Abs) ↦ [1, -2, -3]
+          [3, 1, 2] | Sort | Reverse ↦ [3, 2, 1]
+
+      - name: min
+        signature: Binary
+        brief: 'Min value by key function'
+        domain: [list, fn]
+        default: Id
+        codomain: any
+        examples: |-
+          [-3, 1, -2] | Min      ↦  1
+          [-3, 1, -2] | Min(Abs) ↦ -3
+
+      - name: max
+        signature: Binary
+        brief: 'Max value by key function'
+        domain: [list, fn]
+        default: Id
+        codomain: any
+        examples: |-
+          [-3, 1, -2] | Max      ↦  1
+          [-3, 1, -2] | Max(Abs) ↦ -3
+
+      - name: argmin
+        signature: Binary
+        brief: 'Min value index by key function'
+        domain: [list, fn]
+        default: Id
+        codomain: uint
+        examples: |-
+          [-3, 1, -2] | Argmin      ↦ 0
+          [-3, 1, -2] | Argmin(Abs) ↦ 1
+
+      - name: argmax
+        signature: Binary
+        brief: 'Max value index by key function'
+        domain: [list, fn]
+        default: Id
+        codomain: uint
+        examples: |-
+          [-3, 1, -2] | Argmax      ↦ 1
+          [-3, 1, -2] | Argmax(Abs) ↦ 0
+
+      - name: recur
+        signature: Ternary
+        brief: Apply recursion to parameter expr and initial value
+        details: |-
+          `n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
+        domain: any
+        codomain: any
+        params:
+          - type: fn
+          - label: initial
+        examples: |-
+          0 | Recur(Add(1), 0)  ↦  3
+          3 | Recur(Mul(-1), 1) ↦ -1
+
+      - name: unfold
+        signature: Ternary
+        brief: Put results of recursive fn call on initial value into an array
+        details: |-
+          `n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
+        domain: any
+        codomain: list
+        params:
+          - type: fn
+          - label: initial
+        examples: |-
+          3 | Unfold(Add(1),  0) ↦  [0, 1, 2, 3]
+          3 | Unfold(Mul(-1), 1) ↦  [1,-1, 1,-1]
+
+      - name: overload
+        aliases: [ op ]
+        signature: Special
+        brief: Bind type-specific operator handler to function
+        details: |-
+          Expression Overload(op, f) instructs f to use operator op on
+          invocation instead of the default generic.
+
+          Operator parameter singleton can be referenced with string key
+          or constructed in place using type<T> tag.
+
+          This operator handler is propagated downstream to all terminal
+          subexpression in `f`. Result of `f(x)` is also reserialized (undecorated)
+          as operator type, unless f is constant or boolean expression.
+
+        domain: any
+        codomain: any
+        params:
+          - label: operator
+          - type: fn
+        examples: |-
+          [0.5, 2] | Overload("complex", Add(1)) ↦ [1.5, 2]
+
+      - name: bind
+        signature: Variadic
+        brief: '!NOT IMPLEMENTED! Bind design-time parameters'
+        params:
+          - type: fn
+          - label: params
+            type: object
+
+      - name: any
+        signature: Variadic
+        brief: Match any predicate
+        domain: any
+        codomain: bool
+        literals-as-eq: true
+        params:
+          - label: predicates
+            type: list[predicate]
+        examples: |-
+          3 | Any(Gt(2), Lt(0)) ↦ true
+          0 | Any(Gt(2), Lt(0)) ↦ false
+
+      - name: all
+        signature: Variadic
+        brief: Match all predicates
+        domain: any
+        codomain: bool
+        literals-as-eq: true
+        params:
+          - label: predicates
+            type: list[predicate]
+        examples: |-
+          3 | All(Gt(2), Lt(0)) ↦ false
+          2.5 | All(Gt(2), Lt(3)) ↦ true
+
+      - name: saturate
+        signature: Variadic
+        brief: Saturate matches in order
+        domain: list
+        codomain: bool
+        literals-as-eq: true
+        params:
+          - label: predicates
+            type: list[predicate]
+        examples: |-
+          3 | Saturate(Gt(2), Lt(0)) ↦ true
+          0 | Saturate(Gt(2), Lt(0)) ↦ false
+
+          [2,4,8,42,1,2] | Saturate(42, Mod(2)|0) ↦ true
+          [2,4,8,41,2] | Saturate(42, Mod(2)|0) ↦ false
+          [2,4,8,42] | Saturate(42, Mod(2)|0) ↦ false
+
+      - name: compose
+        signature: Variadic
+        brief: Compose functions
+        domain: any
+        codomain: any
+        literals-as-eq: true
+        params:
+          - label: functions
+            type: list[expr]
+        examples: |-
+          3 | Compose(Add(1), Mul(2)) ↦ 7
+          4 | Compose(Add(1), Mul(2)) ↦ 9
+
+          **Infix operator form (pipe)**:
+
+          Add(1) | Mul(2) ≡ Compose(Mul(2), Add(1))
+          3 | Add(1) | Mul(2) ↦ 7
+
+      - name: fork
+        signature: Variadic
+        brief: Pack results from enveloped functions into an array
+        details: |-
+          Allows to combine different properties in a single expression
+        domain: any
+        codomain: list
+        params:
+          - label: functions
+            type: list[expr]
+        examples: |-
+          [1,2,3] | Fork(Reduce(Add), Size) ↦ [6,3]
+
+          **Infix operator form (ampersand):**
+
+          Add(1) & Mul(2) ≡ Fork(Add(1), Mul(2))
+          [1,2,3] | Reduce(Add) & Size ↦ [6,3]
+          [1,2,3] | Reduce(Add) & Size | Div ↦ 2
+
+      - name: flip
+        signature: Binary
+        brief: Flips design-time and eval-time parameters.
+        details: |-
+          Useful for binding lhs operands to non-commutative
+          operators. Unlike Haskell's flip, won't change the
+          order or eval-time parameters - for that case use
+          the Reverse keyword instead.
+        domain: [fn, any]
+        codomain: any
+        examples: |-
+          2 | Div(1) ↦ 2
+          2 | Flip(Div(1)) ↦ 0.5
+
+
+      - name: try
+        signature: Binary
+        brief: Evaluate function and return result or null if it throws
+        domain: [fn, any]
+        examples: |-
+          42 | Try(Add(1)) ↦ 43
+          "foo" | Try(Add(1)) ↦ null
+
+      - name: try-catch
+        signature: Binary
+        brief: Evaluate function and return result or error info if it throws
+        domain: [fn, any]
+        examples: |-
+          `42 | TryCatch(Div(0))` $\mapsto$ `{
+              "err": "zero division",
+              "fn": ":div",
+              "x": 42
+          }`
+
+  Evaluation handlers:
+    defaults:
+      signature: Binary
+      codomain: any
+
+    keywords:
+      - name: default
+        aliases: [ d ]
+        brief: Return x if not null, else return default value
+        domain: [any, any]
+        codegen-value:
+          cxx: 'x.is_null() ? params() : x'
+        examples: |-
+          null | Default(42) ↦ 42
+          13 | Default(42) ↦ 13
+
+      - name: error
+        brief: Error
+        signature: Special
+        details: |-
+          Error object (work in progress)
+        codegen-value:
+          cxx: underlying()

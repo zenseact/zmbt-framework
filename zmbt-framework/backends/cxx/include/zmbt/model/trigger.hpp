@@ -9,6 +9,7 @@
 
 #include "zmbt/model/exceptions.hpp"
 #include "zmbt/core.hpp"
+#include "zmbt/reflect.hpp"
 
 namespace zmbt {
 
@@ -144,7 +145,7 @@ public:
 
             args_t test_args = convert_tuple_to<args_t>(stored_args);
 
-            auto ret = apply_fn<return_t>([obj, ifc_ptr, test_args]() {
+            auto ret = apply_fn<return_t>([obj, ifc_ptr, test_args]() -> return_t {
                 if (is_member_function_pointer<I>::value && !obj) {
                     throw environment_error("invoking mfp trigger with null object");
                 }

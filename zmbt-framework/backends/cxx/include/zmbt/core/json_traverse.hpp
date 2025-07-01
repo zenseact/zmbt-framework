@@ -20,16 +20,16 @@ namespace zmbt {
 /// Boost JSON value depth-first traverser
 class JsonTraverse
 {
-    bool traverse(boost::json::value const& v, std::string const jptr) const;
+    void traverse(boost::json::value const& v, std::string const jptr) const;
 public:
 
     typedef std::function<bool(boost::json::value const&, std::string const)> visitor_fn;
 
     /// @brief Construct JSON traverser
-    /// @param visit JSON node visitor: (node, JSON pointer, output) -> early stop
+    /// @param visit JSON node visitor: (node, JSON pointer, output) -> node traverse stop
     JsonTraverse(visitor_fn visit) : visit_{visit} {}
 
-    bool operator()(boost::json::value const& v) const
+    void operator()(boost::json::value const& v) const
     {
         return traverse(v, "");
     }
