@@ -30,6 +30,10 @@ namespace {
 std::set<Keyword> const NotImplemented {
     Keyword::Bind,
     Keyword::Void,
+    Keyword::Find,
+    Keyword::FindPtr,
+    Keyword::FindIdx,
+    Keyword::Delete,
 };
 
 

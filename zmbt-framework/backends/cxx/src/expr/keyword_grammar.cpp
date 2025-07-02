@@ -177,6 +177,8 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "cat", Keyword::Concat)
     (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
     (ZMBT_KEYWORD_PREFIX "at", Keyword::At)
+    (ZMBT_KEYWORD_PREFIX "delete", Keyword::Delete)
+    (ZMBT_KEYWORD_PREFIX "del", Keyword::Delete)
     (ZMBT_KEYWORD_PREFIX "lookup", Keyword::Lookup)
     (ZMBT_KEYWORD_PREFIX "c", Keyword::C)
     (ZMBT_KEYWORD_PREFIX "let", Keyword::C)
@@ -191,6 +193,9 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "count", Keyword::Count)
     (ZMBT_KEYWORD_PREFIX "each", Keyword::Each)
     (ZMBT_KEYWORD_PREFIX "sort", Keyword::Sort)
+    (ZMBT_KEYWORD_PREFIX "find", Keyword::Find)
+    (ZMBT_KEYWORD_PREFIX "find-ptr", Keyword::FindPtr)
+    (ZMBT_KEYWORD_PREFIX "find-idx", Keyword::FindIdx)
     (ZMBT_KEYWORD_PREFIX "min", Keyword::Min)
     (ZMBT_KEYWORD_PREFIX "max", Keyword::Max)
     (ZMBT_KEYWORD_PREFIX "argmin", Keyword::Argmin)
@@ -335,6 +340,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
     case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "push"; break; }
     case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
+    case Keyword::Delete: { v = ZMBT_KEYWORD_PREFIX "delete"; break; }
     case Keyword::Lookup: { v = ZMBT_KEYWORD_PREFIX "lookup"; break; }
     case Keyword::C: { v = ZMBT_KEYWORD_PREFIX "c"; break; }
     case Keyword::Decorate: { v = ZMBT_KEYWORD_PREFIX "decorate"; break; }
@@ -345,6 +351,9 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Count: { v = ZMBT_KEYWORD_PREFIX "count"; break; }
     case Keyword::Each: { v = ZMBT_KEYWORD_PREFIX "each"; break; }
     case Keyword::Sort: { v = ZMBT_KEYWORD_PREFIX "sort"; break; }
+    case Keyword::Find: { v = ZMBT_KEYWORD_PREFIX "find"; break; }
+    case Keyword::FindPtr: { v = ZMBT_KEYWORD_PREFIX "find-ptr"; break; }
+    case Keyword::FindIdx: { v = ZMBT_KEYWORD_PREFIX "find-idx"; break; }
     case Keyword::Min: { v = ZMBT_KEYWORD_PREFIX "min"; break; }
     case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
     case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }

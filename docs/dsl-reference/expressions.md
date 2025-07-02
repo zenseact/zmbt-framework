@@ -1347,6 +1347,27 @@ Query evaluation rules:
  * `{"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  `$\mapsto$` {"f": 42, "g": 13}`
  * `{"a": 42, "b": 13} | At({"$/b": "/a"})           `$\mapsto$` {"13": 42}`
 
+### Delete
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+*Aliases*: del
+
+Delete elements from structure by given query
+
+Possible queries:
+  1. Array index (negative resolves as reverse)
+  2. Array slice $q
+  3. JSON Pointer
+  4. List of queries
+
+*Examples*:
+
+ * `[1,2,3,4,5] | Del(2) `$\mapsto$` [1,2,4,5]`
+ * `[1,2,3,4,5] | Del("1:-1") `$\mapsto$` [1,5]`
+ * `[[1, 2], 3] | Del("/0/1") `$\mapsto$` [[1], 3]`
+ * `{"a": {"b": [1,2,3]}} | Del({"/a/b/0", "/a/b/1"}) `$\mapsto$` {"a": {"b": [3]}}`
+
 ### Lookup
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
@@ -1484,6 +1505,47 @@ Sort list by key function
  * `[3, 1, 2] | Sort(Id) `$\mapsto$` [1, 2, 3]`
  * `[-3, 1, -2] | Sort(Abs) `$\mapsto$` [1, -2, -3]`
  * `[3, 1, 2] | Sort | Reverse `$\mapsto$` [3, 2, 1]`
+
+### Find
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Find the first element that satisfies given predicate
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | Find(Ge(2)) `$\mapsto$`  nullptr`
+ * `[-3, 1,  4] | Find(Ge(2)) `$\mapsto$`  4`
+
+### FindPtr
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Find json pointer of the first element that satisfies given predicate
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | FindPtr(Ge(2)) `$\mapsto$`  nullptr`
+ * `[-3, 1,  4] | FindPtr(Ge(2)) `$\mapsto$`  "/2"`
+
+### FindIdx
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Find index of the first element that satisfies given predicate
+
+Similar to FindPtr, but will integer index or nullptr for non-indexable input.
+Objects are processed as list of key-value pairs.
+
+*Examples*:
+
+ * `[-3, 1, -2] | FindIdx(Ge(2)) `$\mapsto$`  nullptr`
+ * `[-3, 1,  4] | FindIdx(Ge(2)) `$\mapsto$`  2`
 
 ### Min
 

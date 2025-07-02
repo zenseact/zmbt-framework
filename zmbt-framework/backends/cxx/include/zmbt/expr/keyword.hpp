@@ -335,6 +335,9 @@ enum class Keyword
     /// at
     At,
 
+    /// delete
+    Delete,
+
     /// lookup
     Lookup,
 
@@ -364,6 +367,15 @@ enum class Keyword
 
     /// sort
     Sort,
+
+    /// find
+    Find,
+
+    /// find-ptr
+    FindPtr,
+
+    /// find-idx
+    FindIdx,
 
     /// min
     Min,

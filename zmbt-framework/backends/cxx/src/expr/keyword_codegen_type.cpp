@@ -139,6 +139,9 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Count:
     case Keyword::Each:
     case Keyword::Sort:
+    case Keyword::Find:
+    case Keyword::FindPtr:
+    case Keyword::FindIdx:
     case Keyword::Min:
     case Keyword::Max:
     case Keyword::Argmin:
