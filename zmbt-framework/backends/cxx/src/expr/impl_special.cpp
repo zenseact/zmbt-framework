@@ -108,6 +108,7 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
             else if (value.is_object())
             {
                 // lookup table query
+                // FIXME: use kvpair index
                 query = value.get_object().at(boost::json::serialize(at));
             }
         }
@@ -185,6 +186,7 @@ V eval_impl<Keyword::At>(V const& x, V const& param, E::EvalContext const& conte
     boost::json::value const q = E(x).eval();
     return query_at(q, param);
 }
+
 
 template <>
 V eval_impl<Keyword::Lookup>(V const& x, V const& param, E::EvalContext const& context)
@@ -702,6 +704,125 @@ V eval_impl<Keyword::Reverse>(V const& x, V const& param, E::EvalContext const& 
     return out;
 }
 
+void delete_impl(V const& at, V& x)
+{
+    if(at == "")
+    {
+        x.emplace_null();
+        return;
+    }
+
+    auto x_as_array = x.if_array();
+    auto x_as_object = x.if_object();
+
+    auto const N = x_as_array ? x_as_array->size() : x_as_object ? x_as_object->size() : 0;
+
+
+    if (auto const delete_range = at.if_array())
+    {
+        boost::json::array sorted_delete_range;
+        auto not_number = std::find_if(delete_range->cbegin(), delete_range->cend(), [](V const& v){ return not v.is_number(); });
+        if (not_number == delete_range->cend())
+        {
+            sorted_delete_range = *delete_range;
+        }
+        else
+        {
+            sorted_delete_range.reserve(delete_range->size());
+
+            for (auto const& el: *delete_range)
+            {
+                if (el.is_string()) { sorted_delete_range.push_back(el); }
+                else if (el.is_number()) sorted_delete_range.push_back(zmbt::format("/%d", el).c_str());
+            }
+        }
+
+        // handling nested JSON ptrs
+        std::stable_sort(sorted_delete_range.begin(), sorted_delete_range.end(), [](V const& a, V const& b){ return not zmbt::lang::Operator::generic_less(a, b);});
+
+        for (auto const& el: sorted_delete_range)
+        {
+            delete_impl(el, x);
+        }
+    }
+
+    else if (not x.is_structured())
+    {
+        return;
+    }
+    else if (at.is_number())
+    {
+        std::size_t idx{};
+        switch (at.kind())
+        {
+        case boost::json::kind::int64:
+        case boost::json::kind::double_:
+            {
+                std::int64_t at_idx = boost::json::value_to<std::int64_t>(at);
+                idx = (at_idx >= 0) ? at_idx : (at_idx + N); // TODO: handle overflow
+            }
+            break;
+        case boost::json::kind::uint64:
+            idx = at.get_uint64();
+        default:
+            break;
+        }
+        if (idx >= N) return;
+
+        if (x_as_array)
+        {
+            auto pos = x_as_array->cbegin() + idx;
+            x_as_array->erase(pos, pos + 1);
+        }
+        else if (x_as_object)
+        {
+            auto pos = x_as_object->cbegin() + idx;
+            x_as_object->erase(pos);
+        }
+    }
+    else if (auto const delete_at_string = at.if_string())
+    {
+
+        if (delete_at_string->starts_with("/") or delete_at_string->empty())
+        {
+            auto const last_token_idx = delete_at_string->find_last_of("/");
+            auto const node_jp = delete_at_string->subview(0, last_token_idx);
+            auto const element_jp = delete_at_string->subview(last_token_idx);
+
+            if (last_token_idx == 0)
+            {
+                delete_impl(boost::json::parse(element_jp.substr(1)), x);
+            }
+            else // nested JSON pointer
+            {
+                boost::json::error_code ec;
+                if (auto node_ptr = x.find_pointer(node_jp, ec))
+                {
+                    delete_impl(element_jp, *node_ptr);
+                }
+            }
+        }
+        // TODO: handle slice (or not?)
+        else if (x_as_object)
+        {
+            x_as_object->erase(*delete_at_string);
+        }
+    }
+}
+
+template <>
+V eval_impl<Keyword::Delete>(V const& x, V const& param, E::EvalContext const& context)
+{
+    static_cast<void>(context);
+    ASSERT(not param.is_null())
+    // TODO: check is x is constant expr
+    boost::json::value const at = E(param).eval();
+    boost::json::value result = x;
+
+    delete_impl(at, result);
+    return result;
+}
+
 template <>
 V eval_impl<Keyword::Slide>(V const& x, V const& param, E::EvalContext const& context)
 {
@@ -1212,6 +1333,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
 
         // terms special
         case Keyword::At:         return eval_impl<Keyword::At>          (xx, pp, context);
+        case Keyword::Delete:     return eval_impl<Keyword::Delete>      (xx, pp, context);
         case Keyword::Approx:     return eval_impl<Keyword::Approx>      (xx, pp, context);
         case Keyword::Re:         return eval_impl<Keyword::Re>          (xx, pp, context);
         case Keyword::Lookup:     return eval_impl<Keyword::Lookup>      (xx, pp, context);

@@ -441,7 +441,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::At> const At;
 /// \details
 /// Possible queries:
 ///   1. Array index (negative resolves as reverse)
-///   2. Array slice $q
+///   2. Array slice (not implemented)
 ///   3. JSON Pointer
 ///   4. List of queries
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Delete> const Delete;

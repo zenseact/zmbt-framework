@@ -1357,7 +1357,7 @@ Delete elements from structure by given query
 
 Possible queries:
   1. Array index (negative resolves as reverse)
-  2. Array slice $q
+  2. Array slice (not implemented)
   3. JSON Pointer
   4. List of queries
 

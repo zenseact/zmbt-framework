@@ -32,8 +32,7 @@ std::set<Keyword> const NotImplemented {
     Keyword::Void,
     Keyword::Find,
     Keyword::FindPtr,
-    Keyword::FindIdx,
-    Keyword::Delete,
+    Keyword::FindIdx
 };
 
 
@@ -495,6 +494,15 @@ std::vector<TestEvalSample> const TestSamples
     {At({"", ""})               , 42                     , {42, 42}             },
     // single-element bracket init is always an array in Expression ctor
     {At({""})                   , 42                     , L{42}                },
+
+    {Delete({"/lol"})           , 42                     , 42                   },
+    {Delete("")                 , 42                     , nullptr              },
+    {Delete({""})               , 42                     , nullptr              },
+    {Delete(2)                  , {1,2,3,4,5}            , {1,2,4,5}            },
+    {Delete(-2)                 , {1,2,3,4,5}            , {1,2,3,5}            },
+    {Delete("/0/1")             , {{1,2,3},4}            , {{1,3}, 4}           },
+    {Del({"/a/b/0", "/a/b/1"})  , {{"a", {{"b", {1,2,3,4}}}}} , {{"a", {{"b", {3,4}}}}}},
+    {Del({0, 1, 42, "/2"})      , {1,2,3,4,5}            , {4,5}                },
 
     {Flip(At({1,2,3}))          , 0                      , 1                     },
     {Lookup({1,2,3})            , 0                      , 1                     },
