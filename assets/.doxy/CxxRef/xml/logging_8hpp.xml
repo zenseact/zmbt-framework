@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="logging_8hpp" kind="file" language="C++">
+    <compoundname>logging.hpp</compoundname>
+    <includes local="no">boost/log/core.hpp</includes>
+    <includes local="no">boost/log/trivial.hpp</includes>
+    <includes local="no">boost/log/expressions.hpp</includes>
+    <includes local="no">boost/log/sources/global_logger_storage.hpp</includes>
+    <includes local="no">boost/log/attributes.hpp</includes>
+    <includes local="no">boost/log/common.hpp</includes>
+    <includes local="no">boost/log/exceptions.hpp</includes>
+    <includes local="no">boost/log/sinks.hpp</includes>
+    <includes local="no">boost/log/sources/logger.hpp</includes>
+    <includes local="no">boost/current_function.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp</label>
+        <link refid="logging_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>boost/current_function.hpp</label>
+      </node>
+      <node id="6">
+        <label>boost/log/attributes.hpp</label>
+      </node>
+      <node id="7">
+        <label>boost/log/common.hpp</label>
+      </node>
+      <node id="2">
+        <label>boost/log/core.hpp</label>
+      </node>
+      <node id="8">
+        <label>boost/log/exceptions.hpp</label>
+      </node>
+      <node id="4">
+        <label>boost/log/expressions.hpp</label>
+      </node>
+      <node id="9">
+        <label>boost/log/sinks.hpp</label>
+      </node>
+      <node id="5">
+        <label>boost/log/sources/global_logger_storage.hpp</label>
+      </node>
+      <node id="10">
+        <label>boost/log/sources/logger.hpp</label>
+      </node>
+      <node id="3">
+        <label>boost/log/trivial.hpp</label>
+      </node>
+    </incdepgraph>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1logging">zmbt::logging</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="logging_8hpp_1ab3daa31a4afa7e6bf3d8a72318b255b0" prot="public" static="no">
+        <name>ZMBT_LOG_WITH_SRCLOC</name>
+        <param><defname>logger</defname></param>
+        <param><defname>sev</defname></param>
+        <initializer>   BOOST_LOG_STREAM_WITH_PARAMS( \
+      (logger), \
+         (<ref refid="namespacezmbt_1_1logging_1a251cd33bf1510369e9baf3bcd43e9502" kindref="member">::zmbt::logging::upd_attr</ref>&lt;std::string&gt;(&quot;File&quot;, __FILE__)) \
+         (<ref refid="namespacezmbt_1_1logging_1a251cd33bf1510369e9baf3bcd43e9502" kindref="member">::zmbt::logging::upd_attr</ref>&lt;int&gt;(&quot;Line&quot;, __LINE__)) \
+         (<ref refid="namespacezmbt_1_1logging_1a251cd33bf1510369e9baf3bcd43e9502" kindref="member">::zmbt::logging::upd_attr</ref>&lt;std::string&gt;(&quot;Func&quot;, BOOST_CURRENT_FUNCTION)) \
+         (::boost::log::keywords::severity = (boost::log::trivial::sev)) \
+   )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="27" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="27" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1a397bdcfdd13748f087d48b8296000616" prot="public" static="no">
+        <name>ZMBT_LOG_WITH_JSON_TAG</name>
+        <param><defname>logger</defname></param>
+        <param><defname>sev</defname></param>
+        <initializer>   BOOST_LOG_STREAM_WITH_PARAMS( \
+      (logger), \
+         (<ref refid="namespacezmbt_1_1logging_1a251cd33bf1510369e9baf3bcd43e9502" kindref="member">::zmbt::logging::upd_attr</ref>&lt;std::string&gt;(&quot;Tag&quot;, &quot;JSON&quot;)) \
+         (::boost::log::keywords::severity = (boost::log::trivial::sev)) \
+   )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="36" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="36" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1ad0a63d667cfdf594c88ad870cdefded3" prot="public" static="no">
+        <name>ZMBT_LOG_INSTANCE</name>
+        <initializer>::boost::log::trivial::logger::get()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="44" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1a010ce06753e2e75e93867e7db6e722a7" prot="public" static="no">
+        <name>ZMBT_LOG_INSTANCE_INTERNAL</name>
+        <initializer>::boost::log::trivial::logger::get()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="45" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1a7bf16a12bea8922e2c68ea9e68367556" prot="public" static="no">
+        <name>ZMBT_LOG</name>
+        <param><defname>sev</defname></param>
+        <initializer>ZMBT_LOG_WITH_SRCLOC(ZMBT_LOG_INSTANCE, sev)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="47" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1ad2acf038bb4906f66d89ce6faf3e0d01" prot="public" static="no">
+        <name>ZMBT_LOG_INTERNAL</name>
+        <param><defname>sev</defname></param>
+        <initializer>ZMBT_LOG_WITH_SRCLOC(ZMBT_LOG_INSTANCE_INTERNAL, sev)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="48" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1ac132b2f145987f2a0543d6504e4627ea" prot="public" static="no">
+        <name>ZMBT_LOG_JSON</name>
+        <param><defname>sev</defname></param>
+        <initializer>ZMBT_LOG_WITH_JSON_TAG(ZMBT_LOG_INSTANCE_INTERNAL, sev)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="50" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1a6f93cc4db237b72a95eab933e68c9ac7" prot="public" static="no">
+        <name>ZMBT_LOG_FORMAT_FULL</name>
+        <initializer>&quot;%LineID% %File%#Line% (%Func%) &lt;%Severity%&gt;\t%Message%&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="53" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1a9717885e49d03cb977d54e4a2b65043c" prot="public" static="no">
+        <name>ZMBT_LOG_FORMAT_BRIEF</name>
+        <initializer>&quot;%LineID% &lt;%Severity%&gt;: %Message%&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="54" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="logging_8hpp_1a36a0f0441e58b98e8cb5a4158e12be85" prot="public" static="no">
+        <name>ZMBT_LOG_FORMAT</name>
+        <initializer>ZMBT_LOG_FORMAT_BRIEF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" line="55" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="copyright"><para>(c) Copyright 2024 Zenseact AB </para>
+</simplesect>
+<simplesect kind="par"><title>License</title><para>SPDX-License-Identifier: Apache-2.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ZMBT_LOGGING_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOGGING_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/core.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/trivial.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/expressions.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/sources/global_logger_storage.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/attributes.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/common.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/core.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/exceptions.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/expressions.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/sinks.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/trivial.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/log/sources/logger.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/current_function.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_WITH_SRCLOC(logger,<sp/>sev)<sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/>BOOST_LOG_STREAM_WITH_PARAMS(<sp/>\</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>(logger),<sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(::zmbt::logging::upd_attr&lt;std::string&gt;(&quot;File&quot;,<sp/>__FILE__))<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(::zmbt::logging::upd_attr&lt;int&gt;(&quot;Line&quot;,<sp/>__LINE__))<sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(::zmbt::logging::upd_attr&lt;std::string&gt;(&quot;Func&quot;,<sp/>BOOST_CURRENT_FUNCTION))<sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(::boost::log::keywords::severity<sp/>=<sp/>(boost::log::trivial::sev))<sp/>\</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"><sp/><sp/><sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_WITH_JSON_TAG(logger,<sp/>sev)<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/>BOOST_LOG_STREAM_WITH_PARAMS(<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>(logger),<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(::zmbt::logging::upd_attr&lt;std::string&gt;(&quot;Tag&quot;,<sp/>&quot;JSON&quot;))<sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(::boost::log::keywords::severity<sp/>=<sp/>(boost::log::trivial::sev))<sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_INSTANCE<sp/>::boost::log::trivial::logger::get()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_INSTANCE_INTERNAL<sp/>::boost::log::trivial::logger::get()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG(sev)<sp/>ZMBT_LOG_WITH_SRCLOC(ZMBT_LOG_INSTANCE,<sp/>sev)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_INTERNAL(sev)<sp/>ZMBT_LOG_WITH_SRCLOC(ZMBT_LOG_INSTANCE_INTERNAL,<sp/>sev)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_JSON(sev)<sp/>ZMBT_LOG_WITH_JSON_TAG(ZMBT_LOG_INSTANCE_INTERNAL,<sp/>sev)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_FORMAT_FULL<sp/>&quot;%LineID%<sp/>%File%#Line%<sp/>(%Func%)<sp/>&lt;%Severity%&gt;\t%Message%&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_FORMAT_BRIEF<sp/>&quot;%LineID%<sp/>&lt;%Severity%&gt;:<sp/>%Message%&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_FORMAT<sp/>ZMBT_LOG_FORMAT_BRIEF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacezmbt" kindref="compound">zmbt</ref><sp/>{</highlight></codeline>
+<codeline lineno="59" refid="namespacezmbt_1_1logging" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">logging<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="64" refid="namespacezmbt_1_1logging_1a251cd33bf1510369e9baf3bcd43e9502" refkind="member"><highlight class="normal">T<sp/><ref refid="namespacezmbt_1_1logging_1a251cd33bf1510369e9baf3bcd43e9502" kindref="member">upd_attr</ref>(std::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>name,<sp/>T<sp/>value)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>attr<sp/>=<sp/>boost::log::attribute_cast&lt;boost::log::attributes::mutable_constant&lt;T&gt;&gt;(boost::log::core::get()-&gt;get_thread_attributes()[name]);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>attr.set(value);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>attr.get();</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>logging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>zmbt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/logging.hpp"/>
+  </compounddef>
+</doxygen>

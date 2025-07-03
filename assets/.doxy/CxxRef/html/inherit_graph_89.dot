@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="zmbt::reflect::custom\l_serialization\< T, mp\l_if\< is_base_of\< lang\l::Expression, T \>, void \> \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2.html",tooltip=" "];
+}

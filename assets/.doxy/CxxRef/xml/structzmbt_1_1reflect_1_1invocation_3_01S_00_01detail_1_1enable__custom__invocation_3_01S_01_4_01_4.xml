@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1invocation_3_01S_00_01detail_1_1enable__custom__invocation_3_01S_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::invocation&lt; S, detail::enable_custom_invocation&lt; S &gt; &gt;</compoundname>
+    <basecompoundref refid="structzmbt_1_1reflect_1_1custom__invocation" prot="public" virt="non-virtual">zmbt::reflect::custom_invocation&lt; ifc_pointer_t&lt; S &gt; &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class S</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::reflect::custom_invocation&lt; ifc_pointer_t&lt; S &gt; &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1custom__invocation"/>
+      </node>
+      <node id="1">
+        <label>zmbt::reflect::invocation&lt; S, detail::enable_custom_invocation&lt; S &gt; &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1invocation_3_01S_00_01detail_1_1enable__custom__invocation_3_01S_01_4_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::reflect::custom_invocation&lt; ifc_pointer_t&lt; S &gt; &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1custom__invocation"/>
+      </node>
+      <node id="1">
+        <label>zmbt::reflect::invocation&lt; S, detail::enable_custom_invocation&lt; S &gt; &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1invocation_3_01S_00_01detail_1_1enable__custom__invocation_3_01S_01_4_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="150" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="150" bodyend="150"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

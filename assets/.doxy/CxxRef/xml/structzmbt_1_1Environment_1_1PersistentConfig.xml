@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1Environment_1_1PersistentConfig" kind="struct" language="C++" prot="protected">
+    <compoundname>zmbt::Environment::PersistentConfig</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1Environment_1_1PersistentConfig_1a61a8d3a60d414ac1038f561e187163d9" prot="public" static="no" mutable="no">
+        <type>FailureHandler</type>
+        <definition>FailureHandler zmbt::Environment::PersistentConfig::failure_handler</definition>
+        <argsstring></argsstring>
+        <name>failure_handler</name>
+        <qualifiedname>zmbt::Environment::PersistentConfig::failure_handler</qualifiedname>
+        <initializer>{&amp;<ref refid="namespacezmbt_1ab558f561832f47da45707725386e7e86" kindref="member">zmbt::default_test_failure</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp" line="79" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp" bodystart="79" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1Environment_1_1PersistentConfig_1a2c3470d06f2e93673e8735582af51292" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool zmbt::Environment::PersistentConfig::pretty_print</definition>
+        <argsstring></argsstring>
+        <name>pretty_print</name>
+        <qualifiedname>zmbt::Environment::PersistentConfig::pretty_print</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp" line="80" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp" bodystart="80" bodyend="80"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp" line="77" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp" bodystart="78" bodyend="81"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1Environment_1_1PersistentConfig_1a61a8d3a60d414ac1038f561e187163d9" prot="public" virt="non-virtual"><scope>zmbt::Environment::PersistentConfig</scope><name>failure_handler</name></member>
+      <member refid="structzmbt_1_1Environment_1_1PersistentConfig_1a2c3470d06f2e93673e8735582af51292" prot="public" virt="non-virtual"><scope>zmbt::Environment::PersistentConfig</scope><name>pretty_print</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

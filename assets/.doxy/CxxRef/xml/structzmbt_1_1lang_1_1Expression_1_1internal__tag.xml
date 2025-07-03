@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Expression_1_1internal__tag" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::lang::Expression::internal_tag</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="76" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="76" bodyend="76"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1Operator" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::Operator</compoundname>
+    <includes refid="operator_8hpp" local="no">operator.hpp</includes>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle" prot="private">zmbt::lang::Operator::Handle</innerclass>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57" prot="public" static="no" strong="no">
+        <type>std::uint32_t</type>
+        <name>Config</name>
+        <qualifiedname>zmbt::lang::Operator::Config</qualifiedname>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a040f6c23818b3675e24210209cae6dc1" prot="public">
+          <name>Null</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a8f44b2c8f709657906f8e64b6473e20e" prot="public">
+          <name>Decor</name>
+          <initializer>= 1U &lt;&lt; 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57aeb2dcd535ea06d667422d964686b7e62" prot="public">
+          <name>Comparison</name>
+          <initializer>= 1U &lt;&lt; 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a0b89aec431be320a2f34461a8ee17d5c" prot="public">
+          <name>Arithmetics</name>
+          <initializer>= 1U &lt;&lt; 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a88d240946a9b4051d27a64e8912181c0" prot="public">
+          <name>Bitwise</name>
+          <initializer>= 1U &lt;&lt; 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57ad6f545fbf2b3f9966ea69e4ac999d868" prot="public">
+          <name>Shift</name>
+          <initializer>= 1U &lt;&lt; 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a84b1532aba2dc43cdb34ab4c4f3783e3" prot="public">
+          <name>Logic</name>
+          <initializer>= 1U &lt;&lt; 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a909dfb900a3cc9aa814d84672787a36c" prot="public">
+          <name>Default</name>
+          <initializer>= Decor|Comparison|Arithmetics|Bitwise|Shift</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a7cc4a1530f25e891ef0c7ff644dc9c63" prot="public">
+          <name>Full</name>
+          <initializer>= Default|Logic</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="67" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="68" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Operator_1a3d537846af5809d3e10a6c72004889a1" prot="public" static="no">
+        <type>boost::json::value</type>
+        <definition>using zmbt::lang::Operator::V =  boost::json::value</definition>
+        <argsstring></argsstring>
+        <name>V</name>
+        <qualifiedname>zmbt::lang::Operator::V</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="65" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Operator_1ac8636bc0d6644c4a17cfc9ac32eacd5e" prot="private" static="no">
+        <type>std::function&lt; V(V const  &amp;)&gt;</type>
+        <definition>using zmbt::lang::Operator::unary_transform =  std::function&lt;V(V const&amp;)&gt;</definition>
+        <argsstring></argsstring>
+        <name>unary_transform</name>
+        <qualifiedname>zmbt::lang::Operator::unary_transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="111" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Operator_1ab87e7503814f171335aa7e385796492a" prot="private" static="no">
+        <type>std::function&lt; V(V const  &amp;, V const  &amp;)&gt;</type>
+        <definition>using zmbt::lang::Operator::binary_transform =  std::function&lt;V(V const&amp;, V const&amp;)&gt;</definition>
+        <argsstring></argsstring>
+        <name>binary_transform</name>
+        <qualifiedname>zmbt::lang::Operator::binary_transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="112" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Operator_1a51327d0ab4d25fcbad03b561648d4fe7" prot="private" static="no">
+        <type>std::function&lt; bool(V const  &amp;)&gt;</type>
+        <definition>using zmbt::lang::Operator::unary_predicate =  std::function&lt;bool(V const&amp;)&gt;</definition>
+        <argsstring></argsstring>
+        <name>unary_predicate</name>
+        <qualifiedname>zmbt::lang::Operator::unary_predicate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="113" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Operator_1a9d7e97d2dd57a794b7e6baa70ead2427" prot="private" static="no">
+        <type>std::function&lt; bool(V const  &amp;, V const  &amp;)&gt;</type>
+        <definition>using zmbt::lang::Operator::binary_predicate =  std::function&lt;bool(V const&amp;, V const&amp;)&gt;</definition>
+        <argsstring></argsstring>
+        <name>binary_predicate</name>
+        <qualifiedname>zmbt::lang::Operator::binary_predicate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="114" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="114" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1Operator_1a9cd8324c9f9a7a1c69b94161e7dd3d13" prot="private" static="no" mutable="no">
+        <type>Handle</type>
+        <definition>Handle zmbt::lang::Operator::handle_</definition>
+        <argsstring></argsstring>
+        <name>handle_</name>
+        <qualifiedname>zmbt::lang::Operator::handle_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="265" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="265" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a60f11464a9e6fdd88fec003d1230a23a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Operator::generic_is_truth</definition>
+        <argsstring>(V const &amp;a)</argsstring>
+        <name>generic_is_truth</name>
+        <qualifiedname>zmbt::lang::Operator::generic_is_truth</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="80" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a1cfcc86566af272e53048ee2e74d37b6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_decorate</definition>
+        <argsstring>(V const &amp;a)</argsstring>
+        <name>generic_decorate</name>
+        <qualifiedname>zmbt::lang::Operator::generic_decorate</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="81" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aa916485fdb167a5f0633c0c5448d91f8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_undecorate</definition>
+        <argsstring>(V const &amp;a)</argsstring>
+        <name>generic_undecorate</name>
+        <qualifiedname>zmbt::lang::Operator::generic_undecorate</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="82" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a6e632ddb6865386850e232055ef76b3a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_negate</definition>
+        <argsstring>(V const &amp;)</argsstring>
+        <name>generic_negate</name>
+        <qualifiedname>zmbt::lang::Operator::generic_negate</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="83" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a1a24f17f38f50f004285902f0ef94bfa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_complement</definition>
+        <argsstring>(V const &amp;)</argsstring>
+        <name>generic_complement</name>
+        <qualifiedname>zmbt::lang::Operator::generic_complement</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="84" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1abd6547dfd28423926ab13db53e905b20" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Operator::generic_logical_not</definition>
+        <argsstring>(V const &amp;)</argsstring>
+        <name>generic_logical_not</name>
+        <qualifiedname>zmbt::lang::Operator::generic_logical_not</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="85" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a4fe21ded9464e6e8c481fabd38872c8b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Operator::generic_equal_to</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_equal_to</name>
+        <qualifiedname>zmbt::lang::Operator::generic_equal_to</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="86" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aae213eb307c6394de06571e0b4331b57" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Operator::generic_less</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_less</name>
+        <qualifiedname>zmbt::lang::Operator::generic_less</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="87" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a84975bf7278ca41f9da16f045f1ed8bf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Operator::generic_less_equal</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_less_equal</name>
+        <qualifiedname>zmbt::lang::Operator::generic_less_equal</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="88" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aed6592e31313f15e11fbdbf9085be3b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_plus</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_plus</name>
+        <qualifiedname>zmbt::lang::Operator::generic_plus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="89" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ab093d7f42ce0c916f71182c367f5cbea" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_minus</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_minus</name>
+        <qualifiedname>zmbt::lang::Operator::generic_minus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="90" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a8be0ec07436b1393c7f7492efa311113" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_multiplies</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_multiplies</name>
+        <qualifiedname>zmbt::lang::Operator::generic_multiplies</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="91" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1adb9e23de50b4d7711274eff8fd6908cd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_divides</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_divides</name>
+        <qualifiedname>zmbt::lang::Operator::generic_divides</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="92" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1afd9a29006bce4b86d35d3a1dafe46647" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_modulus</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_modulus</name>
+        <qualifiedname>zmbt::lang::Operator::generic_modulus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="93" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aabf43ce915fe95686b383e21acd792dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_bit_and</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_bit_and</name>
+        <qualifiedname>zmbt::lang::Operator::generic_bit_and</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="94" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1af76bad48a4a043b3c194fb8d55d6e8a2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_bit_or</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_bit_or</name>
+        <qualifiedname>zmbt::lang::Operator::generic_bit_or</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="95" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a0bbaeab41942c7186d7d7fbfc26507cb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_bit_xor</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_bit_xor</name>
+        <qualifiedname>zmbt::lang::Operator::generic_bit_xor</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="96" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1af37fad68e7b5297361fb14043d6fbb4f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_left_shift</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_left_shift</name>
+        <qualifiedname>zmbt::lang::Operator::generic_left_shift</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="97" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ad28006fbe9e384b2afff650dcc39d084" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_right_shift</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_right_shift</name>
+        <qualifiedname>zmbt::lang::Operator::generic_right_shift</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="98" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ac0a9fbb6b64298148303387e0495a558" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_logical_and</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_logical_and</name>
+        <qualifiedname>zmbt::lang::Operator::generic_logical_and</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="99" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ad056b1eecd8bfd1a634d479cf7e03716" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_logical_or</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_logical_or</name>
+        <qualifiedname>zmbt::lang::Operator::generic_logical_or</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="100" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a5e29757b5ea635930a71094467bb86c4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_pow</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_pow</name>
+        <qualifiedname>zmbt::lang::Operator::generic_pow</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="102" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a4818d167ebb0cd44e6cdf64b1d23e372" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_log</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_log</name>
+        <qualifiedname>zmbt::lang::Operator::generic_log</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="103" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a1bac17918fcd779870a19175a1ca24ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>static V zmbt::lang::Operator::generic_quot</definition>
+        <argsstring>(V const &amp;, V const &amp;)</argsstring>
+        <name>generic_quot</name>
+        <qualifiedname>zmbt::lang::Operator::generic_quot</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="104" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ae39d98dda19d9225e50b807d83bcae8d" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_negate</definition>
+        <argsstring>(V const &amp;val) -&gt; mp_if&lt; has_negate&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_negate</name>
+        <qualifiedname>zmbt::lang::Operator::handle_negate</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="116" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="116" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a6b35ba43bab367639e7155842da19cd0" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_negate</definition>
+        <argsstring>(V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_negate&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_negate</name>
+        <qualifiedname>zmbt::lang::Operator::handle_negate</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="116" column="149" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="116" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a0dd0c2aa1d15c03133e639952258a9e5" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_complement</definition>
+        <argsstring>(V const &amp;val) -&gt; mp_if&lt; has_complement&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_complement</name>
+        <qualifiedname>zmbt::lang::Operator::handle_complement</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="117" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="117" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ab01b4450d93c8e9122edd91f53b9978f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_complement</definition>
+        <argsstring>(V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_complement&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_complement</name>
+        <qualifiedname>zmbt::lang::Operator::handle_complement</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="117" column="153" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="117" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a500107b767f98c2de7466309e746bd87" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_logical_not</definition>
+        <argsstring>(V const &amp;val) -&gt; mp_if&lt; has_logical_not&lt; T &gt;, bool &gt;</argsstring>
+        <name>handle_logical_not</name>
+        <qualifiedname>zmbt::lang::Operator::handle_logical_not</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="118" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a8f1b18c2482161b80022a398f5268e96" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_logical_not</definition>
+        <argsstring>(V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_logical_not&lt; T &gt; &gt;, bool &gt;</argsstring>
+        <name>handle_logical_not</name>
+        <qualifiedname>zmbt::lang::Operator::handle_logical_not</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="118" column="157" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="118" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aabc85fd762f72302ec52681ebcb1fb42" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_equal_to</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_equal_to&lt; T &gt;, bool &gt;</argsstring>
+        <name>handle_equal_to</name>
+        <qualifiedname>zmbt::lang::Operator::handle_equal_to</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="119" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="119" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a19b2de5418a0c8af7dcfa8344bd85356" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_equal_to</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_equal_to&lt; T &gt; &gt;, bool &gt;</argsstring>
+        <name>handle_equal_to</name>
+        <qualifiedname>zmbt::lang::Operator::handle_equal_to</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="119" column="175" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="119" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aeab3aa93aa8ff87034f89be4644e0875" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_less</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_less&lt; T &gt;, bool &gt;</argsstring>
+        <name>handle_less</name>
+        <qualifiedname>zmbt::lang::Operator::handle_less</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="120" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="120" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a918e994c6a6a24d81afd531bd514bbf0" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_less</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_less&lt; T &gt; &gt;, bool &gt;</argsstring>
+        <name>handle_less</name>
+        <qualifiedname>zmbt::lang::Operator::handle_less</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="120" column="169" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="120" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aa2b48e87e6a0f121859613451fc33ed9" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_less_equal</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_less_equal&lt; T &gt;, bool &gt;</argsstring>
+        <name>handle_less_equal</name>
+        <qualifiedname>zmbt::lang::Operator::handle_less_equal</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="121" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="121" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a7490dea0ed9892357df2be501caa4351" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_less_equal</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_less_equal&lt; T &gt; &gt;, bool &gt;</argsstring>
+        <name>handle_less_equal</name>
+        <qualifiedname>zmbt::lang::Operator::handle_less_equal</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="121" column="176" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="121" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aaef4244ca2c97eeee801f968bdb5a22a" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_plus</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_plus&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_plus</name>
+        <qualifiedname>zmbt::lang::Operator::handle_plus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="122" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="122" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ac73b4ba77533764d9ca8475a4538608d" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_plus</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_plus&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_plus</name>
+        <qualifiedname>zmbt::lang::Operator::handle_plus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="122" column="167" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="122" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ae4cfa2f87be9e4548f680c2a336739c5" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_minus</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_minus&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_minus</name>
+        <qualifiedname>zmbt::lang::Operator::handle_minus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="123" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="123" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ad4451e3fd16887430a4112112ab9cc7b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_minus</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_minus&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_minus</name>
+        <qualifiedname>zmbt::lang::Operator::handle_minus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="123" column="168" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="123" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a7fd5bcd410d68c4e6004aa802cb7df5a" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_multiplies</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_multiplies&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_multiplies</name>
+        <qualifiedname>zmbt::lang::Operator::handle_multiplies</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="124" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="124" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a0252112ac0b1a60d46e07e6d56512b9d" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_multiplies</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_multiplies&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_multiplies</name>
+        <qualifiedname>zmbt::lang::Operator::handle_multiplies</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="124" column="173" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="124" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aab1e322656802510bda34e7084b7b43a" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_divides</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_divides&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_divides</name>
+        <qualifiedname>zmbt::lang::Operator::handle_divides</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="125" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="125" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aa1980c426537e42efc8da0a50b9ae554" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_divides</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_divides&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_divides</name>
+        <qualifiedname>zmbt::lang::Operator::handle_divides</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="125" column="169" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="125" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a5a2e504d9861a07a253bb6668fe2f4df" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_modulus</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_modulus&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_modulus</name>
+        <qualifiedname>zmbt::lang::Operator::handle_modulus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="126" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a471ddbf2ed959ecc146fd59f9e78dc6a" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_modulus</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_modulus&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_modulus</name>
+        <qualifiedname>zmbt::lang::Operator::handle_modulus</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="126" column="170" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aecee2a0fe5b2c75084f1a0a18748b80c" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_bit_and</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_bit_and&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_bit_and</name>
+        <qualifiedname>zmbt::lang::Operator::handle_bit_and</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="127" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="127" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aa56175d5dab2991150e138e44dc4d233" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_bit_and</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_bit_and&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_bit_and</name>
+        <qualifiedname>zmbt::lang::Operator::handle_bit_and</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="127" column="170" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="127" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a310e8e872aadd9e7ed65c5d0bfdaa1ef" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_bit_or</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_bit_or&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_bit_or</name>
+        <qualifiedname>zmbt::lang::Operator::handle_bit_or</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="128" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1acb25fb643c9cabd56ee7be16390098f4" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_bit_or</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_bit_or&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_bit_or</name>
+        <qualifiedname>zmbt::lang::Operator::handle_bit_or</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="128" column="169" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a91ceda9d0c85efb839cef4864bae0f66" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_bit_xor</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_bit_xor&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_bit_xor</name>
+        <qualifiedname>zmbt::lang::Operator::handle_bit_xor</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="129" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a3971e8c439abdd9ae7ce7200a58f2c02" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_bit_xor</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_bit_xor&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_bit_xor</name>
+        <qualifiedname>zmbt::lang::Operator::handle_bit_xor</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="129" column="170" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a1041f82845e61f4f651868d462691377" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_left_shift</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_left_shift&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_left_shift</name>
+        <qualifiedname>zmbt::lang::Operator::handle_left_shift</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="130" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ae9b8dbbea98e40b52c5640fd5a0b10d2" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_left_shift</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_left_shift&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_left_shift</name>
+        <qualifiedname>zmbt::lang::Operator::handle_left_shift</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="130" column="172" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="130" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a470b43e3b3d792cf9a71368bef61c59b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_right_shift</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_right_shift&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_right_shift</name>
+        <qualifiedname>zmbt::lang::Operator::handle_right_shift</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="131" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="131" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a6743f4f4a5184d70130f275036feb228" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_right_shift</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_right_shift&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_right_shift</name>
+        <qualifiedname>zmbt::lang::Operator::handle_right_shift</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="131" column="175" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="131" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a9d4e6e8bfeb1dd53425294932fcb08dd" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_logical_and</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_logical_and&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_logical_and</name>
+        <qualifiedname>zmbt::lang::Operator::handle_logical_and</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="132" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="132" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a51931ab602ba5a854f9e5f4595089e68" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_logical_and</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_logical_and&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_logical_and</name>
+        <qualifiedname>zmbt::lang::Operator::handle_logical_and</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="132" column="175" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="132" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a6973cd0517224ff7c0c66dac7b61e395" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_logical_or</definition>
+        <argsstring>(V const &amp;lhs, V const &amp;rhs) -&gt; mp_if&lt; has_logical_or&lt; T &gt;, V &gt;</argsstring>
+        <name>handle_logical_or</name>
+        <qualifiedname>zmbt::lang::Operator::handle_logical_or</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="133" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="133" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a37b781f3801fef74773e79df25901380" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_logical_or</definition>
+        <argsstring>(V const &amp;, V const &amp;) -&gt; mp_if&lt; mp_not&lt; has_logical_or&lt; T &gt; &gt;, V &gt;</argsstring>
+        <name>handle_logical_or</name>
+        <qualifiedname>zmbt::lang::Operator::handle_logical_or</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="133" column="174" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="133" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aea7cfcc03a4aaf1aca148ced14c51cd0" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_decorate</definition>
+        <argsstring>(boost::json::value const &amp;a) -&gt; mp_if&lt; detail::has_type_decorated_type&lt; T &gt;, boost::json::value &gt;</argsstring>
+        <name>handle_decorate</name>
+        <qualifiedname>zmbt::lang::Operator::handle_decorate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="140" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="140" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ae028d98d4485dda816e97d9beecc6724" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_decorate</definition>
+        <argsstring>(boost::json::value const &amp;a) -&gt; mp_if&lt; mp_not&lt; detail::has_type_decorated_type&lt; T &gt; &gt;, boost::json::value &gt;</argsstring>
+        <name>handle_decorate</name>
+        <qualifiedname>zmbt::lang::Operator::handle_decorate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="148" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="148" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1acfbb2736ee118501ff42e89d9ba3bcb9" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_undecorate</definition>
+        <argsstring>(boost::json::value const &amp;a) -&gt; mp_if&lt; detail::has_type_decorated_type&lt; T &gt;, boost::json::value &gt;</argsstring>
+        <name>handle_undecorate</name>
+        <qualifiedname>zmbt::lang::Operator::handle_undecorate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="155" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="155" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a3e0efb5e7d1d5dd8f74641d8369d3531" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_undecorate</definition>
+        <argsstring>(boost::json::value const &amp;a) -&gt; mp_if&lt; mp_not&lt; detail::has_type_decorated_type&lt; T &gt; &gt;, boost::json::value &gt;</argsstring>
+        <name>handle_undecorate</name>
+        <qualifiedname>zmbt::lang::Operator::handle_undecorate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="163" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="163" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a534026a69f6786bcd3648aeb10252550" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_is_truth</definition>
+        <argsstring>(boost::json::value const &amp;val) -&gt; mp_if&lt; is_convertible&lt; T, bool &gt;, bool &gt;</argsstring>
+        <name>handle_is_truth</name>
+        <qualifiedname>zmbt::lang::Operator::handle_is_truth</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="170" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="170" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a5b98cc79217d4ab96620c4aa7c78af5a" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>auto</type>
+        <definition>static auto zmbt::lang::Operator::handle_is_truth</definition>
+        <argsstring>(boost::json::value const &amp;) -&gt; mp_if&lt; mp_not&lt; is_convertible&lt; T, bool &gt; &gt;, bool &gt;</argsstring>
+        <name>handle_is_truth</name>
+        <qualifiedname>zmbt::lang::Operator::handle_is_truth</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="176" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="176" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1aeca6df3cd0bc28bea9cfb33a1c3bfaf3" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>Handle</type>
+        <definition>static Handle zmbt::lang::Operator::makeHandle</definition>
+        <argsstring>(type_tag&lt; T &gt;, Config const cfg=Default)</argsstring>
+        <name>makeHandle</name>
+        <qualifiedname>zmbt::lang::Operator::makeHandle</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1type__tag" kindref="compound">type_tag</ref>&lt; T &gt;</type>
+        </param>
+        <param>
+          <type>Config const</type>
+          <declname>cfg</declname>
+          <defval>Default</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="227" column="19" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="227" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a2984bf8c935e2a404b102f03e44b0fa4" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Operator::exchangeHandle</definition>
+        <argsstring>(Handle &amp;handle, bool const retrieve)</argsstring>
+        <name>exchangeHandle</name>
+        <qualifiedname>zmbt::lang::Operator::exchangeHandle</qualifiedname>
+        <param>
+          <type>Handle &amp;</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>bool const</type>
+          <declname>retrieve</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="271" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a68a3a69b6c674e6e1f3baf366fc69bf1" prot="private" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>(Handle const handle)</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <param>
+          <type>Handle const</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="267" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a941ea77218707c36c9949732e0685ab1" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool zmbt::lang::Operator::is_approx</definition>
+        <argsstring>(boost::json::value const &amp;sample, boost::json::value const &amp;expr) const</argsstring>
+        <name>is_approx</name>
+        <qualifiedname>zmbt::lang::Operator::is_approx</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>sample</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+<para>Is approximately equal (only applicable to floating point numbers) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="334" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1adfdbe01682d0cc9645a3d6e9b9639a9f" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool zmbt::lang::Operator::is_subset</definition>
+        <argsstring>(boost::json::value const &amp;lhs, boost::json::value const &amp;rhs) const</argsstring>
+        <name>is_subset</name>
+        <qualifiedname>zmbt::lang::Operator::is_subset</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Is subset of. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="337" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a16ff4fe96b7ef8eac1e7f7e783e97444" prot="private" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool zmbt::lang::Operator::contains</definition>
+        <argsstring>(boost::json::value const &amp;set, boost::json::value const &amp;element) const</argsstring>
+        <name>contains</name>
+        <qualifiedname>zmbt::lang::Operator::contains</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>set</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>element</declname>
+        </param>
+        <briefdescription>
+<para>Is element of. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="340" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a7ec1153a87c0cc1d08f49ec6448a47af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>()</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <briefdescription>
+<para>Default operator with generic transforms. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="276" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a5a6681131797c84d8ccbaf63fbd81399" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>(type_tag&lt; T &gt; tag, Config const cfg)</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1type__tag" kindref="compound">type_tag</ref>&lt; T &gt;</type>
+          <declname>tag</declname>
+        </param>
+        <param>
+          <type>Config const</type>
+          <declname>cfg</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> with T as type decorator. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="280" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="280" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a1a96b231cb19e4299475e8329b3214e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>(type_tag&lt; T &gt; tag)</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1type__tag" kindref="compound">type_tag</ref>&lt; T &gt;</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> with T as type decorator. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="287" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="287" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a7bccb42823dd8f1036c7978251d154d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>(boost::json::string_view annotation)</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>annotation</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve registered operator instance if it exists, throw otherwise. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="293" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a8b6f4cdaa3da6b1e175fe96ea4409fa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>(Operator const &amp;)=default</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="295" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a6c7fa6d2046891cd259b9a8695b5bda9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Operator::Operator</definition>
+        <argsstring>(Operator &amp;&amp;)=default</argsstring>
+        <name>Operator</name>
+        <qualifiedname>zmbt::lang::Operator::Operator</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="296" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a2de412561769a5210535f705194405c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::lang::Operator::~Operator</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Operator</name>
+        <qualifiedname>zmbt::lang::Operator::~Operator</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="297" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1ab10f6df846ace8e5af21199f130712ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> &amp;</type>
+        <definition>Operator &amp; zmbt::lang::Operator::operator=</definition>
+        <argsstring>(Operator const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::lang::Operator::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="298" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a782e9abd6cd139f1df33aac2c849e666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> &amp;</type>
+        <definition>Operator &amp; zmbt::lang::Operator::operator=</definition>
+        <argsstring>(Operator &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::lang::Operator::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="299" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1acc4eca51ff7a583fff6a15982b2633bf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::lang::Operator::annotation</definition>
+        <argsstring>() const</argsstring>
+        <name>annotation</name>
+        <qualifiedname>zmbt::lang::Operator::annotation</qualifiedname>
+        <briefdescription>
+<para>decorated type name </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="303" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="303" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a787917c097ac49d5c11b4754891f99ad" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Operator::decorate</definition>
+        <argsstring>(boost::json::value const &amp;a) const</argsstring>
+        <name>decorate</name>
+        <qualifiedname>zmbt::lang::Operator::decorate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+<para>Reserialize as decorated type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="309" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="309" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a3faae357134e771308f835b22586e0e6" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Operator::undecorate</definition>
+        <argsstring>(boost::json::value const &amp;a) const</argsstring>
+        <name>undecorate</name>
+        <qualifiedname>zmbt::lang::Operator::undecorate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+<para>Reserialize as decorated type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="315" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="315" bodyend="318"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a80a8770024581cd0cf05f32b8635ec97" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Operator::apply</definition>
+        <argsstring>(lang::Keyword const &amp;keyword, boost::json::value const &amp;lhs, boost::json::value const &amp;rhs) const</argsstring>
+        <name>apply</name>
+        <qualifiedname>zmbt::lang::Operator::apply</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">lang::Keyword</ref> const &amp;</type>
+          <declname>keyword</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Apply operands. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>For unary operators, lhs is nullptr </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="323" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Operator_1a8beb073822bccf4add30d6c63d0d20d5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Operator::is_truth</definition>
+        <argsstring>(boost::json::value const &amp;a) const</argsstring>
+        <name>is_truth</name>
+        <qualifiedname>zmbt::lang::Operator::is_truth</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+<para>Is true. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="326" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="326" bodyend="329"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Signal transformation and comparison handler. Enables type erasure. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="61" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="62" bodyend="342"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1Operator_1acc4eca51ff7a583fff6a15982b2633bf" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>annotation</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a80a8770024581cd0cf05f32b8635ec97" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>apply</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a0b89aec431be320a2f34461a8ee17d5c" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Arithmetics</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a9d7e97d2dd57a794b7e6baa70ead2427" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>binary_predicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ab87e7503814f171335aa7e385796492a" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>binary_transform</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a88d240946a9b4051d27a64e8912181c0" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Bitwise</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57aeb2dcd535ea06d667422d964686b7e62" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Comparison</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Config</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a16ff4fe96b7ef8eac1e7f7e783e97444" prot="private" virt="virtual"><scope>zmbt::lang::Operator</scope><name>contains</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a8f44b2c8f709657906f8e64b6473e20e" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Decor</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a787917c097ac49d5c11b4754891f99ad" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>decorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a909dfb900a3cc9aa814d84672787a36c" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Default</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a2984bf8c935e2a404b102f03e44b0fa4" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>exchangeHandle</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a7cc4a1530f25e891ef0c7ff644dc9c63" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Full</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aabf43ce915fe95686b383e21acd792dc" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_bit_and</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1af76bad48a4a043b3c194fb8d55d6e8a2" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_bit_or</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a0bbaeab41942c7186d7d7fbfc26507cb" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_bit_xor</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a1a24f17f38f50f004285902f0ef94bfa" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_complement</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a1cfcc86566af272e53048ee2e74d37b6" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_decorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1adb9e23de50b4d7711274eff8fd6908cd" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_divides</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a4fe21ded9464e6e8c481fabd38872c8b" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_equal_to</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a60f11464a9e6fdd88fec003d1230a23a" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_is_truth</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1af37fad68e7b5297361fb14043d6fbb4f" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_left_shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aae213eb307c6394de06571e0b4331b57" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_less</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a84975bf7278ca41f9da16f045f1ed8bf" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_less_equal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a4818d167ebb0cd44e6cdf64b1d23e372" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_log</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ac0a9fbb6b64298148303387e0495a558" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_logical_and</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1abd6547dfd28423926ab13db53e905b20" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_logical_not</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ad056b1eecd8bfd1a634d479cf7e03716" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_logical_or</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ab093d7f42ce0c916f71182c367f5cbea" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_minus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1afd9a29006bce4b86d35d3a1dafe46647" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_modulus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8be0ec07436b1393c7f7492efa311113" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_multiplies</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a6e632ddb6865386850e232055ef76b3a" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_negate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aed6592e31313f15e11fbdbf9085be3b8" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_plus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a5e29757b5ea635930a71094467bb86c4" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_pow</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a1bac17918fcd779870a19175a1ca24ed" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_quot</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ad28006fbe9e384b2afff650dcc39d084" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_right_shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aa916485fdb167a5f0633c0c5448d91f8" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>generic_undecorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a9cd8324c9f9a7a1c69b94161e7dd3d13" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aecee2a0fe5b2c75084f1a0a18748b80c" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_bit_and</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aa56175d5dab2991150e138e44dc4d233" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_bit_and</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a310e8e872aadd9e7ed65c5d0bfdaa1ef" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_bit_or</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1acb25fb643c9cabd56ee7be16390098f4" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_bit_or</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a91ceda9d0c85efb839cef4864bae0f66" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_bit_xor</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a3971e8c439abdd9ae7ce7200a58f2c02" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_bit_xor</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a0dd0c2aa1d15c03133e639952258a9e5" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_complement</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ab01b4450d93c8e9122edd91f53b9978f" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_complement</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aea7cfcc03a4aaf1aca148ced14c51cd0" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_decorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ae028d98d4485dda816e97d9beecc6724" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_decorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aab1e322656802510bda34e7084b7b43a" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_divides</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aa1980c426537e42efc8da0a50b9ae554" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_divides</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aabc85fd762f72302ec52681ebcb1fb42" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_equal_to</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a19b2de5418a0c8af7dcfa8344bd85356" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_equal_to</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a534026a69f6786bcd3648aeb10252550" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_is_truth</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a5b98cc79217d4ab96620c4aa7c78af5a" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_is_truth</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a1041f82845e61f4f651868d462691377" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_left_shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ae9b8dbbea98e40b52c5640fd5a0b10d2" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_left_shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aeab3aa93aa8ff87034f89be4644e0875" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_less</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a918e994c6a6a24d81afd531bd514bbf0" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_less</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aa2b48e87e6a0f121859613451fc33ed9" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_less_equal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a7490dea0ed9892357df2be501caa4351" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_less_equal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a9d4e6e8bfeb1dd53425294932fcb08dd" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_logical_and</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a51931ab602ba5a854f9e5f4595089e68" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_logical_and</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a500107b767f98c2de7466309e746bd87" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_logical_not</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8f1b18c2482161b80022a398f5268e96" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_logical_not</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a6973cd0517224ff7c0c66dac7b61e395" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_logical_or</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a37b781f3801fef74773e79df25901380" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_logical_or</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ae4cfa2f87be9e4548f680c2a336739c5" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_minus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ad4451e3fd16887430a4112112ab9cc7b" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_minus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a5a2e504d9861a07a253bb6668fe2f4df" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_modulus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a471ddbf2ed959ecc146fd59f9e78dc6a" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_modulus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a7fd5bcd410d68c4e6004aa802cb7df5a" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_multiplies</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a0252112ac0b1a60d46e07e6d56512b9d" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_multiplies</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ae39d98dda19d9225e50b807d83bcae8d" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_negate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a6b35ba43bab367639e7155842da19cd0" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_negate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aaef4244ca2c97eeee801f968bdb5a22a" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_plus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ac73b4ba77533764d9ca8475a4538608d" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_plus</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a470b43e3b3d792cf9a71368bef61c59b" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_right_shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a6743f4f4a5184d70130f275036feb228" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_right_shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1acfbb2736ee118501ff42e89d9ba3bcb9" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_undecorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a3e0efb5e7d1d5dd8f74641d8369d3531" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>handle_undecorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a941ea77218707c36c9949732e0685ab1" prot="private" virt="virtual"><scope>zmbt::lang::Operator</scope><name>is_approx</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1adfdbe01682d0cc9645a3d6e9b9639a9f" prot="private" virt="virtual"><scope>zmbt::lang::Operator</scope><name>is_subset</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8beb073822bccf4add30d6c63d0d20d5" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>is_truth</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a84b1532aba2dc43cdb34ab4c4f3783e3" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Logic</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1aeca6df3cd0bc28bea9cfb33a1c3bfaf3" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>makeHandle</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57a040f6c23818b3675e24210209cae6dc1" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Null</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a68a3a69b6c674e6e1f3baf366fc69bf1" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a7ec1153a87c0cc1d08f49ec6448a47af" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a5a6681131797c84d8ccbaf63fbd81399" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a1a96b231cb19e4299475e8329b3214e8" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a7bccb42823dd8f1036c7978251d154d2" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8b6f4cdaa3da6b1e175fe96ea4409fa6" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a6c7fa6d2046891cd259b9a8695b5bda9" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Operator</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ab10f6df846ace8e5af21199f130712ec" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a782e9abd6cd139f1df33aac2c849e666" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a8a8b05f7d211b57511b107f32bb60f57ad6f545fbf2b3f9966ea69e4ac999d868" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>Shift</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a51327d0ab4d25fcbad03b561648d4fe7" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>unary_predicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1ac8636bc0d6644c4a17cfc9ac32eacd5e" prot="private" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>unary_transform</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a3faae357134e771308f835b22586e0e6" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>undecorate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a3d537846af5809d3e10a6c72004889a1" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1Operator_1a2de412561769a5210535f705194405c5" prot="public" virt="virtual"><scope>zmbt::lang::Operator</scope><name>~Operator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

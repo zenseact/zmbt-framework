@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1signal__traits_3_01void_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::signal_traits&lt; void &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1signal__traits_3_01void_01_4_1a67dae535512c5af308165fd385ce887f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::reflect::signal_traits&lt; void &gt;::init</definition>
+        <argsstring>()</argsstring>
+        <name>init</name>
+        <qualifiedname>zmbt::reflect::signal_traits&lt; void &gt;::init</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="160" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="160" bodyend="160"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="157" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="158" bodyend="161"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1reflect_1_1signal__traits_3_01void_01_4_1a67dae535512c5af308165fd385ce887f" prot="public" virt="non-virtual"><scope>zmbt::reflect::signal_traits&lt; void &gt;</scope><name>init</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

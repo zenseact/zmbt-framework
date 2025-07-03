@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::Expression::EvalContext</compoundname>
+    <includes refid="expression_8hpp" local="no">expression.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a7a55dab2d1eaed0b684cd104a654d787" prot="public" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref></type>
+        <definition>Operator zmbt::lang::Expression::EvalContext::op</definition>
+        <argsstring></argsstring>
+        <name>op</name>
+        <qualifiedname>zmbt::lang::Expression::EvalContext::op</qualifiedname>
+        <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="60" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a40fb77284cfad1bd3aea48da5ee23f36" prot="public" static="no" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalLog" kindref="compound">EvalLog</ref></type>
+        <definition>EvalLog zmbt::lang::Expression::EvalContext::log</definition>
+        <argsstring></argsstring>
+        <name>log</name>
+        <qualifiedname>zmbt::lang::Expression::EvalContext::log</qualifiedname>
+        <briefdescription>
+<para>Evaluation log. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="62" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a75651ec669b3baf563c98a0ceced602b" prot="public" static="no" mutable="no">
+        <type>std::uint64_t const</type>
+        <definition>std::uint64_t const zmbt::lang::Expression::EvalContext::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>zmbt::lang::Expression::EvalContext::depth</qualifiedname>
+        <briefdescription>
+<para>Evaluation stack depth. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="64" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a6837d212523a4d2dc4d1a0c1f63c7dca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>EvalContext zmbt::lang::Expression::EvalContext::operator++</definition>
+        <argsstring>(int) const</argsstring>
+        <name>operator++</name>
+        <qualifiedname>zmbt::lang::Expression::EvalContext::operator++</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+<para>Copy context with depth increment. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="67" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> evaluation context. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>zmbt::lang::Expression::EvalContext</label>
+        <link refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>op</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>log</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::Expression::EvalLog</label>
+        <link refid="structzmbt_1_1lang_1_1Expression_1_1EvalLog"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Operator</label>
+        <link refid="classzmbt_1_1lang_1_1Operator"/>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="57" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="58" bodyend="68"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a75651ec669b3baf563c98a0ceced602b" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression::EvalContext</scope><name>depth</name></member>
+      <member refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a40fb77284cfad1bd3aea48da5ee23f36" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression::EvalContext</scope><name>log</name></member>
+      <member refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a7a55dab2d1eaed0b684cd104a654d787" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression::EvalContext</scope><name>op</name></member>
+      <member refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext_1a6837d212523a4d2dc4d1a0c1f63c7dca" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression::EvalContext</scope><name>operator++</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

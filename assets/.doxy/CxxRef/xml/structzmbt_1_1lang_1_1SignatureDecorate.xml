@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1SignatureDecorate" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::SignatureDecorate</compoundname>
+    <basecompoundref refid="structzmbt_1_1lang_1_1SignatureBinary" prot="public" virt="non-virtual">zmbt::lang::SignatureBinary&lt; Keyword::Decorate &gt;</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureDecorate_1a16b2454db89fdbe30df623ef4648a717" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureDecorate::operator()</definition>
+        <argsstring>(type_tag&lt; T &gt; tag) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureDecorate::operator()</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1type__tag" kindref="compound">type_tag</ref>&lt; T &gt;</type>
+          <declname>tag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="167" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="167" bodyend="171"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::lang::SignatureBinary&lt; Keyword::Decorate &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureDecorate</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureDecorate"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::lang::SignatureBinary&lt; Keyword::Decorate &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureDecorate</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureDecorate"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="161" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="162" bodyend="172"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a905f9859ae00445adeec3b69540be16a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>asPredicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a34d51c470b6f5c2f8de0e83ea5948be2" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>eval</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4858d93b13cbcb48f8debeea8e634d9e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0580ecf76a2086e61b6c7b69cb99f6" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a37db18bbce268c987850abcf4ba5aba0" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a99c1cf8e34c27aa2f3b2e93e7355de45" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae7054c0b4cfbb198a794db486d573cbd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aeb03c331f87b15b1cd76ed6a966b54a8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea93ba54a88cdf26279ac47b60f1bf28" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a2b3d62287201f721054edf247d96cca1" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a868366764044fac2324422b1c0b4064f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>has_params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae6fcd8cc6584ab581b9485a20bcc0670" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>is</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea5d72fca2fb4e785dfacf5b703f46f8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>is_boolean</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6c08858ff542dc7462d92ededd038e93" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>is_const</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aedb21965768a6fe841c3e9f13fb3d72c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>is_hiord</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab738d97dc7e9ad9d1fda910be724fa6d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>is_literal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab7f5867e9188d4193096133698c7156a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>is_noop</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a056a0dcc4e86f3d3c38d3ce724d42c8d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>Keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1af508749bcd7dd71cefd6866af40f7aac" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ad6331a9c4e17f87acc3a9e3594c2b217" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>match</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae66de80cc134d5cb60597c646e0f0f98" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>operator!=</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureDecorate_1a16b2454db89fdbe30df623ef4648a717" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureBinary_1a515d1aea9ad3ccfa02e33dfbad67ccaf" prot="public" virt="non-virtual" ambiguityscope="SignatureBinary&lt; Keyword::Decorate &gt;::"><scope>zmbt::lang::SignatureDecorate</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureBinary_1ab33a2c077b2878fa15339864d9a70527" prot="public" virt="non-virtual" ambiguityscope="SignatureBinary&lt; Keyword::Decorate &gt;::"><scope>zmbt::lang::SignatureDecorate</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a20bf8fb30d96689265de8ad963ddf7d8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7f5f2f8e69cfd5bf056ea27888e6b214" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a36f5f5405b19d32e2a9c890db7536d78" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0ac9299e55317e33acf7eb9617a120" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6274ed9c5f1b6390dc84817f1dadbc8b" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>serialize</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureBase_1a80a02093cbc3f8641f3c7eb45f13e335" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>SignatureBase</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a42ec2c8d1be79671485d9b9d0e84025d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>subexpr</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab1292c05098a318f87a7ada1a0a19554" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>underlying</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a3437798eea37bef1ab07961ecc39d560" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5605348c967d3eed2552904bb1501b4d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureDecorate</scope><name>~Expression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

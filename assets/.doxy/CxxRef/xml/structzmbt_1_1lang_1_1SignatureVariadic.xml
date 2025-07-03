@@ -1,0 +1,460 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1SignatureVariadic" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::SignatureVariadic</compoundname>
+    <basecompoundref refid="structzmbt_1_1lang_1_1SignatureBase" prot="public" virt="non-virtual">zmbt::lang::SignatureBase&lt; K &gt;</basecompoundref>
+    <includes refid="api__signatures_8hpp" local="no">api_signatures.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref></type>
+        <declname>K</declname>
+        <defname>K</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzmbt_1_1lang_1_1SignatureVariadic_1a33fabc7189ff28a6e5ceba4ef6ebef6c" prot="public" static="no">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>using zmbt::lang::SignatureVariadic&lt; K &gt;::E =  Expression</definition>
+        <argsstring></argsstring>
+        <name>E</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::E</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="111" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="111" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1addadf934bd4a98d06b28a75b5060843c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>() const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="112" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="112" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1a665750353a3b0dcb12f3a7a266bdaef5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="115" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="115" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1a8c812ea220c97b45095c5759f0a4d50f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="118" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="118" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1aa12894950ed1ef750fe08815c60a1271" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="121" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="121" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1a414292cbfd385b37a3a2d3a79c86f9e2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2, E const &amp;p3) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p3</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="124" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="124" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1aec7ce2e191f52ecdb9e77e8ae20f33e1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2, E const &amp;p3, E const &amp;p4) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p4</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="127" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="127" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1a44e646eba4dbef388ee683bfc479d423" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2, E const &amp;p3, E const &amp;p4, E const &amp;p5) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p5</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="130" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="130" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1a1600560b945193a3d02ddd6f22c3163c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2, E const &amp;p3, E const &amp;p4, E const &amp;p5, E const &amp;p6) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p5</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p6</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="133" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="133" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1ae9a7e502ba8dc5f3aa6388e1337f2c39" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2, E const &amp;p3, E const &amp;p4, E const &amp;p5, E const &amp;p6, E const &amp;p7) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p5</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p6</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p7</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="136" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="136" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureVariadic_1a5adf4ec17d667104fed92d2722effbc5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureVariadic&lt; K &gt;::operator()</definition>
+        <argsstring>(E const &amp;p0, E const &amp;p1, E const &amp;p2, E const &amp;p3, E const &amp;p4, E const &amp;p5, E const &amp;p6, E const &amp;p7, T &amp;&amp;... rest) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureVariadic::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p5</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p6</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">E</ref> const &amp;</type>
+          <declname>p7</declname>
+        </param>
+        <param>
+          <type>T &amp;&amp;...</type>
+          <declname>rest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="140" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="140" bodyend="142"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Variadic expression. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>keyword <anchor id="structzmbt_1_1lang_1_1SignatureVariadic_1variadic-syntactic-forms"/></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+<sect4 id="structzmbt_1_1lang_1_1SignatureVariadic_1par-variadic-syntactic-forms">
+<title>Syntactic forms</title>
+<para>Syntatic form over function f: <formula id="6">$E(a,b,c,...) \mapsto (x \mapsto f(a,b,c,...)(x))$</formula> </para>
+</sect4>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureVariadic&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureVariadic"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureVariadic&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureVariadic"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="108" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="109" bodyend="143"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a905f9859ae00445adeec3b69540be16a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>asPredicate</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a33fabc7189ff28a6e5ceba4ef6ebef6c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>E</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a34d51c470b6f5c2f8de0e83ea5948be2" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>eval</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4858d93b13cbcb48f8debeea8e634d9e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0580ecf76a2086e61b6c7b69cb99f6" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a37db18bbce268c987850abcf4ba5aba0" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a99c1cf8e34c27aa2f3b2e93e7355de45" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae7054c0b4cfbb198a794db486d573cbd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aeb03c331f87b15b1cd76ed6a966b54a8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea93ba54a88cdf26279ac47b60f1bf28" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a2b3d62287201f721054edf247d96cca1" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a868366764044fac2324422b1c0b4064f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>has_params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae6fcd8cc6584ab581b9485a20bcc0670" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>is</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea5d72fca2fb4e785dfacf5b703f46f8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>is_boolean</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6c08858ff542dc7462d92ededd038e93" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>is_const</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aedb21965768a6fe841c3e9f13fb3d72c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>is_hiord</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab738d97dc7e9ad9d1fda910be724fa6d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>is_literal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab7f5867e9188d4193096133698c7156a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>is_noop</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a056a0dcc4e86f3d3c38d3ce724d42c8d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>Keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1af508749bcd7dd71cefd6866af40f7aac" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ad6331a9c4e17f87acc3a9e3594c2b217" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>match</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae66de80cc134d5cb60597c646e0f0f98" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator!=</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1addadf934bd4a98d06b28a75b5060843c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a665750353a3b0dcb12f3a7a266bdaef5" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a8c812ea220c97b45095c5759f0a4d50f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1aa12894950ed1ef750fe08815c60a1271" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a414292cbfd385b37a3a2d3a79c86f9e2" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1aec7ce2e191f52ecdb9e77e8ae20f33e1" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a44e646eba4dbef388ee683bfc479d423" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a1600560b945193a3d02ddd6f22c3163c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1ae9a7e502ba8dc5f3aa6388e1337f2c39" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureVariadic_1a5adf4ec17d667104fed92d2722effbc5" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a20bf8fb30d96689265de8ad963ddf7d8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7f5f2f8e69cfd5bf056ea27888e6b214" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a36f5f5405b19d32e2a9c890db7536d78" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0ac9299e55317e33acf7eb9617a120" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6274ed9c5f1b6390dc84817f1dadbc8b" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>serialize</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureBase_1a80a02093cbc3f8641f3c7eb45f13e335" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>SignatureBase</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a42ec2c8d1be79671485d9b9d0e84025d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>subexpr</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab1292c05098a318f87a7ada1a0a19554" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>underlying</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a3437798eea37bef1ab07961ecc39d560" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5605348c967d3eed2552904bb1501b4d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureVariadic</scope><name>~Expression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1custom__invocation" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::custom_invocation</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+      <param>
+        <type>class E</type>
+        <defval>void</defval>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Customize the interface reflection metafunction. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Provide custom type definitions and &apos;apply&apos; method for callables. Required fields:<itemizedlist>
+<listitem><para>type: callable type (metafunction template parameter)</para>
+</listitem><listitem><para>host_t: host object type</para>
+</listitem><listitem><para>return_t: callable return type</para>
+</listitem><listitem><para>args_t: callable arguments tuple type</para>
+</listitem><listitem><para>apply: callable invocation method with signature:<orderedlist>
+<listitem><para>If host_t is nullptr_t: <programlisting><codeline><highlight class="keyword">static</highlight><highlight class="normal"><sp/>return_t<sp/>apply(nullptr_t,<sp/><ref refid="namespacezmbt_1aa6dbe066c6a84f4ab7134b8d2ed20359" kindref="member">type</ref><sp/>ifc,<sp/>args_t<sp/>args);</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>If host_t is class: <programlisting><codeline><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>H&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>return_t<sp/>apply(H&amp;&amp;<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/><ref refid="namespacezmbt_1aa6dbe066c6a84f4ab7134b8d2ed20359" kindref="member">type</ref><sp/>ifc,<sp/>args_t<sp/>args);</highlight></codeline>
+</programlisting></para>
+</listitem></orderedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para>For class methods, the <computeroutput>apply</computeroutput> function must support references and pointers, including smart pointers. Therefore, a templated version of the <computeroutput>apply</computeroutput> is recommended but can be replaced with a set of overloads if necessary.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callable type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>E</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SFINAE enabler </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="68" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="68" bodyend="-1"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

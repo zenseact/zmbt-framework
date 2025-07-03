@@ -1,0 +1,450 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1entity__id" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::entity_id</compoundname>
+    <derivedcompoundref refid="classzmbt_1_1interface__id" prot="public" virt="non-virtual">zmbt::interface_id</derivedcompoundref>
+    <derivedcompoundref refid="classzmbt_1_1object__id" prot="public" virt="non-virtual">zmbt::object_id</derivedcompoundref>
+    <includes refid="entity__id_8hpp" local="no">entity_id.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1entity__id_1a57c28ee7e825bbaa12664cec4d9c912c" prot="private" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::entity_id::key_</definition>
+        <argsstring></argsstring>
+        <name>key_</name>
+        <qualifiedname>zmbt::entity_id::key_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="21" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1entity__id_1adde133c17a4c69c1fd21d4c0b674137c" prot="private" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::entity_id::annotation_</definition>
+        <argsstring></argsstring>
+        <name>annotation_</name>
+        <qualifiedname>zmbt::entity_id::annotation_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="22" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1entity__id_1adb4a9e4f1b222787aa824e3b90eb9f46" prot="private" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::entity_id::str_</definition>
+        <argsstring></argsstring>
+        <name>str_</name>
+        <qualifiedname>zmbt::entity_id::str_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="23" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a5cae90111603d42e6dcde07de9bb5647" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::entity_id::entity_id</definition>
+        <argsstring>()=default</argsstring>
+        <name>entity_id</name>
+        <qualifiedname>zmbt::entity_id::entity_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="27" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a76c5b06e68a94a1a9e89282c187f0782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::entity_id::entity_id</definition>
+        <argsstring>(boost::json::string_view key, boost::json::string_view type)</argsstring>
+        <name>entity_id</name>
+        <qualifiedname>zmbt::entity_id::entity_id</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="29" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a0c0bd15a3af10aa6cce06e6543933d2b" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::entity_id::entity_id</definition>
+        <argsstring>(boost::json::value const &amp;val)</argsstring>
+        <name>entity_id</name>
+        <qualifiedname>zmbt::entity_id::entity_id</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="30" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ab524192ea91687820ab7e9df1f620a87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::entity_id::entity_id</definition>
+        <argsstring>(entity_id const &amp;)=default</argsstring>
+        <name>entity_id</name>
+        <qualifiedname>zmbt::entity_id::entity_id</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a2baedea36abfa4f215ca4f1b5f0736dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::entity_id::entity_id</definition>
+        <argsstring>(entity_id &amp;&amp;)=default</argsstring>
+        <name>entity_id</name>
+        <qualifiedname>zmbt::entity_id::entity_id</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="33" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1af992a80dea8a9f0fc6905d6737539bdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> &amp;</type>
+        <definition>entity_id &amp; zmbt::entity_id::operator=</definition>
+        <argsstring>(entity_id const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::entity_id::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="34" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1afccfdde33f26a2f768d1a71c35ebda27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> &amp;</type>
+        <definition>entity_id &amp; zmbt::entity_id::operator=</definition>
+        <argsstring>(entity_id &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::entity_id::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="35" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ac7a2f2398804ae98f3533f320533e286" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::entity_id::~entity_id</definition>
+        <argsstring>()=default</argsstring>
+        <name>~entity_id</name>
+        <qualifiedname>zmbt::entity_id::~entity_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="36" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a88d3fa085398d2dbe3ffd0fed038b65b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> &amp;</type>
+        <definition>entity_id &amp; zmbt::entity_id::operator=</definition>
+        <argsstring>(boost::json::value const &amp;v)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::entity_id::operator=</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="38" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ae0acb55123e15068e725abc0d6da0bc1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> &amp;</type>
+        <definition>entity_id &amp; zmbt::entity_id::operator=</definition>
+        <argsstring>(boost::json::value &amp;&amp;v)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::entity_id::operator=</qualifiedname>
+        <param>
+          <type>boost::json::value &amp;&amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="43" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="43" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ad307d68fb825c43323e4ee76a25c85ae" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::entity_id::operator==</definition>
+        <argsstring>(entity_id const &amp;other) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>zmbt::entity_id::operator==</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="51" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ad534fcfd769fc4a448d83a7cca711eaa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::entity_id::operator!=</definition>
+        <argsstring>(entity_id const &amp;other) const</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>zmbt::entity_id::operator!=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="54" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a22997c51572e9e9f1ab765944267b6fb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::entity_id::operator&lt;</definition>
+        <argsstring>(entity_id const &amp;other) const</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>zmbt::entity_id::operator&lt;</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="57" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a805b8b3f11b3fe2f999fc22b4b4bb0cb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::entity_id::operator&gt;</definition>
+        <argsstring>(entity_id const &amp;other) const</argsstring>
+        <name>operator&gt;</name>
+        <qualifiedname>zmbt::entity_id::operator&gt;</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="60" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="60" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1a4b18bb669f1e6d2951b14fefbadd970b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::entity_id::operator&lt;=</definition>
+        <argsstring>(entity_id const &amp;other) const</argsstring>
+        <name>operator&lt;=</name>
+        <qualifiedname>zmbt::entity_id::operator&lt;=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="63" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1acc696a64cc0f82b494cab2c0e1f38b24" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::entity_id::operator&gt;=</definition>
+        <argsstring>(entity_id const &amp;other) const</argsstring>
+        <name>operator&gt;=</name>
+        <qualifiedname>zmbt::entity_id::operator&gt;=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="66" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="66" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1aa624cf2d0a6c6768cd234ae5292e6df0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::entity_id::str</definition>
+        <argsstring>() const</argsstring>
+        <name>str</name>
+        <qualifiedname>zmbt::entity_id::str</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="76" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="76" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ae70aa01934eb0e79356d4488c1c3f1ec" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::entity_id::key</definition>
+        <argsstring>() const</argsstring>
+        <name>key</name>
+        <qualifiedname>zmbt::entity_id::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="81" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="81" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1entity__id_1ad98741a1dd0a87a50fda7089b0744aa8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::entity_id::annotation</definition>
+        <argsstring>() const</argsstring>
+        <name>annotation</name>
+        <qualifiedname>zmbt::entity_id::annotation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="86" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="86" bodyend="89"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1entity__id_1a2c9f7e72832e64845ab20ccaf4948fdb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, entity_id const &amp;id)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>zmbt::entity_id::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="70" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="70" bodyend="74"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Base class for annotated key objects. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>zmbt::entity_id</label>
+        <link refid="classzmbt_1_1entity__id"/>
+      </node>
+      <node id="2">
+        <label>zmbt::interface_id</label>
+        <link refid="classzmbt_1_1interface__id"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::object_id</label>
+        <link refid="classzmbt_1_1object__id"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" line="19" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp" bodystart="19" bodyend="96"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1entity__id_1ad98741a1dd0a87a50fda7089b0744aa8" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>annotation</name></member>
+      <member refid="classzmbt_1_1entity__id_1adde133c17a4c69c1fd21d4c0b674137c" prot="private" virt="non-virtual"><scope>zmbt::entity_id</scope><name>annotation_</name></member>
+      <member refid="classzmbt_1_1entity__id_1a5cae90111603d42e6dcde07de9bb5647" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>entity_id</name></member>
+      <member refid="classzmbt_1_1entity__id_1a76c5b06e68a94a1a9e89282c187f0782" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>entity_id</name></member>
+      <member refid="classzmbt_1_1entity__id_1a0c0bd15a3af10aa6cce06e6543933d2b" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>entity_id</name></member>
+      <member refid="classzmbt_1_1entity__id_1ab524192ea91687820ab7e9df1f620a87" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>entity_id</name></member>
+      <member refid="classzmbt_1_1entity__id_1a2baedea36abfa4f215ca4f1b5f0736dd" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>entity_id</name></member>
+      <member refid="classzmbt_1_1entity__id_1ae70aa01934eb0e79356d4488c1c3f1ec" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>key</name></member>
+      <member refid="classzmbt_1_1entity__id_1a57c28ee7e825bbaa12664cec4d9c912c" prot="private" virt="non-virtual"><scope>zmbt::entity_id</scope><name>key_</name></member>
+      <member refid="classzmbt_1_1entity__id_1ad534fcfd769fc4a448d83a7cca711eaa" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator!=</name></member>
+      <member refid="classzmbt_1_1entity__id_1a22997c51572e9e9f1ab765944267b6fb" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator&lt;</name></member>
+      <member refid="classzmbt_1_1entity__id_1a2c9f7e72832e64845ab20ccaf4948fdb" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classzmbt_1_1entity__id_1a4b18bb669f1e6d2951b14fefbadd970b" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator&lt;=</name></member>
+      <member refid="classzmbt_1_1entity__id_1af992a80dea8a9f0fc6905d6737539bdd" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1entity__id_1afccfdde33f26a2f768d1a71c35ebda27" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1entity__id_1a88d3fa085398d2dbe3ffd0fed038b65b" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1entity__id_1ae0acb55123e15068e725abc0d6da0bc1" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1entity__id_1ad307d68fb825c43323e4ee76a25c85ae" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1entity__id_1a805b8b3f11b3fe2f999fc22b4b4bb0cb" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator&gt;</name></member>
+      <member refid="classzmbt_1_1entity__id_1acc696a64cc0f82b494cab2c0e1f38b24" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>operator&gt;=</name></member>
+      <member refid="classzmbt_1_1entity__id_1aa624cf2d0a6c6768cd234ae5292e6df0" prot="public" virt="non-virtual"><scope>zmbt::entity_id</scope><name>str</name></member>
+      <member refid="classzmbt_1_1entity__id_1adb4a9e4f1b222787aa824e3b90eb9f46" prot="private" virt="non-virtual"><scope>zmbt::entity_id</scope><name>str_</name></member>
+      <member refid="classzmbt_1_1entity__id_1ac7a2f2398804ae98f3533f320533e286" prot="public" virt="virtual"><scope>zmbt::entity_id</scope><name>~entity_id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

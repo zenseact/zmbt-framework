@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1api_1_1Expression" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::api::Expression</compoundname>
+    <includes refid="ns_8hpp" local="no">ns.hpp</includes>
+    <briefdescription>
+<para>Alias for <ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp" line="48" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp" bodystart="48" bodyend="48"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
