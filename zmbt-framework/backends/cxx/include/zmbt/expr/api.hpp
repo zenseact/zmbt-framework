@@ -429,13 +429,32 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Push> const Push;
 /// \details
 /// Query evaluation rules:
 /// 
-///   1. Array index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
+///   1. Structure index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
 ///   2. Array slice: $q: slice \mapsto x: list  \mapsto x[start:stop:step]$
 ///   3. JSON Pointer: $q: str   \mapsto x: any   \mapsto x_q$
 ///   4. Array pack: $q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]$
 ///   5. Object pack:
 ///     $\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}$
+/// 
+///   Structure index is evaluated as array index or as key-value pair index for objects
+///   on order-preserving backends.
+/// 
+///   Result is null if requested element not found.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::At> const At;
+
+/// \brief Delete elements from structure by given query
+/// \details
+/// Possible queries:
+///   1. Structure index (negative resolves as reverse)
+///   2. JSON Pointer
+///   3. List of queries
+/// 
+/// Structure index is evaluated as array index or as key-value pair index for objects
+///   on order-preserving backends.
+/// When deleting an object element, resulting items order may change.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Delete> const Delete;
+/// \brief Alias for Delete
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Delete> const Del;
 
 /// \brief Lookup table function
 /// \details
@@ -489,6 +508,18 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Each> const Each;
 
 /// \brief Sort list by key function
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Sort> const Sort;
+
+/// \brief Find the first element that satisfies given predicate
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Find> const Find;
+
+/// \brief Find json pointer of the first element that satisfies given predicate
+extern lang::SignatureBinary<::zmbt::lang::Keyword::FindPtr> const FindPtr;
+
+/// \brief Find index of the first element that satisfies given predicate
+/// \details
+/// Similar to FindPtr, but will integer index or nullptr for non-indexable input.
+/// Objects are processed as list of key-value pairs.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::FindIdx> const FindIdx;
 
 /// \brief Min value by key function
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Min> const Min;
@@ -554,6 +585,14 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 /// order or eval-time parameters - for that case use
 /// the Reverse keyword instead.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
+
+/// \brief Evaluate function and print evaluation log to stderr
+extern lang::SignatureDebug const Debug;
+/// \brief Alias for Debug
+extern lang::SignatureDebug const Dbg;
+
+/// \brief Flip designtime and run-time parameters, evaluating input as expression
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Eval> const Eval;
 
 /// \brief Evaluate function and return result or null if it throws
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;

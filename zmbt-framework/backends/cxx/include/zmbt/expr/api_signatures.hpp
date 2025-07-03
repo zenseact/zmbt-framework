@@ -216,6 +216,23 @@ struct SignatureError : public SignatureBase<Keyword::Error>
     }
 };
 
+#define ZMBT_DEBUG_EXPR(f) ::zmbt::expr::Debug(f, ZMBT_CUR_LOC)
+
+struct SignatureDebug : public SignatureTernary<Keyword::Debug>
+{
+    using SignatureTernary<Keyword::Debug>::SignatureTernary;
+
+    Expression operator()(Expression const& expr, Expression const& identifier) const
+    {
+        return SignatureTernary<Keyword::Debug>::operator()(expr, identifier);
+    }
+
+    Expression operator()(Expression const& expr) const
+    {
+        return operator()(expr, "anonymous");
+    }
+};
+
 } // namespace lang
 } // namespace zmbt
 

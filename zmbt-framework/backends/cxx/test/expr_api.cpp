@@ -30,6 +30,9 @@ namespace {
 std::set<Keyword> const NotImplemented {
     Keyword::Bind,
     Keyword::Void,
+    Keyword::Find,
+    Keyword::FindPtr,
+    Keyword::FindIdx
 };
 
 
@@ -492,9 +495,22 @@ std::vector<TestEvalSample> const TestSamples
     // single-element bracket init is always an array in Expression ctor
     {At({""})                   , 42                     , L{42}                },
 
+    {Delete({"/lol"})           , 42                     , 42                   },
+    {Delete("")                 , 42                     , nullptr              },
+    {Delete({""})               , 42                     , nullptr              },
+    {Delete(2)                  , {1,2,3,4,5}            , {1,2,4,5}            },
+    {Delete(-2)                 , {1,2,3,4,5}            , {1,2,3,5}            },
+    {Delete("/0/1")             , {{1,2,3},4}            , {{1,3}, 4}           },
+    {Del({"/a/b/0", "/a/b/1"})  , {{"a", {{"b", {1,2,3,4}}}}} , {{"a", {{"b", {3,4}}}}}},
+    {Del({0, 1, 42, "/2"})      , {1,2,3,4,5}            , {4,5}                },
+
     {Flip(At({1,2,3}))          , 0                      , 1                     },
     {Lookup({1,2,3})            , 0                      , 1                     },
-    {Lookup({{"42", "lol"}})    , 42                     , "lol"                 },
+    {Lookup({{"42", "lol"}})    , 42                     , nullptr               },
+    {Lookup({{"42", "lol"}})    , 0                      , {"42", "lol"}         },
+    {Lookup({{"42", "lol"}})    , -1                     , {"42", "lol"}         },
+    {Lookup({{"42", "lol"}})    , "42"                   , "lol"                 },
+    {Lookup({{"42", "lol"}})    , "/42"                  , "lol"                 },
 
     // TODO: string query
     // {At(0)                   , "foo"                 , "f"                   },
@@ -607,16 +623,26 @@ std::vector<TestEvalSample> const TestSamples
     {Cast(type<Foo>)            , int(Foo::Bar)         , "Bar"                 },
     {Cast(type<Foo>)            , int(Foo::Baz)         , "Baz"                 },
 
+    {Eval                       , {}                    , {}                    },
+    {Eval                       , 42                    , 42                    },
+    {Eval(42)                   , Sub(2)                , 40                    },
+    {Eval                       , Eq(nullptr)           , true                  },
+    {ZMBT_DEBUG_EXPR(42|Sub(2)) , {}                    , 40                    },
+    {Debug(Sub(2))              , 42                    , 40                    },
+    {Debug                      , 42                    , 42                    },
+    {Debug(Add(2)|Debug(Sub(2), "nested"), "top"), 40   , 40                    },
+
+
+
 
     {Overload(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },
     {Overload(type<std::complex<double>>, Add(1)), {.5, 2}, {1.5, 2}            },
 
-    {Overload(type<int>, Eq(42) | Not|Not)            , 41     , false                }, // overload by default ignores boolean keywords
+    {Overload(type<int>, Eq(42) | Not|Not)       , 41     , false               }, // overload by default ignores boolean keywords
 
-    {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41     , true                    },
-    // {Overload(type<int>, Add(1) | Serialize | Eq("42")  ), 41     , true                    },
-    {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41     , true                    },
+    {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41, true               },
+    {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41, true },
 
     {Error("foo")           , {}              , {{":error", {
                                                     {"message", "foo"}
@@ -689,6 +715,8 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, stati
 
 BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul}, static_cast<std::size_t>(Keyword::_count)))
 {
+    BOOST_TEST_INFO("Testing coverage for " << sample);
+
     Keyword const keyword = static_cast<Keyword>(sample);
     Expression const expr(keyword, {});
     bool implementation_error_thrown = false;

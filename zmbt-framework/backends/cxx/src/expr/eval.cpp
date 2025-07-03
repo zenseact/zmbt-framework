@@ -97,6 +97,7 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
     else if (is(Keyword::Id))
     {
         result = x;
+        ctx.log.push(underlying(), x, result, ctx.depth);
     }
     else {
         CodegenType const classifier = getCodegenType(keyword());

@@ -1311,12 +1311,17 @@ Transform json value with given query
 
 Query evaluation rules:
 
-  1. Array index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
+  1. Structure index (negative resolves as reverse): $q: int   \mapsto x: list  \mapsto x_q$
   2. Array slice: $q: slice \mapsto x: list  \mapsto x[start:stop:step]$
   3. JSON Pointer: $q: str   \mapsto x: any   \mapsto x_q$
   4. Array pack: $q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]$
   5. Object pack:
     $\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}$
+
+  Structure index is evaluated as array index or as key-value pair index for objects
+  on order-preserving backends.
+
+  Result is null if requested element not found.
 
 *Examples*:
 
@@ -1346,6 +1351,29 @@ Query evaluation rules:
 
  * `{"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  `$\mapsto$` {"f": 42, "g": 13}`
  * `{"a": 42, "b": 13} | At({"$/b": "/a"})           `$\mapsto$` {"13": 42}`
+
+### Delete
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+*Aliases*: del
+
+Delete elements from structure by given query
+
+Possible queries:
+  1. Structure index (negative resolves as reverse)
+  2. JSON Pointer
+  3. List of queries
+
+Structure index is evaluated as array index or as key-value pair index for objects
+  on order-preserving backends.
+When deleting an object element, resulting items order may change.
+
+*Examples*:
+
+ * `[1,2,3,4,5] | Del(2) `$\mapsto$` [1,2,4,5]`
+ * `[[1, 2], 3] | Del("/0/1") `$\mapsto$` [[1], 3]`
+ * `{"a": {"b": [1,2,3]}} | Del({"/a/b/0", "/a/b/1"}) `$\mapsto$` {"a": {"b": [3]}}`
 
 ### Lookup
 
@@ -1484,6 +1512,47 @@ Sort list by key function
  * `[3, 1, 2] | Sort(Id) `$\mapsto$` [1, 2, 3]`
  * `[-3, 1, -2] | Sort(Abs) `$\mapsto$` [1, -2, -3]`
  * `[3, 1, 2] | Sort | Reverse `$\mapsto$` [3, 2, 1]`
+
+### Find
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Find the first element that satisfies given predicate
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | Find(Ge(2)) `$\mapsto$`  nullptr`
+ * `[-3, 1,  4] | Find(Ge(2)) `$\mapsto$`  4`
+
+### FindPtr
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Find json pointer of the first element that satisfies given predicate
+
+
+*Examples*:
+
+ * `[-3, 1, -2] | FindPtr(Ge(2)) `$\mapsto$`  nullptr`
+ * `[-3, 1,  4] | FindPtr(Ge(2)) `$\mapsto$`  "/2"`
+
+### FindIdx
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Find index of the first element that satisfies given predicate
+
+Similar to FindPtr, but will integer index or nullptr for non-indexable input.
+Objects are processed as list of key-value pairs.
+
+*Examples*:
+
+ * `[-3, 1, -2] | FindIdx(Ge(2)) `$\mapsto$`  nullptr`
+ * `[-3, 1,  4] | FindIdx(Ge(2)) `$\mapsto$`  2`
 
 ### Min
 
@@ -1692,6 +1761,25 @@ the Reverse keyword instead.
 
  * `2 | Div(1) `$\mapsto$` 2`
  * `2 | Flip(Div(1)) `$\mapsto$` 0.5`
+
+### Debug
+
+*Signature*: [Special](../user-guide/expressions.md#syntax)
+
+*Aliases*: dbg
+
+Evaluate function and print evaluation log to stderr
+
+
+
+### Eval
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Flip designtime and run-time parameters, evaluating input as expression
+
+
 
 ### Try
 

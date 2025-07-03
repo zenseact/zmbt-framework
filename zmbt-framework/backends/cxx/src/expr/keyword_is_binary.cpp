@@ -68,6 +68,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Concat:
     case Keyword::Push:
     case Keyword::At:
+    case Keyword::Delete:
     case Keyword::Lookup:
     case Keyword::C:
     case Keyword::Decorate:
@@ -78,11 +79,15 @@ bool isBinary(Keyword const& k)
     case Keyword::Count:
     case Keyword::Each:
     case Keyword::Sort:
+    case Keyword::Find:
+    case Keyword::FindPtr:
+    case Keyword::FindIdx:
     case Keyword::Min:
     case Keyword::Max:
     case Keyword::Argmin:
     case Keyword::Argmax:
     case Keyword::Flip:
+    case Keyword::Eval:
     case Keyword::Try:
     case Keyword::TryCatch:
     case Keyword::Default:
