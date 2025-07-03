@@ -419,6 +419,12 @@ enum class Keyword
     /// flip
     Flip,
 
+    /// debug
+    Debug,
+
+    /// eval
+    Eval,
+
     /// try
     Try,
 

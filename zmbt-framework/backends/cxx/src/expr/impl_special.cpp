@@ -1303,6 +1303,43 @@ V eval_impl<Keyword::Undecorate>(V const& x, V const& param, E::EvalContext cons
     return op.undecorate(x);
 }
 
+template <>
+V eval_impl<Keyword::Debug>(V const& x, V const& param, E::EvalContext const& context)
+{
+    E::EvalContext local_ctx {};
+    local_ctx.op = context.op;
+    local_ctx.log = E::EvalLog::make();
+    auto const fn_and_id = !param.is_null() ? param.as_array() : boost::json::array{zmbt::json_from(Keyword::Id), "anonymous"};
+    zmbt::lang::Expression f(fn_and_id.at(0));
+    auto message = zmbt::lang::Expression(fn_and_id.at(1)).eval();
+    auto const result = f.eval(x, local_ctx);
+    std::cerr << "ZMBT_EXPR_DEBUG(" << message.as_string().c_str() << "):\n";
+    std::cerr << local_ctx.log;
+
+    if (context.log.stack)
+    {
+        // if (!context.log.stack->empty())
+        // {
+        //     context.log.stack->front() = {context.depth, f, x, result}; // hiding nested debug
+        // }
+        context.log.stack->reserve(context.log.stack->capacity() + local_ctx.log.stack->size());
+        for (auto line_it = std::make_move_iterator(local_ctx.log.stack->begin()),
+        log_end = std::make_move_iterator(local_ctx.log.stack->end());
+        line_it != log_end; ++line_it)
+        {
+            line_it->as_array().at(0).as_uint64() += (context.depth + 1);
+            context.log.stack->push_back(*line_it);
+        }
+    }
+    return result;
+}
+
+template <>
+V eval_impl<Keyword::Eval>(V const& x, V const& param, E::EvalContext const& context)
+{
+    return zmbt::lang::Expression(x).eval(param, context++);
+}
+
 } // namespace
 
 
@@ -1410,6 +1447,8 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
 
     switch(keyword())
     {
+        case Keyword::Eval:     return eval_impl<Keyword::Eval>    (*x_ptr, *param_ptr, context);
+        case Keyword::Debug:    return eval_impl<Keyword::Debug>   (*x_ptr, *param_ptr, context);
         case Keyword::All:      return eval_impl<Keyword::All>     (*x_ptr, *param_ptr, context);
         case Keyword::Any:      return eval_impl<Keyword::Any>     (*x_ptr, *param_ptr, context);
         case Keyword::Compose:  return eval_impl<Keyword::Compose> (*x_ptr, *param_ptr, context);

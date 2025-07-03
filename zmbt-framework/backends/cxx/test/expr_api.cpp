@@ -623,16 +623,26 @@ std::vector<TestEvalSample> const TestSamples
     {Cast(type<Foo>)            , int(Foo::Bar)         , "Bar"                 },
     {Cast(type<Foo>)            , int(Foo::Baz)         , "Baz"                 },
 
+    {Eval                       , {}                    , {}                    },
+    {Eval                       , 42                    , 42                    },
+    {Eval(42)                   , Sub(2)                , 40                    },
+    {Eval                       , Eq(nullptr)           , true                  },
+    {ZMBT_DEBUG_EXPR(42|Sub(2)) , {}                    , 40                    },
+    {Debug(Sub(2))              , 42                    , 40                    },
+    {Debug                      , 42                    , 42                    },
+    {Debug(Add(2)|Debug(Sub(2), "nested"), "top"), 40   , 40                    },
+
+
+
 
     {Overload(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },
     {Overload(type<std::complex<double>>, Add(1)), {.5, 2}, {1.5, 2}            },
 
-    {Overload(type<int>, Eq(42) | Not|Not)            , 41     , false                }, // overload by default ignores boolean keywords
+    {Overload(type<int>, Eq(42) | Not|Not)       , 41     , false               }, // overload by default ignores boolean keywords
 
-    {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41     , true                    },
-    // {Overload(type<int>, Add(1) | Serialize | Eq("42")  ), 41     , true                    },
-    {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41     , true                    },
+    {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41, true               },
+    {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41, true },
 
     {Error("foo")           , {}              , {{":error", {
                                                     {"message", "foo"}
@@ -705,6 +715,8 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, stati
 
 BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul}, static_cast<std::size_t>(Keyword::_count)))
 {
+    BOOST_TEST_INFO("Testing coverage for " << sample);
+
     Keyword const keyword = static_cast<Keyword>(sample);
     Expression const expr(keyword, {});
     bool implementation_error_thrown = false;

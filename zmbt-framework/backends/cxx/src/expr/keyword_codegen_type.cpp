@@ -156,6 +156,8 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Compose:
     case Keyword::Fork:
     case Keyword::Flip:
+    case Keyword::Debug:
+    case Keyword::Eval:
     case Keyword::Try:
     case Keyword::TryCatch:
         return true;

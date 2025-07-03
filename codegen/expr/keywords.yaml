@@ -1387,6 +1387,24 @@ keyword_groups:
           2 | Div(1) ↦ 2
           2 | Flip(Div(1)) ↦ 0.5
 
+      - name: debug
+        signature: Special
+        aliases: [ dbg ]
+        brief: Evaluate function and print evaluation log to stderr
+        detail:
+          Use identifier parameter to trace the origin (default = "anonymous").
+          To indentify by src location, use `ZMBT_DEBUG_EXPR(expr)` macro, or
+          pass `ZMBT_CUR_LOC` directly.
+        params:
+          - type: fn
+          - label: identifier
+        domain: any
+        codomain: any
+
+      - name: eval
+        signature: Binary
+        brief: Flip designtime and run-time parameters, evaluating input as expression
+        domain: [any, fn]
 
       - name: try
         signature: Binary

@@ -1762,6 +1762,25 @@ the Reverse keyword instead.
  * `2 | Div(1) `$\mapsto$` 2`
  * `2 | Flip(Div(1)) `$\mapsto$` 0.5`
 
+### Debug
+
+*Signature*: [Special](../user-guide/expressions.md#syntax)
+
+*Aliases*: dbg
+
+Evaluate function and print evaluation log to stderr
+
+
+
+### Eval
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Flip designtime and run-time parameters, evaluating input as expression
+
+
+
 ### Try
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)

@@ -586,6 +586,14 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 /// the Reverse keyword instead.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
 
+/// \brief Evaluate function and print evaluation log to stderr
+extern lang::SignatureDebug const Debug;
+/// \brief Alias for Debug
+extern lang::SignatureDebug const Dbg;
+
+/// \brief Flip designtime and run-time parameters, evaluating input as expression
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Eval> const Eval;
+
 /// \brief Evaluate function and return result or null if it throws
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;
 

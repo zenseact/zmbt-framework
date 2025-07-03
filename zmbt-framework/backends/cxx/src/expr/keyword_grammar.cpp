@@ -211,6 +211,9 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "compose", Keyword::Compose)
     (ZMBT_KEYWORD_PREFIX "fork", Keyword::Fork)
     (ZMBT_KEYWORD_PREFIX "flip", Keyword::Flip)
+    (ZMBT_KEYWORD_PREFIX "debug", Keyword::Debug)
+    (ZMBT_KEYWORD_PREFIX "dbg", Keyword::Debug)
+    (ZMBT_KEYWORD_PREFIX "eval", Keyword::Eval)
     (ZMBT_KEYWORD_PREFIX "try", Keyword::Try)
     (ZMBT_KEYWORD_PREFIX "try-catch", Keyword::TryCatch)
     (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
@@ -368,6 +371,8 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
     case Keyword::Fork: { v = ZMBT_KEYWORD_PREFIX "fork"; break; }
     case Keyword::Flip: { v = ZMBT_KEYWORD_PREFIX "flip"; break; }
+    case Keyword::Debug: { v = ZMBT_KEYWORD_PREFIX "debug"; break; }
+    case Keyword::Eval: { v = ZMBT_KEYWORD_PREFIX "eval"; break; }
     case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "try"; break; }
     case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "try-catch"; break; }
     case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
