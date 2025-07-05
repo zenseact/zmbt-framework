@@ -3,7 +3,7 @@
 set -euox pipefail
 
 readonly COMPILER=${1:-"clang-17"}
-readonly DEV_CONTAINER="horolsky/zmbt-dev:latest"
+readonly DEV_CONTAINER="horolsky/zmbt-dev:20.04"
 readonly ROOT_DIR="$(realpath $(dirname ${0}))"
 
 mkdir -p /tmp/build_output/
