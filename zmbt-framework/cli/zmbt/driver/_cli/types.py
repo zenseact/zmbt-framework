@@ -46,10 +46,10 @@ def resolve_type_in(parameter_definition):
 
     parameter_type = parameter_definition.get('type', click.STRING)
     parameter_type = {
-        'bool': click.BOOL,
-        'str': click.STRING,
-        'Path': Path(allow_dash=True),
-        'Choice': click.Choice(parameter_definition.pop('choices', None), case_sensitive=False),
+        'bool':               click.BOOL,
+        'str':                click.STRING,
+        'Path':               Path(allow_dash=True),
+        'Choice':             click.Choice(parameter_definition.pop('choices', []), case_sensitive=False),
         'CommaSeparatedList': CommaSeparatedList(),
     }.get(parameter_type, parameter_type)
     parameter_definition['type'] = parameter_type
