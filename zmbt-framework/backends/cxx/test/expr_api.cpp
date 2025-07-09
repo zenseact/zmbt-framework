@@ -594,17 +594,17 @@ std::vector<TestEvalSample> const TestSamples
     {TryCatch(Div(2))           , 42                    , 21                    },
     {TryCatch(Div(0))           , 42                    ,
                                         {{"err", "zero division"},
-                                         {"fn" , {{":div",0}}   },
+                                         {"fn" , {{":Div",0}}   },
                                          {"x"  , 42             }}              },
 
     {Keyword::Noop              , nullptr                , true                 },
     // test heterogeneous init lists in params
     // Binary
-    {Serialize                  , C(Cat({Keyword::At}))  , R"({":concat":[":at"]})"},
+    {Serialize                  , C(Cat({Keyword::At}))  , R"({":Concat":[":At"]})"},
     {Serialize                  , C(Cat({42, Keyword::At, precise<float>()}))
-                                , R"({":concat":[42,":at","0x0p+0"]})"          },
+                                , R"({":Concat":[42,":At","0x0p+0"]})"          },
     // HiOrd
-    {Serialize                  , C(Max({Keyword::At}))     , R"({":max":[":at"]})"},
+    {Serialize                  , C(Max({Keyword::At}))     , R"({":Max":[":At"]})"},
 
     {2|Add(1|Add(1))            , {}                    , 4                     },
 
@@ -644,16 +644,16 @@ std::vector<TestEvalSample> const TestSamples
     {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41, true               },
     {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41, true },
 
-    {Error("foo")           , {}              , {{":error", {
+    {Error("foo")           , {}              , {{":Error", {
                                                     {"message", "foo"}
                                                 }}}                             },
 
-    {Error("foo", "bar")    , {}              , {{":error", {
+    {Error("foo", "bar")    , {}              , {{":Error", {
                                                     {"message", "foo"},
                                                     {"context", "bar"}
                                                 }}}                             },
 
-    {Error(type<int>, "foo", "bar"), {}       , {{":error", {
+    {Error(type<int>, "foo", "bar"), {}       , {{":Error", {
                                                     {"type"   , "int"},
                                                     {"message", "foo"},
                                                     {"context", "bar"}

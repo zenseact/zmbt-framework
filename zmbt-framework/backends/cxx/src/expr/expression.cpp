@@ -73,12 +73,16 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         return;
     };
     using E = zmbt::lang::Expression;
-    E fn(rec.at(1));
+
+    // TODO: optimize prettify with static buffer
+    E e_f(rec.at(1));
+    auto const fstr = e_f.prettify();
+    std::size_t len = std::min(fstr.size(), BuffSize - 1);
+    std::memcpy(buf_f, fstr.data(), len);
+    buf_f[len] = '\0';
+    boost::json::string_view f = buf_f;
 
     boost::json::serializer sr;
-    boost::json::string_view f = (sr.reset(&fn.underlying()), sr.read(buf_f));
-    if (!sr.done()) shrink(f, f.size());
-
     boost::json::string_view x  = (sr.reset(&rec.at(2)), sr.read(buf_x));
     if (!sr.done()) shrink(x, x.size());
 
@@ -105,7 +109,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         std::uint64_t const n =  total_size - capacity;
         shrink(f, (n < fx.size()) ? f.size() - n : MinExpr);
     }
-    os << f << '(' << x << ") = " << fx << '\n';
+    os << x << " | " << f <<  " |-> " << fx << '\n';
 }
 
 

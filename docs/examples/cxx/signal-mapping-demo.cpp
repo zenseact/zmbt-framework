@@ -1120,21 +1120,21 @@ Negation at the matcher end lead to test failure, and the log message is followi
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}
+      expected: "((Reduce(Add) & Size) | Div | Eq(2.5E0) | Not)"
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
         ---
-                 ┌── ":add"([1,2]) = 3
-                 ├── ":add"([3,3]) = 6
-                 ├── ":add"([6,4]) = 10
-              ┌── {":reduce":":add"}([1,2,3,4]) = 10
-              ├── ":size"([1,2,3,4]) = 4
-           ┌── {":fork":[{":reduce":":add"},":size"]}([1,2,3,4]) = [10,4]
-           ├── ":div"([10,4]) = 2.5E0
-           ├── {":eq":2.5E0}(2.5E0) = true
-           ├── ":not"(true) = false
-        □  {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}([1,2,3,4]) = false
+                 ┌── [1,2] | Add |-> 3
+                 ├── [3,3] | Add |-> 6
+                 ├── [6,4] | Add |-> 10
+              ┌── [1,2,3,4] | Reduce(Add) |-> 10
+              ├── [1,2,3,4] | Size |-> 4
+           ┌── [1,2,3,4] | (Reduce(Add) & Size) |-> [10,4]
+           ├── [10,4] | Div |-> 2.5E0
+           ├── 2.5E0 | Eq(2.5E0) |-> true
+           ├── true | Not |-> false
+        □  [1,2,3,4] | ((Reduce(Add) & Size) | Div | Eq(2.5E0) | Not) |-> false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.

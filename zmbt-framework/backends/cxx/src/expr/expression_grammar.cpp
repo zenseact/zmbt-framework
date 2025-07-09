@@ -113,7 +113,7 @@ ExpressionGrammar::ExpressionGrammar()
     start
         = eps(f.is_literal(_val)) << literal
         | eps(f.is_composition(_val)) << composition[_1 = f.composition(_val)]
-        | eps(f.is_fork(_val)) << fork[_1 = f.composition(_val)]
+        | eps(f.is_fork(_val)) << fork[_1 = f.fork(_val)]
         | keyword ;
 
     literal = string[_1 = f.json_dump(_val)];
