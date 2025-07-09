@@ -208,6 +208,8 @@ public:
 
     bool match(boost::json::value const& observed, Operator const& op = {}) const;
 
+    std::string prettify() const;
+
 };
 
 ZMBT_INJECT_SERIALIZATION

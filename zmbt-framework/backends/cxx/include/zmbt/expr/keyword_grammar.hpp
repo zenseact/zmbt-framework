@@ -5,8 +5,8 @@
  */
 
 
-#ifndef ZMBT_EXPR_EXPRESSION_GRAMMAR_HPP_
-#define ZMBT_EXPR_EXPRESSION_GRAMMAR_HPP_
+#ifndef ZMBT_EXPR_KEYWORD_GRAMMAR_HPP_
+#define ZMBT_EXPR_KEYWORD_GRAMMAR_HPP_
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/phoenix/operator.hpp>

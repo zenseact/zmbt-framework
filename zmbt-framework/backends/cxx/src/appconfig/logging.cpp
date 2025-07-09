@@ -149,7 +149,7 @@ Logger::~Logger()
 
     auto const level = boost::json::value_from(level_).as_string();
     boost::json::string_view const timestamp{timestamp_};
-    
+
     if (JSON & output_)
     {
         boost::json::value const& payload = payload_cache_.size() == 1 ? payload_cache_.front() : payload_cache_;
@@ -178,7 +178,7 @@ Logger::~Logger()
                 ss << record;
             }
         }
-        std::cerr << ss.str();
+        std::cerr << ss.str() << '\n';
     }
 }
 
