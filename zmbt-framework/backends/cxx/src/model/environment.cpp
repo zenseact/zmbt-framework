@@ -222,6 +222,7 @@ Environment& Environment::ResetFailureHandler()
 
 Environment& Environment::HandleTestFailure(boost::json::value const& diagnostics)
 {
+    ZMBT_LOG_JSON(WARNING) << diagnostics;
     config_->failure_handler(diagnostics);
     return *this;
 }

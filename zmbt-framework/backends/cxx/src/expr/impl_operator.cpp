@@ -38,7 +38,7 @@ boost::json::value Expression::eval_BinaryOp(boost::json::value const& x, EvalCo
     handle_binary_args(x, lhs, rhs);
     if (not (lhs and rhs))
     {
-        throw zmbt::expression_error("Invalid binary operation: %s << %s", serialize(), x);
+        throw zmbt::expression_error("Invalid binary operation: %s | %s", x, prettify());
     }
     return ctx.op.apply(keyword(), Expression(*lhs).eval(nullptr, ctx++), Expression(*rhs).eval(nullptr, ctx++));
 }

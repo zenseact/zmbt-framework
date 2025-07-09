@@ -138,10 +138,12 @@ public:
         return underlying_;
     }
 
-    boost::json::value const& serialize() const
+    std::string serialize() const
     {
-        return underlying();
+        return boost::json::serialize(underlying());
     }
+
+    std::string keyword_to_str() const;
 
     bool operator==(Expression const& o) const
     {
@@ -178,6 +180,26 @@ public:
         return kwrd == keyword_;
     }
 
+    bool is_compose() const
+    {
+        return is(Keyword::Compose);
+    }
+
+    bool is_nonempty_composition() const
+    {
+        return is_compose() && has_params();
+    }
+
+    bool is_fork() const
+    {
+        return is(Keyword::Fork);
+    }
+
+    bool is_nonempty_fork() const
+    {
+        return is_fork() && has_params();
+    }
+
     bool is_literal() const
     {
         return is(Keyword::Literal);
@@ -209,6 +231,8 @@ public:
     bool match(boost::json::value const& observed, Operator const& op = {}) const;
 
     std::string prettify() const;
+
+    std::list<Expression> parameter_list() const;
 
 };
 

@@ -262,15 +262,31 @@ bool Expression::is_const() const
     // TODO: test it and clarify param evaluation
     using lang::detail::CodegenType;
     using lang::detail::getCodegenType;
-    if (is(Keyword::Compose))
+    if (is_nonempty_composition())
     {
         return Expression(params().as_array().back()).is_const();
     }
-    else if (is(Keyword::Overload))
+    if (is_nonempty_fork())
+    {
+        auto const paramlist = parameter_list();
+        for (auto const& e: paramlist)
+        {
+            if (not e.is_const()) return false;
+        }
+        return true;
+    }
+    else if (is(Keyword::Overload) && has_params())
     {
         return Expression(params().as_array().back()).is_const();
     }
     return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Error) || (CodegenType::Const == getCodegenType(keyword()));
+}
+
+std::string Expression::keyword_to_str() const
+{
+    auto const k = zmbt::json_from(keyword()).as_string();
+    auto const w =  boost::json::string_view(k.c_str());
+    return w.substr(std::strlen(ZMBT_KEYWORD_PREFIX)).data();
 }
 
 bool Expression::is_boolean() const
@@ -286,11 +302,11 @@ bool Expression::is_boolean() const
     {
         return true;
     }
-    if (is(Keyword::Overload))
+    if (is(Keyword::Overload) && has_params())
     {
         return Expression(params()).is_boolean();
     }
-    if (is(Keyword::Compose))
+    if (is_nonempty_composition())
     {
         return Expression(params().as_array().back()).is_boolean();
     }
@@ -300,6 +316,24 @@ bool Expression::is_boolean() const
 bool Expression::is_hiord() const
 {
     return lang::detail::isHiOrd(keyword());
+}
+
+std::list<Expression> Expression::parameter_list() const
+{
+    std::list<Expression> result;
+
+    auto const k = keyword();
+    bool const high_arity = detail::isVariadic(k) || detail::isTernary(k);
+    bool const expect_list = high_arity && params().is_array();
+
+    if (expect_list) {
+        for (auto const& v : params().get_array()) {
+            result.emplace_back(Expression(v));
+        }
+    } else if (has_params()) {
+        result.emplace_back(subexpr());
+    }
+    return result;
 }
 
 
