@@ -29,196 +29,196 @@ namespace lang {
 KeywordSymbol::KeywordSymbol()
 {
     add
-    (ZMBT_KEYWORD_PREFIX "literal", Keyword::Literal)
-    (ZMBT_KEYWORD_PREFIX "void", Keyword::Void)
-    (ZMBT_KEYWORD_PREFIX "noop", Keyword::Noop)
+    (ZMBT_KEYWORD_PREFIX "Literal", Keyword::Literal)
+    (ZMBT_KEYWORD_PREFIX "Void", Keyword::Void)
+    (ZMBT_KEYWORD_PREFIX "Noop", Keyword::Noop)
     (ZMBT_KEYWORD_PREFIX "_", Keyword::Noop)
-    (ZMBT_KEYWORD_PREFIX "null", Keyword::Null)
-    (ZMBT_KEYWORD_PREFIX "true", Keyword::True)
+    (ZMBT_KEYWORD_PREFIX "Null", Keyword::Null)
+    (ZMBT_KEYWORD_PREFIX "True", Keyword::True)
     (ZMBT_KEYWORD_PREFIX "T", Keyword::True)
-    (ZMBT_KEYWORD_PREFIX "false", Keyword::False)
+    (ZMBT_KEYWORD_PREFIX "False", Keyword::False)
     (ZMBT_KEYWORD_PREFIX "⊥", Keyword::False)
-    (ZMBT_KEYWORD_PREFIX "pi", Keyword::Pi)
+    (ZMBT_KEYWORD_PREFIX "Pi", Keyword::Pi)
     (ZMBT_KEYWORD_PREFIX "π", Keyword::Pi)
-    (ZMBT_KEYWORD_PREFIX "e", Keyword::E)
-    (ZMBT_KEYWORD_PREFIX "inf", Keyword::Inf)
-    (ZMBT_KEYWORD_PREFIX "eps", Keyword::Eps)
-    (ZMBT_KEYWORD_PREFIX "nan", Keyword::NaN)
-    (ZMBT_KEYWORD_PREFIX "thread", Keyword::Thread)
-    (ZMBT_KEYWORD_PREFIX "sin", Keyword::Sin)
-    (ZMBT_KEYWORD_PREFIX "cos", Keyword::Cos)
-    (ZMBT_KEYWORD_PREFIX "tan", Keyword::Tan)
-    (ZMBT_KEYWORD_PREFIX "asin", Keyword::Asin)
-    (ZMBT_KEYWORD_PREFIX "acos", Keyword::Acos)
-    (ZMBT_KEYWORD_PREFIX "atan", Keyword::Atan)
-    (ZMBT_KEYWORD_PREFIX "sinh", Keyword::Sinh)
-    (ZMBT_KEYWORD_PREFIX "cosh", Keyword::Cosh)
-    (ZMBT_KEYWORD_PREFIX "tanh", Keyword::Tanh)
-    (ZMBT_KEYWORD_PREFIX "asinh", Keyword::Asinh)
-    (ZMBT_KEYWORD_PREFIX "acosh", Keyword::Acosh)
-    (ZMBT_KEYWORD_PREFIX "atanh", Keyword::Atanh)
-    (ZMBT_KEYWORD_PREFIX "exp", Keyword::Exp)
-    (ZMBT_KEYWORD_PREFIX "erf", Keyword::Erf)
-    (ZMBT_KEYWORD_PREFIX "erfc", Keyword::Erfc)
-    (ZMBT_KEYWORD_PREFIX "gamma", Keyword::Gamma)
-    (ZMBT_KEYWORD_PREFIX "abs", Keyword::Abs)
-    (ZMBT_KEYWORD_PREFIX "ceil", Keyword::Ceil)
-    (ZMBT_KEYWORD_PREFIX "floor", Keyword::Floor)
-    (ZMBT_KEYWORD_PREFIX "round", Keyword::Round)
-    (ZMBT_KEYWORD_PREFIX "sqrt", Keyword::Sqrt)
-    (ZMBT_KEYWORD_PREFIX "sign", Keyword::Sign)
-    (ZMBT_KEYWORD_PREFIX "neg", Keyword::Neg)
-    (ZMBT_KEYWORD_PREFIX "add", Keyword::Add)
+    (ZMBT_KEYWORD_PREFIX "E", Keyword::E)
+    (ZMBT_KEYWORD_PREFIX "Inf", Keyword::Inf)
+    (ZMBT_KEYWORD_PREFIX "Eps", Keyword::Eps)
+    (ZMBT_KEYWORD_PREFIX "NaN", Keyword::NaN)
+    (ZMBT_KEYWORD_PREFIX "Thread", Keyword::Thread)
+    (ZMBT_KEYWORD_PREFIX "Sin", Keyword::Sin)
+    (ZMBT_KEYWORD_PREFIX "Cos", Keyword::Cos)
+    (ZMBT_KEYWORD_PREFIX "Tan", Keyword::Tan)
+    (ZMBT_KEYWORD_PREFIX "Asin", Keyword::Asin)
+    (ZMBT_KEYWORD_PREFIX "Acos", Keyword::Acos)
+    (ZMBT_KEYWORD_PREFIX "Atan", Keyword::Atan)
+    (ZMBT_KEYWORD_PREFIX "Sinh", Keyword::Sinh)
+    (ZMBT_KEYWORD_PREFIX "Cosh", Keyword::Cosh)
+    (ZMBT_KEYWORD_PREFIX "Tanh", Keyword::Tanh)
+    (ZMBT_KEYWORD_PREFIX "Asinh", Keyword::Asinh)
+    (ZMBT_KEYWORD_PREFIX "Acosh", Keyword::Acosh)
+    (ZMBT_KEYWORD_PREFIX "Atanh", Keyword::Atanh)
+    (ZMBT_KEYWORD_PREFIX "Exp", Keyword::Exp)
+    (ZMBT_KEYWORD_PREFIX "Erf", Keyword::Erf)
+    (ZMBT_KEYWORD_PREFIX "Erfc", Keyword::Erfc)
+    (ZMBT_KEYWORD_PREFIX "Gamma", Keyword::Gamma)
+    (ZMBT_KEYWORD_PREFIX "Abs", Keyword::Abs)
+    (ZMBT_KEYWORD_PREFIX "Ceil", Keyword::Ceil)
+    (ZMBT_KEYWORD_PREFIX "Floor", Keyword::Floor)
+    (ZMBT_KEYWORD_PREFIX "Round", Keyword::Round)
+    (ZMBT_KEYWORD_PREFIX "Sqrt", Keyword::Sqrt)
+    (ZMBT_KEYWORD_PREFIX "Sign", Keyword::Sign)
+    (ZMBT_KEYWORD_PREFIX "Neg", Keyword::Neg)
+    (ZMBT_KEYWORD_PREFIX "Add", Keyword::Add)
     (ZMBT_KEYWORD_PREFIX "+", Keyword::Add)
-    (ZMBT_KEYWORD_PREFIX "sub", Keyword::Sub)
+    (ZMBT_KEYWORD_PREFIX "Sub", Keyword::Sub)
     (ZMBT_KEYWORD_PREFIX "-", Keyword::Sub)
-    (ZMBT_KEYWORD_PREFIX "mul", Keyword::Mul)
+    (ZMBT_KEYWORD_PREFIX "Mul", Keyword::Mul)
     (ZMBT_KEYWORD_PREFIX "*", Keyword::Mul)
-    (ZMBT_KEYWORD_PREFIX "div", Keyword::Div)
+    (ZMBT_KEYWORD_PREFIX "Div", Keyword::Div)
     (ZMBT_KEYWORD_PREFIX "/", Keyword::Div)
-    (ZMBT_KEYWORD_PREFIX "pow", Keyword::Pow)
-    (ZMBT_KEYWORD_PREFIX "log", Keyword::Log)
-    (ZMBT_KEYWORD_PREFIX "mod", Keyword::Mod)
+    (ZMBT_KEYWORD_PREFIX "Pow", Keyword::Pow)
+    (ZMBT_KEYWORD_PREFIX "Log", Keyword::Log)
+    (ZMBT_KEYWORD_PREFIX "Mod", Keyword::Mod)
     (ZMBT_KEYWORD_PREFIX "%", Keyword::Mod)
-    (ZMBT_KEYWORD_PREFIX "quot", Keyword::Quot)
+    (ZMBT_KEYWORD_PREFIX "Quot", Keyword::Quot)
     (ZMBT_KEYWORD_PREFIX "//", Keyword::Quot)
-    (ZMBT_KEYWORD_PREFIX "b-not", Keyword::BitNot)
+    (ZMBT_KEYWORD_PREFIX "BitNot", Keyword::BitNot)
     (ZMBT_KEYWORD_PREFIX "~", Keyword::BitNot)
-    (ZMBT_KEYWORD_PREFIX "b-and", Keyword::BitAnd)
+    (ZMBT_KEYWORD_PREFIX "BitAnd", Keyword::BitAnd)
     (ZMBT_KEYWORD_PREFIX "&", Keyword::BitAnd)
-    (ZMBT_KEYWORD_PREFIX "b-or", Keyword::BitOr)
+    (ZMBT_KEYWORD_PREFIX "BitOr", Keyword::BitOr)
     (ZMBT_KEYWORD_PREFIX "|", Keyword::BitOr)
-    (ZMBT_KEYWORD_PREFIX "b-xor", Keyword::BitXor)
+    (ZMBT_KEYWORD_PREFIX "BitXor", Keyword::BitXor)
     (ZMBT_KEYWORD_PREFIX "^", Keyword::BitXor)
-    (ZMBT_KEYWORD_PREFIX "b-lshift", Keyword::BitLshift)
+    (ZMBT_KEYWORD_PREFIX "BitLshift", Keyword::BitLshift)
     (ZMBT_KEYWORD_PREFIX "<<", Keyword::BitLshift)
-    (ZMBT_KEYWORD_PREFIX "b-rshift", Keyword::BitRshift)
+    (ZMBT_KEYWORD_PREFIX "BitRshift", Keyword::BitRshift)
     (ZMBT_KEYWORD_PREFIX ">>", Keyword::BitRshift)
-    (ZMBT_KEYWORD_PREFIX "eq", Keyword::Eq)
+    (ZMBT_KEYWORD_PREFIX "Eq", Keyword::Eq)
     (ZMBT_KEYWORD_PREFIX "=", Keyword::Eq)
-    (ZMBT_KEYWORD_PREFIX "ne", Keyword::Ne)
+    (ZMBT_KEYWORD_PREFIX "Ne", Keyword::Ne)
     (ZMBT_KEYWORD_PREFIX "≠", Keyword::Ne)
-    (ZMBT_KEYWORD_PREFIX "lt", Keyword::Lt)
+    (ZMBT_KEYWORD_PREFIX "Lt", Keyword::Lt)
     (ZMBT_KEYWORD_PREFIX "<", Keyword::Lt)
-    (ZMBT_KEYWORD_PREFIX "le", Keyword::Le)
+    (ZMBT_KEYWORD_PREFIX "Le", Keyword::Le)
     (ZMBT_KEYWORD_PREFIX "≤", Keyword::Le)
-    (ZMBT_KEYWORD_PREFIX "gt", Keyword::Gt)
+    (ZMBT_KEYWORD_PREFIX "Gt", Keyword::Gt)
     (ZMBT_KEYWORD_PREFIX ">", Keyword::Gt)
-    (ZMBT_KEYWORD_PREFIX "ge", Keyword::Ge)
+    (ZMBT_KEYWORD_PREFIX "Ge", Keyword::Ge)
     (ZMBT_KEYWORD_PREFIX "≥", Keyword::Ge)
-    (ZMBT_KEYWORD_PREFIX "approx", Keyword::Approx)
+    (ZMBT_KEYWORD_PREFIX "Approx", Keyword::Approx)
     (ZMBT_KEYWORD_PREFIX "near", Keyword::Approx)
-    (ZMBT_KEYWORD_PREFIX "union", Keyword::Union)
+    (ZMBT_KEYWORD_PREFIX "Union", Keyword::Union)
     (ZMBT_KEYWORD_PREFIX "∪", Keyword::Union)
-    (ZMBT_KEYWORD_PREFIX "intersect", Keyword::Intersect)
+    (ZMBT_KEYWORD_PREFIX "Intersect", Keyword::Intersect)
     (ZMBT_KEYWORD_PREFIX "∩", Keyword::Intersect)
-    (ZMBT_KEYWORD_PREFIX "set-diff", Keyword::Diff)
-    (ZMBT_KEYWORD_PREFIX "set-eq", Keyword::SetEq)
+    (ZMBT_KEYWORD_PREFIX "Diff", Keyword::Diff)
+    (ZMBT_KEYWORD_PREFIX "SetEq", Keyword::SetEq)
     (ZMBT_KEYWORD_PREFIX "≡", Keyword::SetEq)
-    (ZMBT_KEYWORD_PREFIX "subset", Keyword::Subset)
+    (ZMBT_KEYWORD_PREFIX "Subset", Keyword::Subset)
     (ZMBT_KEYWORD_PREFIX "⊆", Keyword::Subset)
-    (ZMBT_KEYWORD_PREFIX "superset", Keyword::Superset)
+    (ZMBT_KEYWORD_PREFIX "Superset", Keyword::Superset)
     (ZMBT_KEYWORD_PREFIX "⊇", Keyword::Superset)
-    (ZMBT_KEYWORD_PREFIX "p-subset", Keyword::ProperSubset)
+    (ZMBT_KEYWORD_PREFIX "ProperSubset", Keyword::ProperSubset)
     (ZMBT_KEYWORD_PREFIX "⊂", Keyword::ProperSubset)
-    (ZMBT_KEYWORD_PREFIX "p-superset", Keyword::ProperSuperset)
+    (ZMBT_KEYWORD_PREFIX "ProperSuperset", Keyword::ProperSuperset)
     (ZMBT_KEYWORD_PREFIX "⊃", Keyword::ProperSuperset)
-    (ZMBT_KEYWORD_PREFIX "in", Keyword::In)
+    (ZMBT_KEYWORD_PREFIX "In", Keyword::In)
     (ZMBT_KEYWORD_PREFIX "∈", Keyword::In)
-    (ZMBT_KEYWORD_PREFIX "not-in", Keyword::NotIn)
+    (ZMBT_KEYWORD_PREFIX "NotIn", Keyword::NotIn)
     (ZMBT_KEYWORD_PREFIX "∉", Keyword::NotIn)
-    (ZMBT_KEYWORD_PREFIX "ni", Keyword::Ni)
+    (ZMBT_KEYWORD_PREFIX "Ni", Keyword::Ni)
     (ZMBT_KEYWORD_PREFIX "∋", Keyword::Ni)
     (ZMBT_KEYWORD_PREFIX "contains", Keyword::Ni)
-    (ZMBT_KEYWORD_PREFIX "not-ni", Keyword::NotNi)
+    (ZMBT_KEYWORD_PREFIX "NotNi", Keyword::NotNi)
     (ZMBT_KEYWORD_PREFIX "∌", Keyword::NotNi)
-    (ZMBT_KEYWORD_PREFIX "bool", Keyword::Bool)
+    (ZMBT_KEYWORD_PREFIX "Bool", Keyword::Bool)
     (ZMBT_KEYWORD_PREFIX "?", Keyword::Bool)
     (ZMBT_KEYWORD_PREFIX "truthy", Keyword::Bool)
-    (ZMBT_KEYWORD_PREFIX "not", Keyword::Not)
+    (ZMBT_KEYWORD_PREFIX "Not", Keyword::Not)
     (ZMBT_KEYWORD_PREFIX "falsy", Keyword::Not)
     (ZMBT_KEYWORD_PREFIX "nil", Keyword::Not)
-    (ZMBT_KEYWORD_PREFIX "and", Keyword::And)
+    (ZMBT_KEYWORD_PREFIX "And", Keyword::And)
     (ZMBT_KEYWORD_PREFIX "∧", Keyword::And)
-    (ZMBT_KEYWORD_PREFIX "or", Keyword::Or)
+    (ZMBT_KEYWORD_PREFIX "Or", Keyword::Or)
     (ZMBT_KEYWORD_PREFIX "∨", Keyword::Or)
-    (ZMBT_KEYWORD_PREFIX "id", Keyword::Id)
-    (ZMBT_KEYWORD_PREFIX "transp", Keyword::Transp)
-    (ZMBT_KEYWORD_PREFIX "cartesian", Keyword::Cartesian)
+    (ZMBT_KEYWORD_PREFIX "Id", Keyword::Id)
+    (ZMBT_KEYWORD_PREFIX "Transp", Keyword::Transp)
+    (ZMBT_KEYWORD_PREFIX "Cartesian", Keyword::Cartesian)
     (ZMBT_KEYWORD_PREFIX "×", Keyword::Cartesian)
-    (ZMBT_KEYWORD_PREFIX "reverse", Keyword::Reverse)
-    (ZMBT_KEYWORD_PREFIX "uniques", Keyword::Uniques)
-    (ZMBT_KEYWORD_PREFIX "items", Keyword::Items)
-    (ZMBT_KEYWORD_PREFIX "keys", Keyword::Keys)
-    (ZMBT_KEYWORD_PREFIX "values", Keyword::Values)
-    (ZMBT_KEYWORD_PREFIX "enumerate", Keyword::Enumerate)
-    (ZMBT_KEYWORD_PREFIX "flatten", Keyword::Flatten)
-    (ZMBT_KEYWORD_PREFIX "to-list", Keyword::ToList)
-    (ZMBT_KEYWORD_PREFIX "arange", Keyword::Arange)
-    (ZMBT_KEYWORD_PREFIX "parse", Keyword::Parse)
-    (ZMBT_KEYWORD_PREFIX "serialize", Keyword::Serialize)
+    (ZMBT_KEYWORD_PREFIX "Reverse", Keyword::Reverse)
+    (ZMBT_KEYWORD_PREFIX "Uniques", Keyword::Uniques)
+    (ZMBT_KEYWORD_PREFIX "Items", Keyword::Items)
+    (ZMBT_KEYWORD_PREFIX "Keys", Keyword::Keys)
+    (ZMBT_KEYWORD_PREFIX "Values", Keyword::Values)
+    (ZMBT_KEYWORD_PREFIX "Enumerate", Keyword::Enumerate)
+    (ZMBT_KEYWORD_PREFIX "Flatten", Keyword::Flatten)
+    (ZMBT_KEYWORD_PREFIX "ToList", Keyword::ToList)
+    (ZMBT_KEYWORD_PREFIX "Arange", Keyword::Arange)
+    (ZMBT_KEYWORD_PREFIX "Parse", Keyword::Parse)
+    (ZMBT_KEYWORD_PREFIX "Serialize", Keyword::Serialize)
     (ZMBT_KEYWORD_PREFIX "str", Keyword::Serialize)
-    (ZMBT_KEYWORD_PREFIX "re", Keyword::Re)
+    (ZMBT_KEYWORD_PREFIX "Re", Keyword::Re)
     (ZMBT_KEYWORD_PREFIX "regex", Keyword::Re)
-    (ZMBT_KEYWORD_PREFIX "format", Keyword::Format)
+    (ZMBT_KEYWORD_PREFIX "Format", Keyword::Format)
     (ZMBT_KEYWORD_PREFIX "fmt", Keyword::Format)
-    (ZMBT_KEYWORD_PREFIX "card", Keyword::Card)
-    (ZMBT_KEYWORD_PREFIX "size", Keyword::Size)
-    (ZMBT_KEYWORD_PREFIX "sum", Keyword::Sum)
+    (ZMBT_KEYWORD_PREFIX "Card", Keyword::Card)
+    (ZMBT_KEYWORD_PREFIX "Size", Keyword::Size)
+    (ZMBT_KEYWORD_PREFIX "Sum", Keyword::Sum)
     (ZMBT_KEYWORD_PREFIX "Σ", Keyword::Sum)
-    (ZMBT_KEYWORD_PREFIX "prod", Keyword::Prod)
+    (ZMBT_KEYWORD_PREFIX "Prod", Keyword::Prod)
     (ZMBT_KEYWORD_PREFIX "Π", Keyword::Prod)
-    (ZMBT_KEYWORD_PREFIX "avg", Keyword::Avg)
-    (ZMBT_KEYWORD_PREFIX "slide", Keyword::Slide)
-    (ZMBT_KEYWORD_PREFIX "stride", Keyword::Stride)
-    (ZMBT_KEYWORD_PREFIX "chunks", Keyword::Chunks)
-    (ZMBT_KEYWORD_PREFIX "repeat", Keyword::Repeat)
-    (ZMBT_KEYWORD_PREFIX "concat", Keyword::Concat)
+    (ZMBT_KEYWORD_PREFIX "Avg", Keyword::Avg)
+    (ZMBT_KEYWORD_PREFIX "Slide", Keyword::Slide)
+    (ZMBT_KEYWORD_PREFIX "Stride", Keyword::Stride)
+    (ZMBT_KEYWORD_PREFIX "Chunks", Keyword::Chunks)
+    (ZMBT_KEYWORD_PREFIX "Repeat", Keyword::Repeat)
+    (ZMBT_KEYWORD_PREFIX "Concat", Keyword::Concat)
     (ZMBT_KEYWORD_PREFIX "cat", Keyword::Concat)
-    (ZMBT_KEYWORD_PREFIX "push", Keyword::Push)
-    (ZMBT_KEYWORD_PREFIX "at", Keyword::At)
-    (ZMBT_KEYWORD_PREFIX "delete", Keyword::Delete)
+    (ZMBT_KEYWORD_PREFIX "Push", Keyword::Push)
+    (ZMBT_KEYWORD_PREFIX "At", Keyword::At)
+    (ZMBT_KEYWORD_PREFIX "Delete", Keyword::Delete)
     (ZMBT_KEYWORD_PREFIX "del", Keyword::Delete)
-    (ZMBT_KEYWORD_PREFIX "lookup", Keyword::Lookup)
-    (ZMBT_KEYWORD_PREFIX "c", Keyword::C)
+    (ZMBT_KEYWORD_PREFIX "Lookup", Keyword::Lookup)
+    (ZMBT_KEYWORD_PREFIX "C", Keyword::C)
     (ZMBT_KEYWORD_PREFIX "let", Keyword::C)
-    (ZMBT_KEYWORD_PREFIX "decorate", Keyword::Decorate)
+    (ZMBT_KEYWORD_PREFIX "Decorate", Keyword::Decorate)
     (ZMBT_KEYWORD_PREFIX "cast", Keyword::Decorate)
-    (ZMBT_KEYWORD_PREFIX "undecorate", Keyword::Undecorate)
+    (ZMBT_KEYWORD_PREFIX "Undecorate", Keyword::Undecorate)
     (ZMBT_KEYWORD_PREFIX "uncast", Keyword::Undecorate)
-    (ZMBT_KEYWORD_PREFIX "reduce", Keyword::Reduce)
+    (ZMBT_KEYWORD_PREFIX "Reduce", Keyword::Reduce)
     (ZMBT_KEYWORD_PREFIX "fold", Keyword::Reduce)
-    (ZMBT_KEYWORD_PREFIX "map", Keyword::Map)
-    (ZMBT_KEYWORD_PREFIX "filter", Keyword::Filter)
-    (ZMBT_KEYWORD_PREFIX "count", Keyword::Count)
-    (ZMBT_KEYWORD_PREFIX "each", Keyword::Each)
-    (ZMBT_KEYWORD_PREFIX "sort", Keyword::Sort)
-    (ZMBT_KEYWORD_PREFIX "find", Keyword::Find)
-    (ZMBT_KEYWORD_PREFIX "find-ptr", Keyword::FindPtr)
-    (ZMBT_KEYWORD_PREFIX "find-idx", Keyword::FindIdx)
-    (ZMBT_KEYWORD_PREFIX "min", Keyword::Min)
-    (ZMBT_KEYWORD_PREFIX "max", Keyword::Max)
-    (ZMBT_KEYWORD_PREFIX "argmin", Keyword::Argmin)
-    (ZMBT_KEYWORD_PREFIX "argmax", Keyword::Argmax)
-    (ZMBT_KEYWORD_PREFIX "recur", Keyword::Recur)
-    (ZMBT_KEYWORD_PREFIX "unfold", Keyword::Unfold)
-    (ZMBT_KEYWORD_PREFIX "overload", Keyword::Overload)
+    (ZMBT_KEYWORD_PREFIX "Map", Keyword::Map)
+    (ZMBT_KEYWORD_PREFIX "Filter", Keyword::Filter)
+    (ZMBT_KEYWORD_PREFIX "Count", Keyword::Count)
+    (ZMBT_KEYWORD_PREFIX "Each", Keyword::Each)
+    (ZMBT_KEYWORD_PREFIX "Sort", Keyword::Sort)
+    (ZMBT_KEYWORD_PREFIX "Find", Keyword::Find)
+    (ZMBT_KEYWORD_PREFIX "FindPtr", Keyword::FindPtr)
+    (ZMBT_KEYWORD_PREFIX "FindIdx", Keyword::FindIdx)
+    (ZMBT_KEYWORD_PREFIX "Min", Keyword::Min)
+    (ZMBT_KEYWORD_PREFIX "Max", Keyword::Max)
+    (ZMBT_KEYWORD_PREFIX "Argmin", Keyword::Argmin)
+    (ZMBT_KEYWORD_PREFIX "Argmax", Keyword::Argmax)
+    (ZMBT_KEYWORD_PREFIX "Recur", Keyword::Recur)
+    (ZMBT_KEYWORD_PREFIX "Unfold", Keyword::Unfold)
+    (ZMBT_KEYWORD_PREFIX "Overload", Keyword::Overload)
     (ZMBT_KEYWORD_PREFIX "op", Keyword::Overload)
-    (ZMBT_KEYWORD_PREFIX "bind", Keyword::Bind)
-    (ZMBT_KEYWORD_PREFIX "any", Keyword::Any)
-    (ZMBT_KEYWORD_PREFIX "all", Keyword::All)
-    (ZMBT_KEYWORD_PREFIX "saturate", Keyword::Saturate)
-    (ZMBT_KEYWORD_PREFIX "compose", Keyword::Compose)
-    (ZMBT_KEYWORD_PREFIX "fork", Keyword::Fork)
-    (ZMBT_KEYWORD_PREFIX "flip", Keyword::Flip)
-    (ZMBT_KEYWORD_PREFIX "debug", Keyword::Debug)
+    (ZMBT_KEYWORD_PREFIX "Bind", Keyword::Bind)
+    (ZMBT_KEYWORD_PREFIX "Any", Keyword::Any)
+    (ZMBT_KEYWORD_PREFIX "All", Keyword::All)
+    (ZMBT_KEYWORD_PREFIX "Saturate", Keyword::Saturate)
+    (ZMBT_KEYWORD_PREFIX "Compose", Keyword::Compose)
+    (ZMBT_KEYWORD_PREFIX "Fork", Keyword::Fork)
+    (ZMBT_KEYWORD_PREFIX "Flip", Keyword::Flip)
+    (ZMBT_KEYWORD_PREFIX "Debug", Keyword::Debug)
     (ZMBT_KEYWORD_PREFIX "dbg", Keyword::Debug)
-    (ZMBT_KEYWORD_PREFIX "eval", Keyword::Eval)
-    (ZMBT_KEYWORD_PREFIX "try", Keyword::Try)
-    (ZMBT_KEYWORD_PREFIX "try-catch", Keyword::TryCatch)
-    (ZMBT_KEYWORD_PREFIX "default", Keyword::Default)
+    (ZMBT_KEYWORD_PREFIX "Eval", Keyword::Eval)
+    (ZMBT_KEYWORD_PREFIX "Try", Keyword::Try)
+    (ZMBT_KEYWORD_PREFIX "TryCatch", Keyword::TryCatch)
+    (ZMBT_KEYWORD_PREFIX "Default", Keyword::Default)
     (ZMBT_KEYWORD_PREFIX "d", Keyword::Default)
-    (ZMBT_KEYWORD_PREFIX "error", Keyword::Error)
+    (ZMBT_KEYWORD_PREFIX "Error", Keyword::Error)
     ;
 }
 
@@ -243,140 +243,140 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     switch(kw)
     {
 
-    case Keyword::Literal: { v = ZMBT_KEYWORD_PREFIX "literal"; break; }
-    case Keyword::Void: { v = ZMBT_KEYWORD_PREFIX "void"; break; }
-    case Keyword::Noop: { v = ZMBT_KEYWORD_PREFIX "noop"; break; }
-    case Keyword::Null: { v = ZMBT_KEYWORD_PREFIX "null"; break; }
-    case Keyword::True: { v = ZMBT_KEYWORD_PREFIX "true"; break; }
-    case Keyword::False: { v = ZMBT_KEYWORD_PREFIX "false"; break; }
-    case Keyword::Pi: { v = ZMBT_KEYWORD_PREFIX "pi"; break; }
-    case Keyword::E: { v = ZMBT_KEYWORD_PREFIX "e"; break; }
-    case Keyword::Inf: { v = ZMBT_KEYWORD_PREFIX "inf"; break; }
-    case Keyword::Eps: { v = ZMBT_KEYWORD_PREFIX "eps"; break; }
-    case Keyword::NaN: { v = ZMBT_KEYWORD_PREFIX "nan"; break; }
-    case Keyword::Thread: { v = ZMBT_KEYWORD_PREFIX "thread"; break; }
-    case Keyword::Sin: { v = ZMBT_KEYWORD_PREFIX "sin"; break; }
-    case Keyword::Cos: { v = ZMBT_KEYWORD_PREFIX "cos"; break; }
-    case Keyword::Tan: { v = ZMBT_KEYWORD_PREFIX "tan"; break; }
-    case Keyword::Asin: { v = ZMBT_KEYWORD_PREFIX "asin"; break; }
-    case Keyword::Acos: { v = ZMBT_KEYWORD_PREFIX "acos"; break; }
-    case Keyword::Atan: { v = ZMBT_KEYWORD_PREFIX "atan"; break; }
-    case Keyword::Sinh: { v = ZMBT_KEYWORD_PREFIX "sinh"; break; }
-    case Keyword::Cosh: { v = ZMBT_KEYWORD_PREFIX "cosh"; break; }
-    case Keyword::Tanh: { v = ZMBT_KEYWORD_PREFIX "tanh"; break; }
-    case Keyword::Asinh: { v = ZMBT_KEYWORD_PREFIX "asinh"; break; }
-    case Keyword::Acosh: { v = ZMBT_KEYWORD_PREFIX "acosh"; break; }
-    case Keyword::Atanh: { v = ZMBT_KEYWORD_PREFIX "atanh"; break; }
-    case Keyword::Exp: { v = ZMBT_KEYWORD_PREFIX "exp"; break; }
-    case Keyword::Erf: { v = ZMBT_KEYWORD_PREFIX "erf"; break; }
-    case Keyword::Erfc: { v = ZMBT_KEYWORD_PREFIX "erfc"; break; }
-    case Keyword::Gamma: { v = ZMBT_KEYWORD_PREFIX "gamma"; break; }
-    case Keyword::Abs: { v = ZMBT_KEYWORD_PREFIX "abs"; break; }
-    case Keyword::Ceil: { v = ZMBT_KEYWORD_PREFIX "ceil"; break; }
-    case Keyword::Floor: { v = ZMBT_KEYWORD_PREFIX "floor"; break; }
-    case Keyword::Round: { v = ZMBT_KEYWORD_PREFIX "round"; break; }
-    case Keyword::Sqrt: { v = ZMBT_KEYWORD_PREFIX "sqrt"; break; }
-    case Keyword::Sign: { v = ZMBT_KEYWORD_PREFIX "sign"; break; }
-    case Keyword::Neg: { v = ZMBT_KEYWORD_PREFIX "neg"; break; }
-    case Keyword::Add: { v = ZMBT_KEYWORD_PREFIX "add"; break; }
-    case Keyword::Sub: { v = ZMBT_KEYWORD_PREFIX "sub"; break; }
-    case Keyword::Mul: { v = ZMBT_KEYWORD_PREFIX "mul"; break; }
-    case Keyword::Div: { v = ZMBT_KEYWORD_PREFIX "div"; break; }
-    case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "pow"; break; }
-    case Keyword::Log: { v = ZMBT_KEYWORD_PREFIX "log"; break; }
-    case Keyword::Mod: { v = ZMBT_KEYWORD_PREFIX "mod"; break; }
-    case Keyword::Quot: { v = ZMBT_KEYWORD_PREFIX "quot"; break; }
-    case Keyword::BitNot: { v = ZMBT_KEYWORD_PREFIX "b-not"; break; }
-    case Keyword::BitAnd: { v = ZMBT_KEYWORD_PREFIX "b-and"; break; }
-    case Keyword::BitOr: { v = ZMBT_KEYWORD_PREFIX "b-or"; break; }
-    case Keyword::BitXor: { v = ZMBT_KEYWORD_PREFIX "b-xor"; break; }
-    case Keyword::BitLshift: { v = ZMBT_KEYWORD_PREFIX "b-lshift"; break; }
-    case Keyword::BitRshift: { v = ZMBT_KEYWORD_PREFIX "b-rshift"; break; }
-    case Keyword::Eq: { v = ZMBT_KEYWORD_PREFIX "eq"; break; }
-    case Keyword::Ne: { v = ZMBT_KEYWORD_PREFIX "ne"; break; }
-    case Keyword::Lt: { v = ZMBT_KEYWORD_PREFIX "lt"; break; }
-    case Keyword::Le: { v = ZMBT_KEYWORD_PREFIX "le"; break; }
-    case Keyword::Gt: { v = ZMBT_KEYWORD_PREFIX "gt"; break; }
-    case Keyword::Ge: { v = ZMBT_KEYWORD_PREFIX "ge"; break; }
-    case Keyword::Approx: { v = ZMBT_KEYWORD_PREFIX "approx"; break; }
-    case Keyword::Union: { v = ZMBT_KEYWORD_PREFIX "union"; break; }
-    case Keyword::Intersect: { v = ZMBT_KEYWORD_PREFIX "intersect"; break; }
-    case Keyword::Diff: { v = ZMBT_KEYWORD_PREFIX "set-diff"; break; }
-    case Keyword::SetEq: { v = ZMBT_KEYWORD_PREFIX "set-eq"; break; }
-    case Keyword::Subset: { v = ZMBT_KEYWORD_PREFIX "subset"; break; }
-    case Keyword::Superset: { v = ZMBT_KEYWORD_PREFIX "superset"; break; }
-    case Keyword::ProperSubset: { v = ZMBT_KEYWORD_PREFIX "p-subset"; break; }
-    case Keyword::ProperSuperset: { v = ZMBT_KEYWORD_PREFIX "p-superset"; break; }
-    case Keyword::In: { v = ZMBT_KEYWORD_PREFIX "in"; break; }
-    case Keyword::NotIn: { v = ZMBT_KEYWORD_PREFIX "not-in"; break; }
-    case Keyword::Ni: { v = ZMBT_KEYWORD_PREFIX "ni"; break; }
-    case Keyword::NotNi: { v = ZMBT_KEYWORD_PREFIX "not-ni"; break; }
-    case Keyword::Bool: { v = ZMBT_KEYWORD_PREFIX "bool"; break; }
-    case Keyword::Not: { v = ZMBT_KEYWORD_PREFIX "not"; break; }
-    case Keyword::And: { v = ZMBT_KEYWORD_PREFIX "and"; break; }
-    case Keyword::Or: { v = ZMBT_KEYWORD_PREFIX "or"; break; }
-    case Keyword::Id: { v = ZMBT_KEYWORD_PREFIX "id"; break; }
-    case Keyword::Transp: { v = ZMBT_KEYWORD_PREFIX "transp"; break; }
-    case Keyword::Cartesian: { v = ZMBT_KEYWORD_PREFIX "cartesian"; break; }
-    case Keyword::Reverse: { v = ZMBT_KEYWORD_PREFIX "reverse"; break; }
-    case Keyword::Uniques: { v = ZMBT_KEYWORD_PREFIX "uniques"; break; }
-    case Keyword::Items: { v = ZMBT_KEYWORD_PREFIX "items"; break; }
-    case Keyword::Keys: { v = ZMBT_KEYWORD_PREFIX "keys"; break; }
-    case Keyword::Values: { v = ZMBT_KEYWORD_PREFIX "values"; break; }
-    case Keyword::Enumerate: { v = ZMBT_KEYWORD_PREFIX "enumerate"; break; }
-    case Keyword::Flatten: { v = ZMBT_KEYWORD_PREFIX "flatten"; break; }
-    case Keyword::ToList: { v = ZMBT_KEYWORD_PREFIX "to-list"; break; }
-    case Keyword::Arange: { v = ZMBT_KEYWORD_PREFIX "arange"; break; }
-    case Keyword::Parse: { v = ZMBT_KEYWORD_PREFIX "parse"; break; }
-    case Keyword::Serialize: { v = ZMBT_KEYWORD_PREFIX "serialize"; break; }
-    case Keyword::Re: { v = ZMBT_KEYWORD_PREFIX "re"; break; }
-    case Keyword::Format: { v = ZMBT_KEYWORD_PREFIX "format"; break; }
-    case Keyword::Card: { v = ZMBT_KEYWORD_PREFIX "card"; break; }
-    case Keyword::Size: { v = ZMBT_KEYWORD_PREFIX "size"; break; }
-    case Keyword::Sum: { v = ZMBT_KEYWORD_PREFIX "sum"; break; }
-    case Keyword::Prod: { v = ZMBT_KEYWORD_PREFIX "prod"; break; }
-    case Keyword::Avg: { v = ZMBT_KEYWORD_PREFIX "avg"; break; }
-    case Keyword::Slide: { v = ZMBT_KEYWORD_PREFIX "slide"; break; }
-    case Keyword::Stride: { v = ZMBT_KEYWORD_PREFIX "stride"; break; }
-    case Keyword::Chunks: { v = ZMBT_KEYWORD_PREFIX "chunks"; break; }
-    case Keyword::Repeat: { v = ZMBT_KEYWORD_PREFIX "repeat"; break; }
-    case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "concat"; break; }
-    case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "push"; break; }
-    case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "at"; break; }
-    case Keyword::Delete: { v = ZMBT_KEYWORD_PREFIX "delete"; break; }
-    case Keyword::Lookup: { v = ZMBT_KEYWORD_PREFIX "lookup"; break; }
-    case Keyword::C: { v = ZMBT_KEYWORD_PREFIX "c"; break; }
-    case Keyword::Decorate: { v = ZMBT_KEYWORD_PREFIX "decorate"; break; }
-    case Keyword::Undecorate: { v = ZMBT_KEYWORD_PREFIX "undecorate"; break; }
-    case Keyword::Reduce: { v = ZMBT_KEYWORD_PREFIX "reduce"; break; }
-    case Keyword::Map: { v = ZMBT_KEYWORD_PREFIX "map"; break; }
-    case Keyword::Filter: { v = ZMBT_KEYWORD_PREFIX "filter"; break; }
-    case Keyword::Count: { v = ZMBT_KEYWORD_PREFIX "count"; break; }
-    case Keyword::Each: { v = ZMBT_KEYWORD_PREFIX "each"; break; }
-    case Keyword::Sort: { v = ZMBT_KEYWORD_PREFIX "sort"; break; }
-    case Keyword::Find: { v = ZMBT_KEYWORD_PREFIX "find"; break; }
-    case Keyword::FindPtr: { v = ZMBT_KEYWORD_PREFIX "find-ptr"; break; }
-    case Keyword::FindIdx: { v = ZMBT_KEYWORD_PREFIX "find-idx"; break; }
-    case Keyword::Min: { v = ZMBT_KEYWORD_PREFIX "min"; break; }
-    case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "max"; break; }
-    case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "argmin"; break; }
-    case Keyword::Argmax: { v = ZMBT_KEYWORD_PREFIX "argmax"; break; }
-    case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "recur"; break; }
-    case Keyword::Unfold: { v = ZMBT_KEYWORD_PREFIX "unfold"; break; }
-    case Keyword::Overload: { v = ZMBT_KEYWORD_PREFIX "overload"; break; }
-    case Keyword::Bind: { v = ZMBT_KEYWORD_PREFIX "bind"; break; }
-    case Keyword::Any: { v = ZMBT_KEYWORD_PREFIX "any"; break; }
-    case Keyword::All: { v = ZMBT_KEYWORD_PREFIX "all"; break; }
-    case Keyword::Saturate: { v = ZMBT_KEYWORD_PREFIX "saturate"; break; }
-    case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "compose"; break; }
-    case Keyword::Fork: { v = ZMBT_KEYWORD_PREFIX "fork"; break; }
-    case Keyword::Flip: { v = ZMBT_KEYWORD_PREFIX "flip"; break; }
-    case Keyword::Debug: { v = ZMBT_KEYWORD_PREFIX "debug"; break; }
-    case Keyword::Eval: { v = ZMBT_KEYWORD_PREFIX "eval"; break; }
-    case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "try"; break; }
-    case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "try-catch"; break; }
-    case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "default"; break; }
-    case Keyword::Error: { v = ZMBT_KEYWORD_PREFIX "error"; break; }
+    case Keyword::Literal: { v = ZMBT_KEYWORD_PREFIX "Literal"; break; }
+    case Keyword::Void: { v = ZMBT_KEYWORD_PREFIX "Void"; break; }
+    case Keyword::Noop: { v = ZMBT_KEYWORD_PREFIX "Noop"; break; }
+    case Keyword::Null: { v = ZMBT_KEYWORD_PREFIX "Null"; break; }
+    case Keyword::True: { v = ZMBT_KEYWORD_PREFIX "True"; break; }
+    case Keyword::False: { v = ZMBT_KEYWORD_PREFIX "False"; break; }
+    case Keyword::Pi: { v = ZMBT_KEYWORD_PREFIX "Pi"; break; }
+    case Keyword::E: { v = ZMBT_KEYWORD_PREFIX "E"; break; }
+    case Keyword::Inf: { v = ZMBT_KEYWORD_PREFIX "Inf"; break; }
+    case Keyword::Eps: { v = ZMBT_KEYWORD_PREFIX "Eps"; break; }
+    case Keyword::NaN: { v = ZMBT_KEYWORD_PREFIX "NaN"; break; }
+    case Keyword::Thread: { v = ZMBT_KEYWORD_PREFIX "Thread"; break; }
+    case Keyword::Sin: { v = ZMBT_KEYWORD_PREFIX "Sin"; break; }
+    case Keyword::Cos: { v = ZMBT_KEYWORD_PREFIX "Cos"; break; }
+    case Keyword::Tan: { v = ZMBT_KEYWORD_PREFIX "Tan"; break; }
+    case Keyword::Asin: { v = ZMBT_KEYWORD_PREFIX "Asin"; break; }
+    case Keyword::Acos: { v = ZMBT_KEYWORD_PREFIX "Acos"; break; }
+    case Keyword::Atan: { v = ZMBT_KEYWORD_PREFIX "Atan"; break; }
+    case Keyword::Sinh: { v = ZMBT_KEYWORD_PREFIX "Sinh"; break; }
+    case Keyword::Cosh: { v = ZMBT_KEYWORD_PREFIX "Cosh"; break; }
+    case Keyword::Tanh: { v = ZMBT_KEYWORD_PREFIX "Tanh"; break; }
+    case Keyword::Asinh: { v = ZMBT_KEYWORD_PREFIX "Asinh"; break; }
+    case Keyword::Acosh: { v = ZMBT_KEYWORD_PREFIX "Acosh"; break; }
+    case Keyword::Atanh: { v = ZMBT_KEYWORD_PREFIX "Atanh"; break; }
+    case Keyword::Exp: { v = ZMBT_KEYWORD_PREFIX "Exp"; break; }
+    case Keyword::Erf: { v = ZMBT_KEYWORD_PREFIX "Erf"; break; }
+    case Keyword::Erfc: { v = ZMBT_KEYWORD_PREFIX "Erfc"; break; }
+    case Keyword::Gamma: { v = ZMBT_KEYWORD_PREFIX "Gamma"; break; }
+    case Keyword::Abs: { v = ZMBT_KEYWORD_PREFIX "Abs"; break; }
+    case Keyword::Ceil: { v = ZMBT_KEYWORD_PREFIX "Ceil"; break; }
+    case Keyword::Floor: { v = ZMBT_KEYWORD_PREFIX "Floor"; break; }
+    case Keyword::Round: { v = ZMBT_KEYWORD_PREFIX "Round"; break; }
+    case Keyword::Sqrt: { v = ZMBT_KEYWORD_PREFIX "Sqrt"; break; }
+    case Keyword::Sign: { v = ZMBT_KEYWORD_PREFIX "Sign"; break; }
+    case Keyword::Neg: { v = ZMBT_KEYWORD_PREFIX "Neg"; break; }
+    case Keyword::Add: { v = ZMBT_KEYWORD_PREFIX "Add"; break; }
+    case Keyword::Sub: { v = ZMBT_KEYWORD_PREFIX "Sub"; break; }
+    case Keyword::Mul: { v = ZMBT_KEYWORD_PREFIX "Mul"; break; }
+    case Keyword::Div: { v = ZMBT_KEYWORD_PREFIX "Div"; break; }
+    case Keyword::Pow: { v = ZMBT_KEYWORD_PREFIX "Pow"; break; }
+    case Keyword::Log: { v = ZMBT_KEYWORD_PREFIX "Log"; break; }
+    case Keyword::Mod: { v = ZMBT_KEYWORD_PREFIX "Mod"; break; }
+    case Keyword::Quot: { v = ZMBT_KEYWORD_PREFIX "Quot"; break; }
+    case Keyword::BitNot: { v = ZMBT_KEYWORD_PREFIX "BitNot"; break; }
+    case Keyword::BitAnd: { v = ZMBT_KEYWORD_PREFIX "BitAnd"; break; }
+    case Keyword::BitOr: { v = ZMBT_KEYWORD_PREFIX "BitOr"; break; }
+    case Keyword::BitXor: { v = ZMBT_KEYWORD_PREFIX "BitXor"; break; }
+    case Keyword::BitLshift: { v = ZMBT_KEYWORD_PREFIX "BitLshift"; break; }
+    case Keyword::BitRshift: { v = ZMBT_KEYWORD_PREFIX "BitRshift"; break; }
+    case Keyword::Eq: { v = ZMBT_KEYWORD_PREFIX "Eq"; break; }
+    case Keyword::Ne: { v = ZMBT_KEYWORD_PREFIX "Ne"; break; }
+    case Keyword::Lt: { v = ZMBT_KEYWORD_PREFIX "Lt"; break; }
+    case Keyword::Le: { v = ZMBT_KEYWORD_PREFIX "Le"; break; }
+    case Keyword::Gt: { v = ZMBT_KEYWORD_PREFIX "Gt"; break; }
+    case Keyword::Ge: { v = ZMBT_KEYWORD_PREFIX "Ge"; break; }
+    case Keyword::Approx: { v = ZMBT_KEYWORD_PREFIX "Approx"; break; }
+    case Keyword::Union: { v = ZMBT_KEYWORD_PREFIX "Union"; break; }
+    case Keyword::Intersect: { v = ZMBT_KEYWORD_PREFIX "Intersect"; break; }
+    case Keyword::Diff: { v = ZMBT_KEYWORD_PREFIX "Diff"; break; }
+    case Keyword::SetEq: { v = ZMBT_KEYWORD_PREFIX "SetEq"; break; }
+    case Keyword::Subset: { v = ZMBT_KEYWORD_PREFIX "Subset"; break; }
+    case Keyword::Superset: { v = ZMBT_KEYWORD_PREFIX "Superset"; break; }
+    case Keyword::ProperSubset: { v = ZMBT_KEYWORD_PREFIX "ProperSubset"; break; }
+    case Keyword::ProperSuperset: { v = ZMBT_KEYWORD_PREFIX "ProperSuperset"; break; }
+    case Keyword::In: { v = ZMBT_KEYWORD_PREFIX "In"; break; }
+    case Keyword::NotIn: { v = ZMBT_KEYWORD_PREFIX "NotIn"; break; }
+    case Keyword::Ni: { v = ZMBT_KEYWORD_PREFIX "Ni"; break; }
+    case Keyword::NotNi: { v = ZMBT_KEYWORD_PREFIX "NotNi"; break; }
+    case Keyword::Bool: { v = ZMBT_KEYWORD_PREFIX "Bool"; break; }
+    case Keyword::Not: { v = ZMBT_KEYWORD_PREFIX "Not"; break; }
+    case Keyword::And: { v = ZMBT_KEYWORD_PREFIX "And"; break; }
+    case Keyword::Or: { v = ZMBT_KEYWORD_PREFIX "Or"; break; }
+    case Keyword::Id: { v = ZMBT_KEYWORD_PREFIX "Id"; break; }
+    case Keyword::Transp: { v = ZMBT_KEYWORD_PREFIX "Transp"; break; }
+    case Keyword::Cartesian: { v = ZMBT_KEYWORD_PREFIX "Cartesian"; break; }
+    case Keyword::Reverse: { v = ZMBT_KEYWORD_PREFIX "Reverse"; break; }
+    case Keyword::Uniques: { v = ZMBT_KEYWORD_PREFIX "Uniques"; break; }
+    case Keyword::Items: { v = ZMBT_KEYWORD_PREFIX "Items"; break; }
+    case Keyword::Keys: { v = ZMBT_KEYWORD_PREFIX "Keys"; break; }
+    case Keyword::Values: { v = ZMBT_KEYWORD_PREFIX "Values"; break; }
+    case Keyword::Enumerate: { v = ZMBT_KEYWORD_PREFIX "Enumerate"; break; }
+    case Keyword::Flatten: { v = ZMBT_KEYWORD_PREFIX "Flatten"; break; }
+    case Keyword::ToList: { v = ZMBT_KEYWORD_PREFIX "ToList"; break; }
+    case Keyword::Arange: { v = ZMBT_KEYWORD_PREFIX "Arange"; break; }
+    case Keyword::Parse: { v = ZMBT_KEYWORD_PREFIX "Parse"; break; }
+    case Keyword::Serialize: { v = ZMBT_KEYWORD_PREFIX "Serialize"; break; }
+    case Keyword::Re: { v = ZMBT_KEYWORD_PREFIX "Re"; break; }
+    case Keyword::Format: { v = ZMBT_KEYWORD_PREFIX "Format"; break; }
+    case Keyword::Card: { v = ZMBT_KEYWORD_PREFIX "Card"; break; }
+    case Keyword::Size: { v = ZMBT_KEYWORD_PREFIX "Size"; break; }
+    case Keyword::Sum: { v = ZMBT_KEYWORD_PREFIX "Sum"; break; }
+    case Keyword::Prod: { v = ZMBT_KEYWORD_PREFIX "Prod"; break; }
+    case Keyword::Avg: { v = ZMBT_KEYWORD_PREFIX "Avg"; break; }
+    case Keyword::Slide: { v = ZMBT_KEYWORD_PREFIX "Slide"; break; }
+    case Keyword::Stride: { v = ZMBT_KEYWORD_PREFIX "Stride"; break; }
+    case Keyword::Chunks: { v = ZMBT_KEYWORD_PREFIX "Chunks"; break; }
+    case Keyword::Repeat: { v = ZMBT_KEYWORD_PREFIX "Repeat"; break; }
+    case Keyword::Concat: { v = ZMBT_KEYWORD_PREFIX "Concat"; break; }
+    case Keyword::Push: { v = ZMBT_KEYWORD_PREFIX "Push"; break; }
+    case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "At"; break; }
+    case Keyword::Delete: { v = ZMBT_KEYWORD_PREFIX "Delete"; break; }
+    case Keyword::Lookup: { v = ZMBT_KEYWORD_PREFIX "Lookup"; break; }
+    case Keyword::C: { v = ZMBT_KEYWORD_PREFIX "C"; break; }
+    case Keyword::Decorate: { v = ZMBT_KEYWORD_PREFIX "Decorate"; break; }
+    case Keyword::Undecorate: { v = ZMBT_KEYWORD_PREFIX "Undecorate"; break; }
+    case Keyword::Reduce: { v = ZMBT_KEYWORD_PREFIX "Reduce"; break; }
+    case Keyword::Map: { v = ZMBT_KEYWORD_PREFIX "Map"; break; }
+    case Keyword::Filter: { v = ZMBT_KEYWORD_PREFIX "Filter"; break; }
+    case Keyword::Count: { v = ZMBT_KEYWORD_PREFIX "Count"; break; }
+    case Keyword::Each: { v = ZMBT_KEYWORD_PREFIX "Each"; break; }
+    case Keyword::Sort: { v = ZMBT_KEYWORD_PREFIX "Sort"; break; }
+    case Keyword::Find: { v = ZMBT_KEYWORD_PREFIX "Find"; break; }
+    case Keyword::FindPtr: { v = ZMBT_KEYWORD_PREFIX "FindPtr"; break; }
+    case Keyword::FindIdx: { v = ZMBT_KEYWORD_PREFIX "FindIdx"; break; }
+    case Keyword::Min: { v = ZMBT_KEYWORD_PREFIX "Min"; break; }
+    case Keyword::Max: { v = ZMBT_KEYWORD_PREFIX "Max"; break; }
+    case Keyword::Argmin: { v = ZMBT_KEYWORD_PREFIX "Argmin"; break; }
+    case Keyword::Argmax: { v = ZMBT_KEYWORD_PREFIX "Argmax"; break; }
+    case Keyword::Recur: { v = ZMBT_KEYWORD_PREFIX "Recur"; break; }
+    case Keyword::Unfold: { v = ZMBT_KEYWORD_PREFIX "Unfold"; break; }
+    case Keyword::Overload: { v = ZMBT_KEYWORD_PREFIX "Overload"; break; }
+    case Keyword::Bind: { v = ZMBT_KEYWORD_PREFIX "Bind"; break; }
+    case Keyword::Any: { v = ZMBT_KEYWORD_PREFIX "Any"; break; }
+    case Keyword::All: { v = ZMBT_KEYWORD_PREFIX "All"; break; }
+    case Keyword::Saturate: { v = ZMBT_KEYWORD_PREFIX "Saturate"; break; }
+    case Keyword::Compose: { v = ZMBT_KEYWORD_PREFIX "Compose"; break; }
+    case Keyword::Fork: { v = ZMBT_KEYWORD_PREFIX "Fork"; break; }
+    case Keyword::Flip: { v = ZMBT_KEYWORD_PREFIX "Flip"; break; }
+    case Keyword::Debug: { v = ZMBT_KEYWORD_PREFIX "Debug"; break; }
+    case Keyword::Eval: { v = ZMBT_KEYWORD_PREFIX "Eval"; break; }
+    case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "Try"; break; }
+    case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "TryCatch"; break; }
+    case Keyword::Default: { v = ZMBT_KEYWORD_PREFIX "Default"; break; }
+    case Keyword::Error: { v = ZMBT_KEYWORD_PREFIX "Error"; break; }
         // TODO: throw
         default: v = ":undefined";
     }

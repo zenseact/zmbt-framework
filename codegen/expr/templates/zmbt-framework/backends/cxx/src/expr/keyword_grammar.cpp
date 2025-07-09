@@ -31,7 +31,7 @@ KeywordSymbol::KeywordSymbol()
 {
     add
 @for keyword in data.Keywords:
-    (ZMBT_KEYWORD_PREFIX "@keyword.Name", Keyword::@keyword.Enum)
+    (ZMBT_KEYWORD_PREFIX "@keyword.Enum", Keyword::@keyword.Enum)
     @if symbol := keyword.Symbol:
     (ZMBT_KEYWORD_PREFIX "@symbol", Keyword::@keyword.Enum)
     @end
@@ -64,7 +64,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     {
 
 @for keyword in data.Keywords:
-    case Keyword::@keyword.Enum: { v = ZMBT_KEYWORD_PREFIX "@keyword.Name"; break; }
+    case Keyword::@keyword.Enum: { v = ZMBT_KEYWORD_PREFIX "@keyword.Enum"; break; }
 @end
         // TODO: throw
         default: v = ":undefined";
