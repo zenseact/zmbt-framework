@@ -7,6 +7,7 @@
 #include "zmbt/mapping/test_parameter_resolver.hpp"
 
 #include <boost/json.hpp>
+#include <zmbt/logging.hpp>
 #include <zmbt/core/aliases.hpp>
 #include <zmbt/core/entity_id.hpp>
 #include <zmbt/core/interface_id.hpp>
@@ -122,20 +123,19 @@ try
 }
 catch (std::exception const& e)
 {
-    print_debug(next_model);
+    log_debug(next_model);
     throw model_error("Resolving model parameters failed with `%s`", e.what());
 }
 
 
 
-void TestParameterResolver::print_debug(JsonNode next_model)
+void TestParameterResolver::log_debug(JsonNode next_model)
 {
-    std::cerr << "ENV:\n";
-    env.DumpJsonData(std::cerr);
-    std::cerr << "PROTO MODEL:\n";
-    pretty_print(std::cerr, model_.node());
-    std::cerr << "RESOLVED MODEL:\n";
-    pretty_print(std::cerr, next_model.node());
+    env.DumpToJsonLog();
+    ZMBT_LOG_JSON(DEBUG) << boost::json::object{
+        {"PROTO MODEL",  model_.node()},
+        {"EVALUATED MODEL",  next_model.node()},
+    };
 }
 
 

@@ -11,6 +11,7 @@
 #include <ostream>
 
 #include "zmbt/core.hpp"
+#include "zmbt/logging.hpp"
 #include "zmbt/reflect.hpp"
 #include "operator.hpp"
 #include "keyword.hpp"
@@ -39,7 +40,7 @@ public:
         EvalLog() = default;
 
         /// Stringify log
-        std::string str() const;
+        boost::json::string str(int const indent = 0) const;
 
         /// Push record to log stack
         void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;

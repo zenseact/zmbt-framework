@@ -124,9 +124,8 @@ class Environment {
     {
     }
 
-    /// @brief Dump current environment state in prettified JSON
-    /// @param os output stream
-    void DumpJsonData(std::ostream &os);
+    /// @brief Dump current environment state to JSON log
+    void DumpToJsonLog();
 
 
     /**

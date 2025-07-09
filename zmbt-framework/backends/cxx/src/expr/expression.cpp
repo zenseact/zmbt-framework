@@ -310,14 +310,14 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
 }
 
 
-void Expression::EvalLog::format(std::ostream& os, boost::json::array const& stack, int const indent)
+void Expression::EvalLog::format(std::ostream& os, boost::json::array const& log, int const indent)
 {
 
     std::uint64_t prev_depth = 0;
     std::size_t vertical_groups = 0;
 
 
-    for (auto const& item: stack)
+    for (auto const& item: log)
     {
         auto const& rec = item.as_array();
         std::uint64_t const depth = rec.at(0).as_uint64();
@@ -357,25 +357,27 @@ void Expression::EvalLog::format(std::ostream& os, boost::json::array const& sta
     }
 }
 
-std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+
+boost::json::string Expression::EvalLog::str(int const indent) const
 {
+    if (stack)
+    {
+        std::stringstream ss;
+        Expression::EvalLog::format(ss, *stack, indent);
+        return ss.str().c_str();
+    }
+    return "";
+}
+
+std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+{    
     if (log.stack)
     {
-        Expression::EvalLog::format(os, *log.stack);
+        Expression::EvalLog::format(os, *log.stack, 0);
     }
     return os;
 }
 
-std::string Expression::EvalLog::str() const
-{
-    if (!stack)
-    {
-        return "";
-    }
-    std::stringstream ss;
-    ss << *this;
-    return ss.str();
-}
 
 void Expression::EvalLog::push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
 {

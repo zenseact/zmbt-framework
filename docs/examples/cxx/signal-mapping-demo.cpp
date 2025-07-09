@@ -54,6 +54,8 @@ using namespace zmbt::expr; //(3)
 */
 BOOST_AUTO_TEST_CASE(QuickExample)
 {
+    ZMBT_LOG_JSON(INFO) << "Hello, World! JSON";
+    ZMBT_LOG(DEBUG) << "Hello, World Debug!";
     auto sum = [](int x, int y){ return x + y; };
 
     SignalMapping("Simple function test")

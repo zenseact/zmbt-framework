@@ -26,8 +26,8 @@ cc_library(
         ],
         exclude = [
             "src/main*.cpp",
-            "src/appconfig/*.cpp",
-            "include/appconfig/**/*.hpp",
+            # "src/appconfig/*.cpp",
+            # "include/appconfig/**/*.hpp",
         ],
     ),
     deps = BOOST_LIBS,
