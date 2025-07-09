@@ -15,7 +15,7 @@ struct ExpressionGrammar::Rules
 {
     boost::spirit::karma::rule<OutputIterator, Expression()> literal, keyword;
 
-    boost::spirit::karma::rule<OutputIterator, std::vector<Expression>()> fork, composition;
+    boost::spirit::karma::rule<OutputIterator, std::vector<Expression>()> fork, composition, param_list;
 };
 
 ExpressionGrammar::ExpressionGrammar()
@@ -37,7 +37,6 @@ ExpressionGrammar::ExpressionGrammar()
                 return e.is(Keyword::Compose);
             }
         };
-
         struct IsFork {
             bool operator()(Expression const& e) const {
                 return e.is(Keyword::Fork);
@@ -78,13 +77,27 @@ ExpressionGrammar::ExpressionGrammar()
             }
         };
 
-        struct Fork {
+        struct ParameterList {
             using result_type = std::vector<Expression>;
 
             result_type operator()(const Expression& e) const {
                 result_type result;
-                for (auto const& v : e.params().as_array())
-                    result.emplace_back(Expression(v));
+
+                auto const k = e.keyword();
+                bool const high_arity = detail::isVariadic(k) || detail::isTernary(k);
+                bool const expect_list = high_arity && e.params().is_array();
+
+                if (expect_list)
+                {
+                    for (auto const& v : e.params().get_array())
+                    {
+                        result.emplace_back(Expression(v));
+                    }
+                }
+                else if (e.has_params())
+                {
+                    result.emplace_back(e.subexpr());
+                }
                 return result;
             }
         };
@@ -96,7 +109,7 @@ ExpressionGrammar::ExpressionGrammar()
         boost::phoenix::function<Pascal> pascal;
         boost::phoenix::function<Subexpr> subexpr;
         boost::phoenix::function<Composition> composition;
-        boost::phoenix::function<Fork> fork;
+        boost::phoenix::function<ParameterList> param_list;
     } f;
 
     using karma::string;
@@ -109,20 +122,27 @@ ExpressionGrammar::ExpressionGrammar()
     auto& keyword = rules->keyword;
     auto& composition = rules->composition;
     auto& fork = rules->fork;
+    auto& param_list = rules->param_list;
 
     start
         = eps(f.is_literal(_val)) << literal
         | eps(f.is_composition(_val)) << composition[_1 = f.composition(_val)]
-        | eps(f.is_fork(_val)) << fork[_1 = f.fork(_val)]
+        | eps(f.is_fork(_val)) << fork[_1 = f.param_list(_val)]
         | keyword ;
 
     literal = string[_1 = f.json_dump(_val)];
 
-    composition = lit('(') << start % lit(" | ") << ')';
+    composition = start % lit(" | ");
+    param_list = start % lit(", ");
     fork = lit('(') << start % lit(" & ") << ')';
 
-    keyword = string[_1 = f.pascal(_val)]
-        << -(eps(f.has_params(_val)) << lit('(') << start[_1 = f.subexpr(_val)] << ')');
+    keyword
+        = string[_1 = f.pascal(_val)]
+        << -(eps(f.has_params(_val))
+            << lit('(')
+            << param_list[_1 = f.param_list(_val)]
+            << ')'
+        );
 }
 
 

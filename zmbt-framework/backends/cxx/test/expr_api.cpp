@@ -924,3 +924,19 @@ BOOST_AUTO_TEST_CASE(CodegenType)
     auto const test = zmbt::lang::detail::getCodegenType(Keyword::Abs);
     BOOST_CHECK(test == zmbt::lang::detail::CodegenType::CodegenFn);
 }
+
+
+BOOST_AUTO_TEST_CASE(PrettifyExpression)
+{
+
+    #define TEST_PRETIFY(e) BOOST_CHECK_EQUAL((e).prettify(), #e);
+
+    TEST_PRETIFY((Reduce(Add) & Size) | Div | Eq(2.5E0) | Not)
+    TEST_PRETIFY(Eq(Pi | Div(2)))
+    TEST_PRETIFY("%s%d" | Format(Pi | Div(2), 2 | Add(2)))
+    TEST_PRETIFY(Recur(Map(Add(2) | Div(E)), 42))
+    TEST_PRETIFY(Unfold(Recur(Map(Add(2) | Div(E)), 42), 13))
+
+    TEST_PRETIFY(Min)
+    TEST_PRETIFY(Min(At("/%s" | Format("foo"))))
+}

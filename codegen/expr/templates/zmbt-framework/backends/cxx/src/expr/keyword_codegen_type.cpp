@@ -91,6 +91,19 @@ bool isVariadic(Keyword const& k)
     }
 }
 
+bool isTernary(Keyword const& k)
+{
+    switch (k)
+    {
+@for keyword in data.where(lambda x: x.Signature == 'Ternary'):
+    case Keyword::@keyword.Enum:
+@end
+        return true;
+    default:
+        return false;
+    }
+}
+
 } // namespace detail
 } // namespace lang
 } // namespace zmbt
