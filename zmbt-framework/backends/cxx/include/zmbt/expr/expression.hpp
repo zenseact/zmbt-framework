@@ -11,6 +11,7 @@
 #include <ostream>
 
 #include "zmbt/core.hpp"
+#include "zmbt/logging.hpp"
 #include "zmbt/reflect.hpp"
 #include "operator.hpp"
 #include "keyword.hpp"
@@ -39,7 +40,7 @@ public:
         EvalLog() = default;
 
         /// Stringify log
-        std::string str() const;
+        boost::json::string str(int const indent = 0) const;
 
         /// Push record to log stack
         void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;
@@ -137,10 +138,12 @@ public:
         return underlying_;
     }
 
-    boost::json::value const& serialize() const
+    std::string serialize() const
     {
-        return underlying();
+        return boost::json::serialize(underlying());
     }
+
+    std::string keyword_to_str() const;
 
     bool operator==(Expression const& o) const
     {
@@ -177,6 +180,26 @@ public:
         return kwrd == keyword_;
     }
 
+    bool is_compose() const
+    {
+        return is(Keyword::Compose);
+    }
+
+    bool is_nonempty_composition() const
+    {
+        return is_compose() && has_params();
+    }
+
+    bool is_fork() const
+    {
+        return is(Keyword::Fork);
+    }
+
+    bool is_nonempty_fork() const
+    {
+        return is_fork() && has_params();
+    }
+
     bool is_literal() const
     {
         return is(Keyword::Literal);
@@ -206,6 +229,10 @@ public:
     boost::json::value eval(boost::json::value const& x = nullptr, EvalContext const& ctx = {}) const;
 
     bool match(boost::json::value const& observed, Operator const& op = {}) const;
+
+    std::string prettify() const;
+
+    std::list<Expression> parameter_list() const;
 
 };
 

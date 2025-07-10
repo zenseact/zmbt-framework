@@ -19,6 +19,7 @@ TEST(RunInGtest, EnvThreadSafety)
 
         for(int i = 0; i < kIterations; ++i)
         {
+            ZMBT_LOG_JSON(INFO) << zmbt::get_tid().c_str() << i;
             auto lock = handle.Env().Lock();
 
             int arg_x = handle.YieldInjectionArgs().as_array()[0].as_int64();

@@ -7,9 +7,10 @@
 
 #include <mutex>
 
+#include <zmbt/logging.hpp>
+
 #include "zmbt/model/environment.hpp"
 
-#include <zmbt/core/json_pretty_print.hpp>
 #include <zmbt/model/environment_data.hpp>
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/test_failure.hpp>
@@ -60,11 +61,10 @@ Environment::lock_t Environment::DeferLock() const
     return lock_t{data_->mutex, std::defer_lock};
 }
 
-void Environment::DumpJsonData(std::ostream &os)
+void Environment::DumpToJsonLog()
 {
-    pretty_print(os, data_->json_data.node());
+    ZMBT_LOG_JSON(INFO) << data_->json_data.node();
 }
-
 
 
 void Environment::ResetInterfaceData()
@@ -222,6 +222,7 @@ Environment& Environment::ResetFailureHandler()
 
 Environment& Environment::HandleTestFailure(boost::json::value const& diagnostics)
 {
+    ZMBT_LOG_JSON(WARNING) << diagnostics;
     config_->failure_handler(diagnostics);
     return *this;
 }

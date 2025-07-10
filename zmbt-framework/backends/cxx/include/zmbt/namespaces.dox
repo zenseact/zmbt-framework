@@ -47,7 +47,3 @@
  * @brief Test application configuration (work in progress)
  */
 
-/**
- * @namespace zmbt::logging
- * @brief Logging (work in progress)
- */

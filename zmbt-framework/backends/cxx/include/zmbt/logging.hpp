@@ -7,68 +7,99 @@
 #ifndef ZMBT_LOGGING_HPP_
 #define ZMBT_LOGGING_HPP_
 
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/sources/global_logger_storage.hpp>
-
-#include <boost/log/attributes.hpp>
-#include <boost/log/common.hpp>
-#include <boost/log/core.hpp>
-#include <boost/log/exceptions.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/sinks.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/sources/logger.hpp>
-
-#include <boost/current_function.hpp>
+#include <boost/describe.hpp>
+#include <boost/json.hpp>
+#include <zmbt/core/preprocessor.hpp>
 
 
-#define ZMBT_LOG_WITH_SRCLOC(logger, sev) \
-   BOOST_LOG_STREAM_WITH_PARAMS( \
-      (logger), \
-         (::zmbt::logging::upd_attr<std::string>("File", __FILE__)) \
-         (::zmbt::logging::upd_attr<int>("Line", __LINE__)) \
-         (::zmbt::logging::upd_attr<std::string>("Func", BOOST_CURRENT_FUNCTION)) \
-         (::boost::log::keywords::severity = (boost::log::trivial::sev)) \
-   )
-
-#define ZMBT_LOG_WITH_JSON_TAG(logger, sev) \
-   BOOST_LOG_STREAM_WITH_PARAMS( \
-      (logger), \
-         (::zmbt::logging::upd_attr<std::string>("Tag", "JSON")) \
-         (::boost::log::keywords::severity = (boost::log::trivial::sev)) \
-   )
+#include <chrono>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <memory>
+#include <mutex>
+#include <sstream>
+#include <string>
 
 
-#define ZMBT_LOG_INSTANCE ::boost::log::trivial::logger::get()
-#define ZMBT_LOG_INSTANCE_INTERNAL ::boost::log::trivial::logger::get()
+#ifdef NDEBUG
+    #define ZMBT_DEBUG (std::cerr << ZMBT_CUR_LOC << ": ")
+#else
+    #define ZMBT_DEBUG ::zmbt::StubLogger()
+#endif
 
-#define ZMBT_LOG(sev) ZMBT_LOG_WITH_SRCLOC(ZMBT_LOG_INSTANCE, sev)
-#define ZMBT_LOG_INTERNAL(sev) ZMBT_LOG_WITH_SRCLOC(ZMBT_LOG_INSTANCE_INTERNAL, sev)
-
-#define ZMBT_LOG_JSON(sev) ZMBT_LOG_WITH_JSON_TAG(ZMBT_LOG_INSTANCE_INTERNAL, sev)
-
-
-#define ZMBT_LOG_FORMAT_FULL "%LineID% %File%#Line% (%Func%) <%Severity%>\t%Message%"
-#define ZMBT_LOG_FORMAT_BRIEF "%LineID% <%Severity%>: %Message%"
-#define ZMBT_LOG_FORMAT ZMBT_LOG_FORMAT_BRIEF
-
+#define ZMBT_LOG(lvl) ::zmbt::Logger().WithSrcLoc(ZMBT_CUR_LOC).WithLevel(::zmbt::Logger::lvl)
+#define ZMBT_LOG_CERR(lvl) ZMBT_LOG(lvl).WithOutput(::zmbt::Logger::STDERR)
+#define ZMBT_LOG_JSON(lvl) ZMBT_LOG(lvl).WithOutput(::zmbt::Logger::JSON)
 
 namespace zmbt {
-namespace logging {
+
+#ifndef NDEBUG
+struct StubLogger
+{
+    StubLogger& operator<<(boost::json::value const&)
+    {
+        return *this;
+    }
+};
+#endif
+
+class Logger {
+  public:
+
+    enum Output
+    {
+        NIL = 0,
+        STDERR = 1 << 0,
+        JSON   = 1 << 1,
+    };
+
+    enum Level
+    {
+        FATAL,
+        ERROR,
+        WARNING,
+        INFO,
+        DEBUG,
+        TRACE
+    };
+
+    /// Attach logger to file sink ("" means stdout)
+    static void open_json(const std::string& filename = "");
+
+    static void set_max_level(Level const max_level);
+
+    Logger();
+
+    Logger& WithLevel(Level const level);
+    Logger& WithOutput(Output const output);
+    Logger& WithSrcLoc(boost::json::string_view const src_loc);
+
+    Logger& operator<<(boost::json::value const& value);
+
+    ~Logger();
+
+  private:
+    
+    Level level_{INFO};
+    int output_{STDERR | JSON};
+    boost::json::string_view src_loc_{"unknown"};
+    char timestamp_[64];
+    boost::json::array payload_cache_;
+
+    void set_timestamp();
+
+    BOOST_DESCRIBE_NESTED_ENUM(Level,
+        FATAL,
+        ERROR,
+        WARNING,
+        INFO,
+        DEBUG,
+        TRACE
+    )
+};
 
 
-/// Update and return boost::log attribute value
-template <class T>
-T upd_attr(std::string const name, T value) {
-    auto attr = boost::log::attribute_cast<boost::log::attributes::mutable_constant<T>>(boost::log::core::get()->get_thread_attributes()[name]);
-    attr.set(value);
-    return attr.get();
-}
-
-
-} // namespace logging
-} // namespace zmbt
+}  // namespace zmbt
 
 #endif

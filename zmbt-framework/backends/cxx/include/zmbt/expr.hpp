@@ -12,6 +12,7 @@
 #include "expr/keyword_grammar.hpp"
 #include "expr/keyword_codegen_type.hpp"
 #include "expr/expression.hpp"
+#include "expr/expression_grammar.hpp"
 #include "expr/api.hpp"
 #include "expr/api_signatures.hpp"
 #include "expr/exceptions.hpp"

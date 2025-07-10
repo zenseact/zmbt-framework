@@ -73,12 +73,16 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         return;
     };
     using E = zmbt::lang::Expression;
-    E fn(rec.at(1));
+
+    // TODO: optimize prettify with static buffer
+    E e_f(rec.at(1));
+    auto const fstr = e_f.prettify();
+    std::size_t len = std::min(fstr.size(), BuffSize - 1);
+    std::memcpy(buf_f, fstr.data(), len);
+    buf_f[len] = '\0';
+    boost::json::string_view f = buf_f;
 
     boost::json::serializer sr;
-    boost::json::string_view f = (sr.reset(&fn.underlying()), sr.read(buf_f));
-    if (!sr.done()) shrink(f, f.size());
-
     boost::json::string_view x  = (sr.reset(&rec.at(2)), sr.read(buf_x));
     if (!sr.done()) shrink(x, x.size());
 
@@ -105,7 +109,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         std::uint64_t const n =  total_size - capacity;
         shrink(f, (n < fx.size()) ? f.size() - n : MinExpr);
     }
-    os << f << '(' << x << ") = " << fx << '\n';
+    os << f << " $ " << x  << " = " << fx << '\n';
 }
 
 
@@ -258,15 +262,31 @@ bool Expression::is_const() const
     // TODO: test it and clarify param evaluation
     using lang::detail::CodegenType;
     using lang::detail::getCodegenType;
-    if (is(Keyword::Compose))
+    if (is_nonempty_composition())
     {
         return Expression(params().as_array().back()).is_const();
     }
-    else if (is(Keyword::Overload))
+    if (is_nonempty_fork())
+    {
+        auto const paramlist = parameter_list();
+        for (auto const& e: paramlist)
+        {
+            if (not e.is_const()) return false;
+        }
+        return true;
+    }
+    else if (is(Keyword::Overload) && has_params())
     {
         return Expression(params().as_array().back()).is_const();
     }
     return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Error) || (CodegenType::Const == getCodegenType(keyword()));
+}
+
+std::string Expression::keyword_to_str() const
+{
+    auto const k = zmbt::json_from(keyword()).as_string();
+    auto const w =  boost::json::string_view(k.c_str());
+    return w.substr(std::strlen(ZMBT_KEYWORD_PREFIX)).data();
 }
 
 bool Expression::is_boolean() const
@@ -282,11 +302,11 @@ bool Expression::is_boolean() const
     {
         return true;
     }
-    if (is(Keyword::Overload))
+    if (is(Keyword::Overload) && has_params())
     {
         return Expression(params()).is_boolean();
     }
-    if (is(Keyword::Compose))
+    if (is_nonempty_composition())
     {
         return Expression(params().as_array().back()).is_boolean();
     }
@@ -296,6 +316,24 @@ bool Expression::is_boolean() const
 bool Expression::is_hiord() const
 {
     return lang::detail::isHiOrd(keyword());
+}
+
+std::list<Expression> Expression::parameter_list() const
+{
+    std::list<Expression> result;
+
+    auto const k = keyword();
+    bool const high_arity = detail::isVariadic(k) || detail::isTernary(k);
+    bool const expect_list = high_arity && params().is_array();
+
+    if (expect_list) {
+        for (auto const& v : params().get_array()) {
+            result.emplace_back(Expression(v));
+        }
+    } else if (has_params()) {
+        result.emplace_back(subexpr());
+    }
+    return result;
 }
 
 
@@ -310,14 +348,14 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
 }
 
 
-void Expression::EvalLog::format(std::ostream& os, boost::json::array const& stack, int const indent)
+void Expression::EvalLog::format(std::ostream& os, boost::json::array const& log, int const indent)
 {
 
     std::uint64_t prev_depth = 0;
     std::size_t vertical_groups = 0;
 
 
-    for (auto const& item: stack)
+    for (auto const& item: log)
     {
         auto const& rec = item.as_array();
         std::uint64_t const depth = rec.at(0).as_uint64();
@@ -357,25 +395,27 @@ void Expression::EvalLog::format(std::ostream& os, boost::json::array const& sta
     }
 }
 
-std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+
+boost::json::string Expression::EvalLog::str(int const indent) const
 {
+    if (stack)
+    {
+        std::stringstream ss;
+        Expression::EvalLog::format(ss, *stack, indent);
+        return ss.str().c_str();
+    }
+    return "";
+}
+
+std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+{    
     if (log.stack)
     {
-        Expression::EvalLog::format(os, *log.stack);
+        Expression::EvalLog::format(os, *log.stack, 0);
     }
     return os;
 }
 
-std::string Expression::EvalLog::str() const
-{
-    if (!stack)
-    {
-        return "";
-    }
-    std::stringstream ss;
-    ss << *this;
-    return ss.str();
-}
 
 void Expression::EvalLog::push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
 {

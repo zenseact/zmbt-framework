@@ -594,17 +594,17 @@ std::vector<TestEvalSample> const TestSamples
     {TryCatch(Div(2))           , 42                    , 21                    },
     {TryCatch(Div(0))           , 42                    ,
                                         {{"err", "zero division"},
-                                         {"fn" , {{":div",0}}   },
+                                         {"fn" , {{":Div",0}}   },
                                          {"x"  , 42             }}              },
 
     {Keyword::Noop              , nullptr                , true                 },
     // test heterogeneous init lists in params
     // Binary
-    {Serialize                  , C(Cat({Keyword::At}))  , R"({":concat":[":at"]})"},
+    {Serialize                  , C(Cat({Keyword::At}))  , R"({":Concat":[":At"]})"},
     {Serialize                  , C(Cat({42, Keyword::At, precise<float>()}))
-                                , R"({":concat":[42,":at","0x0p+0"]})"          },
+                                , R"({":Concat":[42,":At","0x0p+0"]})"          },
     // HiOrd
-    {Serialize                  , C(Max({Keyword::At}))     , R"({":max":[":at"]})"},
+    {Serialize                  , C(Max({Keyword::At}))     , R"({":Max":[":At"]})"},
 
     {2|Add(1|Add(1))            , {}                    , 4                     },
 
@@ -644,16 +644,16 @@ std::vector<TestEvalSample> const TestSamples
     {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41, true               },
     {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41, true },
 
-    {Error("foo")           , {}              , {{":error", {
+    {Error("foo")           , {}              , {{":Error", {
                                                     {"message", "foo"}
                                                 }}}                             },
 
-    {Error("foo", "bar")    , {}              , {{":error", {
+    {Error("foo", "bar")    , {}              , {{":Error", {
                                                     {"message", "foo"},
                                                     {"context", "bar"}
                                                 }}}                             },
 
-    {Error(type<int>, "foo", "bar"), {}       , {{":error", {
+    {Error(type<int>, "foo", "bar"), {}       , {{":Error", {
                                                     {"type"   , "int"},
                                                     {"message", "foo"},
                                                     {"context", "bar"}
@@ -923,4 +923,20 @@ BOOST_AUTO_TEST_CASE(CodegenType)
 {
     auto const test = zmbt::lang::detail::getCodegenType(Keyword::Abs);
     BOOST_CHECK(test == zmbt::lang::detail::CodegenType::CodegenFn);
+}
+
+
+BOOST_AUTO_TEST_CASE(PrettifyExpression)
+{
+
+    #define TEST_PRETIFY(e) BOOST_CHECK_EQUAL((e).prettify(), #e);
+
+    TEST_PRETIFY((Reduce(Add) & Size) | Div | Eq(2.5E0) | Not)
+    TEST_PRETIFY(Eq(Pi | Div(2)))
+    TEST_PRETIFY("%s%d" | Format(Pi | Div(2), 2 | Add(2)))
+    TEST_PRETIFY(Recur(Map(Add(2) | Div(E)), 42))
+    TEST_PRETIFY(Unfold(Recur(Map(Add(2) | Div(E)), 42), 13))
+
+    TEST_PRETIFY(Min)
+    TEST_PRETIFY(Min(At("/%s" | Format("foo"))))
 }

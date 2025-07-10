@@ -25,11 +25,6 @@ public:
 
     static Param parse(boost::json::value const& v);
 
-    boost::json::value serialize() const
-    {
-        return value_;
-    }
-
     Param(boost::json::value v) : Param{parse(v)} {}
 
     Param(Param const&) = default;
@@ -40,10 +35,10 @@ public:
 
     operator boost::json::value() const
     {
-        return serialize();
+        return value_;
     }
 
-    boost::json::string to_string() const
+    boost::json::string serialize() const
     {
         return value_;
     }

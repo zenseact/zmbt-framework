@@ -14,8 +14,8 @@ BOOST_LIBS = [
     "@boost//:callable_traits",
     "@boost//:describe",
     "@boost//:format",
+    "@boost//:filesystem",
     "@boost//:json",
-    "@boost//:log",
     "@boost//:mp11",
     "@boost//:math",
     "@boost//:phoenix",
@@ -24,4 +24,6 @@ BOOST_LIBS = [
     "@boost//:type_index",
     "@boost//:type_traits",
     "@boost//:current_function",
+    "@boost//:lockfree",
+    "@boost//:program_options",
 ]

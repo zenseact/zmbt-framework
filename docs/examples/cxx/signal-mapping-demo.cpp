@@ -54,6 +54,8 @@ using namespace zmbt::expr; //(3)
 */
 BOOST_AUTO_TEST_CASE(QuickExample)
 {
+    ZMBT_LOG_JSON(INFO) << "Hello, World! JSON";
+    ZMBT_LOG(DEBUG) << "Hello, World Debug!";
     auto sum = [](int x, int y){ return x + y; };
 
     SignalMapping("Simple function test")
@@ -1118,21 +1120,21 @@ Negation at the matcher end lead to test failure, and the log message is followi
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}
+      expected: "(Reduce(Add) & Size) | Div | Eq(2.5E0) | Not"
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
         ---
-                 ┌── ":add"([1,2]) = 3
-                 ├── ":add"([3,3]) = 6
-                 ├── ":add"([6,4]) = 10
-              ┌── {":reduce":":add"}([1,2,3,4]) = 10
-              ├── ":size"([1,2,3,4]) = 4
-           ┌── {":fork":[{":reduce":":add"},":size"]}([1,2,3,4]) = [10,4]
-           ├── ":div"([10,4]) = 2.5E0
-           ├── {":eq":2.5E0}(2.5E0) = true
-           ├── ":not"(true) = false
-        □  {":compose":[":not",{":eq":2.5E0},":div",{":fork":[{":reduce":":add"},":size"]}]}([1,2,3,4]) = false
+                 ┌── Add $ [1,2] = 3
+                 ├── Add $ [3,3] = 6
+                 ├── Add $ [6,4] = 10
+              ┌── Reduce(Add) $ [1,2,3,4] = 10
+              ├── Size $ [1,2,3,4] = 4
+           ┌── (Reduce(Add) & Size) $ [1,2,3,4] = [10,4]
+           ├── Div $ [10,4] = 2.5E0
+           ├── Eq(2.5E0) $ 2.5E0 = true
+           ├── Not $ true = false
+        □  (Reduce(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.

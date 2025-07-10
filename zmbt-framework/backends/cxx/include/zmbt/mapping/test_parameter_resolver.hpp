@@ -23,7 +23,7 @@ class TestParameterResolver
     std::list<std::shared_ptr<JsonIter>> iterators_{};
     Environment env{};
 
-    void print_debug(JsonNode next_model);
+    void log_debug(JsonNode next_model);
     void resolve_deferred_params(JsonNode& next_model);
     void init_param_iters();
 

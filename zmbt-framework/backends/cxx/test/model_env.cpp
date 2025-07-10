@@ -130,7 +130,6 @@ BOOST_AUTO_TEST_CASE(Hook)
 
     auto producing_mock = [&](int v, int&& rv, int const& c, int& lv)
     {
-        // Environment().DumpJsonData(std::cerr);
         return handle.Hook(v, rv, c, lv );
     };
 

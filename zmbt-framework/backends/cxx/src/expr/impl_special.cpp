@@ -13,6 +13,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
+#include "zmbt/logging.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/exceptions.hpp"
@@ -1311,17 +1312,17 @@ V eval_impl<Keyword::Debug>(V const& x, V const& param, E::EvalContext const& co
     local_ctx.log = E::EvalLog::make();
     auto const fn_and_id = !param.is_null() ? param.as_array() : boost::json::array{zmbt::json_from(Keyword::Id), "anonymous"};
     zmbt::lang::Expression f(fn_and_id.at(0));
-    auto message = zmbt::lang::Expression(fn_and_id.at(1)).eval();
+    auto identifier = zmbt::lang::Expression(fn_and_id.at(1)).eval();
     auto const result = f.eval(x, local_ctx);
-    std::cerr << "ZMBT_EXPR_DEBUG(" << message.as_string().c_str() << "):\n";
-    std::cerr << local_ctx.log;
 
+    ZMBT_LOG_JSON(INFO) << boost::json::object{
+        {"ZMBT_EXPR_DEBUG", identifier},
+        {"eval_stack", *local_ctx.log.stack},
+    };
+    ZMBT_LOG_CERR(DEBUG).WithSrcLoc(identifier.as_string().c_str()) << "\n" << local_ctx.log.str(2);
+     
     if (context.log.stack)
     {
-        // if (!context.log.stack->empty())
-        // {
-        //     context.log.stack->front() = {context.depth, f, x, result}; // hiding nested debug
-        // }
         context.log.stack->reserve(context.log.stack->capacity() + local_ctx.log.stack->size());
         for (auto line_it = std::make_move_iterator(local_ctx.log.stack->begin()),
         log_end = std::make_move_iterator(local_ctx.log.stack->end());
