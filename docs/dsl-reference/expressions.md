@@ -1392,16 +1392,22 @@ Equivalent to Flip(At(...))
  * `0 | Lookup([1,2,3]) `$\mapsto$`  1`
  * `"/foo" | Lookup([1,2,3]) `$\mapsto$`  null`
 
-### C
+### Q
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: Const, Let
+*Aliases*: C, Const, Let, Lift
 
-User-defined constant
+Quote parameter, similar to lisp quotation.
 
-Produced expression will return the design-time parameter
-on evaluation, ignoring input.
+Quotation lifts any parameter to constant, s.t.
+produced expression will return the design-time parameter
+on evaluation, ignoring input. If evaluable expression
+is passed, it is returned unevaluated.
+Unlike plain literals which can be treated
+as predicate matchers in certain context, Q(x) is always
+a constant expression discarding input.
+Flip(Q) is equivalent to Id.
 
 *Examples*:
 
@@ -1809,6 +1815,33 @@ Evaluate function and return result or error info if it throws
     "fn": ":div",
     "x": 42
 }`
+
+### Kwrd
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Introspect expression keyword.
+
+
+*Examples*:
+
+ * `Q(Fold(Add)) | Kwrd `$\mapsto$` "Fold"`
+ * `[1, 1, 1] | Kwrd `$\mapsto$` "Literal"`
+
+### Prms
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+*Aliases*: Parameters
+
+Introspect expression parameters.
+
+
+*Examples*:
+
+ * `Q(Fold(Add)) | Prms `$\mapsto$` Add`
+ * `[1, 1, 1] | Prms `$\mapsto$` [1, 1, 1]`
 
 
 ## Evaluation handlers

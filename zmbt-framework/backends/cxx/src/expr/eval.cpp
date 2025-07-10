@@ -90,7 +90,7 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
     {
         result = underlying();
     }
-    else if (is(Keyword::C))
+    else if (is(Keyword::Q))
     {
         result = params();
     }

@@ -70,7 +70,7 @@ bool isBinary(Keyword const& k)
     case Keyword::At:
     case Keyword::Del:
     case Keyword::Lookup:
-    case Keyword::C:
+    case Keyword::Q:
     case Keyword::Cast:
     case Keyword::Uncast:
     case Keyword::Fold:

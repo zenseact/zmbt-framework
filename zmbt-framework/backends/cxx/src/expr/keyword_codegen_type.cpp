@@ -121,7 +121,7 @@ bool isConst(Keyword const& k)
     case Keyword::Eps:
     case Keyword::NaN:
     case Keyword::Thread:
-    case Keyword::C:
+    case Keyword::Q:
     case Keyword::Literal:
         return true;
     default:
@@ -160,6 +160,8 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Eval:
     case Keyword::Try:
     case Keyword::TryCatch:
+    case Keyword::Kwrd:
+    case Keyword::Prms:
         return true;
     default:
         return false;

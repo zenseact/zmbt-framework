@@ -464,15 +464,25 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Del> const Delete;
 /// Equivalent to Flip(At(...))
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 
-/// \brief User-defined constant
+/// \brief Quote parameter, similar to lisp quotation.
 /// \details
-/// Produced expression will return the design-time parameter
-/// on evaluation, ignoring input.
-extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const C;
-/// \brief Alias for C
-extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const Const;
-/// \brief Alias for C
-extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const Let;
+/// Quotation lifts any parameter to constant, s.t.
+/// produced expression will return the design-time parameter
+/// on evaluation, ignoring input. If evaluable expression
+/// is passed, it is returned unevaluated.
+/// Unlike plain literals which can be treated
+/// as predicate matchers in certain context, Q(x) is always
+/// a constant expression discarding input.
+/// Flip(Q) is equivalent to Id.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Q;
+/// \brief Alias for Q
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const C;
+/// \brief Alias for Q
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Const;
+/// \brief Alias for Q
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Let;
+/// \brief Alias for Q
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Lift;
 
 /// \brief Reserialize decorated type as decorator
 extern lang::SignatureCast const Cast;
@@ -601,6 +611,14 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;
 
 /// \brief Evaluate function and return result or error info if it throws
 extern lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch;
+
+/// \brief Introspect expression keyword.
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Kwrd> const Kwrd;
+
+/// \brief Introspect expression parameters.
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Prms;
+/// \brief Alias for Prms
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Parameters;
 
 /// \brief Return x if not null, else return default value
 extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const D;

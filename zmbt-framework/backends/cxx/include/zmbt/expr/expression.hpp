@@ -216,6 +216,11 @@ public:
 
     bool is_boolean() const;
 
+    bool is_error() const
+    {
+        return is(Keyword::Err);
+    }
+
 
     operator boost::json::value() const
     {

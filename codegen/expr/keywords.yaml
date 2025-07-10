@@ -1046,12 +1046,18 @@ keyword_groups:
           "/foo" | Lookup([1,2,3]) ↦  null
 
 
-      - name: C
-        aliases: [ Const, Let ]
-        brief: User-defined constant
+      - name: Q
+        aliases: [ C, Const, Let, Lift ]
+        brief: Quote parameter, similar to Lisp quotation.
         details: |-
-          Produced expression will return the design-time parameter
-          on evaluation, ignoring input.
+          Quotation lifts any parameter to constant, s.t.
+          produced expression will return the design-time parameter
+          on evaluation, ignoring input. If evaluable expression
+          is passed, it is returned unevaluated.
+          Unlike plain literals which can be treated
+          as predicate matchers in certain context, Q(x) is always
+          a constant expression discarding input.
+          Flip(Q) is equivalent to Id.
         domain: [any, any]
         codomain: any
         examples: |-
@@ -1409,6 +1415,26 @@ keyword_groups:
               "fn": ":div",
               "x": 42
           }`
+
+      - name: Kwrd
+        # aliases: [ Keyword ] FIXME: bad namespacing
+        signature: Unary
+        brief: Introspect Expression keyword.
+        domain: any
+        codomain: str
+        examples: |-
+          Q(Fold(Add)) | Kwrd ↦ "Fold"
+          [1, 1, 1] | Kwrd ↦ "Literal"
+
+      - name: Prms
+        aliases: [ Parameters ]
+        signature: Unary
+        brief: Introspect Expression parameters.
+        domain: any
+        codomain: str
+        examples: |-
+          Q(Fold(Add)) | Prms ↦ Add
+          [1, 1, 1] | Prms ↦ [1, 1, 1]
 
   Evaluation handlers:
     defaults:

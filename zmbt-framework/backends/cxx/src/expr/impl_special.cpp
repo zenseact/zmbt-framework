@@ -1320,7 +1320,7 @@ V eval_impl<Keyword::Dbg>(V const& x, V const& param, E::EvalContext const& cont
         {"eval_stack", *local_ctx.log.stack},
     };
     ZMBT_LOG_CERR(DEBUG).WithSrcLoc(identifier.as_string().c_str()) << "\n" << local_ctx.log.str(2);
-     
+
     if (context.log.stack)
     {
         context.log.stack->reserve(context.log.stack->capacity() + local_ctx.log.stack->size());
@@ -1339,6 +1339,18 @@ template <>
 V eval_impl<Keyword::Eval>(V const& x, V const& param, E::EvalContext const& context)
 {
     return zmbt::lang::Expression(x).eval(param, context++);
+}
+
+template <>
+V eval_impl<Keyword::Kwrd>(V const& x, V const&, E::EvalContext const&)
+{
+    return zmbt::lang::Expression(x).keyword_to_str().c_str();
+}
+
+template <>
+V eval_impl<Keyword::Prms>(V const& x, V const&, E::EvalContext const&)
+{
+    return zmbt::lang::Expression(x).params();
 }
 
 } // namespace
@@ -1387,8 +1399,8 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
 
         // terms special
         case Keyword::At:         return eval_impl<Keyword::At>          (xx, pp, context);
-        case Keyword::Del:     return eval_impl<Keyword::Del>      (xx, pp, context);
-        case Keyword::Near:     return eval_impl<Keyword::Near>      (xx, pp, context);
+        case Keyword::Del:        return eval_impl<Keyword::Del>         (xx, pp, context);
+        case Keyword::Near:       return eval_impl<Keyword::Near>        (xx, pp, context);
         case Keyword::Re:         return eval_impl<Keyword::Re>          (xx, pp, context);
         case Keyword::Lookup:     return eval_impl<Keyword::Lookup>      (xx, pp, context);
         case Keyword::Card:       return eval_impl<Keyword::Card>        (xx, pp, context);
@@ -1399,7 +1411,7 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         case Keyword::Repeat:     return eval_impl<Keyword::Repeat>      (xx, pp, context);
         case Keyword::Transp:     return eval_impl<Keyword::Transp>      (xx, pp, context);
         case Keyword::Cartesian:  return eval_impl<Keyword::Cartesian>   (xx, pp, context);
-        case Keyword::Cat:     return eval_impl<Keyword::Cat>      (xx, pp, context);
+        case Keyword::Cat:        return eval_impl<Keyword::Cat>         (xx, pp, context);
         case Keyword::Push:       return eval_impl<Keyword::Push>        (xx, pp, context);
         case Keyword::Uniques:    return eval_impl<Keyword::Uniques>     (xx, pp, context);
         case Keyword::Reverse:    return eval_impl<Keyword::Reverse>     (xx, pp, context);
@@ -1415,9 +1427,9 @@ boost::json::value Expression::eval_Special(boost::json::value const& x, EvalCon
         case Keyword::Union:      return eval_impl<Keyword::Union>       (xx, pp, context);
         case Keyword::Intersect:  return eval_impl<Keyword::Intersect>   (xx, pp, context);
         case Keyword::Diff:       return eval_impl<Keyword::Diff>        (xx, pp, context);
-        case Keyword::Fmt:     return eval_impl<Keyword::Fmt>      (xx, pp, context);
-        case Keyword::Cast:   return eval_impl<Keyword::Cast>    (xx, pp, context);
-        case Keyword::Uncast: return eval_impl<Keyword::Uncast>  (xx, pp, context);
+        case Keyword::Fmt:        return eval_impl<Keyword::Fmt>         (xx, pp, context);
+        case Keyword::Cast:       return eval_impl<Keyword::Cast>        (xx, pp, context);
+        case Keyword::Uncast:     return eval_impl<Keyword::Uncast>      (xx, pp, context);
 
 
         default:
@@ -1449,7 +1461,7 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
     switch(keyword())
     {
         case Keyword::Eval:     return eval_impl<Keyword::Eval>    (*x_ptr, *param_ptr, context);
-        case Keyword::Dbg:    return eval_impl<Keyword::Dbg>   (*x_ptr, *param_ptr, context);
+        case Keyword::Dbg:      return eval_impl<Keyword::Dbg>     (*x_ptr, *param_ptr, context);
         case Keyword::All:      return eval_impl<Keyword::All>     (*x_ptr, *param_ptr, context);
         case Keyword::Any:      return eval_impl<Keyword::Any>     (*x_ptr, *param_ptr, context);
         case Keyword::Compose:  return eval_impl<Keyword::Compose> (*x_ptr, *param_ptr, context);
@@ -1459,7 +1471,7 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
         case Keyword::Filter:   return eval_impl<Keyword::Filter>  (*x_ptr, *param_ptr, context);
         case Keyword::Recur:    return eval_impl<Keyword::Recur>   (*x_ptr, *param_ptr, context);
         case Keyword::Unfold:   return eval_impl<Keyword::Unfold>  (*x_ptr, *param_ptr, context);
-        case Keyword::Fold:   return eval_impl<Keyword::Fold>  (*x_ptr, *param_ptr, context);
+        case Keyword::Fold:     return eval_impl<Keyword::Fold>    (*x_ptr, *param_ptr, context);
         case Keyword::Saturate: return eval_impl<Keyword::Saturate>(*x_ptr, *param_ptr, context);
         case Keyword::Try:      return eval_impl<Keyword::Try>     (*x_ptr, *param_ptr, context);
         case Keyword::TryCatch: return eval_impl<Keyword::TryCatch>(*x_ptr, *param_ptr, context);
@@ -1470,7 +1482,9 @@ boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalConte
         case Keyword::Argmax:   return eval_impl<Keyword::Argmax>  (*x_ptr, *param_ptr, context);
         case Keyword::Min:      return eval_impl<Keyword::Min>     (*x_ptr, *param_ptr, context);
         case Keyword::Max:      return eval_impl<Keyword::Max>     (*x_ptr, *param_ptr, context);
-        case Keyword::Op: return eval_impl<Keyword::Op>(*x_ptr, *param_ptr, context);
+        case Keyword::Op:       return eval_impl<Keyword::Op>      (*x_ptr, *param_ptr, context);
+        case Keyword::Kwrd:     return eval_impl<Keyword::Kwrd>    (*x_ptr, *param_ptr, context);
+        case Keyword::Prms:     return eval_impl<Keyword::Prms>    (*x_ptr, *param_ptr, context);
 
         default:
         {

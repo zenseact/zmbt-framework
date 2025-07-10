@@ -632,8 +632,9 @@ std::vector<TestEvalSample> const TestSamples
     {Debug                      , 42                    , 42                    },
     {Debug(Add(2)|Debug(Sub(2), "nested"), "top"), 40   , 40                    },
 
-
-
+    {Kwrd                       , Fold(Add)             , "Fold"                },
+    {Q(Fold(Add)) | Kwrd        , {}                    , "Fold"                },
+    {Q(Fold(Add)) | Prms        , {}                    , Add                   },
 
     {Overload(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },

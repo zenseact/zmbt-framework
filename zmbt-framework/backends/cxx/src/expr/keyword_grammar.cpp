@@ -179,9 +179,11 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "Del", Keyword::Del)
     (ZMBT_KEYWORD_PREFIX "Delete", Keyword::Del)
     (ZMBT_KEYWORD_PREFIX "Lookup", Keyword::Lookup)
-    (ZMBT_KEYWORD_PREFIX "C", Keyword::C)
-    (ZMBT_KEYWORD_PREFIX "Const", Keyword::C)
-    (ZMBT_KEYWORD_PREFIX "Let", Keyword::C)
+    (ZMBT_KEYWORD_PREFIX "Q", Keyword::Q)
+    (ZMBT_KEYWORD_PREFIX "C", Keyword::Q)
+    (ZMBT_KEYWORD_PREFIX "Const", Keyword::Q)
+    (ZMBT_KEYWORD_PREFIX "Let", Keyword::Q)
+    (ZMBT_KEYWORD_PREFIX "Lift", Keyword::Q)
     (ZMBT_KEYWORD_PREFIX "Cast", Keyword::Cast)
     (ZMBT_KEYWORD_PREFIX "Decorate", Keyword::Cast)
     (ZMBT_KEYWORD_PREFIX "Uncast", Keyword::Uncast)
@@ -216,6 +218,9 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "Eval", Keyword::Eval)
     (ZMBT_KEYWORD_PREFIX "Try", Keyword::Try)
     (ZMBT_KEYWORD_PREFIX "TryCatch", Keyword::TryCatch)
+    (ZMBT_KEYWORD_PREFIX "Kwrd", Keyword::Kwrd)
+    (ZMBT_KEYWORD_PREFIX "Prms", Keyword::Prms)
+    (ZMBT_KEYWORD_PREFIX "Parameters", Keyword::Prms)
     (ZMBT_KEYWORD_PREFIX "D", Keyword::D)
     (ZMBT_KEYWORD_PREFIX "Default", Keyword::D)
     (ZMBT_KEYWORD_PREFIX "Err", Keyword::Err)
@@ -346,7 +351,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::At: { v = ZMBT_KEYWORD_PREFIX "At"; break; }
     case Keyword::Del: { v = ZMBT_KEYWORD_PREFIX "Del"; break; }
     case Keyword::Lookup: { v = ZMBT_KEYWORD_PREFIX "Lookup"; break; }
-    case Keyword::C: { v = ZMBT_KEYWORD_PREFIX "C"; break; }
+    case Keyword::Q: { v = ZMBT_KEYWORD_PREFIX "Q"; break; }
     case Keyword::Cast: { v = ZMBT_KEYWORD_PREFIX "Cast"; break; }
     case Keyword::Uncast: { v = ZMBT_KEYWORD_PREFIX "Uncast"; break; }
     case Keyword::Fold: { v = ZMBT_KEYWORD_PREFIX "Fold"; break; }
@@ -376,6 +381,8 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Eval: { v = ZMBT_KEYWORD_PREFIX "Eval"; break; }
     case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "Try"; break; }
     case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "TryCatch"; break; }
+    case Keyword::Kwrd: { v = ZMBT_KEYWORD_PREFIX "Kwrd"; break; }
+    case Keyword::Prms: { v = ZMBT_KEYWORD_PREFIX "Prms"; break; }
     case Keyword::D: { v = ZMBT_KEYWORD_PREFIX "D"; break; }
     case Keyword::Err: { v = ZMBT_KEYWORD_PREFIX "Err"; break; }
         // TODO: throw

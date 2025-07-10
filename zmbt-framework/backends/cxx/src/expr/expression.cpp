@@ -279,7 +279,7 @@ bool Expression::is_const() const
     {
         return Expression(params().as_array().back()).is_const();
     }
-    return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Err) || (CodegenType::Const == getCodegenType(keyword()));
+    return is(Keyword::Literal) || is(Keyword::Q) || is(Keyword::Err) || (CodegenType::Const == getCodegenType(keyword()));
 }
 
 std::string Expression::keyword_to_str() const

@@ -56,7 +56,7 @@ bool isConst(Keyword const& k)
 @for keyword in data.Constants:
     case Keyword::@keyword.Name:
 @end
-    case Keyword::C:
+    case Keyword::Q:
     case Keyword::Literal:
         return true;
     default:

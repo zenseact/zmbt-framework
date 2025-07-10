@@ -341,8 +341,8 @@ enum class Keyword
     /// Lookup
     Lookup,
 
-    /// C
-    C,
+    /// Q
+    Q,
 
     /// Cast
     Cast,
@@ -430,6 +430,12 @@ enum class Keyword
 
     /// TryCatch
     TryCatch,
+
+    /// Kwrd
+    Kwrd,
+
+    /// Prms
+    Prms,
 
     /// D
     D,
