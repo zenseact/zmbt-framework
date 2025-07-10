@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1Trigger" kind="class" language="C++" prot="public" final="yes">
+    <compoundname>zmbt::Trigger</compoundname>
+    <includes refid="trigger_8hpp" local="no">trigger.hpp</includes>
+    <innerclass refid="structzmbt_1_1Trigger_1_1internal__ctor" prot="private">zmbt::Trigger::internal_ctor</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1Trigger_1a1a17c9b4709726185ce3e84fa0c66fe8" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1TriggerObj" kindref="compound">TriggerObj</ref></type>
+        <definition>TriggerObj zmbt::Trigger::obj_</definition>
+        <argsstring></argsstring>
+        <name>obj_</name>
+        <qualifiedname>zmbt::Trigger::obj_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="189" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Trigger_1a09c8af189b0007deb808d3c3d7d312f1" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1TriggerIfc" kindref="compound">TriggerIfc</ref></type>
+        <definition>TriggerIfc zmbt::Trigger::ifc_</definition>
+        <argsstring></argsstring>
+        <name>ifc_</name>
+        <qualifiedname>zmbt::Trigger::ifc_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="190" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1ae81fac47e3f1ceaa8a6a0204b987157a" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Trigger::Trigger</definition>
+        <argsstring>(internal_ctor, TriggerObj const &amp;obj, TriggerIfc const &amp;ifc)</argsstring>
+        <name>Trigger</name>
+        <qualifiedname>zmbt::Trigger::Trigger</qualifiedname>
+        <param>
+          <type>internal_ctor</type>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1TriggerObj" kindref="compound">TriggerObj</ref> const &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1TriggerIfc" kindref="compound">TriggerIfc</ref> const &amp;</type>
+          <declname>ifc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="192" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="192" bodyend="194"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1addb66f3dfbed14632039b59de0b9457d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Trigger::~Trigger</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Trigger</name>
+        <qualifiedname>zmbt::Trigger::~Trigger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="199" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1a9136af5151c14274b5b4097488016020" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Trigger::Trigger</definition>
+        <argsstring>(Trigger const &amp;)=default</argsstring>
+        <name>Trigger</name>
+        <qualifiedname>zmbt::Trigger::Trigger</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="200" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1a6ffa99f0a55e937baaea5cb99e8e9ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Trigger::Trigger</definition>
+        <argsstring>(Trigger &amp;&amp;)=default</argsstring>
+        <name>Trigger</name>
+        <qualifiedname>zmbt::Trigger::Trigger</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="201" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1ac2429bd904be4f1ee96e7c422f6a57e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> &amp;</type>
+        <definition>Trigger &amp; zmbt::Trigger::operator=</definition>
+        <argsstring>(Trigger const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::Trigger::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="202" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1a32e2d6c050d0c49a2df03cffa9a2ec17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> &amp;</type>
+        <definition>Trigger &amp; zmbt::Trigger::operator=</definition>
+        <argsstring>(Trigger &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::Trigger::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="203" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1aba2a1e46832df901f9e37b334dc89dc3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class I</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::Trigger::Trigger</definition>
+        <argsstring>(T &amp;&amp;obj, I &amp;&amp;interface)</argsstring>
+        <name>Trigger</name>
+        <qualifiedname>zmbt::Trigger::Trigger</qualifiedname>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <param>
+          <type>I &amp;&amp;</type>
+          <declname>interface</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="206" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="206" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1ac6dc11a6b35ab552545a018bf7146e72" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class I</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>A</declname>
+            <defname>A</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::Trigger::Trigger</definition>
+        <argsstring>(type_tag&lt; T &gt;, I &amp;&amp;interface, A &amp;&amp;... args)</argsstring>
+        <name>Trigger</name>
+        <qualifiedname>zmbt::Trigger::Trigger</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1type__tag" kindref="compound">type_tag</ref>&lt; T &gt;</type>
+        </param>
+        <param>
+          <type>I &amp;&amp;</type>
+          <declname>interface</declname>
+        </param>
+        <param>
+          <type>A &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="212" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="212" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1a3e5ca357ed68b55311a2fdad3ef2ae88" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::Trigger::execute</definition>
+        <argsstring>(boost::json::value const &amp;args_in=boost::json::array{}) const</argsstring>
+        <name>execute</name>
+        <qualifiedname>zmbt::Trigger::execute</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>args_in</declname>
+          <defval>boost::json::array{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="218" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="218" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1aba60b9f1b2c7b9e6182fbc6f2461202a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::Trigger::operator()</definition>
+        <argsstring>(boost::json::value const &amp;args_in=boost::json::array{}) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::Trigger::operator()</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>args_in</declname>
+          <defval>boost::json::array{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="223" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="223" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1ab93ee6b008d84961140d676f1b7ffcdf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::Trigger::operator==</definition>
+        <argsstring>(Trigger const &amp;o) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>zmbt::Trigger::operator==</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="228" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="228" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1ab7384c1b8879991446f9db216b8ebbb1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::Trigger::operator!=</definition>
+        <argsstring>(Trigger const &amp;o) const</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>zmbt::Trigger::operator!=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="233" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="233" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1aa63af38ff0e68dd0dd88ffaf9e508ed2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+        <definition>object_id zmbt::Trigger::obj_id</definition>
+        <argsstring>() const</argsstring>
+        <name>obj_id</name>
+        <qualifiedname>zmbt::Trigger::obj_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="238" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="238" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Trigger_1a2f3e05c56ecefa0362191932c54e80cf" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref></type>
+        <definition>interface_id zmbt::Trigger::ifc_id</definition>
+        <argsstring>() const</argsstring>
+        <name>ifc_id</name>
+        <qualifiedname>zmbt::Trigger::ifc_id</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="243" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="243" bodyend="246"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Controlled environment interface executor. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" line="187" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp" bodystart="187" bodyend="248"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1Trigger_1a3e5ca357ed68b55311a2fdad3ef2ae88" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>execute</name></member>
+      <member refid="classzmbt_1_1Trigger_1a09c8af189b0007deb808d3c3d7d312f1" prot="private" virt="non-virtual"><scope>zmbt::Trigger</scope><name>ifc_</name></member>
+      <member refid="classzmbt_1_1Trigger_1a2f3e05c56ecefa0362191932c54e80cf" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>ifc_id</name></member>
+      <member refid="classzmbt_1_1Trigger_1a1a17c9b4709726185ce3e84fa0c66fe8" prot="private" virt="non-virtual"><scope>zmbt::Trigger</scope><name>obj_</name></member>
+      <member refid="classzmbt_1_1Trigger_1aa63af38ff0e68dd0dd88ffaf9e508ed2" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>obj_id</name></member>
+      <member refid="classzmbt_1_1Trigger_1ab7384c1b8879991446f9db216b8ebbb1" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>operator!=</name></member>
+      <member refid="classzmbt_1_1Trigger_1aba60b9f1b2c7b9e6182fbc6f2461202a" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1Trigger_1ac2429bd904be4f1ee96e7c422f6a57e7" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1Trigger_1a32e2d6c050d0c49a2df03cffa9a2ec17" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1Trigger_1ab93ee6b008d84961140d676f1b7ffcdf" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1Trigger_1ae81fac47e3f1ceaa8a6a0204b987157a" prot="private" virt="non-virtual"><scope>zmbt::Trigger</scope><name>Trigger</name></member>
+      <member refid="classzmbt_1_1Trigger_1a9136af5151c14274b5b4097488016020" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>Trigger</name></member>
+      <member refid="classzmbt_1_1Trigger_1a6ffa99f0a55e937baaea5cb99e8e9ed7" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>Trigger</name></member>
+      <member refid="classzmbt_1_1Trigger_1aba2a1e46832df901f9e37b334dc89dc3" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>Trigger</name></member>
+      <member refid="classzmbt_1_1Trigger_1ac6dc11a6b35ab552545a018bf7146e72" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>Trigger</name></member>
+      <member refid="classzmbt_1_1Trigger_1addb66f3dfbed14632039b59de0b9457d" prot="public" virt="non-virtual"><scope>zmbt::Trigger</scope><name>~Trigger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

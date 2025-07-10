@@ -1,0 +1,1171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1Expression" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::Expression</compoundname>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureBase" prot="public" virt="non-virtual">zmbt::lang::SignatureBase&lt; Keyword::Error &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureBase" prot="public" virt="non-virtual">zmbt::lang::SignatureBase&lt; K &gt;</derivedcompoundref>
+    <includes refid="expression_8hpp" local="no">expression.hpp</includes>
+    <innerclass refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" prot="public">zmbt::lang::Expression::EvalContext</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Expression_1_1EvalLog" prot="public">zmbt::lang::Expression::EvalLog</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Expression_1_1internal__tag" prot="private">zmbt::lang::Expression::internal_tag</innerclass>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Expression_1a3437798eea37bef1ab07961ecc39d560" prot="public" static="no">
+        <type>boost::json::value</type>
+        <definition>using zmbt::lang::Expression::V =  boost::json::value</definition>
+        <argsstring></argsstring>
+        <name>V</name>
+        <qualifiedname>zmbt::lang::Expression::V</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="31" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1Expression_1a056a0dcc4e86f3d3c38d3ce724d42c8d" prot="public" static="no">
+        <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">lang::Keyword</ref></type>
+        <definition>using zmbt::lang::Expression::Keyword =  lang::Keyword</definition>
+        <argsstring></argsstring>
+        <name>Keyword</name>
+        <qualifiedname>zmbt::lang::Expression::Keyword</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="32" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1Expression_1a042ab0b1056b216060dddf279b13df37" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref></type>
+        <definition>Keyword zmbt::lang::Expression::keyword_</definition>
+        <argsstring></argsstring>
+        <name>keyword_</name>
+        <qualifiedname>zmbt::lang::Expression::keyword_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="72" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1Expression_1abfc98bdce2a2b9d85b97e098957307b9" prot="private" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::underlying_</definition>
+        <argsstring></argsstring>
+        <name>underlying_</name>
+        <qualifiedname>zmbt::lang::Expression::underlying_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="73" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1Expression_1a7629188ee12f0c820cfe2453fe4c4a0d" prot="private" static="no" mutable="no">
+        <type>boost::json::value const  *</type>
+        <definition>boost::json::value const* zmbt::lang::Expression::params_ptr_</definition>
+        <argsstring></argsstring>
+        <name>params_ptr_</name>
+        <qualifiedname>zmbt::lang::Expression::params_ptr_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="74" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1Expression_1aa2468ce19614311d5cf960772e8eda3b" prot="private" static="no" mutable="no">
+        <type>boost::json::value const</type>
+        <definition>boost::json::value const zmbt::lang::Expression::dummy_params_</definition>
+        <argsstring></argsstring>
+        <name>dummy_params_</name>
+        <qualifiedname>zmbt::lang::Expression::dummy_params_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="75" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="75" bodyend="75"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a4e71d1d5a9ad6e4807a75045ecfce1de" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(internal_tag, Keyword const &amp;keyword, boost::json::value &amp;&amp;underlying)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type>internal_tag</type>
+        </param>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref> const &amp;</type>
+          <declname>keyword</declname>
+        </param>
+        <param>
+          <type>boost::json::value &amp;&amp;</type>
+          <declname>underlying</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="78" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a4b5f2fe4e188baab0878d1f577e7ff70" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(json_ctor_params &amp;&amp;)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type>json_ctor_params &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="81" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a1907cc1b02c2e3a3b90df9ced59bed3f" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::Expression::handle_binary_args</definition>
+        <argsstring>(V const &amp;x, V const *&amp;lhs, V const *&amp;rhs) const</argsstring>
+        <name>handle_binary_args</name>
+        <qualifiedname>zmbt::lang::Expression::handle_binary_args</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>V const *&amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>V const *&amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="83" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ac2cd3515b81966cded0d6558af98b573" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval_Const</definition>
+        <argsstring>(boost::json::value const &amp;) const</argsstring>
+        <name>eval_Const</name>
+        <qualifiedname>zmbt::lang::Expression::eval_Const</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="85" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a864d58ec09e6ac16a0ff60ce3aa039ff" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval_UnaryOp</definition>
+        <argsstring>(boost::json::value const &amp;, EvalContext const &amp;) const</argsstring>
+        <name>eval_UnaryOp</name>
+        <qualifiedname>zmbt::lang::Expression::eval_UnaryOp</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="86" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1abce166a5001ca4d11d9fb511e3e08e58" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval_BinaryOp</definition>
+        <argsstring>(boost::json::value const &amp;, EvalContext const &amp;) const</argsstring>
+        <name>eval_BinaryOp</name>
+        <qualifiedname>zmbt::lang::Expression::eval_BinaryOp</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="87" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a9160071d0acb63771d5b22d480f53f65" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval_CodegenFn</definition>
+        <argsstring>(boost::json::value const &amp;, EvalContext const &amp;) const</argsstring>
+        <name>eval_CodegenFn</name>
+        <qualifiedname>zmbt::lang::Expression::eval_CodegenFn</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="88" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1af7ad17cb3dd166affe40538f12cb9236" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval_HiOrd</definition>
+        <argsstring>(boost::json::value const &amp;, EvalContext const &amp;) const</argsstring>
+        <name>eval_HiOrd</name>
+        <qualifiedname>zmbt::lang::Expression::eval_HiOrd</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="89" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a2bca4ac9a89d5b95da41f07e486a2807" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval_Special</definition>
+        <argsstring>(boost::json::value const &amp;, EvalContext const &amp;) const</argsstring>
+        <name>eval_Special</name>
+        <qualifiedname>zmbt::lang::Expression::eval_Special</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="90" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a476e5a2b9b1988e2a58d41adb580f918" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(internal_tag, Operator const &amp;op)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type>internal_tag</type>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> const &amp;</type>
+          <declname>op</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="92" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a905f9859ae00445adeec3b69540be16a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>static Expression zmbt::lang::Expression::asPredicate</definition>
+        <argsstring>(boost::json::value const &amp;underlying)</argsstring>
+        <name>asPredicate</name>
+        <qualifiedname>zmbt::lang::Expression::asPredicate</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>underlying</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Return const expressions as <ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084a3718b5ecf60aa0dba49e150e96cb1fc3" kindref="member">Eq(underlying)</ref>, except for Noop, otherwise return Expression(underlying) unchanged </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="98" column="23"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a4858d93b13cbcb48f8debeea8e634d9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(std::initializer_list&lt; boost::json::value_ref &gt; items)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type>std::initializer_list&lt; boost::json::value_ref &gt;</type>
+          <declname>items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="100" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a5d0580ecf76a2086e61b6c7b69cb99f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(boost::json::value const &amp;expr)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="101" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a37db18bbce268c987850abcf4ba5aba0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(Keyword const &amp;keyword, boost::json::value const &amp;params)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref> const &amp;</type>
+          <declname>keyword</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="102" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a99c1cf8e34c27aa2f3b2e93e7355de45" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(Keyword const &amp;keyword)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref> const &amp;</type>
+          <declname>keyword</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="103" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ae7054c0b4cfbb198a794db486d573cbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>()</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="105" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1aeb03c331f87b15b1cd76ed6a966b54a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(T const &amp;sample)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type>T const &amp;</type>
+          <declname>sample</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="108" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="108" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1aea93ba54a88cdf26279ac47b60f1bf28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(Expression const &amp;o)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="110" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a2b3d62287201f721054edf247d96cca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Expression</definition>
+        <argsstring>(Expression &amp;&amp;o)</argsstring>
+        <name>Expression</name>
+        <qualifiedname>zmbt::lang::Expression::Expression</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> &amp;&amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="111" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a20bf8fb30d96689265de8ad963ddf7d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> &amp;</type>
+        <definition>Expression &amp; zmbt::lang::Expression::operator=</definition>
+        <argsstring>(Expression const &amp;o)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::lang::Expression::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="112" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a7f5f2f8e69cfd5bf056ea27888e6b214" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> &amp;</type>
+        <definition>Expression &amp; zmbt::lang::Expression::operator=</definition>
+        <argsstring>(Expression &amp;&amp;o)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::lang::Expression::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> &amp;&amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="113" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a5605348c967d3eed2552904bb1501b4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::~Expression</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Expression</name>
+        <qualifiedname>zmbt::lang::Expression::~Expression</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="134" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ab1292c05098a318f87a7ada1a0a19554" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value const &amp;</type>
+        <definition>boost::json::value const  &amp; zmbt::lang::Expression::underlying</definition>
+        <argsstring>() const</argsstring>
+        <name>underlying</name>
+        <qualifiedname>zmbt::lang::Expression::underlying</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="136" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="136" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a08eea69bfe6b12c111a3474203080742" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string zmbt::lang::Expression::serialize</definition>
+        <argsstring>() const</argsstring>
+        <name>serialize</name>
+        <qualifiedname>zmbt::lang::Expression::serialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="141" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="141" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a9bd5b25c8e3f42ab6a81dfa6d0817a5c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string zmbt::lang::Expression::keyword_to_str</definition>
+        <argsstring>() const</argsstring>
+        <name>keyword_to_str</name>
+        <qualifiedname>zmbt::lang::Expression::keyword_to_str</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="146" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a36f5f5405b19d32e2a9c890db7536d78" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::operator==</definition>
+        <argsstring>(Expression const &amp;o) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>zmbt::lang::Expression::operator==</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="148" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="148" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ae66de80cc134d5cb60597c646e0f0f98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::operator!=</definition>
+        <argsstring>(Expression const &amp;o) const</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>zmbt::lang::Expression::operator!=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="153" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="153" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1af508749bcd7dd71cefd6866af40f7aac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref></type>
+        <definition>Keyword zmbt::lang::Expression::keyword</definition>
+        <argsstring>() const</argsstring>
+        <name>keyword</name>
+        <qualifiedname>zmbt::lang::Expression::keyword</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="158" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="158" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a5d0ac9299e55317e33acf7eb9617a120" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value const &amp;</type>
+        <definition>boost::json::value const  &amp; zmbt::lang::Expression::params</definition>
+        <argsstring>() const</argsstring>
+        <name>params</name>
+        <qualifiedname>zmbt::lang::Expression::params</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="163" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="163" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a42ec2c8d1be79671485d9b9d0e84025d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value const &amp;</type>
+        <definition>boost::json::value const  &amp; zmbt::lang::Expression::subexpr</definition>
+        <argsstring>() const</argsstring>
+        <name>subexpr</name>
+        <qualifiedname>zmbt::lang::Expression::subexpr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="168" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="168" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a868366764044fac2324422b1c0b4064f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::has_params</definition>
+        <argsstring>() const</argsstring>
+        <name>has_params</name>
+        <qualifiedname>zmbt::lang::Expression::has_params</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="173" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="173" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ae6fcd8cc6584ab581b9485a20bcc0670" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is</definition>
+        <argsstring>(Keyword const kwrd) const</argsstring>
+        <name>is</name>
+        <qualifiedname>zmbt::lang::Expression::is</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref> const</type>
+          <declname>kwrd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="178" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="178" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ae544e18b8d77a41d6244128be00445da" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_compose</definition>
+        <argsstring>() const</argsstring>
+        <name>is_compose</name>
+        <qualifiedname>zmbt::lang::Expression::is_compose</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="183" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="183" bodyend="186"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ac9faca9b66e93d7e2e197575c317220d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_nonempty_composition</definition>
+        <argsstring>() const</argsstring>
+        <name>is_nonempty_composition</name>
+        <qualifiedname>zmbt::lang::Expression::is_nonempty_composition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="188" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="188" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ab804feda1bd4dcba3b10894fce6fd60d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_fork</definition>
+        <argsstring>() const</argsstring>
+        <name>is_fork</name>
+        <qualifiedname>zmbt::lang::Expression::is_fork</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="193" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="193" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1adc70e688dfc2c1fb7cd72221dac533eb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_nonempty_fork</definition>
+        <argsstring>() const</argsstring>
+        <name>is_nonempty_fork</name>
+        <qualifiedname>zmbt::lang::Expression::is_nonempty_fork</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="198" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="198" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ab738d97dc7e9ad9d1fda910be724fa6d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_literal</definition>
+        <argsstring>() const</argsstring>
+        <name>is_literal</name>
+        <qualifiedname>zmbt::lang::Expression::is_literal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="203" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="203" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ab7f5867e9188d4193096133698c7156a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_noop</definition>
+        <argsstring>() const</argsstring>
+        <name>is_noop</name>
+        <qualifiedname>zmbt::lang::Expression::is_noop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="208" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="208" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a6c08858ff542dc7462d92ededd038e93" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_const</definition>
+        <argsstring>() const</argsstring>
+        <name>is_const</name>
+        <qualifiedname>zmbt::lang::Expression::is_const</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="213" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1aedb21965768a6fe841c3e9f13fb3d72c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_hiord</definition>
+        <argsstring>() const</argsstring>
+        <name>is_hiord</name>
+        <qualifiedname>zmbt::lang::Expression::is_hiord</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="215" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1aea5d72fca2fb4e785dfacf5b703f46f8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::is_boolean</definition>
+        <argsstring>() const</argsstring>
+        <name>is_boolean</name>
+        <qualifiedname>zmbt::lang::Expression::is_boolean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="217" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1a34d51c470b6f5c2f8de0e83ea5948be2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::lang::Expression::eval</definition>
+        <argsstring>(boost::json::value const &amp;x=nullptr, EvalContext const &amp;ctx={}) const</argsstring>
+        <name>eval</name>
+        <qualifiedname>zmbt::lang::Expression::eval</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>x</declname>
+          <defval>nullptr</defval>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Expression_1_1EvalContext" kindref="compound">EvalContext</ref> const &amp;</type>
+          <declname>ctx</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Evaluate expression. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>run-time argument </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>evaluation config </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="229" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ad6331a9c4e17f87acc3a9e3594c2b217" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Expression::match</definition>
+        <argsstring>(boost::json::value const &amp;observed, Operator const &amp;op={}) const</argsstring>
+        <name>match</name>
+        <qualifiedname>zmbt::lang::Expression::match</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>observed</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> const &amp;</type>
+          <declname>op</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="231" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ac128c6a484b1f5e4f6811b7171c89a9f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string zmbt::lang::Expression::prettify</definition>
+        <argsstring>() const</argsstring>
+        <name>prettify</name>
+        <qualifiedname>zmbt::lang::Expression::prettify</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="233" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1ac78424b8f740b55bfed66e35b48a4f68" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::list&lt; <ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> &gt;</type>
+        <definition>std::list&lt; Expression &gt; zmbt::lang::Expression::parameter_list</definition>
+        <argsstring>() const</argsstring>
+        <name>parameter_list</name>
+        <qualifiedname>zmbt::lang::Expression::parameter_list</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="235" column="15"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1lang_1_1Expression_1a7bb68d055c52f6823f6ff0c6639fddef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression operator|</definition>
+        <argsstring>(Expression const &amp;lhs, Expression const &amp;rhs)</argsstring>
+        <name>operator|</name>
+        <qualifiedname>zmbt::lang::Expression::operator|</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Compose expressions left-to-right. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Pipe functional expressions in composition, s.t. <computeroutput>a | b</computeroutput> is equivalent to <computeroutput><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084aa0c29a6fe815b4e79cafb36a6714094c" kindref="member">Compose(b, a)</ref></computeroutput>. <simplesect kind="see"><para><ref refid="namespacezmbt_1_1expr_1a40c55fa2dfc9104e85a6fd4daa753165" kindref="member">zmbt::expr::Compose</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="118" column="23"/>
+      </memberdef>
+      <memberdef kind="friend" id="classzmbt_1_1lang_1_1Expression_1a103302106f0240f96cbf3b5c88b7a276" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression operator&amp;</definition>
+        <argsstring>(Expression const &amp;lhs, Expression const &amp;rhs)</argsstring>
+        <name>operator&amp;</name>
+        <qualifiedname>zmbt::lang::Expression::operator&amp;</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Pack expression results into an array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="namespacezmbt_1_1expr_1a4585d4656c09a45aad552b7e1eaf1408" kindref="member">zmbt::expr::Fork</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="121" column="23"/>
+      </memberdef>
+      <memberdef kind="friend" id="classzmbt_1_1lang_1_1Expression_1a0cb912347c457b6e3d46b641c2a0bd40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>V operator*</definition>
+        <argsstring>(Expression const &amp;expr, Expression const &amp;x)</argsstring>
+        <name>operator*</name>
+        <qualifiedname>zmbt::lang::Expression::operator*</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate x to lhs expression. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to expr.eval(x). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="125" column="14"/>
+      </memberdef>
+      <memberdef kind="friend" id="classzmbt_1_1lang_1_1Expression_1a54503e82ad133bfb7dc2e6094cfaade1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>V operator*</definition>
+        <argsstring>(Expression const &amp;expr)</argsstring>
+        <name>operator*</name>
+        <qualifiedname>zmbt::lang::Expression::operator*</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate expression. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to expr.eval(). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="129" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> Language implementation class.</para>
+<para><simplesect kind="see"><para><ulink url="/user-guide/expressions/">Expression Language documentation</ulink>. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::lang::SignatureBase&lt; Keyword::Error &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::lang::SignatureBinary&lt; Keyword::Decorate &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::lang::SignatureBinary&lt; Keyword::Undecorate &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::lang::SignatureTernary&lt; Keyword::Debug &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureTernary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt::lang::SignatureTernary&lt; Keyword::Overload &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureTernary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="4">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt::lang::SignatureBinary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>zmbt::lang::SignatureConst&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureConst"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::lang::SignatureDebug</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureDebug"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::lang::SignatureDecorate</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureDecorate"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::SignatureError</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureError"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt::lang::SignatureOverload</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureOverload"/>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>zmbt::lang::SignatureTernary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureTernary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>zmbt::lang::SignatureUnary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureUnary"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt::lang::SignatureUndecorate</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureUndecorate"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>zmbt::lang::SignatureVariadic&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureVariadic"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="28" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="29" bodyend="237"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a905f9859ae00445adeec3b69540be16a" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>asPredicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aa2468ce19614311d5cf960772e8eda3b" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>dummy_params_</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a34d51c470b6f5c2f8de0e83ea5948be2" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1abce166a5001ca4d11d9fb511e3e08e58" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval_BinaryOp</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a9160071d0acb63771d5b22d480f53f65" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval_CodegenFn</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac2cd3515b81966cded0d6558af98b573" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval_Const</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1af7ad17cb3dd166affe40538f12cb9236" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval_HiOrd</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a2bca4ac9a89d5b95da41f07e486a2807" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval_Special</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a864d58ec09e6ac16a0ff60ce3aa039ff" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>eval_UnaryOp</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4e71d1d5a9ad6e4807a75045ecfce1de" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4b5f2fe4e188baab0878d1f577e7ff70" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a476e5a2b9b1988e2a58d41adb580f918" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4858d93b13cbcb48f8debeea8e634d9e" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0580ecf76a2086e61b6c7b69cb99f6" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a37db18bbce268c987850abcf4ba5aba0" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a99c1cf8e34c27aa2f3b2e93e7355de45" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae7054c0b4cfbb198a794db486d573cbd" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aeb03c331f87b15b1cd76ed6a966b54a8" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea93ba54a88cdf26279ac47b60f1bf28" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a2b3d62287201f721054edf247d96cca1" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a1907cc1b02c2e3a3b90df9ced59bed3f" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>handle_binary_args</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a868366764044fac2324422b1c0b4064f" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>has_params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae6fcd8cc6584ab581b9485a20bcc0670" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea5d72fca2fb4e785dfacf5b703f46f8" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_boolean</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae544e18b8d77a41d6244128be00445da" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_compose</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6c08858ff542dc7462d92ededd038e93" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_const</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab804feda1bd4dcba3b10894fce6fd60d" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_fork</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aedb21965768a6fe841c3e9f13fb3d72c" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_hiord</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab738d97dc7e9ad9d1fda910be724fa6d" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_literal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac9faca9b66e93d7e2e197575c317220d" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_nonempty_composition</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1adc70e688dfc2c1fb7cd72221dac533eb" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_nonempty_fork</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab7f5867e9188d4193096133698c7156a" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>is_noop</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a056a0dcc4e86f3d3c38d3ce724d42c8d" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>Keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1af508749bcd7dd71cefd6866af40f7aac" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a042ab0b1056b216060dddf279b13df37" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>keyword_</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a9bd5b25c8e3f42ab6a81dfa6d0817a5c" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>keyword_to_str</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ad6331a9c4e17f87acc3a9e3594c2b217" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>match</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae66de80cc134d5cb60597c646e0f0f98" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator!=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a103302106f0240f96cbf3b5c88b7a276" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator&amp;</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a0cb912347c457b6e3d46b641c2a0bd40" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a54503e82ad133bfb7dc2e6094cfaade1" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a20bf8fb30d96689265de8ad963ddf7d8" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7f5f2f8e69cfd5bf056ea27888e6b214" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a36f5f5405b19d32e2a9c890db7536d78" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7bb68d055c52f6823f6ff0c6639fddef" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>operator|</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac78424b8f740b55bfed66e35b48a4f68" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>parameter_list</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0ac9299e55317e33acf7eb9617a120" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7629188ee12f0c820cfe2453fe4c4a0d" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>params_ptr_</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac128c6a484b1f5e4f6811b7171c89a9f" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>prettify</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a08eea69bfe6b12c111a3474203080742" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>serialize</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a42ec2c8d1be79671485d9b9d0e84025d" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>subexpr</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab1292c05098a318f87a7ada1a0a19554" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>underlying</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1abfc98bdce2a2b9d85b97e098957307b9" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>underlying_</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a3437798eea37bef1ab07961ecc39d560" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5605348c967d3eed2552904bb1501b4d" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression</scope><name>~Expression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

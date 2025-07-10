@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_5ca6873c4d246ae1a35f5fe5ff3edd5d" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr</compoundname>
+    <innerfile refid="expr_2api_8hpp">api.hpp</innerfile>
+    <innerfile refid="api__signatures_8hpp">api_signatures.hpp</innerfile>
+    <innerfile refid="expr_2exceptions_8hpp">exceptions.hpp</innerfile>
+    <innerfile refid="expression_8hpp">expression.hpp</innerfile>
+    <innerfile refid="expression__grammar_8hpp">expression_grammar.hpp</innerfile>
+    <innerfile refid="keyword_8hpp">keyword.hpp</innerfile>
+    <innerfile refid="keyword__codegen__type_8hpp">keyword_codegen_type.hpp</innerfile>
+    <innerfile refid="keyword__grammar_8hpp">keyword_grammar.hpp</innerfile>
+    <innerfile refid="operator_8hpp">operator.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1serialization_3_01T_00_01detail_1_1enable__for__default__serialization_3_01T_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::serialization&lt; T, detail::enable_for_default_serialization&lt; T &gt; &gt;</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">zmbt::reflect::detail::default_serialization&lt; T &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::reflect::detail::default_serialization&lt; T, E &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::reflect::serialization&lt; T, detail::enable_for_default_serialization&lt; T &gt; &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1serialization_3_01T_00_01detail_1_1enable__for__default__serialization_3_01T_01_4_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::reflect::detail::default_serialization&lt; T, E &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::reflect::serialization&lt; T, detail::enable_for_default_serialization&lt; T &gt; &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1serialization_3_01T_00_01detail_1_1enable__for__default__serialization_3_01T_01_4_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" line="105" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" bodystart="105" bodyend="105"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

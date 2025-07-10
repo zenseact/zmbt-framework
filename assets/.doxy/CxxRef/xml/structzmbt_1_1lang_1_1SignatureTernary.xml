@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1SignatureTernary" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::SignatureTernary</compoundname>
+    <basecompoundref refid="structzmbt_1_1lang_1_1SignatureBase" prot="public" virt="non-virtual">zmbt::lang::SignatureBase&lt; K &gt;</basecompoundref>
+    <includes refid="api__signatures_8hpp" local="no">api_signatures.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type><ref refid="namespacezmbt_1_1lang_1ac9e32ce6c619e50d17a91f17bcf7c084" kindref="member">Keyword</ref></type>
+        <declname>K</declname>
+        <defname>K</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureTernary_1ad34fa557014db0f55f4f032cfe632423" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::SignatureTernary&lt; K &gt;::operator()</definition>
+        <argsstring>(Expression const &amp;expr, Expression const &amp;param) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::SignatureTernary::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>param</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="95" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="95" bodyend="98"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Ternary expression. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>keyword <anchor id="structzmbt_1_1lang_1_1SignatureTernary_1ternary-syntactic-forms"/></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+<sect4 id="structzmbt_1_1lang_1_1SignatureTernary_1par-ternary-syntactic-forms">
+<title>Syntactic forms</title>
+<para>Syntatic form over function f: <formula id="5">$E(a, b) \mapsto (x \mapsto f(a, b)(x))$</formula> </para>
+</sect4>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureTernary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureTernary"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureTernary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureTernary"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="91" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="92" bodyend="99"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a905f9859ae00445adeec3b69540be16a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>asPredicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a34d51c470b6f5c2f8de0e83ea5948be2" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>eval</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4858d93b13cbcb48f8debeea8e634d9e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0580ecf76a2086e61b6c7b69cb99f6" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a37db18bbce268c987850abcf4ba5aba0" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a99c1cf8e34c27aa2f3b2e93e7355de45" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae7054c0b4cfbb198a794db486d573cbd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aeb03c331f87b15b1cd76ed6a966b54a8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea93ba54a88cdf26279ac47b60f1bf28" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a2b3d62287201f721054edf247d96cca1" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a868366764044fac2324422b1c0b4064f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>has_params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae6fcd8cc6584ab581b9485a20bcc0670" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aea5d72fca2fb4e785dfacf5b703f46f8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_boolean</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae544e18b8d77a41d6244128be00445da" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_compose</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6c08858ff542dc7462d92ededd038e93" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_const</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab804feda1bd4dcba3b10894fce6fd60d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_fork</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aedb21965768a6fe841c3e9f13fb3d72c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_hiord</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab738d97dc7e9ad9d1fda910be724fa6d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_literal</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac9faca9b66e93d7e2e197575c317220d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_nonempty_composition</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1adc70e688dfc2c1fb7cd72221dac533eb" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_nonempty_fork</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab7f5867e9188d4193096133698c7156a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>is_noop</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a056a0dcc4e86f3d3c38d3ce724d42c8d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>Keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1af508749bcd7dd71cefd6866af40f7aac" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a9bd5b25c8e3f42ab6a81dfa6d0817a5c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>keyword_to_str</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ad6331a9c4e17f87acc3a9e3594c2b217" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>match</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae66de80cc134d5cb60597c646e0f0f98" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>operator!=</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureTernary_1ad34fa557014db0f55f4f032cfe632423" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a20bf8fb30d96689265de8ad963ddf7d8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7f5f2f8e69cfd5bf056ea27888e6b214" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a36f5f5405b19d32e2a9c890db7536d78" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac78424b8f740b55bfed66e35b48a4f68" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>parameter_list</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0ac9299e55317e33acf7eb9617a120" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>params</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ac128c6a484b1f5e4f6811b7171c89a9f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>prettify</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a08eea69bfe6b12c111a3474203080742" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>serialize</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureBase_1a80a02093cbc3f8641f3c7eb45f13e335" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>SignatureBase</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a42ec2c8d1be79671485d9b9d0e84025d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>subexpr</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab1292c05098a318f87a7ada1a0a19554" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>underlying</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a3437798eea37bef1ab07961ecc39d560" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5605348c967d3eed2552904bb1501b4d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureTernary</scope><name>~Expression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

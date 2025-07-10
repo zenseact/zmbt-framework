@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_TerminatePipe</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ChannelEnd" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_ChannelEnd</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1af4051179c16e22ef385c635e5089b968" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::Inject</definition>
+        <argsstring>()</argsstring>
+        <name>Inject</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::Inject</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="300" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="300" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a5732ba3b41977a97494a8c59507c441d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::Inject</definition>
+        <argsstring>(lang::Expression const &amp;expr)</argsstring>
+        <name>Inject</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::Inject</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+<para>Set fixed input condition. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="308" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="308" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1afea265cadaacc4ee722bdf477afcc301" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::Expect</definition>
+        <argsstring>()</argsstring>
+        <name>Expect</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::Expect</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="316" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="316" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a2da552af32bd8a0403eb9119382fa263" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::Expect</definition>
+        <argsstring>(lang::Expression const &amp;expr)</argsstring>
+        <name>Expect</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::Expect</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+<para>Set fixed output assertion. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="324" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="324" bodyend="330"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1ab21af8c8273f399ac6d7682e75acde6a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::ExpectBatch</definition>
+        <argsstring>(lang::Expression const &amp;expr)</argsstring>
+        <name>ExpectBatch</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::ExpectBatch</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="332" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="332" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a9e9f73d4dca64e093b8d1572b6e1fc13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::ExpectBatch</definition>
+        <argsstring>()</argsstring>
+        <name>ExpectBatch</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::ExpectBatch</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="340" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="340" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a38296537d67b5d8925086a9eef8c2270" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::ExpectOne</definition>
+        <argsstring>(lang::Expression const &amp;expr)</argsstring>
+        <name>ExpectOne</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::ExpectOne</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="348" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="348" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a21927f2e1a70fa855c0f5690520445d6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;::ExpectOne</definition>
+        <argsstring>()</argsstring>
+        <name>ExpectOne</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_TerminatePipe::ExpectOne</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="355" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="355" bodyend="361"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_TerminatePipe transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_Alias</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Alias"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_ChannelEnd&lt; ModelDefinition::N_MaybeChannel &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ChannelEnd"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_Decor</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Decor"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::N_Filter</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Filter"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Take</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Take"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="298" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="299" bodyend="364"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1afea265cadaacc4ee722bdf477afcc301" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>Expect</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a2da552af32bd8a0403eb9119382fa263" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>Expect</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1ab21af8c8273f399ac6d7682e75acde6a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>ExpectBatch</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a9e9f73d4dca64e093b8d1572b6e1fc13" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>ExpectBatch</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a38296537d67b5d8925086a9eef8c2270" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>ExpectOne</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a21927f2e1a70fa855c0f5690520445d6" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>ExpectOne</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1af4051179c16e22ef385c635e5089b968" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>Inject</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a5732ba3b41977a97494a8c59507c441d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>Inject</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_TerminatePipe</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

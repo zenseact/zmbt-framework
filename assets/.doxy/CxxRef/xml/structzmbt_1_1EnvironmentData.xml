@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1EnvironmentData" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::EnvironmentData</compoundname>
+    <includes refid="environment__data_8hpp" local="no">environment_data.hpp</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzmbt_1_1EnvironmentData_1a38a0cd7efa79b52d5597df8ae88b7a13" prot="public" static="no">
+        <type>std::recursive_mutex</type>
+        <definition>using zmbt::EnvironmentData::mutex_t =  std::recursive_mutex</definition>
+        <argsstring></argsstring>
+        <name>mutex_t</name>
+        <qualifiedname>zmbt::EnvironmentData::mutex_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="35" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structzmbt_1_1EnvironmentData_1acafd0a72ef8a0cd9fed2d07754fd7f7d" prot="public" static="no">
+        <type>std::unique_lock&lt; mutex_t &gt;</type>
+        <definition>using zmbt::EnvironmentData::lock_t =  std::unique_lock&lt;mutex_t&gt;</definition>
+        <argsstring></argsstring>
+        <name>lock_t</name>
+        <qualifiedname>zmbt::EnvironmentData::lock_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="36" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structzmbt_1_1EnvironmentData_1a058998f7a5258234afc5c47fc221fff6" prot="public" static="no">
+        <type>std::pair&lt; std::type_index, std::shared_ptr&lt; void &gt; &gt;</type>
+        <definition>using zmbt::EnvironmentData::shared_data_record =  std::pair&lt;std::type_index, std::shared_ptr&lt;void&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>shared_data_record</name>
+        <qualifiedname>zmbt::EnvironmentData::shared_data_record</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="38" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structzmbt_1_1EnvironmentData_1ab336176f6b4e6e533f040f8ebc517439" prot="public" static="no">
+        <type>std::map&lt; boost::json::string, shared_data_record &gt;</type>
+        <definition>using zmbt::EnvironmentData::shared_data_table =  std::map&lt;boost::json::string, shared_data_record&gt;</definition>
+        <argsstring></argsstring>
+        <name>shared_data_table</name>
+        <qualifiedname>zmbt::EnvironmentData::shared_data_table</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="39" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structzmbt_1_1EnvironmentData_1abf826e157c3feb91b20bf9338e35f2e2" prot="public" static="no">
+        <type>std::function&lt; void(boost::json::value const  &amp;)&gt;</type>
+        <definition>using zmbt::EnvironmentData::FailureHandler =  std::function&lt;void(boost::json::value const&amp;)&gt;</definition>
+        <argsstring></argsstring>
+        <name>FailureHandler</name>
+        <qualifiedname>zmbt::EnvironmentData::FailureHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="40" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1aeb1a127ad63a239d1db4bea26a99a015" prot="public" static="no" mutable="no">
+        <type>shared_data_table</type>
+        <definition>shared_data_table zmbt::EnvironmentData::shared</definition>
+        <argsstring></argsstring>
+        <name>shared</name>
+        <qualifiedname>zmbt::EnvironmentData::shared</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="47" column="23" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a7bc96c5f15098c93f0ffcd6cb3e944c1" prot="public" static="no" mutable="no">
+        <type>FailureHandler</type>
+        <definition>FailureHandler zmbt::EnvironmentData::failure_handler</definition>
+        <argsstring></argsstring>
+        <name>failure_handler</name>
+        <qualifiedname>zmbt::EnvironmentData::failure_handler</qualifiedname>
+        <initializer>{<ref refid="namespacezmbt_1ab558f561832f47da45707725386e7e86" kindref="member">default_test_failure</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="48" column="20" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a864e782630a4d7c36f35ad0e85c1efda" prot="public" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref></type>
+        <definition>JsonNode zmbt::EnvironmentData::json_data</definition>
+        <argsstring></argsstring>
+        <name>json_data</name>
+        <qualifiedname>zmbt::EnvironmentData::json_data</qualifiedname>
+        <initializer>{init_json_data()}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="49" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a595216f6f1897a044f20d54ae11e0035" prot="public" static="no" mutable="no">
+        <type>std::map&lt; boost::json::string, std::function&lt; void()&gt; &gt;</type>
+        <definition>std::map&lt;boost::json::string, std::function&lt;void()&gt; &gt; zmbt::EnvironmentData::callbacks</definition>
+        <argsstring></argsstring>
+        <name>callbacks</name>
+        <qualifiedname>zmbt::EnvironmentData::callbacks</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="51" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a4ecf2fd044e4ac1c45f0fb7b238e0e9a" prot="public" static="no" mutable="no">
+        <type>std::map&lt; boost::json::string, <ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref> &gt;</type>
+        <definition>std::map&lt;boost::json::string, Trigger&gt; zmbt::EnvironmentData::triggers</definition>
+        <argsstring></argsstring>
+        <name>triggers</name>
+        <qualifiedname>zmbt::EnvironmentData::triggers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="52" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1adafda00125effe7ad21fb60e97b294f0" prot="public" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref>, <ref refid="classzmbt_1_1TriggerIfc" kindref="compound">TriggerIfc</ref> &gt;</type>
+        <definition>std::map&lt;interface_id, TriggerIfc&gt; zmbt::EnvironmentData::trigger_ifcs</definition>
+        <argsstring></argsstring>
+        <name>trigger_ifcs</name>
+        <qualifiedname>zmbt::EnvironmentData::trigger_ifcs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="53" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a673ec13cf184ab1e7331ac19ea1396bf" prot="public" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref>, <ref refid="classzmbt_1_1TriggerObj" kindref="compound">TriggerObj</ref> &gt;</type>
+        <definition>std::map&lt;object_id, TriggerObj&gt; zmbt::EnvironmentData::trigger_objs</definition>
+        <argsstring></argsstring>
+        <name>trigger_objs</name>
+        <qualifiedname>zmbt::EnvironmentData::trigger_objs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="54" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a017b721ca8033cbd0d5cc8239461198f" prot="public" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref>, std::map&lt; <ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref>, std::map&lt; ChannelKind, std::map&lt; boost::json::string, std::pair&lt; Generator::Shared, <ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> &gt; &gt; &gt; &gt; &gt;</type>
+        <definition>std::map&lt;object_id, std::map&lt;interface_id, std::map&lt;ChannelKind, std::map&lt;boost::json::string, std::pair&lt;Generator::Shared, lang::Expression&gt; &gt; &gt; &gt; &gt; zmbt::EnvironmentData::input_generators</definition>
+        <argsstring></argsstring>
+        <name>input_generators</name>
+        <qualifiedname>zmbt::EnvironmentData::input_generators</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="59" column="2" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1EnvironmentData_1a8578c7f2294a81971588da30ef08d765" prot="public" static="no" mutable="yes">
+        <type>mutex_t</type>
+        <definition>mutex_t zmbt::EnvironmentData::mutex</definition>
+        <argsstring></argsstring>
+        <name>mutex</name>
+        <qualifiedname>zmbt::EnvironmentData::mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="62" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1a3472ac9399096bddec8d3dcdbfbde88a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>static boost::json::value zmbt::EnvironmentData::init_json_data</definition>
+        <argsstring>()</argsstring>
+        <name>init_json_data</name>
+        <qualifiedname>zmbt::EnvironmentData::init_json_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="45" column="31"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1a8ab6089b00d079412b8c2b726d3f3b86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::EnvironmentData::EnvironmentData</definition>
+        <argsstring>()</argsstring>
+        <name>EnvironmentData</name>
+        <qualifiedname>zmbt::EnvironmentData::EnvironmentData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="64" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1a21b98d8b1e83b7764fbe973a834c2780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::EnvironmentData::EnvironmentData</definition>
+        <argsstring>(EnvironmentData &amp;&amp;o)</argsstring>
+        <name>EnvironmentData</name>
+        <qualifiedname>zmbt::EnvironmentData::EnvironmentData</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1EnvironmentData" kindref="compound">EnvironmentData</ref> &amp;&amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="66" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1ad8f7644e5e2a706c302db5d53e7fa5dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1EnvironmentData" kindref="compound">EnvironmentData</ref> &amp;</type>
+        <definition>EnvironmentData &amp; zmbt::EnvironmentData::operator=</definition>
+        <argsstring>(EnvironmentData &amp;&amp;o)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::EnvironmentData::operator=</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1EnvironmentData" kindref="compound">EnvironmentData</ref> &amp;&amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="68" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1ad69000521a2dd6fd7a6d41d1d069501e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::EnvironmentData::EnvironmentData</definition>
+        <argsstring>(EnvironmentData const &amp;o)</argsstring>
+        <name>EnvironmentData</name>
+        <qualifiedname>zmbt::EnvironmentData::EnvironmentData</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1EnvironmentData" kindref="compound">EnvironmentData</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="70" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1a54d724ef4dc7506ff6888b1b194dd27b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1EnvironmentData" kindref="compound">EnvironmentData</ref> &amp;</type>
+        <definition>EnvironmentData &amp; zmbt::EnvironmentData::operator=</definition>
+        <argsstring>(EnvironmentData const &amp;o)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::EnvironmentData::operator=</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1EnvironmentData" kindref="compound">EnvironmentData</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="72" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1EnvironmentData_1a6e9b33c5576325b870c446dfeeb4cf13" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::EnvironmentData::~EnvironmentData</definition>
+        <argsstring>()</argsstring>
+        <name>~EnvironmentData</name>
+        <qualifiedname>zmbt::EnvironmentData::~EnvironmentData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="74" column="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Data container for the <ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>zmbt::EnvironmentData</label>
+        <link refid="structzmbt_1_1EnvironmentData"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>json_data</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::JsonNode</label>
+        <link refid="classzmbt_1_1JsonNode"/>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" line="33" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp" bodystart="33" bodyend="75"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1EnvironmentData_1a595216f6f1897a044f20d54ae11e0035" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>callbacks</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a8ab6089b00d079412b8c2b726d3f3b86" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>EnvironmentData</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a21b98d8b1e83b7764fbe973a834c2780" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>EnvironmentData</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1ad69000521a2dd6fd7a6d41d1d069501e" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>EnvironmentData</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a7bc96c5f15098c93f0ffcd6cb3e944c1" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>failure_handler</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1abf826e157c3feb91b20bf9338e35f2e2" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>FailureHandler</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a3472ac9399096bddec8d3dcdbfbde88a" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>init_json_data</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a017b721ca8033cbd0d5cc8239461198f" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>input_generators</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a864e782630a4d7c36f35ad0e85c1efda" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>json_data</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1acafd0a72ef8a0cd9fed2d07754fd7f7d" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>lock_t</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a8578c7f2294a81971588da30ef08d765" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>mutex</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a38a0cd7efa79b52d5597df8ae88b7a13" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>mutex_t</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1ad8f7644e5e2a706c302db5d53e7fa5dd" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>operator=</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a54d724ef4dc7506ff6888b1b194dd27b" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>operator=</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1aeb1a127ad63a239d1db4bea26a99a015" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>shared</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a058998f7a5258234afc5c47fc221fff6" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>shared_data_record</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1ab336176f6b4e6e533f040f8ebc517439" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>shared_data_table</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1adafda00125effe7ad21fb60e97b294f0" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>trigger_ifcs</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a673ec13cf184ab1e7331ac19ea1396bf" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>trigger_objs</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a4ecf2fd044e4ac1c45f0fb7b238e0e9a" prot="public" virt="non-virtual"><scope>zmbt::EnvironmentData</scope><name>triggers</name></member>
+      <member refid="structzmbt_1_1EnvironmentData_1a6e9b33c5576325b870c446dfeeb4cf13" prot="public" virt="virtual"><scope>zmbt::EnvironmentData</scope><name>~EnvironmentData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

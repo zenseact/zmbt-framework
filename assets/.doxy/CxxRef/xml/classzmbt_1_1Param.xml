@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1Param" kind="class" language="C++" prot="public" final="yes">
+    <compoundname>zmbt::Param</compoundname>
+    <includes refid="parameter_8hpp" local="no">parameter.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1Param_1ab3c2833e36d27f9a56b0ac75aff57fd5" prot="private" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::Param::value_</definition>
+        <argsstring></argsstring>
+        <name>value_</name>
+        <qualifiedname>zmbt::Param::value_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="18" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1Param_1a8c33b42b8c4fc672ace4a01a60b24da2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Param::Param</definition>
+        <argsstring>()=default</argsstring>
+        <name>Param</name>
+        <qualifiedname>zmbt::Param::Param</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="20" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1Param_1a310d3a4546c1da797fba0ba806ab3160" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::Param::isParam</definition>
+        <argsstring>(boost::json::value const &amp;v)</argsstring>
+        <name>isParam</name>
+        <qualifiedname>zmbt::Param::isParam</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="24" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1a2a44d987cb3c0b9b1e97a3345df5280b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref></type>
+        <definition>static Param zmbt::Param::parse</definition>
+        <argsstring>(boost::json::value const &amp;v)</argsstring>
+        <name>parse</name>
+        <qualifiedname>zmbt::Param::parse</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="26" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1Param_1a1dde108cefb7a99a238df438924ca04e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Param::Param</definition>
+        <argsstring>(boost::json::value v)</argsstring>
+        <name>Param</name>
+        <qualifiedname>zmbt::Param::Param</qualifiedname>
+        <param>
+          <type>boost::json::value</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="28" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1a8d5929554cb6955c47608d01f7e68aea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Param::Param</definition>
+        <argsstring>(Param const &amp;)=default</argsstring>
+        <name>Param</name>
+        <qualifiedname>zmbt::Param::Param</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="30" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1a4582f2411a58a06c107726aa8906424a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Param::Param</definition>
+        <argsstring>(Param &amp;&amp;)=default</argsstring>
+        <name>Param</name>
+        <qualifiedname>zmbt::Param::Param</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="31" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1a3300ef33807900722c74f9870d3bab3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> &amp;</type>
+        <definition>Param &amp; zmbt::Param::operator=</definition>
+        <argsstring>(Param const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::Param::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="32" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1af58595b6ab937619909f7a2fa0f19ff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> &amp;</type>
+        <definition>Param &amp; zmbt::Param::operator=</definition>
+        <argsstring>(Param &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::Param::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="33" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1ad86e3b570ebb5bdd235d8753d580bb9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Param::~Param</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Param</name>
+        <qualifiedname>zmbt::Param::~Param</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="34" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Param_1aa2793881dbdd27f609c3173a622e9a89" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::Param::serialize</definition>
+        <argsstring>() const</argsstring>
+        <name>serialize</name>
+        <qualifiedname>zmbt::Param::serialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="41" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Generic Parameter Placeholder. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" line="16" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/parameter.hpp" bodystart="17" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1Param_1a310d3a4546c1da797fba0ba806ab3160" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>isParam</name></member>
+      <member refid="classzmbt_1_1Param_1a3300ef33807900722c74f9870d3bab3c" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1Param_1af58595b6ab937619909f7a2fa0f19ff7" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1Param_1a8c33b42b8c4fc672ace4a01a60b24da2" prot="private" virt="non-virtual"><scope>zmbt::Param</scope><name>Param</name></member>
+      <member refid="classzmbt_1_1Param_1a1dde108cefb7a99a238df438924ca04e" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>Param</name></member>
+      <member refid="classzmbt_1_1Param_1a8d5929554cb6955c47608d01f7e68aea" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>Param</name></member>
+      <member refid="classzmbt_1_1Param_1a4582f2411a58a06c107726aa8906424a" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>Param</name></member>
+      <member refid="classzmbt_1_1Param_1a2a44d987cb3c0b9b1e97a3345df5280b" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>parse</name></member>
+      <member refid="classzmbt_1_1Param_1aa2793881dbdd27f609c3173a622e9a89" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>serialize</name></member>
+      <member refid="classzmbt_1_1Param_1ab3c2833e36d27f9a56b0ac75aff57fd5" prot="private" virt="non-virtual"><scope>zmbt::Param</scope><name>value_</name></member>
+      <member refid="classzmbt_1_1Param_1ad86e3b570ebb5bdd235d8753d580bb9d" prot="public" virt="non-virtual"><scope>zmbt::Param</scope><name>~Param</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

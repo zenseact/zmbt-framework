@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1JsonIter" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>zmbt::JsonIter</compoundname>
+    <derivedcompoundref refid="classzmbt_1_1JsonIterZipProdBase" prot="public" virt="virtual">zmbt::JsonIterZipProdBase</derivedcompoundref>
+    <includes refid="json__iter_8hpp" local="no">json_iter.hpp</includes>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1aed4ac8ce8421f2488ddb4b7f2f3ea194" prot="private" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void zmbt::JsonIter::step</definition>
+        <argsstring>()=0</argsstring>
+        <name>step</name>
+        <qualifiedname>zmbt::JsonIter::step</qualifiedname>
+        <reimplementedby refid="classzmbt_1_1JsonProdIter_1a4c6f8a9aa74e64952368589d143241be">step</reimplementedby>
+        <reimplementedby refid="classzmbt_1_1JsonZipIter_1a0540b7241e00d8ec53ecdb4695629417">step</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="23" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1aef10ce60c7e4aad1d64d792cd1228a20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIter::JsonIter</definition>
+        <argsstring>()=default</argsstring>
+        <name>JsonIter</name>
+        <qualifiedname>zmbt::JsonIter::JsonIter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="27" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1a3a66fd4fc6ed0e3af4d7790af623fa42" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::JsonIter::~JsonIter</definition>
+        <argsstring>()=default</argsstring>
+        <name>~JsonIter</name>
+        <qualifiedname>zmbt::JsonIter::~JsonIter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="28" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1ae0a15c74b490681c71fb2bd1caf6055f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIter::JsonIter</definition>
+        <argsstring>(JsonIter const &amp;)=default</argsstring>
+        <name>JsonIter</name>
+        <qualifiedname>zmbt::JsonIter::JsonIter</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="29" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1aa667051881f92d86c5cff2382dad9181" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> &amp;</type>
+        <definition>JsonIter &amp; zmbt::JsonIter::operator=</definition>
+        <argsstring>(JsonIter const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::JsonIter::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="30" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1af25a3abe350f879ab2c94d033708ee41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIter::JsonIter</definition>
+        <argsstring>(JsonIter &amp;&amp;)=default</argsstring>
+        <name>JsonIter</name>
+        <qualifiedname>zmbt::JsonIter::JsonIter</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="31" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1a938e2ee57bc55c83e54c6b865e0c233b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> &amp;</type>
+        <definition>JsonIter &amp; zmbt::JsonIter::operator=</definition>
+        <argsstring>(JsonIter &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::JsonIter::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="32" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1a099328a6bcef32eb2c61af9b0ca14da5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool zmbt::JsonIter::halt</definition>
+        <argsstring>() const =0</argsstring>
+        <name>halt</name>
+        <qualifiedname>zmbt::JsonIter::halt</qualifiedname>
+        <reimplementedby refid="classzmbt_1_1JsonIterZipProdBase_1a8fac0558a527567fb28400ed134189e7">halt</reimplementedby>
+        <briefdescription>
+<para>Iterator halted. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="35" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1acb086c14fdb58e6d189739b30a56562f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>boost::json::array</type>
+        <definition>virtual boost::json::array zmbt::JsonIter::get</definition>
+        <argsstring>()=0</argsstring>
+        <name>get</name>
+        <qualifiedname>zmbt::JsonIter::get</qualifiedname>
+        <reimplementedby refid="classzmbt_1_1JsonIterZipProdBase_1a313e0363c16d7f88730f811e54b80c18">get</reimplementedby>
+        <briefdescription>
+<para>iterator value </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="38" column="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1a5bbd69a27bfbfeaf1b3847f1c1e4c3f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> &amp;</type>
+        <definition>JsonIter &amp; zmbt::JsonIter::operator++</definition>
+        <argsstring>(int)</argsstring>
+        <name>operator++</name>
+        <qualifiedname>zmbt::JsonIter::operator++</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+<para>iterator post-increment </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="41" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="41" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIter_1adac516fa51b9a25f3c0b1b35d4f6529c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::JsonIter::operator*</definition>
+        <argsstring>()</argsstring>
+        <name>operator*</name>
+        <qualifiedname>zmbt::JsonIter::operator*</qualifiedname>
+        <briefdescription>
+<para>iterator value </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="51" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="51" bodyend="54"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Boost JSON array iterator interface. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>zmbt::JsonIter</label>
+        <link refid="classzmbt_1_1JsonIter"/>
+      </node>
+      <node id="2">
+        <label>zmbt::JsonIterZipProdBase</label>
+        <link refid="classzmbt_1_1JsonIterZipProdBase"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::JsonProdIter</label>
+        <link refid="classzmbt_1_1JsonProdIter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::JsonZipIter</label>
+        <link refid="classzmbt_1_1JsonZipIter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="21" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="22" bodyend="55"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1JsonIter_1acb086c14fdb58e6d189739b30a56562f" prot="public" virt="pure-virtual"><scope>zmbt::JsonIter</scope><name>get</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a099328a6bcef32eb2c61af9b0ca14da5" prot="public" virt="pure-virtual"><scope>zmbt::JsonIter</scope><name>halt</name></member>
+      <member refid="classzmbt_1_1JsonIter_1aef10ce60c7e4aad1d64d792cd1228a20" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIter_1ae0a15c74b490681c71fb2bd1caf6055f" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIter_1af25a3abe350f879ab2c94d033708ee41" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIter_1adac516fa51b9a25f3c0b1b35d4f6529c" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a5bbd69a27bfbfeaf1b3847f1c1e4c3f0" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>operator++</name></member>
+      <member refid="classzmbt_1_1JsonIter_1aa667051881f92d86c5cff2382dad9181" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a938e2ee57bc55c83e54c6b865e0c233b" prot="public" virt="non-virtual"><scope>zmbt::JsonIter</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1JsonIter_1aed4ac8ce8421f2488ddb4b7f2f3ea194" prot="private" virt="pure-virtual"><scope>zmbt::JsonIter</scope><name>step</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a3a66fd4fc6ed0e3af4d7790af623fa42" prot="public" virt="virtual"><scope>zmbt::JsonIter</scope><name>~JsonIter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
