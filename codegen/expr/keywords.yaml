@@ -7,12 +7,12 @@ keyword_groups:
     defaults:
       internal: true
     keywords:
-      - name: literal
+      - name: Literal
         brief: Literal value
         details: |-
           Literal value keyword with no expression API.
           in evaluation context works as Eq(x)
-      - name: void
+      - name: Void
         brief: empty value
 
   Constants:
@@ -25,7 +25,7 @@ keyword_groups:
           - limits
           - boost/math/constants/constants.hpp
     keywords:
-      - name: noop
+      - name: Noop
         brief: No operation
         details: |-
           Returns true without input validation.
@@ -36,55 +36,54 @@ keyword_groups:
         codegen-value:
           cxx: 'true'
 
-      - name: 'null'
+      - name: 'Null'
         brief: Null value
         domain: any
         codomain: any
         codegen-value:
           cxx: 'nullptr'
 
-      - name: 'true'
+      - name: 'True'
         brief: Logical true
         symbol: T
         codomain: bool
         codegen-value:
           cxx: 'true'
 
-      - name: 'false'
+      - name: 'False'
         brief: Logical false
         symbol: ⊥
         codomain: bool
         codegen-value:
           cxx: 'false'
 
-      - name: pi
+      - name: Pi
         brief: Pi constant
         symbol: π
         codegen-value:
           cxx: boost::math::constants::pi<double>()
 
-      - name: e
+      - name: E
         brief: Euler's number
         codegen-value:
           cxx: boost::math::constants::e<double>()
 
-      - name: inf
+      - name: Inf
         brief: Infinity
         codegen-value:
           cxx: std::numeric_limits<double>::infinity()
 
-      - name: eps
+      - name: Eps
         brief: Machine epsilon
         codegen-value:
           cxx: std::numeric_limits<double>::epsilon()
 
-      - name: nan
-        enum: NaN
+      - name: NaN
         brief: Not a number
         codegen-value:
           cxx: std::numeric_limits<double>::quiet_NaN()
 
-      - name: thread
+      - name: Thread
         brief: Thread id
         details: |-
           Not really a constant, but useful for
@@ -104,100 +103,100 @@ keyword_groups:
           - complex
     keywords:
 
-      - name: sin
+      - name: Sin
         brief: Sinus function
         codegen-value:
           cxx: json_from(std::sin(dejsonize<std::complex<double>>(x)))
 
-      - name: cos
+      - name: Cos
         brief: Cosinus function
         codegen-value:
           cxx: json_from(std::cos(dejsonize<std::complex<double>>(x)))
 
-      - name: tan
+      - name: Tan
         brief: Tangens function
         codegen-value:
           cxx: json_from(std::tan(dejsonize<std::complex<double>>(x)))
 
-      - name: asin
+      - name: Asin
         brief: Arcsin function
         codegen-value:
           cxx: json_from(std::asin(dejsonize<std::complex<double>>(x)))
 
-      - name: acos
+      - name: Acos
         brief: Arccos function
         codegen-value:
           cxx: json_from(std::acos(dejsonize<std::complex<double>>(x)))
 
-      - name: atan
+      - name: Atan
         brief: Arctan function
         codegen-value:
           cxx: json_from(std::atan(dejsonize<std::complex<double>>(x)))
 
-      - name: sinh
+      - name: Sinh
         brief: Hyperbolic sin
         codegen-value:
           cxx: json_from(std::sinh(dejsonize<std::complex<double>>(x)))
 
-      - name: cosh
+      - name: Cosh
         brief: Hyperbolic cos
         codegen-value:
           cxx: json_from(std::cosh(dejsonize<std::complex<double>>(x)))
 
-      - name: tanh
+      - name: Tanh
         brief: Hyperbolic tan
         codegen-value:
           cxx: json_from(std::tanh(dejsonize<std::complex<double>>(x)))
 
-      - name: asinh
+      - name: Asinh
         brief: Hyperbolic arcsin
         codegen-value:
           cxx: json_from(std::asinh(dejsonize<std::complex<double>>(x)))
 
-      - name: acosh
+      - name: Acosh
         brief: Hyperbolic arccos
         codegen-value:
           cxx: json_from(std::acosh(dejsonize<std::complex<double>>(x)))
 
-      - name: atanh
+      - name: Atanh
         brief: Hyperbolic arctan
         codegen-value:
           cxx: json_from(std::atanh(dejsonize<std::complex<double>>(x)))
 
-      - name: exp
+      - name: Exp
         brief: Exponential (e^x)
         codegen-value:
           cxx: json_from(std::exp(dejsonize<std::complex<double>>(x)))
 
-      - name: erf
+      - name: Erf
         brief: Error function
         codegen-value:
           cxx: std::erf(dejsonize<double>(x))
 
-      - name: erfc
+      - name: Erfc
         brief: Error function complement
         codegen-value:
           cxx: std::erfc(dejsonize<double>(x))
 
-      - name: gamma
+      - name: Gamma
         brief: Gamma function
         codegen-value:
           cxx: std::tgamma(dejsonize<double>(x))
 
-      - name: abs
+      - name: Abs
         brief: Absolute value
         codegen-value:
           cxx: json_from(std::abs(dejsonize<std::complex<double>>(x)))
 
-      - name: ceil
+      - name: Ceil
         codegen-value:
           cxx: std::ceil(dejsonize<double>(x))
 
-      - name: floor
+      - name: Floor
         codegen-value:
           cxx: std::floor(dejsonize<double>(x))
 
-      - name: round
+      - name: Round
         brief: Round to nearest integer
         details: |-
           Hint: To round to ndigits precision after the decimal point,
@@ -205,12 +204,12 @@ keyword_groups:
         codegen-value:
           cxx: std::round(dejsonize<double>(x))
 
-      - name: sqrt
+      - name: Sqrt
         brief: Square root
         codegen-value:
           cxx: json_from(std::sqrt(dejsonize<std::complex<double>>(x)))
 
-      - name: sign
+      - name: Sign
         domain: real
         codomain: int
         codegen-value:
@@ -223,7 +222,7 @@ keyword_groups:
       domain: [real, real]
       codomain: real
     keywords:
-      - name: neg
+      - name: Neg
         signature: Unary
         brief: Negate
         domain: real
@@ -231,28 +230,28 @@ keyword_groups:
         examples: |-
           42 | Neg ↦ -42
 
-      - name: add
+      - name: Add
         brief: Addition
         symbol: '+'
         examples: |-
           [2, -1] | Add ↦ 1
           2 | Add(-1) ↦ 1
 
-      - name: sub
+      - name: Sub
         brief: Subtraction
         symbol: '-'
         examples: |-
           [2, 1] | Sub ↦ -1
           2 | Sub(1) ↦ 1
 
-      - name: mul
+      - name: Mul
         brief: Multiplication
         symbol: '*'
         examples: |-
           [2, 3] | Mul ↦ 6
           2 | Mul(3) ↦ 6
 
-      - name: div
+      - name: Div
         brief: Division
         symbol: '/'
         details: |-
@@ -262,7 +261,7 @@ keyword_groups:
           [6, 3] | Div ↦ 2
           6 | Div(3) ↦ 2
 
-      - name: pow
+      - name: Pow
         brief: To power
         details: |-
           X to power p
@@ -272,7 +271,7 @@ keyword_groups:
           [2, 3] | Pow ↦ 8
           2 | Pow(3) ↦ 8
 
-      - name: log
+      - name: Log
         brief: Logarithm
         details: |-
           Logarithm with base b:
@@ -282,7 +281,7 @@ keyword_groups:
           [8, 2] | Log ↦ 3
           8 | Log(2) ↦ 3
 
-      - name: mod
+      - name: Mod
         brief: Modulo
         symbol: '%'
         details: |-
@@ -293,7 +292,7 @@ keyword_groups:
           [7, 4] | Mod ↦ 3
           7 | Mod(4) ↦ 3
 
-      - name: quot
+      - name: Quot
         brief: Quotient
         symbol: '//'
         details: |-
@@ -304,46 +303,40 @@ keyword_groups:
           [7, 4] | Quot ↦ 1
           7 | Quot(4) ↦ 1
 
-      - name: b-not
+      - name: BitNot
         signature: Unary
         brief: Bitwise not
-        enum: BitNot
         symbol: '~'
         domain: uint
         codomain: uint
         examples: |-
           0b1010 | BitNot ↦ 0b0101
 
-      - name: b-and
+      - name: BitAnd
         brief: Bitwise and
-        enum: BitAnd
-        symbol: '&'
         domain: [uint, uint]
         codomain: uint
         examples: |-
           [0b1010, 0b1100] | BitAnd ↦ 0b1000
 
-      - name: b-or
+      - name: BitOr
         brief: Bitwise or
-        enum: BitOr
         symbol: '|'
         domain: [uint, uint]
         codomain: uint
         examples: |-
           [0b1010, 0b1100] | BitOr ↦ 0b1110
 
-      - name: b-xor
+      - name: BitXor
         brief: Bitwise xor
-        enum: BitXor
         symbol: '^'
         domain: [uint, uint]
         codomain: uint
         examples: |-
           [0b1010, 0b1100] | BitXor ↦ 0b0110
 
-      - name: b-lshift
+      - name: Lshift
         brief: Bitwise left shift
-        enum: BitLshift
         symbol: '<<'
         details: |-
           1. $[ ] \mapsto [x, s] \mapsto x \texttt{ << } s$
@@ -351,11 +344,10 @@ keyword_groups:
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          [0b1010, 2] | BitLshift ↦ 0b101000
+          [0b1010, 2] | Lshift ↦ 0b101000
 
-      - name: b-rshift
+      - name: Rshift
         brief: Bitwise right shift
-        enum: BitRshift
         symbol: '>>'
         details: |-
           1. $[ ] ↦ [x, s] ↦ x \texttt{ >> } s$
@@ -363,7 +355,7 @@ keyword_groups:
         domain: [uint, uint]
         codomain: uint
         examples: |-
-          [0b1010, 2] | BitRshift ↦ 0b0010
+          [0b1010, 2] | Rshift ↦ 0b0010
 
   Relation Operators:
     defaults:
@@ -373,7 +365,7 @@ keyword_groups:
       tags: [op]
     keywords:
 
-      - name: eq
+      - name: Eq
         brief: Is equal
         symbol: '='
         examples: |-
@@ -381,14 +373,14 @@ keyword_groups:
           41 | Eq(42) ↦ false
 
 
-      - name: ne
+      - name: Ne
         brief: Not equal
         symbol: '≠'
         examples: |-
           [1, 2] | Ne ↦ true
           42 | Ne(42) ↦ false
 
-      - name: lt
+      - name: Lt
         brief: Lesser than
         symbol: '<'
         commutative-dual: ge
@@ -396,7 +388,7 @@ keyword_groups:
           [1, 2] | Lt ↦ true
           41 | Lt(42) ↦ false
 
-      - name: le
+      - name: Le
         brief: Lesser or equal
         symbol: '≤'
         commutative-dual: gt
@@ -404,7 +396,7 @@ keyword_groups:
           [1, 2] | Le ↦ true
           42 | Le(42) ↦ true
 
-      - name: gt
+      - name: Gt
         brief: Greater than
         symbol: '>'
         commutative-dual: le
@@ -412,7 +404,7 @@ keyword_groups:
           [2, 1] | Gt ↦ true
           43 | Gt(42) ↦ false
 
-      - name: ge
+      - name: Ge
         brief: Greater or equal
         symbol: '≥'
         commutative-dual: lt
@@ -420,7 +412,8 @@ keyword_groups:
           [2, 1] | Ge ↦ true
           42 | Ge(42) ↦ true
 
-      - name: approx
+      - name: Near
+        aliases: [ Approx ]
         brief: Floating point approximately equal
         details: |-
           Based on numpy.isclose:
@@ -437,7 +430,6 @@ keyword_groups:
             3. [ref, rtol]        -> [ref, rtol   , default]
             4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]
 
-        aliases: [ 'near' ]
         domain: [real, list]
         codomain: bool
         commutative: false
@@ -458,22 +450,21 @@ keyword_groups:
       codomain: set
     keywords:
 
-      - name: union
+      - name: Union
         brief: Set union
         symbol: '∪'
         examples: |-
           [[1, 2], [2, 3]] | Union ↦ [1, 2, 3]
           [1, 2] | Union([2, 3]) ↦ [1, 2, 3]
 
-      - name: intersect
+      - name: Intersect
         brief: Set intersection
         symbol: '∩'
         examples: |-
           [[1, 2], [2, 3]] | Intersect ↦ [2]
           [1, 2] | Intersect([2, 3]) ↦ [2]
 
-      - name: set-diff
-        enum: Diff
+      - name: Diff
         brief: Set difference
         examples: |-
           [[1, 2], [2, 3]] | Diff ↦ [1]
@@ -487,15 +478,14 @@ keyword_groups:
       codomain: bool
     keywords:
 
-      - name: set-eq
-        enum: SetEq
+      - name: SetEq
         brief: Equal as set
         symbol: '≡'
         examples: |-
           [[1, 2], [2, 1]] | SetEq ↦ true
           [1, 2] | SetEq([2, 1]) ↦ true
 
-      - name: subset
+      - name: Subset
         brief: Is subset
         symbol: '⊆'
         commutative-dual: p-superset
@@ -509,7 +499,7 @@ keyword_groups:
           [[1, 2], []] | Subset ↦ true
           [[], []] | Subset ↦ true
 
-      - name: superset
+      - name: Superset
         brief: is superset
         symbol: '⊇'
         commutative-dual: p-subset
@@ -523,37 +513,35 @@ keyword_groups:
           [[], [1, 2]] | Superset ↦ true
           [[], []] | Superset ↦ true
 
-      - name: p-subset
-        enum: ProperSubset
+      - name: PSubset
         brief: Is proper subset
         symbol: '⊂'
         commutative-dual: superset
         examples: |-
-          [[1, 2], [1, 2, 3]] | ProperSubset ↦ true
-          [1, 2] | ProperSubset([1, 2, 3]) ↦ true
+          [[1, 2], [1, 2, 3]] | PSubset ↦ true
+          [1, 2] | PSubset([1, 2, 3]) ↦ true
 
-          [[1, 2, 3], [2, 3]] | ProperSubset ↦ false
-          [1, 2, 3] | ProperSubset([2, 3]) ↦ false
+          [[1, 2, 3], [2, 3]] | PSubset ↦ false
+          [1, 2, 3] | PSubset([2, 3]) ↦ false
 
-          [[1, 2], []] | ProperSubset ↦ true
-          [[], []] | ProperSubset ↦ false
+          [[1, 2], []] | PSubset ↦ true
+          [[], []] | PSubset ↦ false
 
-      - name: p-superset
-        enum: ProperSuperset
+      - name: PSuperset
         brief: Is proper superset
         symbol: '⊃'
         commutative-dual: subset
         examples: |-
-          [[1, 2, 3], [1, 2]] | ProperSuperset ↦ true
-          [1, 2, 3] | ProperSuperset([1, 2]) ↦ true
+          [[1, 2, 3], [1, 2]] | PSuperset ↦ true
+          [1, 2, 3] | PSuperset([1, 2]) ↦ true
 
-          [[2, 3], [1, 2, 3]] | ProperSuperset ↦ false
-          [2, 3] | ProperSuperset([1, 2, 3]) ↦ false
+          [[2, 3], [1, 2, 3]] | PSuperset ↦ false
+          [2, 3] | PSuperset([1, 2, 3]) ↦ false
 
-          [[], [1, 2]] | ProperSuperset ↦ true
-          [[], []] | ProperSuperset ↦ false
+          [[], [1, 2]] | PSuperset ↦ true
+          [[], []] | PSuperset ↦ false
 
-      - name: in
+      - name: In
         brief: Element is in
         symbol: '∈'
         domain: [any, set]
@@ -562,8 +550,7 @@ keyword_groups:
           [1, [1, 2]] | In ↦ true
           3 | In([1, 2]) ↦ false
 
-      - name: not-in
-        enum: NotIn
+      - name: NotIn
         brief: Element is not in
         symbol: '∉'
         domain: [any, set]
@@ -572,20 +559,18 @@ keyword_groups:
           [3, [1, 2]] | NotIn ↦ true
           1 | NotIn([1, 2]) ↦ false
 
-      - name: ni
+      - name: Ni
         brief: Contains element
-        enum: Ni
         symbol: '∋'
-        aliases: [ 'contains' ]
+        aliases: [ Contains ]
         commutative-dual: in
         domain: [set, any]
         examples: |-
           [[1, 2], 1] | Ni ↦ true
           3 | Ni([1, 2]) ↦ false
 
-      - name: not-ni
+      - name: NotNi
         brief: Not contains element
-        enum: NotNi
         symbol: '∌'
         commutative-dual: not-in
         domain: [set, any]
@@ -601,13 +586,13 @@ keyword_groups:
       tags: [op]
     keywords:
 
-      - name: bool
+      - name: Bool
         signature: Unary
         brief: Predicate on boolean transform (aka Truthy)
         symbol: '?'
         domain: any
         codomain: bool
-        aliases: [ 'truthy' ]
+        aliases: [ Truthy ]
         examples: |-
           42 | Bool ↦ true
           0 | Bool ↦ false
@@ -618,17 +603,17 @@ keyword_groups:
           {} | Bool ↦ false
           null | Bool ↦ false
 
-      - name: not
+      - name: Not
         signature: Unary
         brief: Logical complement
         domain: any
         codomain: bool
-        aliases: [ 'falsy', 'nil' ]
+        aliases: [ Falsy, Nil ]
         examples: |-
           42 | Nil ↦ false
           0 | Nil ↦ true
 
-      - name: and
+      - name: And
         brief: Logical and
         details: |-
           Generic behavior:
@@ -652,7 +637,7 @@ keyword_groups:
           true | And(42) | Or(13) ↦ 42
           false | And(42) | Or(13) ↦ 13
 
-      - name: or
+      - name: Or
         brief: Logical or
         symbol: ∨
         details: |-
@@ -681,14 +666,14 @@ keyword_groups:
     defaults:
       signature: Unary
     keywords:
-      - name: id
+      - name: Id
         brief: Identity function
         domain: any
         codomain: any
         examples: |-
           42 | Id ↦ 42
 
-      - name: transp
+      - name: Transp
         brief: Transpose multidimensional list, turning rows into columns
         details: |-
           May be used to zip sequences of equal length.
@@ -697,7 +682,7 @@ keyword_groups:
         examples: |-
           [[1, 2, 3], [4, 5, 6]] | Transp ↦ [[1, 4], [2, 5], [3, 6]]
 
-      - name: cartesian
+      - name: Cartesian
         brief: Cartesian product
         symbol: '×'
         domain: list[set]
@@ -705,42 +690,42 @@ keyword_groups:
         examples: |-
           [[1, 2], [3, 4]] | Cartesian ↦ [[1, 3], [1, 4], [2, 3], [2, 4]]
 
-      - name: reverse
+      - name: Reverse
         brief: Reverse sequence
         domain: list[set]
         codomain: list[list]
         examples: |-
           [1, 2, 3] | Reverse ↦ [3, 2, 1]
 
-      - name: uniques
+      - name: Uniques
         brief: Filter unique elements
         domain: list
         codomain: set
         examples: |-
           [1, 2, 1, 3, 2] | Uniques ↦ [1, 2, 3]
 
-      - name: items
+      - name: Items
         brief: Extract key-value pairs from object
         domain: object
         codomain: list[list]
         examples: |-
           {"a": 1, "b": 2} | Items ↦ [["a", 1], ["b", 2]]
 
-      - name: keys
+      - name: Keys
         brief: Extract keys from object
         domain: object
         codomain: list
         examples: |-
           {"a": 1, "b": 2} | Keys ↦ ["a", "b"]
 
-      - name: values
+      - name: Values
         brief: Extract values from object
         domain: object
         codomain: list
         examples: |-
           {"a": 1, "b": 2} | Values ↦ [1, 2]
 
-      - name: enumerate
+      - name: Enumerate
         brief: Enumerate sequence
         details: |-
           Enumerate sequence with index.
@@ -749,14 +734,14 @@ keyword_groups:
         examples: |-
           [1, 2, 3] | Enumerate ↦ [[0, 1], [1, 2], [2, 3]]
 
-      - name: flatten
+      - name: Flatten
         brief: Flatten nested list
         domain: list
         codomain: list
         examples: |-
           [[1, 2], [3, 4]] | Flatten ↦ [1, 2, 3, 4]
 
-      - name: to-list
+      - name: ToList
         brief: Put argument into a list
         details: Equivalent to At([""])
         domain: any
@@ -771,7 +756,7 @@ keyword_groups:
     defaults:
       signature: Unary
     keywords:
-      - name: arange
+      - name: Arange
         brief: Generate range of numbers
         details: |-
           Return evenly spaced values within a given interval.
@@ -799,7 +784,7 @@ keyword_groups:
 
   String Transforms:
     keywords:
-      - name: parse
+      - name: Parse
         brief: Parse string as JSON
         signature: Unary
         domain: str
@@ -812,8 +797,8 @@ keyword_groups:
         examples: |-
           '{"a": 42}' | Parse ↦ {"a": 42}
 
-      - name: serialize
-        aliases: [ str ]
+      - name: Str
+        aliases: [ Serialize ]
         brief: Serialize JSON as string
         signature: Unary
         domain: any
@@ -826,11 +811,11 @@ keyword_groups:
         examples: |-
           {"a": 42} | Serialize ↦ '{"a":42}'
 
-      - name: re
+      - name: Re
+        aliases: [ Regex ]
         brief: Regular expression match
         signature: Binary
         details: If input is not a string, match it's serialized form.
-        aliases: [ 'regex' ]
         commutative: false
         domain: [any, str]
         codomain: bool
@@ -840,8 +825,8 @@ keyword_groups:
           ["[0-9]+", "42"] | Re ↦ true
           "42" | Re("[0-9]+") ↦ true
 
-      - name: format
-        aliases: [ fmt ]
+      - name: Fmt
+        aliases: [ Format ]
         brief: Format string with the given parameter list.
         details: |-
           Constant expressions are supported for the token list,
@@ -857,7 +842,7 @@ keyword_groups:
     defaults:
       signature: Unary
     keywords:
-      - name: card
+      - name: Card
         brief: Set cardinality (uniques count)
         domain: union[list, object]
         codomain: uint
@@ -865,7 +850,7 @@ keyword_groups:
           [1, 2, 1, 3, 2] | Card ↦ 3
           {"a": 1, "b": 2} | Card ↦ 2
 
-      - name: size
+      - name: Size
         brief: Sequence size
         domain: union[list, object]
         codomain: uint
@@ -873,7 +858,7 @@ keyword_groups:
           [1, 1, 1] | Size ↦ 3
           {"a": 1, "b": 2} | Size ↦ 2
 
-      - name: sum
+      - name: Sum
         brief: Summation reduction
         details: Equivalent to Reduce(Add)
         symbol: Σ
@@ -882,7 +867,7 @@ keyword_groups:
         examples: |-
           [1, 2, 3] | Sum ↦ 6
 
-      - name: prod
+      - name: Prod
         brief: Multiplication reduction
         details: Equivalent to Reduce(Mul)
         symbol: Π
@@ -891,7 +876,7 @@ keyword_groups:
         examples: |-
           [1, 2, 3] | Prod ↦ 6
 
-      - name: avg
+      - name: Avg
         brief: Arythmetic average
         domain: list
         codomain: any
@@ -903,7 +888,7 @@ keyword_groups:
       signature: Binary
     keywords:
 
-      - name: slide
+      - name: Slide
         brief: Sliding-window iteration
         details: |-
           Sliding window iteration by specified window width.
@@ -916,7 +901,7 @@ keyword_groups:
           [1,2,3,4,5] | Slide(3) ↦ [[1,2,3],[2,3,4],[3,4,5]]
           [1,2,3,4,5] | Slide(42) ↦ []
 
-      - name: stride
+      - name: Stride
         brief: Striding iteration
         details: |-
           Striding iteration by specified step width.
@@ -930,7 +915,7 @@ keyword_groups:
           [1,2,3,4,5,6] | Stride(2) ↦ [[1,2],[3,4],[5,6]]
           [1,2,3,4,5] | Stride(3) ↦ [[1,2,3]]
 
-      - name: chunks
+      - name: Chunks
         brief: Split into chunks of specified max width
         details: |-
           Similar to Stride, but includes the last subsequence
@@ -945,7 +930,7 @@ keyword_groups:
           [1,2,3,4,5] | Chunks(3) ↦ [[1,2,3],[4,5]]
 
 
-      - name: repeat
+      - name: Repeat
         brief: Repeat value in list
         commutative: false
         domain: [any, int]
@@ -957,17 +942,17 @@ keyword_groups:
           1 | Repeat(3) | Repeat(2) ↦ [[1,1,1],[1,1,1]]
 
 
-      - name: concat
+      - name: Cat
+        aliases: [ Concat ]
         brief: Concatenate sequences
         domain: [any, any]
-        aliases: [ cat ]
         codomain: any
         examples: |-
           [[1, 2], [3, 4]] | Concat ↦ [1, 2, 3, 4]
           "Hello, " | Concat("World!") ↦ "Hello, World!"
 
 
-      - name: push
+      - name: Push
         brief: Push element into a front of sequence
         domain: [any, list]
         codomain: any
@@ -975,7 +960,7 @@ keyword_groups:
           [[1, 2], 3] | Push ↦ [3, 1, 2]
           [1, 2] | Push(3) ↦ [3, 1, 2]
 
-      - name: at
+      - name: At
         brief: Transform JSON value with given query
         details: |-
           Query evaluation rules:
@@ -1024,8 +1009,8 @@ keyword_groups:
           {"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  ↦ {"f": 42, "g": 13}
           {"a": 42, "b": 13} | At({"$/b": "/a"})           ↦ {"13": 42}
 
-      - name: delete
-        aliases: [ del ]
+      - name: Del
+        aliases: [ Delete ]
         brief: Delete elements from structure by given query
         details: |-
           Possible queries:
@@ -1043,7 +1028,7 @@ keyword_groups:
           [[1, 2], 3] | Del("/0/1") ↦ [[1], 3]
           {"a": {"b": [1,2,3]}} | Del({"/a/b/0", "/a/b/1"}) ↦ {"a": {"b": [3]}}
 
-      - name: lookup
+      - name: Lookup
         signature: Binary
         brief: Lookup table function
         commutative-dual: at
@@ -1061,8 +1046,8 @@ keyword_groups:
           "/foo" | Lookup([1,2,3]) ↦  null
 
 
-      - name: c
-        aliases: [let]
+      - name: C
+        aliases: [ Const, Let ]
         brief: User-defined constant
         details: |-
           Produced expression will return the design-time parameter
@@ -1072,17 +1057,17 @@ keyword_groups:
         examples: |-
           13 | C(42) ↦ 42
 
-      - name: decorate
+      - name: Cast
+        aliases: [ Decorate ]
         signature: Special
-        aliases: [cast]
         brief: Reserialize decorated type as decorator
         # details: |-
         domain: [any, any]
         codomain: any
 
-      - name: undecorate
+      - name: Uncast
+        aliases: [ Undecorate ]
         signature: Special
-        aliases: [uncast]
         brief: Reserialize decorator as decorated type
         # details: |-
         domain: [any, any]
@@ -1093,22 +1078,22 @@ keyword_groups:
     defaults: {}
     keywords:
 
-      - name: reduce
+      - name: Fold
         signature: Binary
-        aliases: [ fold ]
+        aliases: [ Reduce ]
         brief: Reduce sequence with binary operator
         details: |-
-          To set specific initial value, use composition with Push, e.g.
-          `Push(0) | Reduce(Add)`
+          To set a specific initial value, use composition with Push, e.g.
+          `Push(0) | Fold(Add)`
 
           For reverse operation, see Unfold
         domain: [list, fn]
         codomain: any
         examples: |-
-          [-1, 2, 3] | Reduce(Add) ↦  4
-          [-1, 2, 3] | Reduce(Mul) ↦ -6
+          [-1, 2, 3] | Fold(Add) ↦  4
+          [-1, 2, 3] | Fold(Mul) ↦ -6
 
-      - name: map
+      - name: Map
         signature: Binary
         brief: Apply param expr to every element of sequence
         domain: [list, fn]
@@ -1117,7 +1102,7 @@ keyword_groups:
           [1, 2, 3] | Map(Add(1)) ↦ [2, 3, 4]
 
 
-      - name: filter
+      - name: Filter
         signature: Binary
         brief: Filter sequence by predicate param
         literals-as-eq: true
@@ -1126,7 +1111,7 @@ keyword_groups:
         examples: |-
           [1, 2, 3, 4] | Filter(Gt(2)) ↦ [3, 4]
 
-      - name: count
+      - name: Count
         signature: Binary
         brief: Count matches by predicate param
         domain: [list, predicate]
@@ -1135,7 +1120,7 @@ keyword_groups:
         examples: |-
           [1, 2, 3, 4] | Count(Gt(2)) ↦ 2
 
-      - name: each
+      - name: Each
         signature: Binary
         brief: Test predicate for each item in a sequence
         details: Equivalent to `Count(p | Not) | Eq(0)`
@@ -1146,7 +1131,7 @@ keyword_groups:
           [1, 2, 3, 4] | Each(Gt(2)) ↦ false
           [1, 2, 3, 4] | Slide(2) | Each(Lt) ↦ true
 
-      - name: sort
+      - name: Sort
         signature: Binary
         brief: 'Sort list by key function'
         domain: [list, fn]
@@ -1158,7 +1143,7 @@ keyword_groups:
           [-3, 1, -2] | Sort(Abs) ↦ [1, -2, -3]
           [3, 1, 2] | Sort | Reverse ↦ [3, 2, 1]
 
-      - name: find
+      - name: Find
         signature: Binary
         brief: Find the first element that satisfies given predicate
         detail: |-
@@ -1169,7 +1154,7 @@ keyword_groups:
           [-3, 1, -2] | Find(Ge(2)) ↦  nullptr
           [-3, 1,  4] | Find(Ge(2)) ↦  4
 
-      - name: find-ptr
+      - name: FindPtr
         signature: Binary
         brief: Find JSON POinter of the first element that satisfies given predicate
         detail: |-
@@ -1180,7 +1165,7 @@ keyword_groups:
           [-3, 1, -2] | FindPtr(Ge(2)) ↦  nullptr
           [-3, 1,  4] | FindPtr(Ge(2)) ↦  "/2"
 
-      - name: find-idx
+      - name: FindIdx
         signature: Binary
         brief: Find index of the first element that satisfies given predicate
         details: |-
@@ -1194,7 +1179,7 @@ keyword_groups:
           [-3, 1, -2] | FindIdx(Ge(2)) ↦  nullptr
           [-3, 1,  4] | FindIdx(Ge(2)) ↦  2
 
-      - name: min
+      - name: Min
         signature: Binary
         brief: 'Min value by key function'
         domain: [list, fn]
@@ -1204,7 +1189,7 @@ keyword_groups:
           [-3, 1, -2] | Min      ↦  1
           [-3, 1, -2] | Min(Abs) ↦ -3
 
-      - name: max
+      - name: Max
         signature: Binary
         brief: 'Max value by key function'
         domain: [list, fn]
@@ -1214,7 +1199,7 @@ keyword_groups:
           [-3, 1, -2] | Max      ↦  1
           [-3, 1, -2] | Max(Abs) ↦ -3
 
-      - name: argmin
+      - name: Argmin
         signature: Binary
         brief: 'Min value index by key function'
         domain: [list, fn]
@@ -1224,7 +1209,7 @@ keyword_groups:
           [-3, 1, -2] | Argmin      ↦ 0
           [-3, 1, -2] | Argmin(Abs) ↦ 1
 
-      - name: argmax
+      - name: Argmax
         signature: Binary
         brief: 'Max value index by key function'
         domain: [list, fn]
@@ -1234,7 +1219,7 @@ keyword_groups:
           [-3, 1, -2] | Argmax      ↦ 1
           [-3, 1, -2] | Argmax(Abs) ↦ 0
 
-      - name: recur
+      - name: Recur
         signature: Ternary
         brief: Apply recursion to parameter expr and initial value
         details: |-
@@ -1248,7 +1233,7 @@ keyword_groups:
           0 | Recur(Add(1), 0)  ↦  3
           3 | Recur(Mul(-1), 1) ↦ -1
 
-      - name: unfold
+      - name: Unfold
         signature: Ternary
         brief: Put results of recursive fn call on initial value into an array
         details: |-
@@ -1262,12 +1247,12 @@ keyword_groups:
           3 | Unfold(Add(1),  0) ↦  [0, 1, 2, 3]
           3 | Unfold(Mul(-1), 1) ↦  [1,-1, 1,-1]
 
-      - name: overload
-        aliases: [ op ]
+      - name: Op
+        aliases: [ Overload ]
         signature: Special
         brief: Bind type-specific operator handler to function
         details: |-
-          Expression Overload(op, f) instructs f to use operator op on
+          Expression Op(op, f) instructs f to use op operator on
           invocation instead of the default generic.
 
           Operator parameter singleton can be referenced with string key
@@ -1283,9 +1268,9 @@ keyword_groups:
           - label: operator
           - type: fn
         examples: |-
-          [0.5, 2] | Overload("complex", Add(1)) ↦ [1.5, 2]
+          [0.5, 2] | Op("complex", Add(1)) ↦ [1.5, 2]
 
-      - name: bind
+      - name: Bind
         signature: Variadic
         brief: '!NOT IMPLEMENTED! Bind design-time parameters'
         params:
@@ -1293,7 +1278,7 @@ keyword_groups:
           - label: params
             type: object
 
-      - name: any
+      - name: Any
         signature: Variadic
         brief: Match any predicate
         domain: any
@@ -1306,7 +1291,7 @@ keyword_groups:
           3 | Any(Gt(2), Lt(0)) ↦ true
           0 | Any(Gt(2), Lt(0)) ↦ false
 
-      - name: all
+      - name: All
         signature: Variadic
         brief: Match all predicates
         domain: any
@@ -1319,7 +1304,7 @@ keyword_groups:
           3 | All(Gt(2), Lt(0)) ↦ false
           2.5 | All(Gt(2), Lt(3)) ↦ true
 
-      - name: saturate
+      - name: Saturate
         signature: Variadic
         brief: Saturate matches in order
         domain: list
@@ -1336,7 +1321,7 @@ keyword_groups:
           [2,4,8,41,2] | Saturate(42, Mod(2)|0) ↦ false
           [2,4,8,42] | Saturate(42, Mod(2)|0) ↦ false
 
-      - name: compose
+      - name: Compose
         signature: Variadic
         brief: Compose functions
         domain: any
@@ -1354,7 +1339,7 @@ keyword_groups:
           Add(1) | Mul(2) ≡ Compose(Mul(2), Add(1))
           3 | Add(1) | Mul(2) ↦ 7
 
-      - name: fork
+      - name: Fork
         signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
@@ -1373,7 +1358,7 @@ keyword_groups:
           [1,2,3] | Reduce(Add) & Size ↦ [6,3]
           [1,2,3] | Reduce(Add) & Size | Div ↦ 2
 
-      - name: flip
+      - name: Flip
         signature: Binary
         brief: Flips design-time and eval-time parameters.
         details: |-
@@ -1387,9 +1372,9 @@ keyword_groups:
           2 | Div(1) ↦ 2
           2 | Flip(Div(1)) ↦ 0.5
 
-      - name: debug
+      - name: Dbg
         signature: Special
-        aliases: [ dbg ]
+        aliases: [ Debug ]
         brief: Evaluate function and print evaluation log to stderr
         detail:
           Use identifier parameter to trace the origin (default = "anonymous").
@@ -1401,12 +1386,12 @@ keyword_groups:
         domain: any
         codomain: any
 
-      - name: eval
+      - name: Eval
         signature: Binary
         brief: Flip designtime and run-time parameters, evaluating input as expression
         domain: [any, fn]
 
-      - name: try
+      - name: Try
         signature: Binary
         brief: Evaluate function and return result or null if it throws
         domain: [fn, any]
@@ -1414,7 +1399,7 @@ keyword_groups:
           42 | Try(Add(1)) ↦ 43
           "foo" | Try(Add(1)) ↦ null
 
-      - name: try-catch
+      - name: TryCatch
         signature: Binary
         brief: Evaluate function and return result or error info if it throws
         domain: [fn, any]
@@ -1431,8 +1416,8 @@ keyword_groups:
       codomain: any
 
     keywords:
-      - name: default
-        aliases: [ d ]
+      - name: D
+        aliases: [ Default ]
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:
@@ -1441,8 +1426,9 @@ keyword_groups:
           null | Default(42) ↦ 42
           13 | Default(42) ↦ 13
 
-      - name: error
-        brief: Error
+      - name: Err
+        aliases: [ Error ]
+        brief: Error object
         signature: Special
         details: |-
           Error object (work in progress)

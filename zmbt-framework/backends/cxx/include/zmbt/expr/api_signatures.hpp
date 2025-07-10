@@ -145,48 +145,48 @@ struct SignatureVariadic : public SignatureBase<K>
 
 
 
-struct SignatureOverload : public SignatureTernary<Keyword::Overload>
+struct SignatureOp : public SignatureTernary<Keyword::Op>
 {
-    using SignatureTernary<Keyword::Overload>::SignatureTernary;
-    using SignatureTernary<Keyword::Overload>::operator();
+    using SignatureTernary<Keyword::Op>::SignatureTernary;
+    using SignatureTernary<Keyword::Op>::operator();
 
     template <class T>
     Expression operator()(type_tag<T> tag, Expression const& expr) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Overload, {op.annotation(), expr});
+        return Expression(Keyword::Op, {op.annotation(), expr});
     }
 };
 
-struct SignatureDecorate : public SignatureBinary<Keyword::Decorate>
+struct SignatureCast : public SignatureBinary<Keyword::Cast>
 {
-    using SignatureBinary<Keyword::Decorate>::SignatureBinary;
-    using SignatureBinary<Keyword::Decorate>::operator();
+    using SignatureBinary<Keyword::Cast>::SignatureBinary;
+    using SignatureBinary<Keyword::Cast>::operator();
 
     template <class T>
     Expression operator()(type_tag<T> tag) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Decorate, op.annotation());
+        return Expression(Keyword::Cast, op.annotation());
     }
 };
 
-struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
+struct SignatureUncast : public SignatureBinary<Keyword::Uncast>
 {
-    using SignatureBinary<Keyword::Undecorate>::SignatureBinary;
-    using SignatureBinary<Keyword::Undecorate>::operator();
+    using SignatureBinary<Keyword::Uncast>::SignatureBinary;
+    using SignatureBinary<Keyword::Uncast>::operator();
 
     template <class T>
     Expression operator()(type_tag<T> tag) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Undecorate, op.annotation());
+        return Expression(Keyword::Uncast, op.annotation());
     }
 };
 
-struct SignatureError : public SignatureBase<Keyword::Error>
+struct SignatureErr : public SignatureBase<Keyword::Err>
 {
-    using SignatureBase<Keyword::Error>::SignatureBase;
+    using SignatureBase<Keyword::Err>::SignatureBase;
 
     /// \brief Error message and context
     Expression operator()(boost::json::string_view msg, boost::json::string_view ctx = "") const
@@ -196,7 +196,7 @@ struct SignatureError : public SignatureBase<Keyword::Error>
         {
             err["context"] = ctx;
         }
-        return Expression(Keyword::Error, err);
+        return Expression(Keyword::Err, err);
     }
 
     /// \brief Error type, message, and context
@@ -212,19 +212,19 @@ struct SignatureError : public SignatureBase<Keyword::Error>
         {
             err["context"] = ctx;
         }
-        return Expression(Keyword::Error, err);
+        return Expression(Keyword::Err, err);
     }
 };
 
-#define ZMBT_DEBUG_EXPR(f) ::zmbt::expr::Debug(f, ZMBT_CUR_LOC)
+#define ZMBT_DEBUG_EXPR(f) ::zmbt::expr::Dbg(f, ZMBT_CUR_LOC)
 
-struct SignatureDebug : public SignatureTernary<Keyword::Debug>
+struct SignatureDbg : public SignatureTernary<Keyword::Dbg>
 {
-    using SignatureTernary<Keyword::Debug>::SignatureTernary;
+    using SignatureTernary<Keyword::Dbg>::SignatureTernary;
 
     Expression operator()(Expression const& expr, Expression const& identifier) const
     {
-        return SignatureTernary<Keyword::Debug>::operator()(expr, identifier);
+        return SignatureTernary<Keyword::Dbg>::operator()(expr, identifier);
     }
 
     Expression operator()(Expression const& expr) const

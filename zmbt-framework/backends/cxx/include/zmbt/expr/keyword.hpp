@@ -35,407 +35,407 @@ enum class Keyword
 {
     Undefined,
 
-    /// literal
+    /// Literal
     Literal,
 
-    /// void
+    /// Void
     Void,
 
-    /// noop
+    /// Noop
     Noop,
 
-    /// null
+    /// Null
     Null,
 
-    /// true
+    /// True
     True,
 
-    /// false
+    /// False
     False,
 
-    /// pi
+    /// Pi
     Pi,
 
-    /// e
+    /// E
     E,
 
-    /// inf
+    /// Inf
     Inf,
 
-    /// eps
+    /// Eps
     Eps,
 
-    /// nan
+    /// NaN
     NaN,
 
-    /// thread
+    /// Thread
     Thread,
 
-    /// sin
+    /// Sin
     Sin,
 
-    /// cos
+    /// Cos
     Cos,
 
-    /// tan
+    /// Tan
     Tan,
 
-    /// asin
+    /// Asin
     Asin,
 
-    /// acos
+    /// Acos
     Acos,
 
-    /// atan
+    /// Atan
     Atan,
 
-    /// sinh
+    /// Sinh
     Sinh,
 
-    /// cosh
+    /// Cosh
     Cosh,
 
-    /// tanh
+    /// Tanh
     Tanh,
 
-    /// asinh
+    /// Asinh
     Asinh,
 
-    /// acosh
+    /// Acosh
     Acosh,
 
-    /// atanh
+    /// Atanh
     Atanh,
 
-    /// exp
+    /// Exp
     Exp,
 
-    /// erf
+    /// Erf
     Erf,
 
-    /// erfc
+    /// Erfc
     Erfc,
 
-    /// gamma
+    /// Gamma
     Gamma,
 
-    /// abs
+    /// Abs
     Abs,
 
-    /// ceil
+    /// Ceil
     Ceil,
 
-    /// floor
+    /// Floor
     Floor,
 
-    /// round
+    /// Round
     Round,
 
-    /// sqrt
+    /// Sqrt
     Sqrt,
 
-    /// sign
+    /// Sign
     Sign,
 
-    /// neg
+    /// Neg
     Neg,
 
-    /// add
+    /// Add
     Add,
 
-    /// sub
+    /// Sub
     Sub,
 
-    /// mul
+    /// Mul
     Mul,
 
-    /// div
+    /// Div
     Div,
 
-    /// pow
+    /// Pow
     Pow,
 
-    /// log
+    /// Log
     Log,
 
-    /// mod
+    /// Mod
     Mod,
 
-    /// quot
+    /// Quot
     Quot,
 
-    /// b-not
+    /// BitNot
     BitNot,
 
-    /// b-and
+    /// BitAnd
     BitAnd,
 
-    /// b-or
+    /// BitOr
     BitOr,
 
-    /// b-xor
+    /// BitXor
     BitXor,
 
-    /// b-lshift
-    BitLshift,
+    /// Lshift
+    Lshift,
 
-    /// b-rshift
-    BitRshift,
+    /// Rshift
+    Rshift,
 
-    /// eq
+    /// Eq
     Eq,
 
-    /// ne
+    /// Ne
     Ne,
 
-    /// lt
+    /// Lt
     Lt,
 
-    /// le
+    /// Le
     Le,
 
-    /// gt
+    /// Gt
     Gt,
 
-    /// ge
+    /// Ge
     Ge,
 
-    /// approx
-    Approx,
+    /// Near
+    Near,
 
-    /// union
+    /// Union
     Union,
 
-    /// intersect
+    /// Intersect
     Intersect,
 
-    /// set-diff
+    /// Diff
     Diff,
 
-    /// set-eq
+    /// SetEq
     SetEq,
 
-    /// subset
+    /// Subset
     Subset,
 
-    /// superset
+    /// Superset
     Superset,
 
-    /// p-subset
-    ProperSubset,
+    /// PSubset
+    PSubset,
 
-    /// p-superset
-    ProperSuperset,
+    /// PSuperset
+    PSuperset,
 
-    /// in
+    /// In
     In,
 
-    /// not-in
+    /// NotIn
     NotIn,
 
-    /// ni
+    /// Ni
     Ni,
 
-    /// not-ni
+    /// NotNi
     NotNi,
 
-    /// bool
+    /// Bool
     Bool,
 
-    /// not
+    /// Not
     Not,
 
-    /// and
+    /// And
     And,
 
-    /// or
+    /// Or
     Or,
 
-    /// id
+    /// Id
     Id,
 
-    /// transp
+    /// Transp
     Transp,
 
-    /// cartesian
+    /// Cartesian
     Cartesian,
 
-    /// reverse
+    /// Reverse
     Reverse,
 
-    /// uniques
+    /// Uniques
     Uniques,
 
-    /// items
+    /// Items
     Items,
 
-    /// keys
+    /// Keys
     Keys,
 
-    /// values
+    /// Values
     Values,
 
-    /// enumerate
+    /// Enumerate
     Enumerate,
 
-    /// flatten
+    /// Flatten
     Flatten,
 
-    /// to-list
+    /// ToList
     ToList,
 
-    /// arange
+    /// Arange
     Arange,
 
-    /// parse
+    /// Parse
     Parse,
 
-    /// serialize
-    Serialize,
+    /// Str
+    Str,
 
-    /// re
+    /// Re
     Re,
 
-    /// format
-    Format,
+    /// Fmt
+    Fmt,
 
-    /// card
+    /// Card
     Card,
 
-    /// size
+    /// Size
     Size,
 
-    /// sum
+    /// Sum
     Sum,
 
-    /// prod
+    /// Prod
     Prod,
 
-    /// avg
+    /// Avg
     Avg,
 
-    /// slide
+    /// Slide
     Slide,
 
-    /// stride
+    /// Stride
     Stride,
 
-    /// chunks
+    /// Chunks
     Chunks,
 
-    /// repeat
+    /// Repeat
     Repeat,
 
-    /// concat
-    Concat,
+    /// Cat
+    Cat,
 
-    /// push
+    /// Push
     Push,
 
-    /// at
+    /// At
     At,
 
-    /// delete
-    Delete,
+    /// Del
+    Del,
 
-    /// lookup
+    /// Lookup
     Lookup,
 
-    /// c
+    /// C
     C,
 
-    /// decorate
-    Decorate,
+    /// Cast
+    Cast,
 
-    /// undecorate
-    Undecorate,
+    /// Uncast
+    Uncast,
 
-    /// reduce
-    Reduce,
+    /// Fold
+    Fold,
 
-    /// map
+    /// Map
     Map,
 
-    /// filter
+    /// Filter
     Filter,
 
-    /// count
+    /// Count
     Count,
 
-    /// each
+    /// Each
     Each,
 
-    /// sort
+    /// Sort
     Sort,
 
-    /// find
+    /// Find
     Find,
 
-    /// find-ptr
+    /// FindPtr
     FindPtr,
 
-    /// find-idx
+    /// FindIdx
     FindIdx,
 
-    /// min
+    /// Min
     Min,
 
-    /// max
+    /// Max
     Max,
 
-    /// argmin
+    /// Argmin
     Argmin,
 
-    /// argmax
+    /// Argmax
     Argmax,
 
-    /// recur
+    /// Recur
     Recur,
 
-    /// unfold
+    /// Unfold
     Unfold,
 
-    /// overload
-    Overload,
+    /// Op
+    Op,
 
-    /// bind
+    /// Bind
     Bind,
 
-    /// any
+    /// Any
     Any,
 
-    /// all
+    /// All
     All,
 
-    /// saturate
+    /// Saturate
     Saturate,
 
-    /// compose
+    /// Compose
     Compose,
 
-    /// fork
+    /// Fork
     Fork,
 
-    /// flip
+    /// Flip
     Flip,
 
-    /// debug
-    Debug,
+    /// Dbg
+    Dbg,
 
-    /// eval
+    /// Eval
     Eval,
 
-    /// try
+    /// Try
     Try,
 
-    /// try-catch
+    /// TryCatch
     TryCatch,
 
-    /// default
-    Default,
+    /// D
+    D,
 
-    /// error
-    Error,
+    /// Err
+    Err,
 
     _count
 };

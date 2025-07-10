@@ -53,8 +53,8 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::BitAnd:
     case Keyword::BitOr:
     case Keyword::BitXor:
-    case Keyword::BitLshift:
-    case Keyword::BitRshift:
+    case Keyword::Lshift:
+    case Keyword::Rshift:
     case Keyword::Eq:
     case Keyword::Ne:
     case Keyword::Lt:
@@ -64,8 +64,8 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::SetEq:
     case Keyword::Subset:
     case Keyword::Superset:
-    case Keyword::ProperSubset:
-    case Keyword::ProperSuperset:
+    case Keyword::PSubset:
+    case Keyword::PSuperset:
     case Keyword::In:
     case Keyword::NotIn:
     case Keyword::Ni:
@@ -97,9 +97,9 @@ CodegenType getCodegenType(Keyword const& k)
     case Keyword::Sign:
     case Keyword::ToList:
     case Keyword::Parse:
-    case Keyword::Serialize:
-    case Keyword::Default:
-    case Keyword::Error:
+    case Keyword::Str:
+    case Keyword::D:
+    case Keyword::Err:
         return CodegenType::CodegenFn;
     default:
         return CodegenType::None;
@@ -133,7 +133,7 @@ bool isHiOrd(Keyword const& k)
 {
     switch (k)
     {
-    case Keyword::Reduce:
+    case Keyword::Fold:
     case Keyword::Map:
     case Keyword::Filter:
     case Keyword::Count:
@@ -148,7 +148,7 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Argmax:
     case Keyword::Recur:
     case Keyword::Unfold:
-    case Keyword::Overload:
+    case Keyword::Op:
     case Keyword::Bind:
     case Keyword::Any:
     case Keyword::All:
@@ -156,7 +156,7 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Compose:
     case Keyword::Fork:
     case Keyword::Flip:
-    case Keyword::Debug:
+    case Keyword::Dbg:
     case Keyword::Eval:
     case Keyword::Try:
     case Keyword::TryCatch:
@@ -171,7 +171,7 @@ bool isVariadic(Keyword const& k)
 {
     switch (k)
     {
-    case Keyword::Format:
+    case Keyword::Fmt:
     case Keyword::Bind:
     case Keyword::Any:
     case Keyword::All:

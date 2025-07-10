@@ -104,20 +104,20 @@ boost::json::value Operator::apply(Keyword const& keyword, boost::json::value co
     case Keyword::BitOr : return handle_.bitwise.or_(lhs, rhs);
     case Keyword::BitXor: return handle_.bitwise.xor_(lhs, rhs);
 
-    case Keyword::BitLshift: return handle_.shift.left(lhs, rhs);
-    case Keyword::BitRshift: return handle_.shift.right(lhs, rhs);
+    case Keyword::Lshift: return handle_.shift.left(lhs, rhs);
+    case Keyword::Rshift: return handle_.shift.right(lhs, rhs);
 
     case Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
     case Keyword::Subset: return is_subset(lhs, rhs);
     case Keyword::Superset: return is_subset(rhs, lhs);
-    case Keyword::ProperSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
-    case Keyword::ProperSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
+    case Keyword::PSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
+    case Keyword::PSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
 
     case Keyword::In: return contains(rhs, lhs);
     case Keyword::Ni: return contains(lhs, rhs);
     case Keyword::NotIn: return !contains(rhs, lhs);
     case Keyword::NotNi: return !contains(lhs, rhs);
-    case Keyword::Approx: return is_approx(lhs, rhs);
+    case Keyword::Near: return is_approx(lhs, rhs);
 
     case Keyword::Pow:      return Operator::generic_pow(lhs, rhs);
     case Keyword::Log:      return Operator::generic_log(lhs, rhs);

@@ -38,7 +38,7 @@ enum class Keyword
 @for keyword in data.Keywords:
 
     /// @keyword.Name
-    @keyword.Enum,
+    @keyword.Name,
 @end
 
     _count

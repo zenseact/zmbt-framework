@@ -192,13 +192,13 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::BitXor> const BitXor;
 /// \details
 /// 1. $[ ] \mapsto [x, s] \mapsto x \texttt{ << } s$
 /// 2. $[s] \mapsto [x]    \mapsto x \texttt{ << } s$
-extern lang::SignatureBinary<::zmbt::lang::Keyword::BitLshift> const BitLshift;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Lshift> const Lshift;
 
 /// \brief Bitwise right shift
 /// \details
 /// 1. $[ ] ↦ [x, s] ↦ x \texttt{ >> } s$
 /// 2. $[s] ↦ [x]    ↦ x \texttt{ >> } s$
-extern lang::SignatureBinary<::zmbt::lang::Keyword::BitRshift> const BitRshift;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Rshift> const Rshift;
 
 /// \brief Is equal
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Eq> const Eq;
@@ -233,9 +233,9 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Ge> const Ge;
 ///   2. [ref]              -> [ref, default, default]
 ///   3. [ref, rtol]        -> [ref, rtol   , default]
 ///   4. [ref, rtol, atol]  -> [ref, rtol   , atol   ]
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Approx> const Approx;
-/// \brief Alias for Approx
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Approx> const Near;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Near> const Near;
+/// \brief Alias for Near
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Near> const Approx;
 
 /// \brief Set union
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Union> const Union;
@@ -256,10 +256,10 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Subset> const Subset;
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Superset> const Superset;
 
 /// \brief Is proper subset
-extern lang::SignatureBinary<::zmbt::lang::Keyword::ProperSubset> const ProperSubset;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::PSubset> const PSubset;
 
 /// \brief Is proper superset
-extern lang::SignatureBinary<::zmbt::lang::Keyword::ProperSuperset> const ProperSuperset;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::PSuperset> const PSuperset;
 
 /// \brief Element is in
 extern lang::SignatureBinary<::zmbt::lang::Keyword::In> const In;
@@ -359,9 +359,9 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Arange> const Arange;
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Parse> const Parse;
 
 /// \brief Serialize json as string
-extern lang::SignatureUnary<::zmbt::lang::Keyword::Serialize> const Serialize;
-/// \brief Alias for Serialize
-extern lang::SignatureUnary<::zmbt::lang::Keyword::Serialize> const Str;
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Str> const Str;
+/// \brief Alias for Str
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Str> const Serialize;
 
 /// \brief Regular expression match
 /// \details
@@ -374,9 +374,9 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Regex;
 /// \details
 /// Constant expressions are supported for the token list,
 /// s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Format> const Format;
-/// \brief Alias for Format
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Format> const Fmt;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fmt> const Fmt;
+/// \brief Alias for Fmt
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fmt> const Format;
 
 /// \brief Set cardinality (uniques count)
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Card> const Card;
@@ -418,9 +418,9 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Chunks> const Chunks;
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Repeat> const Repeat;
 
 /// \brief Concatenate sequences
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Concat> const Concat;
-/// \brief Alias for Concat
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Concat> const Cat;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Cat> const Cat;
+/// \brief Alias for Cat
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Cat> const Concat;
 
 /// \brief Push element into a front of sequence
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Push> const Push;
@@ -452,9 +452,9 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::At> const At;
 /// Structure index is evaluated as array index or as key-value pair index for objects
 ///   on order-preserving backends.
 /// When deleting an object element, resulting items order may change.
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Delete> const Delete;
-/// \brief Alias for Delete
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Delete> const Del;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Del> const Del;
+/// \brief Alias for Del
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Del> const Delete;
 
 /// \brief Lookup table function
 /// \details
@@ -470,27 +470,29 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 /// on evaluation, ignoring input.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const C;
 /// \brief Alias for C
+extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const Const;
+/// \brief Alias for C
 extern lang::SignatureBinary<::zmbt::lang::Keyword::C> const Let;
 
 /// \brief Reserialize decorated type as decorator
-extern lang::SignatureDecorate const Decorate;
-/// \brief Alias for Decorate
-extern lang::SignatureDecorate const Cast;
+extern lang::SignatureCast const Cast;
+/// \brief Alias for Cast
+extern lang::SignatureCast const Decorate;
 
 /// \brief Reserialize decorator as decorated type
-extern lang::SignatureUndecorate const Undecorate;
-/// \brief Alias for Undecorate
-extern lang::SignatureUndecorate const Uncast;
+extern lang::SignatureUncast const Uncast;
+/// \brief Alias for Uncast
+extern lang::SignatureUncast const Undecorate;
 
 /// \brief Reduce sequence with binary operator
 /// \details
-/// To set specific initial value, use composition with Push, e.g.
-/// `Push(0) | Reduce(Add)`
+/// To set a specific initial value, use composition with Push, e.g.
+/// `Push(0) | Fold(Add)`
 /// 
 /// For reverse operation, see Unfold
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Reduce> const Reduce;
-/// \brief Alias for Reduce
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Reduce> const Fold;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Fold> const Fold;
+/// \brief Alias for Fold
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Fold> const Reduce;
 
 /// \brief Apply param expr to every element of sequence
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Map> const Map;
@@ -545,7 +547,7 @@ extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
 
 /// \brief Bind type-specific operator handler to function
 /// \details
-/// Expression Overload(op, f) instructs f to use operator op on
+/// Expression Op(op, f) instructs f to use op operator on
 /// invocation instead of the default generic.
 /// 
 /// Operator parameter singleton can be referenced with string key
@@ -554,9 +556,9 @@ extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
 /// This operator handler is propagated downstream to all terminal
 /// subexpression in `f`. Result of `f(x)` is also reserialized (undecorated)
 /// as operator type, unless f is constant or boolean expression.
-extern lang::SignatureOverload const Overload;
-/// \brief Alias for Overload
-extern lang::SignatureOverload const Op;
+extern lang::SignatureOp const Op;
+/// \brief Alias for Op
+extern lang::SignatureOp const Overload;
 
 /// \brief !not implemented! bind design-time parameters
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Bind> const Bind;
@@ -587,9 +589,9 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
 
 /// \brief Evaluate function and print evaluation log to stderr
-extern lang::SignatureDebug const Debug;
-/// \brief Alias for Debug
-extern lang::SignatureDebug const Dbg;
+extern lang::SignatureDbg const Dbg;
+/// \brief Alias for Dbg
+extern lang::SignatureDbg const Debug;
 
 /// \brief Flip designtime and run-time parameters, evaluating input as expression
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Eval> const Eval;
@@ -601,14 +603,16 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;
 extern lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch;
 
 /// \brief Return x if not null, else return default value
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Default> const Default;
-/// \brief Alias for Default
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Default> const D;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const D;
+/// \brief Alias for D
+extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const Default;
 
-/// \brief Error
+/// \brief Error object
 /// \details
 /// Error object (work in progress)
-extern lang::SignatureError const Error;
+extern lang::SignatureErr const Err;
+/// \brief Alias for Err
+extern lang::SignatureErr const Error;
 
 } // namespace expr
 } // namespace zmbt

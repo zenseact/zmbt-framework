@@ -28,19 +28,19 @@ CodegenType getCodegenType(Keyword const& k)
     switch (k)
     {
 @for keyword in data.Constants:
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return CodegenType::Const;
 @for keyword in data.UnaryOperators:
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return CodegenType::UnaryOp;
 @for keyword in data.BinaryOperators:
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return CodegenType::BinaryOp;
 @for keyword in data.CodegenFns:
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return CodegenType::CodegenFn;
     default:
@@ -54,7 +54,7 @@ bool isConst(Keyword const& k)
     switch (k)
     {
 @for keyword in data.Constants:
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
     case Keyword::C:
     case Keyword::Literal:
@@ -69,7 +69,7 @@ bool isHiOrd(Keyword const& k)
     switch (k)
     {
 @for keyword in data.HiOrdFns:
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return true;
     default:
@@ -83,7 +83,7 @@ bool isVariadic(Keyword const& k)
     switch (k)
     {
 @for keyword in data.where(lambda x: x.Signature == 'Variadic'):
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return true;
     default:
@@ -96,7 +96,7 @@ bool isTernary(Keyword const& k)
     switch (k)
     {
 @for keyword in data.where(lambda x: x.Signature == 'Ternary'):
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return true;
     default:

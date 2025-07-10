@@ -494,7 +494,7 @@ Bitwise xor
 
  * `[0b1010, 0b1100] | BitXor `$\mapsto$` 0b0110`
 
-### BitLshift
+### Lshift
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -506,9 +506,9 @@ Bitwise left shift
 
 *Examples*:
 
- * `[0b1010, 2] | BitLshift `$\mapsto$` 0b101000`
+ * `[0b1010, 2] | Lshift `$\mapsto$` 0b101000`
 
-### BitRshift
+### Rshift
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -520,7 +520,7 @@ Bitwise right shift
 
 *Examples*:
 
- * `[0b1010, 2] | BitRshift `$\mapsto$` 0b0010`
+ * `[0b1010, 2] | Rshift `$\mapsto$` 0b0010`
 
 
 ## Relation Operators
@@ -603,11 +603,11 @@ Greater or equal
  * `[2, 1] | Ge `$\mapsto$` true`
  * `42 | Ge(42) `$\mapsto$` true`
 
-### Approx
+### Near
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: near
+*Aliases*: Approx
 
 Floating point approximately equal
 
@@ -732,7 +732,7 @@ Is superset
  * `[[], [1, 2]] | Superset `$\mapsto$` true`
  * `[[], []] | Superset `$\mapsto$` true`
 
-### ProperSubset
+### PSubset
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -742,16 +742,16 @@ Is proper subset
 
 *Examples*:
 
- * `[[1, 2], [1, 2, 3]] | ProperSubset `$\mapsto$` true`
- * `[1, 2] | ProperSubset([1, 2, 3]) `$\mapsto$` true`
+ * `[[1, 2], [1, 2, 3]] | PSubset `$\mapsto$` true`
+ * `[1, 2] | PSubset([1, 2, 3]) `$\mapsto$` true`
 
- * `[[1, 2, 3], [2, 3]] | ProperSubset `$\mapsto$` false`
- * `[1, 2, 3] | ProperSubset([2, 3]) `$\mapsto$` false`
+ * `[[1, 2, 3], [2, 3]] | PSubset `$\mapsto$` false`
+ * `[1, 2, 3] | PSubset([2, 3]) `$\mapsto$` false`
 
- * `[[1, 2], []] | ProperSubset `$\mapsto$` true`
- * `[[], []] | ProperSubset `$\mapsto$` false`
+ * `[[1, 2], []] | PSubset `$\mapsto$` true`
+ * `[[], []] | PSubset `$\mapsto$` false`
 
-### ProperSuperset
+### PSuperset
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -761,14 +761,14 @@ Is proper superset
 
 *Examples*:
 
- * `[[1, 2, 3], [1, 2]] | ProperSuperset `$\mapsto$` true`
- * `[1, 2, 3] | ProperSuperset([1, 2]) `$\mapsto$` true`
+ * `[[1, 2, 3], [1, 2]] | PSuperset `$\mapsto$` true`
+ * `[1, 2, 3] | PSuperset([1, 2]) `$\mapsto$` true`
 
- * `[[2, 3], [1, 2, 3]] | ProperSuperset `$\mapsto$` false`
- * `[2, 3] | ProperSuperset([1, 2, 3]) `$\mapsto$` false`
+ * `[[2, 3], [1, 2, 3]] | PSuperset `$\mapsto$` false`
+ * `[2, 3] | PSuperset([1, 2, 3]) `$\mapsto$` false`
 
- * `[[], [1, 2]] | ProperSuperset `$\mapsto$` true`
- * `[[], []] | ProperSuperset `$\mapsto$` false`
+ * `[[], [1, 2]] | PSuperset `$\mapsto$` true`
+ * `[[], []] | PSuperset `$\mapsto$` false`
 
 ### In
 
@@ -800,7 +800,7 @@ Element is not in
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: contains
+*Aliases*: Contains
 
 Contains element
 
@@ -830,7 +830,7 @@ Not contains element
 
 *Signature*: [Unary](../user-guide/expressions.md#syntax)
 
-*Aliases*: truthy
+*Aliases*: Truthy
 
 Predicate on boolean transform (aka truthy)
 
@@ -850,7 +850,7 @@ Predicate on boolean transform (aka truthy)
 
 *Signature*: [Unary](../user-guide/expressions.md#syntax)
 
-*Aliases*: falsy, nil
+*Aliases*: Falsy, Nil
 
 Logical complement
 
@@ -1104,11 +1104,11 @@ Parse string as json
 
  * `'{"a": 42}' | Parse `$\mapsto$` {"a": 42}`
 
-### Serialize
+### Str
 
 *Signature*: [Unary](../user-guide/expressions.md#syntax)
 
-*Aliases*: str
+*Aliases*: Serialize
 
 Serialize json as string
 
@@ -1121,7 +1121,7 @@ Serialize json as string
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: regex
+*Aliases*: Regex
 
 Regular expression match
 
@@ -1132,11 +1132,11 @@ If input is not a string, match it's serialized form.
  * `["[0-9]+", "42"] | Re `$\mapsto$` true`
  * `"42" | Re("[0-9]+") `$\mapsto$` true`
 
-### Format
+### Fmt
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
-*Aliases*: fmt
+*Aliases*: Format
 
 Format string with the given parameter list.
 
@@ -1275,11 +1275,11 @@ Repeat value in list
  * `42 | Repeat(3) `$\mapsto$` [42, 42, 42]`
  * `1 | Repeat(3) | Repeat(2) `$\mapsto$` [[1,1,1],[1,1,1]]`
 
-### Concat
+### Cat
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: cat
+*Aliases*: Concat
 
 Concatenate sequences
 
@@ -1352,11 +1352,11 @@ Query evaluation rules:
  * `{"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  `$\mapsto$` {"f": 42, "g": 13}`
  * `{"a": 42, "b": 13} | At({"$/b": "/a"})           `$\mapsto$` {"13": 42}`
 
-### Delete
+### Del
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: del
+*Aliases*: Delete
 
 Delete elements from structure by given query
 
@@ -1396,7 +1396,7 @@ Equivalent to Flip(At(...))
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: let
+*Aliases*: Const, Let
 
 User-defined constant
 
@@ -1407,21 +1407,21 @@ on evaluation, ignoring input.
 
  * `13 | C(42) `$\mapsto$` 42`
 
-### Decorate
+### Cast
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: cast
+*Aliases*: Decorate
 
 Reserialize decorated type as decorator
 
 
 
-### Undecorate
+### Uncast
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: uncast
+*Aliases*: Undecorate
 
 Reserialize decorator as decorated type
 
@@ -1430,23 +1430,23 @@ Reserialize decorator as decorated type
 
 ## High-Order
 
-### Reduce
+### Fold
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: fold
+*Aliases*: Reduce
 
 Reduce sequence with binary operator
 
-To set specific initial value, use composition with Push, e.g.
-`Push(0) | Reduce(Add)`
+To set a specific initial value, use composition with Push, e.g.
+`Push(0) | Fold(Add)`
 
 For reverse operation, see Unfold
 
 *Examples*:
 
- * `[-1, 2, 3] | Reduce(Add) `$\mapsto$`  4`
- * `[-1, 2, 3] | Reduce(Mul) `$\mapsto$` -6`
+ * `[-1, 2, 3] | Fold(Add) `$\mapsto$`  4`
+ * `[-1, 2, 3] | Fold(Mul) `$\mapsto$` -6`
 
 ### Map
 
@@ -1634,15 +1634,15 @@ Put results of recursive fn call on initial value into an array
  * `3 | Unfold(Add(1),  0) `$\mapsto$`  [0, 1, 2, 3]`
  * `3 | Unfold(Mul(-1), 1) `$\mapsto$`  [1,-1, 1,-1]`
 
-### Overload
+### Op
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: op
+*Aliases*: Overload
 
 Bind type-specific operator handler to function
 
-Expression Overload(op, f) instructs f to use operator op on
+Expression Op(op, f) instructs f to use op operator on
 invocation instead of the default generic.
 
 Operator parameter singleton can be referenced with string key
@@ -1654,7 +1654,7 @@ as operator type, unless f is constant or boolean expression.
 
 *Examples*:
 
- * `[0.5, 2] | Overload("complex", Add(1)) `$\mapsto$` [1.5, 2]`
+ * `[0.5, 2] | Op("complex", Add(1)) `$\mapsto$` [1.5, 2]`
 
 ### Bind
 
@@ -1762,11 +1762,11 @@ the Reverse keyword instead.
  * `2 | Div(1) `$\mapsto$` 2`
  * `2 | Flip(Div(1)) `$\mapsto$` 0.5`
 
-### Debug
+### Dbg
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: dbg
+*Aliases*: Debug
 
 Evaluate function and print evaluation log to stderr
 
@@ -1813,11 +1813,11 @@ Evaluate function and return result or error info if it throws
 
 ## Evaluation handlers
 
-### Default
+### D
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: d
+*Aliases*: Default
 
 Return x if not null, else return default value
 
@@ -1827,12 +1827,13 @@ Return x if not null, else return default value
  * `null | Default(42) `$\mapsto$` 42`
  * `13 | Default(42) `$\mapsto$` 13`
 
-### Error
+### Err
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
+*Aliases*: Error
 
-Error
+Error object
 
 Error object (work in progress)
 

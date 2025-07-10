@@ -38,7 +38,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
     template <class... T>
     Target OnTrigger(boost::json::string_view key, T&&... fmtargs)
     {
-        state().set_deferred_param("/trigger", key | expr::Format(fmtargs...));
+        state().set_deferred_param("/trigger", key | expr::Fmt(fmtargs...));
         return transit_to<Target>();
     }
 
@@ -152,7 +152,7 @@ struct ModelDefinition::T_Filter : protected virtual ModelDefinition::BaseTransi
     template <class T, class... Rest>
     Target Args(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
     {
-        return Args(fmt | expr::Format(arg1, args_rest...));
+        return Args(fmt | expr::Fmt(arg1, args_rest...));
     }
 
     /// Interface exception
@@ -496,7 +496,7 @@ struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseT
     template <class... T>
     Target Description(boost::json::string_view comment, T&&... args)
     {
-        state().set_deferred_param("/description", comment | expr::Format(args...));
+        state().set_deferred_param("/description", comment | expr::Fmt(args...));
         return transit_to<Target>();
     }
 };

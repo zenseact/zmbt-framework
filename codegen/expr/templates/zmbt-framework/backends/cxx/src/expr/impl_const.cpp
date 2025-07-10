@@ -30,7 +30,7 @@ boost::json::value zmbt::lang::Expression::eval_Const(boost::json::value const&)
     switch(keyword())
     {
 @for keyword in data.Constants:
-    case Keyword::@keyword.Enum: return @keyword.CodegenValue;
+    case Keyword::@keyword.Name: return @keyword.CodegenValue;
 @end
     default:
         throw expression_error("got invalid const expression: %s", underlying());

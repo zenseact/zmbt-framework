@@ -32,7 +32,7 @@ boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value con
     switch(keyword())
     {
 @for keyword in data.CodegenFns:
-    case Keyword::@keyword.Enum: { ret = @keyword.CodegenValue; break; }
+    case Keyword::@keyword.Name: { ret = @keyword.CodegenValue; break; }
 @end
     default:
         throw expression_error("got invalid unary math expression: %s", underlying());

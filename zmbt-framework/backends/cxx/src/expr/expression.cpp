@@ -275,11 +275,11 @@ bool Expression::is_const() const
         }
         return true;
     }
-    else if (is(Keyword::Overload) && has_params())
+    else if (is(Keyword::Op) && has_params())
     {
         return Expression(params().as_array().back()).is_const();
     }
-    return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Error) || (CodegenType::Const == getCodegenType(keyword()));
+    return is(Keyword::Literal) || is(Keyword::C) || is(Keyword::Err) || (CodegenType::Const == getCodegenType(keyword()));
 }
 
 std::string Expression::keyword_to_str() const
@@ -302,7 +302,7 @@ bool Expression::is_boolean() const
     {
         return true;
     }
-    if (is(Keyword::Overload) && has_params())
+    if (is(Keyword::Op) && has_params())
     {
         return Expression(params()).is_boolean();
     }

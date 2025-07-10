@@ -27,7 +27,7 @@ bool isBoolean(Keyword const& k)
     switch (k)
     {
 @for keyword in data.where(lambda x: x.Codomain == 'bool'):
-    case Keyword::@keyword.Enum:
+    case Keyword::@keyword.Name:
 @end
         return true;
     default:

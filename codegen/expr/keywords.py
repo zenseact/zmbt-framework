@@ -5,7 +5,7 @@ from functools import cached_property
 from typing import Callable, Generator
 
 EXCLUDE_OPERATORS = (
-    'approx',
+    'Near',
 )
 
 class Keyword:
@@ -91,18 +91,14 @@ class Keyword:
         if self.IsInternal:
             return None
         elif self.Signature != 'Special':
-            return f"Signature{self.Signature}<::zmbt::lang::Keyword::{self.Enum}>"
+            return f"Signature{self.Signature}<::zmbt::lang::Keyword::{self.Name}>"
         else:
-            return f"Signature{self.Enum}"
+            return f"Signature{self.Name}"
 
 
     @property
     def Name(self) -> str:
         return self._definition['name']
-
-    @property
-    def Enum(self) -> str:
-        return self._definition.get('enum', self._definition['name'].replace('-',' ').title().replace(' ', ''))
 
     @property
     def DocBrief(self) -> str:

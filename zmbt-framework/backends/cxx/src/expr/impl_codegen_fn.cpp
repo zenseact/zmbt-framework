@@ -54,9 +54,9 @@ boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value con
     case Keyword::Sign: { ret = dejsonize<double>(x) >= 0 ? 1 : -1; break; }
     case Keyword::ToList: { ret = boost::json::array{x}; break; }
     case Keyword::Parse: { ret = boost::json::parse(x.as_string()); break; }
-    case Keyword::Serialize: { ret = {boost::json::serialize(x)}; break; }
-    case Keyword::Default: { ret = x.is_null() ? params() : x; break; }
-    case Keyword::Error: { ret = underlying(); break; }
+    case Keyword::Str: { ret = {boost::json::serialize(x)}; break; }
+    case Keyword::D: { ret = x.is_null() ? params() : x; break; }
+    case Keyword::Err: { ret = underlying(); break; }
     default:
         throw expression_error("got invalid unary math expression: %s", underlying());
     }
