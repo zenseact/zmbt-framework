@@ -27,6 +27,13 @@ public:
     boost::json::value operator()();
     void reset();
 
+    std::size_t counter() const;
+    boost::json::value debug(std::size_t const, lang::Expression::EvalContext const&) const;
+
+    // Counter | Expression
+    std::string prettify() const;
+
+
     Generator(Generator&) = default;
     Generator(Generator const&) = default;
     Generator& operator=(Generator&) = default;

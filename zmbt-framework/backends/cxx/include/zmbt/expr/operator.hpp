@@ -14,39 +14,59 @@
 #include "zmbt/reflect.hpp"
 #include "keyword.hpp"
 #include "exceptions.hpp"
+#include <boost/current_function.hpp>
 
 
 
-#define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT, R)                               \
-template <class T>                                                                  \
-static auto handle_##TRAIT(V const& val)                                            \
--> mp_if<has_##TRAIT<T>, R>                                                         \
-{                                                                                   \
-    return boost::json::value_to<R>(json_from(OP dejsonize<T>(val)));               \
-}                                                                                   \
-template <class T>                                                                  \
-static auto handle_##TRAIT(V const&)                                                \
--> mp_if<mp_not<has_##TRAIT<T>>, R>                                                 \
-{                                                                                   \
-    throw expression_error("%s has no defined " #OP " operator", type_name<T>());   \
-    return {};                                                                      \
+#define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT)       \
+template <class T>                                       \
+static auto handle_##TRAIT(V const& val)                 \
+-> mp_if<has_##TRAIT<T>, V>                              \
+try {                                                    \
+    return json_from(OP dejsonize<T>(val));              \
+}                                                        \
+catch(const std::exception& e)                           \
+{                                                        \
+    return detail::make_error_expr(                      \
+        e.what(), BOOST_CURRENT_FUNCTION);               \
+}                                                        \
+template <class T>                                       \
+static auto handle_##TRAIT(V const&)                     \
+-> mp_if<mp_not<has_##TRAIT<T>>, V>                      \
+try {                                                    \
+    return detail::make_error_expr(                      \
+        "invalid operand", BOOST_CURRENT_FUNCTION);      \
+}                                                        \
+catch(const std::exception& e)                           \
+{                                                        \
+    return detail::make_error_expr(                      \
+        e.what(), BOOST_CURRENT_FUNCTION);               \
 }
 
-#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT, R)                                     \
-template <class T>                                                                      \
-static auto handle_##TRAIT(V const& lhs, V const& rhs)                                  \
--> mp_if<has_##TRAIT<T>, R>                                                             \
-{                                                                                       \
-    return boost::json::value_to<R>(json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs))); \
-}                                                                                       \
-template <class T>                                                                      \
-static auto handle_##TRAIT(V const&, V const&)                                          \
--> mp_if<mp_not<has_##TRAIT<T>>, R>                                                     \
-{                                                                                       \
-    throw expression_error("%s has no defined " #OP " operator", type_name<T>());       \
-    return {};                                                                          \
+#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT)                \
+template <class T>                                              \
+static auto handle_##TRAIT(V const& lhs, V const& rhs)          \
+-> mp_if<has_##TRAIT<T>, V>                                     \
+try {                                                           \
+    return json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs));   \
+}                                                               \
+catch(const std::exception& e)                                  \
+{                                                               \
+    return detail::make_error_expr(                             \
+        e.what(), BOOST_CURRENT_FUNCTION);                      \
+}                                                               \
+template <class T>                                              \
+static auto handle_##TRAIT(V const&, V const&)                  \
+-> mp_if<mp_not<has_##TRAIT<T>>, V>                             \
+try {                                                           \
+    return detail::make_error_expr(                             \
+        "invalid operands", BOOST_CURRENT_FUNCTION);            \
+}                                                               \
+catch(const std::exception& e)                                  \
+{                                                               \
+    return detail::make_error_expr(                             \
+        e.what(), BOOST_CURRENT_FUNCTION);                      \
 }
-
 
 namespace zmbt {
 namespace lang {
@@ -55,6 +75,9 @@ namespace detail
 {
 /// typetrait to check T::decorated_type
 ZMBT_HAS_TYPE(decorated_type)
+
+boost::json::value make_error_expr(boost::json::string_view msg, boost::json::string_view ctx);
+
 }
 
 /// Signal transformation and comparison handler. Enables type erasure.
@@ -77,15 +100,15 @@ class Operator
         Full        = Default|Logic,
     };
 
-    static bool generic_is_truth(V const& a);
-    static V generic_decorate(V const& a);
-    static V generic_undecorate(V const& a);
+    static V generic_is_truth(V const&);
+    static V generic_decorate(V const&);
+    static V generic_undecorate(V const&);
     static V generic_negate(V const&);
     static V generic_complement(V const&);
-    static bool generic_logical_not(V const&);
-    static bool generic_equal_to(V const&, V const&);
-    static bool generic_less(V const&, V const&);
-    static bool generic_less_equal(V const&, V const&);
+    static V generic_logical_not(V const&);
+    static V generic_equal_to(V const&, V const&);
+    static V generic_less(V const&, V const&);
+    static V generic_less_equal(V const&, V const&);
     static V generic_plus(V const&, V const&);
     static V generic_minus(V const&, V const&);
     static V generic_multiplies(V const&, V const&);
@@ -110,27 +133,25 @@ class Operator
 
     using unary_transform = std::function<V(V const&)>;
     using binary_transform = std::function<V(V const&, V const&)>;
-    using unary_predicate = std::function<bool(V const&)>;
-    using binary_predicate = std::function<bool(V const&, V const&)>;
 
-    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(-, negate, V)
-    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(~, complement, V)
-    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(!, logical_not, bool)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(==, equal_to, bool)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<, less, bool)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<=, less_equal, bool)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(+, plus, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(-, minus, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(*, multiplies, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(/, divides, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(%, modulus, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(&, bit_and, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(|, bit_or, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(^, bit_xor, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<<, left_shift, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(>>, right_shift, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(&&, logical_and, V)
-    ZMBT_SOH_HANDLE_BIN_TRANSFORM(||, logical_or, V)
+    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(-, negate)
+    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(~, complement)
+    ZMBT_SOH_HANDLE_UNARY_TRANSFORM(!, logical_not)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(==, equal_to)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<, less)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<=, less_equal)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(+, plus)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(-, minus)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(*, multiplies)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(/, divides)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(%, modulus)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(&, bit_and)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(|, bit_or)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(^, bit_xor)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(<<, left_shift)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(>>, right_shift)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(&&, logical_and)
+    ZMBT_SOH_HANDLE_BIN_TRANSFORM(||, logical_or)
 
 #undef ZMBT_SOH_HANDLE_UNARY_TRANSFORM
 #undef ZMBT_SOH_HANDLE_BIN_TRANSFORM
@@ -139,44 +160,68 @@ class Operator
     template <class T>
     static auto handle_decorate(boost::json::value const& a)
         -> mp_if<detail::has_type_decorated_type<T>, boost::json::value>
+    try
     {
         using Decorated = typename T::decorated_type;
         return json_from(static_cast<Decorated>(dejsonize<T>(a)));
+    }
+    catch(const std::exception& e)
+    {
+        return detail::make_error_expr(e.what(), BOOST_CURRENT_FUNCTION);
     }
 
     template <class T>
     static auto handle_decorate(boost::json::value const& a)
         -> mp_if<mp_not<detail::has_type_decorated_type<T>>, boost::json::value>
+    try
     {
         return json_from(dejsonize<T>(a));
+    }
+    catch(const std::exception& e)
+    {
+        return detail::make_error_expr(e.what(), BOOST_CURRENT_FUNCTION);
     }
 
     template <class T>
     static auto handle_undecorate(boost::json::value const& a)
         -> mp_if<detail::has_type_decorated_type<T>, boost::json::value>
+    try
     {
         using Decorated = typename T::decorated_type;
         return json_from(static_cast<T>(dejsonize<Decorated>(a)));
+    }
+    catch(const std::exception& e)
+    {
+        return detail::make_error_expr(e.what(), BOOST_CURRENT_FUNCTION);
     }
 
     template <class T>
     static auto handle_undecorate(boost::json::value const& a)
         -> mp_if<mp_not<detail::has_type_decorated_type<T>>, boost::json::value>
+    try
     {
         return json_from(dejsonize<T>(a));
     }
-
-    template <class T>
-    static auto handle_is_truth(boost::json::value const& val) -> mp_if<is_convertible<T, bool>, bool>
+    catch(const std::exception& e)
     {
-        return static_cast<bool>(dejsonize<T>(val));
+        return detail::make_error_expr(e.what(), BOOST_CURRENT_FUNCTION);
     }
 
     template <class T>
-    static auto handle_is_truth(boost::json::value const&) -> mp_if<mp_not<is_convertible<T, bool>>, bool>
+    static auto handle_is_truth(boost::json::value const& val) -> mp_if<is_convertible<T, bool>, boost::json::value>
+    try
     {
-        throw expression_error("%s has no boolean conversion defined", type_name<T>());
-        return false;
+        return static_cast<bool>(dejsonize<T>(val));
+    }
+    catch(const std::exception& e)
+    {
+        return detail::make_error_expr(e.what(), BOOST_CURRENT_FUNCTION);
+    }
+
+    template <class T>
+    static auto handle_is_truth(boost::json::value const&) -> mp_if<mp_not<is_convertible<T, bool>>, boost::json::value>
+    {
+        return detail::make_error_expr("invalid operand", BOOST_CURRENT_FUNCTION);
     }
 
 
@@ -190,9 +235,9 @@ class Operator
         } decor;
 
         struct C {
-            binary_predicate equal_to{generic_equal_to};
-            binary_predicate less{generic_less};
-            binary_predicate less_equal{generic_less_equal};
+            binary_transform equal_to{generic_equal_to};
+            binary_transform less{generic_less};
+            binary_transform less_equal{generic_less_equal};
         } comp;
 
         struct A {
@@ -217,7 +262,7 @@ class Operator
         } shift;
 
         struct L {
-            unary_predicate  bool_{generic_is_truth};
+            unary_transform  bool_{generic_is_truth};
             binary_transform and_{generic_logical_and};
             binary_transform or_{generic_logical_or};
         } logic;
@@ -298,6 +343,10 @@ public:
     Operator& operator=(Operator const&) = default;
     Operator& operator=(Operator &&) = default;
 
+    bool is_generic() const
+    {
+        return annotation().empty();
+    }
 
     /// decorated type name
     boost::json::string annotation() const
@@ -322,22 +371,14 @@ public:
     /// \details For unary operators, lhs is nullptr
     boost::json::value apply(lang::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
 
-    /// Is true
-    bool is_truth(boost::json::value const& a) const
-    {
-        return apply(lang::Keyword::Bool, nullptr, a).get_bool();
-    }
 
 private:
 
-    /// Is approximately equal (only applicable to floating point numbers)
-    virtual bool is_approx(boost::json::value const& sample, boost::json::value const& expr) const;
-
     /// Is subset of
-    virtual bool is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const;
+    V is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const;
 
     /// Is element of
-    virtual bool contains(boost::json::value const& set, boost::json::value const& element) const;
+    V contains(boost::json::value const& set, boost::json::value const& element) const;
 
 };
 

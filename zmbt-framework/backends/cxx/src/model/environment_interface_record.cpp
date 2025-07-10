@@ -1,43 +1,13 @@
 /**
  * @file
  * @copyright (c) Copyright 2022-2023 Volvo Car Corporation
- * @copyright (c) Copyright 2024 Zenseact AB
+ * @copyright (c) Copyright 2024-2025 Zenseact AB
  * @license SPDX-License-Identifier: Apache-2.0
  */
-
-
 #include "zmbt/model/environment_interface_record.hpp"
 
 
-
 namespace zmbt {
-
-Generator::Generator(boost::json::array const& serialized)
-    : underlying_{serialized} {}
-
-Generator::Generator(lang::Expression const& expr) : underlying_{0UL, expr} {}
-
-boost::json::value Generator::operator()()
-{
-    auto& counter = underlying_.at(0).as_uint64();
-    auto const e = lang::Expression(underlying_.at(1));
-    return e.eval(counter++);
-}
-
-void Generator::reset()
-{
-    underlying_.at(0).emplace_uint64();
-}
-
-boost::json::array Generator::underlying() const
-{
-    return underlying_;
-}
-
-bool Generator::is_noop() const
-{
-    return lang::Expression(underlying()).is_noop();
-}
 
 
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id const& interface, object_id refobj)
@@ -122,10 +92,46 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         if (generator.is_noop()) continue;
 
         // TODO: optimize recursive expr
-        auto v = generator(); // TODO: handle errors and log
-        v = tf.is_noop() ? v : tf.eval(v);
+        auto const raw_v = generator();
+        auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
 
-        result_value.set_at_pointer(record_pointer, v);
+        if (lang::Expression(v).is_error())
+        {
+            lang::Expression::EvalContext generator_ctx {{}, lang::Expression::EvalLog::make(), 0};
+            generator.debug(generator.counter()-1, generator_ctx);
+
+            lang::Expression::EvalContext transform_ctx {{}, lang::Expression::EvalLog::make(), 0};
+            if (not tf.is_noop())
+            {
+                tf.eval(raw_v, transform_ctx);
+            }
+
+            ZMBT_LOG_JSON(FATAL) << boost::json::object{
+                {"ZMBT_INJECTION", boost::json::object{
+                    {"interface", key()},
+                    {"group", json_from(kind)},
+                    {"pointer", record_pointer},
+                    {"Inject log", *generator_ctx.log.stack},
+                    {"Take log", *transform_ctx.log.stack},
+                }}
+            };
+
+            auto const failed_inject = raw_v == v;
+            auto const error_context = failed_inject ? "Inject" : "Take";
+
+            auto const origin = format("ZMBT_INJECTION(%s, %s%s, %s)",
+                key(), json_from(kind), record_pointer, error_context);
+
+            ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
+            << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
+            throw model_error("injection failure");
+        }
+
+        else
+        {
+            result_value.set_at_pointer(record_pointer, v);
+        }
+
     }
     return result_value;
 }

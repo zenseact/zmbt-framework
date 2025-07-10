@@ -159,7 +159,6 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Dbg:
     case Keyword::Eval:
     case Keyword::Try:
-    case Keyword::TryCatch:
     case Keyword::Kwrd:
     case Keyword::Prms:
         return true;

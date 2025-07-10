@@ -169,7 +169,6 @@ lang::SignatureDbg const Dbg = {};
 lang::SignatureDbg const Debug = Dbg;
 lang::SignatureBinary<::zmbt::lang::Keyword::Eval> const Eval = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try = {};
-lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch = {};
 lang::SignatureUnary<::zmbt::lang::Keyword::Kwrd> const Kwrd = {};
 lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Prms = {};
 lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Parameters = Prms;

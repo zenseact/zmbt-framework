@@ -14,10 +14,11 @@ namespace mapping {
 
 
 /// report test setup or execution error
-TestDiagnostics& TestDiagnostics::Error(boost::json::string_view origin, boost::json::string_view msg)
+TestDiagnostics& TestDiagnostics::Error(boost::json::string_view origin, boost::json::value const& err)
 {
     this->result = Result::Error;
-    this->message = format("%s: %s", origin, msg);
+    this->message = origin;
+    this->error = err;
     return *this;
 }
 
@@ -61,6 +62,7 @@ boost::json::value TestDiagnostics::to_json() const
         {"message"       , this->message     },
         {"expected"      , this->expected    },
         {"observed"      , this->observed    },
+        {"error"         , this->error       },
         // {"test vector"   , this->vector      }, // TODO: refine with respect to inline conditions
         {"description"   , this->description },
         {"comment"       , this->comment     },

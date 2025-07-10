@@ -11,16 +11,26 @@
 #include <memory>
 #include <string>
 
+#include <boost/current_function.hpp>
 #include <boost/json.hpp>
 #include <zmbt/core/exceptions.hpp>
 #include <zmbt/core/type_info.hpp>
 
 #include "zmbt/expr/operator.hpp"
+#include "zmbt/expr/api.hpp"
 
 
 
 namespace zmbt {
 namespace lang {
+namespace detail
+{
+boost::json::value make_error_expr(boost::json::string_view msg, boost::json::string_view ctx)
+{
+    return expr::Err(msg, ctx).underlying();
+}
+
+} // namespace detail
 
 
 bool Operator::exchangeHandle(Handle& handle, bool const retrieve)
@@ -76,21 +86,37 @@ Operator::Operator(boost::json::string_view annotation)
 
 
 boost::json::value Operator::apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
+try
 {
+    auto const negate = [](V const& maybe_err) -> V
+    {
+        if (not maybe_err.is_bool()) return maybe_err;
+        return not maybe_err.get_bool();
+    };
+
+    auto const conj = [](V const& maybe_err_a, V const& maybe_err_b) -> V
+    {
+        if (not maybe_err_a.is_bool()) return maybe_err_a;
+        if (not maybe_err_b.is_bool()) return maybe_err_b;
+        return maybe_err_a.get_bool() && maybe_err_b.get_bool();
+    };
+
+
+
     switch (keyword)
     {
     case Keyword::Bool: return handle_.logic.bool_(rhs);
-    case Keyword::Not: return !handle_.logic.bool_(rhs);
+    case Keyword::Not: return negate(handle_.logic.bool_(rhs));
     case Keyword::And: return handle_.logic.and_(lhs, rhs);
     case Keyword::Or: return handle_.logic.or_(lhs, rhs);
 
     case Keyword::Eq: return handle_.comp.equal_to(lhs, rhs);
-    case Keyword::Ne: return !handle_.comp.equal_to(lhs, rhs);
+    case Keyword::Ne: return negate(handle_.comp.equal_to(lhs, rhs));
 
     case Keyword::Le: return handle_.comp.less_equal(lhs, rhs);
-    case Keyword::Gt: return !handle_.comp.less_equal(lhs, rhs);
+    case Keyword::Gt: return negate(handle_.comp.less_equal(lhs, rhs));
     case Keyword::Ge: return handle_.comp.less_equal(rhs, lhs);
-    case Keyword::Lt: return !handle_.comp.less_equal(rhs, lhs);
+    case Keyword::Lt: return negate(handle_.comp.less_equal(rhs, lhs));
 
     case Keyword::Add: return handle_.arithmetics.add(lhs, rhs);
     case Keyword::Sub: return handle_.arithmetics.sub(lhs, rhs);
@@ -107,59 +133,54 @@ boost::json::value Operator::apply(Keyword const& keyword, boost::json::value co
     case Keyword::Lshift: return handle_.shift.left(lhs, rhs);
     case Keyword::Rshift: return handle_.shift.right(lhs, rhs);
 
-    case Keyword::SetEq: return is_subset(lhs, rhs) && is_subset(rhs, lhs); // TODO: optimize
+    case Keyword::SetEq: return conj(is_subset(lhs, rhs), is_subset(rhs, lhs)); // TODO: optimize
     case Keyword::Subset: return is_subset(lhs, rhs);
     case Keyword::Superset: return is_subset(rhs, lhs);
-    case Keyword::PSubset  : return is_subset(lhs, rhs) && !is_subset(rhs, lhs); // TODO: optimize
-    case Keyword::PSuperset: return is_subset(rhs, lhs) && !is_subset(lhs, rhs); // TODO: optimize
+    case Keyword::PSubset  : return conj(is_subset(lhs, rhs), negate(is_subset(rhs, lhs))); // TODO: optimize
+    case Keyword::PSuperset: return conj(is_subset(rhs, lhs), negate(is_subset(lhs, rhs))); // TODO: optimize
 
     case Keyword::In: return contains(rhs, lhs);
     case Keyword::Ni: return contains(lhs, rhs);
-    case Keyword::NotIn: return !contains(rhs, lhs);
-    case Keyword::NotNi: return !contains(lhs, rhs);
-    case Keyword::Near: return is_approx(lhs, rhs);
+    case Keyword::NotIn: return negate(contains(rhs, lhs));
+    case Keyword::NotNi: return negate(contains(lhs, rhs));
 
     case Keyword::Pow:      return Operator::generic_pow(lhs, rhs);
     case Keyword::Log:      return Operator::generic_log(lhs, rhs);
     case Keyword::Quot:     return Operator::generic_quot(lhs, rhs);
 
     default:
-        throw expression_not_implemented("unsupported operator");
-        return nullptr;
+        return detail::make_error_expr("unsupported operator", BOOST_CURRENT_FUNCTION);
     }
 }
-
-
-
-
-bool Operator::is_approx(boost::json::value const& sample, boost::json::value const& expr) const
+catch(const std::exception& e)
 {
-    // Based on numpy.isclose
-    // absolute(a - b) <= (atol + rtol * absolute(b))
-
-    // TODO: handle invalid expr
-    auto arr = expr.as_array();
-    double reference = arr.at(0).as_double();
-    double rtol = arr.at(1).as_double();
-    double atol = arr.size() == 3 ? arr.at(2).as_double() : std::numeric_limits<double>::epsilon();
-    double value = boost::json::value_to<double>(sample);
-
-    return std::abs(value - reference) <= (atol + rtol * std::abs(reference));
+    return detail::make_error_expr(e.what(), annotation());
 }
 
 /// Is subset of
-bool Operator::is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const
+boost::json::value Operator::is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const
 {
     if (lhs.is_array() && rhs.is_array())
     {
         boost::json::array const& a = lhs.get_array();
         boost::json::array const& b = rhs.get_array();
 
-        for (auto const& value: a)
+        for (auto const& item_a: a)
         {
-            if (std::find_if(b.cbegin(), b.cend(), [&](auto const& other){ return handle_.comp.equal_to(value, other); }) == b.cend())
+            try
             {
-                return false;
+                if (std::find_if(
+                    b.cbegin(),
+                    b.cend(),
+                    [&](auto const& item_b){ return handle_.comp.equal_to(item_a, item_b).as_bool(); }) == b.cend()
+                )
+                {
+                    return false;
+                }
+            }
+            catch(const std::exception& e)
+            {
+                return detail::make_error_expr("invalid operands", BOOST_CURRENT_FUNCTION);
             }
         }
         return true;
@@ -192,16 +213,12 @@ bool Operator::is_subset(boost::json::value const& lhs, boost::json::value const
         if (lhs.get_string().empty()) { return true; }
         return std::string::npos != rhs.get_string().find(lhs.get_string());
     }
-    else
-    {
-        throw expression_error("undefined operation: `%s ⊆ %s`", lhs , rhs);
-    }
-    return false;
+    return detail::make_error_expr("invalid operands", BOOST_CURRENT_FUNCTION);
 }
 
 
 /// Is element of
-bool Operator::contains(boost::json::value const& set, boost::json::value const& element) const
+boost::json::value Operator::contains(boost::json::value const& set, boost::json::value const& element) const
 {
     // array item
     if (set.if_array())
@@ -227,11 +244,7 @@ bool Operator::contains(boost::json::value const& set, boost::json::value const&
         if (!obj.contains(key)) { return false; }
         return handle_.comp.equal_to(obj.at(key), value);
     }
-    else
-    {
-        throw expression_error("undefined operation: `%s ∈ %s`", element, set);
-    }
-    return false;
+    return detail::make_error_expr("invalid operands", BOOST_CURRENT_FUNCTION);
 }
 
 

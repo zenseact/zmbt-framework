@@ -428,9 +428,6 @@ enum class Keyword
     /// Try
     Try,
 
-    /// TryCatch
-    TryCatch,
-
     /// Kwrd
     Kwrd,
 

@@ -21,6 +21,7 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/api.hpp"
 
 
 namespace zmbt {
@@ -33,8 +34,7 @@ boost::json::value zmbt::lang::Expression::eval_Const(boost::json::value const&)
     case Keyword::@keyword.Name: return @keyword.CodegenValue;
 @end
     default:
-        throw expression_error("got invalid const expression: %s", underlying());
-        return nullptr;
+        return expr::Error("invalid const expression", prettify());
     }
 }
 

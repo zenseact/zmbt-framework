@@ -66,8 +66,7 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
 @for keyword in data.Keywords:
     case Keyword::@keyword.Name: { v = ZMBT_KEYWORD_PREFIX "@keyword.Name"; break; }
 @end
-        // TODO: throw
-        default: v = ":undefined";
+        default: v = ZMBT_KEYWORD_PREFIX "Undefined";
     }
 }
 

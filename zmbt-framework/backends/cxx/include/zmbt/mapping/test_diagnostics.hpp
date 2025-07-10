@@ -48,6 +48,7 @@ struct TestDiagnostics
     boost::json::value expected    {};
     boost::json::value observed    {};
     boost::json::value vector      {};
+    boost::json::value error      {};
     size_t tr  {};
     size_t tc  {};
 
@@ -109,7 +110,7 @@ struct TestDiagnostics
     }
 
     /// report test setup or execution error
-    TestDiagnostics& Error(boost::json::string_view origin, boost::json::string_view msg);
+    TestDiagnostics& Error(boost::json::string_view origin, boost::json::value const& err);
 
     /// report test expectation failure
     TestDiagnostics& Fail(lang::Expression expected, boost::json::value observed);

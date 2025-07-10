@@ -342,7 +342,8 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
     auto result = eval(observed, {op, {}, 0});
     if (!result.is_bool())
     {
-        throw zmbt::expression_error("expr is not a predicate: `%s`", underlying_);
+        return false;
+        // throw zmbt::expression_error("expr is not a predicate: `%s`", underlying_);
     }
     return result.get_bool();
 }

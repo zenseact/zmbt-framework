@@ -1399,22 +1399,11 @@ keyword_groups:
 
       - name: Try
         signature: Binary
-        brief: Evaluate function and return result or null if it throws
+        brief: Evaluate function and return result or null if it returns error
         domain: [fn, any]
         examples: |-
           42 | Try(Add(1)) ↦ 43
           "foo" | Try(Add(1)) ↦ null
-
-      - name: TryCatch
-        signature: Binary
-        brief: Evaluate function and return result or error info if it throws
-        domain: [fn, any]
-        examples: |-
-          `42 | TryCatch(Div(0))` $\mapsto$ `{
-              "err": "zero division",
-              "fn": ":div",
-              "x": 42
-          }`
 
       - name: Kwrd
         # aliases: [ Keyword ] FIXME: bad namespacing

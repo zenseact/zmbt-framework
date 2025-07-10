@@ -21,6 +21,7 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/api.hpp"
 
 
 namespace zmbt {
@@ -35,7 +36,7 @@ boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value con
     case Keyword::@keyword.Name: { ret = @keyword.CodegenValue; break; }
 @end
     default:
-        throw expression_error("got invalid unary math expression: %s", underlying());
+        ret = expr::Error("invalid unary math expression", prettify());
     }
 
     if (ret.is_number())

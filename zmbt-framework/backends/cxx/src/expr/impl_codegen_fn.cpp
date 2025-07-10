@@ -20,11 +20,13 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/api.hpp"
 
 
 namespace zmbt {
 
 boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
+try
 {
     boost::json::value x = Expression(x_).eval(nullptr, ctx++);
     boost::json::value ret{};
@@ -58,7 +60,7 @@ boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value con
     case Keyword::D: { ret = x.is_null() ? params() : x; break; }
     case Keyword::Err: { ret = underlying(); break; }
     default:
-        throw expression_error("got invalid unary math expression: %s", underlying());
+        ret = expr::Error("invalid unary math expression", prettify());
     }
 
     if (ret.is_number())
@@ -67,6 +69,10 @@ boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value con
     }
 
     return ret;
+}
+catch(const std::exception& e)
+{
+    return detail::make_error_expr(e.what(), keyword_to_str());
 }
 
 } // namespace zmbt

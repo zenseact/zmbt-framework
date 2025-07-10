@@ -14,8 +14,6 @@
 #include "zmbt/expr/keyword_codegen_type.hpp"
 
 
-#define ASSERT(E)      if (!(E)) { throw zmbt::expression_error("%s#%d - " #E, __FILE__, __LINE__);}
-
 namespace
 {
 
@@ -80,6 +78,7 @@ void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) co
 }
 
 boost::json::value Expression::eval(boost::json::value const& x, EvalContext const& ctx) const
+try
 {
     using lang::detail::CodegenType;
     using lang::detail::getCodegenType;
@@ -118,6 +117,10 @@ boost::json::value Expression::eval(boost::json::value const& x, EvalContext con
         ctx.log.push(underlying(),x, result, ctx.depth);
     }
     return result;
+}
+catch(const std::exception& e)
+{
+    return detail::make_error_expr(e.what(), keyword_to_str());
 }
 
 

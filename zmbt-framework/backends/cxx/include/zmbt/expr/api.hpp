@@ -606,11 +606,8 @@ extern lang::SignatureDbg const Debug;
 /// \brief Flip designtime and run-time parameters, evaluating input as expression
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Eval> const Eval;
 
-/// \brief Evaluate function and return result or null if it throws
+/// \brief Evaluate function and return result or null if it returns error
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Try> const Try;
-
-/// \brief Evaluate function and return result or error info if it throws
-extern lang::SignatureBinary<::zmbt::lang::Keyword::TryCatch> const TryCatch;
 
 /// \brief Introspect expression keyword.
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Kwrd> const Kwrd;

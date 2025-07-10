@@ -217,7 +217,6 @@ KeywordSymbol::KeywordSymbol()
     (ZMBT_KEYWORD_PREFIX "Debug", Keyword::Dbg)
     (ZMBT_KEYWORD_PREFIX "Eval", Keyword::Eval)
     (ZMBT_KEYWORD_PREFIX "Try", Keyword::Try)
-    (ZMBT_KEYWORD_PREFIX "TryCatch", Keyword::TryCatch)
     (ZMBT_KEYWORD_PREFIX "Kwrd", Keyword::Kwrd)
     (ZMBT_KEYWORD_PREFIX "Prms", Keyword::Prms)
     (ZMBT_KEYWORD_PREFIX "Parameters", Keyword::Prms)
@@ -380,13 +379,11 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
     case Keyword::Dbg: { v = ZMBT_KEYWORD_PREFIX "Dbg"; break; }
     case Keyword::Eval: { v = ZMBT_KEYWORD_PREFIX "Eval"; break; }
     case Keyword::Try: { v = ZMBT_KEYWORD_PREFIX "Try"; break; }
-    case Keyword::TryCatch: { v = ZMBT_KEYWORD_PREFIX "TryCatch"; break; }
     case Keyword::Kwrd: { v = ZMBT_KEYWORD_PREFIX "Kwrd"; break; }
     case Keyword::Prms: { v = ZMBT_KEYWORD_PREFIX "Prms"; break; }
     case Keyword::D: { v = ZMBT_KEYWORD_PREFIX "D"; break; }
     case Keyword::Err: { v = ZMBT_KEYWORD_PREFIX "Err"; break; }
-        // TODO: throw
-        default: v = ":undefined";
+        default: v = ZMBT_KEYWORD_PREFIX "Undefined";
     }
 }
 

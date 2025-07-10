@@ -4,20 +4,20 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-
-#include "zmbt/expr/operator.hpp"
-#include "zmbt/expr/exceptions.hpp"
-
-
-
-#include <zmbt/core/aliases.hpp>
-#include <zmbt/core/exceptions.hpp>
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <sstream>
 
+#include <boost/current_function.hpp>
+
+#include "zmbt/core/aliases.hpp"
+#include "zmbt/expr/operator.hpp"
+
 using V = boost::json::value;
+
+#define RETURN_ERROR(msg) return ::zmbt::lang::detail::make_error_expr(msg, BOOST_CURRENT_FUNCTION);
+
 namespace
 {
     template <class T, bool check_equal>
@@ -63,16 +63,11 @@ namespace
             rhs.cbegin(),
             rhs.cend(),
             [](auto const& l, auto const& r) {
-                return zmbt::lang::Operator::generic_less(l, r);
+                return zmbt::lang::Operator::generic_less(l, r).as_bool();
             }
         );
     }
 
-    bool is_less_as_object(boost::json::object const&, boost::json::object const&)
-    {
-        // NOTE: this logic may be implemented in future, as js object preserves order of kv pairs
-        throw zmbt::expression_error("order relation is undefined for JSON objects");
-    }
 
 } // namespace
 
@@ -95,8 +90,8 @@ V Operator::generic_undecorate(V const& x)
     return x;
 }
 
-
-bool Operator::generic_equal_to(V const& lhs, V const& rhs)
+// this shall never throw or yield error
+V Operator::generic_equal_to(V const& lhs, V const& rhs)
 {
 
     if (lhs.is_number() and rhs.is_number())
@@ -113,7 +108,7 @@ bool Operator::generic_equal_to(V const& lhs, V const& rhs)
         }
         for (size_t i = 0; i < larr.size(); i++)
         {
-            if (not generic_equal_to(larr[i], rarr[i]))
+            if (not generic_equal_to(larr[i], rarr[i]).as_bool())
             {
                 return false;
             }
@@ -133,7 +128,7 @@ bool Operator::generic_equal_to(V const& lhs, V const& rhs)
             if (not robj.contains(litem.key())){
                 return false;
             }
-            if (not generic_equal_to(litem.value(), robj.at(litem.key())))
+            if (not generic_equal_to(litem.value(), robj.at(litem.key())).as_bool())
             {
                 return false;
             }
@@ -146,7 +141,8 @@ bool Operator::generic_equal_to(V const& lhs, V const& rhs)
     }
 }
 
-bool Operator::generic_less(V const& lhs, V const& rhs)
+// this shall never throw or yield error
+V Operator::generic_less(V const& lhs, V const& rhs)
 {
 
     if (lhs.is_null())
@@ -173,27 +169,18 @@ bool Operator::generic_less(V const& lhs, V const& rhs)
     {
         return is_less_as_array(lhs.get_array(), rhs.get_array());
     }
-    else if (lhs.is_object() and rhs.is_object())
+    else
     {
-        return is_less_as_object(lhs.get_object(), rhs.get_object());
+        return false;
     }
-
-
-
-    auto lkind = lhs.kind();
-    auto rkind = rhs.kind();
-    std::stringstream msg;
-    msg << "undefined JSON order relation for " << lkind << " and " << rkind;
-    throw expression_error(msg.str());
-    return false;
 }
 
 
 
 
-bool Operator::generic_less_equal(V const& lhs, V const& rhs)
+V Operator::generic_less_equal(V const& lhs, V const& rhs)
 {
-    return !generic_less(rhs, lhs);
+    return not generic_less(rhs, lhs).as_bool();
 }
 
 V Operator::generic_left_shift(V const& lhs, V const& rhs)
@@ -223,9 +210,7 @@ V Operator::generic_negate(V const& x)
     case boost::json::kind::null:
         return nullptr;
     default:
-        // TODO: add kind to msg
-        throw expression_error("invalid negation operand");
-        return nullptr;
+        RETURN_ERROR("invalid operand")
     }
 }
 
@@ -242,9 +227,7 @@ V Operator::generic_complement(V const& x)
     case boost::json::kind::null:
         return nullptr;
     default:
-        // TODO: add kind to msg
-        throw expression_error("invalid complement operand");
-        return nullptr;
+        RETURN_ERROR("invalid operand")
     }
 }
 
@@ -285,35 +268,33 @@ boost::json::kind common_arithmetic_kind(boost::json::value const& a, boost::jso
 #define CASE_UINT64 case boost::json::kind::uint64:  return boost::json::value_to<std::size_t>(lhs)  X_OP boost::json::value_to<std::size_t>(rhs);
 #define STR(a) #a
 
-
 #define BINOP_IMPL                              \
 if (lhs.is_null() || rhs.is_null())             \
 {                                               \
-    return nullptr;                             \
+    RETURN_ERROR("null operands")               \
 }                                               \
 boost::json::kind result_kind =                 \
 common_arithmetic_kind(lhs, rhs);               \
 if(X_ZERO_DIV &&                                \
     boost::json::value_to<double>(rhs) == 0)    \
 {                                               \
-    throw expression_error("zero division");    \
+    RETURN_ERROR("zero division")               \
 }                                               \
 switch (result_kind)                            \
 {                                               \
 X_BINOP_CASES                                   \
 default:                                        \
-    throw expression_error("invalid operands"); \
-    return nullptr;                             \
+    RETURN_ERROR("invalid operands")            \
 }
 
 V Operator::generic_logical_and(V const& lhs, V const& rhs)
 {
-    return generic_is_truth(lhs) ? rhs : lhs;
+    return (generic_is_truth(lhs).as_bool() ? rhs : lhs);
 }
 
 V Operator::generic_logical_or(V const& lhs, V const& rhs)
 {
-    return not generic_is_truth(lhs) ? rhs : lhs;
+    return not generic_is_truth(lhs).as_bool() ? rhs : lhs;
 }
 
 V Operator::generic_plus(V const& lhs, V const& rhs)
@@ -410,11 +391,11 @@ V Operator::generic_divides(V const& lhs, V const& rhs)
 
     if (result_kind == boost::json::kind::null)
     {
-        throw expression_error("invalid division operands");
+        RETURN_ERROR("invalid operands")
     }
     if(boost::json::value_to<double>(rhs) == 0)
     {
-        throw expression_error("zero division");
+        RETURN_ERROR("zero division")
     }
 
     double const result_double = boost::json::value_to<double>(lhs) / boost::json::value_to<double>(rhs);
@@ -510,12 +491,12 @@ V Operator::generic_quot(V const& lhs, V const& rhs)
 
     if (result_kind == boost::json::kind::null)
     {
-        throw expression_error("invalid division operands");
+        RETURN_ERROR("invalid operands")
     }
 
     if(boost::json::value_to<double>(rhs) == 0)
     {
-        throw expression_error("zero division");
+        RETURN_ERROR("zero division")
     }
 
     switch (result_kind)
@@ -531,12 +512,12 @@ V Operator::generic_quot(V const& lhs, V const& rhs)
 }
 
 
-bool Operator::generic_logical_not(V const& x)
+V Operator::generic_logical_not(V const& x)
 {
-    return !generic_is_truth(x);
+    return not generic_is_truth(x).as_bool(); // assume generic_is_truth never throws
 }
 
-bool Operator::generic_is_truth(V const& x)
+V Operator::generic_is_truth(V const& x)
 {
     switch (x.kind())
     {

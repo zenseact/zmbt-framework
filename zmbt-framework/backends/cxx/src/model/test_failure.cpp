@@ -53,6 +53,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     if (verdict == "ERROR")
     {
         os << prefix << "channel: " << sts.at("channel");
+        print_js_section("error");
     }
     else
     {

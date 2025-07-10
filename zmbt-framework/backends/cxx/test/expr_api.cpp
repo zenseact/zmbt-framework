@@ -280,7 +280,11 @@ std::vector<TestEvalSample> const TestSamples
     {Slide(3)|Map(Avg)          , {1,2,3,4,5}           , {2      , 3      ,  4}},
     {Slide(42)                  , {1,2,3}               , L{}                   },
     {Slide(42)                  , L{}                   , L{}                   },
+
+    {Slide(-1) | Kwrd           , L{}                   , "Err"                 },
     {Try(Slide(-1))             , L{}                   , nullptr               },
+    {42 | Try(Div(0)) | D(13)   , {}                    , 13                    },
+
 
     {Fork(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
     {(Size|4) & Size & Card     , {2,2,3,3}             , {true, 4, 2}          },
@@ -587,18 +591,8 @@ std::vector<TestEvalSample> const TestSamples
                                                              {2, "a"},
                                                              {2, "b"}}          },
 
-    {Try(Div(2))                , 42                    , 21                    },
-    {Try(Div(0))                , 42                    , nullptr               },
-    {Try                        , {42, Div(0)}          , nullptr               },
-
-    {TryCatch(Div(2))           , 42                    , 21                    },
-    {TryCatch(Div(0))           , 42                    ,
-                                        {{"err", "zero division"},
-                                         {"fn" , {{":Div",0}}   },
-                                         {"x"  , 42             }}              },
-
     {Keyword::Noop              , nullptr                , true                 },
-    // test heterogeneous init lists in params
+
     // Binary
     {Serialize                  , C(Cat({Keyword::At}))  , R"({":Cat":[":At"]})"},
     {Serialize                  , C(Cat({42, Keyword::At, precise<float>()}))
@@ -687,8 +681,9 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     context.log = Expression::EvalLog::make();
     try
     {
-        auto const result = sample.expr.eval(sample.x, context);
+        BOOST_TEST_INFO("Expression: " << sample.expr.prettify());
         BOOST_TEST_INFO("Eval log: \n" << context.log);
+        auto const result = sample.expr.eval(sample.x, context);
         BOOST_CHECK_EQUAL(result, sample.expected);
 
         V js = json_from(sample.expr);
@@ -700,7 +695,6 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     }
     catch(const std::exception& e)
     {
-        BOOST_TEST_INFO("Eval log: \n" << context.log);
         BOOST_FAIL("Exception thrown: " << e.what());
     }
 }
@@ -719,27 +713,27 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
     BOOST_TEST_INFO("Testing coverage for " << sample);
 
     Keyword const keyword = static_cast<Keyword>(sample);
-    Expression const expr(keyword, {});
-    bool implementation_error_thrown = false;
+    Expression const expr = keyword;
+    bool const expect_impl = NotImplemented.count(keyword) == 0;
     try
     {
-        expr.eval();
-    }
-    catch(const expression_not_implemented& e)
-    {
-        implementation_error_thrown = true;
-        if (NotImplemented.count(keyword) == 0)
+        auto const maybe_err = Expression(expr.eval());
+        if (expect_impl
+            && maybe_err.is_error()
+            && maybe_err.has_params()
+            && maybe_err.params().as_object().at("message") == "not implemented"
+        )
         {
             BOOST_FAIL("Keyword " << json_from(keyword) << " is not implemented");
+        }
+        else if(not expect_impl && not maybe_err.is_error())
+        {
+            BOOST_FAIL("Keyword " << json_from(keyword) << " expected to yield 'not implemented' error");
         }
     }
     catch(const std::exception& e)
     {
-        std::ignore = e;
-    }
-    if (!implementation_error_thrown && NotImplemented.count(keyword) != 0)
-    {
-        BOOST_FAIL("Keyword " << json_from(keyword) << " expected to throw expression_not_implemented error");
+        BOOST_FAIL("Keyword " << json_from(keyword) << " throws unexpectedly: " << e.what());
     }
 }
 
@@ -751,12 +745,12 @@ BOOST_AUTO_TEST_CASE(NaNConst)
 }
 
 
-BOOST_AUTO_TEST_CASE(InvalidSetThrow)
+BOOST_AUTO_TEST_CASE(InvalidSetError)
 {
-    BOOST_CHECK_THROW(      Subset  ({1,2,3}).match(13), std::exception);
-    BOOST_CHECK_THROW(      Superset({1,2,3}).match(13), std::exception);
-    BOOST_CHECK_THROW(PSubset  ({1,2,3}).match(13), std::exception);
-    BOOST_CHECK_THROW(PSuperset({1,2,3}).match(13), std::exception);
+    BOOST_CHECK(Expression( Subset  ({1,2,3}).eval(13)).is_error());
+    BOOST_CHECK(Expression( Superset({1,2,3}).eval(13)).is_error());
+    BOOST_CHECK(Expression(PSubset  ({1,2,3}).eval(13)).is_error());
+    BOOST_CHECK(Expression(PSuperset({1,2,3}).eval(13)).is_error());
 }
 
 
@@ -775,9 +769,9 @@ BOOST_AUTO_TEST_CASE(SetOperationsOnObject)
     BOOST_CHECK(In    (set).match(kvp));
     BOOST_CHECK(In    (set).match(key));
 
-    BOOST_CHECK_THROW(Subset(set).match(kvp), std::exception);
-    BOOST_CHECK_THROW(Subset(set).match(key), std::exception);
-    BOOST_CHECK_THROW(In    (set).match(obj), std::exception);
+    BOOST_CHECK(Expression(Subset(set).eval(kvp)).is_error());
+    BOOST_CHECK(Expression(Subset(set).eval(key)).is_error());
+    BOOST_CHECK(Expression(In    (set).eval(obj)).is_error());
 }
 
 

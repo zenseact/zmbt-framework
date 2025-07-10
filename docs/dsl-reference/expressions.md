@@ -1792,29 +1792,13 @@ Flip designtime and run-time parameters, evaluating input as expression
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-Evaluate function and return result or null if it throws
+Evaluate function and return result or null if it returns error
 
 
 *Examples*:
 
  * `42 | Try(Add(1)) `$\mapsto$` 43`
  * `"foo" | Try(Add(1)) `$\mapsto$` null`
-
-### TryCatch
-
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
-
-
-Evaluate function and return result or error info if it throws
-
-
-*Examples*:
-
-`42 | TryCatch(Div(0))` $\mapsto$ `{
-    "err": "zero division",
-    "fn": ":div",
-    "x": 42
-}`
 
 ### Kwrd
 

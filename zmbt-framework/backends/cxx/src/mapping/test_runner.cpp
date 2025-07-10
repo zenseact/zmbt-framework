@@ -202,7 +202,15 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
         e = condition_pipe.overload(e);
         try
         {
-            if (not (e.match(observed)))
+            auto const result = e.eval(observed);
+            auto const passed = result.is_bool() && result.get_bool();
+            if (lang::Expression(result).is_error())
+            {
+                diagnostics
+                    .Error("output match evaluation", result);
+                return false;
+            }
+            else if (not passed)
             {
                 lang::Expression::EvalContext ctx {{}, lang::Expression::EvalLog::make(), 0};
                 e.eval(observed, ctx);

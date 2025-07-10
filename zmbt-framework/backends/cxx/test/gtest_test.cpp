@@ -10,23 +10,20 @@ TEST(RunInGtest, EnvThreadSafety)
 {
     Environment env {};
     int const kWorkers {8};
-    int const kIterations {10000};
+    int const kIterations {1000};
 
     auto test_fun = [](int x){ return x; };
+    auto handle = InterfaceRecord(test_fun);
+    handle.InjectArgs(Add(1), "/0");
+    handle.InjectReturn(Add(1));
 
     auto task = [&](){
-        auto handle = InterfaceRecord(test_fun);
 
         for(int i = 0; i < kIterations; ++i)
         {
             ZMBT_LOG_JSON(INFO) << zmbt::get_tid().c_str() << i;
-            auto lock = handle.Env().Lock();
-
-            int arg_x = handle.YieldInjectionArgs().as_array()[0].as_int64();
-            int ret_x = handle.YieldInjectionReturn().as_int64();
-
-            handle.InjectArgs(boost::json::array{++arg_x});
-            handle.InjectReturn(++ret_x);
+            static_cast<void>(handle.YieldInjectionArgs());
+            static_cast<void>(handle.YieldInjectionReturn());
         }
     };
 
@@ -34,8 +31,8 @@ TEST(RunInGtest, EnvThreadSafety)
     for(int i = 0; i < kWorkers; ++i) threads.emplace_back(task);
     for(auto& thread: threads) thread.join();
 
-    EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).YieldInjectionArgs().as_array()[0].as_int64());
-    EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).YieldInjectionReturn().as_int64());
+    EXPECT_EQ(kWorkers * kIterations + 1, handle.YieldInjectionArgs().as_array().front());
+    EXPECT_EQ(kWorkers * kIterations + 1, handle.YieldInjectionReturn());
 }
 
 

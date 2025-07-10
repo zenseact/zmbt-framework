@@ -89,7 +89,6 @@ bool isBinary(Keyword const& k)
     case Keyword::Flip:
     case Keyword::Eval:
     case Keyword::Try:
-    case Keyword::TryCatch:
     case Keyword::D:
         return true;
     default:
