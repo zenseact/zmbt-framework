@@ -109,7 +109,7 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
         std::uint64_t const n =  total_size - capacity;
         shrink(f, (n < fx.size()) ? f.size() - n : MinExpr);
     }
-    os << x << " | " << f <<  " |-> " << fx << '\n';
+    os << f << " $ " << x  << " = " << fx << '\n';
 }
 
 

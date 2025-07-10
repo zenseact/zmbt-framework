@@ -1120,21 +1120,21 @@ Negation at the matcher end lead to test failure, and the log message is followi
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: "((Reduce(Add) & Size) | Div | Eq(2.5E0) | Not)"
+      expected: "(Reduce(Add) & Size) | Div | Eq(2.5E0) | Not"
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
         ---
-                 ┌── [1,2] | Add |-> 3
-                 ├── [3,3] | Add |-> 6
-                 ├── [6,4] | Add |-> 10
-              ┌── [1,2,3,4] | Reduce(Add) |-> 10
-              ├── [1,2,3,4] | Size |-> 4
-           ┌── [1,2,3,4] | (Reduce(Add) & Size) |-> [10,4]
-           ├── [10,4] | Div |-> 2.5E0
-           ├── 2.5E0 | Eq(2.5E0) |-> true
-           ├── true | Not |-> false
-        □  [1,2,3,4] | ((Reduce(Add) & Size) | Div | Eq(2.5E0) | Not) |-> false
+                 ┌── Add $ [1,2] = 3
+                 ├── Add $ [3,3] = 6
+                 ├── Add $ [6,4] = 10
+              ┌── Reduce(Add) $ [1,2,3,4] = 10
+              ├── Size $ [1,2,3,4] = 4
+           ┌── (Reduce(Add) & Size) $ [1,2,3,4] = [10,4]
+           ├── Div $ [10,4] = 2.5E0
+           ├── Eq(2.5E0) $ 2.5E0 = true
+           ├── Not $ true = false
+        □  (Reduce(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.
