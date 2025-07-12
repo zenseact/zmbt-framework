@@ -19,7 +19,7 @@
 #include "zmbt/expr/exceptions.hpp"
 
 #define ASSERT(cond, msg) if (!(cond)) { return ::zmbt::lang::detail::make_error_expr(msg, keyword_to_str().c_str());}
-
+#define MAX_RECURSION_DEPTH INT32_MAX
 
 
 using V = boost::json::value;
@@ -495,34 +495,63 @@ EXPR_IMPL(Repeat)
 
 EXPR_IMPL(Recur)
 {
-    ASSERT(param.is_array(), "invalid parameter");
-    auto const& params = param.get_array();
-    ASSERT(params.size() == 2, "invalid parameter");
-    auto F = E(params.at(0));
-    std::uint64_t count = boost::json::value_to<std::uint64_t>(E(x).eval());
-    boost::json::value result {params.at(1)};
+    auto const fork_params = E(param).parameter_list();
+    ASSERT(fork_params.size() == 2, "invalid parameters, expected Fn & initial");
+    auto const initial = fork_params.front().eval();
+    auto const F = fork_params.back();
+    std::uint64_t max_recursion_depth = MAX_RECURSION_DEPTH;
 
-    for (std::uint64_t i = 0; i < count; i++)
+    auto cond = E(x);
+    if (cond.underlying().is_number())
     {
-        result = F.eval(result,context++);
+        auto const maybe_depth = boost::json::try_value_to<std::uint64_t>(cond.underlying());
+        ASSERT(maybe_depth.has_value(), "invalid parameter")
+        max_recursion_depth = maybe_depth.value();
+        cond = E{false};
+    }
+
+    boost::json::value result = initial;
+    for (std::uint64_t i = 0; i < max_recursion_depth; i++)
+    {
+        auto const next = F.eval(result,context++);
+        auto const maybe_exit = cond.eval(next);
+        if ((maybe_exit.is_bool() && maybe_exit.get_bool()) || E(next).is_error())
+        {
+            break;
+        }
+        result = next;
     }
     return result;
 }
 
 EXPR_IMPL(Unfold)
 {
-    ASSERT(param.is_array(), "invalid parameter");
-    auto const& params = param.get_array();
-    ASSERT(params.size() == 2, "invalid parameter");
-    auto F = E(params.at(0));
-    std::uint64_t count = boost::json::value_to<std::uint64_t>(E(x).eval());
-    boost::json::array result {};
-    result.reserve(count);
-    result.push_back(params.at(1));
+    auto const fork_params = E(param).parameter_list();
+    ASSERT(fork_params.size() == 2, "invalid parameters, expected Fn & initial");
+    auto const initial = fork_params.front().eval();
+    auto const F = fork_params.back();
+    std::uint64_t max_recursion_depth = MAX_RECURSION_DEPTH;
 
-    for (std::uint64_t i = 0; i < count; i++)
+    auto cond = E(x);
+    if (cond.underlying().is_number())
     {
-        result.push_back(F.eval(result.back(),context++));
+        auto const maybe_depth = boost::json::try_value_to<std::uint64_t>(cond.underlying());
+        ASSERT(maybe_depth.has_value(), "invalid parameter")
+        max_recursion_depth = maybe_depth.value();
+        cond = E{false};
+    }
+
+    boost::json::array result {};
+    result.push_back(initial);
+    for (std::uint64_t i = 0; i < max_recursion_depth; i++)
+    {
+        auto const next = F.eval(result.back(),context++);
+        auto const maybe_exit = cond.eval(next);
+        if ((maybe_exit.is_bool() && maybe_exit.get_bool()) || E(next).is_error())
+        {
+            break;
+        }
+        result.push_back(next);
     }
     return result;
 }

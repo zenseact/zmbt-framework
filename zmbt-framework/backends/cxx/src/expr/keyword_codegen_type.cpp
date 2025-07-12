@@ -185,18 +185,6 @@ bool isVariadic(Keyword const& k)
     }
 }
 
-bool isTernary(Keyword const& k)
-{
-    switch (k)
-    {
-    case Keyword::Recur:
-    case Keyword::Unfold:
-        return true;
-    default:
-        return false;
-    }
-}
-
 } // namespace detail
 } // namespace lang
 } // namespace zmbt

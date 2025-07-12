@@ -191,29 +191,18 @@ struct SignatureErr : public SignatureBase<Keyword::Err>
     /// \brief Error message and context
     Expression operator()(boost::json::string_view msg, boost::json::string_view ctx = "") const
     {
-        boost::json::object err {{"message", msg}};
-        if (!ctx.empty())
-        {
-            err["context"] = ctx;
-        }
-        return Expression(Keyword::Err, err);
+        return make_error("", msg, ctx);
     }
 
     /// \brief Error type, message, and context
     template <class T>
     Expression operator()(type_tag<T>, boost::json::string_view msg = "", boost::json::string_view ctx = "") const
     {
-        boost::json::object err {{"type", zmbt::type_name<T>()}};
-        if (!msg.empty())
-        {
-            err["message"] = msg;
-        }
-        if (!ctx.empty())
-        {
-            err["context"] = ctx;
-        }
-        return Expression(Keyword::Err, err);
+        return make_error(zmbt::type_name<T>(), msg, ctx);
     }
+
+    private:
+        Expression make_error(boost::json::string_view type, boost::json::string_view msg, boost::json::string_view ctx) const;
 };
 
 #define ZMBT_DEBUG_EXPR(f) ::zmbt::expr::Dbg(f, ZMBT_CUR_LOC)
@@ -222,16 +211,11 @@ struct SignatureDbg : public SignatureTernary<Keyword::Dbg>
 {
     using SignatureTernary<Keyword::Dbg>::SignatureTernary;
 
-    Expression operator()(Expression const& expr, Expression const& identifier) const
-    {
-        return SignatureTernary<Keyword::Dbg>::operator()(expr, identifier);
-    }
+    Expression operator()(Expression const& expr, Expression const& identifier) const;
 
-    Expression operator()(Expression const& expr) const
-    {
-        return operator()(expr, "anonymous");
-    }
+    Expression operator()(Expression const& expr) const;
 };
+
 
 } // namespace lang
 } // namespace zmbt

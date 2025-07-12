@@ -323,8 +323,7 @@ std::list<Expression> Expression::parameter_list() const
     std::list<Expression> result;
 
     auto const k = keyword();
-    bool const high_arity = detail::isVariadic(k) || detail::isTernary(k);
-    bool const expect_list = high_arity && params().is_array();
+    bool const expect_list = detail::isVariadic(k) && params().is_array();
 
     if (expect_list) {
         for (auto const& v : params().get_array()) {

@@ -528,14 +528,22 @@ std::vector<TestEvalSample> const TestSamples
     {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
     {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
 
-    {Recur(Add(1) ,  0)         ,  4                     , 4                    },
-    {Recur(Add(-1), 42)         , 41                     , 1                    },
-    {Recur(Sub(1) , 42)         , 41                     , 1                    },
-    {Recur(Pow(2) ,  2)         ,  4                     , 65536                },
+    {Recur( 0 & Add(1) )         ,  4                     , 4                   },
+    {Recur(42 & Add(-1))         , 41                     , 1                   },
+    {Recur(42 & Sub(1) )         , 41                     , 1                   },
+    {Recur( 2 & Pow(2) )         ,  4                     , 65536               },
+
+    {Unfold(0 & Add(1))         , 4                      , {0,1,2,3,4}          },
+    {Unfold(1 & Add(1))         , 4                      , {1,2,3,4,5}          },
+
+    {Recur( 4 & Add(1))         ,  Ge(12)                , 11                   },
+    {Unfold(8 & Add(1))         ,  Ge(12)                , {8,9,10,11}          },
+    {Q(Ge(12)) | Recur( 4 & Add(1)),  {}                 , 11                   },
+    {Q(Ge(12)) | Unfold(8 & Add(1)),  {}                 , {8,9,10,11}          },
 
 
-    {Unfold(Add(1), 0)          , 4                     , {0,1,2,3,4}           },
-    {Unfold(Add(1), 1)          , 4                     , {1,2,3,4,5}           },
+    {4|Recur(Q({0,0}) & ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}              },
+
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
     {All(Gt(5), Mod(2)|0)       , 7                      , false                },

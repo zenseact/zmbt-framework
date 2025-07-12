@@ -19,7 +19,6 @@ namespace detail {
 bool isConst(Keyword const& k);
 bool isHiOrd(Keyword const& k);
 bool isVariadic(Keyword const& k);
-bool isTernary(Keyword const& k);
 
 /// Keyword classifier, allows to select eval implementation
 enum class CodegenType

@@ -547,13 +547,28 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Argmax> const Argmax;
 
 /// \brief Apply recursion to parameter expr and initial value
 /// \details
-/// `n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
-extern lang::SignatureTernary<::zmbt::lang::Keyword::Recur> const Recur;
+/// Inference rules:
+/// 
+///   - `n | Recur(x & f)` $\mapsto ◯ⁿ f(x)$, or
+///   - `Q(p) | Recur(x₀ & f)` $\mapsto x_k$, where
+/// 
+///     - $x_{i+1} = f(x_i)$
+///     - $p(x_{i}) = \top \quad \forall i \le k$
+///     - $p(x_{i+1}) = \bot$ (exit condition)
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Recur> const Recur;
 
 /// \brief Put results of recursive fn call on initial value into an array
 /// \details
-/// `n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
-extern lang::SignatureTernary<::zmbt::lang::Keyword::Unfold> const Unfold;
+/// 
+/// Inference rules:
+/// 
+///   - `n | Unfold(x & f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
+///   - `Q(p) | Unfold(x₀ & f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
+/// 
+///     - $x_{i+1} = f(x_i)$
+///     - $p(x_{i}) = \top \quad \forall i \le k$
+///     - $p(x_{i+1}) = \bot$ (exit condition)
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Unfold> const Unfold;
 
 /// \brief Bind type-specific operator handler to function
 /// \details

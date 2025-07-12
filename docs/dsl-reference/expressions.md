@@ -1614,31 +1614,46 @@ Max value index by key function
 
 ### Recur
 
-*Signature*: [Ternary](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Apply recursion to parameter expr and initial value
 
-`n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
+Inference rules:
+
+  - `n | Recur(x & f)` $\mapsto ◯ⁿ f(x)$, or
+  - `Q(p) | Recur(x₀ & f)` $\mapsto x_k$, where
+
+    - $x_{i+1} = f(x_i)$
+    - $p(x_{i}) = \top \quad \forall i \le k$
+    - $p(x_{i+1}) = \bot$ (exit condition)
 
 *Examples*:
 
- * `0 | Recur(Add(1), 0)  `$\mapsto$`  3`
- * `3 | Recur(Mul(-1), 1) `$\mapsto$` -1`
+ * `0 | Recur(0 & Add(1))  `$\mapsto$`  3`
+ * `3 | Recur(1 & Mul(-1)) `$\mapsto$` -1`
 
 ### Unfold
 
-*Signature*: [Ternary](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Put results of recursive fn call on initial value into an array
 
-`n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
+
+Inference rules:
+
+  - `n | Unfold(x & f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
+  - `Q(p) | Unfold(x₀ & f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
+
+    - $x_{i+1} = f(x_i)$
+    - $p(x_{i}) = \top \quad \forall i \le k$
+    - $p(x_{i+1}) = \bot$ (exit condition)
 
 *Examples*:
 
- * `3 | Unfold(Add(1),  0) `$\mapsto$`  [0, 1, 2, 3]`
- * `3 | Unfold(Mul(-1), 1) `$\mapsto$`  [1,-1, 1,-1]`
+ * `3 | Unfold(0 & Add(1)) `$\mapsto$`  [0, 1, 2, 3]`
+ * `3 | Unfold(1 & Mul(-1)) `$\mapsto$`  [1,-1, 1,-1]`
 
 ### Op
 
