@@ -181,13 +181,17 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     {
         auto const ts = get_ts();
         std::string const tid = get_tid();
-        auto lock = Env().Lock();
-
-        captures("/+") = {
+        // TODO: use thread_local or lockfree capture cache
+        boost::json::object capture {
             {"ts", ts},
             {"tid", tid },
             {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
         };
+
+        {
+            auto lock = Env().Lock();
+            captures("/+") = capture;
+        }
 
         auto const injection = YieldInjection(ChannelKind::Args) .as_array();
         if (injection.size() != std::tuple_size<unqf_args_t>())
@@ -279,7 +283,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         {
             throw model_error("Hook %s capture error: `%s`, args: %s",
                 interface(), e.what(), json_from(args));
-            }
+        }
 
         return HookReturnImpl(type<return_t>);
     }

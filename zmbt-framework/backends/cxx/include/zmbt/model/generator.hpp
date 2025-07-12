@@ -7,6 +7,7 @@
 #ifndef ZMBT_MODEL_GENERATOR_EXPR_HPP_
 #define ZMBT_MODEL_GENERATOR_EXPR_HPP_
 
+#include <atomic>
 
 #include <boost/json.hpp>
 
@@ -15,29 +16,31 @@
 
 namespace zmbt {
 
+// Index family expression wrapper with bound atomic counter
 class Generator
 {
-    boost::json::array underlying_;
-    boost::json::object cache_;
+    std::atomic_uint64_t counter_;
+    lang::Expression expr_;
 public:
     explicit Generator(boost::json::array const& serialized);
     explicit Generator(lang::Expression const& expr);
-    boost::json::array underlying() const;
+
     bool is_noop() const;
-    boost::json::value operator()();
+
+    /// Generate value and return iteration
+    std::uint64_t operator()(boost::json::value& value);
+
+    /// Reset atomic counter
     void reset();
 
-    std::size_t counter() const;
-    boost::json::value debug(std::size_t const, lang::Expression::EvalContext const&) const;
-
-    // Counter | Expression
-    std::string prettify() const;
+    /// Get underlying expression
+    lang::Expression const& expression() const;
 
 
-    Generator(Generator&) = default;
-    Generator(Generator const&) = default;
-    Generator& operator=(Generator&) = default;
     Generator& operator=(Generator const&) = default;
+    Generator(Generator const&) = default;
+    Generator(Generator &&) = default;
+    Generator& operator=(Generator&&) = default;
     ~Generator() = default;
 
     using Shared = std::shared_ptr<Generator>;

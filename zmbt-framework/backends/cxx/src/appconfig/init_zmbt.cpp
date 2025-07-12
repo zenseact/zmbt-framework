@@ -31,7 +31,7 @@ void InitZmbt(int argc, char **argv)
 {
     fs::path executable_path(argv[0]);
 
-    std::string default_log_level = "warning";
+    std::string default_log_level = "WARNING";
     std::string default_log_sink = executable_path.filename().string();
     bool default_log_prettify = false;
 

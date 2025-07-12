@@ -10,7 +10,7 @@ TEST(RunInGtest, EnvThreadSafety)
 {
     Environment env {};
     int const kWorkers {8};
-    int const kIterations {1000};
+    int const kIterations {10000};
 
     auto test_fun = [](int x){ return x; };
     auto handle = InterfaceRecord(test_fun);

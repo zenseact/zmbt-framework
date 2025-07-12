@@ -1044,6 +1044,54 @@ As it is stated previously, the list of non-fixed pipes acts as a table header f
 1. Defined with the `Test` clause
 
 
+### Multithreading
+
+ZMBT mocks implemented with `InterfaceRecord(...).Hook(...)` calls
+are thread safe:
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(TestMultithreading)
+{
+    struct Mock {
+        int produce() const {
+            return InterfaceRecord(&Mock::produce, this).Hook();
+        }
+        void consume(int const x) {
+            return InterfaceRecord(&Mock::consume, this).Hook(x);
+        }
+    } producer, consumer;
+
+    auto const task = [&](){
+        while(true) {
+            auto const item = producer.produce();
+            if (item <= 0) break;
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            consumer.consume(item);
+        }
+    };
+
+    auto const SUT = [&](){
+        constexpr int N {8};
+        std::vector<std::thread> threads(N);
+        for(int i = 0; i < N; ++i) threads.emplace_back(task);
+        for(auto& thread: threads) {
+            if (thread.joinable())  thread.join();
+        }
+    };
+
+
+    SignalMapping("Test Blend on output")
+    .OnTrigger(SUT)
+        .At(&Mock::produce, producer).Inject(Flip(Sub(42)))
+        .At(&Mock::consume, consumer).Take(Max).Expect(42)
+        .At(&Mock::consume, consumer).CallCount().Expect(42)
+        .At(&Mock::consume, consumer).ThreadId().Expect(Card|8)
+    ;
+}
+/*
+```
+
 
 ### Fixture tasks
 
@@ -1105,7 +1153,7 @@ BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
 
     SignalMapping("SignalMapping test")
     .OnTrigger(id)
-        .At(id).Inject("1:5=="|Arange)
+        .At(id).Inject("1:5"|Arange)
         .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5) | Not) //(1)
     ;
 }

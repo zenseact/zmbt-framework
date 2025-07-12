@@ -66,9 +66,6 @@ void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::
 
 boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
-    auto lock = Env().Lock();
-    auto& inputs = env.data_->input_generators[refobj_][interface_][kind];
-
     boost::json::value result_value;
 
     if (ChannelKind::Return == kind)
@@ -84,6 +81,16 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         throw model_error("%s injection not implemented", json_from(kind));
     }
 
+    // TODO: ensure no it is closed for updates
+    // non-const - only generator atomic counters are incremented
+    auto& inputs = [&]() -> EnvironmentData::GeneratorsTable& {
+        // auto lock = env.Lock();
+        // no lock here - it runs under assumption there are no updates during test execution.
+        // TODO: split Env interface for managed and unmanaged,
+        // and close modification of managed data on client-side during test execution.
+        return env.data_->input_generators[refobj_][interface_][kind];
+    }();
+
     for (auto& record: inputs)
     {
         boost::json::string_view const record_pointer = record.first;
@@ -91,14 +98,15 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         auto const& tf = record.second.second;
         if (generator.is_noop()) continue;
 
+        boost::json::value raw_v;
         // TODO: optimize recursive expr
-        auto const raw_v = generator();
+        auto const iteration = generator(raw_v);
         auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
 
         if (lang::Expression(v).is_error())
         {
             lang::Expression::EvalContext generator_ctx {{}, lang::Expression::EvalLog::make(), 0};
-            generator.debug(generator.counter()-1, generator_ctx);
+            generator.expression().eval(iteration, generator_ctx);
 
             lang::Expression::EvalContext transform_ctx {{}, lang::Expression::EvalLog::make(), 0};
             if (not tf.is_noop())
@@ -156,7 +164,6 @@ boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
     auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
     if (idx >= N)
     {
-        // TODO: format err msg
         throw environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N);
     }
     return captures.get_or_create_array("/%d/args", idx);
@@ -187,7 +194,6 @@ boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcal
     auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
     if (idx >= N)
     {
-        // TODO: format err msg
         throw environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N);
     }
     return captures.at("/%d/return", idx);
