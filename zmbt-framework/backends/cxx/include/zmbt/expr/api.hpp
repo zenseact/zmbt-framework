@@ -585,8 +585,8 @@ extern lang::SignatureOp const Op;
 /// \brief Alias for Op
 extern lang::SignatureOp const Overload;
 
-/// \brief !not implemented! bind design-time parameters
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Bind> const Bind;
+/// \brief Bind design-time parameters to function.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;

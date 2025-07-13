@@ -1411,7 +1411,7 @@ Flip(Q) is equivalent to Id.
 
 *Examples*:
 
- * `13 | C(42) `$\mapsto$` 42`
+ * `null | C(42) `$\mapsto$` 42`
 
 ### Cast
 
@@ -1679,12 +1679,16 @@ as operator type, unless f is constant or boolean expression.
 
 ### Bind
 
-*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-!not implemented! bind design-time parameters
+Bind design-time parameters to function.
 
 
+*Examples*:
+
+ * `42 & Q(Add) | Bind `$\mapsto$` Add(42)`
+ * `42 | Bind(F) | Bind(G) | Bind(H) `$\mapsto$`  H(G(F(42)))`
 
 ### Any
 

@@ -28,7 +28,6 @@ using zmbt::lang::Expression;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Bind,
     Keyword::Void,
     Keyword::Find,
     Keyword::FindPtr,
@@ -625,6 +624,28 @@ std::vector<TestEvalSample> const TestSamples
     {Cast(type<Foo>)            , int(Foo::Bar)         , "Bar"                 },
     {Cast(type<Foo>)            , int(Foo::Baz)         , "Baz"                 },
 
+
+    {42 | Bind(Add)             , {}                    , Add(42)               },
+
+    {Q(Add(1)) & Id | Bind(Compose)      , 42           , 42 | Add(1)           },
+    {Q(Add(1)) & Id | Bind(Compose)|Eval , 42           , 43                    },
+
+    {42 | Q(Add(1)) & Id | Bind(Compose)      , {}      , 42 | Add(1)           },
+    {42 | Q(Add(1)) & Id | Bind(Compose)|Eval , {}      , 43                    },
+
+    { (Bind(Q) | ToList) & Id | Bind          , Fmt     , Fmt(Fmt)              },
+    { Q(Fmt) | (Bind(Q) | ToList) & Id | Bind , {}      , Fmt(Fmt)              },
+
+    {   // bind chain
+        42 & Q(Add(1)) & Q(Sub(1)) & Q(Mul(1)) | Reverse | Bind(Compose)
+        , {}
+        , 42 | Add(1) | Sub(1) | Mul(1)                                         },
+
+    { Q(Fmt) | Bind(Q) | Bind(Q), {}, Q(Q(Fmt))                                 },
+
+    { 3 | Recur(Q(Fmt) & Bind(Q)), {}                   , Q(Q(Q(Fmt)))          },
+
+
     {Eval                       , {}                    , {}                    },
     {Eval                       , 42                    , 42                    },
     {Eval(42)                   , Sub(2)                , 40                    },
@@ -690,8 +711,11 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     try
     {
         BOOST_TEST_INFO("Expression: " << sample.expr.prettify());
-        BOOST_TEST_INFO("Eval log: \n" << context.log);
+        BOOST_TEST_INFO("Input: " << Expression(sample.x).prettify());
+        BOOST_TEST_INFO("Expected: " << Expression(sample.expected).prettify());
         auto const result = sample.expr.eval(sample.x, context);
+        BOOST_TEST_INFO("Observed: " << Expression(result).prettify());
+        BOOST_TEST_INFO("Eval log: \n" << context.log);
         BOOST_CHECK_EQUAL(result, sample.expected);
 
         V js = json_from(sample.expr);
@@ -959,6 +983,4 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
     // no infix sugar for singleton Compose and Fork
     TEST_PRETIFY(Compose(Fork(All)))
-
-
 }

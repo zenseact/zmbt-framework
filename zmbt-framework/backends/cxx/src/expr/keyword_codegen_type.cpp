@@ -173,7 +173,6 @@ bool isVariadic(Keyword const& k)
     switch (k)
     {
     case Keyword::Fmt:
-    case Keyword::Bind:
     case Keyword::Any:
     case Keyword::All:
     case Keyword::Saturate:

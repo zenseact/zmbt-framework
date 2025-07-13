@@ -1318,6 +1318,14 @@ EXPR_IMPL(Prms)
     return zmbt::lang::Expression(x).params();
 }
 
+EXPR_IMPL(Bind)
+{
+    static_cast<void>(context);
+    auto const e = zmbt::lang::Expression(param);
+    ASSERT(not e.has_params(), "function has parameters")
+    return zmbt::lang::Expression(e.keyword(), x);
+}
+
 } // namespace
 
 
@@ -1453,6 +1461,7 @@ try
         case Keyword::Op:       return eval_impl<Keyword::Op>()      (*x_ptr, *param_ptr, context);
         case Keyword::Kwrd:     return eval_impl<Keyword::Kwrd>()    (*x_ptr, *param_ptr, context);
         case Keyword::Prms:     return eval_impl<Keyword::Prms>()    (*x_ptr, *param_ptr, context);
+        case Keyword::Bind:     return eval_impl<Keyword::Bind>()    (*x_ptr, *param_ptr, context);
 
         default:
         {
