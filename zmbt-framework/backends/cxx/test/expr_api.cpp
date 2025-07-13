@@ -984,3 +984,86 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     // no infix sugar for singleton Compose and Fork
     TEST_PRETIFY(Compose(Fork(All)))
 }
+
+// EXPERIMENTAL API DRAFTS
+
+struct V_
+{
+    using Id = char const*;
+    Id id_;
+    mutable std::shared_ptr<std::map<Id, Expression>> gmap_;
+
+    V_(char const* id) : id_{id} {
+        static std::shared_ptr<std::map<Id, Expression>> gmap_instance;
+        gmap_ = gmap_instance;
+        if (not gmap_)
+        {
+            gmap_ = std::make_shared<std::map<Id, Expression>>();
+            gmap_instance = gmap_;
+        }
+    }
+
+    V_() : V_({}) {}
+
+    Expression value() const
+    {
+        return gmap_->count(id_) ? gmap_->at(id_) : format("${%s}", id_);
+    }
+
+
+    V_ operator[](char const* id) const
+    {
+        return V_(id);
+    }
+
+    V_& operator=(Expression&& e)
+    {
+        (*gmap_)[id_] = e;
+        return *this;
+    }
+    Expression operator,(Expression&& e) const
+    {
+        return e;
+    }
+
+    Expression operator,(V_ const& l) const
+    {
+        return l.value();
+    }
+
+    operator Expression() const
+    {
+        return value();
+    }
+
+    Expression operator&(Expression const& e) const
+    {
+        return value() & e;
+    }
+
+    Expression operator|(Expression const& e) const
+    {
+        return value() | e;
+    }
+
+};
+
+V_ const VAR;
+
+Expression operator""_JSON(char const* s, size_t)
+{
+    return Expression(boost::json::parse(s));
+}
+
+BOOST_AUTO_TEST_CASE(TestVariable)
+{
+    // set var inline, use to create anon fn
+    auto const f = Try((VAR["lol"] = Add(1), VAR["lol"] & VAR["lol"]));
+    BOOST_TEST_INFO(f.prettify());
+    BOOST_CHECK_EQUAL(f, Try(Add(1) & Add(1)));
+
+    // unset var + json literal
+    auto const h = (VAR["kek"] | Q("[1,2,3]"_JSON) );
+    BOOST_TEST_INFO(h.prettify());
+    BOOST_CHECK_EQUAL(h, "${kek}" | Q({1,2,3}));
+}
