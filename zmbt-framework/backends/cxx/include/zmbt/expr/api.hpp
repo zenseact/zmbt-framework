@@ -479,10 +479,6 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Q;
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const C;
 /// \brief Alias for Q
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Const;
-/// \brief Alias for Q
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Let;
-/// \brief Alias for Q
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Lift;
 
 /// \brief Reserialize decorated type as decorator
 extern lang::SignatureCast const Cast;

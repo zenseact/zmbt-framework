@@ -1047,7 +1047,7 @@ keyword_groups:
 
 
       - name: Q
-        aliases: [ C, Const, Let, Lift ]
+        aliases: [ C, Const ]
         brief: Quote parameter, similar to Lisp quotation.
         details: |-
           Quotation lifts any parameter to constant, s.t.

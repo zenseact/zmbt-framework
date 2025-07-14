@@ -109,10 +109,10 @@ std::vector<TestEvalSample> const TestSamples
     {Ne                         , {42, 42}              , false                 },
     {Ne                         , {13, 42}              , true                  },
 
-    {C(42)                      , 13                    , 42                    },
-    {C                          , 13                    , nullptr               },
-    {C(42)                      , nullptr               , 42                    },
-    {Let(42)                    , nullptr               , 42                    },
+    {Q(42)                      , 13                    , 42                    },
+    {Q                          , 13                    , nullptr               },
+    {Q(42)                      , nullptr               , 42                    },
+    {Q(42)                      , nullptr               , 42                    },
 
     {Approx(42)                 , 42                    , true                  },
     {Approx(42)                 , 42.0 + 1e-09          , true                  },
@@ -440,7 +440,7 @@ std::vector<TestEvalSample> const TestSamples
     {3|Add(2)                   , {}                    , 5                     },
     {3|Pow(2)                   , {}                    , 9                     },
 
-    // eval operator yields literal which interpreted as C(x)
+    // eval operator yields literal which interpreted as Q(x)
     {2|Add(-1)                  , {}                    , 1                     },
 
     {Repeat(4)                  ,  1                    , {1,1,1,1}             },
@@ -601,11 +601,11 @@ std::vector<TestEvalSample> const TestSamples
     {Keyword::Noop              , nullptr                , true                 },
 
     // Binary
-    {Serialize                  , C(Cat({Keyword::At}))  , R"({":Cat":[":At"]})"},
-    {Serialize                  , C(Cat({42, Keyword::At, precise<float>()}))
+    {Serialize                  , Q(Cat({Keyword::At}))  , R"({":Cat":[":At"]})"},
+    {Serialize                  , Q(Cat({42, Keyword::At, precise<float>()}))
                                 , R"({":Cat":[42,":At","0x0p+0"]})"             },
     // HiOrd
-    {Serialize                  , C(Max({Keyword::At}))  , R"({":Max":[":At"]})"},
+    {Serialize                  , Q(Max({Keyword::At}))  , R"({":Max":[":At"]})"},
 
     {2|Add(1|Add(1))            , {}                    , 4                     },
 

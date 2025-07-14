@@ -178,30 +178,6 @@ struct Expression::json_ctor_params
     boost::json::value underlying;
     Keyword keyword;
 
-
-    json_ctor_params(boost::json::value&& expr)
-    {
-
-        if (expr.is_object() && expr.get_object().size() == 1)
-        {
-            keyword = dejsonize<Keyword>(expr.get_object().cbegin()->key());
-        }
-        else
-        {
-            keyword = dejsonize<Keyword>(expr);
-        }
-
-        if (keyword != Keyword::Undefined)
-        {
-            underlying = std::move(expr);
-        }
-        else
-        {
-            keyword = Keyword::Literal;
-            underlying = expr;
-        }
-    }
-
     json_ctor_params(boost::json::value const& expr)
     {
 
@@ -238,7 +214,7 @@ Expression::Expression()
 }
 
 Expression::Expression(boost::json::value const& expr)
-    : Expression(json_ctor_params{std::move(expr)})
+    : Expression(json_ctor_params{expr})
 {
 }
 

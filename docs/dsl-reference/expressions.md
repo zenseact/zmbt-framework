@@ -1396,7 +1396,7 @@ Equivalent to Flip(At(...))
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: C, Const, Let, Lift
+*Aliases*: C, Const
 
 Quote parameter, similar to lisp quotation.
 
