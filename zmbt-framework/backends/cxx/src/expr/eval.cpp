@@ -5,6 +5,7 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+
 #include "zmbt/logging.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
@@ -26,7 +27,7 @@ static V const kNullValue = nullptr;
 static V const kDefaultKeyFn = E(Keyword::Id);
 
 // TODO: handle it in codegen
-void set_default_param(Keyword const& keyword, V const*& param)
+bool set_default_param(Keyword const& keyword, V &param)
 {
     switch(keyword)
     {
@@ -36,7 +37,7 @@ void set_default_param(Keyword const& keyword, V const*& param)
     case Keyword::Argmin:
     case Keyword::Argmax:
         {
-            param = &kDefaultKeyFn;
+            param = kDefaultKeyFn;
             break;
         }
     default:
@@ -44,6 +45,7 @@ void set_default_param(Keyword const& keyword, V const*& param)
             break;
         }
     }
+    return nullptr != param;
 }
 
 }
@@ -51,28 +53,29 @@ void set_default_param(Keyword const& keyword, V const*& param)
 namespace zmbt {
 namespace lang {
 
-void Expression::handle_binary_args(V const& x, V const*& lhs, V const*& rhs) const
+void Expression::handle_binary_args(V const& x, V &lhs, V &rhs) const
 {
-    if (has_params())
+    if (has_subexpr())
     {
-        lhs = &x;
-        rhs = params_ptr_;
+        lhs = x;
+        rhs = subexpr().to_json();
     }
-    else if (set_default_param(keyword(), rhs), rhs != nullptr)
+    else if (set_default_param(keyword(), rhs))
     {
-        lhs = &x;
+        lhs = x;
     }
     else // treat x as argument pair
     {
-        if (x.is_array() && x.get_array().size() == 2)
+        auto const if_array = x.if_array();
+        if (if_array && if_array->size() == 2)
         {
-            lhs = x.get_array().cbegin();
-            rhs = lhs + 1;
+            lhs = if_array->front();
+            rhs = if_array->back();
         }
         else
         {
-            lhs = &x;
-            rhs = &kNullValue;
+            lhs = x;
+            rhs = kNullValue;
         }
     }
 }
@@ -85,18 +88,23 @@ try
 
     boost::json::value result {};
 
-    if(is_literal())
+    if(is_literal() || is_preproc())
     {
-        result = underlying();
+        result = encoding().data.at(0);
     }
     else if (is(Keyword::Q))
     {
-        result = params();
+        auto const pl = parameter_list();
+        if (pl.size() > 1)
+        {
+            return detail::make_error_expr("corrupted data", keyword_to_str());
+        }
+        result = pl.empty() ? nullptr : boost::json::value_from(pl.front());
     }
     else if (is(Keyword::Id))
     {
         result = x;
-        ctx.log.push(underlying(), x, result, ctx.depth);
+        ctx.log.push(*this, x, result, ctx.depth);
     }
     else {
         CodegenType const classifier = getCodegenType(keyword());
@@ -109,12 +117,23 @@ try
             case CodegenType::None:
             default:
             {
-                result = is_hiord() ? eval_HiOrd(x, ctx) : eval_Special(x, ctx);
-                break;
 
+                if (is_variadic())
+                {
+                    result = eval_Variadic(x, ctx);
+                }
+                else if (is_hiord())
+                {
+                    result = eval_HiOrd(x, ctx);
+                }
+                else
+                {
+                    result = eval_Special(x, ctx);
+                }
+                break;
             }
         }
-        ctx.log.push(underlying(),x, result, ctx.depth);
+        ctx.log.push(*this, x, result, ctx.depth);
     }
     return result;
 }

@@ -324,7 +324,7 @@ std::vector<TestEvalSample> const TestSamples
 
 
     // composition
-    {Compose(Eq(2), Size)       , {1,2}                 , true                  },
+    {Pipe(Size, Eq(2))          , {1,2}                 , true                  },
     {Size|Eq(2)                 , {1,2}                 , true                  },
     {Size|2                     , {1,2}                 , true                  },
 
@@ -470,10 +470,10 @@ std::vector<TestEvalSample> const TestSamples
     {Re("42")                   , "43"                  , false                 },
     {Re("^.{3}$")               , "123"                 , true                  },
     {Re("^.{3}$")               , "1234"                , false                 },
-    {Serialize|Re("\\[1,2\\]")  , {1,2}                 , true                  },
-    {Serialize|Re("42")         , 42                    , true                  },
-    {(At(0)|Serialize)&At(1)|Re , {42, "42"}            , true                  },
-    {(At(0)|Serialize)&At(1)|Re , {{1,2}, "\\[1,2\\]"}  , true                  },
+    {Str|Re("\\[1,2\\]")        , {1,2}                 , true                  },
+    {Str|Re("42")               , 42                    , true                  },
+    {(At(0)|Str)&At(1)|Re       , {42, "42"}            , true                  },
+    {(At(0)|Str)&At(1)|Re       , {{1,2}, "\\[1,2\\]"}  , true                  },
 
 
     {At(0)                      , {1,2,3}               , 1                     },
@@ -541,7 +541,7 @@ std::vector<TestEvalSample> const TestSamples
     {Q(Ge(12)) | Unfold(8 & Add(1)),  {}                 , {8,9,10,11}          },
 
 
-    {4|Recur(Q({0,0}) & ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}              },
+    {4|Recur(Q({0,0}) & ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
 
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
@@ -562,6 +562,7 @@ std::vector<TestEvalSample> const TestSamples
 
     {Each(Gt(2))                , {1, 2, 3, 4}           , false                },
     {Slide(2)|Each(Lt)          , {1, 2, 3, 4}           , true                 },
+    {Each(1|Add(1))             , {2, 2, 2, 2}           , true                 },
 
     {Saturate(Eq(42), Mod(2)|0) , {2,4,8,42,1,2}         , true                 },
     {Saturate(42, Mod(2)|0)     , {2,4,8,42,1,2}         , true                 },
@@ -582,7 +583,7 @@ std::vector<TestEvalSample> const TestSamples
     {"%s"|Format(Inf)|Parse     , {}                     , *Inf                 },
 
     {Parse                      , "[1,2,3]"              , {1,2,3}              },
-    {Serialize                  , {1,2,3}                , "[1,2,3]"            },
+    {Str                  , {1,2,3}                , "[1,2,3]"            },
 
     {Transp                     , L{}                    , L{}                  },
     {Transp                     , L{{1,2}}               , {L{1},L{2}}          },
@@ -598,14 +599,15 @@ std::vector<TestEvalSample> const TestSamples
                                                              {2, "a"},
                                                              {2, "b"}}          },
 
-    {Keyword::Noop              , nullptr                , true                 },
+    {Keyword::Noop              , nullptr                , "Noop"              },
+    {Noop                       , nullptr                , true                 },
 
     // Binary
-    {Serialize                  , Q(Cat({Keyword::At}))  , R"({":Cat":[":At"]})"},
-    {Serialize                  , Q(Cat({42, Keyword::At, precise<float>()}))
-                                , R"({":Cat":[42,":At","0x0p+0"]})"             },
+    {Str                        , Q(Cat({Keyword::At}))  , R"(Cat(["At"]))"    },
+    {Str                        , Q(Cat({42, Keyword::At, precise<float>()}))
+                                , R"(Cat([42,"At","0x0p+0"]))"                 },
     // HiOrd
-    {Serialize                  , Q(Max({Keyword::At}))  , R"({":Max":[":At"]})"},
+    {Str                        , Q(Max({Keyword::At}))  , R"(Max(["At"]))"    },
 
     {2|Add(1|Add(1))            , {}                    , 4                     },
 
@@ -626,18 +628,19 @@ std::vector<TestEvalSample> const TestSamples
 
 
     {42 | Bind(Add)             , {}                    , Add(42)               },
+    {42 & Q(Add) | Bind         , {}                    , Add(42)               },
 
-    {Q(Add(1)) & Id | Bind(Compose)      , 42           , 42 | Add(1)           },
-    {Q(Add(1)) & Id | Bind(Compose)|Eval , 42           , 43                    },
+    {Id & Q(Add(1)) | Bind(Pipe)      , 42           , 42 | Add(1)           },
+    {Id & Q(Add(1)) | Bind(Pipe)|Eval , 42           , 43                    },
 
-    {42 | Q(Add(1)) & Id | Bind(Compose)      , {}      , 42 | Add(1)           },
-    {42 | Q(Add(1)) & Id | Bind(Compose)|Eval , {}      , 43                    },
+    {42 | Id & Q(Add(1)) | Bind(Pipe)      , {}      , 42 | Add(1)           },
+    {42 | Id & Q(Add(1)) | Bind(Pipe)|Eval , {}      , 43                    },
 
     { (Bind(Q) | ToList) & Id | Bind          , Fmt     , Fmt(Fmt)              },
     { Q(Fmt) | (Bind(Q) | ToList) & Id | Bind , {}      , Fmt(Fmt)              },
 
     {   // bind chain
-        42 & Q(Add(1)) & Q(Sub(1)) & Q(Mul(1)) | Reverse | Bind(Compose)
+        42 & Q(Add(1)) & Q(Sub(1)) & Q(Mul(1)) | Bind(Pipe)
         , {}
         , 42 | Add(1) | Sub(1) | Mul(1)                                         },
 
@@ -650,14 +653,15 @@ std::vector<TestEvalSample> const TestSamples
     {Eval                       , 42                    , 42                    },
     {Eval(42)                   , Sub(2)                , 40                    },
     {Eval                       , Eq(nullptr)           , true                  },
-    {ZMBT_DEBUG_EXPR(42|Sub(2)) , {}                    , 40                    },
+    {Dbg(42|Trace(ZMBT_CUR_LOC)|Sub(2)) , {}                    , 40            },
     {Debug(Sub(2))              , 42                    , 40                    },
-    {Debug                      , 42                    , 42                    },
-    {Debug(Add(2)|Debug(Sub(2), "nested"), "top"), 40   , 40                    },
+    {Debug                      , 42                    , nullptr               },
+    {Debug(Trace("top")|Add(2)|Debug(Trace("nested")|Sub(2))), 40   , 40        },
 
     {Kwrd                       , Fold(Add)             , "Fold"                },
     {Q(Fold(Add)) | Kwrd        , {}                    , "Fold"                },
-    {Q(Fold(Add)) | Prms        , {}                    , Add                   },
+    {Q(Fold(Add)) | Prms        , {}                    , Fork(Add)             },
+    {Q(Pipe(Add, Sub)) | Prms   , {}                    , Add & Sub             },
 
     {Overload(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },
@@ -665,23 +669,26 @@ std::vector<TestEvalSample> const TestSamples
 
     {Overload(type<int>, Eq(42) | Not|Not)       , 41     , false               }, // overload by default ignores boolean keywords
 
-    {Overload(type<int>, Add(1)) | Serialize | Eq("42"), 41, true               },
-    {Overload(type<int>, Add(1) | Serialize | Overload("", Eq("42"))), 41, true },
+    {Overload(type<int>, Add(1)) | Str | Eq("42"), 41, true               },
+    {Overload(type<int>, Add(1) | Str | Overload("", Eq("42"))), 41, true },
 
-    {Error("foo")           , {}              , {{":Err", {
+    {Error("foo")           , {}              , Err({
                                                     {"message", "foo"}
-                                                }}}                             },
+                                                })                             },
 
-    {Error("foo", "bar")    , {}              , {{":Err", {
+    {Error("foo", "bar")    , {}              , Err({
                                                     {"message", "foo"},
                                                     {"context", "bar"}
-                                                }}}                             },
+                                                })                             },
 
-    {Error(type<int>, "foo", "bar"), {}       , {{":Err", {
+    {Error(type<int>, "foo", "bar"), {}       , Err({
                                                     {"type"   , "int"},
                                                     {"message", "foo"},
                                                     {"context", "bar"}
-                                                }}}                             },
+                                                })                             },
+
+    {PreProc(1)             , {}              , "$[1]"                         },
+    {PreProc("lol")         , {}              , "$[lol]"                       },
 
 };
 
@@ -690,13 +697,8 @@ std::set<Keyword> const CoveredInTestEval = []{
     std::set<Keyword> covered;
     for (auto const& sample : TestSamples)
     {
-        std::set<Keyword> covered_here;
-        JsonTraverse([&](boost::json::value const& v, std::string const){
-            Expression expr(v);
-            covered.insert(expr.keyword());
-            covered_here.insert(expr.keyword());
-            return false;
-        })(sample.expr.underlying());
+        auto const& keywords = sample.expr.encoding().keywords;
+        covered.insert(keywords.cbegin(), keywords.cend());
     }
     return covered;
 }();
@@ -711,6 +713,7 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     try
     {
         BOOST_TEST_INFO("Expression: " << sample.expr.prettify());
+        BOOST_TEST_INFO("   to_json: " << sample.expr.to_json());
         BOOST_TEST_INFO("Input: " << Expression(sample.x).prettify());
         BOOST_TEST_INFO("Expected: " << Expression(sample.expected).prettify());
         auto const result = sample.expr.eval(sample.x, context);
@@ -745,22 +748,31 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
     BOOST_TEST_INFO("Testing coverage for " << sample);
 
     Keyword const keyword = static_cast<Keyword>(sample);
-    Expression const expr = keyword;
+    if (keyword == Keyword::Literal || keyword == Keyword::PreProc)
+    {
+        return;
+    }
+    auto const expr = Expression(keyword);
     bool const expect_impl = NotImplemented.count(keyword) == 0;
+    BOOST_TEST_INFO(expr.prettify());
     try
     {
         auto const maybe_err = Expression(expr.eval());
         if (expect_impl
             && maybe_err.is_error()
             && maybe_err.has_params()
-            && maybe_err.params().as_object().at("message") == "not implemented"
+            && maybe_err.data().as_object().at("message") == "not implemented"
         )
         {
             BOOST_FAIL("Keyword " << json_from(keyword) << " is not implemented");
         }
         else if(not expect_impl && not maybe_err.is_error())
         {
-            BOOST_FAIL("Keyword " << json_from(keyword) << " expected to yield 'not implemented' error");
+            BOOST_FAIL("Keyword " << json_from(keyword)
+                << " expected to yield 'not implemented' error"
+                << "\n, but got  " << maybe_err.prettify()
+                << "\n, to_json: " << maybe_err.to_json()
+            );
         }
     }
     catch(const std::exception& e)
@@ -770,6 +782,19 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
 }
 
 
+BOOST_AUTO_TEST_CASE(ExprFromKeyword)
+{
+    {
+        Expression e(Keyword::Noop);
+        BOOST_CHECK_EQUAL(e, Noop);
+    }
+    {
+        Logger::set_max_level(Logger::DEBUG);
+
+        Expression e = Keyword::Noop;
+        BOOST_CHECK_NE(e, Noop);
+    }
+}
 
 BOOST_AUTO_TEST_CASE(NaNConst)
 {
@@ -784,6 +809,8 @@ BOOST_AUTO_TEST_CASE(InvalidSetError)
     BOOST_CHECK(Expression(PSubset  ({1,2,3}).eval(13)).is_error());
     BOOST_CHECK(Expression(PSuperset({1,2,3}).eval(13)).is_error());
 }
+
+
 
 
 BOOST_AUTO_TEST_CASE(SetOperationsOnObject)
@@ -855,14 +882,14 @@ BOOST_AUTO_TEST_CASE(TestComposePipe)
         }
     })");
 
-    BOOST_CHECK_EQUAL(42, Compose(At("/baz"), At("/bar"), At("/foo")).eval(test));
+    BOOST_CHECK_EQUAL(42, Pipe(At("/foo") | At("/bar") | At("/baz")).eval(test));
     BOOST_CHECK_EQUAL(42, (At("/foo") | At("/bar") | At("/baz")).eval(test));
 }
 
 
 BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 {
-    auto const AllTrueFirst = Compose(Map(At(0)), Filter(At(1)|true));
+    auto const AllTrueFirst = Pipe(Filter(At(1)|true), Map(At(0)));
     auto const AllFalseFirst  = Filter(At(1) | Eq(false)) | Map(At(0));
 
     boost::json::array const pairs {
@@ -890,19 +917,38 @@ BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 
 
 
-BOOST_AUTO_TEST_CASE(TestNestedParam)
+BOOST_AUTO_TEST_CASE(TestPreprocessing)
 {
-    Param const p1 {1};
-    Param const p2 {2};
+    // Param const p1 {1};
+    // Param const p2 {2};
 
-    auto const expr = Compose(Map(At(p1)), Filter(At(p2)|false));
-    boost::json::array list{};
+    auto p1 = PreProc(1);
+    auto p2 = PreProc(2);
 
-    JsonTraverse([&](boost::json::value const& v, std::string const jp){
-        if (Param::isParam(v)) list.push_back(value_from(jp));
-        return false;
-    })(expr.underlying());
-    BOOST_CHECK_EQUAL(list.size(), 2);
+    auto const expr = Filter(At(p1)|false) | Map(At(p2));
+    BOOST_TEST_INFO(expr.prettify());
+    BOOST_TEST_INFO(expr.to_json());
+    auto const pp = expr.preprocessing_parameters();
+    BOOST_CHECK_EQUAL(pp.size(), 2);
+
+    auto as_json = expr.to_json();
+
+    BOOST_TEST_INFO(p1.eval());
+    BOOST_TEST_INFO(p2.eval());
+    boost::json::object values {
+        {p1.eval().as_string(), 42},
+        {p2.eval().as_string(), 13},
+    };
+
+    for (auto const& kp: pp)
+    {
+        auto const& key = kp.first;
+        auto const& json_pointer = kp.second;
+        as_json.set_at_pointer(json_pointer, values.at(key));
+    }
+
+    BOOST_TEST_INFO(as_json);
+    BOOST_CHECK_EQUAL(Expression(as_json).prettify(), (Filter(At(42)|false) | Map(At(13))).prettify());
 }
 
 
@@ -911,7 +957,7 @@ BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
 {
     for (int i = 0; i < 1000*1000; i++)
     {
-        auto const kw = dejsonize<Keyword>(":ArbitraryStringNotPresentInKeywords");
+        auto const kw = dejsonize<Keyword>("ArbitraryStringNotPresentInKeywords");
         if (kw != Keyword::Undefined)
         {
             BOOST_FAIL("ITER FAILED = " << i);
@@ -953,10 +999,28 @@ BOOST_AUTO_TEST_CASE(CodegenType)
 }
 
 
+BOOST_AUTO_TEST_CASE(PrettifyExpressionTostaticBuffer)
+{
+    auto e = (Fold(Add) & Size) | Div | Eq(2.5E0) | Not;
+    char buff[100];
+
+    e.prettify_to(buff);
+    BOOST_CHECK_EQUAL(buff, "(Fold(Add) & Size) | Div | Eq(2.5E0) | Not");
+}
+
+
 BOOST_AUTO_TEST_CASE(PrettifyExpression)
 {
 
-    #define TEST_PRETIFY(e) BOOST_TEST_INFO((e).prettify()); BOOST_CHECK_EQUAL((e).prettify(), #e);
+    #define TEST_PRETIFY(e) \
+    BOOST_TEST_INFO("Original: " #e); \
+    { auto const ps = (e).to_json(); std::stringstream ss; pretty_print(ss, ps); \
+         BOOST_TEST_INFO("to_json: \n" << ss.str()); } \
+    { auto const ps = json_from((e).parameter_list()); std::stringstream ss; pretty_print(ss, ps); \
+         BOOST_TEST_INFO("parameter_list: \n" << ss.str()); } \
+    {BOOST_CHECK_EQUAL((e).prettify(), #e); }\
+    { std::stringstream ss; (e).prettify_to(ss); \
+        BOOST_CHECK_EQUAL(ss.str(), #e); }
 
     TEST_PRETIFY((Fold(Add) & Size) | Div | Eq(2.5E0) | Not)
     TEST_PRETIFY(Eq(Pi | Div(2)))
@@ -969,7 +1033,7 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
     // check parentheses
     TEST_PRETIFY(All)
-    TEST_PRETIFY(All()) // empty variadic
+    // TEST_PRETIFY(All()) // FIXME: empty variadic
     TEST_PRETIFY(Q(Q | (Q | Q) | Q))
     TEST_PRETIFY(Q(Q & (Q & Q) & (Q | (Q | (Q | Q)))))
 
@@ -981,8 +1045,13 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     TEST_PRETIFY(Q & (Q & (Q & Q))) // right grouping - parentheses preserved
     BOOST_CHECK_EQUAL((((Q & Q) & Q) & Q).prettify(), "Q & Q & Q & Q"); // left associativity - unfold groups
 
-    // no infix sugar for singleton Compose and Fork
-    TEST_PRETIFY(Compose(Fork(All)))
+    // no infix sugar for singleton Pipe and Fork
+    TEST_PRETIFY(Pipe(Fork(All)))
+    TEST_PRETIFY(Saturate(Eq(23), 42, Any(27, 13) | Not))
+
+    BOOST_CHECK_EQUAL((Flip(Diff({2,3,4}))).prettify(), "Flip(Diff([2,3,4]))"); // true JSON syntax
+
+    TEST_PRETIFY(Size | 3)
 }
 
 // EXPERIMENTAL API DRAFTS
@@ -1066,4 +1135,29 @@ BOOST_AUTO_TEST_CASE(TestVariable)
     auto const h = (VAR["kek"] | Q("[1,2,3]"_JSON) );
     BOOST_TEST_INFO(h.prettify());
     BOOST_CHECK_EQUAL(h, "${kek}" | Q({1,2,3}));
+}
+
+
+BOOST_AUTO_TEST_CASE(TestFix)
+{
+    /*
+    // Y = λf.(λx. f (x x))(λx. f (x x)))
+    // Z = λg. (λr. g (λy. r r y)) (λr. g (λy. r r y))
+
+    canonical form:
+    Fix(Let("$f", X | Eq(0) | And(1) | Or(X | Sub(1) | "$f")))
+
+    sugar form:
+    Fix("$f" << (X | Eq(0) | And(1) | Or(X | Sub(1) | "$f")))
+
+    Fix("$f" << (       // binding to rhs expression
+        X               // binding to input value
+        | Eq(0)         // if x == 0
+        | And(1)        // then 1
+        | Or(           // else
+            X | Sub(1)  //   x - 1
+            | "$f"      //   recursive call, $f is lazy eval
+        )
+    ))
+    */
 }

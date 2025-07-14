@@ -74,20 +74,8 @@ Expression SignatureErr::make_error(boost::json::string_view type, boost::json::
     {
         err["context"] = ctx;
     }
-    return Expression(Keyword::Err, err);
+    return Expression(Expression::encodeNested(Keyword::Err, {err}));
 }
-
-
-Expression SignatureDbg::operator()(Expression const& expr, Expression const& identifier) const
-{
-    return SignatureTernary<Keyword::Dbg>::operator()(expr, identifier);
-}
-
-Expression SignatureDbg::operator()(Expression const& expr) const
-{
-    return operator()(expr, "anonymous");
-}
-
 
 } // namespace lang
 } // namespace zmbt

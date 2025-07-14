@@ -21,10 +21,6 @@
 
 #include "zmbt/reflect.hpp"
 
-#ifndef ZMBT_KEYWORD_PREFIX
-    #define ZMBT_KEYWORD_PREFIX ":"
-#endif
-
 
 namespace zmbt {
 namespace lang {
@@ -341,9 +337,6 @@ enum class Keyword
     /// Lookup
     Lookup,
 
-    /// Q
-    Q,
-
     /// Cast
     Cast,
 
@@ -410,8 +403,8 @@ enum class Keyword
     /// Saturate
     Saturate,
 
-    /// Compose
-    Compose,
+    /// Pipe
+    Pipe,
 
     /// Fork
     Fork,
@@ -434,11 +427,20 @@ enum class Keyword
     /// Prms
     Prms,
 
+    /// Q
+    Q,
+
     /// D
     D,
 
     /// Err
     Err,
+
+    /// Trace
+    Trace,
+
+    /// PreProc
+    PreProc,
 
     _count
 };

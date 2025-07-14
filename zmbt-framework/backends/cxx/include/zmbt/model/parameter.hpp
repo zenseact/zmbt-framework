@@ -4,8 +4,8 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_CORE_PARAMETER_HPP_
-#define ZMBT_CORE_PARAMETER_HPP_
+#ifndef ZMBT_MODEL_PARAMETER_HPP_
+#define ZMBT_MODEL_PARAMETER_HPP_
 
 #include <boost/json.hpp>
 #include <zmbt/expr.hpp>

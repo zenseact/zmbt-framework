@@ -464,22 +464,6 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Del> const Delete;
 /// Equivalent to Flip(At(...))
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 
-/// \brief Quote parameter, similar to lisp quotation.
-/// \details
-/// Quotation lifts any parameter to constant, s.t.
-/// produced expression will return the design-time parameter
-/// on evaluation, ignoring input. If evaluable expression
-/// is passed, it is returned unevaluated.
-/// Unlike plain literals which can be treated
-/// as predicate matchers in certain context, Q(x) is always
-/// a constant expression discarding input.
-/// Flip(Q) is equivalent to Id.
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Q;
-/// \brief Alias for Q
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const C;
-/// \brief Alias for Q
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Const;
-
 /// \brief Reserialize decorated type as decorator
 extern lang::SignatureCast const Cast;
 /// \brief Alias for Cast
@@ -593,8 +577,8 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::All> const All;
 /// \brief Saturate matches in order
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate;
 
-/// \brief Compose functions
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Compose> const Compose;
+/// \brief Pipe functions in left-to-right composition
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pipe> const Pipe;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details
@@ -610,9 +594,9 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
 
 /// \brief Evaluate function and print evaluation log to stderr
-extern lang::SignatureDbg const Dbg;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Dbg> const Dbg;
 /// \brief Alias for Dbg
-extern lang::SignatureDbg const Debug;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Dbg> const Debug;
 
 /// \brief Flip designtime and run-time parameters, evaluating input as expression
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Eval> const Eval;
@@ -628,6 +612,22 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Prms;
 /// \brief Alias for Prms
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Parameters;
 
+/// \brief Quote parameter, similar to lisp quotation.
+/// \details
+/// Quotation lifts any parameter to constant, s.t.
+/// produced expression will return the design-time parameter
+/// on evaluation, ignoring input. If evaluable expression
+/// is passed, it is returned unevaluated.
+/// Unlike plain literals which can be treated
+/// as predicate matchers in certain context, Q(x) is always
+/// a constant expression discarding input.
+/// Flip(Q) is equivalent to Id.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Q;
+/// \brief Alias for Q
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const C;
+/// \brief Alias for Q
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Const;
+
 /// \brief Return x if not null, else return default value
 extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const D;
 /// \brief Alias for D
@@ -639,6 +639,15 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const Default;
 extern lang::SignatureErr const Err;
 /// \brief Alias for Err
 extern lang::SignatureErr const Error;
+
+/// \brief Same as id, but also prints identifier parameter to debug log.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Trace> const Trace;
+
+/// \brief Preprocessing token
+/// \details
+/// String token that can be substituted with arbitrary expression
+/// on expression preprocessing.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::PreProc> const PreProc;
 
 } // namespace expr
 } // namespace zmbt

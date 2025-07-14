@@ -34,6 +34,7 @@ void InitZmbt(int argc, char **argv)
     std::string default_log_level = "WARNING";
     std::string default_log_sink = executable_path.filename().string();
     bool default_log_prettify = false;
+    bool default_log_notrim = false;
 
 
 
@@ -50,12 +51,17 @@ void InitZmbt(int argc, char **argv)
     {
         default_log_prettify = true;
     }
+    if (std::getenv("ZMBT_LOG_NOTRIM"))
+    {
+        default_log_notrim = true;
+    }
 #endif
 
     po::options_description desc("ZMBT test appconfig options");
     desc.add_options()
         ("zmbt_log_level", po::value<std::string>()->default_value(default_log_level), "[trace|debug|info|warning|error|fatal] log level level")
         ("zmbt_log_sink", po::value<std::string>()->default_value(default_log_sink), "file name")
+        ("zmbt_log_notrim", po::bool_switch()->default_value(default_log_notrim), "turn off line trimming in terminal")
         ("zmbt_log_prettify", po::bool_switch()->default_value(default_log_prettify), "pretty print JSON values in failure reports")
     ;
 
@@ -66,6 +72,7 @@ void InitZmbt(int argc, char **argv)
     std::string const zmbt_log_level = vm.at("zmbt_log_level").as<std::string>();
     std::string const zmbt_log_sink  = vm.at("zmbt_log_sink").as<std::string>();
     bool        const zmbt_log_prettify  = vm.at("zmbt_log_prettify").as<bool>();
+    bool        const zmbt_log_notrim  = vm.at("zmbt_log_notrim").as<bool>();
 
     auto const maybe_level = boost::json::try_value_to<Logger::Level>(zmbt_log_level.c_str());
     Logger::Level parsed_log_level = maybe_level.has_value() ? maybe_level.value() : Logger::Level::INFO;
@@ -78,6 +85,7 @@ void InitZmbt(int argc, char **argv)
             {"args", boost::json::array(argv+1, argv+argc)},
         }}
     };
+    Logger::set_trim_line(zmbt_log_notrim);
     static_cast<void>(zmbt_log_prettify);
 
     //TODO: zmbt::Environment().SetPrettyPrint(zmbt_log_prettify);

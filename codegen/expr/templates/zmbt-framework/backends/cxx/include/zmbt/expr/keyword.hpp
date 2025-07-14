@@ -22,10 +22,6 @@
 
 #include "zmbt/reflect.hpp"
 
-#ifndef ZMBT_KEYWORD_PREFIX
-    #define ZMBT_KEYWORD_PREFIX ":"
-#endif
-
 
 namespace zmbt {
 namespace lang {

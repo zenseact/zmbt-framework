@@ -32,6 +32,9 @@ struct KeywordGrammar : public boost::spirit::qi::grammar<boost::json::string::c
     boost::spirit::qi::rule<boost::json::string::const_iterator, Keyword()> start;
 };
 
+boost::json::string_view keyword_to_str(Keyword const&);
+
+
 // Boost JSON conversion from Keyword
 void tag_invoke(boost::json::value_from_tag const&, boost::json::value&, Keyword const& t);
 

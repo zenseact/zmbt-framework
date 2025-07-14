@@ -8,229 +8,51 @@
 #include <ostream>
 #include <sstream>
 
-
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 
 
-#define SET_BIT(x, n) ((x) |= (1UL << (n)))
-#define TEST_BIT(x, n) ((x) & (1UL << (n)))
-#define CLEAR_BIT(x, n) ((x) &= ~(1UL << (n)))
-
-
-namespace
-{
-using Keyword = zmbt::lang::Keyword;
-
-
-boost::json::value const* ptrToParams(Keyword const& keyword, boost::json::value const& underlying)
-{
-    if (keyword == Keyword::Literal)
-    {
-        return &underlying;
-    }
-    return underlying.is_object() ? &(underlying.get_object().cbegin()->value()) : nullptr;
-}
-
-boost::json::value get_underlying(Keyword const& keyword, boost::json::value const& params)
-{
-    return keyword == Keyword::Literal ? params : boost::json::value{{zmbt::json_from(keyword).get_string(), params}};
-}
-
-void trim_line(std::ostream& os, boost::json::array const& rec)
-{
-    constexpr std::size_t BuffSize {100};
-    constexpr std::size_t MinExpr = 10;
-
-    auto const depth = rec.at(0).as_uint64();
-    std::size_t capacity = BuffSize - 4U*depth;
-
-    if (capacity < 3*MinExpr)
-    {
-        os << "...\n";
-        return;
-    }
-
-    char buf_f[BuffSize];
-    char buf_x[BuffSize];
-    char buf_fx[BuffSize];
-
-
-    auto const shrink = [](boost::json::string_view& view, std::uint64_t const n){
-        if (view.size() < n) return;
-        view = view.substr(0, n);
-        if (n < 3) return;
-        if (n == 3) {
-            view = "...";
-            return;
-        }
-        char* buf = const_cast<char*>(view.data());
-        buf[n-1] = '.';
-        buf[n-2] = '.';
-        buf[n-3] = '.';
-        return;
-    };
-    using E = zmbt::lang::Expression;
-
-    // TODO: optimize prettify with static buffer
-    E e_f(rec.at(1));
-    auto const fstr = e_f.prettify();
-    std::size_t len = std::min(fstr.size(), BuffSize - 1);
-    std::memcpy(buf_f, fstr.data(), len);
-    buf_f[len] = '\0';
-    boost::json::string_view f = buf_f;
-
-    boost::json::serializer sr;
-    boost::json::string_view x  = (sr.reset(&rec.at(2)), sr.read(buf_x));
-    if (!sr.done()) shrink(x, x.size());
-
-    boost::json::string_view fx = (sr.reset(&rec.at(3)), sr.read(buf_fx));
-    if (!sr.done()) shrink(fx, fx.size());
-
-
-    std::size_t total_size = f.size() + x.size() + fx.size();
-
-    if (total_size > capacity)
-    {
-        shrink(fx, capacity - 2*MinExpr);
-        total_size = f.size() + x.size() + fx.size();
-    }
-
-    if (total_size > capacity)
-    {
-        shrink(x, MinExpr);
-        total_size = f.size() + x.size() + fx.size();
-    }
-
-    if (total_size > capacity)
-    {
-        std::uint64_t const n =  total_size - capacity;
-        shrink(f, (n < fx.size()) ? f.size() - n : MinExpr);
-    }
-    os << f << " $ " << x  << " = " << fx << '\n';
-}
-
-
-} // namespace
-
-
 namespace zmbt {
 namespace lang {
 
-Expression::Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying)
-    : keyword_{keyword}
-    , underlying_{std::move(underlying)}
-    , params_ptr_{ptrToParams(keyword, underlying_)}
+
+Expression::Expression() : Expression(Keyword::Void)
 {
 }
-
-Expression::Expression(Expression const& o)
-{
-    keyword_ = o.keyword_;
-    underlying_ = o.underlying_;
-    params_ptr_ = ptrToParams(keyword_, underlying_);
-}
-
-Expression::Expression(Expression && o)
-{
-    keyword_ = o.keyword_;
-    underlying_ = std::move(o.underlying_);
-    params_ptr_ = ptrToParams(keyword_, underlying_);
-}
-
-Expression& Expression::operator=(Expression const& o)
-{
-    keyword_ = o.keyword_;
-    underlying_ = o.underlying_;
-    params_ptr_ = ptrToParams(keyword_, underlying_);
-    return *this;
-}
-
-Expression& Expression::operator=(Expression && o)
-{
-    keyword_ = o.keyword_;
-    underlying_ = std::move(o.underlying_);
-    params_ptr_ = ptrToParams(keyword_, underlying_);
-    return *this;
-}
-
-Expression::Expression(Keyword const& keyword, boost::json::value const& params)
-    : Expression(internal_tag{}, keyword, get_underlying(keyword, params))
-{
-}
-
 
 Expression::Expression(Keyword const& keyword)
-    : Expression(internal_tag{}, keyword, json_from(keyword))
+    : Expression(encodeTerminal(keyword, {}))
 {
-    if (keyword == Keyword::Literal)
+    if (keyword == Keyword::Literal || keyword == Keyword::PreProc)
     {
-        throw zmbt::expression_error("Lit expression requires a value");
+        throw zmbt::expression_error("expression requires a value");
     }
-}
-
-
-
-struct Expression::json_ctor_params
-{
-    boost::json::value underlying;
-    Keyword keyword;
-
-    json_ctor_params(boost::json::value const& expr)
-    {
-
-        if (expr.is_object() && expr.get_object().size() == 1)
-        {
-            keyword = dejsonize<Keyword>(expr.get_object().cbegin()->key());
-        }
-        else
-        {
-            keyword = dejsonize<Keyword>(expr);
-        }
-
-        if (keyword != Keyword::Undefined)
-        {
-            underlying = expr;
-        }
-        else
-        {
-            keyword = Keyword::Literal;
-            underlying = expr;
-        }
-    }
-};
-
-Expression::Expression(json_ctor_params&& params)
-    : Expression(internal_tag{}, params.keyword, std::move(params.underlying))
-{
-}
-
-
-Expression::Expression()
-    : Expression(internal_tag{}, Keyword::Undefined, nullptr)
-{
 }
 
 Expression::Expression(boost::json::value const& expr)
-    : Expression(json_ctor_params{expr})
+    : encoding_{encode(expr)}
 {
 }
 
 Expression::Expression(std::initializer_list<boost::json::value_ref> items)
-    : Expression(Keyword::Literal, boost::json::value(items))
+    : Expression(encodeTerminal(Keyword::Literal, boost::json::value(items)))
 {
 }
 
-Expression Expression::asPredicate(boost::json::value const& underlying)
+Expression Expression::asPredicate(Expression const& expr)
 {
-    Expression expr(underlying);
     if (!expr.is_noop() && expr.is_const())
     {
-        expr = Expression(Keyword::Eq, expr.eval());
+        return Expression(encodeNested(Keyword::Eq, {expr}));
     }
     return expr;
+}
+
+boost::json::value Expression::to_json() const
+{
+    return (is_literal() || is_preproc()) ? data() : boost::json::value_from(encoding());
 }
 
 bool Expression::is_const() const
@@ -240,7 +62,19 @@ bool Expression::is_const() const
     using lang::detail::getCodegenType;
     if (is_nonempty_composition())
     {
-        return Expression(params().as_array().back()).is_const();
+        auto const pl = parameter_list();
+        auto it = pl.cbegin();
+        if (it->is_literal() || it->is_const())
+        {
+            return true;
+        }
+        ++it;
+        while (it != pl.cend())
+        {
+            if (it->is_const() && not it->is_literal()) return true;
+            ++it;
+        }
+        return false;
     }
     if (is_nonempty_fork())
     {
@@ -253,16 +87,19 @@ bool Expression::is_const() const
     }
     else if (is(Keyword::Op) && has_params())
     {
-        return Expression(params().as_array().back()).is_const();
+        auto const pl = parameter_list();
+        for (auto const& p: pl)
+        {
+            if (p.is_const()) return true;
+        }
+        return false;
     }
     return is(Keyword::Literal) || is(Keyword::Q) || is(Keyword::Err) || (CodegenType::Const == getCodegenType(keyword()));
 }
 
-std::string Expression::keyword_to_str() const
+boost::json::string_view Expression::keyword_to_str() const
 {
-    auto const k = zmbt::json_from(keyword()).as_string();
-    auto const w =  boost::json::string_view(k.c_str());
-    return w.substr(std::strlen(ZMBT_KEYWORD_PREFIX)).data();
+    return ::zmbt::lang::keyword_to_str(keyword());
 }
 
 bool Expression::is_boolean() const
@@ -270,9 +107,10 @@ bool Expression::is_boolean() const
     using lang::detail::CodegenType;
     using lang::detail::getCodegenType;
     using lang::detail::isBoolean;
+
     if(is_literal())
     {
-        return params().is_bool();
+        return encoding().data.front().is_bool();
     }
     if (isBoolean(keyword()))
     {
@@ -280,11 +118,11 @@ bool Expression::is_boolean() const
     }
     if (is(Keyword::Op) && has_params())
     {
-        return Expression(params()).is_boolean();
+        return parameter_list().front().is_boolean();
     }
     if (is_nonempty_composition())
     {
-        return Expression(params().as_array().back()).is_boolean();
+        return parameter_list().back().is_boolean();
     }
     return false;
 }
@@ -298,16 +136,49 @@ std::list<Expression> Expression::parameter_list() const
 {
     std::list<Expression> result;
 
-    auto const k = keyword();
-    bool const expect_list = detail::isVariadic(k) && params().is_array();
 
-    if (expect_list) {
-        for (auto const& v : params().get_array()) {
-            result.emplace_back(Expression(v));
-        }
-    } else if (has_params()) {
-        result.emplace_back(subexpr());
+    auto const& self = encoding();
+    if (self.keywords.size() == 1)
+    {
+        return result;
     }
+
+    auto it_keyword = self.keywords.cbegin() + 1;
+    auto it_depth = self.depth.cbegin() + 1;
+    auto it_data = self.data.cbegin() + 1;
+    auto it_binding = self.bindings.cbegin() + 1;
+
+    Encoding enc {};
+
+    while(it_keyword != self.keywords.cend())
+    {
+
+        if (!enc.depth.empty() && 1 == *it_depth)
+        {
+            result.emplace_back(enc);
+            enc = {};
+        }
+
+        enc.keywords.push_back(*it_keyword);
+        enc.depth   .push_back(*it_depth-1);
+        enc.bindings.push_back(*it_binding);
+        enc.data    .push_back(*it_data);
+
+        ++it_keyword;
+        ++it_depth;
+        ++it_data;
+        ++it_binding;
+    }
+    if (!enc.depth.empty())
+    {
+        result.emplace_back(enc);
+    }
+
+    for (auto& d: enc.depth)
+    {
+        --d;
+    }
+
     return result;
 }
 
@@ -318,100 +189,8 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
     if (!result.is_bool())
     {
         return false;
-        // throw zmbt::expression_error("expr is not a predicate: `%s`", underlying_);
     }
     return result.get_bool();
-}
-
-
-void Expression::EvalLog::format(std::ostream& os, boost::json::array const& log, int const indent)
-{
-
-    std::uint64_t prev_depth = 0;
-    std::size_t vertical_groups = 0;
-
-
-    for (auto const& item: log)
-    {
-        auto const& rec = item.as_array();
-        std::uint64_t const depth = rec.at(0).as_uint64();
-
-        if (prev_depth < depth && prev_depth > 0)
-        {
-            SET_BIT(vertical_groups, prev_depth);
-        }
-
-        os << std::string(indent, ' ');
-
-        for (std::uint64_t i = 0; i < depth; ++i)
-        {
-            os << (TEST_BIT(vertical_groups, i) ? "│   " : "   ");
-        }
-
-        if (depth == 0)
-        {
-            os << "□  "; // QED
-        }
-        else if (prev_depth == depth || TEST_BIT(vertical_groups, depth))
-        {
-            os << "├── ";
-        }
-        else
-        {
-            os << "┌── ";
-        }
-
-        if (TEST_BIT(vertical_groups, depth))
-        {
-            CLEAR_BIT(vertical_groups, depth);
-        }
-
-        trim_line(os, rec);
-        prev_depth = depth;
-    }
-}
-
-
-boost::json::string Expression::EvalLog::str(int const indent) const
-{
-    if (stack)
-    {
-        std::stringstream ss;
-        Expression::EvalLog::format(ss, *stack, indent);
-        return ss.str().c_str();
-    }
-    return "";
-}
-
-std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
-{    
-    if (log.stack)
-    {
-        Expression::EvalLog::format(os, *log.stack, 0);
-    }
-    return os;
-}
-
-
-void Expression::EvalLog::push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
-{
-    if (!stack)
-    {
-        return;
-    }
-    stack->push_back({depth, expr, x, result});
-}
-
-
-Expression::EvalLog Expression::EvalLog::make()
-{
-    return {std::make_shared<boost::json::array>()};
-}
-
-
-Expression::EvalContext Expression::EvalContext::operator++(int) const
-{
-    return {op, log, depth + 1};
 }
 
 }  // namespace lang

@@ -153,7 +153,7 @@ bool isHiOrd(Keyword const& k)
     case Keyword::Any:
     case Keyword::All:
     case Keyword::Saturate:
-    case Keyword::Compose:
+    case Keyword::Pipe:
     case Keyword::Fork:
     case Keyword::Flip:
     case Keyword::Dbg:
@@ -176,7 +176,7 @@ bool isVariadic(Keyword const& k)
     case Keyword::Any:
     case Keyword::All:
     case Keyword::Saturate:
-    case Keyword::Compose:
+    case Keyword::Pipe:
     case Keyword::Fork:
         return true;
     default:

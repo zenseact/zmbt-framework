@@ -6,6 +6,7 @@
 
 
 #include "zmbt/core/json_node.hpp"
+#include "zmbt/logging.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/range/adaptor/sliced.hpp>
@@ -78,6 +79,7 @@ JsonNode::JsonNode(boost::json::string_view node_ptr, std::shared_ptr<boost::jso
 
 
 boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
+// try
 {
     boost::json::error_code errcode;
     boost::json::value* ptr = node().find_pointer(json_ptr, errcode);
@@ -90,10 +92,22 @@ boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
     }
     else
     {
-        auto& rv = node().set_at_pointer(json_ptr, nullptr);
-        return rv;
+        try
+        {
+            /* code */
+            auto& rv = node().set_at_pointer(json_ptr, nullptr);
+            return rv;
+        }
+        catch(const std::exception& e)
+        {
+            ZMBT_LOG_CERR(FATAL) << "failed to create node at " << json_ptr << " in " << node();
+            throw e;
+            static boost::json::value _ = {};
+            return _;
+        }
     }
 }
+// catch (std::exception)
 
 
 boost::json::string JsonNode::resolve_tokens(boost::json::string_view query) const

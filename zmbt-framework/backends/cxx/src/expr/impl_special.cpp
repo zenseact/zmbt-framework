@@ -18,8 +18,9 @@
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/exceptions.hpp"
 
-#define ASSERT(cond, msg) if (!(cond)) { return ::zmbt::lang::detail::make_error_expr(msg, keyword_to_str().c_str());}
+#define ASSERT(cond, msg) if (!(cond)) { return ::zmbt::lang::detail::make_error_expr(msg, keyword_to_str());}
 #define MAX_RECURSION_DEPTH INT32_MAX
+// #define MAX_RECURSION_DEPTH 32
 
 
 using V = boost::json::value;
@@ -35,7 +36,7 @@ template <Keyword k>
 struct eval_impl_base
 {
     constexpr static Keyword keyword() { return k; }
-    static std::string keyword_to_str() { return ::zmbt::json_from(k).as_string().c_str(); }
+    static boost::json::string_view keyword_to_str() { return ::zmbt::lang::keyword_to_str(k); }
 };
 
 template <Keyword keyword>
@@ -49,10 +50,20 @@ template <> struct eval_impl<Keyword::Kw> : eval_impl_base<Keyword::Kw> \
 { V operator()(V const& x, V const& param, E::EvalContext const& context) const; }; \
 V eval_impl<Keyword::Kw>::operator()(V const& x, V const& param, E::EvalContext const& context) const
 
-EXPR_IMPL(All)
+template <Keyword keyword>
+struct eval_variadic_impl
 {
-    ASSERT(param.is_array(), "empty params");
-    for (auto const& e: param.get_array())
+    V operator()(V const& x, std::list<E> const& subexpressions, E::EvalContext const& context) const;
+};
+
+#define EXPR_VARIADIC_IMPL(Kw) \
+template <> struct eval_variadic_impl<Keyword::Kw> : eval_impl_base<Keyword::Kw> \
+{ V operator()(V const& x, std::list<E> const&, E::EvalContext const& context) const; }; \
+V eval_variadic_impl<Keyword::Kw>::operator()(V const& x, std::list<E> const& subexpressions, E::EvalContext const& context) const
+
+EXPR_VARIADIC_IMPL(All)
+{
+    for (auto const& e: subexpressions)
     {
         if (not E::asPredicate(e).eval(x,context++).as_bool())
         {
@@ -63,10 +74,9 @@ EXPR_IMPL(All)
 }
 
 
-EXPR_IMPL(Any)
+EXPR_VARIADIC_IMPL(Any)
 {
-    ASSERT(param.is_array(), "empty params");
-    for (auto const& e: param.get_array())
+    for (auto const& e: subexpressions)
     {
         if (E::asPredicate(e).eval(x,context++).as_bool())
         {
@@ -218,18 +228,16 @@ EXPR_IMPL(Lookup)
     return query_at(param, x);
 }
 
-EXPR_IMPL(Saturate)
+EXPR_VARIADIC_IMPL(Saturate)
 {
     ASSERT(x.is_array(), "invalid argument");
-    ASSERT(param.is_array(), "invalid parameter");
 
     auto const& samples = x.as_array();
-    auto const& matches = param.as_array();
 
-    auto it = matches.cbegin();
+    auto it = subexpressions.cbegin();
     for (auto const& sample: samples)
     {
-        if (it == matches.cend())
+        if (it == subexpressions.cend())
         {
             break;
         }
@@ -238,7 +246,7 @@ EXPR_IMPL(Saturate)
             it++;
         }
     }
-    return it == matches.cend();
+    return it == subexpressions.cend();
 }
 
 EXPR_IMPL(Count)
@@ -454,18 +462,16 @@ EXPR_IMPL(Filter)
 }
 
 
-EXPR_IMPL(Compose)
+EXPR_VARIADIC_IMPL(Pipe)
 {
-    ASSERT(param.is_array(), "invalid parameter");
-    auto const& funcs = param.get_array();
-    ASSERT(funcs.size() > 0, "invalid parameter");
+    ASSERT(subexpressions.size() > 0, "invalid parameter (empty array)");
 
-    auto fn = funcs.crbegin();
+    auto fn = subexpressions.cbegin();
 
     // first el eval as is
     boost::json::value ret {E(*fn++).eval(x,context++)};
 
-    while (fn != funcs.crend())
+    while (fn != subexpressions.cend())
     {
         // any consequent literals eval as eq
         ret = E::asPredicate(*fn++).eval(ret,context++);
@@ -502,15 +508,16 @@ EXPR_IMPL(Recur)
     std::uint64_t max_recursion_depth = MAX_RECURSION_DEPTH;
 
     auto cond = E(x);
-    if (cond.underlying().is_number())
+    if (cond.is_literal())
     {
-        auto const maybe_depth = boost::json::try_value_to<std::uint64_t>(cond.underlying());
+        auto const maybe_depth = boost::json::try_value_to<std::uint64_t>(cond.eval());
         ASSERT(maybe_depth.has_value(), "invalid parameter")
         max_recursion_depth = maybe_depth.value();
-        cond = E{false};
+        cond = E(false);
     }
 
     boost::json::value result = initial;
+
     for (std::uint64_t i = 0; i < max_recursion_depth; i++)
     {
         auto const next = F.eval(result,context++);
@@ -533,12 +540,12 @@ EXPR_IMPL(Unfold)
     std::uint64_t max_recursion_depth = MAX_RECURSION_DEPTH;
 
     auto cond = E(x);
-    if (cond.underlying().is_number())
+    if (cond.is_literal())
     {
-        auto const maybe_depth = boost::json::try_value_to<std::uint64_t>(cond.underlying());
+        auto const maybe_depth = boost::json::try_value_to<std::uint64_t>(cond.eval());
         ASSERT(maybe_depth.has_value(), "invalid parameter")
         max_recursion_depth = maybe_depth.value();
-        cond = E{false};
+        cond = E(false);
     }
 
     boost::json::array result {};
@@ -665,20 +672,50 @@ EXPR_IMPL(Push)
     return nullptr;
 }
 
-EXPR_IMPL(Fmt)
+EXPR_VARIADIC_IMPL(Fmt)
 {
     static_cast<void>(context);
-    ASSERT(x.is_string(), "invalid argument");
-    ASSERT(param.is_array(), "invalid parameter");
-    auto const& tokens = param.get_array();
-    if (tokens.empty()) return x;
+    V fmtstr;
+    boost::format fmt;
+    zmbt::remove_cvref_t<decltype(subexpressions)> args;
 
-    boost::format fmt {x.get_string().c_str()};
-    auto const N = static_cast<std::size_t>(fmt.expected_args());
-    ASSERT(tokens.size() == N, "invalid formatting");
+    auto const if_arr = x.if_array();
+    auto const if_str = x.if_string();
 
-    for (auto const& item: tokens)
+    if (if_str)
     {
+       fmt = boost::format{if_str->c_str()};
+       args = subexpressions;
+    }
+    else if (if_arr && subexpressions.empty())
+    {
+        ASSERT(if_arr->size() == 2, "invalid arity");
+
+        auto const if_lhs_str = if_arr->front().if_string();
+        auto const if_rhs_args = if_arr->back().if_array();
+
+        ASSERT(if_lhs_str && if_rhs_args, "invalid operands");
+
+        fmt = boost::format{if_lhs_str->c_str()};
+        for (auto const& arg: *if_rhs_args)
+        {
+            args.push_back(E(arg));
+        }
+    }
+    else
+    {
+        ASSERT(false, "invalid parameters");
+    }
+
+    // ASSERT(x.is_string(), "invalid argument");
+    if (args.empty()) return x;
+
+    auto const N = static_cast<std::size_t>(fmt.expected_args());
+    ASSERT(args.size() == N, "invalid formatting");
+
+    for (auto const& fn: args)
+    {
+        auto const item = fn.eval({}, context++);
         fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
     }
     return {fmt.str()};
@@ -934,16 +971,16 @@ EXPR_IMPL(Avg)
     return context.op.apply(Keyword::Div, sum, N);
 }
 
-EXPR_IMPL(Fork)
+EXPR_VARIADIC_IMPL(Fork)
 {
     static_cast<void>(context);
-    ASSERT(param.is_array(), "invalid parameter");
-    auto const& funcs = param.get_array();
+    // ASSERT(param.is_array(), "invalid parameter");
+    // auto const& funcs = param.get_array();
     boost::json::array out {};
-    out.reserve(funcs.size());
-    for (auto const& fn: funcs)
+    out.reserve(subexpressions.size());
+    for (auto const& fn: subexpressions)
     {
-        out.push_back(E(fn).eval(x,context++));
+        out.push_back(fn.eval(x,context++));
     }
     return out;
 }
@@ -1232,18 +1269,22 @@ EXPR_IMPL(Flatten)
 EXPR_IMPL(Flip)
 {
     auto const f = E(param);
-    auto const flip = E(f.keyword(), x);
-    return flip.eval(f.params(), context++);
+    auto const flip = E(E::encodeNested(f.keyword(), {x}));
+    auto const pl = f.parameter_list();
+    ASSERT(!pl.empty(), "invalid parameter");
+    return flip.eval(f.parameter_list().front(), context++);
 }
 
 
 EXPR_IMPL(Op)
 {
-    ASSERT(param.is_array(), "invalid parameter");
-    auto const& params = param.get_array();
-    ASSERT(params.size() == 2, "invalid parameter");
-    auto const operator_reference = E(params.at(0)).eval({}, context++);
-    auto const F = E(params.at(1));
+    auto const pl = E(param).parameter_list();
+
+    // ASSERT(param.is_array(), "invalid parameter");
+    // auto const& params = param.get_array();
+    ASSERT(pl.size() == 2, "invalid parameter");
+    auto const operator_reference = pl.front().eval({}, context++);
+    auto const& F = pl.back();
     ASSERT(operator_reference.is_string(), "invalid parameter");
     E::EvalContext ctx = context++;
     ctx.op = O{operator_reference.get_string()};
@@ -1273,16 +1314,12 @@ EXPR_IMPL(Dbg)
     E::EvalContext local_ctx {};
     local_ctx.op = context.op;
     local_ctx.log = E::EvalLog::make();
-    auto const fn_and_id = !param.is_null() ? param.as_array() : boost::json::array{zmbt::json_from(Keyword::Id), "anonymous"};
-    zmbt::lang::Expression f(fn_and_id.at(0));
-    auto identifier = zmbt::lang::Expression(fn_and_id.at(1)).eval();
+
+    zmbt::lang::Expression f(param);
     auto const result = f.eval(x, local_ctx);
 
-    ZMBT_LOG_JSON(INFO) << boost::json::object{
-        {"ZMBT_EXPR_DEBUG", identifier},
-        {"eval_stack", *local_ctx.log.stack},
-    };
-    ZMBT_LOG_CERR(DEBUG).WithSrcLoc(identifier.as_string().c_str()) << "\n" << local_ctx.log.str(2);
+    ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_DEBUG") << *local_ctx.log.stack;
+    ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_DEBUG") << "\n" << local_ctx.log.str(2);
 
     if (context.log.stack)
     {
@@ -1298,6 +1335,14 @@ EXPR_IMPL(Dbg)
     return result;
 }
 
+EXPR_IMPL(Trace)
+{
+    static_cast<void>(context);
+    ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_TRACE") << param;
+    ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_TRACE") << param;
+    return x;
+}
+
 EXPR_IMPL(Eval)
 {
     return zmbt::lang::Expression(x).eval(param, context++);
@@ -1308,22 +1353,48 @@ EXPR_IMPL(Kwrd)
 {
     static_cast<void>(param);
     static_cast<void>(context);
-    return zmbt::lang::Expression(x).keyword_to_str().c_str();
+    return zmbt::lang::Expression(x).keyword_to_str();
 }
 
 EXPR_IMPL(Prms)
 {
     static_cast<void>(param);
     static_cast<void>(context);
-    return zmbt::lang::Expression(x).params();
+    auto enc = E(x).encoding();
+    enc.keywords.front() = Keyword::Fork;
+    return E(enc);
 }
 
 EXPR_IMPL(Bind)
 {
     static_cast<void>(context);
-    auto const e = zmbt::lang::Expression(param);
-    ASSERT(not e.has_params(), "function has parameters")
-    return zmbt::lang::Expression(e.keyword(), x);
+    auto enc = zmbt::lang::Expression(param).encoding();
+    ASSERT(enc.keywords.size() == 1, "function has parameters")
+
+    if (zmbt::lang::detail::isVariadic(enc.keywords.front()))
+    {
+        auto const if_arr = x.if_array();
+        ASSERT(if_arr, "invalid argument")
+        std::vector<E> xx;
+        xx.reserve(if_arr->size());
+        for (auto const& item: *if_arr)
+        {
+            xx.emplace_back(E(item));
+        }
+        return E(E::encodeNested(enc.keywords.front(), xx));
+
+    }
+    else
+    {
+        return E(E::encodeNested(enc.keywords.front(), {E(x)}));
+    }
+}
+
+EXPR_IMPL(PreProc)
+{
+    static_cast<void>(x);
+    static_cast<void>(context);
+    return param;
 }
 
 } // namespace
@@ -1336,37 +1407,20 @@ namespace lang {
 boost::json::value Expression::eval_Special(boost::json::value const& x, EvalContext const& context) const
 try
 {
-    V maybe_x;
-    V maybe_param;
-    V const* x_ptr {nullptr};
-    V const* param_ptr {nullptr};
+    V lhs {}; // binary LHS or expr params
+    V rhs {}; // binary RHS or expr arg
     if (lang::detail::isBinary(keyword()))
     {
-        handle_binary_args(x, x_ptr, param_ptr);
+        handle_binary_args(x, lhs, rhs);
     }
     else
     {
-        x_ptr = &x;
-        param_ptr = &params();
+        lhs = x;
+        rhs = subexpr().to_json();
     }
-    ASSERT(x_ptr, "invalid argument")
-    ASSERT(param_ptr, "invalid parameter")
 
-    V const xx = E(*x_ptr).eval();
-
-
-    V pp = *param_ptr;
-    if (lang::detail::isVariadic(keyword()) && pp.is_array())
-    {
-        for (auto& fn: pp.get_array())
-        {
-            fn = E(fn).eval(nullptr, context++);
-        }
-    }
-    else
-    {
-        pp  = E(pp).eval(nullptr, context++);
-    }
+    V const xx = E(lhs).eval(nullptr, context++);
+    V pp = E(rhs).eval(nullptr, context++);
 
     switch(keyword())
     {
@@ -1401,9 +1455,10 @@ try
         case Keyword::Union:      return eval_impl<Keyword::Union>()       (xx, pp, context);
         case Keyword::Intersect:  return eval_impl<Keyword::Intersect>()   (xx, pp, context);
         case Keyword::Diff:       return eval_impl<Keyword::Diff>()        (xx, pp, context);
-        case Keyword::Fmt:        return eval_impl<Keyword::Fmt>()         (xx, pp, context);
         case Keyword::Cast:       return eval_impl<Keyword::Cast>()        (xx, pp, context);
         case Keyword::Uncast:     return eval_impl<Keyword::Uncast>()      (xx, pp, context);
+        case Keyword::Trace:      return eval_impl<Keyword::Trace>()       (xx, pp, context);
+
 
 
         default:
@@ -1418,50 +1473,83 @@ catch(const std::exception& e)
 }
 
 
+boost::json::value Expression::eval_Variadic(boost::json::value const& x, EvalContext const& context) const
+try
+{
+    switch (keyword())
+    {
+    case Keyword::Pipe:     return eval_variadic_impl<Keyword::Pipe>()    (x, parameter_list(), context);
+    case Keyword::Fork:     return eval_variadic_impl<Keyword::Fork>()    (x, parameter_list(), context);
+    case Keyword::Fmt:      return eval_variadic_impl<Keyword::Fmt>()     (x, parameter_list(), context);
+    case Keyword::All:      return eval_variadic_impl<Keyword::All>()     (x, parameter_list(), context);
+    case Keyword::Any:      return eval_variadic_impl<Keyword::Any>()     (x, parameter_list(), context);
+    case Keyword::Saturate: return eval_variadic_impl<Keyword::Saturate>()(x, parameter_list(), context);
+
+    default:
+        {
+            return detail::make_error_expr("not implemented", json_from(keyword()).as_string());
+        }
+    }
+}
+catch(const std::exception& e)
+{
+    return detail::make_error_expr(e.what(), keyword_to_str());
+}
+
+
 boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalContext const& context) const
 try
 {
-    V const* x_ptr {nullptr};
-    V const* param_ptr {nullptr};
+    // V const* x_ptr {nullptr};
+    // V const* param_ptr {nullptr};
+    // if (lang::detail::isBinary(keyword()))
+    // {
+    //     handle_binary_args(x, x_ptr, param_ptr);
+    // }
+    // else
+    // {
+    //     x_ptr = &x;
+    //     param_ptr = &data();
+    //     // param_ptr = &subexpr();
+        
+    // }
+    // ASSERT(x_ptr, "invalid argument")
+    // ASSERT(param_ptr, "invalid parameter")
+
+    V lhs {}; // binary LHS or expr params
+    V rhs {}; // binary RHS or expr arg
     if (lang::detail::isBinary(keyword()))
     {
-        handle_binary_args(x, x_ptr, param_ptr);
+        handle_binary_args(x, lhs, rhs);
     }
     else
     {
-        x_ptr = &x;
-        param_ptr = &params();
+        lhs = x;
+        rhs = subexpr().to_json();
     }
-    ASSERT(x_ptr, "invalid argument")
-    ASSERT(param_ptr, "invalid parameter")
 
     switch(keyword())
     {
-        case Keyword::Eval:     return eval_impl<Keyword::Eval>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Dbg:      return eval_impl<Keyword::Dbg>()     (*x_ptr, *param_ptr, context);
-        case Keyword::All:      return eval_impl<Keyword::All>()     (*x_ptr, *param_ptr, context);
-        case Keyword::Any:      return eval_impl<Keyword::Any>()     (*x_ptr, *param_ptr, context);
-        case Keyword::Compose:  return eval_impl<Keyword::Compose>() (*x_ptr, *param_ptr, context);
-        case Keyword::Count:    return eval_impl<Keyword::Count>()   (*x_ptr, *param_ptr, context);
-        case Keyword::Each:     return eval_impl<Keyword::Each>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Map:      return eval_impl<Keyword::Map>()     (*x_ptr, *param_ptr, context);
-        case Keyword::Filter:   return eval_impl<Keyword::Filter>()  (*x_ptr, *param_ptr, context);
-        case Keyword::Recur:    return eval_impl<Keyword::Recur>()   (*x_ptr, *param_ptr, context);
-        case Keyword::Unfold:   return eval_impl<Keyword::Unfold>()  (*x_ptr, *param_ptr, context);
-        case Keyword::Fold:     return eval_impl<Keyword::Fold>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Saturate: return eval_impl<Keyword::Saturate>()(*x_ptr, *param_ptr, context);
-        case Keyword::Try:      return eval_impl<Keyword::Try>()     (*x_ptr, *param_ptr, context);
-        case Keyword::Fork:     return eval_impl<Keyword::Fork>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Flip:     return eval_impl<Keyword::Flip>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Sort:     return eval_impl<Keyword::Sort>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Argmin:   return eval_impl<Keyword::Argmin>()  (*x_ptr, *param_ptr, context);
-        case Keyword::Argmax:   return eval_impl<Keyword::Argmax>()  (*x_ptr, *param_ptr, context);
-        case Keyword::Min:      return eval_impl<Keyword::Min>()     (*x_ptr, *param_ptr, context);
-        case Keyword::Max:      return eval_impl<Keyword::Max>()     (*x_ptr, *param_ptr, context);
-        case Keyword::Op:       return eval_impl<Keyword::Op>()      (*x_ptr, *param_ptr, context);
-        case Keyword::Kwrd:     return eval_impl<Keyword::Kwrd>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Prms:     return eval_impl<Keyword::Prms>()    (*x_ptr, *param_ptr, context);
-        case Keyword::Bind:     return eval_impl<Keyword::Bind>()    (*x_ptr, *param_ptr, context);
+        case Keyword::Eval:     return eval_impl<Keyword::Eval>()    (lhs, rhs, context);
+        case Keyword::Dbg:      return eval_impl<Keyword::Dbg>()     (lhs, rhs, context);
+        case Keyword::Count:    return eval_impl<Keyword::Count>()   (lhs, rhs, context);
+        case Keyword::Each:     return eval_impl<Keyword::Each>()    (lhs, rhs, context);
+        case Keyword::Map:      return eval_impl<Keyword::Map>()     (lhs, rhs, context);
+        case Keyword::Filter:   return eval_impl<Keyword::Filter>()  (lhs, rhs, context);
+        case Keyword::Recur:    return eval_impl<Keyword::Recur>()   (lhs, rhs, context);
+        case Keyword::Unfold:   return eval_impl<Keyword::Unfold>()  (lhs, rhs, context);
+        case Keyword::Fold:     return eval_impl<Keyword::Fold>()    (lhs, rhs, context);
+        case Keyword::Try:      return eval_impl<Keyword::Try>()     (lhs, rhs, context);
+        case Keyword::Flip:     return eval_impl<Keyword::Flip>()    (lhs, rhs, context);
+        case Keyword::Sort:     return eval_impl<Keyword::Sort>()    (lhs, rhs, context);
+        case Keyword::Argmin:   return eval_impl<Keyword::Argmin>()  (lhs, rhs, context);
+        case Keyword::Argmax:   return eval_impl<Keyword::Argmax>()  (lhs, rhs, context);
+        case Keyword::Min:      return eval_impl<Keyword::Min>()     (lhs, rhs, context);
+        case Keyword::Max:      return eval_impl<Keyword::Max>()     (lhs, rhs, context);
+        case Keyword::Op:       return eval_impl<Keyword::Op>()      (lhs, rhs, context);
+        case Keyword::Kwrd:     return eval_impl<Keyword::Kwrd>()    (lhs, rhs, context);
+        case Keyword::Prms:     return eval_impl<Keyword::Prms>()    (lhs, rhs, context);
+        case Keyword::Bind:     return eval_impl<Keyword::Bind>()    (lhs, rhs, context);
 
         default:
         {

@@ -1392,27 +1392,6 @@ Equivalent to Flip(At(...))
  * `0 | Lookup([1,2,3]) `$\mapsto$`  1`
  * `"/foo" | Lookup([1,2,3]) `$\mapsto$`  null`
 
-### Q
-
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
-
-*Aliases*: C, Const
-
-Quote parameter, similar to lisp quotation.
-
-Quotation lifts any parameter to constant, s.t.
-produced expression will return the design-time parameter
-on evaluation, ignoring input. If evaluable expression
-is passed, it is returned unevaluated.
-Unlike plain literals which can be treated
-as predicate matchers in certain context, Q(x) is always
-a constant expression discarding input.
-Flip(Q) is equivalent to Id.
-
-*Examples*:
-
- * `null | C(42) `$\mapsto$` 42`
-
 ### Cast
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
@@ -1733,23 +1712,23 @@ Saturate matches in order
  * `[2,4,8,41,2] | Saturate(42, Mod(2)|0) `$\mapsto$` false`
  * `[2,4,8,42] | Saturate(42, Mod(2)|0) `$\mapsto$` false`
 
-### Compose
+### Pipe
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
-Compose functions
+Pipe functions in left-to-right composition
 
 
 *Examples*:
 
- * `3 | Compose(Add(1), Mul(2)) `$\mapsto$` 7`
- * `4 | Compose(Add(1), Mul(2)) `$\mapsto$` 9`
+ * `3 | Pipe(Mul(2), Add(1)) `$\mapsto$` 7`
+ * `4 | Pipe(Mul(2), Add(1)) `$\mapsto$` 9`
 
 **Infix operator form (pipe)**:
 
- * `Add(1) | Mul(2) `$\equiv$` Compose(Mul(2), Add(1))`
- * `3 | Add(1) | Mul(2) `$\mapsto$` 7`
+ * `Add(1) | Mul(2) `$\equiv$` Pipe(Add(1), Mul(2))`
+ * `3 | Add(1) | Mul(2) `$\mapsto$` 8`
 
 ### Fork
 
@@ -1789,13 +1768,16 @@ the Reverse keyword instead.
 
 ### Dbg
 
-*Signature*: [Special](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 *Aliases*: Debug
 
 Evaluate function and print evaluation log to stderr
 
 
+*Examples*:
+
+42 | Dbg(Trace(ZMBT_CUR_LOC) | Add(2))
 
 ### Eval
 
@@ -1849,6 +1831,27 @@ Introspect expression parameters.
 
 ## Evaluation handlers
 
+### Q
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+*Aliases*: C, Const
+
+Quote parameter, similar to lisp quotation.
+
+Quotation lifts any parameter to constant, s.t.
+produced expression will return the design-time parameter
+on evaluation, ignoring input. If evaluable expression
+is passed, it is returned unevaluated.
+Unlike plain literals which can be treated
+as predicate matchers in certain context, Q(x) is always
+a constant expression discarding input.
+Flip(Q) is equivalent to Id.
+
+*Examples*:
+
+ * `null | C(42) `$\mapsto$` 42`
+
 ### D
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
@@ -1873,4 +1876,27 @@ Error object
 
 Error object (work in progress)
 
+
+### Trace
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Same as id, but also prints identifier parameter to debug log.
+
+
+
+### PreProc
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Preprocessing token
+
+String token that can be substituted with arbitrary expression
+on expression preprocessing.
+
+*Examples*:
+
+ * `null | C(42) `$\mapsto$` 42`
 

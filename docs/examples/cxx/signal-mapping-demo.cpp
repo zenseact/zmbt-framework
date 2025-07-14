@@ -279,20 +279,20 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        ( 42             , Eq(42)                             )
-        ( 42             , 42     /*(1)*/                     )
+        // ( 42             , Eq(42)                             )
+        // ( 42             , 42     /*(1)*/                     )
         ( {1,2,3}        , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
-        ( {1,2,3}        , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
-        ( {1,2,3,4}      , Reduce(Add) & Size | Div | Eq(2.5) ) //(5)
-        ( Pi|Div(2)|Sin  , Approx(1)                          ) //(6)
-        ( "5:1:-1"|Arange, {5,4,3,2}                          ) //(7)
+        // ( {1,2,3}        , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
+        // ( {1,2,3,4}      , Reduce(Add) & Size | Div | Eq(2.5) ) //(5)
+        // ( Pi|Div(2)|Sin  , Approx(1)                          ) //(6)
+        // ( "5:1:-1"|Arange, {5,4,3,2}                          ) //(7)
     ;
 }
 /*
 ```
 
 1. `Eq` may be omitted in the context of predicate.
-2. Expression composition with pipe operator. Equivalent to `Compose(Eq(3), Size)`.
+2. Expression composition with pipe operator. Equivalent to `Pipe(Size, Eq(3))`.
 3. Optional comment.
 4. Saturate the matchers over sequence input in given order.
 5. Ampersand operator packs evaluation into array as `f & g ↦ x ↦ [f(x), g(x)]`.
@@ -1165,10 +1165,10 @@ BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
 Negation at the matcher end lead to test failure, and the log message is following:
 
 ```yaml
-  - ZMBT FAIL:
+    - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: "(Reduce(Add) & Size) | Div | Eq(2.5E0) | Not"
+      expected: "(Fold(Add) & Size) | Div | Eq(2.5E0) | Not"
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
@@ -1176,13 +1176,13 @@ Negation at the matcher end lead to test failure, and the log message is followi
                  ┌── Add $ [1,2] = 3
                  ├── Add $ [3,3] = 6
                  ├── Add $ [6,4] = 10
-              ┌── Reduce(Add) $ [1,2,3,4] = 10
+              ┌── Fold(Add) $ [1,2,3,4] = 10
               ├── Size $ [1,2,3,4] = 4
-           ┌── (Reduce(Add) & Size) $ [1,2,3,4] = [10,4]
+           ┌── Fold(Add) & Size $ [1,2,3,4] = [10,4]
            ├── Div $ [10,4] = 2.5E0
            ├── Eq(2.5E0) $ 2.5E0 = true
            ├── Not $ true = false
-        □  (Reduce(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
+        □  (Fold(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.

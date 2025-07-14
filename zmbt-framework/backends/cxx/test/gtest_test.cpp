@@ -21,7 +21,6 @@ TEST(RunInGtest, EnvThreadSafety)
 
         for(int i = 0; i < kIterations; ++i)
         {
-            ZMBT_LOG_JSON(INFO) << zmbt::get_tid().c_str() << i;
             static_cast<void>(handle.YieldInjectionArgs());
             static_cast<void>(handle.YieldInjectionReturn());
         }
@@ -45,9 +44,9 @@ TEST(RunInGtest, SignalMapping)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        (2|Add(2)    , 4                                 ) ["Compose on input"]
-        ({42, 42, 42}, 42|Repeat(3)                      ) ["Compose on output"]
-        ("[42,42,42]", Parse & (42|Repeat(3)) | Eq       ) ["Nested Compose"]
+        (2|Add(2)    , 4                                 ) ["Pipe on input"]
+        ({42, 42, 42}, 42|Repeat(3)                      ) ["Pipe on output"]
+        ("[42,42,42]", Parse & (42|Repeat(3)) | Eq       ) ["Nested Pipe"]
         ("1:5"|Arange, Reduce(Add) & Size | Div | Eq(2.5)) ["Complex example (computing average)"]
     ;
 
@@ -55,13 +54,12 @@ TEST(RunInGtest, SignalMapping)
     Param const X {"X"};
     Param const Y {"Y"};
 
-    using List = boost::json::array;
     SignalMapping("Parametric SignalMapping with X = %d, Y = %d", X, Y)
     .OnTrigger(id)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        (List{X, X, X}         , X|Repeat(3)                )
+        (X & X & X             , X|Repeat(3)                )
         ("[%s,%s]"|Format(X, Y), Parse | Any({13,0}, {19,1}))
     .Zip
         (X, 13, 19)

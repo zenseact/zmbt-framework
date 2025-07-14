@@ -27,7 +27,7 @@ namespace detail
 {
 boost::json::value make_error_expr(boost::json::string_view msg, boost::json::string_view ctx)
 {
-    return expr::Err(msg, ctx).underlying();
+    return expr::Err(msg, ctx).to_json();
 }
 
 } // namespace detail

@@ -31,12 +31,12 @@ KeywordSymbol::KeywordSymbol()
 {
     add
 @for keyword in data.Keywords:
-    (ZMBT_KEYWORD_PREFIX "@keyword.Name", Keyword::@keyword.Name)
+    ("@keyword.Name", Keyword::@keyword.Name)
     @if symbol := keyword.Symbol:
-    (ZMBT_KEYWORD_PREFIX "@symbol", Keyword::@keyword.Name)
+    ("@symbol", Keyword::@keyword.Name)
     @end
     @for alias in keyword.Aliases:
-    (ZMBT_KEYWORD_PREFIX "@alias", Keyword::@keyword.Name)
+    ("@alias", Keyword::@keyword.Name)
     @end
 @end
     ;
@@ -58,18 +58,23 @@ KeywordGrammar::KeywordGrammar()
 }
 
 
-void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keyword const& kw)
+boost::json::string_view keyword_to_str(Keyword const& kw)
 {
     switch(kw)
     {
 
 @for keyword in data.Keywords:
-    case Keyword::@keyword.Name: { v = ZMBT_KEYWORD_PREFIX "@keyword.Name"; break; }
+    case Keyword::@keyword.Name: { return "@keyword.Name"; break; }
 @end
-        default: v = ZMBT_KEYWORD_PREFIX "Undefined";
+    default:
+        return "Undefined";
     }
 }
 
+void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keyword const& kw)
+{
+    v = keyword_to_str(kw);
+}
 
 Keyword tag_invoke(boost::json::value_to_tag<Keyword> const&, boost::json::value const& v)
 {

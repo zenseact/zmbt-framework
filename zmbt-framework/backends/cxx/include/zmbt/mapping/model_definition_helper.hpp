@@ -13,7 +13,7 @@
 #include <zmbt/core/interface_id.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
-#include <zmbt/core/parameter.hpp>
+#include <zmbt/model/parameter.hpp>
 #include <zmbt/model/environment.hpp>
 #include <zmbt/expr/expression.hpp>
 #include <zmbt/model/traits.hpp>

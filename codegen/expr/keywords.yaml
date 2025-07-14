@@ -804,7 +804,7 @@ keyword_groups:
         domain: any
         codomain: str
         codegen-value:
-          cxx: '{boost::json::serialize(x)}'
+          cxx: Expression(x).prettify().c_str()
         imports:
           cxx:
             - boost/json.hpp
@@ -1044,24 +1044,6 @@ keyword_groups:
         examples: |-
           0 | Lookup([1,2,3]) ↦  1
           "/foo" | Lookup([1,2,3]) ↦  null
-
-
-      - name: Q
-        aliases: [ C, Const ]
-        brief: Quote parameter, similar to Lisp quotation.
-        details: |-
-          Quotation lifts any parameter to constant, s.t.
-          produced expression will return the design-time parameter
-          on evaluation, ignoring input. If evaluable expression
-          is passed, it is returned unevaluated.
-          Unlike plain literals which can be treated
-          as predicate matchers in certain context, Q(x) is always
-          a constant expression discarding input.
-          Flip(Q) is equivalent to Id.
-        domain: [any, any]
-        codomain: any
-        examples: |-
-          null | C(42) ↦ 42
 
       - name: Cast
         aliases: [ Decorate ]
@@ -1338,9 +1320,9 @@ keyword_groups:
           [2,4,8,41,2] | Saturate(42, Mod(2)|0) ↦ false
           [2,4,8,42] | Saturate(42, Mod(2)|0) ↦ false
 
-      - name: Compose
+      - name: Pipe
         signature: Variadic
-        brief: Compose functions
+        brief: Pipe functions in left-to-right composition
         domain: any
         codomain: any
         literals-as-eq: true
@@ -1348,13 +1330,13 @@ keyword_groups:
           - label: functions
             type: list[expr]
         examples: |-
-          3 | Compose(Add(1), Mul(2)) ↦ 7
-          4 | Compose(Add(1), Mul(2)) ↦ 9
+          3 | Pipe(Mul(2), Add(1)) ↦ 7
+          4 | Pipe(Mul(2), Add(1)) ↦ 9
 
           **Infix operator form (pipe)**:
 
-          Add(1) | Mul(2) ≡ Compose(Mul(2), Add(1))
-          3 | Add(1) | Mul(2) ↦ 7
+          Add(1) | Mul(2) ≡ Pipe(Add(1), Mul(2))
+          3 | Add(1) | Mul(2) ↦ 8
 
       - name: Fork
         signature: Variadic
@@ -1390,13 +1372,13 @@ keyword_groups:
           2 | Flip(Div(1)) ↦ 0.5
 
       - name: Dbg
-        signature: Special
+        signature: Binary
         aliases: [ Debug ]
         brief: Evaluate function and print evaluation log to stderr
-        detail:
-          Use identifier parameter to trace the origin (default = "anonymous").
-          To indentify by src location, use `ZMBT_DEBUG_EXPR(expr)` macro, or
-          pass `ZMBT_CUR_LOC` directly.
+        detail: |-
+          To trace the origin in log add Trace to the enveloped expression.
+        examples: |-
+          42 | Dbg(Trace(ZMBT_CUR_LOC) | Add(2))
         params:
           - type: fn
           - label: identifier
@@ -1442,12 +1424,29 @@ keyword_groups:
       codomain: any
 
     keywords:
+
+      - name: Q
+        aliases: [ C, Const ]
+        brief: Quote parameter, similar to Lisp quotation.
+        details: |-
+          Quotation lifts any parameter to constant, s.t.
+          produced expression will return the design-time parameter
+          on evaluation, ignoring input. If evaluable expression
+          is passed, it is returned unevaluated.
+          Unlike plain literals which can be treated
+          as predicate matchers in certain context, Q(x) is always
+          a constant expression discarding input.
+          Flip(Q) is equivalent to Id.
+        domain: [any, any]
+        examples: |-
+          null | C(42) ↦ 42
+
       - name: D
         aliases: [ Default ]
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:
-          cxx: 'x.is_null() ? params() : x'
+          cxx: 'x.is_null() ? data() : x'
         examples: |-
           null | Default(42) ↦ 42
           13 | Default(42) ↦ 13
@@ -1459,4 +1458,18 @@ keyword_groups:
         details: |-
           Error object (work in progress)
         codegen-value:
-          cxx: underlying()
+          cxx: to_json()
+
+      - name: Trace
+        signature: Binary
+        brief: Same as Id, but also prints identifier parameter to debug log.
+        domain: [any, str]
+
+      - name: PreProc
+        brief: Preprocessing token
+        details: |-
+          String token that can be substituted with arbitrary expression
+          on expression preprocessing.
+        domain: [any, any]
+        examples: |-
+          null | C(42) ↦ 42

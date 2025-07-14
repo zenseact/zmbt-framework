@@ -33,8 +33,8 @@ is a function with bound right-hand-side operand.
 
 ### Composition
 
-The pipe operator `|` represents a function composition in a human-readable left-to-right order. It is syntactic sugar for the `Compose` expression,
-s.t. `A | B | C` is equivalent to `Compose(C, B, A)`, evaluating operands as `C(B(A(x)))`.
+The pipe operator `|` represents a function composition in a human-readable left-to-right order,
+s.t. `x | A | B | C`  evaluated as `C(B(A(x)))`.
 
 Each expression has the same `JSON -> JSON` evaluation type, which is also applicable to both builtin and user-defined constants like `Pi` or JSON literals.
 E.g., `42` renders a function $x \mapsto 42$. Such function simply discards any evaluation input, unlike conventional constant functions in C++ that has no arguments.
@@ -120,7 +120,7 @@ is taken as is.
 
 Several keywords produce high-order expressions that are useful for creating a more complex matchers or generators.
 
-The most powerful in this group are `Compose` and `Fork`.
+The most powerful in this group are `Pipe` and `Fork`.
 In addition to what is descrived above, composition also has a special rule for literals beyond the initial term - they are interpreted as predicates,
 e.g. `[1,2,3]|Size|3` is equivalent to `[1,2,3]|Size|Eq(3)`. To treat literal `3` as a constant expression, envelop it in user-defined constant as `C(3)`.
 
@@ -194,13 +194,13 @@ title Expression Language syntax
 !define REST(x) {CM, x}-
 !define ONEORMORE(x) x, REST(x)
 
-Expression = Literal | (Keyword, [Parameters]) | Compose | Fork;
+Expression = Literal | (Keyword, [Parameters]) | Pipe | Fork;
 Parameters = (LB, Expression, RB)
     | (LB, Expression, CM, Expression, RB)
     | (LB, ONEORMORE(Expression), RB);
 
 
-Compose = Expression, '|', Expression;
+Pipe = Expression, '|', Expression;
 Fork = Expression, '&', Expression;
 
 @endebnf
