@@ -59,12 +59,6 @@ void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, boo
     else
     {
         model(node_ptr) = param; // Expression
-        // JsonTraverse([&](boost::json::value const& v, std::string const jp){
-        //     if (Param::isParam(v)) {
-        //         params("/%s/pointers/+", v) = format("%s%s", node_ptr, jp);
-        //     }
-        //     return false;
-        // })(param);
         auto const expr = lang::Expression(param);
         auto const preproc_params = expr.preprocessing_parameters();
         for (auto const& pp: preproc_params)
@@ -214,6 +208,7 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 
 void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json::value const& sp)
 {
+    ZMBT_LOG_CERR(DEBUG) << "\n - " << sp;
     model("%s/kind", head_pointer_) = kind;
     set_deferred_param(format("%s/signal_path", head_pointer_), sp);
 }
@@ -224,7 +219,6 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
 
     for (size_t i = 0; i < tv.size(); i++)
     {
-        
         auto const& expr = tv.at(i);
         auto const preproc_params = expr.preprocessing_parameters();
         for (auto const& pp: preproc_params)
@@ -232,14 +226,6 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
             params("/%s/pointers/+", pp.first) = format(
                     "/tests/%d/%d%s", N, i, pp.second);
         }
-        // FIXME
-        // JsonTraverse([&](boost::json::value const& v, std::string const jp){
-        //     if (Param::isParam(v)) {
-        //         params("/%s/pointers/+", v) = format(
-        //                     "/tests/%d/%d%s", N, i, jp);
-        //     }
-        //     return false;
-        // })(expr.underlying());
     }
     model("/tests/+") = json_from(tv);
 }
@@ -247,22 +233,12 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
 void DefinitionHelper::set_expr(lang::Expression const& expr)
 {
     cur_pipe()["expr"] = expr;
-
-    // FIXME
-    // JsonTraverse([&](boost::json::value const& v, std::string const jp){
-    //     if (Param::isParam(v)) {
-    //         params("/%s/pointers/+", v) = format(
-    //                     "/pipes/%d/expr%s", (pipe_count_ - 1), jp);
-    //     }
-    //     return false;
-    // })(expr.underlying());
-
-        auto const preproc_params = expr.preprocessing_parameters();
-        for (auto const& pp: preproc_params)
-        {
-            params("/%s/pointers/+", pp.first) = format(
-                "/pipes/%d/expr%s", (pipe_count_ - 1), pp.second);
-        }
+    auto const preproc_params = expr.preprocessing_parameters();
+    for (auto const& pp: preproc_params)
+    {
+        params("/%s/pointers/+", pp.first) = format(
+            "/pipes/%d/expr%s", (pipe_count_ - 1), pp.second);
+    }
 }
 
 }  // namespace detail

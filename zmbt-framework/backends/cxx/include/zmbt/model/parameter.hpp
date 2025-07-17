@@ -28,7 +28,7 @@ public:
     // static Param parse(boost::json::value const& v);
 
     Param(boost::json::value v)
-        : Expression(Expression::encodeTerminal(Keyword::PreProc, zmbt::format("$[%s]", v).c_str()))
+        : Expression(Expression::encodePreProc(zmbt::format("$[%s]", v).c_str()))
     {}
 
     Param(Param const&) = default;

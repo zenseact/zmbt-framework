@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE(ZipModel)
 
     auto identity = [](Base const& sig) -> Base { return sig; };
 
-    auto FieldParam = Param(1);
+    auto FieldParam = Param("lol");
 
     SignalMapping("Test inherited data on a subclass")
     .OnTrigger(identity)

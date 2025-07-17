@@ -17,24 +17,11 @@
 #include "keyword.hpp"
 #include "keyword_grammar.hpp"
 #include "keyword_codegen_type.hpp"
-#include "exceptions.hpp"
+#include "encoding.hpp"
 
 
 namespace zmbt {
 namespace lang {
-
-struct Encoding
-{
-    using K = Keyword;
-    using V = boost::json::value;
-    std::vector<K> keywords;
-    std::vector<std::size_t> depth;
-    std::vector<V> data;
-    std::vector<V> bindings;
-};
-
-BOOST_DESCRIBE_STRUCT(Encoding, (void), (keywords, depth, bindings, data))
-
 
 /// Expression Language implementation class.
 /// \details \see <A HREF="/user-guide/expressions/">Expression Language documentation</A>.
@@ -84,8 +71,10 @@ public:
 private:
     Encoding encoding_;
 
-    struct internal_tag{};
-    Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying);
+    class Subexpression;
+
+    std::list<Subexpression> subexpressions() const;
+
 
     struct json_ctor_params;
     Expression(json_ctor_params&&);
@@ -100,99 +89,6 @@ private:
     boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
     boost::json::value eval_Variadic(boost::json::value const&, EvalContext const&) const;
 
-    Expression(internal_tag, Operator const& op);
-
-    static void preprocess(Encoding& origin)
-    {
-        auto const keywords_end = origin.keywords.cend();
-        auto it_keywords = origin.keywords.cbegin();
-
-        if (std::find(it_keywords, keywords_end, Keyword::PreProc) == keywords_end)
-        {
-            return;
-        }
-
-        Encoding enc;
-        enc.keywords.reserve(origin.keywords.size());
-        enc.depth   .reserve(origin.depth   .size());
-        enc.data    .reserve(origin.data    .size());
-        enc.bindings.reserve(origin.bindings.size());
-
-        auto it_depth = origin.depth.cbegin();
-        auto it_data = origin.data.cbegin();
-        auto it_bindings = origin.bindings.cbegin();
-
-        while(it_keywords != keywords_end)
-        {
-            // no preproc recursion
-            bool const is_preproc = *it_keywords == Keyword::PreProc;
-            bool const is_unevaluated = it_data->is_string() && it_data->get_string().starts_with("$[") && it_data->get_string().ends_with("]");
-            if (is_preproc && !is_unevaluated)
-            {
-                auto subenc = Expression(*it_data).encoding();
-                for (auto& d: subenc.depth)
-                {
-                    d += *it_depth;
-                }
-
-                enc.keywords.reserve(subenc.keywords.size());
-                enc.depth   .reserve(subenc.depth   .size());
-                enc.data    .reserve(subenc.data    .size());
-                enc.bindings.reserve(subenc.bindings.size());
-                enc.keywords.insert(enc.keywords.end(), std::make_move_iterator(subenc.keywords.begin()), std::make_move_iterator(subenc.keywords.end()));
-                enc.depth   .insert(enc.depth   .end(), std::make_move_iterator(subenc.depth   .begin()), std::make_move_iterator(subenc.depth   .end()));
-                enc.data    .insert(enc.data    .end(), std::make_move_iterator(subenc.data    .begin()), std::make_move_iterator(subenc.data    .end()));
-                enc.bindings.insert(enc.bindings.end(), std::make_move_iterator(subenc.bindings.begin()), std::make_move_iterator(subenc.bindings.end()));
-            }
-            else
-            {
-                enc.keywords.push_back(*it_keywords);
-                enc.depth   .push_back(*it_depth);
-                enc.data    .push_back(*it_data);
-                enc.bindings.push_back(*it_bindings);
-            }
-
-            ++it_keywords;
-            ++it_depth;
-            ++it_data;
-            ++it_bindings;
-        }
-
-        origin = enc;
-    }
-
-    static Encoding encode(boost::json::value const& value)
-    {
-        if (auto const if_obj = value.if_object())
-        {
-            if (if_obj->contains("keywords")
-                && if_obj->contains("depth")
-                && if_obj->contains("data")
-                && if_obj->contains("bindings")
-            )
-            {
-                auto enc = boost::json::value_to<Encoding>(value);
-                preprocess(enc);
-                return enc;
-            }
-        }
-        auto k = Keyword::Literal;
-        if (auto const if_str = value.if_string())
-        {
-            if(if_str->starts_with("$[") && if_str->ends_with("]"))
-            {
-                k = Keyword::PreProc;
-            }
-        }
-
-        Encoding enc{};
-        enc.keywords  .push_back(k);
-        enc.depth     .push_back(0);
-        enc.data      .push_back(value);
-        enc.bindings  .push_back(nullptr);
-
-        return enc;
-    }
 
   public:
 
@@ -201,16 +97,27 @@ private:
         return encoding_;
     }
 
-    explicit Expression(Encoding && encoding) : encoding_{std::move(encoding)} {}
+    virtual EncodingView encoding_view() const
+    {
+        return {encoding_};
+    }
 
-    // Terminal expression with literal parameters
-    static Encoding encodeTerminal(Keyword const& keyword, boost::json::value const& params)
+    explicit Expression(Encoding && encoding)
+        : encoding_{std::move(encoding)}
+    {
+    }
+
+    static Encoding encodeLiteral(boost::json::value const& params)
     {
         Encoding enc {};
-        enc.keywords.push_back(keyword);
-        enc.depth   .push_back(0);
-        enc.data    .push_back(params);
-        enc.bindings.push_back(nullptr);
+        enc.push_back(Keyword::Literal, 0, params, nullptr);
+        return enc;
+    }
+
+    static Encoding encodePreProc(boost::json::value const& params)
+    {
+        Encoding enc {};
+        enc.push_back(Keyword::PreProc, 0, params, nullptr);
         return enc;
     }
 
@@ -218,27 +125,13 @@ private:
     static Encoding encodeNested(Keyword const& keyword, std::vector<Expression> const& subexpressions)
     {
         Encoding enc {};
-        enc.keywords.push_back(keyword);
-        enc.depth   .push_back(0);
-        enc.data    .push_back(nullptr);
-        enc.bindings.push_back(nullptr);
+        enc.push_back(keyword, 0, nullptr, nullptr);
 
         for (auto const& subexpr: subexpressions)
         {
-            enc.keywords.insert(enc.keywords.end(), subexpr.encoding().keywords.begin(), subexpr.encoding().keywords.end());
-            enc.data    .insert(enc.data    .end(), subexpr.encoding().data    .begin(), subexpr.encoding().data    .end());
-            enc.bindings.insert(enc.bindings.end(), subexpr.encoding().bindings.begin(), subexpr.encoding().bindings.end());
-            for (auto d: subexpr.encoding_.depth)
-            {
-                enc.depth.push_back(++d);
-            }
+            enc.append_to_root(subexpr.encoding());
         }
         return enc;
-    }
-
-    Expression(Keyword const& keyword, boost::json::value const& params)
-        : encoding_{encodeTerminal(keyword, params)}
-    {
     }
 
     // Deserialize JSON
@@ -265,11 +158,6 @@ private:
 
     template <class T>
     Expression(T const& sample) : Expression(json_from(sample)) {}
-
-    Expression(Expression const& o) = default;
-    Expression(Expression && o) = default;
-    Expression& operator=(Expression const& o) = default;
-    Expression& operator=(Expression && o) = default;
 
     friend std::ostream& operator<<(std::ostream& os, Expression const& expr);
 
@@ -302,15 +190,14 @@ private:
             return pp;
         }
 
-        auto data_it = encoding().data.cbegin();
-        for (size_t i = 0; i < encoding().keywords.size(); i++)
+        for(auto const item: encoding_view())
         {
-            auto const& k = encoding().keywords.at(i);
-            if (Keyword::PreProc == k)
+            if ((Keyword::PreProc == item.keyword) && item.data)
             {
-                pp.emplace_back(encoding().data.at(i).as_string().c_str(), zmbt::format("/data/%d", i));
+                pp.emplace_back(item.data->as_string().c_str(), zmbt::format("/data/%d", item.index));
             }
         }
+
         return pp;
     }
 
@@ -326,10 +213,7 @@ private:
 
     bool operator==(Expression const& o) const
     {
-        return encoding().keywords == o.encoding().keywords
-        && encoding().depth == o.encoding().depth
-        && encoding().bindings == o.encoding().bindings
-        && encoding().data == o.encoding().data;
+        return (this == &o) || (encoding_view() == o.encoding_view());
     }
 
     bool operator!=(Expression const& o) const
@@ -339,16 +223,16 @@ private:
 
     Keyword keyword() const
     {
-        return encoding().keywords.at(0);
+        return encoding_view().front().keyword;
     }
 
     boost::json::value const& data() const
     {
-        if (encoding().keywords.size() > 1 && encoding().keywords.at(1) == Keyword::Literal)
+        if (encoding_view().size() > 1 && encoding_view()[1].keyword == Keyword::Literal)
         {
-            return encoding().data.at(1);
+            return *encoding_view()[1].data;
         }
-        return encoding().data.at(0);
+        return *encoding_view()[0].data;
     }
 
     Expression subexpr() const
@@ -360,12 +244,12 @@ private:
 
     bool has_params() const
     {
-        return has_subexpr() || is_literal(); //!encoding().data.at(0).is_null();
+        return has_subexpr() || is_literal();
     }
 
     bool has_subexpr() const
     {
-        return encoding().keywords.size() > 1;
+        return encoding_view().size() > 1;
     }
 
     bool is(Keyword const kwrd) const
@@ -390,7 +274,7 @@ private:
 
     bool is_infix_chain() const
     {
-        return (is_fork() || is_compose()) && encoding().keywords.size() > 2;
+        return (is_fork() || is_compose()) && encoding_view().size() > 2;
     }
 
     bool is_variadic() const
@@ -401,9 +285,9 @@ private:
     std::size_t infix_size() const
     {
         std::size_t n {0};
-        for (auto const& d: encoding().depth)
+        for (auto const item: encoding_view())
         {
-            if (d == 1) ++n;
+            if (item.depth == 1) ++n;
         }
         return n;
     }
@@ -449,7 +333,7 @@ private:
         return is(Keyword::Err);
     }
 
-    boost::json::value to_json() const;
+    virtual boost::json::value to_json() const;
 
     operator boost::json::value() const
     {

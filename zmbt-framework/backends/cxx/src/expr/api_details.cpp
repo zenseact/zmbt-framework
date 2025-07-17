@@ -19,14 +19,7 @@ Expression unfold_left_assoc(Keyword const keyword, Expression const& lhs, Expre
     {
         auto newenc = lhs.encoding();
 
-        newenc.keywords.insert(newenc.keywords.end(), rhs.encoding().keywords.begin(), rhs.encoding().keywords.end());
-        newenc.data    .insert(newenc.data    .end(), rhs.encoding().data    .begin(), rhs.encoding().data    .end());
-        newenc.bindings.insert(newenc.bindings.end(), rhs.encoding().bindings.begin(), rhs.encoding().bindings.end());
-
-        for (auto d: rhs.encoding().depth)
-        {
-            newenc.depth.push_back(++d);
-        }
+        newenc.append_to_root(rhs.encoding());
         return Expression(std::move(newenc));
     }
     else

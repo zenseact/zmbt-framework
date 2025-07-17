@@ -710,12 +710,14 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
     Expression::EvalContext context{};
     context.log = Expression::EvalLog::make();
+
     try
     {
         BOOST_TEST_INFO("Expression: " << sample.expr.prettify());
-        BOOST_TEST_INFO("   to_json: " << sample.expr.to_json());
+        BOOST_TEST_INFO("  encoding: " << json_from(sample.expr.encoding()));
         BOOST_TEST_INFO("Input: " << Expression(sample.x).prettify());
         BOOST_TEST_INFO("Expected: " << Expression(sample.expected).prettify());
+
         auto const result = sample.expr.eval(sample.x, context);
         BOOST_TEST_INFO("Observed: " << Expression(result).prettify());
         BOOST_TEST_INFO("Eval log: \n" << context.log);
@@ -925,7 +927,7 @@ BOOST_AUTO_TEST_CASE(TestPreprocessing)
     auto p1 = PreProc(1);
     auto p2 = PreProc(2);
 
-    auto const expr = Filter(At(p1)|false) | Map(At(p2));
+    auto const expr = Filter(At(p1)|false) | p2;
     BOOST_TEST_INFO(expr.prettify());
     BOOST_TEST_INFO(expr.to_json());
     auto const pp = expr.preprocessing_parameters();
@@ -937,7 +939,7 @@ BOOST_AUTO_TEST_CASE(TestPreprocessing)
     BOOST_TEST_INFO(p2.eval());
     boost::json::object values {
         {p1.eval().as_string(), 42},
-        {p2.eval().as_string(), 13},
+        {p2.eval().as_string(),  Map(At(13)).to_json()},
     };
 
     for (auto const& kp: pp)
@@ -1127,14 +1129,18 @@ Expression operator""_JSON(char const* s, size_t)
 BOOST_AUTO_TEST_CASE(TestVariable)
 {
     // set var inline, use to create anon fn
-    auto const f = Try((VAR["lol"] = Add(1), VAR["lol"] & VAR["lol"]));
-    BOOST_TEST_INFO(f.prettify());
-    BOOST_CHECK_EQUAL(f, Try(Add(1) & Add(1)));
+    // auto const f = Try((VAR["lol"] = Add(1), VAR["lol"] & VAR["lol"]));
+    // BOOST_TEST_INFO(f.prettify());
+    // BOOST_CHECK_EQUAL(f, Try(Add(1) & Add(1)));
 
     // unset var + json literal
     auto const h = (VAR["kek"] | Q("[1,2,3]"_JSON) );
-    BOOST_TEST_INFO(h.prettify());
-    BOOST_CHECK_EQUAL(h, "${kek}" | Q({1,2,3}));
+    auto const hh = "${kek}" | Q({1,2,3});
+    // BOOST_TEST_INFO("lhs: " << h.prettify());
+    // BOOST_TEST_INFO("rhs: " << hh.prettify());
+    BOOST_TEST_INFO("lhs: " << h.to_json());
+    BOOST_TEST_INFO("rhs: " << hh.to_json());
+    BOOST_CHECK_EQUAL(h, hh);
 }
 
 

@@ -23,7 +23,7 @@ Expression::Expression() : Expression(Keyword::Void)
 }
 
 Expression::Expression(Keyword const& keyword)
-    : Expression(encodeTerminal(keyword, {}))
+    : Expression(encodeNested(keyword, {}))
 {
     if (keyword == Keyword::Literal || keyword == Keyword::PreProc)
     {
@@ -32,12 +32,12 @@ Expression::Expression(Keyword const& keyword)
 }
 
 Expression::Expression(boost::json::value const& expr)
-    : encoding_{encode(expr)}
+    : encoding_{expr}
 {
 }
 
 Expression::Expression(std::initializer_list<boost::json::value_ref> items)
-    : Expression(encodeTerminal(Keyword::Literal, boost::json::value(items)))
+    : Expression(encodeLiteral(boost::json::value(items)))
 {
 }
 
@@ -52,7 +52,7 @@ Expression Expression::asPredicate(Expression const& expr)
 
 boost::json::value Expression::to_json() const
 {
-    return (is_literal() || is_preproc()) ? data() : boost::json::value_from(encoding());
+    return (is_literal() || is_preproc()) ? (*encoding_view()[0].data) : boost::json::value_from(encoding());
 }
 
 bool Expression::is_const() const
@@ -136,49 +136,12 @@ std::list<Expression> Expression::parameter_list() const
 {
     std::list<Expression> result;
 
+    auto subtrees = encoding_view().subtrees();
 
-    auto const& self = encoding();
-    if (self.keywords.size() == 1)
+    for (auto const& s: subtrees)
     {
-        return result;
+        result.emplace_back(s.freeze());
     }
-
-    auto it_keyword = self.keywords.cbegin() + 1;
-    auto it_depth = self.depth.cbegin() + 1;
-    auto it_data = self.data.cbegin() + 1;
-    auto it_binding = self.bindings.cbegin() + 1;
-
-    Encoding enc {};
-
-    while(it_keyword != self.keywords.cend())
-    {
-
-        if (!enc.depth.empty() && 1 == *it_depth)
-        {
-            result.emplace_back(enc);
-            enc = {};
-        }
-
-        enc.keywords.push_back(*it_keyword);
-        enc.depth   .push_back(*it_depth-1);
-        enc.bindings.push_back(*it_binding);
-        enc.data    .push_back(*it_data);
-
-        ++it_keyword;
-        ++it_depth;
-        ++it_data;
-        ++it_binding;
-    }
-    if (!enc.depth.empty())
-    {
-        result.emplace_back(enc);
-    }
-
-    for (auto& d: enc.depth)
-    {
-        --d;
-    }
-
     return result;
 }
 

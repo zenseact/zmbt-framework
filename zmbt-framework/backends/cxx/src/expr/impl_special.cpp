@@ -1500,22 +1500,6 @@ catch(const std::exception& e)
 boost::json::value Expression::eval_HiOrd(boost::json::value const& x, EvalContext const& context) const
 try
 {
-    // V const* x_ptr {nullptr};
-    // V const* param_ptr {nullptr};
-    // if (lang::detail::isBinary(keyword()))
-    // {
-    //     handle_binary_args(x, x_ptr, param_ptr);
-    // }
-    // else
-    // {
-    //     x_ptr = &x;
-    //     param_ptr = &data();
-    //     // param_ptr = &subexpr();
-        
-    // }
-    // ASSERT(x_ptr, "invalid argument")
-    // ASSERT(param_ptr, "invalid parameter")
-
     V lhs {}; // binary LHS or expr params
     V rhs {}; // binary RHS or expr arg
     if (lang::detail::isBinary(keyword()))

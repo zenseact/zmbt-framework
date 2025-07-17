@@ -90,13 +90,13 @@ struct SignatureBinary<Keyword::PreProc> : public SignatureBase<Keyword::PreProc
     /// \brief Make parametrized expression
     Expression operator()(boost::json::string_view const param) const
     {
-        return Expression(Expression::encodeTerminal(Keyword::PreProc, zmbt::format("$[%s]", param).c_str()));
+        return Expression(Expression::encodePreProc(zmbt::format("$[%s]", param).c_str()));
     }
 
     /// \brief Make parametrized expression
     Expression operator()(std::size_t const param) const
     {
-        return Expression(Expression::encodeTerminal(Keyword::PreProc, zmbt::format("$[%s]", param).c_str()));
+        return Expression(Expression::encodePreProc(zmbt::format("$[%s]", param).c_str()));
     }
 };
 
