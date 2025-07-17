@@ -199,7 +199,9 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
     // testing observed value
     if (observe_success)
     {
-        e = condition_pipe.overload(e);
+        lang::Expression::to_predicate_if_const(e);
+        condition_pipe.overload(e);
+
         try
         {
             auto const result = e.eval(observed);
@@ -240,15 +242,6 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
     for (auto const& pipe: inline_outputs_)
     {
         lang::Expression expect = pipe.expression();
-        try
-        {
-            expect = lang::Expression::asPredicate(expect);
-        }
-        catch(const std::exception& e)
-        {
-            diagnostics.Error("evaluating expression as predicate", e.what());
-            passed = false;
-        }
 
         if (passed)
         {
@@ -272,7 +265,7 @@ bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, 
     for (auto const& pipe: tabular_outputs_)
     {
 
-        test_case_passed = eval_assertion(pipe, lang::Expression::asPredicate(test_vector.at(pipe.column())), diagnostics) && test_case_passed;
+        test_case_passed = eval_assertion(pipe, test_vector.at(pipe.column()), diagnostics) && test_case_passed;
 
         if (!test_case_passed)
         {

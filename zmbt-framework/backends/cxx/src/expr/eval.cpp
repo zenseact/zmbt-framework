@@ -82,6 +82,25 @@ void Expression::handle_binary_args(V const& x, V &lhs, V &rhs) const
     }
 }
 
+bool Expression::to_predicate_if_const(Expression& e)
+{
+    if (!e.is_noop() && e.is_const())
+    {
+        e = Expression(encodeNested(Keyword::Eq, {e}));
+        return true;
+    }
+    return false;
+}
+
+boost::json::value  Expression::eval_as_predicate(boost::json::value const& x, EvalContext const& ctx) const
+{
+    if (!is_noop() && is_const())
+    {
+        return Expression(encodeNested(Keyword::Eq, {*this})).eval(x, ctx); // TODO: optimize
+    }
+    return eval(x, ctx);
+}
+
 boost::json::value Expression::eval(boost::json::value const& x) const
 {
     return eval(x, {});

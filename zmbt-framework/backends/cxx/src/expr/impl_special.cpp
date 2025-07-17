@@ -68,7 +68,7 @@ EXPR_VARIADIC_IMPL(All)
 {
     for (auto const& e: subexpressions)
     {
-        if (not E::asPredicate(e).eval(x,context++).as_bool())
+        if (not E(e).eval_as_predicate(x,context++).as_bool())
         {
             return false;
         }
@@ -81,7 +81,7 @@ EXPR_VARIADIC_IMPL(Any)
 {
     for (auto const& e: subexpressions)
     {
-        if (E::asPredicate(e).eval(x,context++).as_bool())
+        if (E(e).eval_as_predicate(x,context++).as_bool())
         {
             return true;
         }
@@ -244,7 +244,7 @@ EXPR_VARIADIC_IMPL(Saturate)
         {
             break;
         }
-        if (E::asPredicate(*it).eval(sample,context++).as_bool())
+        if (E(*it).eval_as_predicate(sample,context++).as_bool())
         {
             it++;
         }
@@ -255,14 +255,14 @@ EXPR_VARIADIC_IMPL(Saturate)
 EXPR_IMPL(Count)
 {
     ASSERT(x.is_array() || x.is_object(), "invalid argument")
-    auto const filter = E::asPredicate(param);
+    auto const filter = E(param);
     std::size_t count {0};
 
     if (x.is_array())
     {
         for (auto const& sample: x.get_array())
         {
-            if (filter.eval(sample,context++).as_bool())
+            if (filter.eval_as_predicate(sample,context++).as_bool())
             {
                 count++;
             }
@@ -272,7 +272,7 @@ EXPR_IMPL(Count)
     {
         for (auto const& kv: x.get_object())
         {
-            if (filter.eval({kv.key(), kv.value()},context++).as_bool())
+            if (filter.eval_as_predicate({kv.key(), kv.value()},context++).as_bool())
             {
                 count++;
             }
@@ -285,13 +285,13 @@ EXPR_IMPL(Count)
 EXPR_IMPL(Each)
 {
     ASSERT(x.is_array() || x.is_object(), "invalid argument")
-    auto const filter = E::asPredicate(param);
+    auto const filter = E(param);
 
     if (x.is_array())
     {
         for (auto const& sample: x.get_array())
         {
-            if (!filter.eval(sample,context++).as_bool())
+            if (!filter.eval_as_predicate(sample,context++).as_bool())
             {
                 return false;
             }
@@ -301,7 +301,7 @@ EXPR_IMPL(Each)
     {
         for (auto const& kv: x.get_object())
         {
-            if (!filter.eval({kv.key(), kv.value()},context++).as_bool())
+            if (!filter.eval_as_predicate({kv.key(), kv.value()},context++).as_bool())
             {
                 return false;
             }
@@ -453,10 +453,10 @@ EXPR_IMPL(Filter)
     {
         return ret;
     }
-    auto F = E::asPredicate(param);
+    auto const F = E(param);
     for (auto const& el: samples)
     {
-        if (F.eval(el,context++).as_bool())
+        if (F.eval_as_predicate(el,context++).as_bool())
         {
             ret.push_back(el);
         }
@@ -477,7 +477,7 @@ EXPR_VARIADIC_IMPL(Pipe)
     while (fn != subexpressions.cend())
     {
         // any consequent literals eval as eq
-        ret = E::asPredicate(*fn++).eval(ret,context++);
+        ret = E(*fn++).eval_as_predicate(ret,context++);
     }
     return ret;
 }

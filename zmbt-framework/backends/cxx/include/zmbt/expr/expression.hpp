@@ -102,10 +102,6 @@ private:
     // Deserialize JSON
     Expression(boost::json::value const& expr);
 
-    /// Return const expressions as Eq(expr), except for Noop,
-    /// otherwise return expr unchanged
-    static Expression asPredicate(Expression const& expr);
-
     // construct Literal from JSON init list
     Expression(std::initializer_list<boost::json::value_ref> items);
 
@@ -311,6 +307,12 @@ private:
     /// @return
     boost::json::value eval(boost::json::value const& x, EvalContext const& ctx) const;
     boost::json::value eval(boost::json::value const& x = nullptr) const;
+
+    /// Eval const expressions as Eq(expr), except for Noop,
+    /// otherwise eval expr
+    boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext const& ctx) const;
+
+    static bool to_predicate_if_const(Expression& e);
 
     bool match(boost::json::value const& observed, Operator const& op = {}) const;
 

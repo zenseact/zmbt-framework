@@ -42,15 +42,6 @@ Expression::Expression(std::initializer_list<boost::json::value_ref> items)
 {
 }
 
-Expression Expression::asPredicate(Expression const& expr)
-{
-    if (!expr.is_noop() && expr.is_const())
-    {
-        return Expression(encodeNested(Keyword::Eq, {expr}));
-    }
-    return expr;
-}
-
 boost::json::value Expression::to_json() const
 {
     return (is_literal() || is_preproc()) ? (*encoding_view()[0].data) : boost::json::value_from(encoding());

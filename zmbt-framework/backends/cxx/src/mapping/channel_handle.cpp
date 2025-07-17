@@ -207,19 +207,20 @@ bool PipeHandle::has_expression() const
 }
 
 
-lang::Expression PipeHandle::overload(lang::Expression const& e) const
+bool PipeHandle::overload(lang::Expression& e) const
 {
     if (data_.contains("overload"))
     {
-        return expr::Overload(data_.at("overload").as_string(), e);
+        e = expr::Overload(data_.at("overload").as_string(), e);
+        return true;
     }
-    return e;
+    return false;
 }
 
 void PipeHandle::inject(lang::Expression e) const
 {
     if (e.is_noop()) return;
-    e = overload(e);
+    overload(e);
 
     bool const is_blend = type() == "blend";
 
