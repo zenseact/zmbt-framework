@@ -23,6 +23,8 @@
 namespace zmbt {
 namespace lang {
 
+class EvalContext;
+
 /// Expression Language implementation class.
 /// \details \see <A HREF="/user-guide/expressions/">Expression Language documentation</A>.
 class Expression
@@ -30,43 +32,6 @@ class Expression
 public:
     using V = boost::json::value;
     using Keyword = lang::Keyword;
-
-    /// Expression evaluation log
-    struct EvalLog
-    {
-        mutable std::shared_ptr<boost::json::array> stack;
-
-        /// Default instance with null log stack
-        EvalLog() = default;
-
-        /// Stringify log
-        boost::json::string str(int const indent = 0) const;
-
-        /// Push record to log stack
-        void push(Expression const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;
-
-
-        static void format(std::ostream& os, boost::json::array const& log, int const indent = 0);
-
-        friend std::ostream& operator<<(std::ostream& os, EvalLog const& log);
-
-        /// Make non-empty EvalLog
-        static EvalLog make();
-    };
-
-    /// Expression evaluation context
-    struct EvalContext
-    {
-        /// Operator
-        Operator op;
-        /// Evaluation log
-        EvalLog log;
-        /// Evaluation stack depth
-        std::uint64_t const depth;
-
-        /// Copy context with depth increment
-        EvalContext operator++(int) const;
-    };
 
 private:
     Encoding encoding_;
@@ -344,7 +309,8 @@ private:
     /// @param x run-time argument
     /// @param config evaluation config
     /// @return
-    boost::json::value eval(boost::json::value const& x = nullptr, EvalContext const& ctx = {}) const;
+    boost::json::value eval(boost::json::value const& x, EvalContext const& ctx) const;
+    boost::json::value eval(boost::json::value const& x = nullptr) const;
 
     bool match(boost::json::value const& observed, Operator const& op = {}) const;
 

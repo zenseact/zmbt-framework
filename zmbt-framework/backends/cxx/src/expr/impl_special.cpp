@@ -16,6 +16,7 @@
 #include "zmbt/logging.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/exceptions.hpp"
 
 #define ASSERT(cond, msg) if (!(cond)) { return ::zmbt::lang::detail::make_error_expr(msg, keyword_to_str());}
@@ -27,6 +28,8 @@ using V = boost::json::value;
 using L = boost::json::array;
 using O = zmbt::lang::Operator;
 using E = zmbt::lang::Expression;
+using EvalLog = zmbt::lang::EvalLog;
+using EvalContext = zmbt::lang::EvalContext;
 using Keyword = zmbt::lang::Keyword;
 
 namespace
@@ -42,24 +45,24 @@ struct eval_impl_base
 template <Keyword keyword>
 struct eval_impl
 {
-    V operator()(V const& x, V const& param, E::EvalContext const& context) const;
+    V operator()(V const& x, V const& param, EvalContext const& context) const;
 };
 
 #define EXPR_IMPL(Kw) \
 template <> struct eval_impl<Keyword::Kw> : eval_impl_base<Keyword::Kw> \
-{ V operator()(V const& x, V const& param, E::EvalContext const& context) const; }; \
-V eval_impl<Keyword::Kw>::operator()(V const& x, V const& param, E::EvalContext const& context) const
+{ V operator()(V const& x, V const& param, EvalContext const& context) const; }; \
+V eval_impl<Keyword::Kw>::operator()(V const& x, V const& param, EvalContext const& context) const
 
 template <Keyword keyword>
 struct eval_variadic_impl
 {
-    V operator()(V const& x, std::list<E> const& subexpressions, E::EvalContext const& context) const;
+    V operator()(V const& x, std::list<E> const& subexpressions, EvalContext const& context) const;
 };
 
 #define EXPR_VARIADIC_IMPL(Kw) \
 template <> struct eval_variadic_impl<Keyword::Kw> : eval_impl_base<Keyword::Kw> \
-{ V operator()(V const& x, std::list<E> const&, E::EvalContext const& context) const; }; \
-V eval_variadic_impl<Keyword::Kw>::operator()(V const& x, std::list<E> const& subexpressions, E::EvalContext const& context) const
+{ V operator()(V const& x, std::list<E> const&, EvalContext const& context) const; }; \
+V eval_variadic_impl<Keyword::Kw>::operator()(V const& x, std::list<E> const& subexpressions, EvalContext const& context) const
 
 EXPR_VARIADIC_IMPL(All)
 {
@@ -1286,7 +1289,7 @@ EXPR_IMPL(Op)
     auto const operator_reference = pl.front().eval({}, context++);
     auto const& F = pl.back();
     ASSERT(operator_reference.is_string(), "invalid parameter");
-    E::EvalContext ctx = context++;
+    EvalContext ctx = context++;
     ctx.op = O{operator_reference.get_string()};
     auto result = F.eval(x, ctx);
 
@@ -1311,9 +1314,9 @@ EXPR_IMPL(Uncast)
 
 EXPR_IMPL(Dbg)
 {
-    E::EvalContext local_ctx {};
+    EvalContext local_ctx {};
     local_ctx.op = context.op;
-    local_ctx.log = E::EvalLog::make();
+    local_ctx.log = EvalLog::make();
 
     zmbt::lang::Expression f(param);
     auto const result = f.eval(x, local_ctx);

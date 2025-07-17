@@ -11,6 +11,7 @@
 
 #include <boost/json.hpp>
 #include <zmbt/expr/expression.hpp>
+#include <zmbt/expr/eval_log.hpp>
 
 namespace zmbt {
 namespace mapping {
@@ -100,7 +101,7 @@ struct TestDiagnostics
     {
         this->pipe_id = id; return *this;
     }
-    TestDiagnostics& EvalStack(lang::Expression::EvalLog const& log)
+    TestDiagnostics& EvalStack(lang::EvalLog const& log)
     {
         if (log.stack)
         {

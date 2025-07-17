@@ -8,9 +8,9 @@
 #include <ostream>
 #include <sstream>
 
+#include "zmbt/expr/eval_log.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 
 
@@ -100,13 +100,7 @@ namespace zmbt {
 namespace lang {
 
 
-Expression::EvalContext Expression::EvalContext::operator++(int) const
-{
-    return {op, log, depth + 1};
-}
-
-
-void Expression::EvalLog::format(std::ostream& os, boost::json::array const& log, int const indent)
+void EvalLog::format(std::ostream& os, boost::json::array const& log, int const indent)
 {
 
     std::uint64_t prev_depth = 0;
@@ -166,28 +160,28 @@ void Expression::EvalLog::format(std::ostream& os, boost::json::array const& log
 }
 
 
-boost::json::string Expression::EvalLog::str(int const indent) const
+boost::json::string EvalLog::str(int const indent) const
 {
     if (stack)
     {
         std::stringstream ss;
-        Expression::EvalLog::format(ss, *stack, indent);
+        EvalLog::format(ss, *stack, indent);
         return ss.str().c_str();
     }
     return "";
 }
 
-std::ostream& operator<<(std::ostream& os, Expression::EvalLog const& log)
+std::ostream& operator<<(std::ostream& os, EvalLog const& log)
 {
     if (log.stack)
     {
-        Expression::EvalLog::format(os, *log.stack, 0);
+        EvalLog::format(os, *log.stack, 0);
     }
     return os;
 }
 
 
-void Expression::EvalLog::push(Expression const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
+void EvalLog::push(Expression const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
 {
     if (!stack)
     {
@@ -197,7 +191,7 @@ void Expression::EvalLog::push(Expression const& expr, boost::json::value const&
 }
 
 
-Expression::EvalLog Expression::EvalLog::make()
+EvalLog EvalLog::make()
 {
     return {std::make_shared<boost::json::array>()};
 }

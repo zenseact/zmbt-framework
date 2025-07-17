@@ -24,6 +24,8 @@ using V = boost::json::value;
 using L = boost::json::array;
 using zmbt::lang::Keyword;
 using zmbt::lang::Expression;
+using zmbt::lang::EvalContext;
+using zmbt::lang::EvalLog;
 
 namespace {
 
@@ -708,8 +710,8 @@ std::set<Keyword> const CoveredInTestEval = []{
 
 BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
-    Expression::EvalContext context{};
-    context.log = Expression::EvalLog::make();
+    EvalContext context{};
+    context.log = EvalLog::make();
 
     try
     {
@@ -908,8 +910,8 @@ BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 
 BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 {
-    Expression::EvalContext cfg{};
-    cfg.log = Expression::EvalLog::make();
+    EvalContext cfg{};
+    cfg.log = EvalLog::make();
 
     auto const f = Reduce(Add) & Size | Div;
     auto const x = L{1,2,3,42.5};

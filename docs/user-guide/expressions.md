@@ -152,8 +152,8 @@ For the complete information see [Expression Language Reference](../dsl-referenc
 Complex expressions evaluation
 
 ```cpp
-Expression::EvalContext ctx{};
-ctx.log = Expression::EvalLog::make();
+EvalContext ctx{};
+ctx.log = EvalLog::make();
 
 auto const f = Reduce(Add) & Size | Div;
 auto const x = L{1,2,3,42.5};

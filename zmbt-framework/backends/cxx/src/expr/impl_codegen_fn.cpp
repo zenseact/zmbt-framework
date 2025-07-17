@@ -20,6 +20,7 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/api.hpp"
 
 

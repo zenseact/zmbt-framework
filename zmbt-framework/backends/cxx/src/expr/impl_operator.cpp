@@ -10,6 +10,7 @@
 #include "zmbt/reflect.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/exceptions.hpp"
 #include "zmbt/expr/keyword_codegen_type.hpp"
 

@@ -212,7 +212,7 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
             }
             else if (not passed)
             {
-                lang::Expression::EvalContext ctx {{}, lang::Expression::EvalLog::make(), 0};
+                lang::EvalContext ctx {{}, lang::EvalLog::make(), 0};
                 e.eval(observed, ctx);
 
                 diagnostics

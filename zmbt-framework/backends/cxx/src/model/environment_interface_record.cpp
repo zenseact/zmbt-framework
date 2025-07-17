@@ -105,10 +105,10 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
         if (lang::Expression(v).is_error())
         {
-            lang::Expression::EvalContext generator_ctx {{}, lang::Expression::EvalLog::make(), 0};
+            lang::EvalContext generator_ctx {{}, lang::EvalLog::make(), 0};
             generator.expression().eval(iteration, generator_ctx);
 
-            lang::Expression::EvalContext transform_ctx {{}, lang::Expression::EvalLog::make(), 0};
+            lang::EvalContext transform_ctx {{}, lang::EvalLog::make(), 0};
             if (not tf.is_noop())
             {
                 tf.eval(raw_v, transform_ctx);

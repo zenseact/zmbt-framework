@@ -11,6 +11,8 @@
 #include "zmbt/reflect.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/eval_context.hpp"
+
 #include "zmbt/expr/exceptions.hpp"
 #include "zmbt/expr/keyword_codegen_type.hpp"
 
@@ -78,6 +80,11 @@ void Expression::handle_binary_args(V const& x, V &lhs, V &rhs) const
             rhs = kNullValue;
         }
     }
+}
+
+boost::json::value Expression::eval(boost::json::value const& x) const
+{
+    return eval(x, {});
 }
 
 boost::json::value Expression::eval(boost::json::value const& x, EvalContext const& ctx) const
