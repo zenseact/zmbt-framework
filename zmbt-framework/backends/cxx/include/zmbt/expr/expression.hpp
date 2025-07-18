@@ -16,7 +16,6 @@
 #include "operator.hpp"
 #include "keyword.hpp"
 #include "keyword_grammar.hpp"
-#include "keyword_codegen_type.hpp"
 #include "encoding.hpp"
 
 
@@ -238,11 +237,6 @@ private:
         return (is_fork() || is_compose()) && encoding_view().size() > 2;
     }
 
-    bool is_variadic() const
-    {
-        return detail::isVariadic(keyword());
-    }
-
     std::size_t infix_size() const
     {
         std::size_t n {0};
@@ -284,8 +278,6 @@ private:
     }
 
     bool is_const() const;
-
-    bool is_hiord() const;
 
     bool is_boolean() const;
 

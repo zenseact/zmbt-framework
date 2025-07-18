@@ -10,6 +10,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
+#include "zmbt/expr/attributes.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
@@ -50,8 +51,6 @@ boost::json::value Expression::to_json() const
 bool Expression::is_const() const
 {
     // TODO: test it and clarify param evaluation
-    using lang::detail::CodegenType;
-    using lang::detail::getCodegenType;
     if (is_nonempty_composition())
     {
         auto const pl = parameter_list();
@@ -86,7 +85,8 @@ bool Expression::is_const() const
         }
         return false;
     }
-    return is(Keyword::Literal) || is(Keyword::Q) || is(Keyword::Err) || (CodegenType::Const == getCodegenType(keyword()));
+    auto const a = attributes(keyword());
+    return (a & attr::is_literal) || (a & attr::is_quote) || (a & attr::is_error) || (a & attr::is_const);
 }
 
 boost::json::string_view Expression::keyword_to_str() const
@@ -96,15 +96,13 @@ boost::json::string_view Expression::keyword_to_str() const
 
 bool Expression::is_boolean() const
 {
-    using lang::detail::CodegenType;
-    using lang::detail::getCodegenType;
-    using lang::detail::isBoolean;
+    auto const a = attributes(keyword());
 
-    if(is_literal())
+    if(a & attr::is_literal)
     {
         return encoding().data.front().is_bool();
     }
-    if (isBoolean(keyword()))
+    if (a & attr::is_predicate)
     {
         return true;
     }
@@ -119,10 +117,6 @@ bool Expression::is_boolean() const
     return false;
 }
 
-bool Expression::is_hiord() const
-{
-    return lang::detail::isHiOrd(keyword());
-}
 
 std::list<Expression> Expression::parameter_list() const
 {

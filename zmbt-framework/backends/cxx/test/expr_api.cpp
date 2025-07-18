@@ -996,12 +996,6 @@ BOOST_AUTO_TEST_CASE(TestEvalShift)
 }
 
 
-BOOST_AUTO_TEST_CASE(CodegenType)
-{
-    auto const test = zmbt::lang::detail::getCodegenType(Keyword::Abs);
-    BOOST_CHECK(test == zmbt::lang::detail::CodegenType::CodegenFn);
-}
-
 
 BOOST_AUTO_TEST_CASE(PrettifyExpressionTostaticBuffer)
 {

@@ -14,6 +14,7 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "zmbt/logging.hpp"
+#include "zmbt/expr/attributes.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
@@ -31,6 +32,8 @@ using E = zmbt::lang::Expression;
 using EvalLog = zmbt::lang::EvalLog;
 using EvalContext = zmbt::lang::EvalContext;
 using Keyword = zmbt::lang::Keyword;
+
+namespace attr = zmbt::lang::attr;
 
 namespace
 {
@@ -1374,7 +1377,7 @@ EXPR_IMPL(Bind)
     auto enc = zmbt::lang::Expression(param).encoding();
     ASSERT(enc.keywords.size() == 1, "function has parameters")
 
-    if (zmbt::lang::detail::isVariadic(enc.keywords.front()))
+    if (zmbt::lang::attributes(enc.keywords.front()) & attr::is_variadic)
     {
         auto const if_arr = x.if_array();
         ASSERT(if_arr, "invalid argument")

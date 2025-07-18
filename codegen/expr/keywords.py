@@ -73,14 +73,49 @@ class Keyword:
     @property
     def Arity(self) -> str:
         domain = self._definition.get('domain', None)
-        if domain is None:
+        if self.Signature == 'Const':
             return 0
-        elif type(domain) is list:
-            return len(domain)
-        elif domain.startswith('list['):
-            return '*'
+        elif self.Signature == 'Unary':
+            return 1
+        elif self.Signature == 'Binary':
+            return 2
+        elif self.Signature == 'Variadic':
+            return 3
         else:
             return 1
+
+    @property
+    def Attributes(self) -> str:
+
+        attrs = [
+            (
+                'is_const',
+                'is_unary',
+                'is_binary',
+                'is_variadic'
+            )[self.Arity]
+        ]
+
+        if self.Codomain == 'bool':
+            attrs.append('is_predicate')
+        if self.IsOperator:
+            attrs.append('is_operator')
+        if self.IsHiOrd:
+            attrs.append('is_hiord')
+        if self.CodegenValue:
+            attrs.append('is_autogen')
+        if self.Name == 'Noop':
+            attrs.append('is_noop')
+        if self.Name == 'Literal':
+            attrs.append('is_literal')
+        if self.Name == 'PreProc':
+            attrs.append('is_preproc')
+        if self.Name == 'Err':
+            attrs.append('is_error')
+        if self.Name == 'Q':
+            attrs.append('is_quote')
+
+        return ' | '.join(attrs)
 
     @property
     def Imports(self) -> list[str]:

@@ -11,10 +11,10 @@
 #include "zmbt/reflect.hpp"
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/attributes.hpp"
 #include "zmbt/expr/eval_context.hpp"
 
 #include "zmbt/expr/exceptions.hpp"
-#include "zmbt/expr/keyword_codegen_type.hpp"
 
 
 namespace
@@ -109,9 +109,6 @@ boost::json::value Expression::eval(boost::json::value const& x) const
 boost::json::value Expression::eval(boost::json::value const& x, EvalContext const& ctx) const
 try
 {
-    using lang::detail::CodegenType;
-    using lang::detail::getCodegenType;
-
     boost::json::value result {};
 
     if(is_literal() || is_preproc())
@@ -133,31 +130,35 @@ try
         ctx.log.push(*this, x, result, ctx.depth);
     }
     else {
-        CodegenType const classifier = getCodegenType(keyword());
-        switch (classifier)
-        {
-            case CodegenType::Const:       { result = eval_Const    (x);      break; }
-            case CodegenType::UnaryOp:     { result = eval_UnaryOp  (x, ctx); break; }
-            case CodegenType::BinaryOp:    { result = eval_BinaryOp (x, ctx); break; }
-            case CodegenType::CodegenFn:   { result = eval_CodegenFn(x, ctx); break; }
-            case CodegenType::None:
-            default:
-            {
+        auto const a = attributes(keyword());
 
-                if (is_variadic())
-                {
-                    result = eval_Variadic(x, ctx);
-                }
-                else if (is_hiord())
-                {
-                    result = eval_HiOrd(x, ctx);
-                }
-                else
-                {
-                    result = eval_Special(x, ctx);
-                }
-                break;
-            }
+        if (a & (attr::is_const))
+        {
+            result = eval_Const(x);
+        }
+        else if ((a & attr::is_operator) && (a & attr::is_unary))
+        {
+            result = eval_UnaryOp  (x, ctx);
+        }
+        else if ((a & attr::is_operator) && (a & attr::is_binary))
+        {
+            result = eval_BinaryOp  (x, ctx);
+        }
+        else if (a & attr::is_autogen)
+        {
+            result = eval_CodegenFn(x, ctx);
+        }
+        else if (a & attr::is_variadic)
+        {
+            result = eval_Variadic(x, ctx);
+        }
+        else if (a & attr::is_hiord)
+        {
+            result = eval_HiOrd(x, ctx);
+        }
+        else
+        {
+            result = eval_Special(x, ctx);
         }
         ctx.log.push(*this, x, result, ctx.depth);
     }

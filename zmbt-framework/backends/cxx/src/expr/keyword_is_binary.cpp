@@ -60,7 +60,6 @@ bool isBinary(Keyword const& k)
     case Keyword::And:
     case Keyword::Or:
     case Keyword::Re:
-    case Keyword::Fmt:
     case Keyword::Slide:
     case Keyword::Stride:
     case Keyword::Chunks:
@@ -70,8 +69,6 @@ bool isBinary(Keyword const& k)
     case Keyword::At:
     case Keyword::Del:
     case Keyword::Lookup:
-    case Keyword::Cast:
-    case Keyword::Uncast:
     case Keyword::Fold:
     case Keyword::Map:
     case Keyword::Filter:
@@ -89,6 +86,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Unfold:
     case Keyword::Bind:
     case Keyword::Flip:
+    case Keyword::Dbg:
     case Keyword::Eval:
     case Keyword::Try:
     case Keyword::Q:
