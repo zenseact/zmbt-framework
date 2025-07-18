@@ -28,8 +28,8 @@ using Keyword = zmbt::lang::Keyword;
 static V const kNullValue = nullptr;
 static V const kDefaultKeyFn = E(Keyword::Id);
 
-// TODO: handle it in codegen
-bool set_default_param(Keyword const& keyword, V &param)
+
+bool set_default_param(Keyword const& keyword, E &param)
 {
     switch(keyword)
     {
@@ -38,16 +38,15 @@ bool set_default_param(Keyword const& keyword, V &param)
     case Keyword::Max:
     case Keyword::Argmin:
     case Keyword::Argmax:
-        {
-            param = kDefaultKeyFn;
-            break;
-        }
-    default:
-        {
-            break;
-        }
+    {
+        param = kDefaultKeyFn;
+        return true;
     }
-    return nullptr != param;
+    default:
+    {
+        return false;
+    }
+    }
 }
 
 }
@@ -55,29 +54,30 @@ bool set_default_param(Keyword const& keyword, V &param)
 namespace zmbt {
 namespace lang {
 
-void Expression::handle_binary_args(V const& x, V &lhs, V &rhs) const
+void Expression::handle_binary_args(V const& x, Expression &lhs, Expression &rhs) const
 {
-    if (has_subexpr())
+    bool const is_binary = attributes(keyword()) & attr::is_binary;
+    if (!is_binary | has_subexpr())
     {
-        lhs = x;
-        rhs = subexpr().to_json();
+        lhs = E(x);
+        rhs = subexpr();
     }
     else if (set_default_param(keyword(), rhs))
     {
-        lhs = x;
+        lhs = E(x);
     }
     else // treat x as argument pair
     {
         auto const if_array = x.if_array();
         if (if_array && if_array->size() == 2)
         {
-            lhs = if_array->front();
-            rhs = if_array->back();
+            lhs = E(if_array->front());
+            rhs = E(if_array->back());
         }
         else
         {
-            lhs = x;
-            rhs = kNullValue;
+            lhs = E(x);
+            rhs = E(nullptr);
         }
     }
 }

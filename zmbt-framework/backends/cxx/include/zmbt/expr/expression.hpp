@@ -43,7 +43,7 @@ private:
     struct json_ctor_params;
     Expression(json_ctor_params&&);
 
-    void handle_binary_args(V const& x, V &lhs, V &rhs) const;
+    void handle_binary_args(V const& x, Expression &lhs, Expression &rhs) const;
 
     boost::json::value eval_Const(boost::json::value const&) const;
     boost::json::value eval_UnaryOp(boost::json::value const&, EvalContext const&) const;
@@ -188,11 +188,13 @@ private:
 
     boost::json::value const& data() const
     {
-        if (encoding_view().size() > 1 && encoding_view().at(1).keyword == Keyword::Literal)
+        auto const child = encoding_view().child(0);
+        auto const a = attributes(child.head());
+        if (!child.empty() && ((a & attr::is_literal) || (a & attr::is_preproc)))
         {
-            return *encoding_view().at(1).data;
+            return *child.front().data;
         }
-        return *encoding_view().at(0).data;
+        return *encoding_view().front().data;
     }
 
     Expression subexpr() const

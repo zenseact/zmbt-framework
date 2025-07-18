@@ -33,15 +33,12 @@ boost::json::value Expression::eval_UnaryOp(boost::json::value const& x, EvalCon
 
 boost::json::value Expression::eval_BinaryOp(boost::json::value const& x, EvalContext const& ctx) const
 {
-    V lhs {}; // binary LHS or expr params
-    V rhs {}; // binary RHS or expr arg
+    E lhs {}; // binary LHS or expr params
+    E rhs {}; // binary RHS or expr arg
 
     handle_binary_args(x, lhs, rhs);
-    // if (not (lhs and rhs))
-    // {
-        // return detail::make_error_expr("invalid operands", prettify());
-    // }
-    return ctx.op.apply(keyword(), Expression(lhs).eval(nullptr, ctx++), Expression(rhs).eval(nullptr, ctx++));
+
+    return ctx.op.apply(keyword(), lhs.eval(nullptr, ctx++), rhs.eval(nullptr, ctx++));
 }
 
 
