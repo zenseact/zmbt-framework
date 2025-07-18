@@ -38,9 +38,11 @@ constexpr std::uint32_t is_literal     = 1 <<  9;
 constexpr std::uint32_t is_quote       = 1 << 10;
 constexpr std::uint32_t is_preproc     = 1 << 11;
 constexpr std::uint32_t is_error       = 1 << 12;
-constexpr std::uint32_t is_infix_pipe  = 1 << 13;
-constexpr std::uint32_t is_infix_fork  = 1 << 14;
-constexpr std::uint32_t is_autogen     = 1 << 15;
+constexpr std::uint32_t is_pipe        = 1 << 13;
+constexpr std::uint32_t is_fork        = 1 << 14;
+constexpr std::uint32_t is_overload    = 1 << 15;
+constexpr std::uint32_t is_infix_chain = 1 << 16;
+constexpr std::uint32_t is_autogen     = 1 << 17;
 }
 
 
@@ -168,13 +170,13 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Argmax: return is_binary | is_hiord;
     case Keyword::Recur: return is_binary | is_hiord;
     case Keyword::Unfold: return is_binary | is_hiord;
-    case Keyword::Op: return is_unary | is_hiord;
+    case Keyword::Op: return is_unary | is_hiord | is_overload;
     case Keyword::Bind: return is_binary | is_hiord;
     case Keyword::Any: return is_variadic | is_predicate | is_hiord;
     case Keyword::All: return is_variadic | is_predicate | is_hiord;
     case Keyword::Saturate: return is_variadic | is_predicate | is_hiord;
-    case Keyword::Pipe: return is_variadic | is_hiord;
-    case Keyword::Fork: return is_variadic | is_hiord;
+    case Keyword::Pipe: return is_variadic | is_hiord | is_pipe;
+    case Keyword::Fork: return is_variadic | is_hiord | is_fork;
     case Keyword::Flip: return is_binary | is_hiord;
     case Keyword::Dbg: return is_binary | is_hiord;
     case Keyword::Eval: return is_binary | is_hiord;

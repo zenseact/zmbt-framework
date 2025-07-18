@@ -114,6 +114,12 @@ class Keyword:
             attrs.append('is_error')
         if self.Name == 'Q':
             attrs.append('is_quote')
+        if self.Name == 'Pipe':
+            attrs.append('is_pipe')
+        if self.Name == 'Fork':
+            attrs.append('is_fork')
+        if self.Name == 'Op':
+            attrs.append('is_overload')
 
         return ' | '.join(attrs)
 

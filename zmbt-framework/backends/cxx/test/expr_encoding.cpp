@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(ViewSubtree)
 BOOST_AUTO_TEST_CASE(ViewSubtrees)
 {
     EncodingView const view(TestEncoding);
-    auto const subtrees = view.subtrees();
+    auto const subtrees = view.children();
 
     BOOST_REQUIRE_EQUAL(subtrees.size(), 2);
     BOOST_CHECK(subtrees.front() == view.subtree(1));

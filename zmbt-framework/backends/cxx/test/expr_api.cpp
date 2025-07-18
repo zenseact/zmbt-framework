@@ -713,6 +713,8 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     EvalContext context{};
     context.log = EvalLog::make();
 
+    Logger::set_max_level(Logger::DEBUG);
+
     try
     {
         BOOST_TEST_INFO("Expression: " << sample.expr.prettify());
@@ -1006,6 +1008,26 @@ BOOST_AUTO_TEST_CASE(PrettifyExpressionTostaticBuffer)
     BOOST_CHECK_EQUAL(buff, "(Fold(Add) & Size) | Div | Eq(2.5E0) | Not");
 }
 
+BOOST_AUTO_TEST_CASE(ExpressionAttrs)
+{
+    Logger::set_max_level(Logger::DEBUG);
+
+    // BOOST_CHECK(not Add(1).is_const());
+    // BOOST_CHECK(1 | Add(1).is_const());
+
+    BOOST_CHECK(not ("" & Eq("42")).is_const());
+
+    // auto const e1 = Overload(type<int>, Add(1) | Str | Overload("", Eq("42")));
+    // BOOST_CHECK(not e1.is_const());
+    // BOOST_CHECK_EQUAL(e1.eval(41), true);
+
+
+    // auto const e1 = (Fold(Add) & Size) | Div | Eq(2.5E0) | Not;
+
+    // auto const e2 = Q({1,2,3}) | e1;
+
+
+}
 
 BOOST_AUTO_TEST_CASE(PrettifyExpression)
 {

@@ -117,12 +117,15 @@ try
     }
     else if (is(Keyword::Q))
     {
-        auto const pl = parameter_list();
-        if (pl.size() > 1)
+        auto const child = encoding_view().child(0);
+        if (child.empty())
         {
-            return detail::make_error_expr("corrupted data", keyword_to_str());
+            result = nullptr;
         }
-        result = pl.empty() ? nullptr : boost::json::value_from(pl.front());
+        else
+        {
+            result = Expression(child.freeze()).to_json();
+        }
     }
     else if (is(Keyword::Id))
     {

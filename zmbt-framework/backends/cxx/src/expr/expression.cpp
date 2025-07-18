@@ -45,48 +45,12 @@ Expression::Expression(std::initializer_list<boost::json::value_ref> items)
 
 boost::json::value Expression::to_json() const
 {
-    return (is_literal() || is_preproc()) ? (*encoding_view()[0].data) : boost::json::value_from(encoding());
+    return (is_literal() || is_preproc()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding());
 }
 
 bool Expression::is_const() const
 {
-    // TODO: test it and clarify param evaluation
-    if (is_nonempty_composition())
-    {
-        auto const pl = parameter_list();
-        auto it = pl.cbegin();
-        if (it->is_literal() || it->is_const())
-        {
-            return true;
-        }
-        ++it;
-        while (it != pl.cend())
-        {
-            if (it->is_const() && not it->is_literal()) return true;
-            ++it;
-        }
-        return false;
-    }
-    if (is_nonempty_fork())
-    {
-        auto const paramlist = parameter_list();
-        for (auto const& e: paramlist)
-        {
-            if (not e.is_const()) return false;
-        }
-        return true;
-    }
-    else if (is(Keyword::Op) && has_params())
-    {
-        auto const pl = parameter_list();
-        for (auto const& p: pl)
-        {
-            if (p.is_const()) return true;
-        }
-        return false;
-    }
-    auto const a = attributes(keyword());
-    return (a & attr::is_literal) || (a & attr::is_quote) || (a & attr::is_error) || (a & attr::is_const);
+    return encoding_view().is_const();
 }
 
 boost::json::string_view Expression::keyword_to_str() const
@@ -96,25 +60,7 @@ boost::json::string_view Expression::keyword_to_str() const
 
 bool Expression::is_boolean() const
 {
-    auto const a = attributes(keyword());
-
-    if(a & attr::is_literal)
-    {
-        return encoding().data.front().is_bool();
-    }
-    if (a & attr::is_predicate)
-    {
-        return true;
-    }
-    if (is(Keyword::Op) && has_params())
-    {
-        return parameter_list().front().is_boolean();
-    }
-    if (is_nonempty_composition())
-    {
-        return parameter_list().back().is_boolean();
-    }
-    return false;
+    return encoding_view().is_boolean();
 }
 
 
@@ -122,7 +68,7 @@ std::list<Expression> Expression::parameter_list() const
 {
     std::list<Expression> result;
 
-    auto subtrees = encoding_view().subtrees();
+    auto subtrees = encoding_view().children();
 
     for (auto const& s: subtrees)
     {
@@ -141,6 +87,7 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
     }
     return result.get_bool();
 }
+
 
 }  // namespace lang
 }  // namespace zmbt

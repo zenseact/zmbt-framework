@@ -183,22 +183,22 @@ private:
 
     Keyword keyword() const
     {
-        return encoding_view().front().keyword;
+        return encoding_view().head();
     }
 
     boost::json::value const& data() const
     {
-        if (encoding_view().size() > 1 && encoding_view()[1].keyword == Keyword::Literal)
+        if (encoding_view().size() > 1 && encoding_view().at(1).keyword == Keyword::Literal)
         {
-            return *encoding_view()[1].data;
+            return *encoding_view().at(1).data;
         }
-        return *encoding_view()[0].data;
+        return *encoding_view().at(0).data;
     }
 
     Expression subexpr() const
     {
-        auto const pl = parameter_list();
-        return pl.empty() ? nullptr : pl.front();
+        auto const child = encoding_view().child(0);
+        return child.empty() ? nullptr : Expression(child.freeze());
     }
 
 
@@ -230,11 +230,6 @@ private:
     bool is_fork() const
     {
         return is(Keyword::Fork);
-    }
-
-    bool is_infix_chain() const
-    {
-        return (is_fork() || is_compose()) && encoding_view().size() > 2;
     }
 
     std::size_t infix_size() const
@@ -292,6 +287,8 @@ private:
     {
         return to_json();
     }
+
+    bool check_terms(std::uint32_t const attr_mask) const;
 
     /// @brief Evaluate expression
     /// @param x run-time argument
