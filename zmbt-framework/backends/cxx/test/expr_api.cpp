@@ -1185,3 +1185,18 @@ BOOST_AUTO_TEST_CASE(TestFix)
     ))
     */
 }
+
+// WIP
+
+#include <zmbt/expr/eval_impl.hpp>
+
+
+BOOST_AUTO_TEST_CASE(TestEval)
+{
+    auto const e = Add(42);
+
+    auto const result = e.neweval(11, {});
+
+    BOOST_CHECK_EQUAL(result, 53);
+
+}

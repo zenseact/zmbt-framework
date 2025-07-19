@@ -185,6 +185,9 @@ public:
     /// Children subviews
     std::list<EncodingView> children() const;
 
+    /// Number of children
+    std::size_t arity() const;
+
     /// Root node keyword
     Keyword head() const noexcept;
 

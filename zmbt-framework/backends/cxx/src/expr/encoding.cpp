@@ -307,6 +307,22 @@ EncodingView EncodingView::subtree(std::size_t const node) const noexcept
     return traverse_subtrees(node, ignored);
 }
 
+std::size_t EncodingView::arity() const
+{
+    if (empty()) return 0;
+
+    std::size_t const offset = depth_[0];
+    std::size_t n {0};
+    for (size_t i = 0; i < size(); i++)
+    {
+        if ((depth_[i] - offset) == 1)
+        {
+            ++n;
+        }
+    }
+    return n;
+}
+
 std::list<EncodingView> EncodingView::children() const
 {
     std::list<EncodingView> st;

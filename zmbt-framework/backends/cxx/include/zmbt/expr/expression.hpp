@@ -299,6 +299,8 @@ private:
     boost::json::value eval(boost::json::value const& x, EvalContext const& ctx) const;
     boost::json::value eval(boost::json::value const& x = nullptr) const;
 
+    Expression neweval(Expression const& x, EvalContext const& ctx) const;
+
     /// Eval const expressions as Eq(expr), except for Noop,
     /// otherwise eval expr
     boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext const& ctx) const;
