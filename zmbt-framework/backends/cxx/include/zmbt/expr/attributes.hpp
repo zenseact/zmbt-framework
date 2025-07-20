@@ -123,7 +123,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Not: return is_unary | is_predicate | is_operator;
     case Keyword::And: return is_binary | is_operator;
     case Keyword::Or: return is_binary | is_operator;
-    case Keyword::Id: return is_unary;
+    case Keyword::Id: return is_unary | is_autogen;
     case Keyword::Transp: return is_unary;
     case Keyword::Cartesian: return is_unary;
     case Keyword::Reverse: return is_unary;
@@ -176,6 +176,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::All: return is_variadic | is_predicate | is_hiord;
     case Keyword::Saturate: return is_variadic | is_predicate | is_hiord;
     case Keyword::Pipe: return is_variadic | is_hiord | is_pipe;
+    case Keyword::Pack: return is_variadic | is_hiord;
     case Keyword::Fork: return is_variadic | is_hiord | is_fork;
     case Keyword::Flip: return is_binary | is_hiord;
     case Keyword::Dbg: return is_binary | is_hiord;
@@ -183,11 +184,11 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Try: return is_binary | is_hiord;
     case Keyword::Kwrd: return is_unary | is_hiord;
     case Keyword::Prms: return is_unary | is_hiord;
-    case Keyword::Q: return is_binary | is_quote;
+    case Keyword::Q: return is_binary | is_autogen | is_quote;
     case Keyword::D: return is_binary | is_autogen;
     case Keyword::Err: return is_unary | is_autogen | is_error;
     case Keyword::Trace: return is_binary;
-    case Keyword::PreProc: return is_binary | is_preproc;
+    case Keyword::PreProc: return is_binary | is_autogen | is_preproc;
     default:
         return 0U;
     }

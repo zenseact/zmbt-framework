@@ -19,29 +19,25 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
-#include "zmbt/expr/api.hpp"
+#include "zmbt/expr/eval_context.hpp"
+#include "zmbt/expr/eval_impl.hpp"
+#include "zmbt/expr/eval_impl_pp.hpp"
 
 
 namespace zmbt {
+namespace lang {
 
-boost::json::value zmbt::lang::Expression::eval_Const(boost::json::value const&) const
-{
-    switch(keyword())
-    {
-    case Keyword::Noop: return true;
-    case Keyword::Null: return nullptr;
-    case Keyword::True: return true;
-    case Keyword::False: return false;
-    case Keyword::Pi: return boost::math::constants::pi<double>();
-    case Keyword::E: return boost::math::constants::e<double>();
-    case Keyword::Inf: return std::numeric_limits<double>::infinity();
-    case Keyword::Eps: return std::numeric_limits<double>::epsilon();
-    case Keyword::NaN: return std::numeric_limits<double>::quiet_NaN();
-    case Keyword::Thread: return zmbt::get_tid().c_str();
-    default:
-        return expr::Error("invalid const expression", prettify());
-    }
-}
+ZMBT_DEFINE_EVALUATE_IMPL(Noop) { UNUSED_CTX; return true; }
+ZMBT_DEFINE_EVALUATE_IMPL(Null) { UNUSED_CTX; return nullptr; }
+ZMBT_DEFINE_EVALUATE_IMPL(True) { UNUSED_CTX; return true; }
+ZMBT_DEFINE_EVALUATE_IMPL(False) { UNUSED_CTX; return false; }
+ZMBT_DEFINE_EVALUATE_IMPL(Pi) { UNUSED_CTX; return boost::math::constants::pi<double>(); }
+ZMBT_DEFINE_EVALUATE_IMPL(E) { UNUSED_CTX; return boost::math::constants::e<double>(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Inf) { UNUSED_CTX; return std::numeric_limits<double>::infinity(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Eps) { UNUSED_CTX; return std::numeric_limits<double>::epsilon(); }
+ZMBT_DEFINE_EVALUATE_IMPL(NaN) { UNUSED_CTX; return std::numeric_limits<double>::quiet_NaN(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Thread) { UNUSED_CTX; return zmbt::get_tid().c_str(); }
 
+} // namespace lang
 } // namespace zmbt
 

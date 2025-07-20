@@ -15,9 +15,6 @@
  * 3. Commit changes
  */
 
-@for library in data.imports_for(data.Constants):
-#include <@library>
-@end
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
@@ -29,9 +26,10 @@
 namespace zmbt {
 namespace lang {
 
-@for keyword in data.Constants:
-ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { UNUSED_CTX; return @keyword.CodegenValue; }
+@for keyword in data.Operators:
+ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return context.op.apply(Keyword::@keyword.Name, lhs().eval(), rhs().eval()); }
 @end
+
 
 } // namespace lang
 } // namespace zmbt

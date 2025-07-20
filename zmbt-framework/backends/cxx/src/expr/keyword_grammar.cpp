@@ -206,6 +206,7 @@ KeywordSymbol::KeywordSymbol()
     ("All", Keyword::All)
     ("Saturate", Keyword::Saturate)
     ("Pipe", Keyword::Pipe)
+    ("Pack", Keyword::Pack)
     ("Fork", Keyword::Fork)
     ("Flip", Keyword::Flip)
     ("Dbg", Keyword::Dbg)
@@ -373,6 +374,7 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::All: { return "All"; break; }
     case Keyword::Saturate: { return "Saturate"; break; }
     case Keyword::Pipe: { return "Pipe"; break; }
+    case Keyword::Pack: { return "Pack"; break; }
     case Keyword::Fork: { return "Fork"; break; }
     case Keyword::Flip: { return "Flip"; break; }
     case Keyword::Dbg: { return "Dbg"; break; }

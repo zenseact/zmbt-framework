@@ -81,11 +81,8 @@ std::list<Expression> Expression::parameter_list() const
 bool Expression::match(boost::json::value const& observed, Operator const& op) const
 {
     auto result = eval(observed, {op, {}, 0});
-    if (!result.is_bool())
-    {
-        return false;
-    }
-    return result.get_bool();
+    auto const if_bool = result.if_bool();
+    return if_bool ? *if_bool : false;
 }
 
 

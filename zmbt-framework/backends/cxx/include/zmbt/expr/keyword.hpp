@@ -406,6 +406,9 @@ enum class Keyword
     /// Pipe
     Pipe,
 
+    /// Pack
+    Pack,
+
     /// Fork
     Fork,
 

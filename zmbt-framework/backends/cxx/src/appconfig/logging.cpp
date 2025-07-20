@@ -62,7 +62,7 @@ public:
     }
 
     void push(boost::json::object const& record) {
-        
+
         std::lock_guard<std::mutex> lock(mutex_);
         if (!queue_.push(record)) {
             ++lost_message_count_;

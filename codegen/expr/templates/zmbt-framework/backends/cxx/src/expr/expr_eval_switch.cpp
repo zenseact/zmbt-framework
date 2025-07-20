@@ -27,17 +27,33 @@ extern template Expression dispatch_eval<Keyword::@keyword.Name>(Expression cons
 @end
 
 
-
-Expression Expression::neweval(Expression const& x, EvalContext const& context) const
+boost::json::value Expression::eval(Expression const& x, EvalContext const& ctx) const
 {
+    return eval_e(x, ctx).to_json();
+}
+
+boost::json::value Expression::eval(Expression const& x) const
+{
+    return eval(x, {});
+}
+
+Expression Expression::eval_e(Expression const& x, EvalContext const& context) const
+try
+{
+
     switch (keyword())
     {
+        case Keyword::Literal: return *this;
 @for keyword in data.ApiKeywords:
         case Keyword::@keyword.Name: return dispatch_eval<Keyword::@keyword.Name>(*this, x, context);
 @end
         default:
             return nullptr; // TODO: err
     }
+}
+catch(const std::exception& e)
+{
+    return detail::make_error_expr(e.what(), keyword_to_str());
 }
 
 } // namespace expr

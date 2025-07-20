@@ -30,7 +30,6 @@ using zmbt::lang::EvalLog;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Void,
     Keyword::Find,
     Keyword::FindPtr,
     Keyword::FindIdx
@@ -330,6 +329,8 @@ std::vector<TestEvalSample> const TestSamples
     {Size|Eq(2)                 , {1,2}                 , true                  },
     {Size|2                     , {1,2}                 , true                  },
 
+    {42 | (Size + Card)           , {}                  , {Size, Card}          },
+
     // arithmetic
     {Neg                        , 42                    , -42                   },
     {Neg                        , -42                   ,  42                   },
@@ -601,15 +602,15 @@ std::vector<TestEvalSample> const TestSamples
                                                              {2, "a"},
                                                              {2, "b"}}          },
 
-    {Keyword::Noop              , nullptr                , "Noop"              },
-    {Noop                       , nullptr                , true                 },
+    {Keyword::Noop              , nullptr               , "Noop"                },
+    {Noop                       , nullptr               , true                  },
 
     // Binary
-    {Str                        , Q(Cat({Keyword::At}))  , R"(Cat(["At"]))"    },
-    {Str                        , Q(Cat({42, Keyword::At, precise<float>()}))
-                                , R"(Cat([42,"At","0x0p+0"]))"                 },
+    {Str                        , Cat({Keyword::At})    , R"(Cat(["At"]))"      },
+    {Str                        , Cat({42, Keyword::At, precise<float>()})
+                                , R"(Cat([42,"At","0x0p+0"]))"                  },
     // HiOrd
-    {Str                        , Q(Max({Keyword::At}))  , R"(Max(["At"]))"    },
+    {Str                        , Max({Keyword::At})    , R"(Max(["At"]))"      },
 
     {2|Add(1|Add(1))            , {}                    , 4                     },
 
@@ -638,8 +639,8 @@ std::vector<TestEvalSample> const TestSamples
     {42 | Id & Q(Add(1)) | Bind(Pipe)      , {}      , 42 | Add(1)           },
     {42 | Id & Q(Add(1)) | Bind(Pipe)|Eval , {}      , 43                    },
 
-    { (Bind(Q) | ToList) & Id | Bind          , Fmt     , Fmt(Fmt)              },
-    { Q(Fmt) | (Bind(Q) | ToList) & Id | Bind , {}      , Fmt(Fmt)              },
+    { (ToList & Id) | Bind          , Fmt     , Fmt(Fmt)              },
+    { Q(Fmt) | (ToList & Id) | Bind , {}      , Fmt(Fmt)              },
 
     {   // bind chain
         42 & Q(Add(1)) & Q(Sub(1)) & Q(Mul(1)) | Bind(Pipe)
@@ -743,6 +744,7 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, static_cast<std::size_t>(Keyword::_count)))
 {
     Keyword const keyword = static_cast<Keyword>(sample);
+    if (keyword == Keyword::Void) return;
     if (NotImplemented.count(keyword) == 0 && CoveredInTestEval.count(keyword) == 0)
     {
         BOOST_FAIL("Keyword " << json_from(keyword) << " is not covered in TestEval");
@@ -763,11 +765,11 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
     BOOST_TEST_INFO(expr.prettify());
     try
     {
-        auto const maybe_err = Expression(expr.eval());
+        auto const maybe_err = expr.eval_e({}, {});
         if (expect_impl
             && maybe_err.is_error()
             && maybe_err.has_params()
-            && maybe_err.data().as_object().at("message") == "not implemented"
+            && maybe_err.as_object().at("message") == "not implemented"
         )
         {
             BOOST_FAIL("Keyword " << json_from(keyword) << " is not implemented");
@@ -915,7 +917,7 @@ BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
     EvalContext cfg{};
     cfg.log = EvalLog::make();
 
-    auto const f = Reduce(Add) & Size | Div;
+    auto const f = Debug(Reduce(Add) & Size | Div);
     auto const x = L{1,2,3,42.5};
     f.eval(x, cfg);
     BOOST_CHECK(!cfg.log.str().empty());
@@ -1047,6 +1049,8 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     TEST_PRETIFY("%s%d" | Fmt(Pi | Div(2), 2 | Add(2)))
     TEST_PRETIFY(Recur(42 & Map(Add(2) | Div(E))))
     TEST_PRETIFY(Unfold(13 & Recur(42 & Map(Add(2) | Div(E)))))
+
+    TEST_PRETIFY(Unfold(13 + Recur(42 + Map(Add(2) | Div(E)))))
 
     TEST_PRETIFY(Min)
     TEST_PRETIFY(Min(At("/%s" | Fmt("foo"))))
@@ -1193,10 +1197,34 @@ BOOST_AUTO_TEST_CASE(TestFix)
 
 BOOST_AUTO_TEST_CASE(TestEval)
 {
-    auto const e = Add(42);
+    {
+        auto const e = Add(42) | Mul(2);
+        auto const result = e.eval(11, {});
+        BOOST_CHECK_EQUAL(result, 106);
+    }
 
-    auto const result = e.neweval(11, {});
+    {
+        auto const e = 2 & Q(42) | Add;
+        auto const result = e.eval({}, {});
+        BOOST_CHECK_EQUAL(result, 44);
+    }
 
-    BOOST_CHECK_EQUAL(result, 53);
+    {
+        auto const e = "%s, %s!" | Fmt("Hello", "World");
+        auto const result = e.eval({}, {});
+        BOOST_CHECK_EQUAL(result, "Hello, World!");
+    }
+
+
+    {
+        auto const e = "%s, %s!" & Q({"Hello", "World"}) | Fmt;
+        auto const result = e.eval({}, {});
+        BOOST_CHECK_EQUAL(result, "Hello, World!");
+    }
+
+    {
+        auto const e = Q(Ge(12)) | Recur( 4 + Add(1));
+        BOOST_CHECK_EQUAL(e.eval(), 11);
+    }
 
 }

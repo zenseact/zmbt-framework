@@ -158,6 +158,7 @@ lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::All> const All = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Pipe> const Pipe = {};
+lang::SignatureVariadic<::zmbt::lang::Keyword::Pack> const Pack = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Dbg> const Dbg = {};

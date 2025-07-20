@@ -131,7 +131,7 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
                 key(), json_from(kind), record_pointer, error_context);
 
             ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
-            << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
+                << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
             throw model_error("injection failure");
         }
 

@@ -105,8 +105,8 @@ try
 
     switch (keyword)
     {
-    case Keyword::Bool: return handle_.logic.bool_(rhs);
-    case Keyword::Not: return negate(handle_.logic.bool_(rhs));
+    case Keyword::Bool: return handle_.logic.bool_(lhs);
+    case Keyword::Not: return negate(handle_.logic.bool_(lhs));
     case Keyword::And: return handle_.logic.and_(lhs, rhs);
     case Keyword::Or: return handle_.logic.or_(lhs, rhs);
 
@@ -123,9 +123,9 @@ try
     case Keyword::Mul: return handle_.arithmetics.mul(lhs, rhs);
     case Keyword::Div: return handle_.arithmetics.div(lhs, rhs);
     case Keyword::Mod: return handle_.arithmetics.mod(lhs, rhs);
-    case Keyword::Neg   : return handle_.arithmetics.neg(rhs);
+    case Keyword::Neg   : return handle_.arithmetics.neg(lhs);
 
-    case Keyword::BitNot: return handle_.bitwise.compl_(rhs);
+    case Keyword::BitNot: return handle_.bitwise.compl_(lhs);
     case Keyword::BitAnd: return handle_.bitwise.and_(lhs, rhs);
     case Keyword::BitOr : return handle_.bitwise.or_(lhs, rhs);
     case Keyword::BitXor: return handle_.bitwise.xor_(lhs, rhs);

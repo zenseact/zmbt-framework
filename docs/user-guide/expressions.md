@@ -152,33 +152,28 @@ For the complete information see [Expression Language Reference](../dsl-referenc
 Complex expressions evaluation
 
 ```cpp
-EvalContext ctx{};
-ctx.log = EvalLog::make();
-
-auto const f = Reduce(Add) & Size | Div;
+auto const f = Debug(Reduce(Add) & Size | Div);
 auto const x = L{1,2,3,42.5};
 f.eval(x, ctx);
-std::cerr << ctx.log << '\n';
 ```
 
 Produced output is printed bottom-up in order of evaluation:
 ```
-         ┌── ":add"([1,2]) = 3
-         ├── ":add"([3,3]) = 6
-         ├── ":add"([6,4.25E1]) = 4.85E1
-      ┌── {":reduce":":add"}([1,2,3,4.25E1]) = 4.85E1
-      ├── ":size"([1,2,3,4.25E1]) = 4
-   ┌── {":fork":[{":reduce":":add"},":size"]}([1,2,3,4.25E1]) = [4.85E1,4]
-   ├── ":div"([4.85E1,4]) = 1.2125E1
-□  {":compose":[":div",{":fork":[{":reduce":":add"},":size"]}]}([1,2,3,4.25E1]) = 1.2125E1
+2025-07-20T14:04:14.485827201Z DEBUG ZMBT_EXPR_DEBUG
+                    ┌── Add $ [1,2] = 3
+                    ├── Add $ [3,3] = 6
+                    ├── Add $ [6,4.25E1] = 4.85E1
+              ┌── Fold(Add) $ [1,2,3,4.25E1] = 4.85E1
+              ├── Size $ [1,2,3,4.25E1] = 4
+        ┌── Fold(Add) & Size $ [1,2,3,4.25E1] = [4.85E1,4]
+        ├── Div $ [4.85E1,4] = 1.2125E1
+  □  (Fold(Add) & Size) | Div $ [1,2,3,4.25E1] = 1.2125E1
 ```
 Log lines are formatted as `f(x) = result`, and connected with line-drawing to show the expression terms hierarchy.
 
 In model tests, the evaluation stack is logged on failing tests.
-For the bulky log messages the elements are trimmed with `...` while trying to keep the evaluation result visible:
-``` json
-{":compose":[":div",{":fork":[{":reduce":":add"},":size"]}]}([1,2,3,...) = 5
-```
+For the bulky log messages the elements are trimmed with `...` while trying to keep the evaluation result visible.
+This option can be disabled with `--zmbt_log_notrim` flag.
 For the complete log data refer to the JSON log.
 
 ## Grammar

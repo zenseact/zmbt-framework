@@ -39,6 +39,11 @@ Expression operator|(Expression const& lhs, Expression const& rhs)
     return unfold_left_assoc(Keyword::Pipe, lhs, rhs);
 }
 
+Expression operator+(Expression const& lhs, Expression const& rhs)
+{
+    return unfold_left_assoc(Keyword::Pack, lhs, rhs);
+}
+
 Expression operator&(Expression const& lhs, Expression const& rhs)
 {
     return unfold_left_assoc(Keyword::Fork, lhs, rhs);

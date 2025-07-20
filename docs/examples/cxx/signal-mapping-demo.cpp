@@ -1165,23 +1165,23 @@ BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
 Negation at the matcher end lead to test failure, and the log message is following:
 
 ```yaml
-    - ZMBT FAIL:
+  - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: "(Fold(Add) & Size) | Div | Eq(2.5E0) | Not"
+      expected: (Fold(Add) & Size) | Div | Eq(2.5E0) | Not
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
         ---
-                 ┌── Add $ [1,2] = 3
-                 ├── Add $ [3,3] = 6
-                 ├── Add $ [6,4] = 10
-              ┌── Fold(Add) $ [1,2,3,4] = 10
-              ├── Size $ [1,2,3,4] = 4
-           ┌── Fold(Add) & Size $ [1,2,3,4] = [10,4]
-           ├── Div $ [10,4] = 2.5E0
-           ├── Eq(2.5E0) $ 2.5E0 = true
-           ├── Not $ true = false
+                          ┌── Add $ [1,2] = 3
+                          ├── Add $ [3,3] = 6
+                          ├── Add $ [6,4] = 10
+                    ┌── Fold(Add) $ [1,2,3,4] = 10
+                    ├── Size $ [1,2,3,4] = 4
+              ┌── Fold(Add) & Size $ [1,2,3,4] = [10,4]
+              ├── Div $ [10,4] = 2.5E0
+              ├── Eq(2.5E0) $ 2.5E0 = true
+              ├── Not $ true = false
         □  (Fold(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 

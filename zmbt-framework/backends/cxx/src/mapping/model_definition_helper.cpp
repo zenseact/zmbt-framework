@@ -208,7 +208,6 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 
 void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json::value const& sp)
 {
-    ZMBT_LOG_CERR(DEBUG) << "\n - " << sp;
     model("%s/kind", head_pointer_) = kind;
     set_deferred_param(format("%s/signal_path", head_pointer_), sp);
 }

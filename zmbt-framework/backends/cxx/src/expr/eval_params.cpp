@@ -15,22 +15,29 @@ namespace lang {
 EvalParams::EvalParams(Expression const& e, Expression const& x) : self_{e}, x_{x}
 {
     namespace attr = zmbt::lang::attr;
-    bool const is_binary = attributes(self().keyword()) & attr::is_binary;
+    auto const a = attributes(self().keyword());
+    bool const is_binary = a & attr::is_binary;
+    bool const is_variadic = a & attr::is_variadic;
 
     lhs_ = x;
 
-    if (!is_binary | self().has_subexpr())
+    auto const if_arr = x.if_array();
+    if (is_variadic && self().has_subexpr())
     {
-        rhs_maybe_owned_ = self().subexpr();
+        // self().parameter_list() is used directly to avoid reserialization
+    }
+    else if (!is_binary || self().has_subexpr())
+    {
+        rhs_ = rhs_maybe_owned_ = self().subexpr();
     }
     else if (has_default_rhs())
     {
         rhs_ = expr::Id;
     }
-    else if (x.is_fork() && (x.encoding_view().arity() == 2))
+    else if (x.is_literal() && if_arr && if_arr->size() == 2)
     {
-        lhs_maybe_owned_ = Expression(x.encoding_view().child(0).freeze());
-        rhs_maybe_owned_ = Expression(x.encoding_view().child(1).freeze());
+        lhs_ = lhs_maybe_owned_ = if_arr->front();
+        rhs_ = rhs_maybe_owned_ = if_arr->back();
     }
     else
     {

@@ -106,95 +106,95 @@ keyword_groups:
       - name: Sin
         brief: Sinus function
         codegen-value:
-          cxx: json_from(std::sin(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::sin(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Cos
         brief: Cosinus function
         codegen-value:
-          cxx: json_from(std::cos(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::cos(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Tan
         brief: Tangens function
         codegen-value:
-          cxx: json_from(std::tan(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::tan(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Asin
         brief: Arcsin function
         codegen-value:
-          cxx: json_from(std::asin(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::asin(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Acos
         brief: Arccos function
         codegen-value:
-          cxx: json_from(std::acos(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::acos(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Atan
         brief: Arctan function
         codegen-value:
-          cxx: json_from(std::atan(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::atan(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Sinh
         brief: Hyperbolic sin
         codegen-value:
-          cxx: json_from(std::sinh(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::sinh(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Cosh
         brief: Hyperbolic cos
         codegen-value:
-          cxx: json_from(std::cosh(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::cosh(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Tanh
         brief: Hyperbolic tan
         codegen-value:
-          cxx: json_from(std::tanh(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::tanh(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Asinh
         brief: Hyperbolic arcsin
         codegen-value:
-          cxx: json_from(std::asinh(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::asinh(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Acosh
         brief: Hyperbolic arccos
         codegen-value:
-          cxx: json_from(std::acosh(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::acosh(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Atanh
         brief: Hyperbolic arctan
         codegen-value:
-          cxx: json_from(std::atanh(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::atanh(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Exp
         brief: Exponential (e^x)
         codegen-value:
-          cxx: json_from(std::exp(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::exp(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Erf
         brief: Error function
         codegen-value:
-          cxx: std::erf(dejsonize<double>(x))
+          cxx: real_to_number(std::erf(dejsonize<double>( lhs() )))
 
       - name: Erfc
         brief: Error function complement
         codegen-value:
-          cxx: std::erfc(dejsonize<double>(x))
+          cxx: real_to_number(std::erfc(dejsonize<double>( lhs() )))
 
       - name: Gamma
         brief: Gamma function
         codegen-value:
-          cxx: std::tgamma(dejsonize<double>(x))
+          cxx: real_to_number(std::tgamma(dejsonize<double>( lhs() )))
 
       - name: Abs
         brief: Absolute value
         codegen-value:
-          cxx: json_from(std::abs(dejsonize<std::complex<double>>(x)))
+          cxx: real_to_number(std::abs(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Ceil
         codegen-value:
-          cxx: std::ceil(dejsonize<double>(x))
+          cxx: real_to_number(std::ceil(dejsonize<double>( lhs() )))
 
       - name: Floor
         codegen-value:
-          cxx: std::floor(dejsonize<double>(x))
+          cxx: real_to_number(std::floor(dejsonize<double>( lhs() )))
 
       - name: Round
         brief: Round to nearest integer
@@ -202,18 +202,18 @@ keyword_groups:
           Hint: To round to ndigits precision after the decimal point,
           use `Mul(ndigits) | Round | Div(ndigits)` combo.
         codegen-value:
-          cxx: std::round(dejsonize<double>(x))
+          cxx: real_to_number(std::round(dejsonize<double>( lhs() )))
 
       - name: Sqrt
         brief: Square root
         codegen-value:
-          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>(x)))
+          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>( lhs() )))
 
       - name: Sign
         domain: real
         codomain: int
         codegen-value:
-          cxx: 'dejsonize<double>(x) >= 0 ? 1 : -1'
+          cxx: 'dejsonize<double>( lhs() ) >= 0 ? 1 : -1'
 
   Arithmetic Operators:
     defaults:
@@ -672,6 +672,8 @@ keyword_groups:
         codomain: any
         examples: |-
           42 | Id ↦ 42
+        codegen-value:
+          cxx: lhs()
 
       - name: Transp
         brief: Transpose multidimensional list, turning rows into columns
@@ -749,7 +751,7 @@ keyword_groups:
         examples: |-
           42 | List ↦ [42]
         codegen-value:
-          cxx: boost::json::array{x}
+          cxx: boost::json::array{ lhs() }
 
 
   Unary Generators:
@@ -790,7 +792,7 @@ keyword_groups:
         domain: str
         codomain: any
         codegen-value:
-          cxx: boost::json::parse(x.as_string())
+          cxx: boost::json::parse( lhs().as_string())
         imports:
           cxx:
             - boost/json.hpp
@@ -804,7 +806,7 @@ keyword_groups:
         domain: any
         codomain: str
         codegen-value:
-          cxx: Expression(x).prettify().c_str()
+          cxx: lhs().prettify().c_str()
         imports:
           cxx:
             - boost/json.hpp
@@ -1338,6 +1340,21 @@ keyword_groups:
           Add(1) | Mul(2) ≡ Pipe(Add(1), Mul(2))
           3 | Add(1) | Mul(2) ↦ 8
 
+      - name: Pack
+        signature: Variadic
+        brief: Pack expressions into an array without evaluation
+        domain: any
+        codomain: list
+        params:
+          - label: functions
+            type: list[expr]
+        examples: |-
+          null | Pack(Reduce(Add), Size) ↦ [Reduce(Add), Size]
+
+          **Infix operator form (plus):**
+
+          Add(1) + Mul(2) ≡ Pack(Add(1), Mul(2))
+
       - name: Fork
         signature: Variadic
         brief: Pack results from enveloped functions into an array
@@ -1440,13 +1457,15 @@ keyword_groups:
         domain: [any, any]
         examples: |-
           null | C(42) ↦ 42
+        codegen-value:
+          cxx: rhs()
 
       - name: D
         aliases: [ Default ]
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:
-          cxx: 'x.is_null() ? data() : x'
+          cxx: 'lhs().is_null() ? rhs() :  lhs()'
         examples: |-
           null | Default(42) ↦ 42
           13 | Default(42) ↦ 13
@@ -1458,7 +1477,7 @@ keyword_groups:
         details: |-
           Error object (work in progress)
         codegen-value:
-          cxx: to_json()
+          cxx: self()
 
       - name: Trace
         signature: Binary
@@ -1473,3 +1492,5 @@ keyword_groups:
         domain: [any, any]
         examples: |-
           null | C(42) ↦ 42
+        codegen-value:
+          cxx: self()

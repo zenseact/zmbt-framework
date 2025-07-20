@@ -130,6 +130,10 @@ private:
     /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
     friend Expression operator&(Expression const& lhs, Expression const& rhs);
 
+
+    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Pack.
+    friend Expression operator+(Expression const& lhs, Expression const& rhs);
+
     /// \brief Evaluate x to lhs expression.
     /// \details Equivalent to expr.eval(x).
     friend V operator*(Expression const& expr, Expression const& x);
@@ -162,6 +166,51 @@ private:
     }
 
     ~Expression() = default;
+
+    boost::json::string const& as_string() const
+    {
+        return data().as_string();
+    }
+
+    boost::json::array const& as_array() const
+    {
+        return data().as_array();
+    }
+
+    boost::json::object const& as_object() const
+    {
+        return data().as_object();
+    }
+
+    bool as_bool() const
+    {
+        return data().as_bool();
+    }
+
+    boost::json::string const* if_string() const
+    {
+        return data().if_string();
+    }
+
+    boost::json::array const* if_array() const
+    {
+        return data().if_array();
+    }
+
+    boost::json::object const* if_object() const
+    {
+        return data().if_object();
+    }
+
+    bool const* if_bool() const
+    {
+        return data().if_bool();
+    }
+
+    bool is_null() const
+    {
+        return data().is_null();
+    }
 
 
     std::string serialize() const
@@ -234,6 +283,11 @@ private:
         return is(Keyword::Fork);
     }
 
+    bool is_pack() const
+    {
+        return is(Keyword::Pack);
+    }
+
     std::size_t infix_size() const
     {
         std::size_t n {0};
@@ -252,6 +306,11 @@ private:
     bool is_infix_fork() const
     {
         return is_fork() && (infix_size() > 1);
+    }
+
+    bool is_infix_pack() const
+    {
+        return is_pack() && (infix_size() > 1);
     }
 
     bool is_nonempty_fork() const
@@ -296,10 +355,9 @@ private:
     /// @param x run-time argument
     /// @param config evaluation config
     /// @return
-    boost::json::value eval(boost::json::value const& x, EvalContext const& ctx) const;
-    boost::json::value eval(boost::json::value const& x = nullptr) const;
-
-    Expression neweval(Expression const& x, EvalContext const& ctx) const;
+    boost::json::value eval(Expression const& x, EvalContext const& ctx) const;
+    boost::json::value eval(Expression const& x = {}) const;
+    Expression eval_e(Expression const& x, EvalContext const& ctx) const;
 
     /// Eval const expressions as Eq(expr), except for Noop,
     /// otherwise eval expr

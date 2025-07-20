@@ -15,7 +15,7 @@
  * 3. Commit changes
  */
 
-@for library in data.imports_for(data.Constants):
+@for library in data.imports_for(data.CodegenFns):
 #include <@library>
 @end
 
@@ -25,13 +25,13 @@
 #include "zmbt/expr/eval_impl.hpp"
 #include "zmbt/expr/eval_impl_pp.hpp"
 
-
 namespace zmbt {
 namespace lang {
 
-@for keyword in data.Constants:
+@for keyword in data.CodegenFns:
 ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { UNUSED_CTX; return @keyword.CodegenValue; }
 @end
+
 
 } // namespace lang
 } // namespace zmbt
