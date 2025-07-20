@@ -31,8 +31,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cartesian)
 {
-    auto const x = lhs().eval();
-
     ASSERT(rhs().is_null(), "invalid parameter");
     auto const if_arr = lhs().if_array();
     ASSERT(if_arr, "invalid argument");
@@ -64,10 +62,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cartesian)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Uniques)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_array(), "invalid argument")
+    ASSERT(lhs().if_array(), "invalid argument")
     return boost::json::value_from(
-        boost::json::value_to<std::unordered_set<V>>(x)
+        boost::json::value_to<std::unordered_set<V>>(lhs().data())
     );
 }
 
@@ -75,26 +72,23 @@ ZMBT_DEFINE_EVALUATE_IMPL(Uniques)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Intersect)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    ASSERT(lhs().if_array(), "invalid argument");
+    ASSERT(rhs().if_array(), "invalid parameter");
+    auto const lhs_set = boost::json::value_to<std::unordered_set<V>>(lhs().data());
+    auto const rhs_set = boost::json::value_to<std::unordered_set<V>>(rhs().data());
 
-    ASSERT(x.kind() == param.kind(), "invalid operands");
-    ASSERT(x.is_array(), "invalid argument");
-
-    auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
-    auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
     auto const& op = curr_ctx().op;
     L intersection {};
-    intersection.reserve(std::max(lhs.size(), rhs.size()));
+    intersection.reserve(std::max(lhs_set.size(), rhs_set.size()));
     auto out_it = std::back_inserter(intersection);
 
-    auto lhs_it = lhs.cbegin();
-    while (lhs_it != lhs.cend())
+    auto lhs_it = lhs_set.cbegin();
+    while (lhs_it != lhs_set.cend())
     {
         if (std::find_if(
-            rhs.cbegin(),
-            rhs.cend(),
-            [&op, lhs_it](V const& v){ return op.apply(Keyword::Eq, v, *lhs_it).as_bool();}) != rhs.cend()
+            rhs_set.cbegin(),
+            rhs_set.cend(),
+            [&op, lhs_it](V const& v){ return op.apply(Keyword::Eq, v, *lhs_it).as_bool();}) != rhs_set.cend()
         )
         {
             *out_it = *lhs_it;
@@ -108,26 +102,23 @@ ZMBT_DEFINE_EVALUATE_IMPL(Intersect)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Diff)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    ASSERT(lhs().if_array(), "invalid argument");
+    ASSERT(rhs().if_array(), "invalid parameter");
+    auto const lhs_set = boost::json::value_to<std::unordered_set<V>>(lhs().data());
+    auto const rhs_set = boost::json::value_to<std::unordered_set<V>>(rhs().data());
 
-    ASSERT(x.kind() == param.kind(), "invalid operands");
-    ASSERT(x.is_structured(), "invalid argument");
-
-    auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
-    auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
     auto const& op = curr_ctx().op;
     L difference {};
-    difference.reserve(std::max(lhs.size(), rhs.size()));
+    difference.reserve(std::max(lhs_set.size(), rhs_set.size()));
     auto out_it = std::back_inserter(difference);
 
-    auto lhs_it = lhs.cbegin();
-    while (lhs_it != lhs.cend())
+    auto lhs_it = lhs_set.cbegin();
+    while (lhs_it != lhs_set.cend())
     {
         if (std::find_if(
-            rhs.cbegin(),
-            rhs.cend(),
-            [&op, lhs_it](V const& v){ return op.apply(Keyword::Eq, v, *lhs_it).as_bool();}) == rhs.cend()
+            rhs_set.cbegin(),
+            rhs_set.cend(),
+            [&op, lhs_it](V const& v){ return op.apply(Keyword::Eq, v, *lhs_it).as_bool();}) == rhs_set.cend()
         )
         {
             *out_it = *lhs_it;
@@ -142,34 +133,29 @@ ZMBT_DEFINE_EVALUATE_IMPL(Diff)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Union)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    ASSERT(lhs().if_array(), "invalid argument");
+    ASSERT(rhs().if_array(), "invalid parameter");
+    auto const lhs_set = boost::json::value_to<std::unordered_set<V>>(lhs().data());
+    auto const rhs_set = boost::json::value_to<std::unordered_set<V>>(rhs().data());
 
-    ASSERT(x.kind() == param.kind(), "invalid operands");
-    ASSERT(x.is_structured(), "invalid argument");
-
-
-
-    auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
-    auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
     auto const& op = curr_ctx().op;
     L set_union {};
-    set_union.reserve(lhs.size() + rhs.size());
+    set_union.reserve(lhs_set.size() + rhs_set.size());
 
     auto out_it = std::back_inserter(set_union);
-    std::copy(lhs.cbegin(), lhs.cend(), out_it);
+    std::copy(lhs_set.cbegin(), lhs_set.cend(), out_it);
     std::copy_if(
-        rhs.cbegin(),
-        rhs.cend(),
+        rhs_set.cbegin(),
+        rhs_set.cend(),
         out_it,
-        [&op, &lhs](V const& relem){
+        [&op, &lhs_set](V const& relem){
             return std::find_if(
-                lhs.cbegin(),
-                lhs.cend(),
+                lhs_set.cbegin(),
+                lhs_set.cend(),
                 [&op, &relem](V const& lelem){
                     return op.apply(Keyword::Eq, lelem, relem).as_bool();
                 }
-            ) == lhs.cend();
+            ) == lhs_set.cend();
         }
     );
 

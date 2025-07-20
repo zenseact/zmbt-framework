@@ -49,40 +49,36 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Argmin)
 {
-    auto const x = lhs().eval();
-
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& samples = x.get_array();
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& samples = *if_arr;
     if (samples.empty()) return nullptr;
     return find_argminmax(samples, rhs(), curr_ctx().op, &std::min_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Argmax)
 {
-    auto const x = lhs().eval();
-
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& samples = x.get_array();
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& samples = *if_arr;
     if (samples.empty()) return nullptr;
     return find_argminmax(samples, rhs(), curr_ctx().op, &std::max_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Min)
 {
-    auto const x = lhs().eval();
-
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& samples = x.get_array();
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& samples = *if_arr;
     if (samples.empty()) return nullptr;
     return *find_argminmax(samples, rhs(), curr_ctx().op, &std::min_element<L::const_iterator, compare_fn_t>);
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Max)
 {
-    auto const x = lhs().eval();
-
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& samples = x.get_array();
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& samples = *if_arr;
     if (samples.empty()) return nullptr;
     return *find_argminmax(samples, rhs(), curr_ctx().op, &std::max_element<L::const_iterator, compare_fn_t>);
 }

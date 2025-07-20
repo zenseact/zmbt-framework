@@ -30,8 +30,8 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Re)
 {
-    auto const param = rhs().eval();
-    auto const x = lhs().eval();
+    auto const& param = rhs().data();
+    auto const& x = lhs().data();
 
     ASSERT(param.is_string(), "invalid parameter");
     ASSERT(x.is_string(), "invalid argument");

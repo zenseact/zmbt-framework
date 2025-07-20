@@ -35,9 +35,9 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Items)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_object(), "invalid argument");
-    auto const& obj = x.get_object();
+    auto const if_obj = lhs().if_object();
+    ASSERT(if_obj, "invalid argument");
+    auto const& obj = *if_obj;
     boost::json::array out {};
     out.reserve(obj.size());
     for (auto const& kv: obj)
@@ -49,9 +49,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Items)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Keys)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_object(), "invalid argument");
-    auto const& obj = x.get_object();
+    auto const if_obj = lhs().if_object();
+    ASSERT(if_obj, "invalid argument");
+    auto const& obj = *if_obj;
     boost::json::array out {};
     out.reserve(obj.size());
     for (auto const& kv: obj)
@@ -63,9 +63,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Keys)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Values)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_object(), "invalid argument");
-    auto const& obj = x.get_object();
+    auto const if_obj = lhs().if_object();
+    ASSERT(if_obj, "invalid argument");
+    auto const& obj = *if_obj;
     boost::json::array out {};
     out.reserve(obj.size());
     for (auto const& kv: obj)
@@ -78,37 +78,44 @@ ZMBT_DEFINE_EVALUATE_IMPL(Values)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Size)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
-    ASSERT(param.is_null(), "invalid parameter")
-    ASSERT(x.is_structured(), "invalid argument")
+    ASSERT(rhs().is_null(), "invalid parameter")
+    auto const if_obj = lhs().if_object();
+    auto const if_arr = lhs().if_array();
+
     V size = nullptr;
-    if (x.is_array())
+    if (if_arr)
     {
-        return x.get_array().size();
+        return if_arr->size();
+    }
+    else if (if_obj)
+    {
+        return if_obj->size();
     }
     else
     {
-        return x.get_object().size();
+        ASSERT(false, "invalid argument")
     }
 }
 
 
 ZMBT_DEFINE_EVALUATE_IMPL(Card)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
-    ASSERT(param.is_null(), "invalid parameter")
-    ASSERT(x.is_structured(), "invalid argument")
+    ASSERT(rhs().is_null(), "invalid parameter")
+    auto const if_obj = lhs().if_object();
+    auto const if_arr = lhs().if_array();
 
-    if (x.is_array())
+    if (if_arr)
     {
         // TODO: optimize
-        return (x | expr::Uniques).eval().as_array().size();
+        return (lhs() | expr::Uniques).eval().as_array().size();
+    }
+    else if (if_obj)
+    {
+        return if_obj->size();
     }
     else
     {
-        return x.get_object().size();
+        ASSERT(false, "invalid argument")
     }
 }
 

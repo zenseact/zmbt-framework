@@ -31,7 +31,7 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Repeat)
 {
-    auto const param = rhs().eval();
+    auto const& param = rhs().data();
     ASSERT(param.is_number(), "invalid parameter");
     std::uint64_t count = boost::json::value_to<std::uint64_t>(param);
     boost::json::array ret {};
@@ -52,7 +52,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Repeat)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Arange)
 {
-    auto const x = lhs().eval();
+    auto const& x = lhs().data();
     ASSERT(x.is_number() || x.is_array() || x.is_string(), "invalid argument");
 
     std::int64_t start = 0;

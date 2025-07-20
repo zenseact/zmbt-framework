@@ -17,11 +17,12 @@ EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx
     , x_{x}
     , ctx_{ctx}
 {
-    static_cast<void>(ctx);
     namespace attr = zmbt::lang::attr;
     auto const a = attributes(self().keyword());
     bool const is_binary = a & attr::is_binary;
     bool const is_variadic = a & attr::is_variadic;
+    bool const is_hiord = a & attr::is_hiord;
+    bool const is_quote = a & attr::is_quote;
 
     lhs_ = x;
 
@@ -33,6 +34,11 @@ EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx
     else if (!is_binary || self().has_subexpr())
     {
         rhs_ = rhs_maybe_owned_ = self().subexpr();
+
+        if (!(is_hiord || is_quote))
+        {
+            rhs_ = rhs_maybe_owned_ = rhs_.get().eval({}, ctx);
+        }
     }
     else if (has_default_rhs())
     {

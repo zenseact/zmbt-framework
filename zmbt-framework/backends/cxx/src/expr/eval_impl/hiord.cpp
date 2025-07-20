@@ -46,7 +46,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Prms)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Sort)
 {
-    auto const x = lhs().data();
+    auto const& x = lhs().data();
 
     ASSERT(x.is_array(), "invalid argument");
 

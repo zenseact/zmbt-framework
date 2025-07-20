@@ -139,13 +139,13 @@ namespace lang {
 ZMBT_DEFINE_EVALUATE_IMPL(At)
 {
     ASSERT(not rhs().is_null(), "null parameter")
-    return query_at(lhs().eval(), rhs().eval());
+    return query_at(lhs(), rhs());
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Lookup)
 {
     ASSERT(not lhs().is_null(), "null argument")
-    return query_at(rhs().eval(), lhs().eval());
+    return query_at(rhs(), lhs());
 }
 
 } // namespace lang

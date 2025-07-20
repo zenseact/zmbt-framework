@@ -54,25 +54,23 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fold)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Sum)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_array(), "invalid argument");
-    return expr::Fold(expr::Add).eval(x, curr_ctx() MAYBE_INCR);
+    ASSERT(lhs().if_array(), "invalid argument");
+    return expr::Fold(expr::Add).eval(lhs(), curr_ctx() MAYBE_INCR);
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Prod)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_array(), "invalid argument");
-    return expr::Fold(expr::Mul).eval(x, curr_ctx() MAYBE_INCR);
+    ASSERT(lhs().if_array(), "invalid argument");
+    return expr::Fold(expr::Mul).eval(lhs(), curr_ctx() MAYBE_INCR);
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Avg)
 {
-    auto const x = lhs().eval();
-    ASSERT(x.is_array(), "invalid argument");
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
 
-    auto const N = x.as_array().size();
-    auto const sum = expr::Fold(expr::Add).eval(x, curr_ctx() MAYBE_INCR);
+    auto const N = if_arr->size();
+    auto const sum = expr::Fold(expr::Add).eval(lhs(), curr_ctx() MAYBE_INCR);
     return curr_ctx().op.apply(Keyword::Div, sum, N);
 }
 

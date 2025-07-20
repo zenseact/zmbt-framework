@@ -30,12 +30,11 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Transp)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    ASSERT(rhs().is_null(), "invalid parameter");
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& arr = *if_arr;
 
-    ASSERT(param.is_null(), "invalid parameter");
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& arr = x.get_array();
     if (arr.empty()) return arr;
     auto const N = arr.at(0).as_array().size();
     ASSERT(
@@ -59,8 +58,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Transp)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cat)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    auto const& x = lhs().data();
+    auto const& param = rhs().data();
 
     ASSERT(x.kind() == param.kind(), "invalid argument");
     ASSERT(x.is_string() || x.is_array(), "invalid argument");
@@ -84,8 +83,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cat)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Push)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    auto const& x = lhs().data();
+    auto const& param = rhs().data();
 
     ASSERT(x.is_string() || x.is_array(), "invalid argument");
 
@@ -110,7 +109,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Push)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Reverse)
 {
-    auto const x = lhs().eval();
+    auto const& x = lhs().data();
 
     ASSERT(x.is_array(), "invalid argument");
     boost::json::array out = x.get_array();
@@ -122,8 +121,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Reverse)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Slide)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    auto const& x = lhs().data();
+    auto const& param = rhs().data();
 
     ASSERT(x.is_array(), "invalid argument");
     ASSERT(param.is_number(), "invalid parameter");
@@ -155,8 +154,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Slide)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Chunks)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    auto const& x = lhs().data();
+    auto const& param = rhs().data();
 
     ASSERT(x.is_array(), "invalid argument");
     ASSERT(param.is_number(), "invalid parameter");
@@ -193,8 +192,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Chunks)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Stride)
 {
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    auto const& x = lhs().data();
+    auto const& param = rhs().data();
 
     auto result =  (x | expr::Chunks(param)).eval({}, curr_ctx()).as_array();
 
@@ -209,10 +208,11 @@ ZMBT_DEFINE_EVALUATE_IMPL(Stride)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Enumerate)
 {
-    auto const x = lhs().eval();
+    ASSERT(rhs().is_null(), "invalid parameter");
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& arr = *if_arr;
 
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& arr = x.get_array();
     boost::json::array out {};
     out.reserve(arr.size());
     std::size_t i = 0;
@@ -225,10 +225,11 @@ ZMBT_DEFINE_EVALUATE_IMPL(Enumerate)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Flatten)
 {
-    auto const x = lhs().eval();
+    ASSERT(rhs().is_null(), "invalid parameter");
+    auto const if_arr = lhs().if_array();
+    ASSERT(if_arr, "invalid argument");
+    auto const& arr = *if_arr;
 
-    ASSERT(x.is_array(), "invalid argument");
-    auto const& arr = x.get_array();
     boost::json::array out {};
     out.reserve(arr.size());
     for (auto const& el: arr)

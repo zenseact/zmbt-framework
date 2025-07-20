@@ -32,7 +32,7 @@ boost::json::value Expression::eval(Expression const& x, EvalContext ctx) const
     return eval_e(x, ctx).to_json();
 }
 
-boost::json::value Expression::eval(Expression& x) const
+boost::json::value Expression::eval(Expression const& x) const
 {
     return eval(x, {});
 }

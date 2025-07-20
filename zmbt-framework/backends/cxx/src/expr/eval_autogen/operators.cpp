@@ -25,40 +25,40 @@
 namespace zmbt {
 namespace lang {
 
-ZMBT_DEFINE_EVALUATE_IMPL(Neg) { return curr_ctx().op.apply(Keyword::Neg, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Add) { return curr_ctx().op.apply(Keyword::Add, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Sub) { return curr_ctx().op.apply(Keyword::Sub, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Mul) { return curr_ctx().op.apply(Keyword::Mul, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Div) { return curr_ctx().op.apply(Keyword::Div, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Pow) { return curr_ctx().op.apply(Keyword::Pow, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Log) { return curr_ctx().op.apply(Keyword::Log, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Mod) { return curr_ctx().op.apply(Keyword::Mod, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Quot) { return curr_ctx().op.apply(Keyword::Quot, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(BitNot) { return curr_ctx().op.apply(Keyword::BitNot, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(BitAnd) { return curr_ctx().op.apply(Keyword::BitAnd, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(BitOr) { return curr_ctx().op.apply(Keyword::BitOr, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(BitXor) { return curr_ctx().op.apply(Keyword::BitXor, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Lshift) { return curr_ctx().op.apply(Keyword::Lshift, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Rshift) { return curr_ctx().op.apply(Keyword::Rshift, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Eq) { return curr_ctx().op.apply(Keyword::Eq, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Ne) { return curr_ctx().op.apply(Keyword::Ne, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Lt) { return curr_ctx().op.apply(Keyword::Lt, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Le) { return curr_ctx().op.apply(Keyword::Le, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Gt) { return curr_ctx().op.apply(Keyword::Gt, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Ge) { return curr_ctx().op.apply(Keyword::Ge, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(SetEq) { return curr_ctx().op.apply(Keyword::SetEq, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Subset) { return curr_ctx().op.apply(Keyword::Subset, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Superset) { return curr_ctx().op.apply(Keyword::Superset, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(PSubset) { return curr_ctx().op.apply(Keyword::PSubset, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(PSuperset) { return curr_ctx().op.apply(Keyword::PSuperset, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(In) { return curr_ctx().op.apply(Keyword::In, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(NotIn) { return curr_ctx().op.apply(Keyword::NotIn, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Ni) { return curr_ctx().op.apply(Keyword::Ni, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(NotNi) { return curr_ctx().op.apply(Keyword::NotNi, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Bool) { return curr_ctx().op.apply(Keyword::Bool, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Not) { return curr_ctx().op.apply(Keyword::Not, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(And) { return curr_ctx().op.apply(Keyword::And, lhs().eval(), rhs().eval()); }
-ZMBT_DEFINE_EVALUATE_IMPL(Or) { return curr_ctx().op.apply(Keyword::Or, lhs().eval(), rhs().eval()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Neg) { return curr_ctx().op.apply(Keyword::Neg, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Add) { return curr_ctx().op.apply(Keyword::Add, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Sub) { return curr_ctx().op.apply(Keyword::Sub, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Mul) { return curr_ctx().op.apply(Keyword::Mul, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Div) { return curr_ctx().op.apply(Keyword::Div, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Pow) { return curr_ctx().op.apply(Keyword::Pow, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Log) { return curr_ctx().op.apply(Keyword::Log, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Mod) { return curr_ctx().op.apply(Keyword::Mod, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Quot) { return curr_ctx().op.apply(Keyword::Quot, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(BitNot) { return curr_ctx().op.apply(Keyword::BitNot, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(BitAnd) { return curr_ctx().op.apply(Keyword::BitAnd, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(BitOr) { return curr_ctx().op.apply(Keyword::BitOr, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(BitXor) { return curr_ctx().op.apply(Keyword::BitXor, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Lshift) { return curr_ctx().op.apply(Keyword::Lshift, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Rshift) { return curr_ctx().op.apply(Keyword::Rshift, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Eq) { return curr_ctx().op.apply(Keyword::Eq, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Ne) { return curr_ctx().op.apply(Keyword::Ne, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Lt) { return curr_ctx().op.apply(Keyword::Lt, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Le) { return curr_ctx().op.apply(Keyword::Le, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Gt) { return curr_ctx().op.apply(Keyword::Gt, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Ge) { return curr_ctx().op.apply(Keyword::Ge, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(SetEq) { return curr_ctx().op.apply(Keyword::SetEq, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Subset) { return curr_ctx().op.apply(Keyword::Subset, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Superset) { return curr_ctx().op.apply(Keyword::Superset, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(PSubset) { return curr_ctx().op.apply(Keyword::PSubset, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(PSuperset) { return curr_ctx().op.apply(Keyword::PSuperset, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(In) { return curr_ctx().op.apply(Keyword::In, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(NotIn) { return curr_ctx().op.apply(Keyword::NotIn, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Ni) { return curr_ctx().op.apply(Keyword::Ni, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(NotNi) { return curr_ctx().op.apply(Keyword::NotNi, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Bool) { return curr_ctx().op.apply(Keyword::Bool, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Not) { return curr_ctx().op.apply(Keyword::Not, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(And) { return curr_ctx().op.apply(Keyword::And, lhs(), rhs()); }
+ZMBT_DEFINE_EVALUATE_IMPL(Or) { return curr_ctx().op.apply(Keyword::Or, lhs(), rhs()); }
 
 
 } // namespace lang

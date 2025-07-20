@@ -27,8 +27,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Near)
     constexpr double default_rtol = 1e-05;
     constexpr double default_atol = 1e-08;
 
-    auto const x = lhs().eval();
-    auto const param = rhs().eval();
+    auto const& x = lhs().data();
+    auto const& param = rhs().data();
 
     ASSERT(x.is_number(), "invalid argument")
     ASSERT(param.is_array() || param.is_number(), "invalid parameter")
