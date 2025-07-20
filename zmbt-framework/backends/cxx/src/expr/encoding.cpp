@@ -24,8 +24,7 @@ bool Encoding::is_preproc_token(boost::json::value const& value)
     return if_str && if_str->starts_with("$[") && if_str->ends_with("]");
 }
 
-
-Encoding::Encoding(boost::json::value const& value)
+Encoding::Encoding(boost::json::value&& value)
 {
     auto const if_obj = value.if_object();
 
@@ -35,11 +34,8 @@ Encoding::Encoding(boost::json::value const& value)
         && if_obj->contains("bindings")
     )
     {
-        *this = boost::json::value_to<Encoding>(value);
+        *this = boost::json::value_to<Encoding>(std::move(value));
         preprocess();
-        // while (preprocess()) // TODO: test and enable multipass pp
-        // {
-        // }
     }
     else
     {
@@ -48,9 +44,15 @@ Encoding::Encoding(boost::json::value const& value)
         {
             k = Keyword::PreProc;
         }
-        push_back(k, 0, value, nullptr);
+        push_back(k, 0, std::move(value), nullptr);
     }
 }
+
+Encoding::Encoding(boost::json::value const& value)
+    : Encoding(boost::json::value{value})
+{
+}
+
 
 std::size_t Encoding::size() const
 {
@@ -76,6 +78,14 @@ void Encoding::push_back(K const& k, std::size_t const d, V const& v, V const& b
     keywords.push_back(k);
     depth   .push_back(d);
     data    .push_back(v);
+    bindings.push_back(b);
+}
+
+void Encoding::push_back(K const& k, std::size_t const d, V && v, V const& b)
+{
+    keywords.push_back(k);
+    depth   .push_back(d);
+    data    .push_back(std::move(v));
     bindings.push_back(b);
 }
 
@@ -432,7 +442,6 @@ bool EncodingView::is_boolean() const
     {
         return true;
     }
-    // if (is(Keyword::Op) && has_params())
     else if (a & attr::is_overload && size() > 1)
     {
         return child(1).child(-1).is_boolean();

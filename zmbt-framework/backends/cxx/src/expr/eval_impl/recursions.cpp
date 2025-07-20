@@ -52,9 +52,18 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
     ASSERT(maybe_depth.has_value(), "invalid parameter")
     std::uint64_t max_recursion_depth = maybe_depth.value();
 
-    auto const& cond = [&]() -> E const& {
-        return lhs().is_literal() ? dummy : lhs();
-    }();
+    auto const& cond = lhs();
+
+    std::function<bool(Expression const&)> shall_halt = [](Expression const&) -> bool { return false; };
+
+    if (!cond.is_literal())
+    {
+        shall_halt = [&cond](Expression const& next) -> bool {
+            auto const maybe_exit = cond.eval_e(next, {}); // TODO? pass ctx if cond is non-trivial
+            auto const if_bool = maybe_exit.if_bool();
+            return (if_bool && *if_bool) || next.is_error();
+        };
+    }
 
 
     boost::json::value result = initial;
@@ -62,9 +71,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
     for (std::uint64_t i = 0; i < max_recursion_depth; i++)
     {
         auto const next = F.eval_e(result,curr_ctx() MAYBE_INCR);
-        auto const maybe_exit = cond.eval_e(next, {}); // TODO? pass ctx if cond is non-trivial
-        auto const if_bool = maybe_exit.if_bool();
-        if ((if_bool && *if_bool) || next.is_error())
+        if (shall_halt(next))
         {
             break;
         }

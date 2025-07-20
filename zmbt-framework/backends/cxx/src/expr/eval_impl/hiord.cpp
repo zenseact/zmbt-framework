@@ -85,7 +85,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Bind)
         {
             xx.emplace_back(E(item));
         }
-        return E(E::encodeNested(enc.keywords.front(), xx));
+        return E(E::encodeNested(enc.keywords.front(), std::move(xx)));
 
     }
     else

@@ -32,7 +32,7 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Op)
 {
-    auto const pl = self().parameter_list();
+    auto const pl = self().subexpressions_list();
 
     auto const fork = self().encoding_view().child(0);
     ASSERT(

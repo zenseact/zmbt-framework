@@ -29,11 +29,12 @@ EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx
     auto const if_arr = x.if_array();
     if (is_variadic && self().has_subexpr())
     {
-        // self().parameter_list() is used directly to avoid reserialization
+        // self().subexpressions_list() is used directly to avoid reserialization
     }
     else if (!is_binary || self().has_subexpr())
     {
-        rhs_ = rhs_maybe_owned_ = self().subexpr();
+        auto const child = self().encoding_view().child(0);
+        rhs_ = rhs_maybe_owned_ = child.empty() ? nullptr : Expression(child.freeze());
 
         if (!(is_hiord || is_quote))
         {

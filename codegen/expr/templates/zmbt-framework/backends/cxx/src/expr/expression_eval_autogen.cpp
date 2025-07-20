@@ -26,17 +26,6 @@ namespace lang {
 extern template Expression dispatch_eval<Keyword::@keyword.Name>(Expression const&, Expression const&, EvalContext);
 @end
 
-
-boost::json::value Expression::eval(Expression const& x, EvalContext ctx) const
-{
-    return eval_e(x, ctx).to_json();
-}
-
-boost::json::value Expression::eval(Expression const& x) const
-{
-    return eval(x, {});
-}
-
 Expression Expression::eval_e(Expression const& x, EvalContext context) const
 try
 {

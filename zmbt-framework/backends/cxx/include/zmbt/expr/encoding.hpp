@@ -34,8 +34,8 @@ struct Encoding
     static bool is_preproc_token(boost::json::value const& value);
 
     Encoding() = default;
-
     explicit Encoding(boost::json::value const& value);
+    explicit Encoding(boost::json::value && value);
 
     std::size_t size() const;
 
@@ -45,12 +45,14 @@ struct Encoding
 
 
     void push_back(K const& k, std::size_t const d, V const& v, V const& b);
+    void push_back(K const& k, std::size_t const d, V && v, V const& b);
 
     void append_to_root(Encoding const& tail);
 
     /// Single-pass preprocessing, return true if no multipass tokens left
     bool preprocess();
 };
+
 
 BOOST_DESCRIBE_STRUCT(Encoding, (void), (keywords, depth, data, bindings))
 ZMBT_INJECT_SERIALIZATION

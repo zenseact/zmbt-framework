@@ -17,34 +17,111 @@
 #include "keyword.hpp"
 #include "keyword_grammar.hpp"
 #include "encoding.hpp"
+#include "eval_context.hpp"
 
 
 namespace zmbt {
 namespace lang {
 
-class EvalContext;
 
 /// Expression Language implementation class.
 /// \details \see <A HREF="/user-guide/expressions/">Expression Language documentation</A>.
 class Expression
 {
+    static Expression unfold_left_assoc(Keyword const keyword, Expression&& lhs, Expression&& rhs);
+    template <class T>
+    static Encoding encodeNested(Keyword const& keyword, std::move_iterator<T> begin, std::move_iterator<T> const end);
+
 public:
+
     using V = boost::json::value;
     using Keyword = lang::Keyword;
 
-private:
-    Encoding encoding_;
-
-    class Subexpression;
-
-    std::list<Subexpression> subexpressions() const;
+    //////////////////
+    // STATIC FUNCS
+    //////////////////
 
 
-    struct json_ctor_params;
-    Expression(json_ctor_params&&);
+    // Terminal expression
+    static Encoding encodeLiteral(boost::json::value const& params);
+    // Terminal expression
+    static Encoding encodePreProc(boost::json::value const& params);
+
+    // Non-terminal expression
+    static Encoding encodeNested(Keyword const& keyword, std::initializer_list<Expression> subexpressions);
+    static Encoding encodeNested(Keyword const& keyword, std::vector<Expression>&& subexpressions);
+
+    static bool to_predicate_if_const(Expression& e);
 
 
-  public:
+    //////////////////
+    // CTORS
+    //////////////////
+
+    Expression();
+
+    explicit Expression(Encoding && encoding);
+    explicit Expression(Encoding const& encoding);
+
+    // Deserialize JSON
+    Expression(boost::json::value const& expr);
+    Expression(boost::json::value && expr);
+
+    // construct Literal from JSON init list
+    Expression(std::initializer_list<boost::json::value_ref> items);
+
+    // construct from keyword
+    explicit Expression(Keyword const& keyword);
+
+    Expression(Expression const& other);
+    Expression(Expression&& other);
+    Expression& operator=(Expression const& other);
+    Expression& operator=(Expression&& other);
+    ~Expression() = default;
+
+
+    template <class T>
+    Expression(T sample) : Expression(json_from(std::move(sample))) {}
+
+    //////////////
+    // OPERATORS
+    //////////////
+
+    friend std::ostream& operator<<(std::ostream& os, Expression const& expr);
+
+    /// \brief Pipe expressions left-to-right
+    /// \details Pipe functional expressions in composition,
+    /// s.t. `a | b` is equivalent to `Pipe(a, b)`. \see zmbt::expr::Pipe
+    friend Expression operator|(Expression lhs, Expression rhs);
+
+    /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
+    friend Expression operator&(Expression lhs, Expression rhs);
+
+    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Pack.
+    friend Expression operator+(Expression lhs, Expression rhs);
+
+
+    /// \brief Evaluate x to lhs expression.
+    /// \details Equivalent to expr.eval(x).
+    friend V operator*(Expression expr, Expression const& x);
+
+    /// \brief Evaluate expression.
+    /// \details Equivalent to expr.eval().
+    friend V operator*(Expression expr);
+
+    bool operator==(Expression const& o) const
+    {
+        return (this == &o) || (encoding_view() == o.encoding_view());
+    }
+
+    bool operator!=(Expression const& o) const
+    {
+        return !operator==(o);
+    }
+
+    //////////////////////
+    // ENCODING OBSERVERS
+    //////////////////////
 
     Encoding const& encoding() const
     {
@@ -56,106 +133,23 @@ private:
         return {encoding_};
     }
 
-    explicit Expression(Encoding && encoding)
-        : encoding_{std::move(encoding)}
+
+    std::size_t infix_size() const;
+
+    bool has_subexpr() const
     {
+        return encoding_view().size() > 1;
     }
 
-    static Encoding encodeLiteral(boost::json::value const& params)
-    {
-        Encoding enc {};
-        enc.push_back(Keyword::Literal, 0, params, nullptr);
-        return enc;
-    }
-
-    static Encoding encodePreProc(boost::json::value const& params)
-    {
-        Encoding enc {};
-        enc.push_back(Keyword::PreProc, 0, params, nullptr);
-        return enc;
-    }
-
-    // Non-terminal expression
-    static Encoding encodeNested(Keyword const& keyword, std::vector<Expression> const& subexpressions)
-    {
-        Encoding enc {};
-        enc.push_back(keyword, 0, nullptr, nullptr);
-
-        for (auto const& subexpr: subexpressions)
-        {
-            enc.append_to_root(subexpr.encoding());
-        }
-        return enc;
-    }
-
-    // Deserialize JSON
-    Expression(boost::json::value const& expr);
-
-    // construct Literal from JSON init list
-    Expression(std::initializer_list<boost::json::value_ref> items);
-
-    // construct from keyword
-    explicit Expression(Keyword const& keyword);
-
-    Expression();
+    /// Subexpressions
+    std::list<Expression> subexpressions_list() const;
 
 
-    template<Keyword>
-    class SignatureBase;
+    //////////////////
+    // DATA OBSERVERS
+    //////////////////
 
-    template<Keyword K>
-    explicit Expression(SignatureBase<K> const& other) : Expression(other.encoding()) {}
-
-    template <class T>
-    Expression(T const& sample) : Expression(json_from(sample)) {}
-
-    friend std::ostream& operator<<(std::ostream& os, Expression const& expr);
-
-
-    /// \brief Pipe expressions left-to-right
-    /// \details Pipe functional expressions in composition,
-    /// s.t. `a | b` is equivalent to `Pipe(a, b)`. \see zmbt::expr::Pipe
-    friend Expression operator|(Expression const& lhs, Expression const& rhs);
-
-    /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
-    friend Expression operator&(Expression const& lhs, Expression const& rhs);
-
-
-    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Pack.
-    friend Expression operator+(Expression const& lhs, Expression const& rhs);
-
-    /// \brief Evaluate x to lhs expression.
-    /// \details Equivalent to expr.eval(x).
-    friend V operator*(Expression const& expr, Expression const& x);
-
-    /// \brief Evaluate expression.
-    /// \details Equivalent to expr.eval().
-    friend V operator*(Expression const& expr);
-
-
-
-    std::list<std::pair<std::string, std::string>> preprocessing_parameters() const
-    {
-        std::list<std::pair<std::string, std::string>> pp;
-
-        if (is_preproc()) // root-level is serialized as string literal
-        {
-            pp.emplace_back(to_json().as_string().c_str(), "");
-            return pp;
-        }
-
-        for(auto const item: encoding_view())
-        {
-            if ((Keyword::PreProc == item.keyword) && item.data)
-            {
-                pp.emplace_back(item.data->as_string().c_str(), zmbt::format("/data/%d", item.index));
-            }
-        }
-
-        return pp;
-    }
-
-    ~Expression() = default;
+    boost::json::value const& data() const;
 
     boost::json::string const& as_string() const
     {
@@ -210,47 +204,14 @@ private:
 
     boost::json::string_view keyword_to_str() const;
 
-    bool operator==(Expression const& o) const
-    {
-        return (this == &o) || (encoding_view() == o.encoding_view());
-    }
+    ////////////////////////
+    // KEYWORD OBSERVERS
+    ////////////////////////
 
-    bool operator!=(Expression const& o) const
-    {
-        return !operator==(o);
-    }
 
     Keyword keyword() const
     {
         return encoding_view().head();
-    }
-
-    boost::json::value const& data() const
-    {
-        auto const child = encoding_view().child(0);
-        auto const a = attributes(child.head());
-        if (!child.empty() && ((a & attr::is_literal) || (a & attr::is_preproc)))
-        {
-            return *child.front().data;
-        }
-        return *encoding_view().front().data;
-    }
-
-    Expression subexpr() const
-    {
-        auto const child = encoding_view().child(0);
-        return child.empty() ? nullptr : Expression(child.freeze());
-    }
-
-
-    bool has_params() const
-    {
-        return has_subexpr() || is_literal();
-    }
-
-    bool has_subexpr() const
-    {
-        return encoding_view().size() > 1;
     }
 
     bool is(Keyword const kwrd) const
@@ -263,11 +224,6 @@ private:
         return is(Keyword::Pipe);
     }
 
-    bool is_nonempty_composition() const
-    {
-        return is_compose() && has_subexpr();
-    }
-
     bool is_fork() const
     {
         return is(Keyword::Fork);
@@ -276,36 +232,6 @@ private:
     bool is_pack() const
     {
         return is(Keyword::Pack);
-    }
-
-    std::size_t infix_size() const
-    {
-        std::size_t n {0};
-        for (auto const item: encoding_view())
-        {
-            if (item.depth == 1) ++n;
-        }
-        return n;
-    }
-
-    bool is_infix_pipe() const
-    {
-        return is_compose() && (infix_size() > 1);
-    }
-
-    bool is_infix_fork() const
-    {
-        return is_fork() && (infix_size() > 1);
-    }
-
-    bool is_infix_pack() const
-    {
-        return is_pack() && (infix_size() > 1);
-    }
-
-    bool is_nonempty_fork() const
-    {
-        return is_fork() && has_subexpr();
     }
 
     bool is_literal() const
@@ -323,13 +249,33 @@ private:
         return is(Keyword::Noop);
     }
 
+    bool is_error() const
+    {
+        return is(Keyword::Err);
+    }
+
+
+    ///////////////////////////
+    // ATTR-BASED OBSERVERS
+    ///////////////////////////
+
     bool is_const() const;
 
     bool is_boolean() const;
 
-    bool is_error() const
+    bool is_infix_pipe() const
     {
-        return is(Keyword::Err);
+        return is_compose() && (infix_size() > 1);
+    }
+
+    bool is_infix_fork() const
+    {
+        return is_fork() && (infix_size() > 1);
+    }
+
+    bool is_infix_pack() const
+    {
+        return is_pack() && (infix_size() > 1);
     }
 
     virtual boost::json::value to_json() const;
@@ -339,23 +285,9 @@ private:
         return to_json();
     }
 
-    bool check_terms(std::uint32_t const attr_mask) const;
-
-    /// @brief Evaluate expression
-    /// @param x run-time argument
-    /// @param config evaluation config
-    /// @return
-    boost::json::value eval(Expression const& x, EvalContext ctx) const;
-    boost::json::value eval(Expression const& x = {}) const;
-    Expression eval_e(Expression const& x, EvalContext ctx) const;
-
-    /// Eval const expressions as Eq(expr), except for Noop,
-    /// otherwise eval expr
-    boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext ctx) const;
-
-    static bool to_predicate_if_const(Expression& e);
-
-    bool match(boost::json::value const& observed, Operator const& op = {}) const;
+    ///////////////////////////
+    // Boost.Spirit Karma generator
+    ///////////////////////////
 
     std::string prettify() const;
     std::ostream& prettify_to(std::ostream& os) const;
@@ -370,7 +302,41 @@ private:
 
 
 
-    std::list<Expression> parameter_list() const;
+    ///////////////////
+    // EVALUATORS
+    ///////////////////
+
+    /// @brief Evaluate expression
+    /// @param x run-time argument
+    /// @param ctx evaluation context
+    /// @return
+    Expression eval_e(Expression const& x, EvalContext ctx) const;
+
+    /// @brief Evaluate expression
+    /// @param x run-time argument
+    /// @param ctx evaluation context
+    /// @return
+    boost::json::value eval(Expression const& x = {}, EvalContext ctx = {}) const;
+
+    /// Eval const expressions as Eq(expr), except for Noop,
+    /// otherwise eval expr
+    boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext ctx) const;
+
+    /// Eval and cast to boolean, return false on error
+    bool match(boost::json::value const& observed, Operator const& op = {}) const;
+
+
+    ////////////////////////
+    // PREPROCESSING
+    ////////////////////////
+
+    /// List of [param, json ptr]
+    std::list<std::pair<std::string, std::string>> preprocessing_parameters() const;
+
+
+private:
+    Encoding encoding_;
+
 
 };
 
@@ -394,5 +360,6 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<lang::Expression, T>, v
 };
 
 }  // namespace zmbt
+
 
 #endif

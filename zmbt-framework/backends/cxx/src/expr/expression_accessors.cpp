@@ -32,28 +32,47 @@ using Keyword = zmbt::lang::Keyword;
 namespace zmbt {
 namespace lang {
 
-
-Expression::Expression() : Expression(Keyword::Void)
+std::list<std::pair<std::string, std::string>> Expression::preprocessing_parameters() const
 {
-}
+    std::list<std::pair<std::string, std::string>> pp;
 
-Expression::Expression(Keyword const& keyword)
-    : Expression(encodeNested(keyword, {}))
-{
-    if (keyword == Keyword::Literal || keyword == Keyword::PreProc)
+    if (is_preproc()) // root-level is serialized as string literal
     {
-        throw zmbt::expression_error("expression requires a value");
+        pp.emplace_back(to_json().as_string().c_str(), "");
+        return pp;
     }
+
+    for(auto const item: encoding_view())
+    {
+        if ((Keyword::PreProc == item.keyword) && item.data)
+        {
+            pp.emplace_back(item.data->as_string().c_str(), zmbt::format("/data/%d", item.index));
+        }
+    }
+
+    return pp;
 }
 
-Expression::Expression(boost::json::value const& expr)
-    : encoding_{expr}
+boost::json::value const& Expression::data() const
 {
+    auto const child = encoding_view().child(0);
+    auto const a = attributes(child.head());
+    if (!child.empty() && ((a & attr::is_literal) || (a & attr::is_preproc)))
+    {
+        return *child.front().data;
+    }
+    return *encoding_view().front().data;
 }
 
-Expression::Expression(std::initializer_list<boost::json::value_ref> items)
-    : Expression(encodeLiteral(boost::json::value(items)))
+
+std::size_t Expression::infix_size() const
 {
+    std::size_t n {0};
+    for (auto const item: encoding_view())
+    {
+        if (item.depth == 1) ++n;
+    }
+    return n;
 }
 
 boost::json::value Expression::to_json() const
@@ -77,7 +96,7 @@ bool Expression::is_boolean() const
 }
 
 
-std::list<Expression> Expression::parameter_list() const
+std::list<Expression> Expression::subexpressions_list() const
 {
     std::list<Expression> result;
 
@@ -91,32 +110,6 @@ std::list<Expression> Expression::parameter_list() const
 }
 
 
-bool Expression::match(boost::json::value const& observed, Operator const& op) const
-{
-    auto result = eval(observed, {op, {}, 0});
-    auto const if_bool = result.if_bool();
-    return if_bool ? *if_bool : false;
-}
-
-
-bool Expression::to_predicate_if_const(Expression& e)
-{
-    if (!e.is_noop() && e.is_const())
-    {
-        e = Expression(encodeNested(Keyword::Eq, {e}));
-        return true;
-    }
-    return false;
-}
-
-boost::json::value Expression::eval_as_predicate(boost::json::value const& x, EvalContext ctx) const
-{
-    if (!is_noop() && is_const())
-    {
-        return Expression(encodeNested(Keyword::Eq, {*this})).eval(x, ctx); // TODO: optimize
-    }
-    return eval(x, ctx);
-}
 
 
 }  // namespace lang

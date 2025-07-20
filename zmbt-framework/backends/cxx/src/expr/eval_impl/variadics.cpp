@@ -24,12 +24,12 @@ using V = boost::json::value;
 
 ZMBT_DEFINE_EVALUATE_IMPL(Pack)
 {
-    return self().parameter_list();
+    return self().subexpressions_list();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
 {
-    auto const subexpressions = self().parameter_list();
+    auto const subexpressions = self().subexpressions_list();
     ASSERT(subexpressions.size() > 0, "invalid parameter (empty array)");
 
     auto fn = subexpressions.cbegin();
@@ -45,7 +45,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Fork)
 {
-    auto const subexpressions = self().parameter_list();
+    auto const subexpressions = self().subexpressions_list();
 
     boost::json::array out {};
     out.reserve(subexpressions.size());
@@ -58,7 +58,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fork)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
 {
-    auto const subexpressions = self().parameter_list();
+    auto const subexpressions = self().subexpressions_list();
 
     auto const& x = lhs().data();
 
@@ -110,7 +110,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
 
 ZMBT_DEFINE_EVALUATE_IMPL(All)
 {
-    auto const subexpressions = self().parameter_list();
+    auto const subexpressions = self().subexpressions_list();
 
     for (auto const& e: subexpressions)
     {
@@ -125,7 +125,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(All)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Any)
 {
-    auto const subexpressions = self().parameter_list();
+    auto const subexpressions = self().subexpressions_list();
 
     for (auto const& e: subexpressions)
     {
@@ -139,7 +139,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Any)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Saturate)
 {
-    auto const subexpressions = self().parameter_list();
+    auto const subexpressions = self().subexpressions_list();
     auto const& x = lhs().data();
     ASSERT(x.is_array(), "invalid argument");
 

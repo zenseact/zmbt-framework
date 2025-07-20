@@ -768,7 +768,7 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
         auto const maybe_err = expr.eval_e({}, {});
         if (expect_impl
             && maybe_err.is_error()
-            && maybe_err.has_params()
+            && maybe_err.has_subexpr()
             && maybe_err.as_object().at("message") == "not implemented"
         )
         {
@@ -990,17 +990,6 @@ BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
 }
 
 
-BOOST_AUTO_TEST_CASE(TestEvalShift)
-{
-    // * has higher precedence than |
-    BOOST_CHECK_EQUAL(Add(2) * 2, 4);
-    BOOST_CHECK_EQUAL((Add * L{2,2}), 4);
-
-    BOOST_CHECK_EQUAL(True * Null, true);
-}
-
-
-
 BOOST_AUTO_TEST_CASE(PrettifyExpressionTostaticBuffer)
 {
     auto e = (Fold(Add) & Size) | Div | Eq(2.5E0) | Not;
@@ -1038,7 +1027,7 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     BOOST_TEST_INFO("Original: " #e); \
     { auto const ps = (e).to_json(); std::stringstream ss; pretty_print(ss, ps); \
          BOOST_TEST_INFO("to_json: \n" << ss.str()); } \
-    { auto const ps = json_from((e).parameter_list()); std::stringstream ss; pretty_print(ss, ps); \
+    { auto const ps = json_from((e).subexpressions_list()); std::stringstream ss; pretty_print(ss, ps); \
          BOOST_TEST_INFO("parameter_list: \n" << ss.str()); } \
     {BOOST_CHECK_EQUAL((e).prettify(), #e); }\
     { std::stringstream ss; (e).prettify_to(ss); \

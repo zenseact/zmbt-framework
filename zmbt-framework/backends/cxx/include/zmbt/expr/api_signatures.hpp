@@ -74,6 +74,11 @@ struct SignatureBinary : public SignatureBase<K>
         return Expression(Expression::encodeNested(K, {param}));
     }
 
+    Expression operator()(Expression && param) const
+    {
+        return Expression(Expression::encodeNested(K, {std::move(param)}));
+    }
+
     /// \brief Make parametrized expression with initializer list
     /// \details Interpret {x} as single-element array instead of using default boost::json::value ctor
     Expression operator()(std::initializer_list<Expression> param) const
@@ -110,9 +115,9 @@ template <Keyword K>
 struct SignatureVariadic : public SignatureBase<K>
 {
   private:
-    static Expression encodeVariadic(std::vector<zmbt::lang::Expression>&& params)
+    static Expression encodeVariadic(std::initializer_list<zmbt::lang::Expression> params)
     {
-        return Expression(Expression::encodeNested(K,  std::move(params)));
+        return Expression(Expression::encodeNested(K,  params));
     }
 
   public:
