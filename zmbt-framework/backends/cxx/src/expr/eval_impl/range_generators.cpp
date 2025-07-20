@@ -31,7 +31,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Repeat)
 {
-    UNUSED_CTX;
     auto const param = rhs().eval();
     ASSERT(param.is_number(), "invalid parameter");
     std::uint64_t count = boost::json::value_to<std::uint64_t>(param);
@@ -53,7 +52,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Repeat)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Arange)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     ASSERT(x.is_number() || x.is_array() || x.is_string(), "invalid argument");
 

@@ -39,12 +39,12 @@ ZMBT_DEFINE_EVALUATE_IMPL(Op)
         (fork.head() == K::Fork || fork.head() == K::Pack)
         && fork.arity() == 2,
     "invalid parameters, expected reference + Fn");
-    auto const operator_reference = E(fork.child(0).freeze()).eval({}, context++);
+    auto const operator_reference = E(fork.child(0).freeze()).eval({}, curr_ctx() MAYBE_INCR);
     auto const F = E(fork.child(1).freeze());
 
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
-    EvalContext ctx = context++;
+    EvalContext ctx = curr_ctx() MAYBE_INCR;
     ctx.op = O{*if_str};
     auto result = F.eval(lhs(), ctx);
 
@@ -53,7 +53,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Op)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cast)
 {
-    auto const operator_reference = rhs().eval({}, context++);
+    auto const operator_reference = rhs().eval({}, curr_ctx() MAYBE_INCR);
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
     auto const op = O{*if_str};
@@ -62,7 +62,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cast)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Uncast)
 {
-    auto const operator_reference = rhs().eval({}, context++);
+    auto const operator_reference = rhs().eval({}, curr_ctx() MAYBE_INCR);
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
     auto const op = O{*if_str};

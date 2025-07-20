@@ -32,7 +32,7 @@ namespace lang {
 ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
 {
     EvalContext local_ctx {};
-    local_ctx.op = context.op;
+    local_ctx.op = curr_ctx().op;
     local_ctx.log = EvalLog::make();
 
     auto const result = rhs().eval(lhs(), local_ctx);
@@ -40,15 +40,15 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
     ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_DEBUG") << *local_ctx.log.stack;
     ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_DEBUG") << "\n" << local_ctx.log.str(2);
 
-    if (context.log.stack)
+    if (curr_ctx().log.stack)
     {
-        context.log.stack->reserve(context.log.stack->capacity() + local_ctx.log.stack->size());
+        curr_ctx().log.stack->reserve(curr_ctx().log.stack->capacity() + local_ctx.log.stack->size());
         for (auto line_it = std::make_move_iterator(local_ctx.log.stack->begin()),
         log_end = std::make_move_iterator(local_ctx.log.stack->end());
         line_it != log_end; ++line_it)
         {
-            line_it->as_array().at(0).as_uint64() += (context.depth + 1);
-            context.log.stack->push_back(*line_it);
+            line_it->as_array().at(0).as_uint64() += (curr_ctx().depth + 1);
+            curr_ctx().log.stack->push_back(*line_it);
         }
     }
     return result;
@@ -56,7 +56,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Trace)
 {
-    static_cast<void>(context);
     ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data();
     ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data();
     return lhs();

@@ -31,30 +31,38 @@ namespace lang {
 template <Keyword K>
 struct EvalImpl; // specializations shall use CRTP : public EvalImplBase<K>
 // {
-    // Expression impl(EvalContext const& context) const;
+    // Expression impl() const;
 // };
 
 
 template <Keyword K, class Validator = EvalValidator<K>>
 class EvalImplBase : public FixedEvalParams<K>
 {
+    EvalContext curr_ctx_;
   public:
 
-    EvalImplBase(Expression const& e, Expression const& x) : FixedEvalParams<K>(e, x) {}
+    EvalContext curr_ctx() const { return curr_ctx_; }
 
-    Expression operator()(EvalContext const& context) &&
+    EvalImplBase(Expression const& e, Expression const& x, EvalContext ctx)
+        : FixedEvalParams<K>(e, x, ctx)
+        , curr_ctx_{ctx++}
+    {
+    }
+
+    Expression operator()() &&
     {
         auto const v = Validator{this->lhs(), this->rhs()};
         if (v.is_invalid()) return v.status();
 
-        auto const result = static_cast<EvalImpl<K> const*>(this)->impl(context++);
-        context.log.push(this->self(), this->x(), result, context.depth);
+        auto ctx = this->context();
+        auto const result = static_cast<EvalImpl<K> const*>(this)->impl();
+        ctx.log.push(this->self(), this->x(), result, ctx.depth);
         return result;
     }
 };
 
 template <Keyword K>
-Expression dispatch_eval(Expression const& self, Expression const& x, EvalContext const& context);
+Expression dispatch_eval(Expression const& self, Expression const& x, EvalContext context);
 
 
 }  // namespace lang

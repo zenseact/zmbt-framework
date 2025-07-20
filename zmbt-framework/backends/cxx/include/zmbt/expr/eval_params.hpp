@@ -10,6 +10,7 @@
 
 #include "expression.hpp"
 #include "keyword_info.hpp"
+#include "eval_context.hpp"
 
 
 namespace zmbt {
@@ -23,20 +24,22 @@ class EvalParams
     std::reference_wrapper<Expression const> rhs_{rhs_maybe_owned_};
     std::reference_wrapper<Expression const> self_;
     std::reference_wrapper<Expression const> x_;
+    EvalContext ctx_;
 
 
     bool has_default_rhs() const;
 
   public:
 
-    EvalParams(Expression const& e, Expression const& x);
+    EvalParams(Expression const& e, Expression const& x, EvalContext ctx);
 
     Expression const& self() const { return self_; }
     Expression const& x()    const { return x_; }
     Expression const& lhs()  const { return lhs_; }
     Expression const& rhs()  const { return rhs_; }
+    EvalContext context()  const { return ctx_; }
 
-    // void handle_bin_args(Expression const& x);
+  protected:
 
 };
 

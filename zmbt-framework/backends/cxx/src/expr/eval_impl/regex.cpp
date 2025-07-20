@@ -30,7 +30,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Re)
 {
-    UNUSED_CTX;
     auto const param = rhs().eval();
     auto const x = lhs().eval();
 

@@ -26,26 +26,6 @@ using E = zmbt::lang::Expression;
 using Keyword = zmbt::lang::Keyword;
 
 
-bool set_default_param(Keyword const& keyword, E &param)
-{
-    switch(keyword)
-    {
-    case Keyword::Sort:
-    case Keyword::Min:
-    case Keyword::Max:
-    case Keyword::Argmin:
-    case Keyword::Argmax:
-    {
-        param = zmbt::expr::Id;
-        return true;
-    }
-    default:
-    {
-        return false;
-    }
-    }
-}
-
 }
 
 
@@ -118,33 +98,6 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
     return if_bool ? *if_bool : false;
 }
 
-void Expression::handle_binary_args(V const& x, Expression &lhs, Expression &rhs) const
-{
-    bool const is_binary = attributes(keyword()) & attr::is_binary;
-    if (!is_binary | has_subexpr())
-    {
-        lhs = E(x);
-        rhs = subexpr();
-    }
-    else if (set_default_param(keyword(), rhs))
-    {
-        lhs = E(x);
-    }
-    else // treat x as argument pair
-    {
-        auto const if_array = x.if_array();
-        if (if_array && if_array->size() == 2)
-        {
-            lhs = E(if_array->front());
-            rhs = E(if_array->back());
-        }
-        else
-        {
-            lhs = E(x);
-            rhs = E(nullptr);
-        }
-    }
-}
 
 bool Expression::to_predicate_if_const(Expression& e)
 {
@@ -156,7 +109,7 @@ bool Expression::to_predicate_if_const(Expression& e)
     return false;
 }
 
-boost::json::value  Expression::eval_as_predicate(boost::json::value const& x, EvalContext const& ctx) const
+boost::json::value Expression::eval_as_predicate(boost::json::value const& x, EvalContext ctx) const
 {
     if (!is_noop() && is_const())
     {

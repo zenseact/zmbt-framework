@@ -144,7 +144,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Del)
 {
-    UNUSED_CTX;
     ASSERT(not rhs().is_null(), "invalid parameter")
     boost::json::value const at = rhs().eval();
     boost::json::value result = lhs().eval();

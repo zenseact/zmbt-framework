@@ -35,7 +35,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Items)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     ASSERT(x.is_object(), "invalid argument");
     auto const& obj = x.get_object();
@@ -50,7 +49,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Items)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Keys)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     ASSERT(x.is_object(), "invalid argument");
     auto const& obj = x.get_object();
@@ -65,7 +63,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Keys)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Values)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     ASSERT(x.is_object(), "invalid argument");
     auto const& obj = x.get_object();
@@ -81,7 +78,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Values)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Size)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
     ASSERT(param.is_null(), "invalid parameter")
@@ -100,7 +96,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Size)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Card)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
     ASSERT(param.is_null(), "invalid parameter")

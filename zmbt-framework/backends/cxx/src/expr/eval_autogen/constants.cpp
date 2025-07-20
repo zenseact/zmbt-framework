@@ -27,16 +27,16 @@
 namespace zmbt {
 namespace lang {
 
-ZMBT_DEFINE_EVALUATE_IMPL(Noop) { UNUSED_CTX; return true; }
-ZMBT_DEFINE_EVALUATE_IMPL(Null) { UNUSED_CTX; return nullptr; }
-ZMBT_DEFINE_EVALUATE_IMPL(True) { UNUSED_CTX; return true; }
-ZMBT_DEFINE_EVALUATE_IMPL(False) { UNUSED_CTX; return false; }
-ZMBT_DEFINE_EVALUATE_IMPL(Pi) { UNUSED_CTX; return boost::math::constants::pi<double>(); }
-ZMBT_DEFINE_EVALUATE_IMPL(E) { UNUSED_CTX; return boost::math::constants::e<double>(); }
-ZMBT_DEFINE_EVALUATE_IMPL(Inf) { UNUSED_CTX; return std::numeric_limits<double>::infinity(); }
-ZMBT_DEFINE_EVALUATE_IMPL(Eps) { UNUSED_CTX; return std::numeric_limits<double>::epsilon(); }
-ZMBT_DEFINE_EVALUATE_IMPL(NaN) { UNUSED_CTX; return std::numeric_limits<double>::quiet_NaN(); }
-ZMBT_DEFINE_EVALUATE_IMPL(Thread) { UNUSED_CTX; return zmbt::get_tid().c_str(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Noop) { return true; }
+ZMBT_DEFINE_EVALUATE_IMPL(Null) { return nullptr; }
+ZMBT_DEFINE_EVALUATE_IMPL(True) { return true; }
+ZMBT_DEFINE_EVALUATE_IMPL(False) { return false; }
+ZMBT_DEFINE_EVALUATE_IMPL(Pi) { return boost::math::constants::pi<double>(); }
+ZMBT_DEFINE_EVALUATE_IMPL(E) { return boost::math::constants::e<double>(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Inf) { return std::numeric_limits<double>::infinity(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Eps) { return std::numeric_limits<double>::epsilon(); }
+ZMBT_DEFINE_EVALUATE_IMPL(NaN) { return std::numeric_limits<double>::quiet_NaN(); }
+ZMBT_DEFINE_EVALUATE_IMPL(Thread) { return zmbt::get_tid().c_str(); }
 
 } // namespace lang
 } // namespace zmbt

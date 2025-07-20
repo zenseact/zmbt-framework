@@ -12,8 +12,12 @@
 namespace zmbt {
 namespace lang {
 
-EvalParams::EvalParams(Expression const& e, Expression const& x) : self_{e}, x_{x}
+EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx)
+    : self_{e}
+    , x_{x}
+    , ctx_{ctx}
 {
+    static_cast<void>(ctx);
     namespace attr = zmbt::lang::attr;
     auto const a = attributes(self().keyword());
     bool const is_binary = a & attr::is_binary;

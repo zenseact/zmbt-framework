@@ -54,7 +54,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Argmin)
     ASSERT(x.is_array(), "invalid argument");
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return find_argminmax(samples, rhs(), context.op, &std::min_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
+    return find_argminmax(samples, rhs(), curr_ctx().op, &std::min_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Argmax)
@@ -64,7 +64,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Argmax)
     ASSERT(x.is_array(), "invalid argument");
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return find_argminmax(samples, rhs(), context.op, &std::max_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
+    return find_argminmax(samples, rhs(), curr_ctx().op, &std::max_element<L::const_iterator, compare_fn_t>) - samples.cbegin();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Min)
@@ -74,7 +74,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Min)
     ASSERT(x.is_array(), "invalid argument");
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return *find_argminmax(samples, rhs(), context.op, &std::min_element<L::const_iterator, compare_fn_t>);
+    return *find_argminmax(samples, rhs(), curr_ctx().op, &std::min_element<L::const_iterator, compare_fn_t>);
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Max)
@@ -84,7 +84,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Max)
     ASSERT(x.is_array(), "invalid argument");
     auto const& samples = x.get_array();
     if (samples.empty()) return nullptr;
-    return *find_argminmax(samples, rhs(), context.op, &std::max_element<L::const_iterator, compare_fn_t>);
+    return *find_argminmax(samples, rhs(), curr_ctx().op, &std::max_element<L::const_iterator, compare_fn_t>);
 }
 
 

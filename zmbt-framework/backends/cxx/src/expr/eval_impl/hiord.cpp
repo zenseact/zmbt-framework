@@ -32,13 +32,11 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Kwrd)
 {
-    UNUSED_CTX;
     return lhs().keyword_to_str();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Prms)
 {
-    UNUSED_CTX;
     auto enc = lhs().encoding_view().freeze();
     // TODO Pack?
     enc.keywords.front() = Keyword::Fork;
@@ -48,7 +46,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Prms)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Sort)
 {
-    UNUSED_CTX;
     auto const x = lhs().data();
 
     ASSERT(x.is_array(), "invalid argument");
@@ -57,7 +54,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Sort)
         return (rhs().is_literal() && rhs().is_null()) ? expr::Id : rhs();
     }();
 
-    auto const& op = context.op;
+    auto const& op = curr_ctx().op;
     std::function<bool(V const&, V const&)> is_less = [&key_fn, &op](V const& lhs, V const& rhs) ->bool {
         return op.apply(Keyword::Lt, key_fn.eval(lhs), key_fn.eval(rhs)).as_bool();
     };
@@ -69,13 +66,12 @@ ZMBT_DEFINE_EVALUATE_IMPL(Sort)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Eval)
 {
-    return lhs().eval(rhs(), context++);
+    return lhs().eval(rhs(), curr_ctx() MAYBE_INCR);
 }
 
 
 ZMBT_DEFINE_EVALUATE_IMPL(Bind)
 {
-    static_cast<void>(context);
     auto const enc = rhs().encoding_view().freeze();
     ASSERT(enc.size() == 1, "function has parameters")
 
@@ -103,13 +99,13 @@ ZMBT_DEFINE_EVALUATE_IMPL(Flip)
     auto const child = rhs().encoding_view().child(0);
     ASSERT(!child.empty(), "invalid parameter");
     auto const flip = E(E::encodeNested(rhs().keyword(), {lhs()}));
-    return flip.eval(E(child.freeze()), context++);
+    return flip.eval(E(child.freeze()), curr_ctx() MAYBE_INCR);
 }
 
 
 ZMBT_DEFINE_EVALUATE_IMPL(Try)
 {
-    auto const result = rhs().eval_e(lhs(),context++);
+    auto const result = rhs().eval_e(lhs(),curr_ctx() MAYBE_INCR);
     if (result.is_error()) return nullptr;
     return result;
 }
@@ -118,7 +114,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Try)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Count)
 {
-    UNUSED_CTX;
     auto const if_arr = lhs().if_array();
     auto const if_obj = lhs().if_object();
     ASSERT(if_arr || if_obj, "invalid argument")
@@ -129,7 +124,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Count)
     {
         for (auto const& sample: *if_arr)
         {
-            if (rhs().eval_as_predicate(sample,context++).as_bool())
+            if (rhs().eval_as_predicate(sample,curr_ctx() MAYBE_INCR).as_bool())
             {
                 count++;
             }
@@ -139,7 +134,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Count)
     {
         for (auto const& kv: *if_obj)
         {
-            if (rhs().eval_as_predicate({kv.key(), kv.value()},context++).as_bool())
+            if (rhs().eval_as_predicate({kv.key(), kv.value()},curr_ctx() MAYBE_INCR).as_bool())
             {
                 count++;
             }
@@ -159,7 +154,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Each)
     {
         for (auto const& sample: *if_arr)
         {
-            if (!rhs().eval_as_predicate(sample,context++).as_bool())
+            if (!rhs().eval_as_predicate(sample,curr_ctx() MAYBE_INCR).as_bool())
             {
                 return false;
             }
@@ -169,7 +164,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Each)
     {
         for (auto const& kv: *if_obj)
         {
-            if (!rhs().eval_as_predicate({kv.key(), kv.value()},context++).as_bool())
+            if (!rhs().eval_as_predicate({kv.key(), kv.value()},curr_ctx() MAYBE_INCR).as_bool())
             {
                 return false;
             }
@@ -196,7 +191,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Map)
 
     for (auto const& el: samples)
     {
-        ret.push_back(F.eval(el,context++));
+        ret.push_back(F.eval(el,curr_ctx() MAYBE_INCR));
     }
 
     return ret;
@@ -217,7 +212,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Filter)
     }
     for (auto const& el: samples)
     {
-        if (F.eval_as_predicate(el,context++).as_bool())
+        if (F.eval_as_predicate(el,curr_ctx() MAYBE_INCR).as_bool())
         {
             ret.push_back(el);
         }

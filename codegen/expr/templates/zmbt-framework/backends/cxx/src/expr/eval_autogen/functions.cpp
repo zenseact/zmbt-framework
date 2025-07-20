@@ -29,7 +29,7 @@ namespace zmbt {
 namespace lang {
 
 @for keyword in data.CodegenFns:
-ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { UNUSED_CTX; return @keyword.CodegenValue; }
+ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return @keyword.CodegenValue; }
 @end
 
 

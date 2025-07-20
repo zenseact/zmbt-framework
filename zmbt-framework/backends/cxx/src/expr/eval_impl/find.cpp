@@ -14,15 +14,14 @@
 #include "zmbt/expr/eval_impl.hpp"
 #include "zmbt/expr/eval_impl_pp.hpp"
 
-#define UNUSED static_cast<void>(context);
 
 
 namespace zmbt {
 namespace lang {
 
-ZMBT_DEFINE_EVALUATE_IMPL(Find)     { UNUSED; return expr::Err("not implemented"); }
-ZMBT_DEFINE_EVALUATE_IMPL(FindPtr)  { UNUSED; return expr::Err("not implemented"); }
-ZMBT_DEFINE_EVALUATE_IMPL(FindIdx)  { UNUSED; return expr::Err("not implemented"); }
+ZMBT_DEFINE_EVALUATE_IMPL(Find)     { return expr::Err("not implemented"); }
+ZMBT_DEFINE_EVALUATE_IMPL(FindPtr)  { return expr::Err("not implemented"); }
+ZMBT_DEFINE_EVALUATE_IMPL(FindIdx)  { return expr::Err("not implemented"); }
 
 } // namespace lang
 } // namespace zmbt

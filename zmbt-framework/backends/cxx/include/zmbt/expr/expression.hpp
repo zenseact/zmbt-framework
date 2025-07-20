@@ -43,16 +43,6 @@ private:
     struct json_ctor_params;
     Expression(json_ctor_params&&);
 
-    void handle_binary_args(V const& x, Expression &lhs, Expression &rhs) const;
-
-    boost::json::value eval_Const(boost::json::value const&) const;
-    boost::json::value eval_UnaryOp(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_BinaryOp(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_CodegenFn(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_HiOrd(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_Variadic(boost::json::value const&, EvalContext const&) const;
-
 
   public:
 
@@ -355,13 +345,13 @@ private:
     /// @param x run-time argument
     /// @param config evaluation config
     /// @return
-    boost::json::value eval(Expression const& x, EvalContext const& ctx) const;
+    boost::json::value eval(Expression const& x, EvalContext ctx) const;
     boost::json::value eval(Expression const& x = {}) const;
-    Expression eval_e(Expression const& x, EvalContext const& ctx) const;
+    Expression eval_e(Expression const& x, EvalContext ctx) const;
 
     /// Eval const expressions as Eq(expr), except for Noop,
     /// otherwise eval expr
-    boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext const& ctx) const;
+    boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext ctx) const;
 
     static bool to_predicate_if_const(Expression& e);
 

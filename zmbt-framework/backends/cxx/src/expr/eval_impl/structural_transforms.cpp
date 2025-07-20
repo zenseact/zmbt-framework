@@ -30,7 +30,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Transp)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
@@ -60,7 +59,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Transp)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cat)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
@@ -86,7 +84,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cat)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Push)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
@@ -113,7 +110,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Push)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Reverse)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
 
     ASSERT(x.is_array(), "invalid argument");
@@ -126,7 +122,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Reverse)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Slide)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
@@ -160,7 +155,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Slide)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Chunks)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
@@ -199,12 +193,10 @@ ZMBT_DEFINE_EVALUATE_IMPL(Chunks)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Stride)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
-    // auto result = eval_impl<Keyword::Chunks>()(x, param, context).as_array();
-    auto result =  (x | expr::Chunks(param)).eval({}, context).as_array();
+    auto result =  (x | expr::Chunks(param)).eval({}, curr_ctx()).as_array();
 
     if (!result.empty() && result.back().as_array().size() != param)
     {
@@ -217,7 +209,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Stride)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Enumerate)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
 
     ASSERT(x.is_array(), "invalid argument");
@@ -234,7 +225,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Enumerate)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Flatten)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
 
     ASSERT(x.is_array(), "invalid argument");

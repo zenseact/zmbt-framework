@@ -15,8 +15,6 @@
 #include "zmbt/expr/eval_impl.hpp"
 #include "zmbt/expr/eval_impl_pp.hpp"
 
-#define UNUSED static_cast<void>(context);
-
 
 namespace zmbt {
 namespace lang {
@@ -26,7 +24,7 @@ using V = boost::json::value;
 
 ZMBT_DEFINE_EVALUATE_IMPL(Pack)
 {
-    UNUSED; return self().parameter_list();
+    return self().parameter_list();
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
@@ -36,11 +34,11 @@ ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
 
     auto fn = subexpressions.cbegin();
     // first el eval as is
-    E ret = (*fn++).eval(lhs(), context++);
+    E ret = (*fn++).eval(lhs(), curr_ctx() MAYBE_INCR);
     while (fn != subexpressions.cend())
     {
         // any consequent literals eval as eq
-        ret = (*fn++).eval_as_predicate(ret,context++);
+        ret = (*fn++).eval_as_predicate(ret,curr_ctx() MAYBE_INCR);
     }
     return ret;
 }
@@ -53,7 +51,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fork)
     out.reserve(subexpressions.size());
     for (auto const& fn: subexpressions)
     {
-        out.push_back(fn.eval(lhs(), context++));
+        out.push_back(fn.eval(lhs(), curr_ctx() MAYBE_INCR));
     }
     return out;
 }
@@ -64,7 +62,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
 
     auto const& x = lhs().data();
 
-    static_cast<void>(context);
     V fmtstr;
     boost::format fmt;
     zmbt::remove_cvref_t<decltype(subexpressions)> args;
@@ -105,7 +102,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
 
     for (auto const& fn: args)
     {
-        auto const item = fn.eval({}, context++);
+        auto const item = fn.eval({}, curr_ctx() MAYBE_INCR);
         fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
     }
     return {fmt.str()};
@@ -117,7 +114,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(All)
 
     for (auto const& e: subexpressions)
     {
-        if (not e.eval_as_predicate(lhs(),context++).as_bool())
+        if (not e.eval_as_predicate(lhs(),curr_ctx() MAYBE_INCR).as_bool())
         {
             return false;
         }
@@ -132,7 +129,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Any)
 
     for (auto const& e: subexpressions)
     {
-        if (e.eval_as_predicate(lhs(),context++).as_bool())
+        if (e.eval_as_predicate(lhs(),curr_ctx() MAYBE_INCR).as_bool())
         {
             return true;
         }
@@ -155,7 +152,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Saturate)
         {
             break;
         }
-        if ((*it).eval_as_predicate(sample,context++).as_bool())
+        if ((*it).eval_as_predicate(sample,curr_ctx() MAYBE_INCR).as_bool())
         {
             it++;
         }

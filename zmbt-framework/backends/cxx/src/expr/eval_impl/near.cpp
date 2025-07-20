@@ -33,14 +33,14 @@ ZMBT_DEFINE_EVALUATE_IMPL(Near)
     ASSERT(x.is_number(), "invalid argument")
     ASSERT(param.is_array() || param.is_number(), "invalid parameter")
 
-    double x_value = boost::json::value_to<double>(context.op.decorate(x));
+    double x_value = boost::json::value_to<double>(curr_ctx().op.decorate(x));
     double ref_value = std::numeric_limits<double>::quiet_NaN();
     double rtol      = default_rtol;
     double atol      = default_atol;
 
     if (param.is_number())
     {
-        ref_value = boost::json::value_to<double>(context.op.decorate(param));
+        ref_value = boost::json::value_to<double>(curr_ctx().op.decorate(param));
     }
     else
     {
@@ -49,15 +49,15 @@ ZMBT_DEFINE_EVALUATE_IMPL(Near)
 
         if (params.size() >= 1)
         {
-            ref_value = boost::json::value_to<double>(context.op.decorate(params.at(0)));
+            ref_value = boost::json::value_to<double>(curr_ctx().op.decorate(params.at(0)));
         }
         if (params.size() >= 2)
         {
-            rtol = boost::json::value_to<double>(context.op.decorate(params.at(1)));
+            rtol = boost::json::value_to<double>(curr_ctx().op.decorate(params.at(1)));
         }
         if (params.size() == 3)
         {
-            atol = boost::json::value_to<double>(context.op.decorate(params.at(2)));
+            atol = boost::json::value_to<double>(curr_ctx().op.decorate(params.at(2)));
         }
     }
 

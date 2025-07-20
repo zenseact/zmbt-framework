@@ -23,21 +23,21 @@ namespace zmbt {
 namespace lang {
 
 @for keyword in data.ApiKeywords:
-extern template Expression dispatch_eval<Keyword::@keyword.Name>(Expression const&, Expression const&, EvalContext const&);
+extern template Expression dispatch_eval<Keyword::@keyword.Name>(Expression const&, Expression const&, EvalContext);
 @end
 
 
-boost::json::value Expression::eval(Expression const& x, EvalContext const& ctx) const
+boost::json::value Expression::eval(Expression const& x, EvalContext ctx) const
 {
     return eval_e(x, ctx).to_json();
 }
 
-boost::json::value Expression::eval(Expression const& x) const
+boost::json::value Expression::eval(Expression& x) const
 {
     return eval(x, {});
 }
 
-Expression Expression::eval_e(Expression const& x, EvalContext const& context) const
+Expression Expression::eval_e(Expression const& x, EvalContext context) const
 try
 {
 

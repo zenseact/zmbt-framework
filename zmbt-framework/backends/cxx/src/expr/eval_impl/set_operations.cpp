@@ -31,7 +31,6 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cartesian)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
 
     ASSERT(rhs().is_null(), "invalid parameter");
@@ -65,7 +64,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cartesian)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Uniques)
 {
-    UNUSED_CTX;
     auto const x = lhs().eval();
     ASSERT(x.is_array(), "invalid argument")
     return boost::json::value_from(
@@ -80,13 +78,12 @@ ZMBT_DEFINE_EVALUATE_IMPL(Intersect)
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
-    static_cast<void>(context);
     ASSERT(x.kind() == param.kind(), "invalid operands");
     ASSERT(x.is_array(), "invalid argument");
 
     auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
     auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
-    auto const& op = context.op;
+    auto const& op = curr_ctx().op;
     L intersection {};
     intersection.reserve(std::max(lhs.size(), rhs.size()));
     auto out_it = std::back_inserter(intersection);
@@ -114,13 +111,12 @@ ZMBT_DEFINE_EVALUATE_IMPL(Diff)
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
-    static_cast<void>(context);
     ASSERT(x.kind() == param.kind(), "invalid operands");
     ASSERT(x.is_structured(), "invalid argument");
 
     auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
     auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
-    auto const& op = context.op;
+    auto const& op = curr_ctx().op;
     L difference {};
     difference.reserve(std::max(lhs.size(), rhs.size()));
     auto out_it = std::back_inserter(difference);
@@ -149,7 +145,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Union)
     auto const x = lhs().eval();
     auto const param = rhs().eval();
 
-    static_cast<void>(context);
     ASSERT(x.kind() == param.kind(), "invalid operands");
     ASSERT(x.is_structured(), "invalid argument");
 
@@ -157,7 +152,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Union)
 
     auto const lhs = boost::json::value_to<std::unordered_set<V>>(x);
     auto const rhs = boost::json::value_to<std::unordered_set<V>>(param);
-    auto const& op = context.op;
+    auto const& op = curr_ctx().op;
     L set_union {};
     set_union.reserve(lhs.size() + rhs.size());
 

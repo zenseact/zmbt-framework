@@ -138,14 +138,12 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(At)
 {
-    UNUSED_CTX;
     ASSERT(not rhs().is_null(), "null parameter")
     return query_at(lhs().eval(), rhs().eval());
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Lookup)
 {
-    UNUSED_CTX;
     ASSERT(not lhs().is_null(), "null argument")
     return query_at(rhs().eval(), lhs().eval());
 }
