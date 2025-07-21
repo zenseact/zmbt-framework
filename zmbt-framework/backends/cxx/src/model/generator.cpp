@@ -9,7 +9,7 @@
 
 namespace zmbt {
 
-Generator::Generator(lang::Expression const& expr) : counter_{0}, expr_{expr} {}
+Generator::Generator(lang::Expression const& expr) : counter_{0}, expr_(expr) {}
 
 std::uint64_t Generator::operator()(boost::json::value& value)
 {

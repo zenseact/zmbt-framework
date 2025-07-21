@@ -55,7 +55,7 @@ Expression::Expression(boost::json::value&& expr)
 }
 
 Expression::Expression(std::initializer_list<boost::json::value_ref> items)
-    : Expression(encodeLiteral(boost::json::value(items)))
+    : Expression(boost::json::value(items))
 {
 }
 

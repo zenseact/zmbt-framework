@@ -28,7 +28,7 @@ void increment_args(int& x, int& y) { ++x; ++y; }
 }
 
 
-BOOST_AUTO_TEST_SUITE(EnvironementTests);
+BOOST_AUTO_TEST_SUITE(EnvironementTests)
 
 
 BOOST_AUTO_TEST_CASE(Function)
@@ -65,10 +65,10 @@ BOOST_AUTO_TEST_CASE(RefobjRefVsPtr)
     BOOST_CHECK_EQUAL(Environment::InterfaceHandle(&O::set_x, obj).refobj(), Environment::InterfaceHandle(&O::set_x, &obj).refobj());
 }
 
-BOOST_AUTO_TEST_SUITE_END();
+BOOST_AUTO_TEST_SUITE_END()
 
 
-BOOST_AUTO_TEST_SUITE(InterfaceRecordTests);
+BOOST_AUTO_TEST_SUITE(InterfaceRecordTests)
 
 
 
@@ -113,4 +113,4 @@ BOOST_AUTO_TEST_CASE(IRRefobjRefVsPtr)
     BOOST_CHECK_EQUAL(InterfaceRecord(&O::set_x, obj).refobj(), InterfaceRecord(&O::set_x, &obj).refobj());
 }
 
-BOOST_AUTO_TEST_SUITE_END();
+BOOST_AUTO_TEST_SUITE_END()

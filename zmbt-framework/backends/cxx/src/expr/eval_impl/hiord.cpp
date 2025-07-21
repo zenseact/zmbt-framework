@@ -50,9 +50,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Sort)
 
     ASSERT(x.is_array(), "invalid argument");
 
-    auto const& key_fn = [&] () -> E const& {
-        return (rhs().is_literal() && rhs().is_null()) ? expr::Id : rhs();
-    }();
+
+    auto const& key_fn = rhs().is_literal() && rhs().is_null() ? expr::Id : rhs();
 
     auto const& op = curr_ctx().op;
     std::function<bool(V const&, V const&)> is_less = [&key_fn, &op](V const& lhs, V const& rhs) ->bool {

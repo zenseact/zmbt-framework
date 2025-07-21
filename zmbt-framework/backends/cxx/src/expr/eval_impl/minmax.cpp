@@ -29,10 +29,7 @@ std::function<L::const_iterator(L::const_iterator, L::const_iterator, compare_fn
 
 L::const_iterator find_argminmax(L const& samples, E const& param, O const& op, get_element_fn_t const& get_element)
 {
-    E const default_key(K::Id);
-    E const& key_fn = [&] () -> E const& {
-        return (param.is_literal() && param.is_null()) ? default_key : param;
-    }();
+    E const& key_fn = param.is_literal() && param.is_null() ? zmbt::expr::Id : param;
 
     std::function<bool(V const&, V const&)> is_less = [key_fn, op](V const& lhs, V const& rhs) ->bool {
         return op.apply(K::Lt, key_fn.eval(lhs), key_fn.eval(rhs)).as_bool();

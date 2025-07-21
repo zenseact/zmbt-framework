@@ -364,9 +364,9 @@ std::size_t EncodingView::child_idx(int ord) const noexcept
 
     if (ord < 0)
     {
-        for (std::size_t i = size_-1; i >=0; --i)
+        for (std::int64_t i = size_-1; i >=0; --i)
         {
-            if ((depth_[i] - depth_[0]) == 1)
+            if ((depth_[static_cast<std::size_t>(i)] - depth_[0]) == 1)
             {
                 idx = i;
                 if (++ord >= 0) break;

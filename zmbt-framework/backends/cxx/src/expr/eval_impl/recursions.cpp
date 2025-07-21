@@ -99,9 +99,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
     ASSERT(maybe_depth.has_value(), "invalid parameter")
     std::uint64_t max_recursion_depth = maybe_depth.value();
 
-    auto const& cond = [&]() -> E const& {
-        return lhs().is_literal() ? dummy : lhs();
-    }();
+    auto const& cond = lhs().is_literal() ? dummy : lhs();
 
     boost::json::array result {};
     result.push_back(initial);
