@@ -26,7 +26,7 @@ struct EvalContext
     std::uint64_t const depth;
 
     /// Copy context with depth increment
-    EvalContext operator++(int) const;
+    EvalContext operator++() const;
 };
 
 }  // namespace lang

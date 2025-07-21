@@ -11,7 +11,7 @@
 namespace zmbt {
 namespace lang {
 
-EvalContext EvalContext::operator++(int) const
+EvalContext EvalContext::operator++() const
 {
     return {op, log, depth + 1};
 }

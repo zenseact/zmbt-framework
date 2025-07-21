@@ -47,7 +47,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
         log_end = std::make_move_iterator(local_ctx.log.stack->end());
         line_it != log_end; ++line_it)
         {
-            line_it->as_array().at(0).as_uint64() += (curr_ctx().depth + 1);
+            line_it->as_array().at(0).as_uint64() += (curr_ctx().depth);
             curr_ctx().log.stack->push_back(*line_it);
         }
     }

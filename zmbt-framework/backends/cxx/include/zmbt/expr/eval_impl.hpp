@@ -45,7 +45,7 @@ class EvalImplBase : public FixedEvalParams<K>
 
     EvalImplBase(Expression const& e, Expression const& x, EvalContext ctx)
         : FixedEvalParams<K>(e, x, ctx)
-        , curr_ctx_{ctx++}
+        , curr_ctx_{++ctx}
     {
     }
 
