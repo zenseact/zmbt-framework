@@ -25,7 +25,7 @@ over test inputs, notably:
 
 ## Syntax
 
-General syntax: `Keyword` or `Keyword(<Expression list>...)`, where the second form is a design-time parametrization, but not yet an evaluation.
+General syntax: `Keyword` or `Keyword(<Expression list>...)`, where the second form is a design-time parametrization, but *not yet an evaluation call*.
 Both forms yield a `Expression` object with an `eval` method, used by the framework at runtime.
 E.g., `Add` (first form) is an addition function that accepts a pair of operands on evaluation input, and `Add(2)` (second form)
 is a function with bound right-hand-side operand.
@@ -46,6 +46,7 @@ Using a constant or a literal as initial term renders the entire chain a constan
 
 Another special operator is ampersand `&`, used to fork the evaluation flow, packing results from operand expressions into an array:
 `42 | Add(1) & Sub(1)` $\mapsto$ `[43, 41]`. It is also a syntactic sugar to `Fork` expression.
+
 
 ### Arity forms
 
@@ -122,12 +123,12 @@ Several keywords produce high-order expressions that are useful for creating a m
 
 The most powerful in this group are `Pipe` and `Fork`.
 In addition to what is descrived above, composition also has a special rule for literals beyond the initial term - they are interpreted as predicates,
-e.g. `[1,2,3]|Size|3` is equivalent to `[1,2,3]|Size|Eq(3)`. To treat literal `3` as a constant expression, envelop it in user-defined constant as `C(3)`.
+e.g. `[1,2,3]|Size|3` is equivalent to `[1,2,3]|Size|Eq(3)`. To treat literal `3` as a constant expression, quote it as `Q(3)` (equivalent of Lisp quote).
 
 
 Other useful keywords are:
 
-- `Filter`, `Map`, `Reduce` - similar to Python functools, e.g.:
+- `Filter`, `Map`, `Fold` - similar to Python functools, e.g.:
       ```js
       [
          [1, "one"  ],
@@ -142,39 +143,80 @@ Other useful keywords are:
       - `At("/foo/bar")` - JSON pointer query
       - `At("::2")` - array slice query
 - `Saturate`, `All`, `Any`, `Count` - matcher building elements
+- `Recur`, `Unfold` - recursion handlers with exit condition:
+      - `Q(Ge(12)) | Recur( 4 & Add(1))` $\mapsto 11$
+      - `Q(Ge(12)) | Unfold(8 & Add(1))` $\mapsto [8,9,10,11]$
 
 
 For the complete information see [Expression Language Reference](../dsl-reference/expressions.md#high-order).
 
 
-## Debug
+## Debug and Trace
 
-Complex expressions evaluation
+Consider the following example:
 
 ```cpp
 auto const f = Debug(Reduce(Add) & Size | Div);
 auto const x = L{1,2,3,42.5};
-f.eval(x, ctx);
+BOOST_CHECK_EQUAL(f.eval(x), 12.125);
 ```
 
-Produced output is printed bottom-up in order of evaluation:
+When log level is set to `DEBUG` or higher, the following evaluation log is printed:
+
 ```
 2025-07-20T14:04:14.485827201Z DEBUG ZMBT_EXPR_DEBUG
-                    ┌── Add $ [1,2] = 3
-                    ├── Add $ [3,3] = 6
-                    ├── Add $ [6,4.25E1] = 4.85E1
-              ┌── Fold(Add) $ [1,2,3,4.25E1] = 4.85E1
-              ├── Size $ [1,2,3,4.25E1] = 4
-        ┌── Fold(Add) & Size $ [1,2,3,4.25E1] = [4.85E1,4]
-        ├── Div $ [4.85E1,4] = 1.2125E1
+           ┌── Add $ [1,2] = 3
+           ├── Add $ [3,3] = 6
+           ├── Add $ [6,4.25E1] = 4.85E1
+        ┌── Fold(Add) $ [1,2,3,4.25E1] = 4.85E1
+        ├── Size $ [1,2,3,4.25E1] = 4
+     ┌── Fold(Add) & Size $ [1,2,3,4.25E1] = [4.85E1,4]
+     ├── Div $ [4.85E1,4] = 1.2125E1
   □  (Fold(Add) & Size) | Div $ [1,2,3,4.25E1] = 1.2125E1
 ```
-Log lines are formatted as `f(x) = result`, and connected with line-drawing to show the expression terms hierarchy.
 
-In model tests, the evaluation stack is logged on failing tests.
+Log lines are formatted as `f $ x = result`, and connected with line-drawing to show the expression terms hierarchy.
+
+In model tests, the evaluation is logged on failing tests by default.
+
+Another debugging utility keyword is `Trace`, which works like `Id` but also prints it's parameter to the call.
+It can be combined with `ZMBT_CUR_LOC` macro to trace mock invocations:
+
+
+auto const f = Trace(ZMBT_CUR_LOC) | Reduce(Add) & Size | Div;
+auto const x = L{1,2,3,42.5};
+zmbt-framework/backends/cxx/test/expr_api.cpp#1010 [1,2,3,4.25E1]
+
+
+The `Debug` keyword respects nesting - you can use it on different levels on the same expression,
+possibly chaining with `Trace` tu distinguish subexpressions, e.g.
+
+```c++
+40 | Debug(Trace("foo") | Add(2) | Debug(Trace("bar") | Sub(2)))
+```
+
+produces
+
+```
+2025-07-21T20:55:32.037990154Z DEBUG ZMBT_EXPR_DEBUG
+     ┌── Trace("bar") $ 42 = 42
+     ├── Sub(2) $ 42 = 40
+  □  Trace("bar") | Sub(2) $ 42 = 40
+
+2025-07-21T20:55:32.038143599Z DEBUG ZMBT_EXPR_DEBUG
+     ┌── Trace("foo") $ 40 = 40
+     ├── Add(2) $ 40 = 42
+     │      ┌── Trace("bar") $ 42 = 42
+     │      ├── Sub(2) $ 42 = 40
+     │   ┌── Trace("bar") | Sub(2) $ 42 = 40
+     ├── Dbg(Trace("bar") | Sub(2)) $ 42 = 40
+  □  Trace("foo") | Add(2) | Dbg(Trace("bar") | Sub(2)) $ 40 = 40
+```
+
+### Line trimming
+
 For the bulky log messages the elements are trimmed with `...` while trying to keep the evaluation result visible.
 This option can be disabled with `--zmbt_log_notrim` flag.
-For the complete log data refer to the JSON log.
 
 ## Grammar
 
@@ -189,14 +231,14 @@ title Expression Language syntax
 !define REST(x) {CM, x}-
 !define ONEORMORE(x) x, REST(x)
 
-Expression = Literal | (Keyword, [Parameters]) | Pipe | Fork;
+Expression = Literal | (Keyword, [Parameters]) | Pipe | Fork | Tuple;
 Parameters = (LB, Expression, RB)
     | (LB, Expression, CM, Expression, RB)
     | (LB, ONEORMORE(Expression), RB);
 
-
-Pipe = Expression, '|', Expression;
-Fork = Expression, '&', Expression;
+Pipe  = Expression, '|', Expression;
+Fork  = Expression, '&', Expression;
+Tuple = Expression, '+', Expression;
 
 @endebnf
 ```

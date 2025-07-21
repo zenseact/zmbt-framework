@@ -1730,21 +1730,21 @@ Pipe functions in left-to-right composition
  * `Add(1) | Mul(2) `$\equiv$` Pipe(Add(1), Mul(2))`
  * `3 | Add(1) | Mul(2) `$\mapsto$` 8`
 
-### Pack
+### Tuple
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
-Pack expressions into an array without evaluation
+Pack expressions into an tuple without evaluation
 
 
 *Examples*:
 
- * `null | Pack(Reduce(Add), Size) `$\mapsto$` [Reduce(Add), Size]`
+ * `null | Tuple(Reduce(Add), Size) `$\mapsto$` [Reduce(Add), Size]`
 
 **Infix operator form (plus):**
 
- * `Add(1) + Mul(2) `$\equiv$` Pack(Add(1), Mul(2))`
+ * `Add(1) + Mul(2) `$\equiv$` Tuple(Add(1), Mul(2))`
 
 ### Fork
 

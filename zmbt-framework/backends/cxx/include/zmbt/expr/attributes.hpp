@@ -176,7 +176,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::All: return is_variadic | is_predicate | is_hiord;
     case Keyword::Saturate: return is_variadic | is_predicate | is_hiord;
     case Keyword::Pipe: return is_variadic | is_hiord | is_pipe;
-    case Keyword::Pack: return is_variadic | is_hiord;
+    case Keyword::Tuple: return is_variadic | is_hiord;
     case Keyword::Fork: return is_variadic | is_hiord | is_fork;
     case Keyword::Flip: return is_binary | is_hiord;
     case Keyword::Dbg: return is_binary | is_hiord;

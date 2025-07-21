@@ -34,7 +34,7 @@ Expression operator|(Expression lhs, Expression rhs)
 
 Expression operator+(Expression lhs, Expression rhs)
 {
-    return Expression::unfold_left_assoc(Keyword::Pack, std::move(lhs), std::move(rhs));
+    return Expression::unfold_left_assoc(Keyword::Tuple, std::move(lhs), std::move(rhs));
 }
 
 Expression operator&(Expression lhs, Expression rhs)

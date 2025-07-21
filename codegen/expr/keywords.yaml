@@ -1340,20 +1340,20 @@ keyword_groups:
           Add(1) | Mul(2) ≡ Pipe(Add(1), Mul(2))
           3 | Add(1) | Mul(2) ↦ 8
 
-      - name: Pack
+      - name: Tuple
         signature: Variadic
-        brief: Pack expressions into an array without evaluation
+        brief: Pack expressions into an tuple without evaluation
         domain: any
         codomain: list
         params:
           - label: functions
             type: list[expr]
         examples: |-
-          null | Pack(Reduce(Add), Size) ↦ [Reduce(Add), Size]
+          null | Tuple(Reduce(Add), Size) ↦ [Reduce(Add), Size]
 
           **Infix operator form (plus):**
 
-          Add(1) + Mul(2) ≡ Pack(Add(1), Mul(2))
+          Add(1) + Mul(2) ≡ Tuple(Add(1), Mul(2))
 
       - name: Fork
         signature: Variadic

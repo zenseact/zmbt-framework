@@ -56,8 +56,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Trace)
 {
-    ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data();
-    ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data();
+    ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data() << " " << lhs();
+    ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data() << " " << lhs();
     return lhs();
 }
 

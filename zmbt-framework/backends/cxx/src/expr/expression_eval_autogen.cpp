@@ -144,7 +144,7 @@ extern template Expression dispatch_eval<Keyword::Any>(Expression const&, Expres
 extern template Expression dispatch_eval<Keyword::All>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Saturate>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Pipe>(Expression const&, Expression const&, EvalContext);
-extern template Expression dispatch_eval<Keyword::Pack>(Expression const&, Expression const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Tuple>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Fork>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Flip>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Dbg>(Expression const&, Expression const&, EvalContext);
@@ -288,7 +288,7 @@ try
         case Keyword::All: return dispatch_eval<Keyword::All>(*this, x, context);
         case Keyword::Saturate: return dispatch_eval<Keyword::Saturate>(*this, x, context);
         case Keyword::Pipe: return dispatch_eval<Keyword::Pipe>(*this, x, context);
-        case Keyword::Pack: return dispatch_eval<Keyword::Pack>(*this, x, context);
+        case Keyword::Tuple: return dispatch_eval<Keyword::Tuple>(*this, x, context);
         case Keyword::Fork: return dispatch_eval<Keyword::Fork>(*this, x, context);
         case Keyword::Flip: return dispatch_eval<Keyword::Flip>(*this, x, context);
         case Keyword::Dbg: return dispatch_eval<Keyword::Dbg>(*this, x, context);

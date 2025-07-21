@@ -580,8 +580,8 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate;
 /// \brief Pipe functions in left-to-right composition
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pipe> const Pipe;
 
-/// \brief Pack expressions into an array without evaluation
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pack> const Pack;
+/// \brief Pack expressions into an tuple without evaluation
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details

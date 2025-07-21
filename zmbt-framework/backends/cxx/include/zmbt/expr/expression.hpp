@@ -97,7 +97,7 @@ public:
     /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
     friend Expression operator&(Expression lhs, Expression rhs);
 
-    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Pack.
+    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
     friend Expression operator+(Expression lhs, Expression rhs);
 
 
@@ -229,9 +229,9 @@ public:
         return is(Keyword::Fork);
     }
 
-    bool is_pack() const
+    bool is_tuple() const
     {
-        return is(Keyword::Pack);
+        return is(Keyword::Tuple);
     }
 
     bool is_literal() const
@@ -273,9 +273,9 @@ public:
         return is_fork() && (infix_size() > 1);
     }
 
-    bool is_infix_pack() const
+    bool is_infix_tuple() const
     {
-        return is_pack() && (infix_size() > 1);
+        return is_tuple() && (infix_size() > 1);
     }
 
     virtual boost::json::value to_json() const;
