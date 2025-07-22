@@ -32,7 +32,10 @@ namespace {
 std::set<Keyword> const NotImplemented {
     Keyword::Find,
     Keyword::FindPtr,
-    Keyword::FindIdx
+    Keyword::FindIdx,
+    Keyword::Link,
+    Keyword::Capture,
+    Keyword::Refer,
 };
 
 

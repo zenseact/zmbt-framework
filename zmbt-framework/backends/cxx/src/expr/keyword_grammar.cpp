@@ -202,6 +202,9 @@ KeywordSymbol::KeywordSymbol()
     ("Op", Keyword::Op)
     ("Overload", Keyword::Op)
     ("Bind", Keyword::Bind)
+    ("Link", Keyword::Link)
+    ("Capture", Keyword::Capture)
+    ("Refer", Keyword::Refer)
     ("Any", Keyword::Any)
     ("All", Keyword::All)
     ("Saturate", Keyword::Saturate)
@@ -370,6 +373,9 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Unfold: { return "Unfold"; break; }
     case Keyword::Op: { return "Op"; break; }
     case Keyword::Bind: { return "Bind"; break; }
+    case Keyword::Link: { return "Link"; break; }
+    case Keyword::Capture: { return "Capture"; break; }
+    case Keyword::Refer: { return "Refer"; break; }
     case Keyword::Any: { return "Any"; break; }
     case Keyword::All: { return "All"; break; }
     case Keyword::Saturate: { return "Saturate"; break; }

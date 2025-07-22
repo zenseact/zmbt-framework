@@ -394,6 +394,15 @@ enum class Keyword
     /// Bind
     Bind,
 
+    /// Link
+    Link,
+
+    /// Capture
+    Capture,
+
+    /// Refer
+    Refer,
+
     /// Any
     Any,
 

@@ -42,10 +42,13 @@ Expression operator&(Expression lhs, Expression rhs)
     return Expression::unfold_left_assoc(Keyword::Fork, std::move(lhs), std::move(rhs));
 }
 
-Expression operator<<(Expression, Expression const&)
+Expression operator<=(Expression link, Expression referent)
 {
     // TODO: binding
-    return {};
+    // TODO: handle righ-assoc infix unfold
+    static_cast<void>(link);
+    static_cast<void>(referent);
+    return expr::Err("symbolic references are not implemented");
 }
 
 std::ostream& operator<<(std::ostream& os, Expression const& expr)

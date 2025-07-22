@@ -1669,6 +1669,33 @@ Bind design-time parameters to function.
  * `42 & Q(Add) | Bind `$\mapsto$` Add(42)`
  * `42 | Bind(F) | Bind(G) | Bind(H) `$\mapsto$`  H(G(F(42)))`
 
+### Link
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+...
+
+
+
+### Capture
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+...
+
+
+
+### Refer
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+...
+
+
+
 ### Any
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)

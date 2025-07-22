@@ -1279,6 +1279,28 @@ keyword_groups:
         domain: [any, expr]
         codomain: expr
 
+
+      - name: Link
+        signature: Binary
+        brief: ...
+        examples: |-
+        domain: [any, expr]
+        codomain: expr
+
+      - name: Capture
+        signature: Binary
+        brief: ...
+        examples: |-
+        domain: [any, expr]
+        codomain: expr
+
+      - name: Refer
+        signature: Binary
+        brief: ...
+        examples: |-
+        domain: [any, expr]
+        codomain: expr
+
       - name: Any
         signature: Variadic
         brief: Match any predicate

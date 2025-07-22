@@ -140,6 +140,9 @@ extern template Expression dispatch_eval<Keyword::Recur>(Expression const&, Expr
 extern template Expression dispatch_eval<Keyword::Unfold>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Op>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Bind>(Expression const&, Expression const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Link>(Expression const&, Expression const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Capture>(Expression const&, Expression const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Refer>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Any>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::All>(Expression const&, Expression const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Saturate>(Expression const&, Expression const&, EvalContext);
@@ -284,6 +287,9 @@ try
         case Keyword::Unfold: return dispatch_eval<Keyword::Unfold>(*this, x, context);
         case Keyword::Op: return dispatch_eval<Keyword::Op>(*this, x, context);
         case Keyword::Bind: return dispatch_eval<Keyword::Bind>(*this, x, context);
+        case Keyword::Link: return dispatch_eval<Keyword::Link>(*this, x, context);
+        case Keyword::Capture: return dispatch_eval<Keyword::Capture>(*this, x, context);
+        case Keyword::Refer: return dispatch_eval<Keyword::Refer>(*this, x, context);
         case Keyword::Any: return dispatch_eval<Keyword::Any>(*this, x, context);
         case Keyword::All: return dispatch_eval<Keyword::All>(*this, x, context);
         case Keyword::Saturate: return dispatch_eval<Keyword::Saturate>(*this, x, context);

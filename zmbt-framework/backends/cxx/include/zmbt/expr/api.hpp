@@ -568,6 +568,15 @@ extern lang::SignatureOp const Overload;
 /// \brief Bind design-time parameters to function.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 
+/// \brief ...
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
+
+/// \brief ...
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Capture> const Capture;
+
+/// \brief ...
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Refer> const Refer;
+
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;
 

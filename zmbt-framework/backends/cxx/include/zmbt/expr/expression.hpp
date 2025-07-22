@@ -101,6 +101,8 @@ public:
     /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
     friend Expression operator+(Expression lhs, Expression rhs);
 
+    friend Expression operator<=(Expression link, Expression referent);
+
 
     /// \brief Evaluate x to lhs expression.
     /// \details Equivalent to expr.eval(x).
