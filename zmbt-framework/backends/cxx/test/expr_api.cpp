@@ -63,6 +63,12 @@ std::vector<TestEvalSample> const TestSamples
     {Id                         , nullptr               , nullptr               },
     {Id                         , {1,2,3}               , {1,2,3}               },
 
+    /// Capture
+    {"$x"                       , 42                    , 42                    },
+    {"$x"|Mul("$x")             , 3                     , 9                     },
+    {Q(3)|"$x"|Mul("$x")        , {}                    , 9                  },
+
+
 
     {Default(42)                , nullptr               , 42                    },
     {Default(42)                , ""                    , ""                    },
@@ -713,8 +719,8 @@ std::set<Keyword> const CoveredInTestEval = []{
 
 BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 {
-    EvalContext context{};
-    context.log = EvalLog::make();
+    auto context = lang::EvalContext::make();
+
 
     Logger::set_max_level(Logger::DEBUG);
 
@@ -909,13 +915,12 @@ BOOST_AUTO_TEST_CASE(TestComposeMapFilterAt)
 
 BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 {
-    EvalContext cfg{};
-    cfg.log = EvalLog::make();
+    auto ctx = EvalContext::make();
 
     auto const f = Debug(Reduce(Add) & Size | Div);
     auto const x = L{1,2,3,42.5};
-    f.eval(x, cfg);
-    BOOST_CHECK(!cfg.log.str().empty());
+    f.eval(x, ctx);
+    BOOST_CHECK(!ctx.log.str().empty());
 }
 
 
@@ -1148,6 +1153,14 @@ BOOST_AUTO_TEST_CASE(BracketInit)
     Expression const e1{Add}; // API
     // Expression const e2{e1}; // error: conflicts with init list ctor
     BOOST_CHECK_EQUAL(e1, Add);
+}
+
+BOOST_AUTO_TEST_CASE(TestCapture)
+{
+    auto e = Debug("$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)));
+
+    BOOST_CHECK_EQUAL(*(42 | e), 42);
+    BOOST_CHECK_EQUAL(*(-42 | e), 42);
 }
 
 BOOST_AUTO_TEST_CASE(TestFix)

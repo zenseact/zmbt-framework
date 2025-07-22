@@ -156,7 +156,7 @@ class DefinitionHelper {
         boost::json::value cal_node = handle_cal_p(cal, param_type);
 
         add_channel_impl({
-            {"obj", "$default"},
+            {"obj", "$(default)"},
             {"ifc", cal_node},
         }, param_type);
 

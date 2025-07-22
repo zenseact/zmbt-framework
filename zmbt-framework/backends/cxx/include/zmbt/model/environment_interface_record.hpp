@@ -240,7 +240,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         using TT = remove_cvref_t<T>;
 
         TT value = HookReturnImpl(type<TT>);
-        auto const key = format("$$ret-ref-%s-%s", interface(), refobj());
+        auto const key = format("$(ret-ref-%s-%s)", interface(), refobj());
         TT& ref = Env().template GetSharedRef<TT>(key, reflect::signal_traits<TT>::init());
         ref = value;
         return ref;

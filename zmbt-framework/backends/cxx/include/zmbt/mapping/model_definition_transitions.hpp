@@ -142,7 +142,7 @@ struct ModelDefinition::T_Filter : protected virtual ModelDefinition::BaseTransi
 
     /// Interface argument clause
     /// Refers to the arguments subsignal at the given JSON Pointer
-    Target Args(lang::Expression const& e = "$default")
+    Target Args(lang::Expression const& e = "$(default)")
     {
         state().set_channel_sp("args", e);
         return transit_to<Target>();

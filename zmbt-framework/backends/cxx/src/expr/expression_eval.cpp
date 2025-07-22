@@ -25,7 +25,7 @@ boost::json::value Expression::eval(Expression const& x, EvalContext ctx) const
 
 bool Expression::match(boost::json::value const& observed, Operator const& op) const
 {
-    auto result = eval(observed, {op, {}, 0});
+    auto result = eval(observed, EvalContext::make(op));
     auto const if_bool = result.if_bool();
     return if_bool ? *if_bool : false;
 }

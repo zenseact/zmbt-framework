@@ -248,6 +248,11 @@ public:
         return is(Keyword::PreProc);
     }
 
+    bool is_capture() const
+    {
+        return is(Keyword::Capture);
+    }
+
     bool is_noop() const
     {
         return is(Keyword::Noop);

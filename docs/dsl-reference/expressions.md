@@ -1683,9 +1683,21 @@ Bind design-time parameters to function.
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-...
+Symbolic binding of the input value
 
+The capture is referenced by an arbitrary string preceded by dollar sign,
+e.g. "$x".
 
+On the first access it stores the input value in isolated expression context
+eturns it on each subsequent call. It can't be reset after the first access.
+
+The string after $ sign shall not be enclosed in [], {}, or (),
+as those formats are reserved for internal usage.
+
+*Examples*:
+
+ * `42 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) `$\mapsto$` 42`
+ * `-7 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) `$\mapsto$` 7`
 
 ### Refer
 

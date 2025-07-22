@@ -11,10 +11,31 @@
 namespace zmbt {
 namespace lang {
 
+EvalContext EvalContext::make(Operator const& op)
+{
+    EvalContext next{};
+    next.log = EvalLog::make();
+    next.op = op;
+    return next;
+    // return {op, EvalLog::make(), std::make_shared<boost::json::object>(), 0};
+    // return {op, EvalLog::make(), {}, 0};
+}
+EvalContext::EvalContext()
+    : op{}
+    , log{}
+    , captures{std::make_shared<boost::json::object>()}
+    , depth{0}
+{
+}
+
 EvalContext EvalContext::operator++() const
 {
-    return {op, log, depth + 1};
+    EvalContext next = *this;
+    next.depth++;
+    return next;
 }
+
+
 
 }  // namespace lang
 }  // namespace zmbt

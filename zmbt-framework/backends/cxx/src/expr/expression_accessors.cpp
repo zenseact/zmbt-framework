@@ -72,7 +72,7 @@ std::size_t Expression::infix_size() const
 
 boost::json::value Expression::to_json() const
 {
-    return (is_literal() || is_preproc()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding());
+    return (is_literal() || is_preproc() || is_capture()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding());
 }
 
 bool Expression::is_const() const

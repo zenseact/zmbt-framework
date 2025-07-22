@@ -98,7 +98,7 @@ struct param_transform_interface<T, require_cal<T>> : public param_transform_bas
         else if (Kind::ifc_node & pkind)
         {
             pvalue = {
-                {"obj", "$default"},
+                {"obj", "$(default)"},
                 {"ifc", interface_id{arg} },
             };
         }

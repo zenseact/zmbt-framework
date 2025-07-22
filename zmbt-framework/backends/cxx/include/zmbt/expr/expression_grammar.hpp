@@ -32,6 +32,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
 
         auto const is_literal          = boost::phoenix::bind(&Expression::is_literal, _val);
         auto const is_preproc          = boost::phoenix::bind(&Expression::is_preproc, _val);
+        auto const is_capture          = boost::phoenix::bind(&Expression::is_capture, _val);
         auto const has_subexpr         = boost::phoenix::bind(&Expression::has_subexpr, _val);
         auto const serialize           = boost::phoenix::bind(&Expression::serialize, _val);
         auto const keyword_to_str      = boost::phoenix::bind(&Expression::keyword_to_str, _val);
@@ -44,6 +45,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         start
             = eps(is_literal)     << karma::lazy(serialize)
             | eps(is_preproc)     << karma::lazy(serialize)
+            | eps(is_capture)     << karma::lazy(serialize)
             | eps(is_infix_pipe)  << pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)  << fork[_1 = fork_terms]
             | eps(is_infix_tuple) << tuple[_1 = subexpressions_list]
@@ -52,6 +54,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         subexpr
             = eps(is_literal)     << karma::lazy(serialize)
             | eps(is_preproc)     << karma::lazy(serialize)
+            | eps(is_capture)     << karma::lazy(serialize)
             | eps(is_infix_pipe)  << nested_pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)  << nested_fork[_1 = fork_terms]
             | eps(is_infix_tuple) << nested_tuple[_1 = subexpressions_list]

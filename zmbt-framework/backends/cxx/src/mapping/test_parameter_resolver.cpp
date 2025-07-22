@@ -85,7 +85,7 @@ try
                 ifc_id = interface_id(interface.as_object().at("ifc"));
                 auto const& obj_param = interface.as_object().at("obj");
                 object_id obj_id;
-                if (obj_param == "$default") {
+                if (obj_param == "$(default)") {
                     obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
                 } else {
                     obj_id = object_id{lang::Expression(obj_param).eval()};
@@ -98,7 +98,7 @@ try
             }
 
 
-            if (kind == "$default")
+            if (kind == "$(default)")
             {
                 bool const on_trigger = trigger == interface;
                 bool const is_inject = role == "inject";
@@ -109,7 +109,7 @@ try
                 }
             }
 
-            if (signal_path == "$default")
+            if (signal_path == "$(default)")
             {
                 bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
                 signal_path = (is_unary && (kind == "args")) ? "/0" : "";

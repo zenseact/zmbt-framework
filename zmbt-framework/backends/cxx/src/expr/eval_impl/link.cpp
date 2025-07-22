@@ -20,8 +20,30 @@ namespace zmbt {
 namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Link)     { return expr::Err("not implemented"); }
-ZMBT_DEFINE_EVALUATE_IMPL(Capture)  { return expr::Err("not implemented"); }
 ZMBT_DEFINE_EVALUATE_IMPL(Refer)    { return expr::Err("not implemented"); }
+
+ZMBT_DEFINE_EVALUATE_IMPL(Capture)
+{
+    if (not curr_ctx().captures)
+    {
+        return rhs();
+    }
+    ZMBT_LOG_CERR(DEBUG) << self().to_json();
+    auto const key = self().data();
+    ASSERT(key.is_string(), "invalid reference");
+    auto const referent = curr_ctx().captures->if_contains(key.get_string());
+    if (referent)
+    {
+        return *referent;
+    }
+    else
+    {
+        curr_ctx().captures->emplace(key.get_string(), lhs().data());
+        return lhs();
+    }
+}
+
+
 
 } // namespace lang
 } // namespace zmbt

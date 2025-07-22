@@ -24,6 +24,20 @@ bool Encoding::is_preproc_token(boost::json::value const& value)
     return if_str && if_str->starts_with("$[") && if_str->ends_with("]");
 }
 
+bool Encoding::is_capture_token(boost::json::value const& value)
+{
+    auto const if_str = value.if_string();
+    if (!if_str || if_str->size() <= 1 || !if_str->starts_with("$")) return false;
+    auto const second = if_str->at(1);
+    auto const end = if_str->back();
+
+    bool const is_backeted // TODO: regex
+        =   (second == '[' && end == ']')
+        ||  (second == '{' && end == '}')
+        ||  (second == '(' && end == ')');
+    return not is_backeted && (second != '$');
+}
+
 Encoding::Encoding(boost::json::value&& value)
 {
     auto const if_obj = value.if_object();
@@ -43,6 +57,10 @@ Encoding::Encoding(boost::json::value&& value)
         if (is_preproc_token(value))
         {
             k = Keyword::PreProc;
+        }
+        else if (is_capture_token(value))
+        {
+            k = Keyword::Capture;
         }
         push_back(k, 0, std::move(value), nullptr);
     }

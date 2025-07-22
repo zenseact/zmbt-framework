@@ -52,9 +52,9 @@ boost::json::object& DefinitionHelper::cur_channel()
 
 void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, lang::Expression const& expr)
 {
-    if (expr == "$default")
+    if (expr == "$(default)")
     {
-        model(node_ptr) = "$default";
+        model(node_ptr) = "$(default)";
     }
     else
     {
@@ -163,8 +163,8 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
     channels.push_back({
         {"interface", ifc},
         {"role", nullptr},
-        {"signal_path", "$default"},
-        {"kind", "$default"},
+        {"signal_path", "$(default)"},
+        {"kind", "$(default)"},
         {"index_abs", channel_abs_count_},
         {"index_rel", channel_rel_count_},
         {"alias", channel_abs_count_},
