@@ -26,7 +26,7 @@ TestDiagnostics& TestDiagnostics::Error(boost::json::string_view origin, boost::
 TestDiagnostics& TestDiagnostics::Fail(lang::Expression expected, boost::json::value observed)
 {
     this->result = Result::Fail;
-    this->expected = expected;
+    this->expected = expected.data();
     this->observed = observed;
     this->message = "expectation match failed";
     return *this;

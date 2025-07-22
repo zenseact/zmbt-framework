@@ -181,13 +181,13 @@ std::ostream& operator<<(std::ostream& os, EvalLog const& log)
 }
 
 
-void EvalLog::push(Expression const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const
+void EvalLog::push(Expression const& expr, Expression const& x, Expression const& result, std::uint64_t const depth) const
 {
     if (!stack)
     {
         return;
     }
-    stack->push_back({depth, expr, x, result});
+    stack->push_back({depth, expr.to_json(), x.to_json(), result.to_json()});
 }
 
 

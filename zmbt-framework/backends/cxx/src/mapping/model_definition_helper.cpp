@@ -50,21 +50,20 @@ boost::json::object& DefinitionHelper::cur_channel()
 
 
 
-void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, boost::json::value const& param)
+void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, lang::Expression const& expr)
 {
-    if (param == "$default")
+    if (expr == "$default")
     {
-        model(node_ptr) = param;
+        model(node_ptr) = "$default";
     }
     else
     {
-        model(node_ptr) = param; // Expression
-        auto const expr = lang::Expression(param);
         auto const preproc_params = expr.preprocessing_parameters();
         for (auto const& pp: preproc_params)
         {
             params("/%s/pointers/+", pp.first) = format("%s%s", node_ptr, pp.second);
         }
+        model(node_ptr) = expr.to_json(); // Expression
     }
 }
 
@@ -206,7 +205,7 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 }
 
 
-void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json::value const& sp)
+void DefinitionHelper::set_channel_sp(boost::json::string_view kind, lang::Expression const& sp)
 {
     model("%s/kind", head_pointer_) = kind;
     set_deferred_param(format("%s/signal_path", head_pointer_), sp);
@@ -231,7 +230,7 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
 
 void DefinitionHelper::set_expr(lang::Expression const& expr)
 {
-    cur_pipe()["expr"] = expr;
+    cur_pipe()["expr"] = expr.to_json();
     auto const preproc_params = expr.preprocessing_parameters();
     for (auto const& pp: preproc_params)
     {

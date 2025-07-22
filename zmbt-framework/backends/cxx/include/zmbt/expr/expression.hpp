@@ -88,6 +88,7 @@ public:
     //////////////
 
     friend std::ostream& operator<<(std::ostream& os, Expression const& expr);
+    friend zmbt::Logger& operator<<(zmbt::Logger& logger, Expression const& expr);
 
     /// \brief Pipe expressions left-to-right
     /// \details Pipe functional expressions in composition,
@@ -199,7 +200,7 @@ public:
 
     std::string serialize() const
     {
-        return boost::json::serialize(this->operator boost::json::value());
+        return boost::json::serialize(to_json());
     }
 
     boost::json::string_view keyword_to_str() const;
@@ -280,7 +281,7 @@ public:
 
     virtual boost::json::value to_json() const;
 
-    operator boost::json::value() const
+    explicit operator boost::json::value() const
     {
         return to_json();
     }
@@ -320,7 +321,7 @@ public:
 
     /// Eval const expressions as Eq(expr), except for Noop,
     /// otherwise eval expr
-    boost::json::value  eval_as_predicate(boost::json::value const& x, EvalContext ctx) const;
+    boost::json::value  eval_as_predicate(Expression const& x, EvalContext ctx) const;
 
     /// Eval and cast to boolean, return false on error
     bool match(boost::json::value const& observed, Operator const& op = {}) const;

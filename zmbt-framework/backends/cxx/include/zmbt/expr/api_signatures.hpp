@@ -26,6 +26,11 @@ struct SignatureBase : public Expression
 {
     SignatureBase() : Expression(encodeNested(K, {}))
     {}
+
+    operator boost::json::value() const // allowing implicit on expr::*
+    {
+        return Expression::operator boost::json::value();
+    }
 };
 
 /// @brief Const expression
@@ -37,6 +42,7 @@ template <Keyword K>
 struct SignatureConst : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
+
 };
 
 /// @brief Unary expression
@@ -122,6 +128,7 @@ struct SignatureVariadic : public SignatureBase<K>
 
   public:
     using SignatureBase<K>::SignatureBase;
+
     using E = Expression;
     Expression operator()() const {
         return encodeVariadic({});
@@ -163,6 +170,7 @@ struct SignatureOp : public SignatureBase<Keyword::Op>
 {
     using SignatureBase<Keyword::Op>::SignatureBase;
 
+
     Expression operator()(Expression const& type, Expression const& expr) const
     {
         return Expression(Expression::encodeNested(Keyword::Op, {type & expr}));
@@ -180,6 +188,7 @@ struct SignatureCast : public SignatureBinary<Keyword::Cast>
 {
     using SignatureBinary<Keyword::Cast>::SignatureBinary;
     using SignatureBinary<Keyword::Cast>::operator();
+
 
     template <class T>
     Expression operator()(type_tag<T> tag) const

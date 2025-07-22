@@ -57,7 +57,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cast)
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
     auto const op = O{*if_str};
-    return op.decorate(lhs());
+    return op.decorate(lhs().data());
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Uncast)
@@ -66,7 +66,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Uncast)
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
     auto const op = O{*if_str};
-    return op.undecorate(lhs());
+    return op.undecorate(lhs().data());
 }
 
 

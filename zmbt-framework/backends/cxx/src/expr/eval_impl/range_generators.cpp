@@ -43,7 +43,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Repeat)
     ret.reserve(count);
     for (std::uint64_t i = 0; i < count; i++)
     {
-        ret.push_back(lhs());
+        ret.push_back(lhs().data());
     }
     return ret;
 }

@@ -36,6 +36,11 @@ public:
     Param& operator=(Param const&) = default;
     Param& operator=(Param &&) = default;
     ~Param() = default;
+
+    operator boost::json::value() const
+    {
+        return data();
+    }
 };
 
 

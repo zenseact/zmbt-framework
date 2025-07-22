@@ -30,7 +30,7 @@ bool Expression::match(boost::json::value const& observed, Operator const& op) c
     return if_bool ? *if_bool : false;
 }
 
-boost::json::value Expression::eval_as_predicate(boost::json::value const& x, EvalContext ctx) const
+boost::json::value Expression::eval_as_predicate(Expression const& x, EvalContext ctx) const
 {
     if (!is_noop() && is_const())
     {

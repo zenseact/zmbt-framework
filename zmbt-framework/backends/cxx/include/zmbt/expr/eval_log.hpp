@@ -29,7 +29,7 @@ struct EvalLog
     boost::json::string str(int const indent = 0) const;
 
     /// Push record to log stack
-    void push(Expression const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;
+    void push(Expression const& expr, Expression const& x, Expression const& result, std::uint64_t const depth) const;
 
 
     static void format(std::ostream& os, boost::json::array const& log, int const indent = 0);

@@ -21,7 +21,7 @@ namespace zmbt {
 namespace lang {
 
 
-Expression::Expression() : Expression(Keyword::Void)
+Expression::Expression() : Expression(nullptr)
 {
 }
 

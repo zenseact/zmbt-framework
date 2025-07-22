@@ -53,6 +53,12 @@ std::ostream& operator<<(std::ostream& os, Expression const& expr)
     return expr.prettify_to(os);
 }
 
+zmbt::Logger& operator<<(zmbt::Logger& logger, Expression const& expr)
+{
+    logger << static_cast<boost::json::value>(expr.prettify());
+    return logger;
+}
+
 boost::json::value operator*(Expression lhs, Expression const& rhs)
 {
     return lhs.eval(rhs);

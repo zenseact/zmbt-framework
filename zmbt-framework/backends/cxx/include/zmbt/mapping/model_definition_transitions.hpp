@@ -212,7 +212,7 @@ struct ModelDefinition::T_Take : protected virtual ModelDefinition::BaseTransiti
     /// Set the pre/post transformation on channel signal
     Target Take(lang::Expression const& expr)
     {
-        state().cur_channel()["transform"] = expr;
+        state().cur_channel()["transform"] = expr.to_json();
         return transit_to<Target>();
     }
 };

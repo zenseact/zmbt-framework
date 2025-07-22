@@ -145,8 +145,8 @@ namespace lang {
 ZMBT_DEFINE_EVALUATE_IMPL(Del)
 {
     ASSERT(not rhs().is_null(), "invalid parameter")
-    boost::json::value const at = rhs();
-    boost::json::value result = lhs();
+    boost::json::value const& at = rhs().data();
+    boost::json::value result = lhs().to_json();
 
     deleteval_impl(at, result);
     return result;

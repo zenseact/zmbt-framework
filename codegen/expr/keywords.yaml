@@ -106,95 +106,95 @@ keyword_groups:
       - name: Sin
         brief: Sinus function
         codegen-value:
-          cxx: json_from(std::sin(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::sin(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Cos
         brief: Cosinus function
         codegen-value:
-          cxx: json_from(std::cos(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::cos(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Tan
         brief: Tangens function
         codegen-value:
-          cxx: json_from(std::tan(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::tan(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Asin
         brief: Arcsin function
         codegen-value:
-          cxx: json_from(std::asin(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::asin(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Acos
         brief: Arccos function
         codegen-value:
-          cxx: json_from(std::acos(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::acos(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Atan
         brief: Arctan function
         codegen-value:
-          cxx: json_from(std::atan(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::atan(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Sinh
         brief: Hyperbolic sin
         codegen-value:
-          cxx: json_from(std::sinh(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::sinh(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Cosh
         brief: Hyperbolic cos
         codegen-value:
-          cxx: json_from(std::cosh(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::cosh(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Tanh
         brief: Hyperbolic tan
         codegen-value:
-          cxx: json_from(std::tanh(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::tanh(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Asinh
         brief: Hyperbolic arcsin
         codegen-value:
-          cxx: json_from(std::asinh(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::asinh(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Acosh
         brief: Hyperbolic arccos
         codegen-value:
-          cxx: json_from(std::acosh(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::acosh(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Atanh
         brief: Hyperbolic arctan
         codegen-value:
-          cxx: json_from(std::atanh(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::atanh(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Exp
         brief: Exponential (e^x)
         codegen-value:
-          cxx: json_from(std::exp(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::exp(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Erf
         brief: Error function
         codegen-value:
-          cxx: real_to_number(std::erf(dejsonize<double>( lhs() )))
+          cxx: real_to_number(std::erf(dejsonize<double>( lhs().data() )))
 
       - name: Erfc
         brief: Error function complement
         codegen-value:
-          cxx: real_to_number(std::erfc(dejsonize<double>( lhs() )))
+          cxx: real_to_number(std::erfc(dejsonize<double>( lhs().data() )))
 
       - name: Gamma
         brief: Gamma function
         codegen-value:
-          cxx: real_to_number(std::tgamma(dejsonize<double>( lhs() )))
+          cxx: real_to_number(std::tgamma(dejsonize<double>( lhs().data() )))
 
       - name: Abs
         brief: Absolute value
         codegen-value:
-          cxx: real_to_number(std::abs(dejsonize<std::complex<double>>( lhs() )))
+          cxx: real_to_number(std::abs(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Ceil
         codegen-value:
-          cxx: real_to_number(std::ceil(dejsonize<double>( lhs() )))
+          cxx: real_to_number(std::ceil(dejsonize<double>( lhs().data() )))
 
       - name: Floor
         codegen-value:
-          cxx: real_to_number(std::floor(dejsonize<double>( lhs() )))
+          cxx: real_to_number(std::floor(dejsonize<double>( lhs().data() )))
 
       - name: Round
         brief: Round to nearest integer
@@ -202,18 +202,18 @@ keyword_groups:
           Hint: To round to ndigits precision after the decimal point,
           use `Mul(ndigits) | Round | Div(ndigits)` combo.
         codegen-value:
-          cxx: real_to_number(std::round(dejsonize<double>( lhs() )))
+          cxx: real_to_number(std::round(dejsonize<double>( lhs().data() )))
 
       - name: Sqrt
         brief: Square root
         codegen-value:
-          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>( lhs() )))
+          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>( lhs().data() )))
 
       - name: Sign
         domain: real
         codomain: int
         codegen-value:
-          cxx: 'dejsonize<double>( lhs() ) >= 0 ? 1 : -1'
+          cxx: 'dejsonize<double>( lhs().data() ) >= 0 ? 1 : -1'
 
   Arithmetic Operators:
     defaults:
@@ -751,7 +751,7 @@ keyword_groups:
         examples: |-
           42 | List ↦ [42]
         codegen-value:
-          cxx: boost::json::array{ lhs() }
+          cxx: boost::json::array{ lhs().to_json() }
 
 
   Unary Generators:

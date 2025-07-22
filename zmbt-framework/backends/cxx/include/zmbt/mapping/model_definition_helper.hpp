@@ -51,7 +51,7 @@ class DefinitionHelper {
     boost::json::object& cur_pipe();
 
 
-    void set_deferred_param(boost::json::string_view node_ptr, boost::json::value const& param);
+    void set_deferred_param(boost::json::string_view node_ptr, lang::Expression const& param);
     void set_description(boost::json::string_view comment);
     void set_comment(boost::json::string_view comment);
     void add_task(boost::json::string_view ref, bool const pre);
@@ -91,7 +91,7 @@ class DefinitionHelper {
     boost::json::value handle_obj_p(Param const& obj, uint32_t& param_type)
     {
         param_type |= cnl_prm_obj;
-        return obj;
+        return obj.to_json();
     }
 
     boost::json::value handle_obj_p(boost::json::string_view obj, uint32_t&)
@@ -110,7 +110,7 @@ class DefinitionHelper {
     boost::json::value handle_cal_p(Param const& cal, uint32_t& param_type)
     {
         param_type |= cnl_prm_cal;
-        return cal;
+        return cal.to_json();
     }
 
 
@@ -170,11 +170,11 @@ class DefinitionHelper {
     add_channel(T&& key)
     {
         uint32_t param_type {cnl_prm_none};
-        boost::json::value key_node = handle_key_p(std::forward<T>(key), param_type);
+        boost::json::value key_node = handle_key_p(json_from(key), param_type);
         add_channel_impl(key_node, param_type);
     }
 
-    void set_channel_sp(boost::json::string_view kind, boost::json::value const& sp);
+    void set_channel_sp(boost::json::string_view kind, lang::Expression const& sp);
 
     void add_test_case(std::vector<lang::Expression> const& tv);
 

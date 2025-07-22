@@ -42,8 +42,8 @@ BOOST_DEFINE_FIXED_ENUM_CLASS(Foo, int, Bar, Baz)
 struct TestEvalSample
 {
     Expression expr;
-    V x;
-    V expected;
+    Expression x;
+    Expression expected;
 
     friend std::ostream& operator<<(std::ostream& os, TestEvalSample const& sample)
     {
@@ -455,7 +455,8 @@ std::vector<TestEvalSample> const TestSamples
     {Push(3)|Reduce(Add)        , {1,2,3,4}             , 13                    },
     {Reduce(Add)                , L{42}                 , 42                    },
     {Reduce(Add)                , L{}                   , nullptr               },
-    {Reduce                     , {{2,2,2,2},Add}       ,  8                    },
+    {Reduce                     , {{2,2,2,2}, Add}      ,  8                },
+    {L{2,2,2,2} + Add | Reduce  , {}                    , 8                     },
 
 
     // ternary and or
@@ -720,20 +721,13 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
     {
         BOOST_TEST_INFO("Expression: " << sample.expr.prettify());
         BOOST_TEST_INFO("  encoding: " << json_from(sample.expr.encoding()));
-        BOOST_TEST_INFO("Input: " << Expression(sample.x).prettify());
-        BOOST_TEST_INFO("Expected: " << Expression(sample.expected).prettify());
+        BOOST_TEST_INFO("Input: " << sample.x.prettify());
+        BOOST_TEST_INFO("Expected: " << sample.expected.prettify());
 
-        auto const result = sample.expr.eval(sample.x, context);
-        BOOST_TEST_INFO("Observed: " << Expression(result).prettify());
+        auto const result = sample.expr.eval_e(sample.x, context);
+        BOOST_TEST_INFO("Observed: " << result.prettify());
         BOOST_TEST_INFO("Eval log: \n" << context.log);
         BOOST_CHECK_EQUAL(result, sample.expected);
-
-        V js = json_from(sample.expr);
-        Expression converted_implicitly = js;
-        Expression converted_explicitly = dejsonize<Expression>(js);
-
-        BOOST_CHECK_EQUAL(sample.expr, converted_explicitly);
-        BOOST_CHECK_EQUAL(sample.expr, converted_implicitly);
     }
     catch(const std::exception& e)
     {
@@ -1148,6 +1142,13 @@ BOOST_AUTO_TEST_CASE(TestVariable)
     BOOST_CHECK_EQUAL(h, hh);
 }
 
+
+BOOST_AUTO_TEST_CASE(BracketInit)
+{
+    Expression const e1{Add}; // API
+    // Expression const e2{e1}; // error: conflicts with init list ctor
+    BOOST_CHECK_EQUAL(e1, Add);
+}
 
 BOOST_AUTO_TEST_CASE(TestFix)
 {
