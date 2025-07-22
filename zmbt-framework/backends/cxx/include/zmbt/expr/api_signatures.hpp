@@ -173,14 +173,14 @@ struct SignatureOp : public SignatureBase<Keyword::Op>
 
     Expression operator()(Expression const& type, Expression const& expr) const
     {
-        return Expression(Expression::encodeNested(Keyword::Op, {type & expr}));
+        return Expression(Expression::encodeNested(Keyword::Op, {type + expr}));
     }
 
     template <class T>
     Expression operator()(type_tag<T> tag, Expression const& expr) const
     {
         Operator const op{tag};
-        return Expression(Expression::encodeNested(Keyword::Op, {op.annotation() & expr}));
+        return Expression(Expression::encodeNested(Keyword::Op, {op.annotation() + expr}));
     }
 };
 

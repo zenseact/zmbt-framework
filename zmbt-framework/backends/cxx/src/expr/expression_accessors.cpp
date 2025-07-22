@@ -67,12 +67,7 @@ boost::json::value const& Expression::data() const
 
 std::size_t Expression::infix_size() const
 {
-    std::size_t n {0};
-    for (auto const item: encoding_view())
-    {
-        if (item.depth == 1) ++n;
-    }
-    return n;
+    return encoding_view().arity();
 }
 
 boost::json::value Expression::to_json() const
@@ -109,6 +104,27 @@ std::list<Expression> Expression::subexpressions_list() const
     return result;
 }
 
+std::list<Expression> Expression::fork_terms() const
+{
+        if (!is_fork()) return {};
+        auto const child = encoding_view().child(0);
+
+        if (child.head() != Keyword::Tuple)
+        {
+            return {Expression(child.freeze())};
+        }
+        else
+        {
+            auto items = child.children();
+            std::list<Expression> result;
+
+            for (auto const& item: items)
+            {
+                result.emplace_back(item.freeze());
+            }
+            return result;
+        }
+    }
 
 
 

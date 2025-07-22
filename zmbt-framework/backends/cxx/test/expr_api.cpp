@@ -289,9 +289,9 @@ std::vector<TestEvalSample> const TestSamples
     {42 | Try(Div(0)) | D(13)   , {}                    , 13                    },
 
 
-    {Fork(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
-    {(Size|4) & Size & Card     , {2,2,3,3}             , {true, 4, 2}          },
-    {At(0) & At(1) & At(2)      , {1,2,3}               , {1,2,3}               },
+    {Fork((Size|4) + Size + Card) , {2,2,3,3}             , {true, 4, 2}          },
+    {(Size|4) & Size & Card     , {2,2,3,3}             , {{true, 4}, 2}        },
+    {At(0) & At(2)              , {1,2,3}               , {1,3}                 },
     {Reduce(Add) & Size | Div   , {2,2,3,3}             , 2.5                   },
 
 
@@ -534,21 +534,21 @@ std::vector<TestEvalSample> const TestSamples
     {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
     {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
 
-    {Recur( 0 & Add(1) )         ,  4                     , 4                   },
-    {Recur(42 & Add(-1))         , 41                     , 1                   },
-    {Recur(42 & Sub(1) )         , 41                     , 1                   },
-    {Recur( 2 & Pow(2) )         ,  4                     , 65536               },
+    {Recur( 0 + Add(1) )         ,  4                     , 4                   },
+    {Recur(42 + Add(-1))         , 41                     , 1                   },
+    {Recur(42 + Sub(1) )         , 41                     , 1                   },
+    {Recur( 2 + Pow(2) )         ,  4                     , 65536               },
 
-    {Unfold(0 & Add(1))         , 4                      , {0,1,2,3,4}          },
-    {Unfold(1 & Add(1))         , 4                      , {1,2,3,4,5}          },
+    {Unfold(0 + Add(1))         , 4                      , {0,1,2,3,4}          },
+    {Unfold(1 + Add(1))         , 4                      , {1,2,3,4,5}          },
 
-    {Recur( 4 & Add(1))         ,  Ge(12)                , 11                   },
-    {Unfold(8 & Add(1))         ,  Ge(12)                , {8,9,10,11}          },
-    {Q(Ge(12)) | Recur( 4 & Add(1)),  {}                 , 11                   },
-    {Q(Ge(12)) | Unfold(8 & Add(1)),  {}                 , {8,9,10,11}          },
+    {Recur( 4 + Add(1))         ,  Ge(12)                , 11                   },
+    {Unfold(8 + Add(1))         ,  Ge(12)                , {8,9,10,11}          },
+    {Q(Ge(12)) | Recur( 4 + Add(1)),  {}                 , 11                   },
+    {Q(Ge(12)) | Unfold(8 + Add(1)),  {}                 , {8,9,10,11}          },
 
 
-    {4|Recur(Q({0,0}) & ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
+    {4|Recur(Q({0,0}) + ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
 
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
@@ -646,14 +646,12 @@ std::vector<TestEvalSample> const TestSamples
     { (ToList & Id) | Bind          , Fmt     , Fmt(Fmt)              },
     { Q(Fmt) | (ToList & Id) | Bind , {}      , Fmt(Fmt)              },
 
-    {   // bind chain
-        42 & Q(Add(1)) & Q(Sub(1)) & Q(Mul(1)) | Bind(Pipe)
-        , {}
-        , 42 | Add(1) | Sub(1) | Mul(1)                                         },
+    {42 + Add(1) + Sub(1) + Mul(1) | Bind(Pipe) , {}
+                                                , 42 | Add(1) | Sub(1) | Mul(1) },
 
     { Q(Fmt) | Bind(Q) | Bind(Q), {}, Q(Q(Fmt))                                 },
 
-    { 3 | Recur(Q(Fmt) & Bind(Q)), {}                   , Q(Q(Q(Fmt)))          },
+    { 3 | Recur(Q(Fmt) + Bind(Q)), {}                   , Q(Q(Q(Fmt)))          },
 
 
     {Eval                       , {}                    , {}                    },
@@ -667,17 +665,17 @@ std::vector<TestEvalSample> const TestSamples
 
     {Kwrd                       , Fold(Add)             , "Fold"                },
     {Q(Fold(Add)) | Kwrd        , {}                    , "Fold"                },
-    {Q(Fold(Add)) | Prms        , {}                    , Fork(Add)             },
-    {Q(Pipe(Add, Sub)) | Prms   , {}                    , Add & Sub             },
+    {Q(Fold(Add)) | Prms        , {}                    , Tuple(Add)            },
+    {Q(Pipe(Add, Sub)) | Prms   , {}                    , Add + Sub             },
 
-    {Overload(type<unsigned>, Eq(42))            , 42     , true                },
-    {Try(Overload(type<unsigned>, Eq(42)))       , -42    , nullptr             },
-    {Overload(type<std::complex<double>>, Add(1)), {.5, 2}, {1.5, 2}            },
+    {Op(type<unsigned>, Eq(42))            , 42     , true                },
+    {Try(Op(type<unsigned>, Eq(42)))       , -42    , nullptr             },
+    {Op(type<std::complex<double>>, Add(1)), {.5, 2}, {1.5, 2}            },
 
-    {Overload(type<int>, Eq(42) | Not|Not)       , 41     , false               }, // overload by default ignores boolean keywords
+    {Op(type<int>, Eq(42) | Not|Not)       , 41     , false               }, // overload by default ignores boolean keywords
 
-    {Overload(type<int>, Add(1)) | Str | Eq("42"), 41, true               },
-    {Overload(type<int>, Add(1) | Str | Overload("", Eq("42"))), 41, true },
+    {Op(type<int>, Add(1)) | Str | Eq("42"), 41, true               },
+    {Op(type<int>, Add(1) | Str | Op("", Eq("42"))), 41, true },
 
     {Error("foo")           , {}              , Err({
                                                     {"message", "foo"}
@@ -1027,9 +1025,7 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     TEST_PRETIFY((Fold(Add) & Size) | Div | Eq(2.5E0) | Not)
     TEST_PRETIFY(Eq(Pi | Div(2)))
     TEST_PRETIFY("%s%d" | Fmt(Pi | Div(2), 2 | Add(2)))
-    TEST_PRETIFY(Recur(42 & Map(Add(2) | Div(E))))
-    TEST_PRETIFY(Unfold(13 & Recur(42 & Map(Add(2) | Div(E)))))
-
+    TEST_PRETIFY(Recur(42 + Map(Add(2) | Div(E))))
     TEST_PRETIFY(Unfold(13 + Recur(42 + Map(Add(2) | Div(E)))))
 
     TEST_PRETIFY(Min)
@@ -1039,7 +1035,7 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     TEST_PRETIFY(All)
     // TEST_PRETIFY(All()) // FIXME: empty variadic
     TEST_PRETIFY(Q(Q | (Q | Q) | Q))
-    TEST_PRETIFY(Q(Q & (Q & Q) & (Q | (Q | (Q | Q)))))
+    TEST_PRETIFY(Q((Q & (Q & Q)) & (Q | (Q | (Q | Q)))))
 
     TEST_PRETIFY((Q | Q) & (Q | Q))
     TEST_PRETIFY((Q & Q) | (Q & Q))
@@ -1047,10 +1043,11 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     BOOST_CHECK_EQUAL((Q | Q & Q | Q).prettify(), "Q | (Q & Q) | Q"); // prec(&) > prec(|)
 
     TEST_PRETIFY(Q & (Q & (Q & Q))) // right grouping - parentheses preserved
-    BOOST_CHECK_EQUAL((((Q & Q) & Q) & Q).prettify(), "Q & Q & Q & Q"); // left associativity - unfold groups
+    TEST_PRETIFY(((Q & Q) & Q) & Q); // left associativity - unfold groups
 
     // no infix sugar for singleton Pipe and Fork
     TEST_PRETIFY(Pipe(Fork(All)))
+    TEST_PRETIFY(Pipe(All & Any))
     TEST_PRETIFY(Saturate(Eq(23), 42, Any(27, 13) | Not))
 
     BOOST_CHECK_EQUAL((Flip(Diff({2,3,4}))).prettify(), "Flip(Diff([2,3,4]))"); // true JSON syntax

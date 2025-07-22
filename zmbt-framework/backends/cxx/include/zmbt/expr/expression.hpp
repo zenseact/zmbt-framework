@@ -101,7 +101,8 @@ public:
     /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
     friend Expression operator+(Expression lhs, Expression rhs);
 
-    friend Expression operator<=(Expression link, Expression referent);
+    /// \brief Link expression to symbolik reference
+    friend Expression operator<<(Expression link, Expression referent);
 
 
     /// \brief Evaluate x to lhs expression.
@@ -271,15 +272,19 @@ public:
         return is_compose() && (infix_size() > 1);
     }
 
-    bool is_infix_fork() const
-    {
-        return is_fork() && (infix_size() > 1);
-    }
-
     bool is_infix_tuple() const
     {
         return is_tuple() && (infix_size() > 1);
     }
+
+    bool is_infix_fork() const
+    {
+        auto const child = encoding_view().child(0);
+        return is_fork() && child.head() == Keyword::Tuple && child.arity() == 2;
+    }
+
+    std::list<Expression> fork_terms() const;
+
 
     virtual boost::json::value to_json() const;
 

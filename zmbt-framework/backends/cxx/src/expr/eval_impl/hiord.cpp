@@ -39,7 +39,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Prms)
 {
     auto enc = lhs().encoding_view().freeze();
     // TODO Pack?
-    enc.keywords.front() = Keyword::Fork;
+    enc.keywords.front() = Keyword::Tuple;
     return Expression(enc);
 }
 

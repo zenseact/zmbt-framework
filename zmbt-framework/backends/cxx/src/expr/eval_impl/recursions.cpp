@@ -36,7 +36,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
 {
     auto const fork = self().encoding_view().child(0);
     ASSERT(
-        (fork.head() == K::Fork || fork.head() == K::Tuple)
+        (fork.head() == K::Tuple)
         && fork.arity() == 2,
     "invalid parameters, expected initial + Fn");
     auto const initial = E(fork.child(0).freeze()).eval();
@@ -84,7 +84,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
 {
     auto const fork = self().encoding_view().child(0);
     ASSERT(
-        (fork.head() == K::Fork || fork.head() == K::Tuple)
+        (fork.head() == K::Tuple)
         && fork.arity() == 2,
     "invalid parameters, expected initial + Fn");
     auto const initial = E(fork.child(0).freeze()).eval();

@@ -594,8 +594,9 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details
-/// Allows to combine different properties in a single expression
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
+/// Allows to combine different properties in a single expression.
+/// Parameter
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Fork> const Fork;
 
 /// \brief Flips design-time and eval-time parameters.
 /// \details

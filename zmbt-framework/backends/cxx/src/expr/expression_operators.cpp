@@ -39,10 +39,11 @@ Expression operator+(Expression lhs, Expression rhs)
 
 Expression operator&(Expression lhs, Expression rhs)
 {
-    return Expression::unfold_left_assoc(Keyword::Fork, std::move(lhs), std::move(rhs));
+    return Expression(Expression::encodeNested(Keyword::Fork, {lhs + rhs}));
+
 }
 
-Expression operator<=(Expression link, Expression referent)
+Expression operator<<(Expression link, Expression referent)
 {
     // TODO: binding
     // TODO: handle righ-assoc infix unfold

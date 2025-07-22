@@ -36,9 +36,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Op)
 
     auto const fork = self().encoding_view().child(0);
     ASSERT(
-        (fork.head() == K::Fork || fork.head() == K::Tuple)
+        (fork.head() == K::Tuple)
         && fork.arity() == 2,
-    "invalid parameters, expected reference + Fn");
+        "invalid parameters, expected reference + Fn");
     auto const operator_reference = E(fork.child(0).freeze()).eval({}, curr_ctx() MAYBE_INCR);
     auto const F = E(fork.child(1).freeze());
 

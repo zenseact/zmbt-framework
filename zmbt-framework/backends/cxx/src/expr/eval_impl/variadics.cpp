@@ -45,11 +45,11 @@ ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Fork)
 {
-    auto const subexpressions = self().subexpressions_list();
+    auto const fork_terms = self().fork_terms();
 
     boost::json::array out {};
-    out.reserve(subexpressions.size());
-    for (auto const& fn: subexpressions)
+    out.reserve(fork_terms.size());
+    for (auto const& fn: fork_terms)
     {
         out.push_back(fn.eval(lhs(), curr_ctx() MAYBE_INCR));
     }
