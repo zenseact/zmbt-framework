@@ -16,7 +16,7 @@ The main purpose of using an embedded language over common C++ functions is to g
 over test inputs, notably:
 
 - serialization: any complex transformations are represented in JSON
-- introspection: model runner can [explain in detail each step of evaluation](#debug) without any additional effort from user
+- introspection: model runner can [explain in detail each step of evaluation](#debug-and-trace) without any additional effort from user
 - reflection: model runner can change terms of expressions to enable high-level parametrization
 
 !!! note
@@ -182,11 +182,11 @@ In model tests, the evaluation is logged on failing tests by default.
 Another debugging utility keyword is `Trace`, which works like `Id` but also prints it's parameter to the call.
 It can be combined with `ZMBT_CUR_LOC` macro to trace mock invocations:
 
-
+```c++
 auto const f = Trace(ZMBT_CUR_LOC) | Reduce(Add) & Size | Div;
 auto const x = L{1,2,3,42.5};
 zmbt-framework/backends/cxx/test/expr_api.cpp#1010 [1,2,3,4.25E1]
-
+```
 
 The `Debug` keyword respects nesting - you can use it on different levels on the same expression,
 possibly chaining with `Trace` tu distinguish subexpressions, e.g.
