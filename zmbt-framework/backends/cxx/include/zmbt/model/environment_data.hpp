@@ -39,7 +39,8 @@ struct EnvironmentData {
     using shared_data_table = std::map<boost::json::string, shared_data_record>;
     using FailureHandler = std::function<void(boost::json::value const&)>;
 
-
+    using GeneratorsTable = std::map<boost::json::string,    // jptr
+        std::pair<Generator::Shared, lang::Expression>>;
 
 
     static boost::json::value init_json_data();
@@ -55,8 +56,7 @@ struct EnvironmentData {
     std::map<object_id,                  // ifc
         std::map<interface_id,           // obj
         std::map<ChannelKind,            // grp
-        std::map<boost::json::string,    // jptr
-        std::pair<Generator::Shared, lang::Expression>>>>> input_generators;
+        GeneratorsTable>>> input_generators;
 
 
     mutex_t mutable mutex;

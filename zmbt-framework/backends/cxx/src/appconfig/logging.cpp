@@ -21,6 +21,7 @@ namespace{
 using Level = zmbt::Logger::Level;
 
 static Level g_max_log_level = Level::INFO;
+static bool g_trim_line = true;
 
 
 class AsyncJsonLogger {
@@ -61,7 +62,7 @@ public:
     }
 
     void push(boost::json::object const& record) {
-        
+
         std::lock_guard<std::mutex> lock(mutex_);
         if (!queue_.push(record)) {
             ++lost_message_count_;
@@ -109,6 +110,21 @@ void Logger::open_json(const std::string& filename)
 void Logger::set_max_level(Level const max_level)
 {
     g_max_log_level = max_level;
+}
+
+void Logger::set_trim_line(bool const trim_line)
+{
+    g_trim_line = trim_line;
+}
+
+bool Logger::get_trim_line()
+{
+    return g_trim_line;
+}
+
+Level Logger::get_max_level()
+{
+    return g_max_log_level;
 }
 
 Logger::Logger()

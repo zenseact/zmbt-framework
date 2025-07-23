@@ -12,10 +12,10 @@
 #include <zmbt/core/aliases.hpp>
 #include <zmbt/core/format_string.hpp>
 #include <zmbt/core/json_node.hpp>
-#include <zmbt/core/parameter.hpp>
 #include <zmbt/expr/expression.hpp>
 #include <zmbt/expr/api.hpp>
 #include <zmbt/expr/operator.hpp>
+#include <zmbt/model/parameter.hpp>
 #include <zmbt/model/traits.hpp>
 #include <cstddef>
 #include <tuple>
@@ -38,7 +38,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
     template <class... T>
     Target OnTrigger(boost::json::string_view key, T&&... fmtargs)
     {
-        state().set_deferred_param("/trigger", key | expr::Format(fmtargs...));
+        state().set_deferred_param("/trigger", key | expr::Fmt(fmtargs...));
         return transit_to<Target>();
     }
 
@@ -142,7 +142,7 @@ struct ModelDefinition::T_Filter : protected virtual ModelDefinition::BaseTransi
 
     /// Interface argument clause
     /// Refers to the arguments subsignal at the given JSON Pointer
-    Target Args(lang::Expression const& e = "$default")
+    Target Args(lang::Expression const& e = "$(default)")
     {
         state().set_channel_sp("args", e);
         return transit_to<Target>();
@@ -152,7 +152,7 @@ struct ModelDefinition::T_Filter : protected virtual ModelDefinition::BaseTransi
     template <class T, class... Rest>
     Target Args(boost::json::string_view fmt, T&& arg1, Rest&&... args_rest)
     {
-        return Args(fmt | expr::Format(arg1, args_rest...));
+        return Args(fmt | expr::Fmt(arg1, args_rest...));
     }
 
     /// Interface exception
@@ -212,7 +212,7 @@ struct ModelDefinition::T_Take : protected virtual ModelDefinition::BaseTransiti
     /// Set the pre/post transformation on channel signal
     Target Take(lang::Expression const& expr)
     {
-        state().cur_channel()["transform"] = expr;
+        state().cur_channel()["transform"] = expr.to_json();
         return transit_to<Target>();
     }
 };
@@ -496,7 +496,7 @@ struct ModelDefinition::T_Description : protected virtual ModelDefinition::BaseT
     template <class... T>
     Target Description(boost::json::string_view comment, T&&... args)
     {
-        state().set_deferred_param("/description", comment | expr::Format(args...));
+        state().set_deferred_param("/description", comment | expr::Fmt(args...));
         return transit_to<Target>();
     }
 };

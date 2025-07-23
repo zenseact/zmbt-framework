@@ -50,21 +50,20 @@ boost::json::object& DefinitionHelper::cur_channel()
 
 
 
-void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, boost::json::value const& param)
+void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, lang::Expression const& expr)
 {
-    if (param == "$default")
+    if (expr == "$(default)")
     {
-        model(node_ptr) = param;
+        model(node_ptr) = "$(default)";
     }
     else
     {
-        model(node_ptr) = param; // Expression
-        JsonTraverse([&](boost::json::value const& v, std::string const jp){
-            if (Param::isParam(v)) {
-                params("/%s/pointers/+", v) = format("%s%s", node_ptr, jp);
-            }
-            return false;
-        })(param);
+        auto const preproc_params = expr.preprocessing_parameters();
+        for (auto const& pp: preproc_params)
+        {
+            params("/%s/pointers/+", pp.first) = format("%s%s", node_ptr, pp.second);
+        }
+        model(node_ptr) = expr.to_json(); // Expression
     }
 }
 
@@ -164,8 +163,8 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
     channels.push_back({
         {"interface", ifc},
         {"role", nullptr},
-        {"signal_path", "$default"},
-        {"kind", "$default"},
+        {"signal_path", "$(default)"},
+        {"kind", "$(default)"},
         {"index_abs", channel_abs_count_},
         {"index_rel", channel_rel_count_},
         {"alias", channel_abs_count_},
@@ -206,7 +205,7 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 }
 
 
-void DefinitionHelper::set_channel_sp(boost::json::string_view kind, boost::json::value const& sp)
+void DefinitionHelper::set_channel_sp(boost::json::string_view kind, lang::Expression const& sp)
 {
     model("%s/kind", head_pointer_) = kind;
     set_deferred_param(format("%s/signal_path", head_pointer_), sp);
@@ -219,28 +218,25 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
     for (size_t i = 0; i < tv.size(); i++)
     {
         auto const& expr = tv.at(i);
-        JsonTraverse([&](boost::json::value const& v, std::string const jp){
-            if (Param::isParam(v)) {
-                params("/%s/pointers/+", v) = format(
-                            "/tests/%d/%d%s", N, i, jp);
-            }
-            return false;
-        })(expr.underlying());
+        auto const preproc_params = expr.preprocessing_parameters();
+        for (auto const& pp: preproc_params)
+        {
+            params("/%s/pointers/+", pp.first) = format(
+                    "/tests/%d/%d%s", N, i, pp.second);
+        }
     }
     model("/tests/+") = json_from(tv);
 }
 
 void DefinitionHelper::set_expr(lang::Expression const& expr)
 {
-    cur_pipe()["expr"] = expr;
-
-    JsonTraverse([&](boost::json::value const& v, std::string const jp){
-        if (Param::isParam(v)) {
-            params("/%s/pointers/+", v) = format(
-                        "/pipes/%d/expr%s", (pipe_count_ - 1), jp);
-        }
-        return false;
-    })(expr.underlying());
+    cur_pipe()["expr"] = expr.to_json();
+    auto const preproc_params = expr.preprocessing_parameters();
+    for (auto const& pp: preproc_params)
+    {
+        params("/%s/pointers/+", pp.first) = format(
+            "/pipes/%d/expr%s", (pipe_count_ - 1), pp.second);
+    }
 }
 
 }  // namespace detail

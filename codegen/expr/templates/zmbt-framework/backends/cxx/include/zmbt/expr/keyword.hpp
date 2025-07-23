@@ -22,10 +22,6 @@
 
 #include "zmbt/reflect.hpp"
 
-#ifndef ZMBT_KEYWORD_PREFIX
-    #define ZMBT_KEYWORD_PREFIX ":"
-#endif
-
 
 namespace zmbt {
 namespace lang {
@@ -38,7 +34,7 @@ enum class Keyword
 @for keyword in data.Keywords:
 
     /// @keyword.Name
-    @keyword.Enum,
+    @keyword.Name,
 @end
 
     _count

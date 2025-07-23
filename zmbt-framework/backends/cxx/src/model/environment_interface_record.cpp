@@ -1,43 +1,13 @@
 /**
  * @file
  * @copyright (c) Copyright 2022-2023 Volvo Car Corporation
- * @copyright (c) Copyright 2024 Zenseact AB
+ * @copyright (c) Copyright 2024-2025 Zenseact AB
  * @license SPDX-License-Identifier: Apache-2.0
  */
-
-
 #include "zmbt/model/environment_interface_record.hpp"
 
 
-
 namespace zmbt {
-
-Generator::Generator(boost::json::array const& serialized)
-    : underlying_{serialized} {}
-
-Generator::Generator(lang::Expression const& expr) : underlying_{0UL, expr} {}
-
-boost::json::value Generator::operator()()
-{
-    auto& counter = underlying_.at(0).as_uint64();
-    auto const e = lang::Expression(underlying_.at(1));
-    return e.eval(counter++);
-}
-
-void Generator::reset()
-{
-    underlying_.at(0).emplace_uint64();
-}
-
-boost::json::array Generator::underlying() const
-{
-    return underlying_;
-}
-
-bool Generator::is_noop() const
-{
-    return lang::Expression(underlying()).is_noop();
-}
 
 
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id const& interface, object_id refobj)
@@ -96,9 +66,6 @@ void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::
 
 boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
-    auto lock = Env().Lock();
-    auto& inputs = env.data_->input_generators[refobj_][interface_][kind];
-
     boost::json::value result_value;
 
     if (ChannelKind::Return == kind)
@@ -114,6 +81,16 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         throw model_error("%s injection not implemented", json_from(kind));
     }
 
+    // TODO: ensure no it is closed for updates
+    // non-const - only generator atomic counters are incremented
+    auto& inputs = [&]() -> EnvironmentData::GeneratorsTable& {
+        // auto lock = env.Lock();
+        // no lock here - it runs under assumption there are no updates during test execution.
+        // TODO: split Env interface for managed and unmanaged,
+        // and close modification of managed data on client-side during test execution.
+        return env.data_->input_generators[refobj_][interface_][kind];
+    }();
+
     for (auto& record: inputs)
     {
         boost::json::string_view const record_pointer = record.first;
@@ -121,11 +98,48 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         auto const& tf = record.second.second;
         if (generator.is_noop()) continue;
 
+        boost::json::value raw_v;
         // TODO: optimize recursive expr
-        auto v = generator(); // TODO: handle errors and log
-        v = tf.is_noop() ? v : tf.eval(v);
+        auto const iteration = generator(raw_v);
+        auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
 
-        result_value.set_at_pointer(record_pointer, v);
+        if (lang::Expression(v).is_error())
+        {
+            auto generator_ctx = lang::EvalContext::make();
+            generator.expression().eval(iteration, generator_ctx);
+
+            auto transform_ctx = lang::EvalContext::make();
+            if (not tf.is_noop())
+            {
+                tf.eval(raw_v, transform_ctx);
+            }
+
+            ZMBT_LOG_JSON(FATAL) << boost::json::object{
+                {"ZMBT_INJECTION", boost::json::object{
+                    {"interface", key()},
+                    {"group", json_from(kind)},
+                    {"pointer", record_pointer},
+                    {"Inject log", *generator_ctx.log.stack},
+                    {"Take log", *transform_ctx.log.stack},
+                }}
+            };
+
+            auto const failed_inject = raw_v == v;
+            auto const error_context = failed_inject ? "Inject" : "Take";
+
+            auto const origin = format("ZMBT_INJECTION(%s, %s%s, %s)",
+                key(), json_from(kind), record_pointer, error_context);
+
+            ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
+                << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
+            throw model_error("injection failure");
+        }
+
+        else
+        {
+            result_value.set_at_pointer(record_pointer, v);
+        }
+
     }
     return result_value;
 }
@@ -150,7 +164,6 @@ boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
     auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
     if (idx >= N)
     {
-        // TODO: format err msg
         throw environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N);
     }
     return captures.get_or_create_array("/%d/args", idx);
@@ -181,7 +194,6 @@ boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcal
     auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
     if (idx >= N)
     {
-        // TODO: format err msg
         throw environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N);
     }
     return captures.at("/%d/return", idx);

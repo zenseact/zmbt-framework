@@ -16,138 +16,106 @@
 #include "operator.hpp"
 #include "keyword.hpp"
 #include "keyword_grammar.hpp"
-#include "keyword_codegen_type.hpp"
-#include "exceptions.hpp"
+#include "encoding.hpp"
+#include "eval_context.hpp"
 
 
 namespace zmbt {
 namespace lang {
 
+
 /// Expression Language implementation class.
 /// \details \see <A HREF="/user-guide/expressions/">Expression Language documentation</A>.
 class Expression
 {
+    static Expression unfold_left_assoc(Keyword const keyword, Expression&& lhs, Expression&& rhs);
+    template <class T>
+    static Encoding encodeNested(Keyword const& keyword, std::move_iterator<T> begin, std::move_iterator<T> const end);
+
 public:
+
     using V = boost::json::value;
     using Keyword = lang::Keyword;
 
-    /// Expression evaluation log
-    struct EvalLog
-    {
-        mutable std::shared_ptr<boost::json::array> stack;
-
-        /// Default instance with null log stack
-        EvalLog() = default;
-
-        /// Stringify log
-        boost::json::string str(int const indent = 0) const;
-
-        /// Push record to log stack
-        void push(boost::json::value const& expr, boost::json::value const& x, boost::json::value const& result, std::uint64_t const depth) const;
+    //////////////////
+    // STATIC FUNCS
+    //////////////////
 
 
-        static void format(std::ostream& os, boost::json::array const& log, int const indent = 0);
+    // Terminal expression
+    static Encoding encodeLiteral(boost::json::value const& params);
+    // Terminal expression
+    static Encoding encodePreProc(boost::json::value const& params);
 
-        friend std::ostream& operator<<(std::ostream& os, EvalLog const& log);
+    // Non-terminal expression
+    static Encoding encodeNested(Keyword const& keyword, std::initializer_list<Expression> subexpressions);
+    static Encoding encodeNested(Keyword const& keyword, std::vector<Expression>&& subexpressions);
 
-        /// Make non-empty EvalLog
-        static EvalLog make();
-    };
+    static bool to_predicate_if_const(Expression& e);
 
-    /// Expression evaluation context
-    struct EvalContext
-    {
-        /// Operator
-        Operator op;
-        /// Evaluation log
-        EvalLog log;
-        /// Evaluation stack depth
-        std::uint64_t const depth;
 
-        /// Copy context with depth increment
-        EvalContext operator++(int) const;
-    };
-
-private:
-    Keyword keyword_;
-    boost::json::value underlying_;
-    boost::json::value const* params_ptr_;
-    boost::json::value const dummy_params_{};
-
-    struct internal_tag{};
-    Expression(internal_tag, Keyword const& keyword, boost::json::value&& underlying);
-
-    struct json_ctor_params;
-    Expression(json_ctor_params&&);
-
-    void handle_binary_args(V const& x, V const*& lhs, V const*& rhs) const;
-
-    boost::json::value eval_Const(boost::json::value const&) const;
-    boost::json::value eval_UnaryOp(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_BinaryOp(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_CodegenFn(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_HiOrd(boost::json::value const&, EvalContext const&) const;
-    boost::json::value eval_Special(boost::json::value const&, EvalContext const&) const;
-
-    Expression(internal_tag, Operator const& op);
-
-public:
-
-    /// Return const expressions as Eq(underlying), except for Noop,
-    /// otherwise return Expression(underlying) unchanged
-    static Expression asPredicate(boost::json::value const& underlying);
-
-    Expression(std::initializer_list<boost::json::value_ref> items);
-    Expression(boost::json::value const& expr);
-    Expression(Keyword const& keyword, boost::json::value const& params);
-    explicit Expression(Keyword const& keyword);
+    //////////////////
+    // CTORS
+    //////////////////
 
     Expression();
 
+    explicit Expression(Encoding && encoding);
+    explicit Expression(Encoding const& encoding);
+
+    // Deserialize JSON
+    Expression(boost::json::value const& expr);
+    Expression(boost::json::value && expr);
+
+    // construct Literal from JSON init list
+    Expression(std::initializer_list<boost::json::value_ref> items);
+
+    // construct from keyword
+    explicit Expression(Keyword const& keyword);
+
+    Expression(Expression const& other);
+    Expression(Expression&& other);
+    Expression& operator=(Expression const& other);
+    Expression& operator=(Expression&& other);
+    ~Expression() = default;
+
+
     template <class T>
-    Expression(T const& sample) : Expression(json_from(sample)) {}
+    Expression(T sample) : Expression(json_from(std::move(sample))) {}
 
-    Expression(Expression const& o);
-    Expression(Expression && o);
-    Expression& operator=(Expression const& o);
-    Expression& operator=(Expression && o);
+    //////////////
+    // OPERATORS
+    //////////////
 
-    /// \brief Compose expressions left-to-right
+    friend std::ostream& operator<<(std::ostream& os, Expression const& expr);
+    friend zmbt::Logger& operator<<(zmbt::Logger& logger, Expression const& expr);
+
+    /// \brief Pipe expressions left-to-right
     /// \details Pipe functional expressions in composition,
-    /// s.t. `a | b` is equivalent to `Compose(b, a)`. \see zmbt::expr::Compose
-    friend Expression operator|(Expression const& lhs, Expression const& rhs);
+    /// s.t. `a | b` is equivalent to `Pipe(a, b)`. \see zmbt::expr::Pipe
+    friend Expression operator|(Expression lhs, Expression rhs);
 
     /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
-    friend Expression operator&(Expression const& lhs, Expression const& rhs);
+    friend Expression operator&(Expression lhs, Expression rhs);
+
+    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
+    friend Expression operator+(Expression lhs, Expression rhs);
+
+    /// \brief Link expression to symbolik reference
+    friend Expression operator<<(Expression link, Expression referent);
+
 
     /// \brief Evaluate x to lhs expression.
     /// \details Equivalent to expr.eval(x).
-    friend V operator*(Expression const& expr, Expression const& x);
+    friend V operator*(Expression expr, Expression const& x);
 
     /// \brief Evaluate expression.
     /// \details Equivalent to expr.eval().
-    friend V operator*(Expression const& expr);
-
-
-
-
-    ~Expression() = default;
-
-    boost::json::value const& underlying() const
-    {
-        return underlying_;
-    }
-
-    std::string serialize() const
-    {
-        return boost::json::serialize(underlying());
-    }
-
-    std::string keyword_to_str() const;
+    friend V operator*(Expression expr);
 
     bool operator==(Expression const& o) const
     {
-        return (keyword_ == o.keyword_) && (underlying_ == o.underlying_);
+        return (this == &o) || (encoding_view() == o.encoding_view());
     }
 
     bool operator!=(Expression const& o) const
@@ -155,39 +123,109 @@ public:
         return !operator==(o);
     }
 
+    //////////////////////
+    // ENCODING OBSERVERS
+    //////////////////////
+
+    Encoding const& encoding() const
+    {
+        return encoding_;
+    }
+
+    virtual EncodingView encoding_view() const
+    {
+        return {encoding_};
+    }
+
+
+    std::size_t infix_size() const;
+
+    bool has_subexpr() const
+    {
+        return encoding_view().size() > 1;
+    }
+
+    /// Subexpressions
+    std::list<Expression> subexpressions_list() const;
+
+
+    //////////////////
+    // DATA OBSERVERS
+    //////////////////
+
+    boost::json::value const& data() const;
+
+    boost::json::string const& as_string() const
+    {
+        return data().as_string();
+    }
+
+    boost::json::array const& as_array() const
+    {
+        return data().as_array();
+    }
+
+    boost::json::object const& as_object() const
+    {
+        return data().as_object();
+    }
+
+    bool as_bool() const
+    {
+        return data().as_bool();
+    }
+
+    boost::json::string const* if_string() const
+    {
+        return data().if_string();
+    }
+
+    boost::json::array const* if_array() const
+    {
+        return data().if_array();
+    }
+
+    boost::json::object const* if_object() const
+    {
+        return data().if_object();
+    }
+
+    bool const* if_bool() const
+    {
+        return data().if_bool();
+    }
+
+    bool is_null() const
+    {
+        return data().is_null();
+    }
+
+
+    std::string serialize() const
+    {
+        return boost::json::serialize(to_json());
+    }
+
+    boost::json::string_view keyword_to_str() const;
+
+    ////////////////////////
+    // KEYWORD OBSERVERS
+    ////////////////////////
+
+
     Keyword keyword() const
     {
-        return keyword_;
-    }
-
-    boost::json::value const& params() const
-    {
-        return has_params() ? *params_ptr_ : dummy_params_;
-    }
-
-    boost::json::value const& subexpr() const
-    {
-        return params();
-    }
-
-    bool has_params() const
-    {
-        return nullptr != params_ptr_;
+        return encoding_view().head();
     }
 
     bool is(Keyword const kwrd) const
     {
-        return kwrd == keyword_;
+        return kwrd == keyword();
     }
 
     bool is_compose() const
     {
-        return is(Keyword::Compose);
-    }
-
-    bool is_nonempty_composition() const
-    {
-        return is_compose() && has_params();
+        return is(Keyword::Pipe);
     }
 
     bool is_fork() const
@@ -195,9 +233,9 @@ public:
         return is(Keyword::Fork);
     }
 
-    bool is_nonempty_fork() const
+    bool is_tuple() const
     {
-        return is_fork() && has_params();
+        return is(Keyword::Tuple);
     }
 
     bool is_literal() const
@@ -205,34 +243,113 @@ public:
         return is(Keyword::Literal);
     }
 
+    bool is_preproc() const
+    {
+        return is(Keyword::PreProc);
+    }
+
+    bool is_capture() const
+    {
+        return is(Keyword::Capture);
+    }
+
     bool is_noop() const
     {
         return is(Keyword::Noop);
     }
 
-    bool is_const() const;
+    bool is_error() const
+    {
+        return is(Keyword::Err);
+    }
 
-    bool is_hiord() const;
+
+    ///////////////////////////
+    // ATTR-BASED OBSERVERS
+    ///////////////////////////
+
+    bool is_const() const;
 
     bool is_boolean() const;
 
-
-    operator boost::json::value() const
+    bool is_infix_pipe() const
     {
-        return underlying();
+        return is_compose() && (infix_size() > 1);
     }
+
+    bool is_infix_tuple() const
+    {
+        return is_tuple() && (infix_size() > 1);
+    }
+
+    bool is_infix_fork() const
+    {
+        auto const child = encoding_view().child(0);
+        return is_fork() && child.head() == Keyword::Tuple && child.arity() == 2;
+    }
+
+    std::list<Expression> fork_terms() const;
+
+
+    virtual boost::json::value to_json() const;
+
+    explicit operator boost::json::value() const
+    {
+        return to_json();
+    }
+
+    ///////////////////////////
+    // Boost.Spirit Karma generator
+    ///////////////////////////
+
+    std::string prettify() const;
+    std::ostream& prettify_to(std::ostream& os) const;
+
+    template <std::size_t N>
+    void prettify_to(char (&buff)[N]) const
+    {
+        return prettify_to(buff, N);
+    }
+
+    void prettify_to(char* buff, std::size_t n) const;
+
+
+
+    ///////////////////
+    // EVALUATORS
+    ///////////////////
 
     /// @brief Evaluate expression
     /// @param x run-time argument
-    /// @param config evaluation config
+    /// @param ctx evaluation context
     /// @return
-    boost::json::value eval(boost::json::value const& x = nullptr, EvalContext const& ctx = {}) const;
+    Expression eval_e(Expression const& x, EvalContext ctx) const;
 
+    /// @brief Evaluate expression
+    /// @param x run-time argument
+    /// @param ctx evaluation context
+    /// @return
+    boost::json::value eval(Expression const& x = {}, EvalContext ctx = {}) const;
+
+    /// Eval const expressions as Eq(expr), except for Noop,
+    /// otherwise eval expr
+    boost::json::value  eval_as_predicate(Expression const& x, EvalContext ctx) const;
+
+    /// Eval and cast to boolean, return false on error
     bool match(boost::json::value const& observed, Operator const& op = {}) const;
 
-    std::string prettify() const;
 
-    std::list<Expression> parameter_list() const;
+    ////////////////////////
+    // PREPROCESSING
+    ////////////////////////
+
+    /// List of [param, json ptr]
+    std::list<std::pair<std::string, std::string>> preprocessing_parameters() const;
+
+
+private:
+    Encoding encoding_;
+
 
 };
 
@@ -245,7 +362,7 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<lang::Expression, T>, v
     static boost::json::value
     json_from(T const& t)
     {
-        return t.underlying();
+        return t.to_json();
     }
 
     static T
@@ -256,5 +373,6 @@ struct reflect::custom_serialization<T, mp_if<is_base_of<lang::Expression, T>, v
 };
 
 }  // namespace zmbt
+
 
 #endif

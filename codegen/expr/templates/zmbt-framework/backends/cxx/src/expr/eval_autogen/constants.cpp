@@ -21,22 +21,18 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
+#include "zmbt/expr/eval_context.hpp"
+#include "zmbt/expr/eval_impl.hpp"
+#include "zmbt/expr/eval_impl_pp.hpp"
 
 
 namespace zmbt {
+namespace lang {
 
-boost::json::value zmbt::lang::Expression::eval_Const(boost::json::value const&) const
-{
-    switch(keyword())
-    {
 @for keyword in data.Constants:
-    case Keyword::@keyword.Enum: return @keyword.CodegenValue;
+ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return @keyword.CodegenValue; }
 @end
-    default:
-        throw expression_error("got invalid const expression: %s", underlying());
-        return nullptr;
-    }
-}
 
+} // namespace lang
 } // namespace zmbt
 

@@ -45,6 +45,12 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
         os << prefix << label << ": " << sts.at(label);
     };
 
+    auto const print_expr = [&os, &sts, prefix](boost::json::string_view label)
+    {
+        os << prefix << label <<  ": ";
+        lang::Expression(sts.at(label)).prettify_to(os);
+    };
+
 
     os << "\n  - ZMBT " << verdict << ":";
     print_string("model");
@@ -53,14 +59,14 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     if (verdict == "ERROR")
     {
         os << prefix << "channel: " << sts.at("channel");
+        print_expr("error");
     }
     else
     {
-        print_js_section("expected");
+        print_expr("expected");
         print_js_section("observed");
         os << prefix << "condition: " << sts.at("condition");
         print_string("comment");
-        // print_js_section("test vector");
     }
 
     print_string("description");
@@ -71,7 +77,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     {
         os << prefix << "expression eval stack: |-"
             << prefix << "  ---\n"; // needed to keep valid yaml string under |-
-        zmbt::lang::Expression::EvalLog::format(os, eval_stack, 8);
+        zmbt::lang::EvalLog::format(os, eval_stack, 8);
     }
 }
 

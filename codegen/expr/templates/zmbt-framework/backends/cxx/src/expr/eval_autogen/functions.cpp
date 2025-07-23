@@ -21,30 +21,18 @@
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
-
+#include "zmbt/expr/eval_context.hpp"
+#include "zmbt/expr/eval_impl.hpp"
+#include "zmbt/expr/eval_impl_pp.hpp"
 
 namespace zmbt {
+namespace lang {
 
-boost::json::value zmbt::lang::Expression::eval_CodegenFn(boost::json::value const& x_, EvalContext const& ctx) const
-{
-    boost::json::value x = Expression(x_).eval(nullptr, ctx++);
-    boost::json::value ret{};
-    switch(keyword())
-    {
 @for keyword in data.CodegenFns:
-    case Keyword::@keyword.Enum: { ret = @keyword.CodegenValue; break; }
+ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return @keyword.CodegenValue; }
 @end
-    default:
-        throw expression_error("got invalid unary math expression: %s", underlying());
-    }
 
-    if (ret.is_number())
-    {
-        ret = real_to_number(boost::json::value_to<double>(ret));
-    }
 
-    return ret;
-}
-
+} // namespace lang
 } // namespace zmbt
 

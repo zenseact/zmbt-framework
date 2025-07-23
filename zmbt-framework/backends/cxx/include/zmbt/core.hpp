@@ -21,7 +21,6 @@
 #include "core/json_traverse.hpp"
 #include "core/json_pretty_print.hpp"
 #include "core/slice.hpp"
-#include "core/parameter.hpp"
 #include "core/preprocessor.hpp"
 #include "core/operator_traits.hpp"
 #include "core/tuple_conversion.hpp"

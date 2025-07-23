@@ -53,7 +53,7 @@ ducks::Grey DuckQuack(ducks::Grey what)
     default:
         return ducks::Grey(255);
     }
-};
+}
 
 BOOST_FIXTURE_TEST_CASE(GenericTest, ModelTestFixture)
 {

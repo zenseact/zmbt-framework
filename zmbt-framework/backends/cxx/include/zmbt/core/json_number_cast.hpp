@@ -21,6 +21,12 @@ boost::json::value real_to_number(double value);
 /// storing result as uint64_t if possible.
 boost::json::value real_to_number(std::int64_t value);
 
+boost::json::value maybe_real_to_number(boost::json::value const& value);
+
+/// Convert a signed integer to JSON number in place,
+/// storing result as uint64_t if possible.
+bool maybe_real_to_number_inplace(boost::json::value& value);
+
 
 } // namespace zmbt
 

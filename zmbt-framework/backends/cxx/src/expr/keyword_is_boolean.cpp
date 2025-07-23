@@ -33,12 +33,12 @@ bool isBoolean(Keyword const& k)
     case Keyword::Le:
     case Keyword::Gt:
     case Keyword::Ge:
-    case Keyword::Approx:
+    case Keyword::Near:
     case Keyword::SetEq:
     case Keyword::Subset:
     case Keyword::Superset:
-    case Keyword::ProperSubset:
-    case Keyword::ProperSuperset:
+    case Keyword::PSubset:
+    case Keyword::PSuperset:
     case Keyword::In:
     case Keyword::NotIn:
     case Keyword::Ni:

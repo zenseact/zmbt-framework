@@ -494,7 +494,7 @@ Bitwise xor
 
  * `[0b1010, 0b1100] | BitXor `$\mapsto$` 0b0110`
 
-### BitLshift
+### Lshift
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -506,9 +506,9 @@ Bitwise left shift
 
 *Examples*:
 
- * `[0b1010, 2] | BitLshift `$\mapsto$` 0b101000`
+ * `[0b1010, 2] | Lshift `$\mapsto$` 0b101000`
 
-### BitRshift
+### Rshift
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -520,7 +520,7 @@ Bitwise right shift
 
 *Examples*:
 
- * `[0b1010, 2] | BitRshift `$\mapsto$` 0b0010`
+ * `[0b1010, 2] | Rshift `$\mapsto$` 0b0010`
 
 
 ## Relation Operators
@@ -603,11 +603,11 @@ Greater or equal
  * `[2, 1] | Ge `$\mapsto$` true`
  * `42 | Ge(42) `$\mapsto$` true`
 
-### Approx
+### Near
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: near
+*Aliases*: Approx
 
 Floating point approximately equal
 
@@ -732,7 +732,7 @@ Is superset
  * `[[], [1, 2]] | Superset `$\mapsto$` true`
  * `[[], []] | Superset `$\mapsto$` true`
 
-### ProperSubset
+### PSubset
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -742,16 +742,16 @@ Is proper subset
 
 *Examples*:
 
- * `[[1, 2], [1, 2, 3]] | ProperSubset `$\mapsto$` true`
- * `[1, 2] | ProperSubset([1, 2, 3]) `$\mapsto$` true`
+ * `[[1, 2], [1, 2, 3]] | PSubset `$\mapsto$` true`
+ * `[1, 2] | PSubset([1, 2, 3]) `$\mapsto$` true`
 
- * `[[1, 2, 3], [2, 3]] | ProperSubset `$\mapsto$` false`
- * `[1, 2, 3] | ProperSubset([2, 3]) `$\mapsto$` false`
+ * `[[1, 2, 3], [2, 3]] | PSubset `$\mapsto$` false`
+ * `[1, 2, 3] | PSubset([2, 3]) `$\mapsto$` false`
 
- * `[[1, 2], []] | ProperSubset `$\mapsto$` true`
- * `[[], []] | ProperSubset `$\mapsto$` false`
+ * `[[1, 2], []] | PSubset `$\mapsto$` true`
+ * `[[], []] | PSubset `$\mapsto$` false`
 
-### ProperSuperset
+### PSuperset
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -761,14 +761,14 @@ Is proper superset
 
 *Examples*:
 
- * `[[1, 2, 3], [1, 2]] | ProperSuperset `$\mapsto$` true`
- * `[1, 2, 3] | ProperSuperset([1, 2]) `$\mapsto$` true`
+ * `[[1, 2, 3], [1, 2]] | PSuperset `$\mapsto$` true`
+ * `[1, 2, 3] | PSuperset([1, 2]) `$\mapsto$` true`
 
- * `[[2, 3], [1, 2, 3]] | ProperSuperset `$\mapsto$` false`
- * `[2, 3] | ProperSuperset([1, 2, 3]) `$\mapsto$` false`
+ * `[[2, 3], [1, 2, 3]] | PSuperset `$\mapsto$` false`
+ * `[2, 3] | PSuperset([1, 2, 3]) `$\mapsto$` false`
 
- * `[[], [1, 2]] | ProperSuperset `$\mapsto$` true`
- * `[[], []] | ProperSuperset `$\mapsto$` false`
+ * `[[], [1, 2]] | PSuperset `$\mapsto$` true`
+ * `[[], []] | PSuperset `$\mapsto$` false`
 
 ### In
 
@@ -800,7 +800,7 @@ Element is not in
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: contains
+*Aliases*: Contains
 
 Contains element
 
@@ -830,7 +830,7 @@ Not contains element
 
 *Signature*: [Unary](../user-guide/expressions.md#syntax)
 
-*Aliases*: truthy
+*Aliases*: Truthy
 
 Predicate on boolean transform (aka truthy)
 
@@ -850,7 +850,7 @@ Predicate on boolean transform (aka truthy)
 
 *Signature*: [Unary](../user-guide/expressions.md#syntax)
 
-*Aliases*: falsy, nil
+*Aliases*: Falsy, Nil
 
 Logical complement
 
@@ -1104,11 +1104,11 @@ Parse string as json
 
  * `'{"a": 42}' | Parse `$\mapsto$` {"a": 42}`
 
-### Serialize
+### Str
 
 *Signature*: [Unary](../user-guide/expressions.md#syntax)
 
-*Aliases*: str
+*Aliases*: Serialize
 
 Serialize json as string
 
@@ -1121,7 +1121,7 @@ Serialize json as string
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: regex
+*Aliases*: Regex
 
 Regular expression match
 
@@ -1132,11 +1132,11 @@ If input is not a string, match it's serialized form.
  * `["[0-9]+", "42"] | Re `$\mapsto$` true`
  * `"42" | Re("[0-9]+") `$\mapsto$` true`
 
-### Format
+### Fmt
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
-*Aliases*: fmt
+*Aliases*: Format
 
 Format string with the given parameter list.
 
@@ -1275,11 +1275,11 @@ Repeat value in list
  * `42 | Repeat(3) `$\mapsto$` [42, 42, 42]`
  * `1 | Repeat(3) | Repeat(2) `$\mapsto$` [[1,1,1],[1,1,1]]`
 
-### Concat
+### Cat
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: cat
+*Aliases*: Concat
 
 Concatenate sequences
 
@@ -1352,11 +1352,11 @@ Query evaluation rules:
  * `{"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})  `$\mapsto$` {"f": 42, "g": 13}`
  * `{"a": 42, "b": 13} | At({"$/b": "/a"})           `$\mapsto$` {"13": 42}`
 
-### Delete
+### Del
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: del
+*Aliases*: Delete
 
 Delete elements from structure by given query
 
@@ -1392,36 +1392,21 @@ Equivalent to Flip(At(...))
  * `0 | Lookup([1,2,3]) `$\mapsto$`  1`
  * `"/foo" | Lookup([1,2,3]) `$\mapsto$`  null`
 
-### C
-
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
-
-*Aliases*: let
-
-User-defined constant
-
-Produced expression will return the design-time parameter
-on evaluation, ignoring input.
-
-*Examples*:
-
- * `13 | C(42) `$\mapsto$` 42`
-
-### Decorate
+### Cast
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: cast
+*Aliases*: Decorate
 
 Reserialize decorated type as decorator
 
 
 
-### Undecorate
+### Uncast
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: uncast
+*Aliases*: Undecorate
 
 Reserialize decorator as decorated type
 
@@ -1430,23 +1415,23 @@ Reserialize decorator as decorated type
 
 ## High-Order
 
-### Reduce
+### Fold
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: fold
+*Aliases*: Reduce
 
 Reduce sequence with binary operator
 
-To set specific initial value, use composition with Push, e.g.
-`Push(0) | Reduce(Add)`
+To set a specific initial value, use composition with Push, e.g.
+`Push(0) | Fold(Add)`
 
 For reverse operation, see Unfold
 
 *Examples*:
 
- * `[-1, 2, 3] | Reduce(Add) `$\mapsto$`  4`
- * `[-1, 2, 3] | Reduce(Mul) `$\mapsto$` -6`
+ * `[-1, 2, 3] | Fold(Add) `$\mapsto$`  4`
+ * `[-1, 2, 3] | Fold(Mul) `$\mapsto$` -6`
 
 ### Map
 
@@ -1608,41 +1593,56 @@ Max value index by key function
 
 ### Recur
 
-*Signature*: [Ternary](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Apply recursion to parameter expr and initial value
 
-`n | Recur(f, x)` $\mapsto ◯ⁿ f(x)$
+Inference rules:
+
+  - `n | Recur(x & f)` $\mapsto ◯ⁿ f(x)$, or
+  - `Q(p) | Recur(x₀ & f)` $\mapsto x_k$, where
+
+    - $x_{i+1} = f(x_i)$
+    - $p(x_{i}) = \top \quad \forall i \le k$
+    - $p(x_{i+1}) = \bot$ (exit condition)
 
 *Examples*:
 
- * `0 | Recur(Add(1), 0)  `$\mapsto$`  3`
- * `3 | Recur(Mul(-1), 1) `$\mapsto$` -1`
+ * `0 | Recur(0 & Add(1))  `$\mapsto$`  3`
+ * `3 | Recur(1 & Mul(-1)) `$\mapsto$` -1`
 
 ### Unfold
 
-*Signature*: [Ternary](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Put results of recursive fn call on initial value into an array
 
-`n | Unfold(f, x)`$\mapsto [x, ◯¹f(x), ◯²f(x), ...,  ◯ⁿ f(x)]$
+
+Inference rules:
+
+  - `n | Unfold(x & f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
+  - `Q(p) | Unfold(x₀ & f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
+
+    - $x_{i+1} = f(x_i)$
+    - $p(x_{i}) = \top \quad \forall i \le k$
+    - $p(x_{i+1}) = \bot$ (exit condition)
 
 *Examples*:
 
- * `3 | Unfold(Add(1),  0) `$\mapsto$`  [0, 1, 2, 3]`
- * `3 | Unfold(Mul(-1), 1) `$\mapsto$`  [1,-1, 1,-1]`
+ * `3 | Unfold(0 & Add(1)) `$\mapsto$`  [0, 1, 2, 3]`
+ * `3 | Unfold(1 & Mul(-1)) `$\mapsto$`  [1,-1, 1,-1]`
 
-### Overload
+### Op
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
-*Aliases*: op
+*Aliases*: Overload
 
 Bind type-specific operator handler to function
 
-Expression Overload(op, f) instructs f to use operator op on
+Expression Op(op, f) instructs f to use op operator on
 invocation instead of the default generic.
 
 Operator parameter singleton can be referenced with string key
@@ -1654,14 +1654,57 @@ as operator type, unless f is constant or boolean expression.
 
 *Examples*:
 
- * `[0.5, 2] | Overload("complex", Add(1)) `$\mapsto$` [1.5, 2]`
+ * `[0.5, 2] | Op("complex", Add(1)) `$\mapsto$` [1.5, 2]`
 
 ### Bind
 
-*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-!not implemented! bind design-time parameters
+Bind design-time parameters to function.
+
+
+*Examples*:
+
+ * `42 & Q(Add) | Bind `$\mapsto$` Add(42)`
+ * `42 | Bind(F) | Bind(G) | Bind(H) `$\mapsto$`  H(G(F(42)))`
+
+### Link
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+...
+
+
+
+### Capture
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Symbolic binding of the input value
+
+The capture is referenced by an arbitrary string preceded by dollar sign,
+e.g. "$x".
+
+On the first access it stores the input value in isolated expression context
+eturns it on each subsequent call. It can't be reset after the first access.
+
+The string after $ sign shall not be enclosed in [], {}, or (),
+as those formats are reserved for internal usage.
+
+*Examples*:
+
+ * `42 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) `$\mapsto$` 42`
+ * `-7 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) `$\mapsto$` 7`
+
+### Refer
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+...
 
 
 
@@ -1708,42 +1751,65 @@ Saturate matches in order
  * `[2,4,8,41,2] | Saturate(42, Mod(2)|0) `$\mapsto$` false`
  * `[2,4,8,42] | Saturate(42, Mod(2)|0) `$\mapsto$` false`
 
-### Compose
+### Pipe
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
-Compose functions
+Pipe functions in left-to-right composition
 
 
 *Examples*:
 
- * `3 | Compose(Add(1), Mul(2)) `$\mapsto$` 7`
- * `4 | Compose(Add(1), Mul(2)) `$\mapsto$` 9`
+ * `3 | Pipe(Mul(2), Add(1)) `$\mapsto$` 7`
+ * `4 | Pipe(Mul(2), Add(1)) `$\mapsto$` 9`
 
 **Infix operator form (pipe)**:
 
- * `Add(1) | Mul(2) `$\equiv$` Compose(Mul(2), Add(1))`
- * `3 | Add(1) | Mul(2) `$\mapsto$` 7`
+ * `Add(1) | Mul(2) `$\equiv$` Pipe(Add(1), Mul(2))`
+ * `3 | Add(1) | Mul(2) `$\mapsto$` 8`
+
+### Tuple
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Pack expressions into an tuple without evaluation
+
+
+*Examples*:
+
+ * `null | Tuple(Reduce(Add), Size) `$\mapsto$` [Reduce(Add), Size]`
+
+**Infix operator form (plus):**
+
+ * `Add(1) + Mul(2) `$\equiv$` Tuple(Add(1), Mul(2))`
 
 ### Fork
 
-*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
 Pack results from enveloped functions into an array
 
-Allows to combine different properties in a single expression
+Allows to combine different properties in a single expression.
+Parameter
 
 *Examples*:
 
- * `[1,2,3] | Fork(Reduce(Add), Size) `$\mapsto$` [6,3]`
+ * `[1,2,3] | Fork(Reduce(Add) + Size) `$\mapsto$` [6,3]`
+ * `[1,2,3] | Fork(42 + Card + Id) `$\mapsto$` [42, 3, [1,2,3]]`
 
 **Infix operator form (ampersand):**
 
- * `Add(1) & Mul(2) `$\equiv$` Fork(Add(1), Mul(2))`
+ * `Add(1) & Mul(2) `$\equiv$` Fork(Add(1) + Mul(2))`
  * `[1,2,3] | Reduce(Add) & Size `$\mapsto$` [6,3]`
  * `[1,2,3] | Reduce(Add) & Size | Div `$\mapsto$` 2`
+
+Note that the Fork is not associative,
+therefore an infix operator chain is not unfolded
+as in variadic Pipe or Tuple:
+ * `a & b & c `$\equiv$` (a & b) & c `$\equiv$` Fork(Fork(a + b) + c)`
 
 ### Flip
 
@@ -1762,15 +1828,18 @@ the Reverse keyword instead.
  * `2 | Div(1) `$\mapsto$` 2`
  * `2 | Flip(Div(1)) `$\mapsto$` 0.5`
 
-### Debug
+### Dbg
 
-*Signature*: [Special](../user-guide/expressions.md#syntax)
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: dbg
+*Aliases*: Debug
 
 Evaluate function and print evaluation log to stderr
 
 
+*Examples*:
+
+42 | Dbg(Trace(ZMBT_CUR_LOC) | Add(2))
 
 ### Eval
 
@@ -1786,7 +1855,7 @@ Flip designtime and run-time parameters, evaluating input as expression
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-Evaluate function and return result or null if it throws
+Evaluate function and return result or null if it returns error
 
 
 *Examples*:
@@ -1794,30 +1863,62 @@ Evaluate function and return result or null if it throws
  * `42 | Try(Add(1)) `$\mapsto$` 43`
  * `"foo" | Try(Add(1)) `$\mapsto$` null`
 
-### TryCatch
+### Kwrd
 
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
 
 
-Evaluate function and return result or error info if it throws
+Introspect expression keyword.
 
 
 *Examples*:
 
-`42 | TryCatch(Div(0))` $\mapsto$ `{
-    "err": "zero division",
-    "fn": ":div",
-    "x": 42
-}`
+ * `Q(Fold(Add)) | Kwrd `$\mapsto$` "Fold"`
+ * `[1, 1, 1] | Kwrd `$\mapsto$` "Literal"`
+
+### Prms
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+*Aliases*: Parameters
+
+Introspect expression parameters.
+
+
+*Examples*:
+
+ * `Q(Fold(Add)) | Prms `$\mapsto$` Add`
+ * `[1, 1, 1] | Prms `$\mapsto$` [1, 1, 1]`
 
 
 ## Evaluation handlers
 
-### Default
+### Q
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
-*Aliases*: d
+*Aliases*: C, Const
+
+Quote parameter, similar to lisp quotation.
+
+Quotation lifts any parameter to constant, s.t.
+produced expression will return the design-time parameter
+on evaluation, ignoring input. If evaluable expression
+is passed, it is returned unevaluated.
+Unlike plain literals which can be treated
+as predicate matchers in certain context, Q(x) is always
+a constant expression discarding input.
+Flip(Q) is equivalent to Id.
+
+*Examples*:
+
+ * `null | C(42) `$\mapsto$` 42`
+
+### D
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+*Aliases*: Default
 
 Return x if not null, else return default value
 
@@ -1827,13 +1928,37 @@ Return x if not null, else return default value
  * `null | Default(42) `$\mapsto$` 42`
  * `13 | Default(42) `$\mapsto$` 13`
 
-### Error
+### Err
 
 *Signature*: [Special](../user-guide/expressions.md#syntax)
 
+*Aliases*: Error
 
-Error
+Error object
 
 Error object (work in progress)
 
+
+### Trace
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Same as id, but also prints identifier parameter to debug log.
+
+
+
+### PreProc
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Preprocessing token
+
+String token that can be substituted with arbitrary expression
+on expression preprocessing.
+
+*Examples*:
+
+ * `null | C(42) `$\mapsto$` 42`
 

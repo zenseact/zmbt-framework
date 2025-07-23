@@ -24,8 +24,13 @@ namespace detail {
 template <Keyword K>
 struct SignatureBase : public Expression
 {
-    SignatureBase() : Expression(K)
+    SignatureBase() : Expression(encodeNested(K, {}))
     {}
+
+    operator boost::json::value() const // allowing implicit on expr::*
+    {
+        return Expression::operator boost::json::value();
+    }
 };
 
 /// @brief Const expression
@@ -37,6 +42,7 @@ template <Keyword K>
 struct SignatureConst : public SignatureBase<K>
 {
     using SignatureBase<K>::SignatureBase;
+
 };
 
 /// @brief Unary expression
@@ -71,30 +77,37 @@ struct SignatureBinary : public SignatureBase<K>
     /// \brief Make parametrized expression
     Expression operator()(Expression const& param) const
     {
-        return Expression(K, param);
+        return Expression(Expression::encodeNested(K, {param}));
+    }
+
+    Expression operator()(Expression && param) const
+    {
+        return Expression(Expression::encodeNested(K, {std::move(param)}));
     }
 
     /// \brief Make parametrized expression with initializer list
     /// \details Interpret {x} as single-element array instead of using default boost::json::value ctor
     Expression operator()(std::initializer_list<Expression> param) const
     {
-        return Expression(K, detail::handle_list_init(param));
+        return Expression(Expression::encodeNested(K, {detail::handle_list_init(param)}));
     }
 };
 
-/// @brief Ternary expression
-/// @tparam K keyword
-/// \anchor ternary-syntactic-forms
-/// \paragraph par-ternary-syntactic-forms Syntactic forms
-/// Syntatic form over function f: \f$E(a, b) \mapsto (x \mapsto f(a, b)(x))\f$
-template <Keyword K>
-struct SignatureTernary : public SignatureBase<K>
+template <>
+struct SignatureBinary<Keyword::PreProc> : public SignatureBase<Keyword::PreProc>
 {
-    using SignatureBase<K>::SignatureBase;
+    using SignatureBase<Keyword::PreProc>::SignatureBase;
 
-    Expression operator()(Expression const& expr, Expression const& param) const
+    /// \brief Make parametrized expression
+    Expression operator()(boost::json::string_view const param) const
     {
-        return Expression(K, boost::json::array{expr, param});
+        return Expression(Expression::encodePreProc(zmbt::format("$[%s]", param).c_str()));
+    }
+
+    /// \brief Make parametrized expression
+    Expression operator()(std::size_t const param) const
+    {
+        return Expression(Expression::encodePreProc(zmbt::format("$[%s]", param).c_str()));
     }
 };
 
@@ -107,131 +120,124 @@ struct SignatureTernary : public SignatureBase<K>
 template <Keyword K>
 struct SignatureVariadic : public SignatureBase<K>
 {
+  private:
+    static Expression encodeVariadic(std::initializer_list<zmbt::lang::Expression> params)
+    {
+        return Expression(Expression::encodeNested(K,  params));
+    }
+
+  public:
     using SignatureBase<K>::SignatureBase;
+
     using E = Expression;
     Expression operator()() const {
-        return Expression(K, boost::json::array{});
+        return encodeVariadic({});
     }
     Expression operator()(E const& p0) const {
-        return Expression(K, boost::json::array{p0});
+        return encodeVariadic({p0});
     }
     Expression operator()(E const& p0, E const& p1) const {
-        return Expression(K, {p0, p1});
+        return encodeVariadic({p0, p1});
     }
     Expression operator()(E const& p0, E const& p1, E const& p2) const {
-        return Expression(K, {p0, p1, p2});
+        return encodeVariadic({p0, p1, p2});
     }
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3) const {
-        return Expression(K, {p0, p1, p2, p3});
+        return encodeVariadic({p0, p1, p2, p3});
     }
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3, E const& p4) const {
-        return Expression(K, {p0, p1, p2, p3, p4});
+        return encodeVariadic({p0, p1, p2, p3, p4});
     }
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3, E const& p4, E const& p5) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5});
+        return encodeVariadic({p0, p1, p2, p3, p4, p5});
     }
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3, E const& p4, E const& p5, E const& p6) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6});
+        return encodeVariadic({p0, p1, p2, p3, p4, p5, p6});
     }
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3, E const& p4, E const& p5, E const& p6, E const& p7) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7});
+        return encodeVariadic({p0, p1, p2, p3, p4, p5, p6, p7});
     }
     template <class... T>
     Expression operator()(E const& p0, E const& p1, E const& p2, E const& p3, E const& p4, E const& p5, E const& p6, E const& p7, T&&... rest) const {
-        return Expression(K, {p0, p1, p2, p3, p4, p5, p6, p7, zmbt::json_from(rest)...});
+        return encodeVariadic({p0, p1, p2, p3, p4, p5, p6, p7, zmbt::json_from(rest)...});
     }
 };
 
 
 
 
-struct SignatureOverload : public SignatureTernary<Keyword::Overload>
+struct SignatureOp : public SignatureBase<Keyword::Op>
 {
-    using SignatureTernary<Keyword::Overload>::SignatureTernary;
-    using SignatureTernary<Keyword::Overload>::operator();
+    using SignatureBase<Keyword::Op>::SignatureBase;
+
+
+    Expression operator()(Expression const& type, Expression const& expr) const
+    {
+        return Expression(Expression::encodeNested(Keyword::Op, {type + expr}));
+    }
 
     template <class T>
     Expression operator()(type_tag<T> tag, Expression const& expr) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Overload, {op.annotation(), expr});
+        return Expression(Expression::encodeNested(Keyword::Op, {op.annotation() + expr}));
     }
 };
 
-struct SignatureDecorate : public SignatureBinary<Keyword::Decorate>
+struct SignatureCast : public SignatureBinary<Keyword::Cast>
 {
-    using SignatureBinary<Keyword::Decorate>::SignatureBinary;
-    using SignatureBinary<Keyword::Decorate>::operator();
+    using SignatureBinary<Keyword::Cast>::SignatureBinary;
+    using SignatureBinary<Keyword::Cast>::operator();
+
 
     template <class T>
     Expression operator()(type_tag<T> tag) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Decorate, op.annotation());
+        return Expression(Expression::encodeNested(Keyword::Cast, {op.annotation()}));
     }
 };
 
-struct SignatureUndecorate : public SignatureBinary<Keyword::Undecorate>
+struct SignatureUncast : public SignatureBinary<Keyword::Uncast>
 {
-    using SignatureBinary<Keyword::Undecorate>::SignatureBinary;
-    using SignatureBinary<Keyword::Undecorate>::operator();
+    using SignatureBinary<Keyword::Uncast>::SignatureBinary;
+    using SignatureBinary<Keyword::Uncast>::operator();
 
     template <class T>
     Expression operator()(type_tag<T> tag) const
     {
         Operator const op{tag};
-        return Expression(Keyword::Undecorate, op.annotation());
+        return Expression(Expression::encodeNested(Keyword::Uncast, {op.annotation()}));
     }
 };
 
-struct SignatureError : public SignatureBase<Keyword::Error>
+struct SignatureErr : public SignatureBase<Keyword::Err>
 {
-    using SignatureBase<Keyword::Error>::SignatureBase;
+    using SignatureBase<Keyword::Err>::SignatureBase;
+
+    Expression operator()(boost::json::object payload) const
+    {
+        return Expression(Expression::encodeNested(Keyword::Err, {payload}));
+    }
 
     /// \brief Error message and context
     Expression operator()(boost::json::string_view msg, boost::json::string_view ctx = "") const
     {
-        boost::json::object err {{"message", msg}};
-        if (!ctx.empty())
-        {
-            err["context"] = ctx;
-        }
-        return Expression(Keyword::Error, err);
+        return make_error("", msg, ctx);
     }
+
 
     /// \brief Error type, message, and context
     template <class T>
     Expression operator()(type_tag<T>, boost::json::string_view msg = "", boost::json::string_view ctx = "") const
     {
-        boost::json::object err {{"type", zmbt::type_name<T>()}};
-        if (!msg.empty())
-        {
-            err["message"] = msg;
-        }
-        if (!ctx.empty())
-        {
-            err["context"] = ctx;
-        }
-        return Expression(Keyword::Error, err);
+        return make_error(zmbt::type_name<T>(), msg, ctx);
     }
+
+    private:
+        Expression make_error(boost::json::string_view type, boost::json::string_view msg, boost::json::string_view ctx) const;
 };
 
-#define ZMBT_DEBUG_EXPR(f) ::zmbt::expr::Debug(f, ZMBT_CUR_LOC)
-
-struct SignatureDebug : public SignatureTernary<Keyword::Debug>
-{
-    using SignatureTernary<Keyword::Debug>::SignatureTernary;
-
-    Expression operator()(Expression const& expr, Expression const& identifier) const
-    {
-        return SignatureTernary<Keyword::Debug>::operator()(expr, identifier);
-    }
-
-    Expression operator()(Expression const& expr) const
-    {
-        return operator()(expr, "anonymous");
-    }
-};
 
 } // namespace lang
 } // namespace zmbt

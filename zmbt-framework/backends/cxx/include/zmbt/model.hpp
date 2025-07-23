@@ -12,6 +12,7 @@
 #include "model/environment.hpp"
 #include "model/environment_interface_record.hpp"
 #include "model/trigger.hpp"
+#include "model/parameter.hpp"
 #include "model/param_transform.hpp"
 #include "model/test_failure.hpp"
 

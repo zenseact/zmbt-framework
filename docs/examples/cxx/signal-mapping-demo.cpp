@@ -292,7 +292,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 ```
 
 1. `Eq` may be omitted in the context of predicate.
-2. Expression composition with pipe operator. Equivalent to `Compose(Eq(3), Size)`.
+2. Expression composition with pipe operator. Equivalent to `Pipe(Size, Eq(3))`.
 3. Optional comment.
 4. Saturate the matchers over sequence input in given order.
 5. Ampersand operator packs evaluation into array as `f & g ↦ x ↦ [f(x), g(x)]`.
@@ -1044,6 +1044,54 @@ As it is stated previously, the list of non-fixed pipes acts as a table header f
 1. Defined with the `Test` clause
 
 
+### Multithreading
+
+ZMBT mocks implemented with `InterfaceRecord(...).Hook(...)` calls
+are thread safe:
+
+```c++
+*/
+BOOST_AUTO_TEST_CASE(TestMultithreading)
+{
+    struct Mock {
+        int produce() const {
+            return InterfaceRecord(&Mock::produce, this).Hook();
+        }
+        void consume(int const x) {
+            return InterfaceRecord(&Mock::consume, this).Hook(x);
+        }
+    } producer, consumer;
+
+    auto const task = [&](){
+        while(true) {
+            auto const item = producer.produce();
+            if (item <= 0) break;
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            consumer.consume(item);
+        }
+    };
+
+    auto const SUT = [&](){
+        constexpr int N {8};
+        std::vector<std::thread> threads(N);
+        for(int i = 0; i < N; ++i) threads.emplace_back(task);
+        for(auto& thread: threads) {
+            if (thread.joinable())  thread.join();
+        }
+    };
+
+
+    SignalMapping("Test Blend on output")
+    .OnTrigger(SUT)
+        .At(&Mock::produce, producer).Inject(Flip(Sub(42)))
+        .At(&Mock::consume, consumer).Take(Max).Expect(42)
+        .At(&Mock::consume, consumer).CallCount().Expect(42)
+        .At(&Mock::consume, consumer).ThreadId().Expect(Card|8)
+    ;
+}
+/*
+```
+
 
 ### Fixture tasks
 
@@ -1120,7 +1168,7 @@ Negation at the matcher end lead to test failure, and the log message is followi
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: "(Reduce(Add) & Size) | Div | Eq(2.5E0) | Not"
+      expected: (Fold(Add) & Size) | Div | Eq(2.5E0) | Not
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
@@ -1128,13 +1176,13 @@ Negation at the matcher end lead to test failure, and the log message is followi
                  ┌── Add $ [1,2] = 3
                  ├── Add $ [3,3] = 6
                  ├── Add $ [6,4] = 10
-              ┌── Reduce(Add) $ [1,2,3,4] = 10
+              ┌── Fold(Add) $ [1,2,3,4] = 10
               ├── Size $ [1,2,3,4] = 4
-           ┌── (Reduce(Add) & Size) $ [1,2,3,4] = [10,4]
+           ┌── Fold(Add) & Size $ [1,2,3,4] = [10,4]
            ├── Div $ [10,4] = 2.5E0
            ├── Eq(2.5E0) $ 2.5E0 = true
            ├── Not $ true = false
-        □  (Reduce(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
+        □  (Fold(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.

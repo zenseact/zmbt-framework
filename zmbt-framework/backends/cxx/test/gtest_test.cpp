@@ -13,20 +13,16 @@ TEST(RunInGtest, EnvThreadSafety)
     int const kIterations {10000};
 
     auto test_fun = [](int x){ return x; };
+    auto handle = InterfaceRecord(test_fun);
+    handle.InjectArgs(Add(1), "/0");
+    handle.InjectReturn(Add(1));
 
     auto task = [&](){
-        auto handle = InterfaceRecord(test_fun);
 
         for(int i = 0; i < kIterations; ++i)
         {
-            ZMBT_LOG_JSON(INFO) << zmbt::get_tid().c_str() << i;
-            auto lock = handle.Env().Lock();
-
-            int arg_x = handle.YieldInjectionArgs().as_array()[0].as_int64();
-            int ret_x = handle.YieldInjectionReturn().as_int64();
-
-            handle.InjectArgs(boost::json::array{++arg_x});
-            handle.InjectReturn(++ret_x);
+            static_cast<void>(handle.YieldInjectionArgs());
+            static_cast<void>(handle.YieldInjectionReturn());
         }
     };
 
@@ -34,8 +30,8 @@ TEST(RunInGtest, EnvThreadSafety)
     for(int i = 0; i < kWorkers; ++i) threads.emplace_back(task);
     for(auto& thread: threads) thread.join();
 
-    EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).YieldInjectionArgs().as_array()[0].as_int64());
-    EXPECT_EQ(kWorkers * kIterations, InterfaceRecord(test_fun).YieldInjectionReturn().as_int64());
+    EXPECT_EQ(kWorkers * kIterations + 1, handle.YieldInjectionArgs().as_array().front());
+    EXPECT_EQ(kWorkers * kIterations + 1, handle.YieldInjectionReturn());
 }
 
 
@@ -48,9 +44,9 @@ TEST(RunInGtest, SignalMapping)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        (2|Add(2)    , 4                                 ) ["Compose on input"]
-        ({42, 42, 42}, 42|Repeat(3)                      ) ["Compose on output"]
-        ("[42,42,42]", Parse & (42|Repeat(3)) | Eq       ) ["Nested Compose"]
+        (2|Add(2)    , 4                                 ) ["Pipe on input"]
+        ({42, 42, 42}, 42|Repeat(3)                      ) ["Pipe on output"]
+        ("[42,42,42]", Parse & (42|Repeat(3)) | Eq       ) ["Nested Pipe"]
         ("1:5"|Arange, Reduce(Add) & Size | Div | Eq(2.5)) ["Complex example (computing average)"]
     ;
 
@@ -58,13 +54,12 @@ TEST(RunInGtest, SignalMapping)
     Param const X {"X"};
     Param const Y {"Y"};
 
-    using List = boost::json::array;
     SignalMapping("Parametric SignalMapping with X = %d, Y = %d", X, Y)
     .OnTrigger(id)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        (List{X, X, X}         , X|Repeat(3)                )
+        (X + X + X             , X|Repeat(3)                )
         ("[%s,%s]"|Format(X, Y), Parse | Any({13,0}, {19,1}))
     .Zip
         (X, 13, 19)

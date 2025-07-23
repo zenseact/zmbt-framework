@@ -4,16 +4,18 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_CORE_PARAMETER_HPP_
-#define ZMBT_CORE_PARAMETER_HPP_
+#ifndef ZMBT_MODEL_PARAMETER_HPP_
+#define ZMBT_MODEL_PARAMETER_HPP_
 
 #include <boost/json.hpp>
+#include <zmbt/expr.hpp>
+
 
 namespace zmbt {
 
 
 /// Generic Parameter Placeholder
-class Param final
+class Param final : public zmbt::lang::Expression
 {
     boost::json::string value_;
 
@@ -23,9 +25,11 @@ public:
 
     static bool isParam(boost::json::value const& v);
 
-    static Param parse(boost::json::value const& v);
+    // static Param parse(boost::json::value const& v);
 
-    Param(boost::json::value v) : Param{parse(v)} {}
+    Param(boost::json::value v)
+        : Expression(Expression::encodePreProc(zmbt::format("$[%s]", v).c_str()))
+    {}
 
     Param(Param const&) = default;
     Param(Param &&) = default;
@@ -35,14 +39,8 @@ public:
 
     operator boost::json::value() const
     {
-        return value_;
+        return data();
     }
-
-    boost::json::string serialize() const
-    {
-        return value_;
-    }
-
 };
 
 

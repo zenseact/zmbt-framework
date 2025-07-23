@@ -32,9 +32,9 @@ namespace expr {
 /// @line
         @end
     @end
-extern lang::@keyword.Class const @keyword.Enum;
+extern lang::@keyword.Class const @keyword.Name;
 @for alias in keyword.Aliases:
-/// \brief Alias for @keyword.Enum
+/// \brief Alias for @keyword.Name
 extern lang::@keyword.Class const @alias.capitalize();
 @end
 @end

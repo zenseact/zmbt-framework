@@ -36,23 +36,23 @@ bool isBinary(Keyword const& k)
     case Keyword::BitAnd:
     case Keyword::BitOr:
     case Keyword::BitXor:
-    case Keyword::BitLshift:
-    case Keyword::BitRshift:
+    case Keyword::Lshift:
+    case Keyword::Rshift:
     case Keyword::Eq:
     case Keyword::Ne:
     case Keyword::Lt:
     case Keyword::Le:
     case Keyword::Gt:
     case Keyword::Ge:
-    case Keyword::Approx:
+    case Keyword::Near:
     case Keyword::Union:
     case Keyword::Intersect:
     case Keyword::Diff:
     case Keyword::SetEq:
     case Keyword::Subset:
     case Keyword::Superset:
-    case Keyword::ProperSubset:
-    case Keyword::ProperSuperset:
+    case Keyword::PSubset:
+    case Keyword::PSuperset:
     case Keyword::In:
     case Keyword::NotIn:
     case Keyword::Ni:
@@ -60,20 +60,16 @@ bool isBinary(Keyword const& k)
     case Keyword::And:
     case Keyword::Or:
     case Keyword::Re:
-    case Keyword::Format:
     case Keyword::Slide:
     case Keyword::Stride:
     case Keyword::Chunks:
     case Keyword::Repeat:
-    case Keyword::Concat:
+    case Keyword::Cat:
     case Keyword::Push:
     case Keyword::At:
-    case Keyword::Delete:
+    case Keyword::Del:
     case Keyword::Lookup:
-    case Keyword::C:
-    case Keyword::Decorate:
-    case Keyword::Undecorate:
-    case Keyword::Reduce:
+    case Keyword::Fold:
     case Keyword::Map:
     case Keyword::Filter:
     case Keyword::Count:
@@ -86,11 +82,21 @@ bool isBinary(Keyword const& k)
     case Keyword::Max:
     case Keyword::Argmin:
     case Keyword::Argmax:
+    case Keyword::Recur:
+    case Keyword::Unfold:
+    case Keyword::Bind:
+    case Keyword::Link:
+    case Keyword::Capture:
+    case Keyword::Refer:
+    case Keyword::Fork:
     case Keyword::Flip:
+    case Keyword::Dbg:
     case Keyword::Eval:
     case Keyword::Try:
-    case Keyword::TryCatch:
-    case Keyword::Default:
+    case Keyword::Q:
+    case Keyword::D:
+    case Keyword::Trace:
+    case Keyword::PreProc:
         return true;
     default:
         return false;

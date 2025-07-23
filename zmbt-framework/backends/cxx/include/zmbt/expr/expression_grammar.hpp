@@ -18,7 +18,7 @@ namespace lang {
 
 
 template <typename OutputIterator>
-struct ExpressionGrammar : boost::spirit::karma::grammar<std::back_insert_iterator<std::string>, Expression()> {
+struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Expression()> {
     ExpressionGrammar() : ExpressionGrammar::base_type(start)
     {
         namespace karma = boost::spirit::karma;
@@ -30,42 +30,49 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<std::back_insert_iterat
         using karma::lit;
         using karma::string;
 
-        struct CompositionList {
-            using result_type = std::list<Expression>;
-            result_type operator()(const Expression& e) const
-            {
-                auto list = e.parameter_list();
-                list.reverse();
-                return list;
-            }
-        };
-
-        auto const is_literal     = boost::phoenix::bind(&Expression::is_literal, _val);
-        auto const has_params     = boost::phoenix::bind(&Expression::has_params, _val);
-        auto const serialize      = boost::phoenix::bind(&Expression::serialize, _val);
-        auto const keyword_to_str = boost::phoenix::bind(&Expression::keyword_to_str, _val);
-        auto const is_nonempty_composition  = boost::phoenix::bind(&Expression::is_nonempty_composition, _val);
-        auto const is_nonempty_fork         = boost::phoenix::bind(&Expression::is_nonempty_fork, _val);
-        auto const parameter_list           = boost::phoenix::bind(&Expression::parameter_list, _val);
-        auto const composition_list         = boost::phoenix::function<CompositionList>()(_val);
-
+        auto const is_literal          = boost::phoenix::bind(&Expression::is_literal, _val);
+        auto const is_preproc          = boost::phoenix::bind(&Expression::is_preproc, _val);
+        auto const is_capture          = boost::phoenix::bind(&Expression::is_capture, _val);
+        auto const has_subexpr         = boost::phoenix::bind(&Expression::has_subexpr, _val);
+        auto const serialize           = boost::phoenix::bind(&Expression::serialize, _val);
+        auto const keyword_to_str      = boost::phoenix::bind(&Expression::keyword_to_str, _val);
+        auto const subexpressions_list = boost::phoenix::bind(&Expression::subexpressions_list, _val);
+        auto const fork_terms          = boost::phoenix::bind(&Expression::fork_terms, _val);
+        auto const is_infix_pipe       = boost::phoenix::bind(&Expression::is_infix_pipe, _val);
+        auto const is_infix_fork       = boost::phoenix::bind(&Expression::is_infix_fork, _val);
+        auto const is_infix_tuple       = boost::phoenix::bind(&Expression::is_infix_tuple, _val);
 
         start
-            = eps(is_literal) << literal
-            | eps(is_nonempty_composition) << composition[_1 = composition_list]
-            | eps(is_nonempty_fork) << fork[_1 = parameter_list]
+            = eps(is_literal)     << karma::lazy(serialize)
+            | eps(is_preproc)     << karma::lazy(serialize)
+            | eps(is_capture)     << karma::lazy(serialize)
+            | eps(is_infix_pipe)  << pipe[_1 = subexpressions_list]
+            | eps(is_infix_fork)  << fork[_1 = fork_terms]
+            | eps(is_infix_tuple) << tuple[_1 = subexpressions_list]
             | keyword;
 
-        literal = string[_1 = serialize];
-        composition = start % lit(" | ");
-        parameters = start % lit(", ");
-        fork = lit('(') << start % lit(" & ") << ')';
+        subexpr
+            = eps(is_literal)     << karma::lazy(serialize)
+            | eps(is_preproc)     << karma::lazy(serialize)
+            | eps(is_capture)     << karma::lazy(serialize)
+            | eps(is_infix_pipe)  << nested_pipe[_1 = subexpressions_list]
+            | eps(is_infix_fork)  << nested_fork[_1 = fork_terms]
+            | eps(is_infix_tuple) << nested_tuple[_1 = subexpressions_list]
+            | keyword;
 
-        keyword = string[_1 = keyword_to_str] << -(eps(has_params) << lit('(') << parameters[_1 = parameter_list] << ')');
+        pipe    = subexpr % lit(" | ");
+        fork    = subexpr % lit(" & ");
+        tuple   = subexpr % lit(" + ");
+        nested_pipe  = lit('(') << subexpr % lit(" | ") << ')';
+        nested_fork  = lit('(') << subexpr % lit(" & ") << ')';
+        nested_tuple = lit('(') << subexpr % lit(" + ") << ')';
+        parameters   = lit('(') << -(start % lit(", "))  << ')';
+
+        keyword = string[_1 = keyword_to_str] << -(eps(has_subexpr)  << parameters[_1 = subexpressions_list]);
     }
 
-    boost::spirit::karma::rule<OutputIterator, Expression()> start, literal, keyword;
-    boost::spirit::karma::rule<OutputIterator, std::list<Expression>()> fork, composition, parameters;
+    boost::spirit::karma::rule<OutputIterator, Expression()> start, subexpr, keyword;
+    boost::spirit::karma::rule<OutputIterator, std::list<Expression>()> fork, pipe, tuple, parameters, nested_pipe, nested_fork, nested_tuple;
 };
 
 }  // namespace lang

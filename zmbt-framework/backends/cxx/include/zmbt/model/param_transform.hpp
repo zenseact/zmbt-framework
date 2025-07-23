@@ -14,7 +14,7 @@
 #include <zmbt/core/interface_id.hpp>
 #include <zmbt/core/interface_traits.hpp>
 #include <zmbt/core/object_id.hpp>
-#include <zmbt/core/parameter.hpp>
+#include <zmbt/model/parameter.hpp>
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/reflect/serialization.hpp>
 #include <stdint.h>
@@ -98,7 +98,7 @@ struct param_transform_interface<T, require_cal<T>> : public param_transform_bas
         else if (Kind::ifc_node & pkind)
         {
             pvalue = {
-                {"obj", "$default"},
+                {"obj", "$(default)"},
                 {"ifc", interface_id{arg} },
             };
         }

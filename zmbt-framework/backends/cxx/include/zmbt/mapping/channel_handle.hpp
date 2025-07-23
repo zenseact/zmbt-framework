@@ -87,7 +87,7 @@ public:
     bool is_output() const;
     bool has_expression() const;
     lang::Expression expression() const;
-    lang::Expression overload(lang::Expression const& e) const;
+    bool overload(lang::Expression& e) const;
 
     void inject(lang::Expression expr) const;
     boost::json::value observe() const;

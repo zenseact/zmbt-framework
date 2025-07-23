@@ -68,6 +68,11 @@ class Logger {
     static void open_json(const std::string& filename = "");
 
     static void set_max_level(Level const max_level);
+    static void set_trim_line(bool const trim_line);
+
+    static bool get_trim_line();
+    static Level get_max_level();
+
 
     Logger();
 
@@ -80,7 +85,7 @@ class Logger {
     ~Logger();
 
   private:
-    
+
     Level level_{INFO};
     int output_{STDERR | JSON};
     boost::json::string_view src_loc_{"unknown"};

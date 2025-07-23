@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE(ZipModel)
 
     auto identity = [](Base const& sig) -> Base { return sig; };
 
-    auto FieldParam = Param(1);
+    auto FieldParam = Param("lol");
 
     SignalMapping("Test inherited data on a subclass")
     .OnTrigger(identity)
@@ -559,7 +559,7 @@ BOOST_AUTO_TEST_CASE(ExpressionClauses)
     .Test
         (Id               , N | Arange                    )
         (Flip(Sub(N))     , "%d:0:-1" | Fmt(N) | Arange   )
-        (Recur(Pow(2), 2) , N | Sub(1) | Unfold(Pow(2), 2))
+        (Recur(2 + Pow(2)) , N | Sub(1) | Unfold(2 + Pow(2)))
     .Zip
         (N, 1, 42);
 }
