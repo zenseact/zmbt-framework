@@ -13,7 +13,7 @@
 namespace zmbt {
 namespace lang {
 
-std::string Expression::prettify() const
+std::string ExpressionView::prettify() const
 {
     std::string out;
     std::back_insert_iterator<std::string> sink(out);
@@ -25,7 +25,7 @@ std::string Expression::prettify() const
 }
 
 
-std::ostream& Expression::prettify_to(std::ostream& os) const
+std::ostream& ExpressionView::prettify_to(std::ostream& os) const
 {
     boost::spirit::ostream_iterator sink(os);
     ExpressionGrammar<boost::spirit::ostream_iterator> gen;
@@ -35,7 +35,7 @@ std::ostream& Expression::prettify_to(std::ostream& os) const
 }
 
 
-void Expression::prettify_to(char* buff, std::size_t n) const
+void ExpressionView::prettify_to(char* buff, std::size_t n) const
 {
     boost::iostreams::stream<boost::iostreams::array_sink> stream(buff, n);
     boost::spirit::ostream_iterator sink(stream);
@@ -46,6 +46,17 @@ void Expression::prettify_to(char* buff, std::size_t n) const
     std::size_t written = stream.tellp();
     buff[std::min(written, n - 1)] = '\0';
     return;
+}
+
+std::ostream& operator<<(std::ostream& os, ExpressionView const& expr)
+{
+    return expr.prettify_to(os);
+}
+
+zmbt::Logger& operator<<(zmbt::Logger& logger, ExpressionView const& expr)
+{
+    logger << static_cast<boost::json::value>(expr.prettify());
+    return logger;
 }
 
 } // namespace lang

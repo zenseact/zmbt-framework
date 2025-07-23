@@ -28,7 +28,6 @@ ZMBT_DEFINE_EVALUATE_IMPL(Capture)
     {
         return rhs();
     }
-    ZMBT_LOG_CERR(DEBUG) << self().to_json();
     auto const key = self().data();
     ASSERT(key.is_string(), "invalid reference");
     auto const referent = curr_ctx().captures->if_contains(key.get_string());

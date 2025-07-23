@@ -605,7 +605,7 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 /// \details
 /// Allows to combine different properties in a single expression.
 /// Parameter
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Fork> const Fork;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
 /// \brief Flips design-time and eval-time parameters.
 /// \details

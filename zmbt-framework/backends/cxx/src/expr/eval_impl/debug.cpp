@@ -35,7 +35,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
     local_ctx.op = curr_ctx().op;
     local_ctx.log = EvalLog::make();
 
-    auto const result = rhs().eval(lhs(), local_ctx);
+    auto const result = rhs().eval_e(lhs(), local_ctx);
 
     ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_DEBUG") << *local_ctx.log.stack;
     ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_DEBUG") << "\n" << local_ctx.log.str(2);

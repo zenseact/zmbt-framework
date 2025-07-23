@@ -295,7 +295,7 @@ std::vector<TestEvalSample> const TestSamples
     {42 | Try(Div(0)) | D(13)   , {}                    , 13                    },
 
 
-    {Fork((Size|4) + Size + Card) , {2,2,3,3}             , {true, 4, 2}          },
+    {Fork(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
     {(Size|4) & Size & Card     , {2,2,3,3}             , {{true, 4}, 2}        },
     {At(0) & At(2)              , {1,2,3}               , {1,3}                 },
     {Reduce(Add) & Size | Div   , {2,2,3,3}             , 2.5                   },
@@ -766,7 +766,7 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
     BOOST_TEST_INFO(expr.prettify());
     try
     {
-        auto const maybe_err = expr.eval_e({}, {});
+        auto const maybe_err = expr.eval_e(expr::Noop, {});
         if (expect_impl
             && maybe_err.is_error()
             && maybe_err.has_subexpr()

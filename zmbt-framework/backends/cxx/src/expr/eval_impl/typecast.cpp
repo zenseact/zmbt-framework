@@ -32,28 +32,26 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Op)
 {
-    auto const pl = self().subexpressions_list();
-
-    auto const fork = self().encoding_view().child(0);
+    auto const tuple = self().encoding_view().child(0);
     ASSERT(
-        (fork.head() == K::Tuple)
-        && fork.arity() == 2,
+        (tuple.head() == K::Tuple)
+        && tuple.arity() == 2,
         "invalid parameters, expected reference + Fn");
-    auto const operator_reference = E(fork.child(0).freeze()).eval({}, curr_ctx() MAYBE_INCR);
-    auto const F = E(fork.child(1).freeze());
+    auto const operator_reference = ExpressionView(tuple.child(0)).eval({}, curr_ctx());
+    ExpressionView const F(tuple.child(1));
 
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
-    EvalContext ctx = curr_ctx() MAYBE_INCR;
+    EvalContext ctx = curr_ctx();
     ctx.op = O{*if_str};
-    auto result = F.eval(lhs(), ctx);
+    auto result = F.eval_e(lhs(), ctx).to_json();
 
     return (F.is_const() && !F.is_boolean()) ? ctx.op.decorate(result) : result;
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cast)
 {
-    auto const operator_reference = rhs().eval({}, curr_ctx() MAYBE_INCR);
+    auto const operator_reference = rhs().eval({}, curr_ctx());
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
     auto const op = O{*if_str};
@@ -62,7 +60,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cast)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Uncast)
 {
-    auto const operator_reference = rhs().eval({}, curr_ctx() MAYBE_INCR);
+    auto const operator_reference = rhs().eval({}, curr_ctx());
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");
     auto const op = O{*if_str};

@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         ( 42             , 42     /*(1)*/                     )
         ( {1,2,3}        , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
         ( {1,2,3}        , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
-        ( {1,2,3,4}      , Reduce(Add) & Size | Div | Eq(2.5) ) //(5)
+        ( {1,2,3,4}      , Fold(Add) & Size | Div | Eq(2.5) ) //(5)
         ( Pi|Div(2)|Sin  , Approx(1)                          ) //(6)
         ( "5:1:-1"|Arange, {5,4,3,2}                          ) //(7)
     ;

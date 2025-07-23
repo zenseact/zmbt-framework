@@ -1389,7 +1389,7 @@ keyword_groups:
           Add(1) + Mul(2) ≡ Tuple(Add(1), Mul(2))
 
       - name: Fork
-        signature: Binary
+        signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
           Allows to combine different properties in a single expression.
@@ -1400,19 +1400,19 @@ keyword_groups:
           - label: functions
             type: list[expr]
         examples: |-
-          [1,2,3] | Fork(Reduce(Add) + Size) ↦ [6,3]
-          [1,2,3] | Fork(42 + Card + Id) ↦ [42, 3, [1,2,3]]
+          [1,2,3] | Fork(Reduce(Add), Size) ↦ [6,3]
+          [1,2,3] | Fork(42, Card, Id) ↦ [42, 3, [1,2,3]]
 
           **Infix operator form (ampersand):**
 
-          Add(1) & Mul(2) ≡ Fork(Add(1) + Mul(2))
+          Add(1) & Mul(2) ≡ Fork(Add(1), Mul(2))
           [1,2,3] | Reduce(Add) & Size ↦ [6,3]
           [1,2,3] | Reduce(Add) & Size | Div ↦ 2
 
           Note that the Fork is not associative,
           therefore an infix operator chain is not unfolded
-          as in variadic Pipe or Tuple:
-          a & b & c ≡ (a & b) & c ≡ Fork(Fork(a + b) + c)
+          as it is done for variadic Pipe or Tuple:
+          a & b & c ≡ (a & b) & c ≡ Fork(Fork(a, b), c)
 
       - name: Flip
         signature: Binary

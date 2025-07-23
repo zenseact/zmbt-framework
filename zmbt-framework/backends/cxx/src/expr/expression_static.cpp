@@ -54,7 +54,7 @@ Encoding Expression::encodeNested(Keyword const& keyword, std::move_iterator<T> 
 
     while(begin != end)
     {
-        enc.append_to_root(std::move((*begin++).encoding()));
+        enc.append_to_root(std::move((*begin++).encoding_));
     }
     return enc;
 }

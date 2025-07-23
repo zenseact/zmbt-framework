@@ -142,6 +142,9 @@ public:
 
     EncodingView(Encoding&& root) = delete;
 
+    EncodingView() = default;
+
+
     EncodingView(K const* k, std::size_t const* d, V const* v, V const* b,
                  std::size_t sz, std::size_t index_offset);
 

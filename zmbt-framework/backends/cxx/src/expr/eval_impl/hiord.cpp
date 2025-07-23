@@ -65,7 +65,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Sort)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Eval)
 {
-    return lhs().eval(rhs(), curr_ctx() MAYBE_INCR);
+    return lhs().eval_e(rhs(), curr_ctx());
 }
 
 
@@ -97,14 +97,16 @@ ZMBT_DEFINE_EVALUATE_IMPL(Flip)
 {
     auto const child = rhs().encoding_view().child(0);
     ASSERT(!child.empty(), "invalid parameter");
+    ExpressionView const roperand(child);
     auto const flip = E(E::encodeNested(rhs().keyword(), {lhs()}));
-    return flip.eval(E(child.freeze()), curr_ctx() MAYBE_INCR);
+
+    return flip.eval_e(roperand, curr_ctx());
 }
 
 
 ZMBT_DEFINE_EVALUATE_IMPL(Try)
 {
-    auto const result = rhs().eval_e(lhs(),curr_ctx() MAYBE_INCR);
+    auto const result = rhs().eval_e(lhs(),curr_ctx());
     if (result.is_error()) return nullptr;
     return result;
 }
@@ -119,13 +121,19 @@ ZMBT_DEFINE_EVALUATE_IMPL(Count)
 
     std::size_t count {0};
 
+    E err_sts(nullptr);
+
     if (if_arr)
     {
         for (auto const& sample: *if_arr)
         {
-            if (rhs().eval_as_predicate(sample,curr_ctx() MAYBE_INCR).as_bool())
+            if (rhs().eval_as_predicate(sample, err_sts, curr_ctx()) && !err_sts.is_error())
             {
                 count++;
+            }
+            else if(err_sts.is_error())
+            {
+                return err_sts;
             }
         }
     }
@@ -133,9 +141,13 @@ ZMBT_DEFINE_EVALUATE_IMPL(Count)
     {
         for (auto const& kv: *if_obj)
         {
-            if (rhs().eval_as_predicate({kv.key(), kv.value()},curr_ctx() MAYBE_INCR).as_bool())
+            if (rhs().eval_as_predicate({kv.key(), kv.value()},err_sts, curr_ctx()) && !err_sts.is_error())
             {
                 count++;
+            }
+            else if(err_sts.is_error())
+            {
+                return err_sts;
             }
         }
     }
@@ -149,13 +161,19 @@ ZMBT_DEFINE_EVALUATE_IMPL(Each)
     auto const if_obj = lhs().if_object();
     ASSERT(if_arr || if_obj, "invalid argument")
 
+    E err_sts(nullptr);
+
     if (if_arr)
     {
         for (auto const& sample: *if_arr)
         {
-            if (!rhs().eval_as_predicate(sample,curr_ctx() MAYBE_INCR).as_bool())
+            if (!rhs().eval_as_predicate(sample,err_sts,curr_ctx()) && !err_sts.is_error())
             {
                 return false;
+            }
+            else if(err_sts.is_error())
+            {
+                return err_sts;
             }
         }
     }
@@ -163,9 +181,13 @@ ZMBT_DEFINE_EVALUATE_IMPL(Each)
     {
         for (auto const& kv: *if_obj)
         {
-            if (!rhs().eval_as_predicate({kv.key(), kv.value()},curr_ctx() MAYBE_INCR).as_bool())
+            if (!rhs().eval_as_predicate({kv.key(), kv.value()},err_sts,curr_ctx()) && !err_sts.is_error())
             {
                 return false;
+            }
+            else if(err_sts.is_error())
+            {
+                return err_sts;
             }
         }
     }
@@ -190,7 +212,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Map)
 
     for (auto const& el: samples)
     {
-        ret.push_back(F.eval(el,curr_ctx() MAYBE_INCR));
+        ret.push_back(F.eval(el,curr_ctx()));
     }
 
     return ret;
@@ -205,15 +227,22 @@ ZMBT_DEFINE_EVALUATE_IMPL(Filter)
     boost::json::array ret {};
     auto const& F = rhs();
 
+    E err_sts(nullptr);
+
+
     if (samples.empty())
     {
         return ret;
     }
     for (auto const& el: samples)
     {
-        if (F.eval_as_predicate(el,curr_ctx() MAYBE_INCR).as_bool())
+        if (F.eval_as_predicate(el, err_sts, curr_ctx()) && !err_sts.is_error())
         {
             ret.push_back(el);
+        }
+        else if(err_sts.is_error())
+        {
+            return err_sts;
         }
     }
     return ret;

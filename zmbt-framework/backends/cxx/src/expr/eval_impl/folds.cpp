@@ -45,7 +45,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fold)
 
     while (it != samples.cend())
     {
-        ret = F.eval({ret, *it},curr_ctx() MAYBE_INCR);
+        ret = F.eval({ret, *it},curr_ctx());
         it++;
     }
 
@@ -55,13 +55,13 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fold)
 ZMBT_DEFINE_EVALUATE_IMPL(Sum)
 {
     ASSERT(lhs().if_array(), "invalid argument");
-    return expr::Fold(expr::Add).eval(lhs(), curr_ctx() MAYBE_INCR);
+    return expr::Fold(expr::Add).eval_e(lhs(), curr_ctx());
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Prod)
 {
     ASSERT(lhs().if_array(), "invalid argument");
-    return expr::Fold(expr::Mul).eval(lhs(), curr_ctx() MAYBE_INCR);
+    return expr::Fold(expr::Mul).eval_e(lhs(), curr_ctx());
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Avg)
@@ -70,7 +70,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Avg)
     ASSERT(if_arr, "invalid argument");
 
     auto const N = if_arr->size();
-    auto const sum = expr::Fold(expr::Add).eval(lhs(), curr_ctx() MAYBE_INCR);
+    auto const sum = expr::Fold(expr::Add).eval_e(lhs(), curr_ctx()).to_json();
     return curr_ctx().op.apply(Keyword::Div, sum, N);
 }
 

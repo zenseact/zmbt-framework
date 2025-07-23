@@ -8,12 +8,12 @@ template <> struct EvalImpl<Keyword::K>                                         
 };                                                                              \
                                                                                 \
 template <> Expression dispatch_eval<Keyword::K>(                               \
-    Expression const& self, Expression const& x, EvalContext context)           \
+    ExpressionView const& self, ExpressionView const& x, EvalContext context)   \
 {                                                                               \
     return EvalImpl<Keyword::K>(self, x, context)();                            \
 }                                                                               \
                                                                                 \
 Expression EvalImpl<Keyword::K>::impl() const                                   \
 
-#define MAYBE_INCR
+
 #define ASSERT(cond, msg) if (!(cond)) { return ::zmbt::lang::detail::make_error_expr(msg, keyword_to_str());}
