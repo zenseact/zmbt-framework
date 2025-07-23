@@ -43,10 +43,7 @@ public:
     // CTORS
     //////////////////
 
-    ExpressionView()
-        : encoding_view_{}
-    {
-    }
+    ExpressionView();
 
     ExpressionView(ExpressionView const&) = default;
     ExpressionView(ExpressionView&&) = default;

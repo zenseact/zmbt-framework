@@ -157,6 +157,7 @@ lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Capture> const Capture = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Refer> const Refer = {};
+lang::SignatureBinary<::zmbt::lang::Keyword::Let> const Let = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::All> const All = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate = {};

@@ -34,6 +34,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
     EvalContext local_ctx {};
     local_ctx.op = curr_ctx().op;
     local_ctx.log = EvalLog::make();
+    local_ctx.captures = curr_ctx().captures;
+    local_ctx.links = curr_ctx().links;
 
     auto const result = rhs().eval_e(lhs(), local_ctx);
 

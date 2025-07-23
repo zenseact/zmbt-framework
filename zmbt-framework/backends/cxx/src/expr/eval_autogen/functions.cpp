@@ -54,7 +54,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(ToList) { return boost::json::array{ lhs().to_json() }
 ZMBT_DEFINE_EVALUATE_IMPL(Parse) { return boost::json::parse( lhs().as_string()); }
 ZMBT_DEFINE_EVALUATE_IMPL(Str) { return lhs().prettify().c_str(); }
 ZMBT_DEFINE_EVALUATE_IMPL(Q) { return rhs(); }
-ZMBT_DEFINE_EVALUATE_IMPL(D) { return lhs().is_null() ? rhs() :  lhs(); }
+ZMBT_DEFINE_EVALUATE_IMPL(D) { return (lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs(); }
 ZMBT_DEFINE_EVALUATE_IMPL(Err) { return self(); }
 ZMBT_DEFINE_EVALUATE_IMPL(PreProc) { return self(); }
 

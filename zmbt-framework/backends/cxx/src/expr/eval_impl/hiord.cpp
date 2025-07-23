@@ -28,8 +28,6 @@ using O = zmbt::lang::Operator;
 namespace zmbt {
 namespace lang {
 
-
-
 ZMBT_DEFINE_EVALUATE_IMPL(Kwrd)
 {
     return lhs().keyword_to_str();

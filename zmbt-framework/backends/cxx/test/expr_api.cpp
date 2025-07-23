@@ -34,6 +34,7 @@ std::set<Keyword> const NotImplemented {
     Keyword::FindPtr,
     Keyword::FindIdx,
     Keyword::Link,
+    Keyword::Let,
     Keyword::Capture,
     Keyword::Refer,
 };
@@ -766,7 +767,7 @@ BOOST_DATA_TEST_CASE(ImplementationCoverage, utf::data::xrange(std::size_t{1ul},
     BOOST_TEST_INFO(expr.prettify());
     try
     {
-        auto const maybe_err = expr.eval_e(expr::Noop, {});
+        auto const maybe_err = expr.eval_e({}, {});
         if (expect_impl
             && maybe_err.is_error()
             && maybe_err.has_subexpr()
@@ -1163,65 +1164,14 @@ BOOST_AUTO_TEST_CASE(TestCapture)
     BOOST_CHECK_EQUAL(*(-42 | e), 42);
 }
 
-BOOST_AUTO_TEST_CASE(TestFix)
+BOOST_AUTO_TEST_CASE(SymbolicLink)
 {
-    /*
-    // Y = λf.(λx. f (x x))(λx. f (x x)))
-    // Z = λg. (λr. g (λy. r r y)) (λr. g (λy. r r y))
-
-    canonical form:
-    Fix(Let("$f", X | Eq(0) | And(1) | Or(X | Sub(1) | "$f")))
-
-    sugar form:
-    Fix("$f" << (X | Eq(0) | And(1) | Or(X | Sub(1) | "$f")))
-
-    Fix("$f" << (       // binding to rhs expression
-        X               // binding to input value
-        | Eq(0)         // if x == 0
-        | And(1)        // then 1
-        | Or(           // else
-            X | Sub(1)  //   x - 1
-            | "$f"      //   recursive call, $f is lazy eval
-        )
-    ))
-    */
-}
-
-// WIP
-
-#include <zmbt/expr/eval_impl.hpp>
-
-
-BOOST_AUTO_TEST_CASE(TestEval)
-{
-    {
-        auto const e = Add(42) | Mul(2);
-        auto const result = e.eval(11, {});
-        BOOST_CHECK_EQUAL(result, 106);
-    }
-
-    {
-        auto const e = 2 & Q(42) | Add;
-        auto const result = e.eval({}, {});
-        BOOST_CHECK_EQUAL(result, 44);
-    }
-
-    {
-        auto const e = "%s, %s!" | Fmt("Hello", "World");
-        auto const result = e.eval({}, {});
-        BOOST_CHECK_EQUAL(result, "Hello, World!");
-    }
-
-
-    {
-        auto const e = "%s, %s!" & Q({"Hello", "World"}) | Fmt;
-        auto const result = e.eval({}, {});
-        BOOST_CHECK_EQUAL(result, "Hello, World!");
-    }
-
-    {
-        auto const e = Q(Ge(12)) | Recur( 4 + Add(1));
-        BOOST_CHECK_EQUAL(e.eval(), 11);
-    }
-
+    auto fact = "$f" << (Let("$x") | Any(0, 1) | And(1) | Or(Null) | D("$x" & ("$x" | Sub(1) | "$f") | Mul));
+    BOOST_TEST_INFO(fact.prettify());
+    BOOST_CHECK_EQUAL(fact.eval(0),   1);
+    BOOST_CHECK_EQUAL(fact.eval(1),   1);
+    BOOST_CHECK_EQUAL(fact.eval(2),   2);
+    BOOST_CHECK_EQUAL(fact.eval(3),   6);
+    BOOST_CHECK_EQUAL(fact.eval(4),  24);
+    BOOST_CHECK_EQUAL(fact.eval(5), 120);
 }

@@ -23,6 +23,7 @@ EvalParams::EvalParams(ExpressionView const& e, ExpressionView const& x, EvalCon
     bool const is_variadic = a & attr::is_variadic;
     bool const is_hiord = a & attr::is_hiord;
     bool const is_quote = a & attr::is_quote;
+    bool const is_lazy = a & attr::is_lazy;
 
     lhs_ = x;
 
@@ -40,7 +41,7 @@ EvalParams::EvalParams(ExpressionView const& e, ExpressionView const& x, EvalCon
             rhs_ = ExpressionView(child);
         }
 
-        if (!(is_hiord || is_quote))
+        if (!(is_hiord || is_quote || is_lazy))
         {
             rhs_ = rhs_maybe_owned_ = rhs_.eval({}, ctx);
         }

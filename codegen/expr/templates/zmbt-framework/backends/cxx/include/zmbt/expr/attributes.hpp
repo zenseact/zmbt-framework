@@ -44,6 +44,7 @@ constexpr std::uint32_t is_fork        = 1 << 14;
 constexpr std::uint32_t is_overload    = 1 << 15;
 constexpr std::uint32_t is_infix_chain = 1 << 16;
 constexpr std::uint32_t is_autogen     = 1 << 17;
+constexpr std::uint32_t is_lazy        = 1 << 18;
 }
 
 

@@ -148,7 +148,12 @@ void EvalLog::format(std::ostream& os, boost::json::array const& log, int const 
             E f(rec.at(1));
             E x(rec.at(2));
             E fx(rec.at(3));
-            os << f << " $ " << x  << " = " << fx << '\n';
+            f.prettify_to(os);
+            os << " $ ";
+            x.prettify_to(os);
+            os << " = ";
+            fx.prettify_to(os);
+            os << '\n';
         }
         else
         {

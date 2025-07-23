@@ -143,6 +143,7 @@ extern template Expression dispatch_eval<Keyword::Bind>(ExpressionView const&, E
 extern template Expression dispatch_eval<Keyword::Link>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Capture>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Refer>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Let>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Any>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::All>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Saturate>(ExpressionView const&, ExpressionView const&, EvalContext);
@@ -290,6 +291,7 @@ try
         case Keyword::Link: return dispatch_eval<Keyword::Link>(*this, x, context);
         case Keyword::Capture: return dispatch_eval<Keyword::Capture>(*this, x, context);
         case Keyword::Refer: return dispatch_eval<Keyword::Refer>(*this, x, context);
+        case Keyword::Let: return dispatch_eval<Keyword::Let>(*this, x, context);
         case Keyword::Any: return dispatch_eval<Keyword::Any>(*this, x, context);
         case Keyword::All: return dispatch_eval<Keyword::All>(*this, x, context);
         case Keyword::Saturate: return dispatch_eval<Keyword::Saturate>(*this, x, context);

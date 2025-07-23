@@ -584,8 +584,11 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
 /// as those formats are reserved for internal usage.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Capture> const Capture;
 
-/// \brief ...
+/// \brief Return capture
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Refer> const Refer;
+
+/// \brief Store capture
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Let> const Let;
 
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;

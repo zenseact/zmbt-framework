@@ -403,6 +403,9 @@ enum class Keyword
     /// Refer
     Refer,
 
+    /// Let
+    Let,
+
     /// Any
     Any,
 

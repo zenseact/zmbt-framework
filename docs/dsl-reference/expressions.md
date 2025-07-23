@@ -1705,7 +1705,16 @@ as those formats are reserved for internal usage.
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-...
+Return capture
+
+
+
+### Let
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Store capture
 
 
 

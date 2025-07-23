@@ -41,7 +41,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
     "invalid parameters, expected initial + Fn");
     ExpressionView const init(fork.child(0));
     ExpressionView const F (fork.child(1));
-    E item = init.eval_e(expr::Noop, curr_ctx());
+    E item = init.eval_e({}, curr_ctx());
 
 
     E const dummy(false);
@@ -87,7 +87,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
     "invalid parameters, expected initial + Fn");
     ExpressionView const init(fork.child(0));
     ExpressionView const F (fork.child(1));
-    E item = init.eval_e(expr::Noop, curr_ctx());
+    E item = init.eval_e({}, curr_ctx());
 
     E const dummy(false);
 

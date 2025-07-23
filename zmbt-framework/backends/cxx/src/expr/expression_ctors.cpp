@@ -20,6 +20,11 @@
 namespace zmbt {
 namespace lang {
 
+ExpressionView::ExpressionView()
+    : encoding_view_{expr::Noop.encoding_view()}
+{
+}
+
 Expression::Expression(Encoding&& encoding)
     : encoding_{std::move(encoding)}
 {

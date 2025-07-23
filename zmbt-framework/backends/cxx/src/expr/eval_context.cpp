@@ -5,6 +5,7 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
 
 
@@ -17,13 +18,12 @@ EvalContext EvalContext::make(Operator const& op)
     next.log = EvalLog::make();
     next.op = op;
     return next;
-    // return {op, EvalLog::make(), std::make_shared<boost::json::object>(), 0};
-    // return {op, EvalLog::make(), {}, 0};
 }
 EvalContext::EvalContext()
     : op{}
     , log{}
     , captures{std::make_shared<boost::json::object>()}
+    , links{std::make_shared<std::map<boost::json::string, ExpressionView>>()}
     , depth{0}
 {
 }
