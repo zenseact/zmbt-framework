@@ -60,10 +60,6 @@ class Keyword:
         return 'op' in self.Tags and not self.Name in EXCLUDE_OPERATORS
 
     @property
-    def IsLazy(self) -> bool:
-        return self._definition.get('lazy', self.IsHiOrd)
-
-    @property
     def CodegenValue(self) -> str:
         return self._definition.get('codegen-value', {}).get(self._backend, None)
 
@@ -124,8 +120,6 @@ class Keyword:
             attrs.append('is_fork')
         if self.Name == 'Op':
             attrs.append('is_overload')
-        if self.IsLazy:
-            attrs.append('is_lazy')
 
         return ' | '.join(attrs)
 

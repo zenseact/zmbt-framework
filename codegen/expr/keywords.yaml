@@ -620,7 +620,6 @@ keyword_groups:
             if first operand is truthy,
             returns second operand, otherwise first
         symbol: ∧
-        # lazy: True TODO: implement a s lazy
         examples: |-
           [true, false] | And ↦ false
           [true, true] | And ↦ true
@@ -641,7 +640,6 @@ keyword_groups:
       - name: Or
         brief: Logical or
         symbol: ∨
-        # lazy: True TODO: implement a s lazy
         details: |-
           Generic behavior:
             if first operand is truthy,
@@ -1514,7 +1512,6 @@ keyword_groups:
         aliases: [ Default ]
         brief: Return x if not null, else return default value
         domain: [any, any]
-        lazy: True
         codegen-value:
           # cxx: 'lhs().is_null() ? rhs() :  lhs()'
           cxx: '(lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs()'
