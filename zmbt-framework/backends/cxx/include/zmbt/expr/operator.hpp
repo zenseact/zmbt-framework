@@ -13,14 +13,14 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 #include "keyword.hpp"
-#include "exceptions.hpp"
+#include "lazy_param.hpp"
 #include <boost/current_function.hpp>
 
 
 
 #define ZMBT_SOH_HANDLE_UNARY_TRANSFORM(OP, TRAIT)       \
 template <class T>                                       \
-static auto handle_##TRAIT(V const& val)                 \
+static auto handle_##TRAIT(LV val)                       \
 -> mp_if<has_##TRAIT<T>, V>                              \
 try {                                                    \
     return json_from(OP dejsonize<T>(val));              \
@@ -31,7 +31,7 @@ catch(const std::exception& e)                           \
         e.what(), BOOST_CURRENT_FUNCTION);               \
 }                                                        \
 template <class T>                                       \
-static auto handle_##TRAIT(V const&)                     \
+static auto handle_##TRAIT(LV)                           \
 -> mp_if<mp_not<has_##TRAIT<T>>, V>                      \
 try {                                                    \
     return detail::make_error_expr(                      \
@@ -43,29 +43,29 @@ catch(const std::exception& e)                           \
         e.what(), BOOST_CURRENT_FUNCTION);               \
 }
 
-#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT)                \
-template <class T>                                              \
-static auto handle_##TRAIT(V const& lhs, V const& rhs)          \
--> mp_if<has_##TRAIT<T>, V>                                     \
-try {                                                           \
-    return json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs));   \
-}                                                               \
-catch(const std::exception& e)                                  \
-{                                                               \
-    return detail::make_error_expr(                             \
-        e.what(), BOOST_CURRENT_FUNCTION);                      \
-}                                                               \
-template <class T>                                              \
-static auto handle_##TRAIT(V const&, V const&)                  \
--> mp_if<mp_not<has_##TRAIT<T>>, V>                             \
-try {                                                           \
-    return detail::make_error_expr(                             \
-        "invalid operands", BOOST_CURRENT_FUNCTION);            \
-}                                                               \
-catch(const std::exception& e)                                  \
-{                                                               \
-    return detail::make_error_expr(                             \
-        e.what(), BOOST_CURRENT_FUNCTION);                      \
+#define ZMBT_SOH_HANDLE_BIN_TRANSFORM(OP, TRAIT)                 \
+template <class T>                                               \
+static auto handle_##TRAIT(LV lhs, LV rhs)                       \
+-> mp_if<has_##TRAIT<T>, V>                                      \
+try {                                                            \
+    return json_from(dejsonize<T>(lhs) OP dejsonize<T>(rhs));    \
+}                                                                \
+catch(const std::exception& e)                                   \
+{                                                                \
+    return detail::make_error_expr(                              \
+        e.what(), BOOST_CURRENT_FUNCTION);                       \
+}                                                                \
+template <class T>                                               \
+static auto handle_##TRAIT(LV, LV)                               \
+-> mp_if<mp_not<has_##TRAIT<T>>, V>                              \
+try {                                                            \
+    return detail::make_error_expr(                              \
+        "invalid operands", BOOST_CURRENT_FUNCTION);             \
+}                                                                \
+catch(const std::exception& e)                                   \
+{                                                                \
+    return detail::make_error_expr(                              \
+        e.what(), BOOST_CURRENT_FUNCTION);                       \
 }
 
 namespace zmbt {
@@ -86,6 +86,7 @@ class Operator
   public:
 
     using V = boost::json::value;
+    using LV = LazyParam;
 
     enum Config : std::uint32_t
     {
@@ -100,39 +101,37 @@ class Operator
         Full        = Default|Logic,
     };
 
-    static V generic_is_truth(V const&);
-    static V generic_decorate(V const&);
-    static V generic_undecorate(V const&);
-    static V generic_negate(V const&);
-    static V generic_complement(V const&);
-    static V generic_logical_not(V const&);
-    static V generic_equal_to(V const&, V const&);
-    static V generic_less(V const&, V const&);
-    static V generic_less_equal(V const&, V const&);
-    static V generic_plus(V const&, V const&);
-    static V generic_minus(V const&, V const&);
-    static V generic_multiplies(V const&, V const&);
-    static V generic_divides(V const&, V const&);
-    static V generic_modulus(V const&, V const&);
-    static V generic_bit_and(V const&, V const&);
-    static V generic_bit_or(V const&, V const&);
-    static V generic_bit_xor(V const&, V const&);
-    static V generic_left_shift(V const&, V const&);
-    static V generic_right_shift(V const&, V const&);
-    static V generic_logical_and(V const&, V const&);
-    static V generic_logical_or(V const&, V const&);
+    static V generic_is_truth   (LV);
+    static V generic_decorate   (LV);
+    static V generic_undecorate (LV);
+    static V generic_negate     (LV);
+    static V generic_complement (LV);
+    static V generic_logical_not(LV);
+    static V generic_equal_to   (LV, LV);
+    static V generic_less       (LV, LV);
+    static V generic_less_equal (LV, LV);
+    static V generic_plus       (LV, LV);
+    static V generic_minus      (LV, LV);
+    static V generic_multiplies (LV, LV);
+    static V generic_divides    (LV, LV);
+    static V generic_modulus    (LV, LV);
+    static V generic_bit_and    (LV, LV);
+    static V generic_bit_or     (LV, LV);
+    static V generic_bit_xor    (LV, LV);
+    static V generic_left_shift (LV, LV);
+    static V generic_right_shift(LV, LV);
+    static V generic_logical_and(LV, LV);
+    static V generic_logical_or (LV, LV);
 
-    static V generic_pow(V const&, V const&);
-    static V generic_log(V const&, V const&);
-    static V generic_quot(V const&, V const&);
+    static V generic_pow (LV, LV);
+    static V generic_log (LV, LV);
+    static V generic_quot(LV, LV);
 
 
   private:
 
-    // boost::json::string_view config2Str() const
-
-    using unary_transform = std::function<V(V const&)>;
-    using binary_transform = std::function<V(V const&, V const&)>;
+    using unary_transform = std::function<V(LV)>;
+    using binary_transform = std::function<V(LV, LV)>;
 
     ZMBT_SOH_HANDLE_UNARY_TRANSFORM(-, negate)
     ZMBT_SOH_HANDLE_UNARY_TRANSFORM(~, complement)
@@ -158,12 +157,12 @@ class Operator
 
 
     template <class T>
-    static auto handle_decorate(boost::json::value const& a)
+    static auto handle_decorate(LV v)
         -> mp_if<detail::has_type_decorated_type<T>, boost::json::value>
     try
     {
         using Decorated = typename T::decorated_type;
-        return json_from(static_cast<Decorated>(dejsonize<T>(a)));
+        return json_from(static_cast<Decorated>(dejsonize<T>(v)));
     }
     catch(const std::exception& e)
     {
@@ -183,7 +182,7 @@ class Operator
     }
 
     template <class T>
-    static auto handle_undecorate(boost::json::value const& a)
+    static auto handle_undecorate(LV const& a)
         -> mp_if<detail::has_type_decorated_type<T>, boost::json::value>
     try
     {
@@ -196,7 +195,7 @@ class Operator
     }
 
     template <class T>
-    static auto handle_undecorate(boost::json::value const& a)
+    static auto handle_undecorate(LV const& a)
         -> mp_if<mp_not<detail::has_type_decorated_type<T>>, boost::json::value>
     try
     {
@@ -208,7 +207,7 @@ class Operator
     }
 
     template <class T>
-    static auto handle_is_truth(boost::json::value const& val) -> mp_if<is_convertible<T, bool>, boost::json::value>
+    static auto handle_is_truth(LV const& val) -> mp_if<is_convertible<T, bool>, boost::json::value>
     try
     {
         return static_cast<bool>(dejsonize<T>(val));
@@ -219,7 +218,7 @@ class Operator
     }
 
     template <class T>
-    static auto handle_is_truth(boost::json::value const&) -> mp_if<mp_not<is_convertible<T, bool>>, boost::json::value>
+    static auto handle_is_truth(LV const&) -> mp_if<mp_not<is_convertible<T, bool>>, boost::json::value>
     {
         return detail::make_error_expr("invalid operand", BOOST_CURRENT_FUNCTION);
     }
@@ -369,16 +368,16 @@ public:
 
     /// \brief Apply operands
     /// \details For unary operators, lhs is nullptr
-    boost::json::value apply(lang::Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const;
+    boost::json::value apply(lang::Keyword const& keyword, LV lhs, LV rhs) const;
 
 
 private:
 
     /// Is subset of
-    V is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const;
+    V is_subset(LV const& lhs, LV const& rhs) const;
 
     /// Is element of
-    V contains(boost::json::value const& set, boost::json::value const& element) const;
+    V contains(LV const& set, LV const& element) const;
 
 };
 

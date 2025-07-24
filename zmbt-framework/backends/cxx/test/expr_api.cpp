@@ -1166,7 +1166,12 @@ BOOST_AUTO_TEST_CASE(TestCapture)
 
 BOOST_AUTO_TEST_CASE(SymbolicLink)
 {
-    auto fact = "$f" << (Let("$x") | Any(0, 1) | And(1) | Or(Null) | D("$x" & ("$x" | Sub(1) | "$f") | Mul));
+    auto fact = "$f" << (Let("$x")
+        | Any(0, 1)
+        | And(1)
+        | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+    );
+
     BOOST_TEST_INFO(fact.prettify());
     BOOST_CHECK_EQUAL(fact.eval(0),   1);
     BOOST_CHECK_EQUAL(fact.eval(1),   1);

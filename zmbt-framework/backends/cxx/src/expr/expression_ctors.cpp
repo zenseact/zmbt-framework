@@ -15,6 +15,8 @@
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/api.hpp"
+#include "zmbt/expr/exceptions.hpp"
+
 
 
 namespace zmbt {

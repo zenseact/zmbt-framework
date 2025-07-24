@@ -27,7 +27,7 @@ namespace zmbt {
 namespace lang {
 
 @for keyword in data.Operators:
-ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return curr_ctx().op.apply(Keyword::@keyword.Name, lhs().data(), rhs().data()); }
+ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return curr_ctx().op.apply(Keyword::@keyword.Name, {lhs(), curr_ctx()}, {rhs(), curr_ctx()}); }
 @end
 
 

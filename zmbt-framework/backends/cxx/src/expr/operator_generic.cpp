@@ -81,19 +81,20 @@ namespace lang {
 
 
 
-V Operator::generic_decorate(V const& x)
+V Operator::generic_decorate(LV x)
 {
-    return x;
+    return x();
 }
-V Operator::generic_undecorate(V const& x)
+V Operator::generic_undecorate(LV x)
 {
-    return x;
+    return x();
 }
 
 // this shall never throw or yield error
-V Operator::generic_equal_to(V const& lhs, V const& rhs)
+V Operator::generic_equal_to(LV llhs, LV lrhs)
 {
-
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     if (lhs.is_number() and rhs.is_number())
     {
         return is_equal_as_number(lhs, rhs);
@@ -142,9 +143,10 @@ V Operator::generic_equal_to(V const& lhs, V const& rhs)
 }
 
 // this shall never throw or yield error
-V Operator::generic_less(V const& lhs, V const& rhs)
+V Operator::generic_less(LV llhs, LV lrhs)
 {
-
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     if (lhs.is_null())
     {
         return true;
@@ -178,27 +180,34 @@ V Operator::generic_less(V const& lhs, V const& rhs)
 
 
 
-V Operator::generic_less_equal(V const& lhs, V const& rhs)
+V Operator::generic_less_equal(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     return not generic_less(rhs, lhs).as_bool();
 }
 
-V Operator::generic_left_shift(V const& lhs, V const& rhs)
+V Operator::generic_left_shift(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     auto const v = boost::json::value_to<std::uint64_t>(lhs);
     auto const shift = boost::json::value_to<std::uint64_t>(rhs);
     return v << shift;
 }
 
-V Operator::generic_right_shift(V const& lhs, V const& rhs)
+V Operator::generic_right_shift(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     auto const v = boost::json::value_to<std::uint64_t>(lhs);
     auto const shift = boost::json::value_to<std::uint64_t>(rhs);
     return v >> shift;
 }
 
-V Operator::generic_negate(V const& x)
+V Operator::generic_negate(LV lx)
 {
+    auto const& x = lx();
     switch (x.kind())
     {
     case boost::json::kind::uint64:
@@ -214,8 +223,9 @@ V Operator::generic_negate(V const& x)
     }
 }
 
-V Operator::generic_complement(V const& x)
+V Operator::generic_complement(LV lx)
 {
+    auto const& x = lx();
     switch (x.kind())
     {
     case boost::json::kind::uint64:
@@ -287,18 +297,22 @@ default:                                        \
     RETURN_ERROR("invalid operands")            \
 }
 
-V Operator::generic_logical_and(V const& lhs, V const& rhs)
+V Operator::generic_logical_and(LV llhs, LV lrhs)
 {
-    return (generic_is_truth(lhs).as_bool() ? rhs : lhs);
+    auto const& lhs = llhs();
+    return (generic_is_truth(lhs).as_bool() ? lrhs() : lhs);
 }
 
-V Operator::generic_logical_or(V const& lhs, V const& rhs)
+V Operator::generic_logical_or(LV llhs, LV lrhs)
 {
-    return not generic_is_truth(lhs).as_bool() ? rhs : lhs;
+    auto const& lhs = llhs();
+    return not generic_is_truth(lhs).as_bool() ? lrhs() : lhs;
 }
 
-V Operator::generic_plus(V const& lhs, V const& rhs)
+V Operator::generic_plus(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
 #define X_OP            +
 #define X_ZERO_DIV      false
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64 CASE_DOUBLE
@@ -308,8 +322,10 @@ V Operator::generic_plus(V const& lhs, V const& rhs)
 #undef X_BINOP_CASES
 }
 
-V Operator::generic_minus(V const& lhs, V const& rhs)
+V Operator::generic_minus(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
 #define X_OP            -
 #define X_ZERO_DIV      false
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64 CASE_DOUBLE
@@ -319,8 +335,10 @@ V Operator::generic_minus(V const& lhs, V const& rhs)
 #undef X_BINOP_CASES
 }
 
-V Operator::generic_multiplies(V const& lhs, V const& rhs)
+V Operator::generic_multiplies(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
 #define X_OP            *
 #define X_ZERO_DIV      false
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64 CASE_DOUBLE
@@ -331,8 +349,10 @@ V Operator::generic_multiplies(V const& lhs, V const& rhs)
 }
 
 
-V Operator::generic_modulus(V const& lhs, V const& rhs)
+V Operator::generic_modulus(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     #define X_OP        %
 #define X_ZERO_DIV      true
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64
@@ -342,8 +362,10 @@ V Operator::generic_modulus(V const& lhs, V const& rhs)
 #undef X_BINOP_CASES
 }
 
-V Operator::generic_bit_and(V const& lhs, V const& rhs)
+V Operator::generic_bit_and(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
 #define X_OP            &
 #define X_ZERO_DIV      false
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64
@@ -353,8 +375,10 @@ V Operator::generic_bit_and(V const& lhs, V const& rhs)
 #undef X_BINOP_CASES
 }
 
-V Operator::generic_bit_or(V const& lhs, V const& rhs)
+V Operator::generic_bit_or(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
 #define X_OP            |
 #define X_ZERO_DIV      false
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64
@@ -364,8 +388,10 @@ V Operator::generic_bit_or(V const& lhs, V const& rhs)
 #undef X_BINOP_CASES
 }
 
-V Operator::generic_bit_xor(V const& lhs, V const& rhs)
+V Operator::generic_bit_xor(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
 #define X_OP            ^
 #define X_ZERO_DIV      false
 #define X_BINOP_CASES   CASE_INT64 CASE_UINT64
@@ -380,8 +406,10 @@ V Operator::generic_bit_xor(V const& lhs, V const& rhs)
 #undef CASE_DOUBLE
 #undef ZMBT_GSO_BIN_OP
 
-V Operator::generic_divides(V const& lhs, V const& rhs)
+V Operator::generic_divides(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     if (lhs.is_null() || rhs.is_null())
     {
         return nullptr;
@@ -431,8 +459,10 @@ V Operator::generic_divides(V const& lhs, V const& rhs)
     }
 }
 
-V Operator::generic_pow(V const& lhs, V const& rhs)
+V Operator::generic_pow(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     boost::json::value ret;
     if (lhs.is_number() && rhs.is_number())
     {
@@ -455,8 +485,10 @@ V Operator::generic_pow(V const& lhs, V const& rhs)
 }
 
 
-V Operator::generic_log(V const& lhs, V const& rhs)
+V Operator::generic_log(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     boost::json::value ret;
     if (lhs.is_number() && rhs.is_number())
     {
@@ -480,8 +512,10 @@ V Operator::generic_log(V const& lhs, V const& rhs)
 }
 
 
-V Operator::generic_quot(V const& lhs, V const& rhs)
+V Operator::generic_quot(LV llhs, LV lrhs)
 {
+    auto const& lhs = llhs();
+    auto const& rhs = lrhs();
     if (lhs.is_null() || rhs.is_null())
     {
         return nullptr;
@@ -512,13 +546,15 @@ V Operator::generic_quot(V const& lhs, V const& rhs)
 }
 
 
-V Operator::generic_logical_not(V const& x)
+V Operator::generic_logical_not(LV lx)
 {
+    auto const& x = lx();
     return not generic_is_truth(x).as_bool(); // assume generic_is_truth never throws
 }
 
-V Operator::generic_is_truth(V const& x)
+V Operator::generic_is_truth(LV lx)
 {
+    auto const& x = lx();
     switch (x.kind())
     {
     case boost::json::kind::null:
