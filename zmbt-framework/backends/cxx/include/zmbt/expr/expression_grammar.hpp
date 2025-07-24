@@ -33,18 +33,21 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         auto const is_literal          = boost::phoenix::bind(&ExpressionView::is_literal, _val);
         auto const is_preproc          = boost::phoenix::bind(&ExpressionView::is_preproc, _val);
         auto const is_capture          = boost::phoenix::bind(&ExpressionView::is_capture, _val);
+        auto const is_valid_link       = boost::phoenix::bind(&ExpressionView::is_valid_link, _val);
         auto const has_subexpr         = boost::phoenix::bind(&ExpressionView::has_subexpr, _val);
         auto const serialize           = boost::phoenix::bind(&ExpressionView::serialize, _val);
         auto const keyword_to_str      = boost::phoenix::bind(&ExpressionView::keyword_to_str, _val);
         auto const subexpressions_list = boost::phoenix::bind(&ExpressionView::subexpressions_list, _val);
+        auto const tuple_parameters    = boost::phoenix::bind(&ExpressionView::tuple_parameters, _val);
         auto const is_infix_pipe       = boost::phoenix::bind(&ExpressionView::is_infix_pipe, _val);
         auto const is_infix_fork       = boost::phoenix::bind(&ExpressionView::is_infix_fork, _val);
-        auto const is_infix_tuple       = boost::phoenix::bind(&ExpressionView::is_infix_tuple, _val);
+        auto const is_infix_tuple      = boost::phoenix::bind(&ExpressionView::is_infix_tuple, _val);
 
         start
             = eps(is_literal)     << karma::lazy(serialize)
             | eps(is_preproc)     << karma::lazy(serialize)
             | eps(is_capture)     << karma::lazy(serialize)
+            | eps(is_valid_link)  << link[_1 = tuple_parameters]
             | eps(is_infix_pipe)  << pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)  << fork[_1 = subexpressions_list]
             | eps(is_infix_tuple) << tuple[_1 = subexpressions_list]
@@ -54,6 +57,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
             = eps(is_literal)     << karma::lazy(serialize)
             | eps(is_preproc)     << karma::lazy(serialize)
             | eps(is_capture)     << karma::lazy(serialize)
+            | eps(is_valid_link)  << nested_link[_1 = tuple_parameters]
             | eps(is_infix_pipe)  << nested_pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)  << nested_fork[_1 = subexpressions_list]
             | eps(is_infix_tuple) << nested_tuple[_1 = subexpressions_list]
@@ -62,6 +66,8 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         pipe    = subexpr % lit(" | ");
         fork    = subexpr % lit(" & ");
         tuple   = subexpr % lit(" + ");
+        link    = subexpr % lit(" << ");
+        nested_link = lit('(') << subexpr % lit(" << ") << ')';
         nested_pipe  = lit('(') << subexpr % lit(" | ") << ')';
         nested_fork  = lit('(') << subexpr % lit(" & ") << ')';
         nested_tuple = lit('(') << subexpr % lit(" + ") << ')';
@@ -71,7 +77,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
     }
 
     boost::spirit::karma::rule<OutputIterator, ExpressionView()> start, subexpr, keyword;
-    boost::spirit::karma::rule<OutputIterator, std::list<ExpressionView>()> fork, pipe, tuple, parameters, nested_pipe, nested_fork, nested_tuple;
+    boost::spirit::karma::rule<OutputIterator, std::list<ExpressionView>()> parameters, fork, pipe, tuple, link, nested_pipe, nested_fork, nested_tuple, nested_link;
 };
 
 }  // namespace lang

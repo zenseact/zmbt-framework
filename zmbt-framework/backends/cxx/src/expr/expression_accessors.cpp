@@ -79,6 +79,20 @@ bool ExpressionView::is_boolean() const
     return encoding_view().is_boolean();
 }
 
+std::list<ExpressionView> ExpressionView::tuple_parameters() const
+{
+    std::list<ExpressionView> result;
+
+    auto tuple = encoding_view().child(0);
+    if (tuple.head() != Keyword::Tuple) return result;
+
+    for (auto const& s: tuple.children())
+    {
+        result.emplace_back(s);
+    }
+    return result;
+}
+
 
 std::list<ExpressionView> ExpressionView::subexpressions_list() const
 {

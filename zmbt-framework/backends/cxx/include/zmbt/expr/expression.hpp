@@ -99,6 +99,8 @@ public:
     /// Subexpressions
     std::list<ExpressionView> subexpressions_list() const;
 
+    std::list<ExpressionView> tuple_parameters() const;
+
 
     //////////////////
     // DATA OBSERVERS
@@ -222,6 +224,12 @@ public:
     bool is_const() const;
 
     bool is_boolean() const;
+
+    bool is_valid_link() const
+    {
+        auto const child = encoding_view().child(0);
+        return is(Keyword::Link) && (child.head() == Keyword::Tuple) && (child.arity() == 2);
+    }
 
     bool is_infix_pipe() const
     {

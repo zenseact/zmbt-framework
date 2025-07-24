@@ -1023,11 +1023,10 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 {
 
     #define TEST_PRETIFY(e) \
-    BOOST_TEST_INFO("Original: " #e); \
+    BOOST_TEST_INFO("Expected: " #e); \
+    BOOST_TEST_INFO("     Got: " << (e).prettify()); \
     { auto const ps = (e).to_json(); std::stringstream ss; pretty_print(ss, ps); \
          BOOST_TEST_INFO("to_json: \n" << ss.str()); } \
-    { auto const ps = json_from((e).subexpressions_list()); std::stringstream ss; pretty_print(ss, ps); \
-         BOOST_TEST_INFO("parameter_list: \n" << ss.str()); } \
     {BOOST_CHECK_EQUAL((e).prettify(), #e); }\
     { std::stringstream ss; (e).prettify_to(ss); \
         BOOST_CHECK_EQUAL(ss.str(), #e); }
@@ -1063,93 +1062,10 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     BOOST_CHECK_EQUAL((Flip(Diff({2,3,4}))).prettify(), "Flip(Diff([2,3,4]))"); // true JSON syntax
 
     TEST_PRETIFY(Size | 3)
-}
 
-// EXPERIMENTAL API DRAFTS
+    TEST_PRETIFY("$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
+    TEST_PRETIFY(Q("$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))))
 
-struct V_
-{
-    using Id = char const*;
-    Id id_;
-    mutable std::shared_ptr<std::map<Id, Expression>> gmap_;
-
-    V_(char const* id) : id_{id} {
-        static std::shared_ptr<std::map<Id, Expression>> gmap_instance;
-        gmap_ = gmap_instance;
-        if (not gmap_)
-        {
-            gmap_ = std::make_shared<std::map<Id, Expression>>();
-            gmap_instance = gmap_;
-        }
-    }
-
-    V_() : V_({}) {}
-
-    Expression value() const
-    {
-        return gmap_->count(id_) ? gmap_->at(id_) : format("${%s}", id_);
-    }
-
-
-    V_ operator[](char const* id) const
-    {
-        return V_(id);
-    }
-
-    V_& operator=(Expression&& e)
-    {
-        (*gmap_)[id_] = e;
-        return *this;
-    }
-    Expression operator,(Expression&& e) const
-    {
-        return e;
-    }
-
-    Expression operator,(V_ const& l) const
-    {
-        return l.value();
-    }
-
-    operator Expression() const
-    {
-        return value();
-    }
-
-    Expression operator&(Expression const& e) const
-    {
-        return value() & e;
-    }
-
-    Expression operator|(Expression const& e) const
-    {
-        return value() | e;
-    }
-
-};
-
-V_ const VAR;
-
-Expression operator""_JSON(char const* s, size_t)
-{
-    return Expression(boost::json::parse(s));
-}
-
-BOOST_AUTO_TEST_CASE(TestVariable)
-{
-    // set var inline, use to create anon fn
-    // auto const f = Try((VAR["lol"] = Add(1), VAR["lol"] & VAR["lol"]));
-    // BOOST_TEST_INFO(f.prettify());
-    // BOOST_CHECK_EQUAL(f, Try(Add(1) & Add(1)));
-
-    // unset var + json literal
-    auto const h = (VAR["kek"] | Q("[1,2,3]"_JSON) );
-    auto const hh = "${kek}" | Q({1,2,3});
-    // BOOST_TEST_INFO("lhs: " << h.prettify());
-    // BOOST_TEST_INFO("rhs: " << hh.prettify());
-    BOOST_TEST_INFO("lhs: " << h.to_json());
-    BOOST_TEST_INFO("rhs: " << hh.to_json());
-    BOOST_CHECK_EQUAL(h, hh);
 }
 
 
