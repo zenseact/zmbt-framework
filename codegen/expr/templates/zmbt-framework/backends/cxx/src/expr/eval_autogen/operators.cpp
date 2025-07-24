@@ -17,17 +17,42 @@
 
 
 #include "zmbt/expr/operator.hpp"
+#include "zmbt/expr/keyword.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/eval_impl.hpp"
 #include "zmbt/expr/eval_impl_pp.hpp"
 
 
+namespace
+{
+using Keyword = zmbt::lang::Keyword;
+using Expression = zmbt::lang::Expression;
+using EvalContext = zmbt::lang::EvalContext;
+
+Expression apply_op(Keyword const k, Expression const& lhs, Expression const& rhs, EvalContext const& ctx)
+{
+    if (lhs.is_error())
+    {
+        return lhs;
+    }
+    else if(rhs.is_error())
+    {
+        return rhs;
+    }
+    else
+    {
+        return ctx.op.apply(k, {lhs, ctx}, {rhs, ctx});
+    }
+}
+
+}
+
 namespace zmbt {
 namespace lang {
 
 @for keyword in data.Operators:
-ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return curr_ctx().op.apply(Keyword::@keyword.Name, lhs().data(), rhs().data()); }
+ZMBT_DEFINE_EVALUATE_IMPL(@keyword.Name) { return apply_op(Keyword::@keyword.Name, lhs(), rhs(), curr_ctx()); }
 @end
 
 

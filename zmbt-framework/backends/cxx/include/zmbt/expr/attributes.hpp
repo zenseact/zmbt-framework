@@ -175,12 +175,13 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Link: return is_binary | is_hiord;
     case Keyword::Capture: return is_binary | is_hiord;
     case Keyword::Refer: return is_binary | is_hiord;
+    case Keyword::Let: return is_binary | is_hiord;
     case Keyword::Any: return is_variadic | is_predicate | is_hiord;
     case Keyword::All: return is_variadic | is_predicate | is_hiord;
     case Keyword::Saturate: return is_variadic | is_predicate | is_hiord;
     case Keyword::Pipe: return is_variadic | is_hiord | is_pipe;
     case Keyword::Tuple: return is_variadic | is_hiord;
-    case Keyword::Fork: return is_binary | is_hiord | is_fork;
+    case Keyword::Fork: return is_variadic | is_hiord | is_fork;
     case Keyword::Flip: return is_binary | is_hiord;
     case Keyword::Dbg: return is_binary | is_hiord;
     case Keyword::Eval: return is_binary | is_hiord;
@@ -190,6 +191,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Q: return is_binary | is_autogen | is_quote;
     case Keyword::D: return is_binary | is_autogen;
     case Keyword::Err: return is_unary | is_autogen | is_error;
+    case Keyword::Assert: return is_binary;
     case Keyword::Trace: return is_binary;
     case Keyword::PreProc: return is_binary | is_autogen | is_preproc;
     default:

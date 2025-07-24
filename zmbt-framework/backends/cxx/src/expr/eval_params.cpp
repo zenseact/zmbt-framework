@@ -12,7 +12,7 @@
 namespace zmbt {
 namespace lang {
 
-EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx)
+EvalParams::EvalParams(ExpressionView const& e, ExpressionView const& x, EvalContext ctx)
     : self_{e}
     , x_{x}
     , ctx_{ctx}
@@ -21,8 +21,6 @@ EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx
     auto const a = attributes(self().keyword());
     bool const is_binary = a & attr::is_binary;
     bool const is_variadic = a & attr::is_variadic;
-    bool const is_hiord = a & attr::is_hiord;
-    bool const is_quote = a & attr::is_quote;
 
     lhs_ = x;
 
@@ -34,11 +32,10 @@ EvalParams::EvalParams(Expression const& e, Expression const& x, EvalContext ctx
     else if (!is_binary || self().has_subexpr())
     {
         auto const child = self().encoding_view().child(0);
-        rhs_ = rhs_maybe_owned_ = child.empty() ? nullptr : Expression(child.freeze());
 
-        if (!(is_hiord || is_quote))
+        if (!child.empty())
         {
-            rhs_ = rhs_maybe_owned_ = rhs_.get().eval({}, ctx);
+            rhs_ = ExpressionView(child);
         }
     }
     else if (has_default_rhs())

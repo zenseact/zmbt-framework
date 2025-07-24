@@ -34,6 +34,7 @@ std::set<Keyword> const NotImplemented {
     Keyword::FindPtr,
     Keyword::FindIdx,
     Keyword::Link,
+    Keyword::Let,
     Keyword::Capture,
     Keyword::Refer,
 };
@@ -295,7 +296,7 @@ std::vector<TestEvalSample> const TestSamples
     {42 | Try(Div(0)) | D(13)   , {}                    , 13                    },
 
 
-    {Fork((Size|4) + Size + Card) , {2,2,3,3}             , {true, 4, 2}          },
+    {Fork(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
     {(Size|4) & Size & Card     , {2,2,3,3}             , {{true, 4}, 2}        },
     {At(0) & At(2)              , {1,2,3}               , {1,3}                 },
     {Reduce(Add) & Size | Div   , {2,2,3,3}             , 2.5                   },
@@ -698,6 +699,10 @@ std::vector<TestEvalSample> const TestSamples
                                                     {"context", "bar"}
                                                 })                             },
 
+    {0 | Assert(Ne(0)) | Flip(Div(1)), {}     , Err("assertion failure", "Ne(0)")},
+    {1 | Assert(Ne(0)) | Flip(Div(1)), {}     , 1                              },
+
+
     {PreProc(1)             , {}              , "$[1]"                         },
     {PreProc("lol")         , {}              , "$[lol]"                       },
 
@@ -1018,11 +1023,10 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 {
 
     #define TEST_PRETIFY(e) \
-    BOOST_TEST_INFO("Original: " #e); \
+    BOOST_TEST_INFO("Expected: " #e); \
+    BOOST_TEST_INFO("     Got: " << (e).prettify()); \
     { auto const ps = (e).to_json(); std::stringstream ss; pretty_print(ss, ps); \
          BOOST_TEST_INFO("to_json: \n" << ss.str()); } \
-    { auto const ps = json_from((e).subexpressions_list()); std::stringstream ss; pretty_print(ss, ps); \
-         BOOST_TEST_INFO("parameter_list: \n" << ss.str()); } \
     {BOOST_CHECK_EQUAL((e).prettify(), #e); }\
     { std::stringstream ss; (e).prettify_to(ss); \
         BOOST_CHECK_EQUAL(ss.str(), #e); }
@@ -1058,93 +1062,10 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     BOOST_CHECK_EQUAL((Flip(Diff({2,3,4}))).prettify(), "Flip(Diff([2,3,4]))"); // true JSON syntax
 
     TEST_PRETIFY(Size | 3)
-}
 
-// EXPERIMENTAL API DRAFTS
+    TEST_PRETIFY("$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
+    TEST_PRETIFY(Q("$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))))
 
-struct V_
-{
-    using Id = char const*;
-    Id id_;
-    mutable std::shared_ptr<std::map<Id, Expression>> gmap_;
-
-    V_(char const* id) : id_{id} {
-        static std::shared_ptr<std::map<Id, Expression>> gmap_instance;
-        gmap_ = gmap_instance;
-        if (not gmap_)
-        {
-            gmap_ = std::make_shared<std::map<Id, Expression>>();
-            gmap_instance = gmap_;
-        }
-    }
-
-    V_() : V_({}) {}
-
-    Expression value() const
-    {
-        return gmap_->count(id_) ? gmap_->at(id_) : format("${%s}", id_);
-    }
-
-
-    V_ operator[](char const* id) const
-    {
-        return V_(id);
-    }
-
-    V_& operator=(Expression&& e)
-    {
-        (*gmap_)[id_] = e;
-        return *this;
-    }
-    Expression operator,(Expression&& e) const
-    {
-        return e;
-    }
-
-    Expression operator,(V_ const& l) const
-    {
-        return l.value();
-    }
-
-    operator Expression() const
-    {
-        return value();
-    }
-
-    Expression operator&(Expression const& e) const
-    {
-        return value() & e;
-    }
-
-    Expression operator|(Expression const& e) const
-    {
-        return value() | e;
-    }
-
-};
-
-V_ const VAR;
-
-Expression operator""_JSON(char const* s, size_t)
-{
-    return Expression(boost::json::parse(s));
-}
-
-BOOST_AUTO_TEST_CASE(TestVariable)
-{
-    // set var inline, use to create anon fn
-    // auto const f = Try((VAR["lol"] = Add(1), VAR["lol"] & VAR["lol"]));
-    // BOOST_TEST_INFO(f.prettify());
-    // BOOST_CHECK_EQUAL(f, Try(Add(1) & Add(1)));
-
-    // unset var + json literal
-    auto const h = (VAR["kek"] | Q("[1,2,3]"_JSON) );
-    auto const hh = "${kek}" | Q({1,2,3});
-    // BOOST_TEST_INFO("lhs: " << h.prettify());
-    // BOOST_TEST_INFO("rhs: " << hh.prettify());
-    BOOST_TEST_INFO("lhs: " << h.to_json());
-    BOOST_TEST_INFO("rhs: " << hh.to_json());
-    BOOST_CHECK_EQUAL(h, hh);
 }
 
 
@@ -1157,71 +1078,27 @@ BOOST_AUTO_TEST_CASE(BracketInit)
 
 BOOST_AUTO_TEST_CASE(TestCapture)
 {
-    auto e = Debug("$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)));
+    auto inv = "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x");
 
-    BOOST_CHECK_EQUAL(*(42 | e), 42);
-    BOOST_CHECK_EQUAL(*(-42 | e), 42);
+    BOOST_CHECK_EQUAL(*(42 | inv), 1.0/42);
+    BOOST_CHECK_EQUAL(*(0 | inv), 0);
 }
 
-BOOST_AUTO_TEST_CASE(TestFix)
+BOOST_AUTO_TEST_CASE(SymbolicLink)
 {
-    /*
-    // Y = λf.(λx. f (x x))(λx. f (x x)))
-    // Z = λg. (λr. g (λy. r r y)) (λr. g (λy. r r y))
+    auto fact = "$f" << (Let("$x")
+        | Assert(Ge(0))
+        | Lt(2)
+        | And(1)
+        | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+    );
 
-    canonical form:
-    Fix(Let("$f", X | Eq(0) | And(1) | Or(X | Sub(1) | "$f")))
-
-    sugar form:
-    Fix("$f" << (X | Eq(0) | And(1) | Or(X | Sub(1) | "$f")))
-
-    Fix("$f" << (       // binding to rhs expression
-        X               // binding to input value
-        | Eq(0)         // if x == 0
-        | And(1)        // then 1
-        | Or(           // else
-            X | Sub(1)  //   x - 1
-            | "$f"      //   recursive call, $f is lazy eval
-        )
-    ))
-    */
-}
-
-// WIP
-
-#include <zmbt/expr/eval_impl.hpp>
-
-
-BOOST_AUTO_TEST_CASE(TestEval)
-{
-    {
-        auto const e = Add(42) | Mul(2);
-        auto const result = e.eval(11, {});
-        BOOST_CHECK_EQUAL(result, 106);
-    }
-
-    {
-        auto const e = 2 & Q(42) | Add;
-        auto const result = e.eval({}, {});
-        BOOST_CHECK_EQUAL(result, 44);
-    }
-
-    {
-        auto const e = "%s, %s!" | Fmt("Hello", "World");
-        auto const result = e.eval({}, {});
-        BOOST_CHECK_EQUAL(result, "Hello, World!");
-    }
-
-
-    {
-        auto const e = "%s, %s!" & Q({"Hello", "World"}) | Fmt;
-        auto const result = e.eval({}, {});
-        BOOST_CHECK_EQUAL(result, "Hello, World!");
-    }
-
-    {
-        auto const e = Q(Ge(12)) | Recur( 4 + Add(1));
-        BOOST_CHECK_EQUAL(e.eval(), 11);
-    }
-
+    BOOST_TEST_INFO(fact.prettify());
+    BOOST_CHECK_EQUAL(fact.eval(0),   1);
+    BOOST_CHECK_EQUAL(fact.eval(1),   1);
+    BOOST_CHECK_EQUAL(fact.eval(2),   2);
+    BOOST_CHECK_EQUAL(fact.eval(3),   6);
+    BOOST_CHECK_EQUAL(fact.eval(4),  24);
+    BOOST_CHECK_EQUAL(fact.eval(5), 120);
+    BOOST_CHECK_EQUAL((fact | Kwrd).eval(-5), "Err");
 }

@@ -403,6 +403,9 @@ enum class Keyword
     /// Refer
     Refer,
 
+    /// Let
+    Let,
+
     /// Any
     Any,
 
@@ -447,6 +450,9 @@ enum class Keyword
 
     /// Err
     Err,
+
+    /// Assert
+    Assert,
 
     /// Trace
     Trace,

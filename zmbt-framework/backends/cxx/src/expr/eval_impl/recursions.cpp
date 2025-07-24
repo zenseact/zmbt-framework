@@ -39,8 +39,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
         (fork.head() == K::Tuple)
         && fork.arity() == 2,
     "invalid parameters, expected initial + Fn");
-    auto const initial = E(fork.child(0).freeze()).eval();
-    auto const F = E(fork.child(1).freeze());
+    ExpressionView const init(fork.child(0));
+    ExpressionView const F (fork.child(1));
+    E item = init.eval_e({}, curr_ctx());
 
 
     E const dummy(false);
@@ -54,30 +55,27 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
 
     auto const& cond = lhs();
 
-    std::function<bool(Expression const&)> shall_halt = [](Expression const&) -> bool { return false; };
+    std::function<bool(ExpressionView const&)> shall_halt = [](ExpressionView const&) -> bool { return false; };
 
     if (!cond.is_literal())
     {
-        shall_halt = [&cond](Expression const& next) -> bool {
+        shall_halt = [&cond](ExpressionView const& next) -> bool {
             auto const maybe_exit = cond.eval_e(next, {}); // TODO? pass ctx if cond is non-trivial
             auto const if_bool = maybe_exit.if_bool();
             return (if_bool && *if_bool) || next.is_error();
         };
     }
 
-
-    boost::json::value result = initial;
-
     for (std::uint64_t i = 0; i < max_recursion_depth; i++)
     {
-        auto const next = F.eval_e(result,curr_ctx() MAYBE_INCR);
+        auto const next = F.eval_e(item,curr_ctx());
         if (shall_halt(next))
         {
             break;
         }
-        result = next.to_json();
+        item = next;
     }
-    return result;
+    return item;
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
@@ -87,8 +85,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
         (fork.head() == K::Tuple)
         && fork.arity() == 2,
     "invalid parameters, expected initial + Fn");
-    auto const initial = E(fork.child(0).freeze()).eval();
-    auto const F = E(fork.child(1).freeze());
+    ExpressionView const init(fork.child(0));
+    ExpressionView const F (fork.child(1));
+    E item = init.eval_e({}, curr_ctx());
 
     E const dummy(false);
 
@@ -99,20 +98,31 @@ ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
     ASSERT(maybe_depth.has_value(), "invalid parameter")
     std::uint64_t max_recursion_depth = maybe_depth.value();
 
-    auto const& cond = lhs().is_literal() ? dummy : lhs();
+    auto const& cond = lhs();
+
+    std::function<bool(ExpressionView const&)> shall_halt = [](ExpressionView const&) -> bool { return false; };
+
+    if (!cond.is_literal())
+    {
+        shall_halt = [&cond](ExpressionView const& next) -> bool {
+            auto const maybe_exit = cond.eval_e(next, {}); // TODO? pass ctx if cond is non-trivial
+            auto const if_bool = maybe_exit.if_bool();
+            return (if_bool && *if_bool) || next.is_error();
+        };
+    }
 
     boost::json::array result {};
-    result.push_back(initial);
+    result.push_back(item.to_json());
     for (std::uint64_t i = 0; i < max_recursion_depth; i++)
     {
-        auto const next = F.eval_e(result.back(),curr_ctx() MAYBE_INCR);
-        auto const maybe_exit = cond.eval_e(next, {});
-        auto const if_bool = maybe_exit.if_bool();
-        if ((if_bool && *if_bool) || next.is_error())
+
+        auto const next = F.eval_e(item,curr_ctx());
+        if (shall_halt(next))
         {
             break;
         }
-        result.push_back(next.to_json());
+        item = next;
+        result.push_back(item.to_json());
     }
     return result;
 }

@@ -1688,8 +1688,9 @@ Symbolic binding of the input value
 The capture is referenced by an arbitrary string preceded by dollar sign,
 e.g. "$x".
 
-On the first access it stores the input value in isolated expression context
-eturns it on each subsequent call. It can't be reset after the first access.
+On the first access it stores the input value in isolated expression context,
+and returns it on each subsequent call.
+It can't be reset after the first access.
 
 The string after $ sign shall not be enclosed in [], {}, or (),
 as those formats are reserved for internal usage.
@@ -1704,7 +1705,16 @@ as those formats are reserved for internal usage.
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-...
+Return capture
+
+
+
+### Let
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Store capture
 
 
 
@@ -1787,7 +1797,7 @@ Pack expressions into an tuple without evaluation
 
 ### Fork
 
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Pack results from enveloped functions into an array
@@ -1797,19 +1807,19 @@ Parameter
 
 *Examples*:
 
- * `[1,2,3] | Fork(Reduce(Add) + Size) `$\mapsto$` [6,3]`
- * `[1,2,3] | Fork(42 + Card + Id) `$\mapsto$` [42, 3, [1,2,3]]`
+ * `[1,2,3] | Fork(Reduce(Add), Size) `$\mapsto$` [6,3]`
+ * `[1,2,3] | Fork(42, Card, Id) `$\mapsto$` [42, 3, [1,2,3]]`
 
 **Infix operator form (ampersand):**
 
- * `Add(1) & Mul(2) `$\equiv$` Fork(Add(1) + Mul(2))`
+ * `Add(1) & Mul(2) `$\equiv$` Fork(Add(1), Mul(2))`
  * `[1,2,3] | Reduce(Add) & Size `$\mapsto$` [6,3]`
  * `[1,2,3] | Reduce(Add) & Size | Div `$\mapsto$` 2`
 
 Note that the Fork is not associative,
 therefore an infix operator chain is not unfolded
-as in variadic Pipe or Tuple:
- * `a & b & c `$\equiv$` (a & b) & c `$\equiv$` Fork(Fork(a + b) + c)`
+as it is done for variadic Pipe or Tuple:
+ * `a & b & c `$\equiv$` (a & b) & c `$\equiv$` Fork(Fork(a, b), c)`
 
 ### Flip
 
@@ -1938,6 +1948,19 @@ Error object
 
 Error object (work in progress)
 
+
+### Assert
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Return argument if it holds assertion or error otherwise.
+
+
+*Examples*:
+
+ * `42 | Assert(Ge(0)) `$\mapsto$` 42`
+ * `-7 | Assert(Ge(0)) `$\mapsto$` Err("assertion failed", "-7 | Ge(0)")`
 
 ### Trace
 

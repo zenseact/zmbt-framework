@@ -17,6 +17,7 @@
 #include <zmbt/core/type_info.hpp>
 
 #include "zmbt/expr/operator.hpp"
+#include "zmbt/expr/exceptions.hpp"
 #include "zmbt/expr/api.hpp"
 
 
@@ -85,7 +86,7 @@ Operator::Operator(boost::json::string_view annotation)
 }
 
 
-boost::json::value Operator::apply(Keyword const& keyword, boost::json::value const& lhs, boost::json::value const& rhs) const
+boost::json::value Operator::apply(Keyword const& keyword, LV lhs, LV rhs) const
 try
 {
     auto const negate = [](V const& maybe_err) -> V
@@ -158,8 +159,10 @@ catch(const std::exception& e)
 }
 
 /// Is subset of
-boost::json::value Operator::is_subset(boost::json::value const& lhs, boost::json::value const& rhs) const
+boost::json::value Operator::is_subset(LV const& llhs, LV const& lrhs) const
 {
+    auto const lhs = llhs();
+    auto const rhs = lrhs();
     if (lhs.is_array() && rhs.is_array())
     {
         boost::json::array const& a = lhs.get_array();
@@ -218,19 +221,24 @@ boost::json::value Operator::is_subset(boost::json::value const& lhs, boost::jso
 
 
 /// Is element of
-boost::json::value Operator::contains(boost::json::value const& set, boost::json::value const& element) const
+boost::json::value Operator::contains(LV const& lset, LV const& lelement) const
 {
+
     // array item
-    if (set.if_array())
+    if (lset().if_array())
     {
-        return is_subset(boost::json::array{element}, set);
+        return is_subset(boost::json::array{lelement()}, lset);
     }
-    else if(element.is_string() && set.is_string())
+    else if(lelement().is_string() && lset().is_string())
     {
-        return is_subset(element, set);
+        return is_subset(lelement, lset);
     }
+
+    auto const& set = lset();
+    auto const& element = lelement();
+
     // object key
-    else if(element.is_string() && set.is_object())
+    if(element.is_string() && set.is_object())
     {
         return set.get_object().contains(element.get_string());
     }

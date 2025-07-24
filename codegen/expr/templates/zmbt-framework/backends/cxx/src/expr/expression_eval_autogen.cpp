@@ -23,16 +23,16 @@ namespace zmbt {
 namespace lang {
 
 @for keyword in data.ApiKeywords:
-extern template Expression dispatch_eval<Keyword::@keyword.Name>(Expression const&, Expression const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::@keyword.Name>(ExpressionView const&, ExpressionView const&, EvalContext);
 @end
 
-Expression Expression::eval_e(Expression const& x, EvalContext context) const
+Expression ExpressionView::eval_e(ExpressionView const& x, EvalContext context) const
 try
 {
 
     switch (keyword())
     {
-        case Keyword::Literal: return *this;
+        case Keyword::Literal: return data();
 @for keyword in data.ApiKeywords:
         case Keyword::@keyword.Name: return dispatch_eval<Keyword::@keyword.Name>(*this, x, context);
 @end

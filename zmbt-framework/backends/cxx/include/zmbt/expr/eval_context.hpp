@@ -15,9 +15,11 @@
 #include "eval_log.hpp"
 
 
+
 namespace zmbt {
 namespace lang {
 
+class ExpressionView;
 /// Expression evaluation context
 struct EvalContext
 {
@@ -28,6 +30,7 @@ struct EvalContext
     EvalLog log;
     /// reference -> value map
     std::shared_ptr<boost::json::object> captures;
+    std::shared_ptr<std::map<boost::json::string, ExpressionView>> links;
     // boost::json::object captures;
     /// Evaluation stack depth
     std::uint64_t depth;

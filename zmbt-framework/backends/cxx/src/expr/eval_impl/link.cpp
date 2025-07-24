@@ -19,26 +19,77 @@
 namespace zmbt {
 namespace lang {
 
-ZMBT_DEFINE_EVALUATE_IMPL(Link)     { return expr::Err("not implemented"); }
-ZMBT_DEFINE_EVALUATE_IMPL(Refer)    { return expr::Err("not implemented"); }
-
-ZMBT_DEFINE_EVALUATE_IMPL(Capture)
+ZMBT_DEFINE_EVALUATE_IMPL(Let)
 {
-    if (not curr_ctx().captures)
+    auto const if_str_key = rhs().if_string();
+    ASSERT(if_str_key, "reference not a string");
+    curr_ctx().captures->insert_or_assign(*if_str_key, lhs().data());
+    return lhs();
+}
+
+ZMBT_DEFINE_EVALUATE_IMPL(Refer)
+{
+    auto const if_str_key = rhs().if_string();
+    ASSERT(if_str_key, "reference not a string");
+    auto const found = curr_ctx().captures->find(*if_str_key);
+    if (found != curr_ctx().captures->cend())
     {
-        return rhs();
-    }
-    ZMBT_LOG_CERR(DEBUG) << self().to_json();
-    auto const key = self().data();
-    ASSERT(key.is_string(), "invalid reference");
-    auto const referent = curr_ctx().captures->if_contains(key.get_string());
-    if (referent)
-    {
-        return *referent;
+        return found->value();
     }
     else
     {
-        curr_ctx().captures->emplace(key.get_string(), lhs().data());
+        return rhs();
+    }
+}
+
+
+ZMBT_DEFINE_EVALUATE_IMPL(Link)
+{
+    auto const enc = self().encoding_view();
+    auto const tuple = enc.child(0);
+    ASSERT((enc.arity() == 1)
+        && (tuple.head() == Keyword::Tuple)
+        && (tuple.arity() == 2)
+        , "invalid encoding");
+
+    ExpressionView link (tuple.child(0));
+    auto const if_str_link = link.if_string();
+    ASSERT(if_str_link, "Symbolic reference shall be a string")
+
+    auto const link_pos = curr_ctx().links->find(*if_str_link);
+    ASSERT(link_pos == curr_ctx().links->cend(), "key refers to existing link")
+    ASSERT(not curr_ctx().captures->contains(*if_str_link), "key refers to existing capture")
+
+    ExpressionView referent(tuple.child(1));
+    curr_ctx().links->emplace_hint(link_pos, *if_str_link, tuple.child(1));
+
+    return referent.eval_e(lhs(), curr_ctx());
+}
+
+ZMBT_DEFINE_EVALUATE_IMPL(Capture)
+{
+    auto const if_str_key = self().if_string();
+    ASSERT(if_str_key, "reference not a string");
+
+    auto const link_pos = curr_ctx().links->find(*if_str_key);
+    auto const capture_pos = curr_ctx().captures->find(*if_str_key);
+
+    auto const link_found    = link_pos     != curr_ctx().links->cend();
+    auto const capture_found = capture_pos  != curr_ctx().captures->cend();
+
+    ASSERT(not (link_found && capture_found), "corrupted context")
+
+    if (capture_found)
+    {
+        return capture_pos->value();
+    }
+    else if (link_found)
+    {
+        return link_pos->second.eval_e(lhs(), curr_ctx());
+    }
+    else
+    {
+        curr_ctx().captures->emplace(*if_str_key, lhs().data());
         return lhs();
     }
 }

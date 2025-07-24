@@ -20,26 +20,23 @@ class EvalParams
 {
     Expression lhs_maybe_owned_{nullptr};
     Expression rhs_maybe_owned_{nullptr};
-    std::reference_wrapper<Expression const> lhs_{lhs_maybe_owned_};
-    std::reference_wrapper<Expression const> rhs_{rhs_maybe_owned_};
-    std::reference_wrapper<Expression const> self_;
-    std::reference_wrapper<Expression const> x_;
+    ExpressionView lhs_{lhs_maybe_owned_.encoding_view()};
+    ExpressionView rhs_{rhs_maybe_owned_.encoding_view()};
+    ExpressionView const& self_;
+    ExpressionView const& x_;
     EvalContext ctx_;
-
 
     bool has_default_rhs() const;
 
   public:
 
-    EvalParams(Expression const& e, Expression const& x, EvalContext ctx);
+    EvalParams(ExpressionView const& e, ExpressionView const& x, EvalContext ctx);
 
-    Expression const& self() const { return self_; }
-    Expression const& x()    const { return x_; }
-    Expression const& lhs()  const { return lhs_; }
-    Expression const& rhs()  const { return rhs_; }
+    ExpressionView const& self() const { return self_; }
+    ExpressionView const& x()    const { return x_; }
+    ExpressionView const& lhs()  const { return lhs_; }
+    ExpressionView const& rhs()  const { return rhs_; }
     EvalContext context()  const { return ctx_; }
-
-  protected:
 
 };
 

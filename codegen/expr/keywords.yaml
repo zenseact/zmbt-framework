@@ -106,95 +106,95 @@ keyword_groups:
       - name: Sin
         brief: Sinus function
         codegen-value:
-          cxx: json_from(std::sin(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::sin(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Cos
         brief: Cosinus function
         codegen-value:
-          cxx: json_from(std::cos(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::cos(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Tan
         brief: Tangens function
         codegen-value:
-          cxx: json_from(std::tan(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::tan(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Asin
         brief: Arcsin function
         codegen-value:
-          cxx: json_from(std::asin(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::asin(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Acos
         brief: Arccos function
         codegen-value:
-          cxx: json_from(std::acos(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::acos(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Atan
         brief: Arctan function
         codegen-value:
-          cxx: json_from(std::atan(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::atan(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Sinh
         brief: Hyperbolic sin
         codegen-value:
-          cxx: json_from(std::sinh(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::sinh(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Cosh
         brief: Hyperbolic cos
         codegen-value:
-          cxx: json_from(std::cosh(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::cosh(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Tanh
         brief: Hyperbolic tan
         codegen-value:
-          cxx: json_from(std::tanh(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::tanh(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Asinh
         brief: Hyperbolic arcsin
         codegen-value:
-          cxx: json_from(std::asinh(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::asinh(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Acosh
         brief: Hyperbolic arccos
         codegen-value:
-          cxx: json_from(std::acosh(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::acosh(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Atanh
         brief: Hyperbolic arctan
         codegen-value:
-          cxx: json_from(std::atanh(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::atanh(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Exp
         brief: Exponential (e^x)
         codegen-value:
-          cxx: json_from(std::exp(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::exp(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Erf
         brief: Error function
         codegen-value:
-          cxx: real_to_number(std::erf(dejsonize<double>( lhs().data() )))
+          cxx: real_to_number(std::erf(dejsonize<double>( lhs().eval() )))
 
       - name: Erfc
         brief: Error function complement
         codegen-value:
-          cxx: real_to_number(std::erfc(dejsonize<double>( lhs().data() )))
+          cxx: real_to_number(std::erfc(dejsonize<double>( lhs().eval() )))
 
       - name: Gamma
         brief: Gamma function
         codegen-value:
-          cxx: real_to_number(std::tgamma(dejsonize<double>( lhs().data() )))
+          cxx: real_to_number(std::tgamma(dejsonize<double>( lhs().eval() )))
 
       - name: Abs
         brief: Absolute value
         codegen-value:
-          cxx: real_to_number(std::abs(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: real_to_number(std::abs(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Ceil
         codegen-value:
-          cxx: real_to_number(std::ceil(dejsonize<double>( lhs().data() )))
+          cxx: real_to_number(std::ceil(dejsonize<double>( lhs().eval() )))
 
       - name: Floor
         codegen-value:
-          cxx: real_to_number(std::floor(dejsonize<double>( lhs().data() )))
+          cxx: real_to_number(std::floor(dejsonize<double>( lhs().eval() )))
 
       - name: Round
         brief: Round to nearest integer
@@ -202,18 +202,18 @@ keyword_groups:
           Hint: To round to ndigits precision after the decimal point,
           use `Mul(ndigits) | Round | Div(ndigits)` combo.
         codegen-value:
-          cxx: real_to_number(std::round(dejsonize<double>( lhs().data() )))
+          cxx: real_to_number(std::round(dejsonize<double>( lhs().eval() )))
 
       - name: Sqrt
         brief: Square root
         codegen-value:
-          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>( lhs().data() )))
+          cxx: json_from(std::sqrt(dejsonize<std::complex<double>>( lhs().eval() )))
 
       - name: Sign
         domain: real
         codomain: int
         codegen-value:
-          cxx: 'dejsonize<double>( lhs().data() ) >= 0 ? 1 : -1'
+          cxx: 'dejsonize<double>( lhs().eval() ) >= 0 ? 1 : -1'
 
   Arithmetic Operators:
     defaults:
@@ -1294,8 +1294,9 @@ keyword_groups:
           The capture is referenced by an arbitrary string preceded by dollar sign,
           e.g. "$x".
 
-          On the first access it stores the input value in isolated expression context
-          eturns it on each subsequent call. It can't be reset after the first access.
+          On the first access it stores the input value in isolated expression context,
+          and returns it on each subsequent call.
+          It can't be reset after the first access.
 
           The string after $ sign shall not be enclosed in [], {}, or (),
           as those formats are reserved for internal usage.
@@ -1307,7 +1308,14 @@ keyword_groups:
 
       - name: Refer
         signature: Binary
-        brief: ...
+        brief: Return capture
+        examples: |-
+        domain: [any, expr]
+        codomain: expr
+
+      - name: Let
+        signature: Binary
+        brief: Store capture
         examples: |-
         domain: [any, expr]
         codomain: expr
@@ -1389,7 +1397,7 @@ keyword_groups:
           Add(1) + Mul(2) ≡ Tuple(Add(1), Mul(2))
 
       - name: Fork
-        signature: Binary
+        signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
           Allows to combine different properties in a single expression.
@@ -1400,19 +1408,19 @@ keyword_groups:
           - label: functions
             type: list[expr]
         examples: |-
-          [1,2,3] | Fork(Reduce(Add) + Size) ↦ [6,3]
-          [1,2,3] | Fork(42 + Card + Id) ↦ [42, 3, [1,2,3]]
+          [1,2,3] | Fork(Reduce(Add), Size) ↦ [6,3]
+          [1,2,3] | Fork(42, Card, Id) ↦ [42, 3, [1,2,3]]
 
           **Infix operator form (ampersand):**
 
-          Add(1) & Mul(2) ≡ Fork(Add(1) + Mul(2))
+          Add(1) & Mul(2) ≡ Fork(Add(1), Mul(2))
           [1,2,3] | Reduce(Add) & Size ↦ [6,3]
           [1,2,3] | Reduce(Add) & Size | Div ↦ 2
 
           Note that the Fork is not associative,
           therefore an infix operator chain is not unfolded
-          as in variadic Pipe or Tuple:
-          a & b & c ≡ (a & b) & c ≡ Fork(Fork(a + b) + c)
+          as it is done for variadic Pipe or Tuple:
+          a & b & c ≡ (a & b) & c ≡ Fork(Fork(a, b), c)
 
       - name: Flip
         signature: Binary
@@ -1505,7 +1513,8 @@ keyword_groups:
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:
-          cxx: 'lhs().is_null() ? rhs() :  lhs()'
+          # cxx: 'lhs().is_null() ? rhs() :  lhs()'
+          cxx: '(lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs()'
         examples: |-
           null | Default(42) ↦ 42
           13 | Default(42) ↦ 13
@@ -1518,6 +1527,13 @@ keyword_groups:
           Error object (work in progress)
         codegen-value:
           cxx: self()
+
+      - name: Assert
+        brief: Return argument if it holds assertion or error otherwise.
+        signature: Binary
+        examples: |-
+          42 | Assert(Ge(0)) ↦ 42
+          -7 | Assert(Ge(0)) ↦ Err("assertion failed", "-7 | Ge(0)")
 
       - name: Trace
         signature: Binary

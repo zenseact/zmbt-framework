@@ -39,7 +39,7 @@ Expression operator+(Expression lhs, Expression rhs)
 
 Expression operator&(Expression lhs, Expression rhs)
 {
-    return Expression(Expression::encodeNested(Keyword::Fork, {lhs + rhs}));
+    return Expression(Expression::encodeNested(Keyword::Fork, {lhs, rhs}));
 
 }
 
@@ -49,30 +49,21 @@ Expression operator<<(Expression link, Expression referent)
     // TODO: handle righ-assoc infix unfold
     static_cast<void>(link);
     static_cast<void>(referent);
-    return expr::Err("symbolic references are not implemented");
+
+    auto const if_string = link.if_string();
+    if (!if_string)
+    {
+        return expr::Err("Symbolic reference shall be a string", BOOST_CURRENT_FUNCTION);
+    }
+    else if(not Encoding::is_capture_token(*if_string))
+    {
+        return expr::Err("Invalid symbolic reference format", BOOST_CURRENT_FUNCTION);
+    }
+    return Expression(Expression::encodeNested(Keyword::Link,
+        {expr::Tuple(std::move(link), std::move(referent))}
+    ));
 }
 
-std::ostream& operator<<(std::ostream& os, Expression const& expr)
-{
-    return expr.prettify_to(os);
-}
-
-zmbt::Logger& operator<<(zmbt::Logger& logger, Expression const& expr)
-{
-    logger << static_cast<boost::json::value>(expr.prettify());
-    return logger;
-}
-
-boost::json::value operator*(Expression lhs, Expression const& rhs)
-{
-    return lhs.eval(rhs);
-}
-
-boost::json::value operator*(Expression expr)
-{
-    return expr.eval();
-}
 
 } // namespace lang
 } // namespace zmbt
-

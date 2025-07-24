@@ -88,13 +88,14 @@ bool isBinary(Keyword const& k)
     case Keyword::Link:
     case Keyword::Capture:
     case Keyword::Refer:
-    case Keyword::Fork:
+    case Keyword::Let:
     case Keyword::Flip:
     case Keyword::Dbg:
     case Keyword::Eval:
     case Keyword::Try:
     case Keyword::Q:
     case Keyword::D:
+    case Keyword::Assert:
     case Keyword::Trace:
     case Keyword::PreProc:
         return true;

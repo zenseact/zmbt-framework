@@ -27,34 +27,34 @@
 namespace zmbt {
 namespace lang {
 
-ZMBT_DEFINE_EVALUATE_IMPL(Sin) { return json_from(std::sin(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Cos) { return json_from(std::cos(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Tan) { return json_from(std::tan(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Asin) { return json_from(std::asin(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Acos) { return json_from(std::acos(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Atan) { return json_from(std::atan(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Sinh) { return json_from(std::sinh(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Cosh) { return json_from(std::cosh(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Tanh) { return json_from(std::tanh(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Asinh) { return json_from(std::asinh(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Acosh) { return json_from(std::acosh(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Atanh) { return json_from(std::atanh(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Exp) { return json_from(std::exp(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Erf) { return real_to_number(std::erf(dejsonize<double>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Erfc) { return real_to_number(std::erfc(dejsonize<double>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Gamma) { return real_to_number(std::tgamma(dejsonize<double>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Abs) { return real_to_number(std::abs(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Ceil) { return real_to_number(std::ceil(dejsonize<double>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Floor) { return real_to_number(std::floor(dejsonize<double>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Round) { return real_to_number(std::round(dejsonize<double>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Sqrt) { return json_from(std::sqrt(dejsonize<std::complex<double>>( lhs().data() ))); }
-ZMBT_DEFINE_EVALUATE_IMPL(Sign) { return dejsonize<double>( lhs().data() ) >= 0 ? 1 : -1; }
+ZMBT_DEFINE_EVALUATE_IMPL(Sin) { return json_from(std::sin(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Cos) { return json_from(std::cos(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Tan) { return json_from(std::tan(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Asin) { return json_from(std::asin(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Acos) { return json_from(std::acos(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Atan) { return json_from(std::atan(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Sinh) { return json_from(std::sinh(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Cosh) { return json_from(std::cosh(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Tanh) { return json_from(std::tanh(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Asinh) { return json_from(std::asinh(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Acosh) { return json_from(std::acosh(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Atanh) { return json_from(std::atanh(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Exp) { return json_from(std::exp(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Erf) { return real_to_number(std::erf(dejsonize<double>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Erfc) { return real_to_number(std::erfc(dejsonize<double>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Gamma) { return real_to_number(std::tgamma(dejsonize<double>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Abs) { return real_to_number(std::abs(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Ceil) { return real_to_number(std::ceil(dejsonize<double>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Floor) { return real_to_number(std::floor(dejsonize<double>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Round) { return real_to_number(std::round(dejsonize<double>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Sqrt) { return json_from(std::sqrt(dejsonize<std::complex<double>>( lhs().eval() ))); }
+ZMBT_DEFINE_EVALUATE_IMPL(Sign) { return dejsonize<double>( lhs().eval() ) >= 0 ? 1 : -1; }
 ZMBT_DEFINE_EVALUATE_IMPL(Id) { return lhs(); }
 ZMBT_DEFINE_EVALUATE_IMPL(ToList) { return boost::json::array{ lhs().to_json() }; }
 ZMBT_DEFINE_EVALUATE_IMPL(Parse) { return boost::json::parse( lhs().as_string()); }
 ZMBT_DEFINE_EVALUATE_IMPL(Str) { return lhs().prettify().c_str(); }
 ZMBT_DEFINE_EVALUATE_IMPL(Q) { return rhs(); }
-ZMBT_DEFINE_EVALUATE_IMPL(D) { return lhs().is_null() ? rhs() :  lhs(); }
+ZMBT_DEFINE_EVALUATE_IMPL(D) { return (lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs(); }
 ZMBT_DEFINE_EVALUATE_IMPL(Err) { return self(); }
 ZMBT_DEFINE_EVALUATE_IMPL(PreProc) { return self(); }
 

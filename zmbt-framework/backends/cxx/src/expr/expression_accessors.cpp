@@ -32,7 +32,7 @@ using Keyword = zmbt::lang::Keyword;
 namespace zmbt {
 namespace lang {
 
-std::list<std::pair<std::string, std::string>> Expression::preprocessing_parameters() const
+std::list<std::pair<std::string, std::string>> ExpressionView::preprocessing_parameters() const
 {
     std::list<std::pair<std::string, std::string>> pp;
 
@@ -53,7 +53,7 @@ std::list<std::pair<std::string, std::string>> Expression::preprocessing_paramet
     return pp;
 }
 
-boost::json::value const& Expression::data() const
+boost::json::value const& ExpressionView::data() const
 {
     auto const child = encoding_view().child(0);
     auto const a = attributes(child.head());
@@ -61,72 +61,57 @@ boost::json::value const& Expression::data() const
     {
         return *child.front().data;
     }
-    return *encoding_view().front().data;
+    return encoding_view().empty() ? expr::Noop.data() : *encoding_view().front().data;
 }
 
-
-std::size_t Expression::infix_size() const
-{
-    return encoding_view().arity();
-}
-
-boost::json::value Expression::to_json() const
-{
-    return (is_literal() || is_preproc() || is_capture()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding());
-}
-
-bool Expression::is_const() const
+bool ExpressionView::is_const() const
 {
     return encoding_view().is_const();
 }
 
-boost::json::string_view Expression::keyword_to_str() const
+boost::json::string_view ExpressionView::keyword_to_str() const
 {
     return ::zmbt::lang::keyword_to_str(keyword());
 }
 
-bool Expression::is_boolean() const
+bool ExpressionView::is_boolean() const
 {
     return encoding_view().is_boolean();
 }
 
-
-std::list<Expression> Expression::subexpressions_list() const
+std::list<ExpressionView> ExpressionView::tuple_parameters() const
 {
-    std::list<Expression> result;
+    std::list<ExpressionView> result;
+
+    auto tuple = encoding_view().child(0);
+    if (tuple.head() != Keyword::Tuple) return result;
+
+    for (auto const& s: tuple.children())
+    {
+        result.emplace_back(s);
+    }
+    return result;
+}
+
+
+std::list<ExpressionView> ExpressionView::subexpressions_list() const
+{
+    std::list<ExpressionView> result;
 
     auto subtrees = encoding_view().children();
 
     for (auto const& s: subtrees)
     {
-        result.emplace_back(s.freeze());
+        result.emplace_back(s);
     }
     return result;
 }
 
-std::list<Expression> Expression::fork_terms() const
+boost::json::value ExpressionView::to_json() const
 {
-        if (!is_fork()) return {};
-        auto const child = encoding_view().child(0);
-
-        if (child.head() != Keyword::Tuple)
-        {
-            return {Expression(child.freeze())};
-        }
-        else
-        {
-            auto items = child.children();
-            std::list<Expression> result;
-
-            for (auto const& item: items)
-            {
-                result.emplace_back(item.freeze());
-            }
-            return result;
-        }
-    }
-
-
+    // TODO: optimize value_from EncodingView
+    return (is_literal() || is_preproc() || is_capture()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding_view().freeze());
+}
 
 }  // namespace lang
 }  // namespace zmbt

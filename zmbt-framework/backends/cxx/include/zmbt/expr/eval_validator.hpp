@@ -20,7 +20,7 @@ template <Keyword K>
 struct EvalValidator
 {
 
-    EvalValidator(Expression const& lhs, Expression const& rhs) {}
+    EvalValidator(ExpressionView const& lhs, ExpressionView const& rhs) {}
 
     bool is_invalid() const
     {

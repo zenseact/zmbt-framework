@@ -34,8 +34,10 @@ ZMBT_DEFINE_EVALUATE_IMPL(Dbg)
     EvalContext local_ctx {};
     local_ctx.op = curr_ctx().op;
     local_ctx.log = EvalLog::make();
+    local_ctx.captures = curr_ctx().captures;
+    local_ctx.links = curr_ctx().links;
 
-    auto const result = rhs().eval(lhs(), local_ctx);
+    auto const result = rhs().eval_e(lhs(), local_ctx);
 
     ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_DEBUG") << *local_ctx.log.stack;
     ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_DEBUG") << "\n" << local_ctx.log.str(2);
@@ -61,7 +63,23 @@ ZMBT_DEFINE_EVALUATE_IMPL(Trace)
     return lhs();
 }
 
+ZMBT_DEFINE_EVALUATE_IMPL(Assert)
+{
+    E err_sts(nullptr);
 
+    if (rhs().eval_as_predicate(lhs(), err_sts, curr_ctx()))
+    {
+        return lhs();
+    }
+    else if(err_sts.is_error())
+    {
+        return err_sts;
+    }
+    else
+    {
+        return expr::Err("assertion failure", rhs().prettify());
+    }
+}
 
 } // namespace lang
 } // namespace zmbt

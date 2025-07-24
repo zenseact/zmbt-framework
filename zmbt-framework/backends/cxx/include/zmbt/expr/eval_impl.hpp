@@ -43,7 +43,7 @@ class EvalImplBase : public FixedEvalParams<K>
 
     EvalContext curr_ctx() const { return curr_ctx_; }
 
-    EvalImplBase(Expression const& e, Expression const& x, EvalContext ctx)
+    EvalImplBase(ExpressionView const& e, ExpressionView const& x, EvalContext ctx)
         : FixedEvalParams<K>(e, x, ctx)
         , curr_ctx_{++ctx}
     {
@@ -62,7 +62,7 @@ class EvalImplBase : public FixedEvalParams<K>
 };
 
 template <Keyword K>
-Expression dispatch_eval(Expression const& self, Expression const& x, EvalContext context);
+Expression dispatch_eval(ExpressionView const& self, ExpressionView const& x, EvalContext context);
 
 
 }  // namespace lang

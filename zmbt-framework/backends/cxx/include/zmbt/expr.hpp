@@ -10,6 +10,7 @@
 #include "expr/operator.hpp"
 #include "expr/keyword.hpp"
 #include "expr/keyword_grammar.hpp"
+#include "expr/lazy_param.hpp"
 #include "expr/attributes.hpp"
 #include "expr/expression.hpp"
 #include "expr/eval_log.hpp"

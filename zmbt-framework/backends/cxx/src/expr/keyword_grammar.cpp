@@ -205,6 +205,7 @@ KeywordSymbol::KeywordSymbol()
     ("Link", Keyword::Link)
     ("Capture", Keyword::Capture)
     ("Refer", Keyword::Refer)
+    ("Let", Keyword::Let)
     ("Any", Keyword::Any)
     ("All", Keyword::All)
     ("Saturate", Keyword::Saturate)
@@ -226,6 +227,7 @@ KeywordSymbol::KeywordSymbol()
     ("Default", Keyword::D)
     ("Err", Keyword::Err)
     ("Error", Keyword::Err)
+    ("Assert", Keyword::Assert)
     ("Trace", Keyword::Trace)
     ("PreProc", Keyword::PreProc)
     ;
@@ -376,6 +378,7 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Link: { return "Link"; break; }
     case Keyword::Capture: { return "Capture"; break; }
     case Keyword::Refer: { return "Refer"; break; }
+    case Keyword::Let: { return "Let"; break; }
     case Keyword::Any: { return "Any"; break; }
     case Keyword::All: { return "All"; break; }
     case Keyword::Saturate: { return "Saturate"; break; }
@@ -391,6 +394,7 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Q: { return "Q"; break; }
     case Keyword::D: { return "D"; break; }
     case Keyword::Err: { return "Err"; break; }
+    case Keyword::Assert: { return "Assert"; break; }
     case Keyword::Trace: { return "Trace"; break; }
     case Keyword::PreProc: { return "PreProc"; break; }
     default:

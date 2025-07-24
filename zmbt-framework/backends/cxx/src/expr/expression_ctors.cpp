@@ -15,24 +15,28 @@
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/api.hpp"
+#include "zmbt/expr/exceptions.hpp"
+
 
 
 namespace zmbt {
 namespace lang {
 
-
-Expression::Expression() : Expression(nullptr)
+ExpressionView::ExpressionView()
+    : encoding_view_{expr::Noop.encoding_view()}
 {
 }
 
 Expression::Expression(Encoding&& encoding)
     : encoding_{std::move(encoding)}
 {
+    encoding_view_ = EncodingView(encoding_);
 }
 
 Expression::Expression(Encoding const& encoding)
     : encoding_{encoding}
 {
+    encoding_view_ = EncodingView(encoding_);
 }
 
 Expression::Expression(Keyword const& keyword)
@@ -44,38 +48,56 @@ Expression::Expression(Keyword const& keyword)
     }
 }
 
+Expression::Expression(ExpressionView const& view)
+    : Expression(view.encoding_view().freeze())
+{
+
+}
+
+
 Expression::Expression(boost::json::value const& expr)
-    : encoding_{expr}
+    : Expression(Encoding(expr))
 {
 }
 
 Expression::Expression(boost::json::value&& expr)
-    : encoding_{std::move(expr)}
+    : Expression(Encoding(std::move(expr)))
 {
 }
+
+
+Expression::Expression()
+    : Expression(nullptr)
+{
+}
+
 
 Expression::Expression(std::initializer_list<boost::json::value_ref> items)
     : Expression(boost::json::value(items))
 {
 }
 
-Expression::Expression(Expression const& other) : Expression(other.encoding_)
+Expression::Expression(Expression const& other)
+    : Expression(other.encoding_)
 {
 }
 
-Expression::Expression(Expression&& other) : Expression(std::move(other.encoding_))
+Expression::Expression(Expression&& other)
+    : Expression(std::move(other.encoding_))
 {
 }
 
 Expression& Expression::operator=(Expression const& other)
 {
     encoding_ = other.encoding_;
+    encoding_view_ = EncodingView(encoding_);
     return *this;
 }
 
 Expression& Expression::operator=(Expression&& other)
 {
     encoding_ = std::move(other.encoding_);
+    encoding_view_ = EncodingView(encoding_);
     return *this;
 }
 

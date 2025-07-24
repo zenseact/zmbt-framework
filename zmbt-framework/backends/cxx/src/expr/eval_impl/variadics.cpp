@@ -34,24 +34,24 @@ ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
 
     auto fn = subexpressions.cbegin();
     // first el eval as is
-    E ret = (*fn++).eval(lhs(), curr_ctx() MAYBE_INCR);
+    E ret = (*fn++).eval_e(lhs(), curr_ctx());
     while (fn != subexpressions.cend())
     {
         // any consequent literals eval as eq
-        ret = (*fn++).eval_as_predicate(ret,curr_ctx() MAYBE_INCR);
+        ret = (*fn++).eval_maybe_predicate(ret,curr_ctx());
     }
     return ret;
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Fork)
 {
-    auto const fork_terms = self().fork_terms();
+    auto const fork_terms = self().subexpressions_list();
 
     boost::json::array out {};
     out.reserve(fork_terms.size());
     for (auto const& fn: fork_terms)
     {
-        out.push_back(fn.eval(lhs(), curr_ctx() MAYBE_INCR));
+        out.push_back(fn.eval_e(lhs(), curr_ctx()).to_json());
     }
     return out;
 }
@@ -64,15 +64,18 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
 
     V fmtstr;
     boost::format fmt;
-    zmbt::remove_cvref_t<decltype(subexpressions)> args;
+    boost::json::array args;
 
     auto const if_arr = x.if_array();
     auto const if_str = x.if_string();
 
     if (if_str)
     {
-       fmt = boost::format{if_str->c_str()};
-       args = subexpressions;
+        fmt = boost::format{if_str->c_str()};
+        for (auto const& term: subexpressions)
+        {
+            args.emplace_back(term.eval({}, curr_ctx()));
+        }
     }
     else if (if_arr && subexpressions.empty())
     {
@@ -86,7 +89,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
         fmt = boost::format{if_lhs_str->c_str()};
         for (auto const& arg: *if_rhs_args)
         {
-            args.push_back(E(arg));
+            args.push_back(E(arg).eval({}, curr_ctx()));
         }
     }
     else
@@ -100,9 +103,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
     auto const N = static_cast<std::size_t>(fmt.expected_args());
     ASSERT(args.size() == N, "invalid formatting");
 
-    for (auto const& fn: args)
+    for (auto const& item: args)
     {
-        auto const item = fn.eval({}, curr_ctx() MAYBE_INCR);
         fmt = item.is_string() ? (fmt % item.get_string().c_str()) : (fmt % item);
     }
     return {fmt.str()};
@@ -111,12 +113,17 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
 ZMBT_DEFINE_EVALUATE_IMPL(All)
 {
     auto const subexpressions = self().subexpressions_list();
+    E err_sts(nullptr);
 
     for (auto const& e: subexpressions)
     {
-        if (not e.eval_as_predicate(lhs(),curr_ctx() MAYBE_INCR).as_bool())
+        if (not e.eval_as_predicate(lhs(),err_sts,curr_ctx()) && !err_sts.is_error())
         {
             return false;
+        }
+        else if(err_sts.is_error())
+        {
+            return err_sts;
         }
     }
     return true;
@@ -126,12 +133,17 @@ ZMBT_DEFINE_EVALUATE_IMPL(All)
 ZMBT_DEFINE_EVALUATE_IMPL(Any)
 {
     auto const subexpressions = self().subexpressions_list();
+    E err_sts(nullptr);
 
     for (auto const& e: subexpressions)
     {
-        if (e.eval_as_predicate(lhs(),curr_ctx() MAYBE_INCR).as_bool())
+        if (e.eval_as_predicate(lhs(), err_sts, curr_ctx()) && !err_sts.is_error())
         {
             return true;
+        }
+        else if(err_sts.is_error())
+        {
+            return err_sts;
         }
     }
     return false;
@@ -146,15 +158,21 @@ ZMBT_DEFINE_EVALUATE_IMPL(Saturate)
     auto const& samples = x.as_array();
 
     auto it = subexpressions.cbegin();
+    E err_sts(nullptr);
+
     for (auto const& sample: samples)
     {
         if (it == subexpressions.cend())
         {
             break;
         }
-        if ((*it).eval_as_predicate(sample,curr_ctx() MAYBE_INCR).as_bool())
+        if ((*it).eval_as_predicate(sample,err_sts,curr_ctx()) && !err_sts.is_error())
         {
             it++;
+        }
+        else if(err_sts.is_error())
+        {
+            return err_sts;
         }
     }
     return it == subexpressions.cend();

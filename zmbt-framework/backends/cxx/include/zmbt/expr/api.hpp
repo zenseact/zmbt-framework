@@ -576,15 +576,19 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
 /// The capture is referenced by an arbitrary string preceded by dollar sign,
 /// e.g. "$x".
 /// 
-/// On the first access it stores the input value in isolated expression context
-/// eturns it on each subsequent call. It can't be reset after the first access.
+/// On the first access it stores the input value in isolated expression context,
+/// and returns it on each subsequent call.
+/// It can't be reset after the first access.
 /// 
 /// The string after $ sign shall not be enclosed in [], {}, or (),
 /// as those formats are reserved for internal usage.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Capture> const Capture;
 
-/// \brief ...
+/// \brief Return capture
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Refer> const Refer;
+
+/// \brief Store capture
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Let> const Let;
 
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;
@@ -605,7 +609,7 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 /// \details
 /// Allows to combine different properties in a single expression.
 /// Parameter
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Fork> const Fork;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
 /// \brief Flips design-time and eval-time parameters.
 /// \details
@@ -661,6 +665,9 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const Default;
 extern lang::SignatureErr const Err;
 /// \brief Alias for Err
 extern lang::SignatureErr const Error;
+
+/// \brief Return argument if it holds assertion or error otherwise.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Assert> const Assert;
 
 /// \brief Same as id, but also prints identifier parameter to debug log.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Trace> const Trace;
