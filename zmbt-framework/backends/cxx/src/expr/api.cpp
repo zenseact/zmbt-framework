@@ -179,6 +179,7 @@ lang::SignatureBinary<::zmbt::lang::Keyword::D> const D = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::D> const Default = D;
 lang::SignatureErr const Err = {};
 lang::SignatureErr const Error = Err;
+lang::SignatureBinary<::zmbt::lang::Keyword::Assert> const Assert = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Trace> const Trace = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::PreProc> const PreProc = {};
 

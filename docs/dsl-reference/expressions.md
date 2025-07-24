@@ -1949,6 +1949,19 @@ Error object
 Error object (work in progress)
 
 
+### Assert
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Return argument if it holds assertion or error otherwise.
+
+
+*Examples*:
+
+ * `42 | Assert(Ge(0)) `$\mapsto$` 42`
+ * `-7 | Assert(Ge(0)) `$\mapsto$` Err("assertion failed", "-7 | Ge(0)")`
+
 ### Trace
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)

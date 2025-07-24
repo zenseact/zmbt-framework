@@ -699,6 +699,10 @@ std::vector<TestEvalSample> const TestSamples
                                                     {"context", "bar"}
                                                 })                             },
 
+    {0 | Assert(Ne(0)) | Flip(Div(1)), {}     , Err("assertion failure", "Ne(0)")},
+    {1 | Assert(Ne(0)) | Flip(Div(1)), {}     , 1                              },
+
+
     {PreProc(1)             , {}              , "$[1]"                         },
     {PreProc("lol")         , {}              , "$[lol]"                       },
 
@@ -1158,16 +1162,17 @@ BOOST_AUTO_TEST_CASE(BracketInit)
 
 BOOST_AUTO_TEST_CASE(TestCapture)
 {
-    auto e = Debug("$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)));
+    auto inv = "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x");
 
-    BOOST_CHECK_EQUAL(*(42 | e), 42);
-    BOOST_CHECK_EQUAL(*(-42 | e), 42);
+    BOOST_CHECK_EQUAL(*(42 | inv), 1.0/42);
+    BOOST_CHECK_EQUAL(*(0 | inv), 0);
 }
 
 BOOST_AUTO_TEST_CASE(SymbolicLink)
 {
     auto fact = "$f" << (Let("$x")
-        | Any(0, 1)
+        | Assert(Ge(0))
+        | Lt(2)
         | And(1)
         | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
     );
@@ -1179,4 +1184,5 @@ BOOST_AUTO_TEST_CASE(SymbolicLink)
     BOOST_CHECK_EQUAL(fact.eval(3),   6);
     BOOST_CHECK_EQUAL(fact.eval(4),  24);
     BOOST_CHECK_EQUAL(fact.eval(5), 120);
+    BOOST_CHECK_EQUAL((fact | Kwrd).eval(-5), "Err");
 }

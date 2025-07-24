@@ -48,6 +48,12 @@ Expression::Expression(Keyword const& keyword)
     }
 }
 
+Expression::Expression(ExpressionView const& view)
+    : Expression(view.encoding_view().freeze())
+{
+
+}
+
 
 Expression::Expression(boost::json::value const& expr)
     : Expression(Encoding(expr))

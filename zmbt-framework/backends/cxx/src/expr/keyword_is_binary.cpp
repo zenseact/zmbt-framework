@@ -95,6 +95,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Try:
     case Keyword::Q:
     case Keyword::D:
+    case Keyword::Assert:
     case Keyword::Trace:
     case Keyword::PreProc:
         return true;

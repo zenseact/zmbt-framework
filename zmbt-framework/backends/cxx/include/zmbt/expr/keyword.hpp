@@ -451,6 +451,9 @@ enum class Keyword
     /// Err
     Err,
 
+    /// Assert
+    Assert,
+
     /// Trace
     Trace,
 

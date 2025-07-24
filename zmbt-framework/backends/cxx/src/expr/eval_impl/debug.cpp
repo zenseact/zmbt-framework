@@ -63,7 +63,23 @@ ZMBT_DEFINE_EVALUATE_IMPL(Trace)
     return lhs();
 }
 
+ZMBT_DEFINE_EVALUATE_IMPL(Assert)
+{
+    E err_sts(nullptr);
 
+    if (rhs().eval_as_predicate(lhs(), err_sts, curr_ctx()))
+    {
+        return lhs();
+    }
+    else if(err_sts.is_error())
+    {
+        return err_sts;
+    }
+    else
+    {
+        return expr::Err("assertion failure", rhs().prettify());
+    }
+}
 
 } // namespace lang
 } // namespace zmbt

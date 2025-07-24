@@ -1528,6 +1528,13 @@ keyword_groups:
         codegen-value:
           cxx: self()
 
+      - name: Assert
+        brief: Return argument if it holds assertion or error otherwise.
+        signature: Binary
+        examples: |-
+          42 | Assert(Ge(0)) ↦ 42
+          -7 | Assert(Ge(0)) ↦ Err("assertion failed", "-7 | Ge(0)")
+
       - name: Trace
         signature: Binary
         brief: Same as Id, but also prints identifier parameter to debug log.

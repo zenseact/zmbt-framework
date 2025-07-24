@@ -666,6 +666,9 @@ extern lang::SignatureErr const Err;
 /// \brief Alias for Err
 extern lang::SignatureErr const Error;
 
+/// \brief Return argument if it holds assertion or error otherwise.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Assert> const Assert;
+
 /// \brief Same as id, but also prints identifier parameter to debug log.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Trace> const Trace;
 

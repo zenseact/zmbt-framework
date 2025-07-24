@@ -371,6 +371,7 @@ class Expression : public ExpressionView
 
     // construct from keyword
     explicit Expression(Keyword const& keyword);
+    explicit Expression(ExpressionView const& view);
 
     Expression(Expression const& other);
     Expression(Expression&& other);
