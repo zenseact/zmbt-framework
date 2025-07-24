@@ -29,10 +29,10 @@ void trim_line(std::ostream& os, boost::json::array const& rec)
     constexpr std::size_t BuffSize {100};
     constexpr std::size_t MinExpr = 10;
 
-    auto const depth = rec.at(0).as_uint64();
-    std::size_t capacity = BuffSize - 4U*depth;
+    std::size_t const depth = rec.at(0).as_uint64();
+    std::size_t const capacity = BuffSize - 4U*depth;
 
-    if (capacity < 3*MinExpr)
+    if ((capacity < 3*MinExpr) || capacity > BuffSize)
     {
         os << "...\n";
         return;
@@ -106,11 +106,18 @@ void EvalLog::format(std::ostream& os, boost::json::array const& log, int const 
     std::uint64_t prev_depth = 0;
     std::size_t vertical_groups = 0;
 
+    auto const notrim = Logger::get_notrim();
+
 
     for (auto const& item: log)
     {
         auto const& rec = item.as_array();
         std::uint64_t const depth = rec.at(0).as_uint64();
+
+        if(!notrim && depth > 20)
+        {
+            continue;
+        }
 
         if (prev_depth < depth && prev_depth > 0)
         {
@@ -142,7 +149,7 @@ void EvalLog::format(std::ostream& os, boost::json::array const& log, int const 
             CLEAR_BIT(vertical_groups, depth);
         }
 
-        if (Logger::get_trim_line())
+        if (notrim)
         {
             using E = zmbt::lang::Expression;
             E f(rec.at(1));

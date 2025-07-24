@@ -68,9 +68,9 @@ class Logger {
     static void open_json(const std::string& filename = "");
 
     static void set_max_level(Level const max_level);
-    static void set_trim_line(bool const trim_line);
+    static void set_notrim(bool const trim_line);
 
-    static bool get_trim_line();
+    static bool get_notrim();
     static Level get_max_level();
 
 

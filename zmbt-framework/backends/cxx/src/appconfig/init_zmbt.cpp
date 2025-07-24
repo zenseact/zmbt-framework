@@ -85,7 +85,7 @@ void InitZmbt(int argc, char **argv)
             {"args", boost::json::array(argv+1, argv+argc)},
         }}
     };
-    Logger::set_trim_line(zmbt_log_notrim);
+    Logger::set_notrim(zmbt_log_notrim);
     static_cast<void>(zmbt_log_prettify);
 
     //TODO: zmbt::Environment().SetPrettyPrint(zmbt_log_prettify);

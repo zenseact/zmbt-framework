@@ -21,7 +21,7 @@ namespace{
 using Level = zmbt::Logger::Level;
 
 static Level g_max_log_level = Level::INFO;
-static bool g_trim_line = true;
+static bool g_notrim = true;
 
 
 class AsyncJsonLogger {
@@ -112,14 +112,14 @@ void Logger::set_max_level(Level const max_level)
     g_max_log_level = max_level;
 }
 
-void Logger::set_trim_line(bool const trim_line)
+void Logger::set_notrim(bool const notrim)
 {
-    g_trim_line = trim_line;
+    g_notrim = notrim;
 }
 
-bool Logger::get_trim_line()
+bool Logger::get_notrim()
 {
-    return g_trim_line;
+    return g_notrim;
 }
 
 Level Logger::get_max_level()
