@@ -56,6 +56,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Str) { return lhs().prettify().c_str(); }
 ZMBT_DEFINE_EVALUATE_IMPL(Q) { return rhs(); }
 ZMBT_DEFINE_EVALUATE_IMPL(D) { return (lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs(); }
 ZMBT_DEFINE_EVALUATE_IMPL(Err) { return self(); }
+ZMBT_DEFINE_EVALUATE_IMPL(IsErr) { return lhs().is_error(); }
 ZMBT_DEFINE_EVALUATE_IMPL(PreProc) { return self(); }
 
 

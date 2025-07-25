@@ -1038,7 +1038,7 @@ keyword_groups:
           Parametrized at design time with fixed array or object,
           produces the value at corresponding At query given
           as eval-time argument.
-          Equivalent to Flip(At(...))
+          Equivalent to ~At(...)
 
         domain: [union: [int, str, list, object], any]
 
@@ -1424,17 +1424,22 @@ keyword_groups:
 
       - name: Flip
         signature: Binary
-        brief: Flips design-time and eval-time parameters.
+        brief: Flip design-time and eval-time parameters.
         details: |-
           Useful for binding lhs operands to non-commutative
           operators. Unlike Haskell's flip, won't change the
           order or eval-time parameters - for that case use
           the Reverse keyword instead.
+
+          **Prefix operator form (tilde)**:
+
+          Flip(Div(1)) ≡ ~Div(1)
+
         domain: [fn, any]
         codomain: any
         examples: |-
-          2 | Div(1) ↦ 2
-          2 | Flip(Div(1)) ↦ 0.5
+          2 | Div(1) ↦ 2/1
+          2 | ~Div(1) ↦ 1/2
 
       - name: Dbg
         signature: Binary
@@ -1501,7 +1506,7 @@ keyword_groups:
           Unlike plain literals which can be treated
           as predicate matchers in certain context, Q(x) is always
           a constant expression discarding input.
-          Flip(Q) is equivalent to Id.
+          ~Q (Flip(Q)) is equivalent to Id.
         domain: [any, any]
         examples: |-
           null | C(42) ↦ 42
@@ -1513,7 +1518,6 @@ keyword_groups:
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:
-          # cxx: 'lhs().is_null() ? rhs() :  lhs()'
           cxx: '(lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs()'
         examples: |-
           null | Default(42) ↦ 42
@@ -1524,9 +1528,16 @@ keyword_groups:
         brief: Error object
         signature: Special
         details: |-
-          Error object (work in progress)
+          Error object handling the message and context info
         codegen-value:
           cxx: self()
+
+      - name: IsErr
+        aliases: [ IsError ]
+        brief: Test the argument is Err expression
+        signature: Unary
+        codegen-value:
+          cxx: lhs().is_error()
 
       - name: Assert
         brief: Return argument if it holds assertion or error otherwise.

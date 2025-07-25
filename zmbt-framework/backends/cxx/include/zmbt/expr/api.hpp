@@ -461,7 +461,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Del> const Delete;
 /// Parametrized at design time with fixed array or object,
 /// produces the value at corresponding At query given
 /// as eval-time argument.
-/// Equivalent to Flip(At(...))
+/// Equivalent to ~At(...)
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Lookup> const Lookup;
 
 /// \brief Reserialize decorated type as decorator
@@ -611,12 +611,16 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 /// Parameter
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
-/// \brief Flips design-time and eval-time parameters.
+/// \brief Flip design-time and eval-time parameters.
 /// \details
 /// Useful for binding lhs operands to non-commutative
 /// operators. Unlike Haskell's flip, won't change the
 /// order or eval-time parameters - for that case use
 /// the Reverse keyword instead.
+/// 
+/// **Prefix operator form (tilde)**:
+/// 
+/// Flip(Div(1)) ≡ ~Div(1)
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Flip> const Flip;
 
 /// \brief Evaluate function and print evaluation log to stderr
@@ -647,7 +651,7 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Prms> const Parameters;
 /// Unlike plain literals which can be treated
 /// as predicate matchers in certain context, Q(x) is always
 /// a constant expression discarding input.
-/// Flip(Q) is equivalent to Id.
+/// ~Q (Flip(Q)) is equivalent to Id.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const Q;
 /// \brief Alias for Q
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Q> const C;
@@ -661,10 +665,15 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::D> const Default;
 
 /// \brief Error object
 /// \details
-/// Error object (work in progress)
+/// Error object handling the message and context info
 extern lang::SignatureErr const Err;
 /// \brief Alias for Err
 extern lang::SignatureErr const Error;
+
+/// \brief Test the argument is err expression
+extern lang::SignatureUnary<::zmbt::lang::Keyword::IsErr> const IsErr;
+/// \brief Alias for IsErr
+extern lang::SignatureUnary<::zmbt::lang::Keyword::IsErr> const Iserror;
 
 /// \brief Return argument if it holds assertion or error otherwise.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Assert> const Assert;

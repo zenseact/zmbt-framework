@@ -159,6 +159,7 @@ extern template Expression dispatch_eval<Keyword::Prms>(ExpressionView const&, E
 extern template Expression dispatch_eval<Keyword::Q>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::D>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Err>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::IsErr>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Assert>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Trace>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::PreProc>(ExpressionView const&, ExpressionView const&, EvalContext);
@@ -308,6 +309,7 @@ try
         case Keyword::Q: return dispatch_eval<Keyword::Q>(*this, x, context);
         case Keyword::D: return dispatch_eval<Keyword::D>(*this, x, context);
         case Keyword::Err: return dispatch_eval<Keyword::Err>(*this, x, context);
+        case Keyword::IsErr: return dispatch_eval<Keyword::IsErr>(*this, x, context);
         case Keyword::Assert: return dispatch_eval<Keyword::Assert>(*this, x, context);
         case Keyword::Trace: return dispatch_eval<Keyword::Trace>(*this, x, context);
         case Keyword::PreProc: return dispatch_eval<Keyword::PreProc>(*this, x, context);
