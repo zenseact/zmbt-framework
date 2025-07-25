@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_33cabc3ab2bb40d6ea24a24cae2f30b8" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include</compoundname>
+    <innerdir refid="dir_2115e3e51895e4107b806d6d2319263e">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt</innerdir>
+    <innerfile refid="zenseact-mbt_8hpp">zenseact-mbt.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/"/>
+  </compounddef>
+</doxygen>

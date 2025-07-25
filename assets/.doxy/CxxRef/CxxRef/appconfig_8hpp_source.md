@@ -1,0 +1,21 @@
+
+
+# File appconfig.hpp
+
+[**File List**](files.md) **>** [**backends**](dir_e0e3bad64fbfd08934d555b945409197.md) **>** [**cxx**](dir_2a0640ff8f8d193383b3226ce9e70e40.md) **>** [**include**](dir_33cabc3ab2bb40d6ea24a24cae2f30b8.md) **>** [**zmbt**](dir_2115e3e51895e4107b806d6d2319263e.md) **>** [**appconfig.hpp**](appconfig_8hpp.md)
+
+[Go to the documentation of this file](appconfig_8hpp.md)
+
+
+```C++
+
+#ifndef ZMBT_APPLICATION_HPP_
+#define ZMBT_APPLICATION_HPP_
+
+
+#include "appconfig/init_zmbt.hpp"
+
+#endif // ZMBT_APPLICATION_HPP_
+```
+
+

@@ -1,0 +1,10 @@
+digraph "zmbt::reflect::custom_serialization&lt; T, class &gt;"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="zmbt::reflect::custom\l_serialization\< T, class \>",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="User-defined serialization."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="zmbt::reflect::serialization\l\< T, detail::enable_for_custom\l_serialization\< T \> \>",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",URL="$structzmbt_1_1reflect_1_1serialization_3_01T_00_01detail_1_1enable__for__custom__serialization_3_01T_01_4_01_4.html",tooltip=" "];
+}

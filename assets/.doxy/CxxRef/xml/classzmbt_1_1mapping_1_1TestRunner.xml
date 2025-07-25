@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1TestRunner" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::TestRunner</compoundname>
+    <includes refid="test__runner_8hpp" local="no">test_runner.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1mapping_1_1TestRunner_1a7484e5df7ebe7409939132069e23ef2e" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; Impl &gt;</type>
+        <definition>std::unique_ptr&lt;Impl&gt; zmbt::mapping::TestRunner::impl_</definition>
+        <argsstring></argsstring>
+        <name>impl_</name>
+        <qualifiedname>zmbt::mapping::TestRunner::impl_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" line="21" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestRunner_1a853ba9b55a050975ddf7ac24e530ea1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestRunner::TestRunner</definition>
+        <argsstring>(JsonNode const &amp;model)</argsstring>
+        <name>TestRunner</name>
+        <qualifiedname>zmbt::mapping::TestRunner::TestRunner</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref> const &amp;</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" line="24" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestRunner_1a8a55a73bbb83b532a29f145070f1fb15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::mapping::TestRunner::Run</definition>
+        <argsstring>()</argsstring>
+        <name>Run</name>
+        <qualifiedname>zmbt::mapping::TestRunner::Run</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" line="25" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestRunner_1a5da1f0fcc073ffe840e1559e0d63f61e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestRunner::~TestRunner</definition>
+        <argsstring>()</argsstring>
+        <name>~TestRunner</name>
+        <qualifiedname>zmbt::mapping::TestRunner::~TestRunner</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" line="26" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Test runner for <ref refid="classzmbt_1_1mapping_1_1SignalMapping" kindref="compound">SignalMapping</ref> model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" line="17" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp" bodystart="18" bodyend="27"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1TestRunner_1a7484e5df7ebe7409939132069e23ef2e" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestRunner</scope><name>impl_</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestRunner_1a8a55a73bbb83b532a29f145070f1fb15" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestRunner</scope><name>Run</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestRunner_1a853ba9b55a050975ddf7ac24e530ea1a" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestRunner</scope><name>TestRunner</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestRunner_1a5da1f0fcc073ffe840e1559e0d63f61e" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestRunner</scope><name>~TestRunner</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
