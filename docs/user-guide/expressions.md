@@ -43,7 +43,7 @@ General expression syntax is `literal | keyword[(expression...)]`, which expands
  - `keyword(expression...)`: keyword with parameters (*not yet an evaluation call*).
 
 Both `keyword` forms yield a `Expression` object with an `eval` method, used by the framework at runtime,
-and `literal` is converted implicitly in corrresponding context.
+and `literal` is converted implicitly in corresponding context.
 
 In addition to verbose `keyword(expression...)` notation the Expression API provides syntactic sugar in form
 of shortcut infix and prefix operators:
@@ -57,7 +57,7 @@ of shortcut infix and prefix operators:
 
 The expression pipe (`|`) operator is associative from evaluation perspective,
 and the chain of multiple infix pipes is unfolded on construction, producing a single variadic `Pipe`:
-`A | B | C` yields `Pipe(A, B, C)` rather then `Pipe(Pipe(A, B), C)`.
+`A | B | C` yields `Pipe(A, B, C)` rather than `Pipe(Pipe(A, B), C)`.
 
 Infix unfolding is not applied to the fork (`&`) operator, which is non-associative at evaluation.
 For this operator the grouping of infix operands is preserved, following
@@ -67,7 +67,7 @@ the conventional C operator left-associativity:
 
 ### Arity forms
 
-Expression keywords are grouped by their design-time plus eval-time parameters arity.
+Expression keywords are grouped by their design-time plus evaluation-time parameters arity.
 
 |Form    | Resulting Expression Type                                  |Examples                                        |
 |--------|------------------------------------------------------------|------------------------------------------------|
@@ -83,9 +83,9 @@ Expression keywords are grouped by their design-time plus eval-time parameters a
 The **Const** keywords are constant functions. They are syntactically equivalent to **Unary**,
 with the difference that constants will ignore the eval input value.
 
-Custom constants can be created with `Q` keyword (similar Lisp quotation), e.g. `Q(42)` or `Q(Add)`.
+Custom constants can be created with `Q` keyword, e.g. `Q(42)` or `Q(Add)`.
 
-JSON or JSON-convertible values in an expression context yield a **Literal** form which is interpreted as
+JSON or JSON-convertible values produce a **Literal** form which is interpreted as
 a constants (**Literal₁**) or a predicate (**Literal₂**) depending on a context.
 
 **Binary** keywords have the most flexible syntax. The canonical **Binary₁** form with no parameters like `Add` expects
@@ -97,11 +97,11 @@ This is especially useful for non-commutative operators, e.g.:
 * `2 | Flip(Div(1))` $= 0.5$
 
 For the **Binary₁** the composition with `Reverse` can be utilized instead of `Flip` to get the proper commutation,
-as `Flip` only swaps the design-time and eval-time arguments, which differs from Haskell's `flip`.
+as `Flip` only swaps the design-time and evaluation-time arguments, which differs from Haskell's `flip`.
 
 The predicates in **Binary₂** form are very similar to GoogleTest matchers, e.g. `Eq(42)` or `Lt(0.5)`.
 It may also be helpful to view this form from an OOP perspective, considering it as
-a class method on eval-time argument object. E.g.,
+a class method on evaluation-time argument object. E.g.,
 
 ```js
 input | At(1)
@@ -127,27 +127,26 @@ e.g. variadic `Fmt`:
 
 ## Parameter evaluation
 
-Design time parameters are constant expressions, e.g.,
-`Lt(42)` is a syntactic sugar for `Lt(C(42))`. A simple use case
+Design-time parameters are constant expressions. A simple use case
 is to utilize math constants like `Lt(Pi)`, but any complex expression can be used as long as it is constant,
 e. g. `Lt(Pi|Div(2))`.
 
-Parameters evaluation is lazy, s.t. in the ternary and-or idiom `condition | And(then) | Or(else)`
+Parameter evaluation is lazy, s.t. in the ternary and-or idiom `condition | And(then) | Or(else)`
 the `else` part is only evaluated if `And(then)` produces falsy output.
 
-In the high-order expressions parameters are not evaluated as if they were quoted.
+In the higher-order expressions parameters are passed unevaluated, similar to quoted expressions.
 
 ## Preprocessing
 
 The Expression API provides preprocessing functionality similar to C Preprocessor, s.t.
 any string literal starting with $ sign and enclosed in square brackets (e.g. `"$[foo]"`)
-considered a macro. The macro substitution is done on Expression deserialization from
+is considered a macro. The macro substitution is done on Expression deserialization from
 raw JSON data, and user-defined parameter handling is delegated to the test model runners.
 
 ## Error handling
 
-Expression evaluation is *pure* and *non-throwing* — errors are represented explicitly using the `Err` expression
-rather than raised as host-language exceptions.
+Expression evaluation is *pure* and *non-throwing* — errors are represented using the `Err`
+expression instead of throwing host-language exceptions.
 Terminal expressions, such as arithmetic or logical operators,
 do not process Err values but propagate them unchanged through the pipeline.
 
@@ -155,36 +154,36 @@ To handle errors and control branching, expressions such as `Try`, `D` (`Default
 
 ## High-order keywords and structural transforms
 
-Several keywords produce high-order expressions that are useful for creating a more complex matchers or generators.
+Several keywords produce higher-order expressions that are useful for creating a more complex matchers or generators.
 
 The most powerful in this group are `Pipe` and `Fork`.
-In addition to what is descrived above, composition also has a special rule for literals beyond the initial term - they are interpreted as predicates,
-e.g. `[1,2,3] | Size | 3` is equivalent to `[1,2,3] | Size | Eq(3)`. To treat literal `3` as a constant expression, quote it as `Q(3)` (equivalent of Lisp quote).
+In addition to what is described above, composition also applies a special rule to literals beyond the initial term - they are interpreted as predicates,
+e.g. `[1,2,3] | Size | 3` is equivalent to `[1,2,3] | Size | Eq(3)`. To treat literal `3` as a constant expression, quote it as `Q(3)`.
 
 
 Other useful keywords are:
 
 - `Filter`, `Map`, `Fold` - similar to Python functools, e.g.:
-      ```js
-      [
-         [1, "one"  ],
-         [3, "two"  ],
-         [2, "three"],
-         [4, "four" ],
-      ] | Filter(At(1)|Lt(3)) | Map(At(0)) |-> ["one", "two"]
-      ```
+    ```js
+    [
+       [1, "one"  ],
+       [3, "two"  ],
+       [2, "three"],
+       [4, "four" ],
+    ] | Filter(At(1)|Lt(3)) | Map(At(0)) |-> ["one", "two"]
+    ```
 - `At`, `Transp`, `Slide` - powerful data transformers, e.g.:
-      - `Slide(3)|Map(Avg)`: moving average with step width = 3
-      - `At("key")`, `At(0)` - simple element getters
-      - `At("/foo/bar")` - JSON pointer query
-      - `At("::2")` - array slice query
+    - `Slide(3)|Map(Avg)`: moving average with step width = 3
+    - `At("key")`, `At(0)` - simple element getters
+    - `At("/foo/bar")` - JSON pointer query
+    - `At("::2")` - array slice query
 - `Saturate`, `All`, `Any`, `Count` - matcher building elements
 - `Recur`, `Unfold` - recursion handlers with exit condition:
-      - `Q(Ge(12)) | Recur( 4 & Add(1))` $= 11$
-      - `Q(Ge(12)) | Unfold(8 & Add(1))` $= [8,9,10,11]$
+    - `Q(Ge(12)) | Recur( 4 & Add(1))` $= 11$
+    - `Q(Ge(12)) | Unfold(8 & Add(1))` $= [8,9,10,11]$
 
 
-For the complete information see [Expression Language Reference](../dsl-reference/expressions.md#high-order).
+For the complete information see [Expression Language Reference](../dsl-reference/expressions.md#higher-order).
 
 ## Symbolic linking
 
@@ -218,25 +217,26 @@ s.a. `And("$x" | ...)` (recall that expression parameters computation is lazy).
 ```
 
 This example constructs a recursive factorial function using << as an assignment operator.
-As with "$x", the "$f" link is accessible in all subsequent subexpressions.
+As with `"$x"`, the `"$f"` link is accessible in all subsequent subexpressions.
 From an implementation perspective, it behaves like a `goto` -
 the evaluation context stores a view of the expression (an AST pointer),
 so no design-time data is copied.
 
+
 !!! note
 
-   Note that the evaluation context *does not yet support local scoping*,
-   so any recursive `"$f"` invocation updates the same `"$x"` value.
-   Because of this, "$x" is not used directly inside the final Mul expression.
-   If it were, the equivalent expression would be:
+    Note that the evaluation context *does not yet support local scoping*,
+    so any recursive `"$f"` invocation updates the same `"$x"` value.
+    Because of this, "$x" is not used directly inside the final Mul expression.
+    With the local scoping implemented, the equivalent expression would be
+    ``` c++
+    Or("$x" | Sub(1) | "$f" | Mul("$x"))
+    ```
 
-   ``` c++
-      Or("$x" | Sub(1) | "$f" | Mul("$x"))
-   ```
 
 ## Quotation
 
-The keyword `Q` serves as a quotation operator, similar to Lisp’s quote.
+The keyword `Q` (*aliases: C, Const*) serves as a quotation operator, similar to Lisp’s quote.
 It lifts its parameter into a constant expression, preventing evaluation.
 
 This allows you to pass expressions as values to `Eval` or `~Bind(...)`,
@@ -317,7 +317,7 @@ produces
 
 ### Line trimming
 
-For the bulky log messages the elements are trimmed with `...` while trying to keep the evaluation result visible.
+For the bulky log messages, elements are trimmed with `...` while trying to keep the evaluation result visible.
 This option can be disabled with `--zmbt_log_notrim` flag.
 
 ## Grammar
