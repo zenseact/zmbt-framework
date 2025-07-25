@@ -216,6 +216,11 @@ public:
         return is(Keyword::Err);
     }
 
+    bool is_complete_flip() const
+    {
+        return is(Keyword::Flip) && encoding_view().size() > 1;
+    }
+
 
     ///////////////////////////
     // ATTR-BASED OBSERVERS
@@ -389,25 +394,26 @@ class Expression : public ExpressionView
 
     Encoding encoding() const { return encoding_; }
 
-    //////////////
-    // OPERATORS
-    //////////////
+    /////////////////////////
+    // SUGAR SYNTAX OPERATORS
+    /////////////////////////
 
-    /// \brief Pipe expressions left-to-right
+    /// Pipe expressions left-to-right
     /// \details Pipe functional expressions in composition,
     /// s.t. `a | b` is equivalent to `Pipe(a, b)`. \see zmbt::expr::Pipe
     friend Expression operator|(Expression lhs, Expression rhs);
 
-    /// \brief Pack expression results into an array. \see zmbt::expr::Fork.
+    /// Pack expression results into an array. \see zmbt::expr::Fork.
     friend Expression operator&(Expression lhs, Expression rhs);
 
-    /// \brief Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
+    /// Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
     friend Expression operator+(Expression lhs, Expression rhs);
 
-    /// \brief Link expression to symbolik reference
+    /// Link expression to symbolik reference
     friend Expression operator<<(Expression link, Expression referent);
 
-
+    /// Flip design-time and eval-time parameters.
+    friend Expression operator~(Expression expr);
 
   private:
     Encoding encoding_;

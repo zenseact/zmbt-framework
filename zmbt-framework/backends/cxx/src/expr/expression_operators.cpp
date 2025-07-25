@@ -64,6 +64,11 @@ Expression operator<<(Expression link, Expression referent)
     ));
 }
 
+Expression operator~(Expression expr)
+{
+    return expr::Flip(expr);
+}
+
 
 } // namespace lang
 } // namespace zmbt

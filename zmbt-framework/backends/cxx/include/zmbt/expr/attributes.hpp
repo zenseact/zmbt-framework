@@ -191,6 +191,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Q: return is_binary | is_autogen | is_quote;
     case Keyword::D: return is_binary | is_autogen;
     case Keyword::Err: return is_unary | is_autogen | is_error;
+    case Keyword::IsErr: return is_unary | is_autogen;
     case Keyword::Assert: return is_binary;
     case Keyword::Trace: return is_binary;
     case Keyword::PreProc: return is_binary | is_autogen | is_preproc;

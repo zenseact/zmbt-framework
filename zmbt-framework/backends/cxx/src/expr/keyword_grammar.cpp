@@ -227,6 +227,8 @@ KeywordSymbol::KeywordSymbol()
     ("Default", Keyword::D)
     ("Err", Keyword::Err)
     ("Error", Keyword::Err)
+    ("IsErr", Keyword::IsErr)
+    ("IsError", Keyword::IsErr)
     ("Assert", Keyword::Assert)
     ("Trace", Keyword::Trace)
     ("PreProc", Keyword::PreProc)
@@ -394,6 +396,7 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Q: { return "Q"; break; }
     case Keyword::D: { return "D"; break; }
     case Keyword::Err: { return "Err"; break; }
+    case Keyword::IsErr: { return "IsErr"; break; }
     case Keyword::Assert: { return "Assert"; break; }
     case Keyword::Trace: { return "Trace"; break; }
     case Keyword::PreProc: { return "PreProc"; break; }

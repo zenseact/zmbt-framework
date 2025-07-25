@@ -451,6 +451,9 @@ enum class Keyword
     /// Err
     Err,
 
+    /// IsErr
+    IsErr,
+
     /// Assert
     Assert,
 

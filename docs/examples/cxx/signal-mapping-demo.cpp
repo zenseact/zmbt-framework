@@ -279,13 +279,14 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        ( 42             , Eq(42)                             )
-        ( 42             , 42     /*(1)*/                     )
-        ( {1,2,3}        , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
-        ( {1,2,3}        , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
-        ( {1,2,3,4}      , Fold(Add) & Size | Div | Eq(2.5) ) //(5)
-        ( Pi|Div(2)|Sin  , Approx(1)                          ) //(6)
-        ( "5:1:-1"|Arange, {5,4,3,2}                          ) //(7)
+        ( 42                , Eq(42)                             )
+        ( 42                , 42     /*(1)*/                     )
+        ( {1,2,3}           , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
+        ( {1,2,3}           , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
+        ( {1,2,3,4}         , Fold(Add) & Size | Div | Eq(2.5)   ) //(5)
+        ( Pi | Div(2) | Sin , Approx(1)                          ) //(6)
+        ( Pi | ~Div(1)      , Approx(1.0/3.14159265359)          ) //(7)
+        ( "5:1:-1" | Arange , {5,4,3,2}                          ) //(8)
     ;
 }
 /*
@@ -302,7 +303,8 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
     2. `Div` on input `[10, 4]` produces [2.5]
     3. `Eq(2.5)` on input `[2.5]` produces `true`
 6. A constant function can be used on input channel instead of literal
-7. `Arange` is a generator similar to
+7. Flip expression (prefix ~) swaps the operands, which is useful for non-commutative transforms
+8. `Arange` is a generator similar to
     [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
 
 
@@ -1083,7 +1085,7 @@ BOOST_AUTO_TEST_CASE(TestMultithreading)
 
     SignalMapping("Test Blend on output")
     .OnTrigger(SUT)
-        .At(&Mock::produce, producer).Inject(Flip(Sub(42)))
+        .At(&Mock::produce, producer).Inject(~Sub(42)) // xi = 42 - i
         .At(&Mock::consume, consumer).Take(Max).Expect(42)
         .At(&Mock::consume, consumer).CallCount().Expect(42)
         .At(&Mock::consume, consumer).ThreadId().Expect(Card|8)

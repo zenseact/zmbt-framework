@@ -1385,7 +1385,7 @@ Lookup table function
 Parametrized at design time with fixed array or object,
 produces the value at corresponding At query given
 as eval-time argument.
-Equivalent to Flip(At(...))
+Equivalent to ~At(...)
 
 *Examples*:
 
@@ -1826,17 +1826,21 @@ as it is done for variadic Pipe or Tuple:
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-Flips design-time and eval-time parameters.
+Flip design-time and eval-time parameters.
 
 Useful for binding lhs operands to non-commutative
 operators. Unlike Haskell's flip, won't change the
 order or eval-time parameters - for that case use
 the Reverse keyword instead.
 
+**Prefix operator form (tilde)**:
+
+Flip(Div(1)) ≡ ~Div(1)
+
 *Examples*:
 
- * `2 | Div(1) `$\mapsto$` 2`
- * `2 | Flip(Div(1)) `$\mapsto$` 0.5`
+ * `2 | Div(1) `$\mapsto$` 2/1`
+ * `2 | ~Div(1) `$\mapsto$` 1/2`
 
 ### Dbg
 
@@ -1918,7 +1922,7 @@ is passed, it is returned unevaluated.
 Unlike plain literals which can be treated
 as predicate matchers in certain context, Q(x) is always
 a constant expression discarding input.
-Flip(Q) is equivalent to Id.
+~Q (Flip(Q)) is equivalent to Id.
 
 *Examples*:
 
@@ -1946,7 +1950,17 @@ Return x if not null, else return default value
 
 Error object
 
-Error object (work in progress)
+Error object handling the message and context info
+
+
+### IsErr
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+*Aliases*: IsError
+
+Test the argument is err expression
+
 
 
 ### Assert
