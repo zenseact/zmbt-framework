@@ -29,7 +29,6 @@ static Encoding const TestEncoding = []{
     e.keywords = {Keyword::Pipe, Keyword::Add, Keyword::Literal, Keyword::Mul, Keyword::Literal};
     e.depth = {0, 1, 2, 1, 2};
     e.data = {nullptr, nullptr, 1, nullptr, 2};
-    e.bindings = {nullptr, nullptr, nullptr, nullptr, nullptr};
     return e;
 }();
 
@@ -42,7 +41,6 @@ void test_slice(EncodingView const& view)
         BOOST_CHECK_EQUAL( row.keyword, TestEncoding.keywords.at(row.index));
         BOOST_CHECK_EQUAL( row.depth+d, TestEncoding.depth   .at(row.index));
         BOOST_CHECK_EQUAL(*row.data   , TestEncoding.data    .at(row.index));
-        BOOST_CHECK_EQUAL(*row.binding, TestEncoding.bindings.at(row.index));
     }
 }
 
@@ -63,7 +61,6 @@ BOOST_AUTO_TEST_CASE(ViewIndexing)
         BOOST_CHECK_EQUAL( view[i].keyword, TestEncoding.keywords.at(i));
         BOOST_CHECK_EQUAL( view[i].depth  , TestEncoding.depth   .at(i));
         BOOST_CHECK_EQUAL(*view[i].data   , TestEncoding.data    .at(i));
-        BOOST_CHECK_EQUAL(*view[i].binding, TestEncoding.bindings.at(i));
     }
 
     BOOST_CHECK_EQUAL(view.front().keyword, TestEncoding.keywords.front());
@@ -150,7 +147,6 @@ BOOST_AUTO_TEST_CASE(ViewFreeze)
         BOOST_CHECK_EQUAL( subtree[i].keyword,  copyview[i].keyword);
         BOOST_CHECK_EQUAL( subtree[i].depth  ,  copyview[i].depth  );
         BOOST_CHECK_EQUAL(*subtree[i].data   , *copyview[i].data   );
-        BOOST_CHECK_EQUAL(*subtree[i].binding, *copyview[i].binding);
 
         BOOST_CHECK_EQUAL(copyview[i].index, i  );
         BOOST_CHECK_EQUAL(subtree[i] .index, i+3);

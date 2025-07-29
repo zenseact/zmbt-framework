@@ -45,10 +45,12 @@ Encoding::Encoding(boost::json::value&& value)
     if (if_obj &&if_obj->contains("keywords")
         && if_obj->contains("depth")
         && if_obj->contains("data")
-        && if_obj->contains("bindings")
     )
     {
-        *this = boost::json::value_to<Encoding>(std::move(value));
+        keywords = boost::json::value_to<std::vector<K>>(if_obj->at("keywords"));
+        depth = boost::json::value_to<std::vector<std::size_t>>(if_obj->at("depth"));
+        auto& data_arr = if_obj->at("data").as_array();
+        data.insert(data.end(), std::make_move_iterator(data_arr.begin()), std::make_move_iterator(data_arr.end()));
         preprocess();
     }
     else
@@ -62,7 +64,7 @@ Encoding::Encoding(boost::json::value&& value)
         {
             k = Keyword::Capture;
         }
-        push_back(k, 0, std::move(value), nullptr);
+        push_back(k, 0, std::move(value));
     }
 }
 
@@ -81,7 +83,6 @@ bool Encoding::operator==(Encoding const& o) const
 {
     return (keywords == o.keywords)
     && (depth == o.depth)
-    && (bindings == o.bindings)
     && (data == o.data);
 }
 
@@ -91,20 +92,18 @@ bool Encoding::operator!=(Encoding const& o) const
 }
 
 
-void Encoding::push_back(K const& k, std::size_t const d, V const& v, V const& b)
+void Encoding::push_back(K const& k, std::size_t const d, V const& v)
 {
     keywords.push_back(k);
     depth   .push_back(d);
     data    .push_back(v);
-    bindings.push_back(b);
 }
 
-void Encoding::push_back(K const& k, std::size_t const d, V && v, V const& b)
+void Encoding::push_back(K const& k, std::size_t const d, V && v)
 {
     keywords.push_back(k);
     depth   .push_back(d);
     data    .push_back(std::move(v));
-    bindings.push_back(b);
 }
 
 void Encoding::append_to_root(Encoding const& tail)
@@ -112,14 +111,12 @@ void Encoding::append_to_root(Encoding const& tail)
     keywords.reserve(size() + tail.size());
     depth   .reserve(size() + tail.size());
     data    .reserve(size() + tail.size());
-    bindings.reserve(size() + tail.size());
 
     auto d = depth.end();
 
     keywords.insert(keywords.end(), tail.keywords.cbegin(), tail.keywords.cend());
     depth   .insert(depth   .end(), tail.depth   .cbegin(), tail.depth   .cend());
     data    .insert(data    .end(), tail.data    .cbegin(), tail.data    .cend());
-    bindings.insert(bindings.end(), tail.bindings.cbegin(), tail.bindings.cend());
 
     while(d < depth.cend())
     {
@@ -143,16 +140,13 @@ bool Encoding::preprocess()
     decltype(keywords)  new_keywords;
     decltype(depth)     new_depth;
     decltype(data)      new_data;
-    decltype(bindings)  new_bindings;
 
     new_keywords.reserve(keywords.size());
     new_depth   .reserve(depth   .size());
     new_data    .reserve(data    .size());
-    new_bindings.reserve(bindings.size());
 
     auto it_depth = depth.cbegin();
     auto it_data = data.cbegin();
-    auto it_bindings = bindings.cbegin();
 
     while(it_keywords != keywords_end)
     {
@@ -169,11 +163,9 @@ bool Encoding::preprocess()
                 new_keywords.reserve(subenc.keywords.size());
                 new_depth   .reserve(subenc.depth   .size());
                 new_data    .reserve(subenc.data    .size());
-                new_bindings.reserve(subenc.bindings.size());
                 new_keywords.insert(new_keywords.end(), std::make_move_iterator(subenc.keywords.begin()), std::make_move_iterator(subenc.keywords.end()));
                 new_depth   .insert(new_depth   .end(), std::make_move_iterator(subenc.depth   .begin()), std::make_move_iterator(subenc.depth   .end()));
                 new_data    .insert(new_data    .end(), std::make_move_iterator(subenc.data    .begin()), std::make_move_iterator(subenc.data    .end()));
-                new_bindings.insert(new_bindings.end(), std::make_move_iterator(subenc.bindings.begin()), std::make_move_iterator(subenc.bindings.end()));
             }
             else
             {
@@ -181,7 +173,6 @@ bool Encoding::preprocess()
                 new_keywords.push_back(*it_keywords);
                 new_depth   .push_back(*it_depth);
                 new_data    .push_back(*it_data);
-                new_bindings.push_back(*it_bindings);
             }
         }
         else if (*it_keywords != Keyword::PreProc)
@@ -189,31 +180,27 @@ bool Encoding::preprocess()
             new_keywords.push_back(*it_keywords);
             new_depth   .push_back(*it_depth);
             new_data    .push_back(*it_data);
-            new_bindings.push_back(*it_bindings);
         }
 
         ++it_keywords;
         ++it_depth;
         ++it_data;
-        ++it_bindings;
     }
 
     keywords = new_keywords;
     depth    = new_depth;
     data     = new_data;
-    bindings = new_bindings;
 
     return complete;
 }
 
 
 
-EncodingView::EncodingView(K const* k, std::size_t const* d, V const* v, V const* b,
+EncodingView::EncodingView(K const* k, std::size_t const* d, V const* v,
                 std::size_t sz, std::size_t index_offset)
     : keywords_(k)
     , depth_(d)
     , data_(v)
-    , binding_(b)
     , size_(sz)
     , index_offset_(index_offset)
 {
@@ -224,7 +211,6 @@ EncodingView::EncodingView(Encoding const& root)
         root.keywords.cbegin().base(),
         root.depth.cbegin().base(),
         root.data.cbegin().base(),
-        root.bindings.cbegin().base(),
         root.keywords.size(),
         0
     )
@@ -249,7 +235,7 @@ EncodingView::ExprRow EncodingView::at(std::size_t i) const
     {
         throw std::range_error("Out of bounds EncodingView::at");
     }
-    return ExprRow{keywords_[i], depth_[i] - depth_[0], &data_[i], &binding_[i], i + index_offset_};
+    return ExprRow{keywords_[i], depth_[i] - depth_[0], &data_[i], i + index_offset_};
 }
 
 
@@ -263,7 +249,6 @@ bool EncodingView::operator==(EncodingView const& o) const
     if ((keywords_ == o.keywords_)
         && (depth_ == o.depth_)
         && (data_ == o.data_)
-        && (binding_ == o.binding_)
     )
     {
         return true;
@@ -282,8 +267,7 @@ bool EncodingView::operator==(EncodingView const& o) const
         }
     }
 
-    return std::equal(binding_, binding_ + size_ , o.binding_)
-        && std::equal(data_, data_ + size_, o.data_);
+    return std::equal(data_, data_ + size_, o.data_);
 }
 
 bool EncodingView::operator!=(EncodingView const& o) const
@@ -301,7 +285,6 @@ Encoding EncodingView::freeze() const {
         out.depth.push_back(depth_[i] - depth_[0]);
     }
     out.data.assign(data_, data_ + size_);
-    out.bindings.assign(binding_, binding_ + size_);
     return out;
 }
 
@@ -314,7 +297,6 @@ EncodingView EncodingView::slice(std::size_t start, std::size_t count) const noe
             nullptr,
             nullptr,
             nullptr,
-            nullptr,
             0,
             0
         };
@@ -323,7 +305,6 @@ EncodingView EncodingView::slice(std::size_t start, std::size_t count) const noe
         keywords_ + start,
         depth_ + start,
         data_ + start,
-        binding_ + start,
         count,
         index_offset_ + start
     };
@@ -498,6 +479,24 @@ EncodingView EncodingView::traverse_subtrees(std::size_t const node, std::size_t
     return slice(node, count);
 }
 
-
 }  // namespace lang
+
+
+boost::json::value
+reflect::custom_serialization<lang::Encoding>::json_from(lang::Encoding const& enc)
+{
+    return {
+        {"keywords", zmbt::json_from(enc.keywords)},
+        {"depth"   , zmbt::json_from(enc.depth   )},
+        {"data"    , zmbt::json_from(enc.data    )},
+    };
+}
+
+lang::Encoding
+reflect::custom_serialization<lang::Encoding>::dejsonize(boost::json::value const& v)
+{
+    return lang::Encoding(v);
+}
+
+
 }  // namespace zmbt
