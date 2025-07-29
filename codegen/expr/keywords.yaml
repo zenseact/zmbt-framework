@@ -1146,7 +1146,7 @@ keyword_groups:
 
       - name: FindPtr
         signature: Binary
-        brief: Find JSON POinter of the first element that satisfies given predicate
+        brief: Find JSON Pointer of the first element that satisfies given predicate
         detail: |-
           Objects are traversed breadth-first.
         domain: [any, fn]

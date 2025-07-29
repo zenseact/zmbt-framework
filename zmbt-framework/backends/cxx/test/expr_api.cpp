@@ -30,9 +30,6 @@ using zmbt::lang::EvalLog;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Find,
-    Keyword::FindPtr,
-    Keyword::FindIdx,
     Keyword::Link,
     Keyword::Let,
     Keyword::Capture,
@@ -709,6 +706,15 @@ std::vector<TestEvalSample> const TestSamples
     {PreProc(1)             , {}              , "$[1]"                         },
     {PreProc("lol")         , {}              , "$[lol]"                       },
 
+
+    {Q({{"foo", {{"bar", "baz"}}}}) | FindPtr("baz") , {}, "/foo/bar"          },
+    {Q({{"foo", {{"bar", "baz"}}}}) | Find(Size|3) , {}, "baz"          },
+
+
+    {Q({{"foo", {{"bar", "baz"}}}}) | FindIdx(At(0)|"foo") , {}, 0             },
+    {Q({{"foo", {{"bar", "baz"}}}}) | FindIdx(At(0)|"foo") , {}, 0             },
+
+    {"abcd" | FindIdx('d')          , {}                     , 3               },
 };
 
 

@@ -26,7 +26,7 @@ public:
     typedef std::function<bool(boost::json::value const&, std::string const)> visitor_fn;
 
     /// @brief Construct JSON traverser
-    /// @param visit JSON node visitor: (node, JSON pointer, output) -> node traverse stop
+    /// @param visit JSON node visitor: (Node, JSON Pointer) -> node traverse stop
     JsonTraverse(visitor_fn visit) : visit_{visit} {}
 
     void operator()(boost::json::value const& v) const
