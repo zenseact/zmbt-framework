@@ -533,6 +533,11 @@ std::vector<TestEvalSample> const TestSamples
     {At(0)                      , "foo"                 , 'f'                    },
     {Lookup("foo")              , 0                     , 'f'                    },
 
+    {"abcdefg" | At("-3::")     , {}                    , "efg"                  },
+    {"abcdefg" | At("-1:-3:-1") , {}                    , "gfe"                  },
+    {"::2" | Lookup("abcdefg")  , {}                    , "aceg"                 },
+    {"1:42:3" | Lookup("")      , {}                    , ""                     },
+
     {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
     {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },
     {Map(Pow(0.5))              , {1,4,9,16}             , {1,2,3,4}            },

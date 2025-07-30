@@ -134,16 +134,21 @@ boost::json::value query_at_impl(boost::json::value const& value, boost::json::v
                 result = *ptr;
             }
         }
-        else if (value.is_array())
+        else if (value_as_array)
         {
             auto const slice_idx = zmbt::detail::str_to_slice_idx(token);
-            result = zmbt::slice(value.get_array(), slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
+            result = zmbt::slice(*value_as_array, slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
         }
-        else if (auto const as_obj = value.if_object())
+        else if (value_as_string)
         {
-            if (as_obj->contains(token))
+            auto const slice_idx = zmbt::detail::str_to_slice_idx(token);
+            result = zmbt::slice(*value_as_string, slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
+        }
+        else if (value_as_object)
+        {
+            if (value_as_object->contains(token))
             {
-                result = as_obj->at(token);
+                result = value_as_object->at(token);
             }
         }
     }
