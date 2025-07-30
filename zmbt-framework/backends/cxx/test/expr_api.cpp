@@ -527,8 +527,11 @@ std::vector<TestEvalSample> const TestSamples
     {Lookup({{"42", "lol"}})    , "42"                   , "lol"                 },
     {Lookup({{"42", "lol"}})    , "/42"                  , "lol"                 },
 
-    // TODO: string query
-    // {At(0)                   , "foo"                 , "f"                   },
+    {Lookup(Q({{1,2,3},{4,5,6}}) | At(1)), 1             , 5                     },
+    {At(False | And(0) | Or(-1)), {1,2,3,4,5}            , 5                     },
+
+    {At(0)                      , "foo"                 , 'f'                    },
+    {Lookup("foo")              , 0                     , 'f'                    },
 
     {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
     {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },
