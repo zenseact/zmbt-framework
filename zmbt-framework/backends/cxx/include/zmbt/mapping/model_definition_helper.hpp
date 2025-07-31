@@ -47,6 +47,11 @@ class DefinitionHelper {
 
     boost::json::array const& pointers_for(Param const& p);
 
+    std::string head_pointer() const
+    {
+        return head_pointer_;
+    }
+
     boost::json::object& cur_channel();
     boost::json::object& cur_pipe();
 
