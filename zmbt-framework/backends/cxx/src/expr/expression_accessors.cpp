@@ -48,6 +48,17 @@ std::list<std::pair<std::string, std::string>> ExpressionView::preprocessing_par
         {
             pp.emplace_back(item.data->as_string().c_str(), zmbt::format("/data/%d", item.index));
         }
+        // TODO: optionally data traversing this with cli flag
+        else if((Keyword::Literal == item.keyword) && item.data)
+        {
+            JsonTraverse([&](boost::json::value const& node, std::string const jp) -> bool {
+                if (Encoding::is_preproc_token(node))
+                {
+                    pp.emplace_back(node.as_string().c_str(), zmbt::format("/data/%d%s", item.index, jp));
+                }
+                return false;
+            })(*item.data);
+        }
     }
 
     return pp;

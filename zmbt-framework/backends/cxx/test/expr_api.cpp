@@ -949,25 +949,21 @@ BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 
 BOOST_AUTO_TEST_CASE(TestPreprocessing)
 {
-    // Param const p1 {1};
-    // Param const p2 {2};
-
     auto p1 = PreProc(1);
     auto p2 = PreProc(2);
+    auto p3 = PreProc(3);
 
-    auto const expr = Filter(At(p1)|false) | p2;
+    auto const expr = Filter(At(p1)|false) | p2 | Eq({p3});
     BOOST_TEST_INFO(expr.prettify());
     BOOST_TEST_INFO(expr.to_json());
     auto const pp = expr.preprocessing_parameters();
-    BOOST_CHECK_EQUAL(pp.size(), 2);
-
+    BOOST_ASSERT(pp.size() == 3);
     auto as_json = expr.to_json();
 
-    BOOST_TEST_INFO(p1.eval());
-    BOOST_TEST_INFO(p2.eval());
     boost::json::object values {
-        {p1.eval().as_string(), 42},
-        {p2.eval().as_string(),  Map(At(13)).to_json()},
+        {p1.eval().as_string(), 42                   },
+        {p2.eval().as_string(), Map(At(13)).to_json()},
+        {p3.eval().as_string(), "lol"                },
     };
 
     for (auto const& kp: pp)
@@ -978,7 +974,10 @@ BOOST_AUTO_TEST_CASE(TestPreprocessing)
     }
 
     BOOST_TEST_INFO(as_json);
-    BOOST_CHECK_EQUAL(Expression(as_json).prettify(), (Filter(At(42)|false) | Map(At(13))).prettify());
+    BOOST_CHECK_EQUAL(
+        Expression(as_json).prettify(),
+        (Filter(At(42)|false) | Map(At(13)) | Eq({"lol"})).prettify()
+    );
 }
 
 
