@@ -35,11 +35,6 @@ public:
     using Keyword = lang::Keyword;
 
     //////////////////
-    // STATIC FUNCS
-    //////////////////
-
-
-    //////////////////
     // CTORS
     //////////////////
 
@@ -201,9 +196,9 @@ public:
         return is(Keyword::PreProc);
     }
 
-    bool is_capture() const
+    bool is_link() const
     {
-        return is(Keyword::Capture);
+        return is(Keyword::Link);
     }
 
     bool is_noop() const
@@ -233,7 +228,7 @@ public:
     bool is_valid_link() const
     {
         auto const child = encoding_view().child(0);
-        return is(Keyword::Link) && (child.head() == Keyword::Tuple) && (child.arity() == 2);
+        return is(Keyword::Fn) && (child.head() == Keyword::Tuple) && (child.arity() == 2);
     }
 
     bool is_infix_pipe() const
@@ -409,8 +404,8 @@ class Expression : public ExpressionView
     /// Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
     friend Expression operator+(Expression lhs, Expression rhs);
 
-    /// Link expression to symbolik reference
-    friend Expression operator<<(Expression link, Expression referent);
+    /// Inline named function, equivalent to Fn(link + expr)
+    friend Expression operator<<(Expression link, Expression expr);
 
     /// Flip design-time and eval-time parameters.
     friend Expression operator~(Expression expr);

@@ -24,7 +24,7 @@ bool Encoding::is_preproc_token(boost::json::value const& value)
     return if_str && if_str->starts_with("$[") && if_str->ends_with("]");
 }
 
-bool Encoding::is_capture_token(boost::json::value const& value)
+bool Encoding::is_link_token(boost::json::value const& value)
 {
     auto const if_str = value.if_string();
     if (!if_str || if_str->size() <= 1 || !if_str->starts_with("$")) return false;
@@ -60,9 +60,9 @@ Encoding::Encoding(boost::json::value&& value)
         {
             k = Keyword::PreProc;
         }
-        else if (is_capture_token(value))
+        else if (is_link_token(value))
         {
-            k = Keyword::Capture;
+            k = Keyword::Link;
         }
         push_back(k, 0, std::move(value));
     }

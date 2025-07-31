@@ -120,8 +120,19 @@ std::list<ExpressionView> ExpressionView::subexpressions_list() const
 
 boost::json::value ExpressionView::to_json() const
 {
-    // TODO: optimize value_from EncodingView
-    return (is_literal() || is_preproc() || is_capture()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding_view().freeze());
+    if (is(Keyword::LazyToken))
+    {
+        return nullptr;
+    }
+    else if (is_literal() || is_preproc() || is_link())
+    {
+        return *encoding_view().at(0).data;
+    }
+    else
+    {
+        // TODO: optimize value_from EncodingView
+        return boost::json::value_from(encoding_view().freeze());
+    }
 }
 
 }  // namespace lang

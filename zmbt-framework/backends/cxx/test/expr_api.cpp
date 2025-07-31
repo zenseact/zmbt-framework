@@ -30,10 +30,8 @@ using zmbt::lang::EvalLog;
 namespace {
 
 std::set<Keyword> const NotImplemented {
+    Keyword::Fn,
     Keyword::Link,
-    Keyword::Let,
-    Keyword::Capture,
-    Keyword::Refer,
 };
 
 
@@ -61,7 +59,7 @@ std::vector<TestEvalSample> const TestSamples
     {Id                         , nullptr               , nullptr               },
     {Id                         , {1,2,3}               , {1,2,3}               },
 
-    /// Capture
+    /// Refer
     {"$x"                       , 42                    , 42                    },
     {"$x"|Mul("$x")             , 3                     , 9                     },
     {Q(3)|"$x"|Mul("$x")        , {}                    , 9                  },
@@ -768,6 +766,7 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, stati
 {
     Keyword const keyword = static_cast<Keyword>(sample);
     if (keyword == Keyword::Void) return;
+    if (keyword == Keyword::LazyToken) return;
     if (NotImplemented.count(keyword) == 0 && CoveredInTestEval.count(keyword) == 0)
     {
         BOOST_FAIL("Keyword " << json_from(keyword) << " is not covered in TestEval");
@@ -1082,10 +1081,10 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
     // Symbolic links
     TEST_PRETIFY(
-        "$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))
+        "$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))
     )
     TEST_PRETIFY(
-        Q("$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
+        Q("$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
     )
 
 
@@ -1108,13 +1107,21 @@ BOOST_AUTO_TEST_CASE(TestCapture)
 {
     auto inv = "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x");
 
+    BOOST_TEST_INFO(inv.to_json());
     BOOST_CHECK_EQUAL(*(42 | inv), 1.0/42);
     BOOST_CHECK_EQUAL(*(0 | inv), 0);
 }
 
 BOOST_AUTO_TEST_CASE(SymbolicLink)
 {
-    auto fact = "$f" << (Let("$x")
+    auto const e = Dbg("$f" << Add(1) | "$f"  | "$f");
+    BOOST_CHECK_EQUAL(e.eval(0),   3);
+}
+
+BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
+{
+    auto const fact = "$f" << (
+        "$x"
         | Assert(Ge(0))
         | Lt(2)
         | And(1)
@@ -1128,5 +1135,5 @@ BOOST_AUTO_TEST_CASE(SymbolicLink)
     BOOST_CHECK_EQUAL(fact.eval(3),   6);
     BOOST_CHECK_EQUAL(fact.eval(4),  24);
     BOOST_CHECK_EQUAL(fact.eval(5), 120);
-    BOOST_CHECK_EQUAL((fact | Kwrd).eval(-5), "Err");
+    BOOST_CHECK_EQUAL((fact | IsErr).eval(-5), true);
 }

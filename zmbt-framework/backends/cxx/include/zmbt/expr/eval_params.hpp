@@ -18,10 +18,10 @@ namespace lang {
 
 class EvalParams
 {
-    Expression lhs_maybe_owned_{nullptr};
-    Expression rhs_maybe_owned_{nullptr};
-    ExpressionView lhs_{lhs_maybe_owned_.encoding_view()};
-    ExpressionView rhs_{rhs_maybe_owned_.encoding_view()};
+    Expression lhs_maybe_owned_;
+    Expression rhs_maybe_owned_;
+    ExpressionView lhs_;
+    ExpressionView rhs_;
     ExpressionView const& self_;
     ExpressionView const& x_;
     EvalContext ctx_;

@@ -160,8 +160,8 @@ boost::json::value query_at(ExpressionView const& value, ExpressionView const& q
 {
     boost::json::value tmp_value, tmp_query;
 
-    boost::json::value const& value_ref = value.is_literal() ? value.data() : (tmp_value = value.eval({}, ctx));
-    boost::json::value const& query_ref = query.is_literal() ? query.data() : (tmp_query = query.eval({}, ctx));
+    boost::json::value const& value_ref = value.is_literal() ? value.data() : (tmp_value = value.eval_e({}, ctx).to_json());
+    boost::json::value const& query_ref = query.is_literal() ? query.data() : (tmp_query = query.eval_e({}, ctx).to_json());
 
     return query_at_impl(value_ref, query_ref);
 }

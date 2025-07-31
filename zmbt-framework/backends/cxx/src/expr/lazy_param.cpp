@@ -20,7 +20,7 @@ LazyParam::LazyParam(std::function<V()> getter)
 }
 
 LazyParam::LazyParam(ExpressionView v, EvalContext ctx)
-    : getter_{[v, ctx]{ return v.eval({}, ctx); }}
+    : getter_{[v, ctx]{ return v.eval_e({}, ctx).to_json(); }}
 {
 
 }

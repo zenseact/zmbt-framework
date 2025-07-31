@@ -12,8 +12,12 @@ keyword_groups:
         details: |-
           Literal value keyword with no expression API.
           in evaluation context works as Eq(x)
+
       - name: Void
         brief: empty value
+
+      - name: LazyToken
+        brief: parameter evaluation argument
 
   Constants:
     defaults:
@@ -1280,14 +1284,33 @@ keyword_groups:
         codomain: expr
 
 
-      - name: Link
+      - name: Fn
         signature: Binary
-        brief: ...
+        brief: Inline named function
+        details: |-
+          Expression `Fn(reference, expr)` creates a symbolic link to expr,
+          at the same time evaluating given arguments (inlining the expr).
+          The reference is avaliable in the evaluation context,
+          including in the expr itself (essentially enabling an arbitrary recursion).
+
+          **Infix operator form (left shift)**:
+
+          "$f" << E ≡ Fn("$f", E)
+
         examples: |-
+          x | ("$f" << Add(1)) | "$f"  | "$f" = x + 1 + 1 + 1
+
+          auto const factorial = "$f" << ("$x"
+            | Assert(Ge(0))
+            | Lt(2)
+            | And(1)
+            | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+          );
+
         domain: [any, expr]
         codomain: expr
 
-      - name: Capture
+      - name: Link
         signature: Binary
         brief: Symbolic binding of the input value
         details: |-
@@ -1303,20 +1326,6 @@ keyword_groups:
         examples: |-
           42 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) ↦ 42
           -7 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) ↦ 7
-        domain: [any, expr]
-        codomain: expr
-
-      - name: Refer
-        signature: Binary
-        brief: Return capture
-        examples: |-
-        domain: [any, expr]
-        codomain: expr
-
-      - name: Let
-        signature: Binary
-        brief: Store capture
-        examples: |-
         domain: [any, expr]
         codomain: expr
 

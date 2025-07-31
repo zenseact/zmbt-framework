@@ -31,7 +31,7 @@ struct Encoding
     std::vector<V> data;
 
     static bool is_preproc_token(boost::json::value const& value);
-    static bool is_capture_token(boost::json::value const& value);
+    static bool is_link_token(boost::json::value const& value);
 
     Encoding() = default;
     explicit Encoding(boost::json::value const& value);

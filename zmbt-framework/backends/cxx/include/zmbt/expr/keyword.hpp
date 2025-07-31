@@ -37,6 +37,9 @@ enum class Keyword
     /// Void
     Void,
 
+    /// LazyToken
+    LazyToken,
+
     /// Noop
     Noop,
 
@@ -394,17 +397,11 @@ enum class Keyword
     /// Bind
     Bind,
 
+    /// Fn
+    Fn,
+
     /// Link
     Link,
-
-    /// Capture
-    Capture,
-
-    /// Refer
-    Refer,
-
-    /// Let
-    Let,
 
     /// Any
     Any,

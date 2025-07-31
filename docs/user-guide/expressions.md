@@ -208,7 +208,7 @@ s.a. `And("$x" | ...)` (recall that expression parameters computation is lazy).
 ### Design-level linking
 
 ``` c++
-"$f" << (Let("$x")
+"$f" << ("$x"
    | Assert(Ge(0))
    | Lt(2)
    | And(1)

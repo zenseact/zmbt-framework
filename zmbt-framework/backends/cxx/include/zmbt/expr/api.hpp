@@ -568,8 +568,17 @@ extern lang::SignatureOp const Overload;
 /// \brief Bind design-time parameters to function.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 
-/// \brief ...
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
+/// \brief Inline named function
+/// \details
+/// Expression `Fn(reference, expr)` creates a symbolic link to expr,
+/// at the same time evaluating given arguments (inlining the expr).
+/// The reference is avaliable in the evaluation context,
+/// including in the expr itself (essentially enabling an arbitrary recursion).
+/// 
+/// **Infix operator form (left shift)**:
+/// 
+/// "$f" << E ≡ Fn("$f", E)
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Fn> const Fn;
 
 /// \brief Symbolic binding of the input value
 /// \details
@@ -582,13 +591,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
 /// 
 /// The string after $ sign shall not be enclosed in [], {}, or (),
 /// as those formats are reserved for internal usage.
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Capture> const Capture;
-
-/// \brief Return capture
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Refer> const Refer;
-
-/// \brief Store capture
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Let> const Let;
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
 
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;
