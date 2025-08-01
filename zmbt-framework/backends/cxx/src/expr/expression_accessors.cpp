@@ -48,6 +48,17 @@ std::list<std::pair<std::string, std::string>> ExpressionView::preprocessing_par
         {
             pp.emplace_back(item.data->as_string().c_str(), zmbt::format("/data/%d", item.index));
         }
+        // TODO: optionally data traversing this with cli flag
+        else if((Keyword::Literal == item.keyword) && item.data)
+        {
+            JsonTraverse([&](boost::json::value const& node, std::string const jp) -> bool {
+                if (Encoding::is_preproc_token(node))
+                {
+                    pp.emplace_back(node.as_string().c_str(), zmbt::format("/data/%d%s", item.index, jp));
+                }
+                return false;
+            })(*item.data);
+        }
     }
 
     return pp;
@@ -109,8 +120,19 @@ std::list<ExpressionView> ExpressionView::subexpressions_list() const
 
 boost::json::value ExpressionView::to_json() const
 {
-    // TODO: optimize value_from EncodingView
-    return (is_literal() || is_preproc() || is_capture()) ? (*encoding_view().at(0).data) : boost::json::value_from(encoding_view().freeze());
+    if (is(Keyword::LazyToken))
+    {
+        return nullptr;
+    }
+    else if (is_literal() || is_preproc() || is_link())
+    {
+        return *encoding_view().at(0).data;
+    }
+    else
+    {
+        // TODO: optimize value_from EncodingView
+        return boost::json::value_from(encoding_view().freeze());
+    }
 }
 
 }  // namespace lang

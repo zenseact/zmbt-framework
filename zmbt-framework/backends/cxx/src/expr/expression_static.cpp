@@ -35,14 +35,14 @@ namespace lang {
 Encoding Expression::encodeLiteral(boost::json::value const& params)
 {
     Encoding enc {};
-    enc.push_back(Keyword::Literal, 0, params, nullptr);
+    enc.push_back(Keyword::Literal, 0, params);
     return enc;
 }
 
 Encoding Expression::encodePreProc(boost::json::value const& params)
 {
     Encoding enc {};
-    enc.push_back(Keyword::PreProc, 0, params, nullptr);
+    enc.push_back(Keyword::PreProc, 0, params);
     return enc;
 }
 
@@ -50,7 +50,7 @@ template <class T>
 Encoding Expression::encodeNested(Keyword const& keyword, std::move_iterator<T> begin, std::move_iterator<T> const end)
 {
     Encoding enc {};
-    enc.push_back(keyword, 0, nullptr, nullptr);
+    enc.push_back(keyword, 0, nullptr);
 
     while(begin != end)
     {

@@ -30,13 +30,8 @@ using zmbt::lang::EvalLog;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Find,
-    Keyword::FindPtr,
-    Keyword::FindIdx,
+    Keyword::Fn,
     Keyword::Link,
-    Keyword::Let,
-    Keyword::Capture,
-    Keyword::Refer,
 };
 
 
@@ -64,7 +59,7 @@ std::vector<TestEvalSample> const TestSamples
     {Id                         , nullptr               , nullptr               },
     {Id                         , {1,2,3}               , {1,2,3}               },
 
-    /// Capture
+    /// Refer
     {"$x"                       , 42                    , 42                    },
     {"$x"|Mul("$x")             , 3                     , 9                     },
     {Q(3)|"$x"|Mul("$x")        , {}                    , 9                  },
@@ -530,8 +525,16 @@ std::vector<TestEvalSample> const TestSamples
     {Lookup({{"42", "lol"}})    , "42"                   , "lol"                 },
     {Lookup({{"42", "lol"}})    , "/42"                  , "lol"                 },
 
-    // TODO: string query
-    // {At(0)                   , "foo"                 , "f"                   },
+    {Lookup(Q({{1,2,3},{4,5,6}}) | At(1)), 1             , 5                     },
+    {At(False | And(0) | Or(-1)), {1,2,3,4,5}            , 5                     },
+
+    {At(0)                      , "foo"                 , 'f'                    },
+    {Lookup("foo")              , 0                     , 'f'                    },
+
+    {"abcdefg" | At("-3::")     , {}                    , "efg"                  },
+    {"abcdefg" | At("-1:-3:-1") , {}                    , "gfe"                  },
+    {"::2" | Lookup("abcdefg")  , {}                    , "aceg"                 },
+    {"1:42:3" | Lookup("")      , {}                    , ""                     },
 
     {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
     {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },
@@ -709,6 +712,15 @@ std::vector<TestEvalSample> const TestSamples
     {PreProc(1)             , {}              , "$[1]"                         },
     {PreProc("lol")         , {}              , "$[lol]"                       },
 
+
+    {Q({{"foo", {{"bar", "baz"}}}}) | FindPtr("baz") , {}, "/foo/bar"          },
+    {Q({{"foo", {{"bar", "baz"}}}}) | Find(Size|3) , {}, "baz"          },
+
+
+    {Q({{"foo", {{"bar", "baz"}}}}) | FindIdx(At(0)|"foo") , {}, 0             },
+    {Q({{"foo", {{"bar", "baz"}}}}) | FindIdx(At(0)|"foo") , {}, 0             },
+
+    {"abcd" | FindIdx('d')          , {}                     , 3               },
 };
 
 
@@ -754,6 +766,7 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, stati
 {
     Keyword const keyword = static_cast<Keyword>(sample);
     if (keyword == Keyword::Void) return;
+    if (keyword == Keyword::LazyToken) return;
     if (NotImplemented.count(keyword) == 0 && CoveredInTestEval.count(keyword) == 0)
     {
         BOOST_FAIL("Keyword " << json_from(keyword) << " is not covered in TestEval");
@@ -935,25 +948,21 @@ BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 
 BOOST_AUTO_TEST_CASE(TestPreprocessing)
 {
-    // Param const p1 {1};
-    // Param const p2 {2};
-
     auto p1 = PreProc(1);
     auto p2 = PreProc(2);
+    auto p3 = PreProc(3);
 
-    auto const expr = Filter(At(p1)|false) | p2;
+    auto const expr = Filter(At(p1)|false) | p2 | Eq({p3});
     BOOST_TEST_INFO(expr.prettify());
     BOOST_TEST_INFO(expr.to_json());
     auto const pp = expr.preprocessing_parameters();
-    BOOST_CHECK_EQUAL(pp.size(), 2);
-
+    BOOST_ASSERT(pp.size() == 3);
     auto as_json = expr.to_json();
 
-    BOOST_TEST_INFO(p1.eval());
-    BOOST_TEST_INFO(p2.eval());
     boost::json::object values {
-        {p1.eval().as_string(), 42},
-        {p2.eval().as_string(),  Map(At(13)).to_json()},
+        {p1.eval().as_string(), 42                   },
+        {p2.eval().as_string(), Map(At(13)).to_json()},
+        {p3.eval().as_string(), "lol"                },
     };
 
     for (auto const& kp: pp)
@@ -964,7 +973,10 @@ BOOST_AUTO_TEST_CASE(TestPreprocessing)
     }
 
     BOOST_TEST_INFO(as_json);
-    BOOST_CHECK_EQUAL(Expression(as_json).prettify(), (Filter(At(42)|false) | Map(At(13))).prettify());
+    BOOST_CHECK_EQUAL(
+        Expression(as_json).prettify(),
+        (Filter(At(42)|false) | Map(At(13)) | Eq({"lol"})).prettify()
+    );
 }
 
 
@@ -1069,10 +1081,10 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
     // Symbolic links
     TEST_PRETIFY(
-        "$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))
+        "$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))
     )
     TEST_PRETIFY(
-        Q("$f" << (Let("$x") | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
+        Q("$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
     )
 
 
@@ -1095,13 +1107,21 @@ BOOST_AUTO_TEST_CASE(TestCapture)
 {
     auto inv = "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x");
 
+    BOOST_TEST_INFO(inv.to_json());
     BOOST_CHECK_EQUAL(*(42 | inv), 1.0/42);
     BOOST_CHECK_EQUAL(*(0 | inv), 0);
 }
 
 BOOST_AUTO_TEST_CASE(SymbolicLink)
 {
-    auto fact = "$f" << (Let("$x")
+    auto const e = Dbg("$f" << Add(1) | "$f"  | "$f");
+    BOOST_CHECK_EQUAL(e.eval(0),   3);
+}
+
+BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
+{
+    auto const fact = "$f" << (
+        "$x"
         | Assert(Ge(0))
         | Lt(2)
         | And(1)
@@ -1115,5 +1135,5 @@ BOOST_AUTO_TEST_CASE(SymbolicLink)
     BOOST_CHECK_EQUAL(fact.eval(3),   6);
     BOOST_CHECK_EQUAL(fact.eval(4),  24);
     BOOST_CHECK_EQUAL(fact.eval(5), 120);
-    BOOST_CHECK_EQUAL((fact | Kwrd).eval(-5), "Err");
+    BOOST_CHECK_EQUAL((fact | IsErr).eval(-5), true);
 }

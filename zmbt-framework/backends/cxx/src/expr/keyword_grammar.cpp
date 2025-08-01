@@ -31,6 +31,7 @@ KeywordSymbol::KeywordSymbol()
     add
     ("Literal", Keyword::Literal)
     ("Void", Keyword::Void)
+    ("LazyToken", Keyword::LazyToken)
     ("Noop", Keyword::Noop)
     ("_", Keyword::Noop)
     ("Null", Keyword::Null)
@@ -202,10 +203,8 @@ KeywordSymbol::KeywordSymbol()
     ("Op", Keyword::Op)
     ("Overload", Keyword::Op)
     ("Bind", Keyword::Bind)
+    ("Fn", Keyword::Fn)
     ("Link", Keyword::Link)
-    ("Capture", Keyword::Capture)
-    ("Refer", Keyword::Refer)
-    ("Let", Keyword::Let)
     ("Any", Keyword::Any)
     ("All", Keyword::All)
     ("Saturate", Keyword::Saturate)
@@ -258,6 +257,7 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
 
     case Keyword::Literal: { return "Literal"; break; }
     case Keyword::Void: { return "Void"; break; }
+    case Keyword::LazyToken: { return "LazyToken"; break; }
     case Keyword::Noop: { return "Noop"; break; }
     case Keyword::Null: { return "Null"; break; }
     case Keyword::True: { return "True"; break; }
@@ -377,10 +377,8 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Unfold: { return "Unfold"; break; }
     case Keyword::Op: { return "Op"; break; }
     case Keyword::Bind: { return "Bind"; break; }
+    case Keyword::Fn: { return "Fn"; break; }
     case Keyword::Link: { return "Link"; break; }
-    case Keyword::Capture: { return "Capture"; break; }
-    case Keyword::Refer: { return "Refer"; break; }
-    case Keyword::Let: { return "Let"; break; }
     case Keyword::Any: { return "Any"; break; }
     case Keyword::All: { return "All"; break; }
     case Keyword::Saturate: { return "Saturate"; break; }

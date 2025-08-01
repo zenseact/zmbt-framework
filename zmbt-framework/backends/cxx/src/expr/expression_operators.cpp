@@ -55,11 +55,11 @@ Expression operator<<(Expression link, Expression referent)
     {
         return expr::Err("Symbolic reference shall be a string", BOOST_CURRENT_FUNCTION);
     }
-    else if(not Encoding::is_capture_token(*if_string))
+    else if(not Encoding::is_link_token(*if_string))
     {
         return expr::Err("Invalid symbolic reference format", BOOST_CURRENT_FUNCTION);
     }
-    return Expression(Expression::encodeNested(Keyword::Link,
+    return Expression(Expression::encodeNested(Keyword::Fn,
         {expr::Tuple(std::move(link), std::move(referent))}
     ));
 }

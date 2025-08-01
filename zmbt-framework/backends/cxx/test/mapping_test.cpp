@@ -487,7 +487,7 @@ BOOST_AUTO_TEST_CASE(OnCallInject)
 }
 
 
-BOOST_AUTO_TEST_CASE(ViaClause)
+BOOST_AUTO_TEST_CASE(TakeClause)
 {
     struct Mock
     {
@@ -504,15 +504,20 @@ BOOST_AUTO_TEST_CASE(ViaClause)
         Mock::consume_value(++start);
     };
 
+    Param const Zero{"zero"};
+
+
     SignalMapping("Test Call Observe")
     .OnTrigger(SUT)
         .At(SUT).Take(At(0)).Inject()
-        .At(&Mock::consume_value).Args().Take(At(0)).Expect()
-        .At(&Mock::consume_value).Args().Take(At(1)).Expect()
-        .At(&Mock::consume_value).Args().Take(At(2)).Expect()
+        .At(&Mock::consume_value).Args().Take(At(Zero|Add(0))).Expect()
+        .At(&Mock::consume_value).Args().Take(At(Zero|Add(1))).Expect()
+        .At(&Mock::consume_value).Args().Take(At(Zero|Add(2))).Expect()
     .Test
         ( L{ 0},  1,  2,  3 )
         ( L{42}, 43, 44, 45 )
+    .Zip
+        (Zero, 0)
     ;
 }
 

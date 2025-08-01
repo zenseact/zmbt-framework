@@ -85,10 +85,8 @@ bool isBinary(Keyword const& k)
     case Keyword::Recur:
     case Keyword::Unfold:
     case Keyword::Bind:
+    case Keyword::Fn:
     case Keyword::Link:
-    case Keyword::Capture:
-    case Keyword::Refer:
-    case Keyword::Let:
     case Keyword::Flip:
     case Keyword::Dbg:
     case Keyword::Eval:

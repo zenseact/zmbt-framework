@@ -19,31 +19,8 @@
 namespace zmbt {
 namespace lang {
 
-ZMBT_DEFINE_EVALUATE_IMPL(Let)
-{
-    auto const if_str_key = rhs().if_string();
-    ASSERT(if_str_key, "reference not a string");
-    curr_ctx().captures->insert_or_assign(*if_str_key, lhs().data());
-    return lhs();
-}
 
-ZMBT_DEFINE_EVALUATE_IMPL(Refer)
-{
-    auto const if_str_key = rhs().if_string();
-    ASSERT(if_str_key, "reference not a string");
-    auto const found = curr_ctx().captures->find(*if_str_key);
-    if (found != curr_ctx().captures->cend())
-    {
-        return found->value();
-    }
-    else
-    {
-        return rhs();
-    }
-}
-
-
-ZMBT_DEFINE_EVALUATE_IMPL(Link)
+ZMBT_DEFINE_EVALUATE_IMPL(Fn)
 {
     auto const enc = self().encoding_view();
     auto const tuple = enc.child(0);
@@ -66,7 +43,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Link)
     return referent.eval_e(lhs(), curr_ctx());
 }
 
-ZMBT_DEFINE_EVALUATE_IMPL(Capture)
+ZMBT_DEFINE_EVALUATE_IMPL(Link)
 {
     auto const if_str_key = self().if_string();
     ASSERT(if_str_key, "reference not a string");
@@ -79,7 +56,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Capture)
 
     ASSERT(not (link_found && capture_found), "corrupted context")
 
-    if (capture_found)
+    if(lhs().is(Keyword::LazyToken) && capture_found)
     {
         return capture_pos->value();
     }
@@ -89,7 +66,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Capture)
     }
     else
     {
-        curr_ctx().captures->emplace(*if_str_key, lhs().data());
+        curr_ctx().captures->insert_or_assign(*if_str_key, lhs().data());
         return lhs();
     }
 }

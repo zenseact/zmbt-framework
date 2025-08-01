@@ -32,7 +32,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
 
         auto const is_literal          = boost::phoenix::bind(&ExpressionView::is_literal, _val);
         auto const is_preproc          = boost::phoenix::bind(&ExpressionView::is_preproc, _val);
-        auto const is_capture          = boost::phoenix::bind(&ExpressionView::is_capture, _val);
+        auto const is_link          = boost::phoenix::bind(&ExpressionView::is_link, _val);
         auto const is_valid_link       = boost::phoenix::bind(&ExpressionView::is_valid_link, _val);
         auto const has_subexpr         = boost::phoenix::bind(&ExpressionView::has_subexpr, _val);
         auto const serialize           = boost::phoenix::bind(&ExpressionView::serialize, _val);
@@ -42,12 +42,12 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         auto const is_infix_pipe       = boost::phoenix::bind(&ExpressionView::is_infix_pipe, _val);
         auto const is_infix_fork       = boost::phoenix::bind(&ExpressionView::is_infix_fork, _val);
         auto const is_infix_tuple      = boost::phoenix::bind(&ExpressionView::is_infix_tuple, _val);
-        auto const is_complete_flip             = boost::phoenix::bind(&ExpressionView::is_complete_flip, _val);
+        auto const is_complete_flip    = boost::phoenix::bind(&ExpressionView::is_complete_flip, _val);
 
         start
             = eps(is_literal)      << karma::lazy(serialize)
             | eps(is_preproc)      << karma::lazy(serialize)
-            | eps(is_capture)      << karma::lazy(serialize)
+            | eps(is_link)      << karma::lazy(serialize)
             | eps(is_valid_link)   << link[_1 = tuple_parameters]
             | eps(is_infix_pipe)   << pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)   << fork[_1 = subexpressions_list]
@@ -58,7 +58,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         subexpr
             = eps(is_literal)       << karma::lazy(serialize)
             | eps(is_preproc)       << karma::lazy(serialize)
-            | eps(is_capture)       << karma::lazy(serialize)
+            | eps(is_link)       << karma::lazy(serialize)
             | eps(is_valid_link)    << nested_link[_1 = tuple_parameters]
             | eps(is_infix_pipe)    << nested_pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)    << nested_fork[_1 = subexpressions_list]

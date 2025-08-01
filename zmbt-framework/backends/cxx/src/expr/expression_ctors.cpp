@@ -17,13 +17,25 @@
 #include "zmbt/expr/api.hpp"
 #include "zmbt/expr/exceptions.hpp"
 
+namespace
+{
+zmbt::lang::EncodingView lazy_token_view()
+{
+    static zmbt::lang::Encoding const lazy_token = []{
+        zmbt::lang::Encoding enc;
+        enc.push_back(zmbt::lang::Keyword::LazyToken, 0, {});
+        return enc;
+    }();
+    return zmbt::lang::EncodingView(lazy_token);
+}
+} // namespace
 
 
 namespace zmbt {
 namespace lang {
 
 ExpressionView::ExpressionView()
-    : encoding_view_{expr::Noop.encoding_view()}
+    : ExpressionView(lazy_token_view())
 {
 }
 

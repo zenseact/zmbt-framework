@@ -29,7 +29,7 @@ struct EvalValidator
 
     Expression status() const
     {
-        return {nullptr};
+        return Expression();
     }
 };
 

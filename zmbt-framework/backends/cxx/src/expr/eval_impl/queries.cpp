@@ -17,18 +17,33 @@
 
 namespace
 {
-boost::json::value query_at(boost::json::value const& value, boost::json::value const& at)
+
+using ExpressionView = zmbt::lang::ExpressionView;
+
+boost::json::value query_at_impl(boost::json::value const& value, boost::json::value const& at)
 {
-    boost::json::value query {};
 
-    if (at.is_number() && value.is_structured())
+    bool const at_is_number = at.is_number();
+    auto const value_as_array = value.if_array();
+    auto const value_as_object = value.if_object();
+    auto const value_as_string = value.if_string();
+
+    auto const at_as_array = at.if_array();
+    auto const at_as_object = at.if_object();
+    auto const at_as_string = at.if_string();
+
+    boost::json::value result {};
+
+    if (at_is_number && (value_as_array || value_as_object || value_as_string))
     {
-        auto x_as_array = value.if_array();
-        auto x_as_object = value.if_object();
-
-        auto const N = x_as_array ? x_as_array->size() : x_as_object ? x_as_object->size() : 0;
+        auto const N
+            = value_as_array  ? value_as_array->size()
+            : value_as_object ? value_as_object->size()
+            : value_as_string ? value_as_string->size()
+            : 0;
 
         std::size_t idx{};
+
         switch (at.kind())
         {
         case boost::json::kind::int64:
@@ -46,19 +61,23 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
 
         if (idx >= N)
         {
-            return query;
+            return result;
         }
 
         try
         {
-            if (x_as_array)
+            if (value_as_array)
             {
-                query = x_as_array->at(idx);
+                result = value_as_array->at(idx);
             }
-            else if (x_as_object)
+            else if (value_as_object)
             {
-                auto const kvpair = *(x_as_object->cbegin() + idx);
-                query = boost::json::value_from(kvpair);
+                auto const kvpair = *(value_as_object->cbegin() + idx);
+                result = boost::json::value_from(kvpair);
+            }
+            else if (value_as_string)
+            {
+                result = value_as_string->at(idx);
             }
         }
         catch(std::exception const&)
@@ -66,30 +85,32 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
             // ignore and return default
         }
     }
-    else if (at.is_array())
+    else if (at_as_array)
     {
-        query.emplace_array();
-        for (auto const& jp: at.get_array())
+        result.emplace_array();
+        auto& result_as_array = result.get_array();
+
+        for (auto const& jp: *at_as_array)
         {
-            query.get_array().push_back(query_at(value, jp));
+            result_as_array.push_back(query_at_impl(value, jp));
         }
     }
-    else if (at.is_object())
+    else if (at_as_object)
     {
-        query.emplace_object();
-        auto& as_object = query.get_object();
-        for (auto const& kv: at.get_object())
+        result.emplace_object();
+        auto& result_as_object = result.get_object();
+        for (auto const& kv: *at_as_object)
         {
             if (kv.key().starts_with("$")) // dynamic key as ptr
             {
                 try
                 {
-                    auto dynamic_key = query_at(value, kv.key().substr(1));
+                    auto dynamic_key = query_at_impl(value, kv.key().substr(1));
                     if (dynamic_key.is_number())
                     {
                         dynamic_key = zmbt::format("%s", dynamic_key);
                     }
-                    as_object.emplace(dynamic_key.as_string(), query_at(value, kv.value()));
+                    result_as_object.emplace(dynamic_key.as_string(), query_at_impl(value, kv.value()));
                 }
                 catch(std::exception const&)
                 {
@@ -98,38 +119,52 @@ boost::json::value query_at(boost::json::value const& value, boost::json::value 
             }
             else
             {
-                as_object.emplace(kv.key(), query_at(value, kv.value()));
+                result_as_object.emplace(kv.key(), query_at_impl(value, kv.value()));
             }
         }
     }
-    else if (at.is_string())
+    else if (at_as_string)
     {
-        auto const& token = at.get_string();
+        auto const& token = *at_as_string;
         if (token.starts_with("/") or token.empty())
         {
             boost::json::error_code ec;
             if (boost::json::value const* ptr = value.find_pointer(at.get_string(), ec))
             {
-                query = *ptr;
+                result = *ptr;
             }
         }
-        else if (value.is_array())
+        else if (value_as_array)
         {
             auto const slice_idx = zmbt::detail::str_to_slice_idx(token);
-            query = zmbt::slice(value.get_array(), slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
+            result = zmbt::slice(*value_as_array, slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
         }
-        else if (auto const as_obj = value.if_object())
+        else if (value_as_string)
         {
-            if (as_obj->contains(token))
+            auto const slice_idx = zmbt::detail::str_to_slice_idx(token);
+            result = zmbt::slice(*value_as_string, slice_idx.at(0),slice_idx.at(1),slice_idx.at(2));
+        }
+        else if (value_as_object)
+        {
+            if (value_as_object->contains(token))
             {
-                query = as_obj->at(token);
+                result = value_as_object->at(token);
             }
         }
     }
-    return query;
+    return result;
 }
 
 
+boost::json::value query_at(ExpressionView const& value, ExpressionView const& query, zmbt::lang::EvalContext ctx)
+{
+    boost::json::value tmp_value, tmp_query;
+
+    boost::json::value const& value_ref = value.is_literal() ? value.data() : (tmp_value = value.eval_e({}, ctx).to_json());
+    boost::json::value const& query_ref = query.is_literal() ? query.data() : (tmp_query = query.eval_e({}, ctx).to_json());
+
+    return query_at_impl(value_ref, query_ref);
+}
 } // namespace
 
 
@@ -138,14 +173,12 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(At)
 {
-    ASSERT(not rhs().is_null(), "null parameter")
-    return query_at(lhs().data(), rhs().data());
+    return query_at(lhs(), rhs(), curr_ctx());
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Lookup)
 {
-    ASSERT(not lhs().is_null(), "null argument")
-    return query_at(rhs().data(), lhs().data());
+    return query_at(rhs(), lhs(), curr_ctx());
 }
 
 } // namespace lang

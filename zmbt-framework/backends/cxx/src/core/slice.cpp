@@ -27,8 +27,8 @@ namespace
 using slice_t = std::tuple<std::int64_t, std::int64_t, std::int64_t>;
 /// Safe slice stop condition
 using slice_stop_cond_t = std::function<bool(std::size_t const)>;
-/// Safe slice params: unsigned start, signed step, stop condition fn.
-using safe_slice_t = std::tuple<std::size_t, std::int64_t, slice_stop_cond_t>;
+/// Safe slice params: unsigned start, signed step, stop condition fn, slice size.
+using safe_slice_t = std::tuple<std::size_t, std::int64_t, slice_stop_cond_t, std::size_t>;
 
 /// get safe unsigned slice from signed slice and container size N
 safe_slice_t get_safe_slice(std::size_t const N, slice_t slice)
@@ -42,7 +42,7 @@ safe_slice_t get_safe_slice(std::size_t const N, slice_t slice)
         throw zmbt::base_error("slice step cannot be zero");
     }
 
-    safe_slice_t output {0U,1,[](std::size_t const){return false;}};
+    safe_slice_t dummy {0U,1,[](std::size_t const){return false;}, 0};
 
     bool const start_is_negat = start < 0;
     bool const stop_is_negat = stop < 0;
@@ -66,21 +66,22 @@ safe_slice_t get_safe_slice(std::size_t const N, slice_t slice)
     bool const span_is_negative = ((stop_unsafe - start_unsafe) * step_sign) < 0;
     if (span_too_low || span_too_high || span_is_negative)
     {
-        return output;
+        return dummy;
     }
-    bool const move_fwd = ustop >= ustart;
+    bool const moving_forward = ustop >= ustart;
     // the behavior is similar to python slice (but taken with exclusive stop +1):
     // for x = [0,1,2], x[0:1:1] -> [0], but x[0:1:-1] -> []
-    bool const zero_step_wrong_dir = move_fwd ? (step < 0) : (step > 0);
+    bool const zero_step_wrong_dir = moving_forward ? (step < 0) : (step > 0);
     if (zero_step_wrong_dir)
     {
-        return output;
+        return dummy;
     }
-    auto const stop_condition = [N, move_fwd, ustop](std::size_t const idx){
+    auto const stop_condition = [N, moving_forward, ustop](std::size_t const idx){
         if (idx > (N-1)) return false; // overflow with negative step
-        return move_fwd ? (idx <= ustop) : (idx >= ustop);
+        return moving_forward ? (idx <= ustop) : (idx >= ustop);
     };
-    return {ustart,step,stop_condition};
+    std::size_t size = (moving_forward ? ustop - ustart : ustart - ustop) / (step_sign * step) + 1;
+    return {ustart, step, stop_condition, size};
 
 }
 
@@ -139,6 +140,23 @@ boost::json::array slice(boost::json::array const& src, boost::json::string_view
     return output;
 }
 
+boost::json::string slice(boost::json::string_view const src, std::int64_t const start, std::int64_t const stop, std::int64_t const step)
+{
+    auto gen = make_slice_const_generator(src, start, stop, step);
+
+    auto const slice_size = std::get<3>(get_safe_slice(src.size(), {start, stop, step}));
+    boost::json::string output(slice_size, '\n');
+    auto element = src.cend();
+    std::size_t i {0};
+    while ((element = gen()) != src.cend())
+    {
+        output.at(i++) = *element;
+    }
+
+    return output;
+}
+
+
 
 
 js_array_slice_const_gen make_slice_const_generator(boost::json::array const& src, std::int64_t const start, std::int64_t const stop, std::int64_t const step)
@@ -149,6 +167,11 @@ js_array_slice_const_gen make_slice_const_generator(boost::json::array const& sr
 js_array_slice_gen make_slice_generator(boost::json::array& src, std::int64_t const start, std::int64_t const stop, std::int64_t const step)
 {
     return make_slice_generator_impl<js_array_slice_gen>(src.begin(), src.end(), get_safe_slice(src.size(), {start, stop, step}));
+}
+
+js_string_slice_gen make_slice_const_generator(boost::json::string_view const src, std::int64_t const start, std::int64_t const stop, std::int64_t const step)
+{
+    return make_slice_generator_impl<js_string_slice_gen>(src.cbegin(), src.cend(), get_safe_slice(src.size(), {start, stop, step}));
 }
 
 
@@ -191,7 +214,7 @@ std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr
     }
     catch (std::exception const& e)
     {
-        throw zmbt::base_error("invalid str_to_slice_idx(%s)", slice_expr);
+        throw zmbt::base_error("invalid str_to_slice_idx(%s): %s", slice_expr, e.what());
     }
 
     return out;

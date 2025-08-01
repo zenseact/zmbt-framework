@@ -1669,16 +1669,34 @@ Bind design-time parameters to function.
  * `42 & Q(Add) | Bind `$\mapsto$` Add(42)`
  * `42 | Bind(F) | Bind(G) | Bind(H) `$\mapsto$`  H(G(F(42)))`
 
-### Link
+### Fn
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
 
-...
+Inline named function
 
+Expression `Fn(reference, expr)` creates a symbolic link to expr,
+at the same time evaluating given arguments (inlining the expr).
+The reference is avaliable in the evaluation context,
+including in the expr itself (essentially enabling an arbitrary recursion).
 
+**Infix operator form (left shift)**:
 
-### Capture
+"$f" << E ≡ Fn("$f", E)
+
+*Examples*:
+
+x | ("$f" << Add(1)) | "$f"  | "$f" = x + 1 + 1 + 1
+
+auto const factorial = "$f" << ("$x"
+  | Assert(Ge(0))
+  | Lt(2)
+  | And(1)
+  | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+);
+
+### Link
 
 *Signature*: [Binary](../user-guide/expressions.md#syntax)
 
@@ -1699,24 +1717,6 @@ as those formats are reserved for internal usage.
 
  * `42 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) `$\mapsto$` 42`
  * `-7 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1)) `$\mapsto$` 7`
-
-### Refer
-
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
-
-
-Return capture
-
-
-
-### Let
-
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
-
-
-Store capture
-
-
 
 ### Any
 
