@@ -14,7 +14,7 @@ namespace lang {
 
 EvalParams::EvalParams(ExpressionView const& e, ExpressionView const& x, EvalContext ctx)
     : lhs_maybe_owned_(Keyword::LazyToken)
-    , rhs_maybe_owned_{nullptr}
+    , rhs_maybe_owned_(nullptr)
     , lhs_{lhs_maybe_owned_.encoding_view()}
     , rhs_{rhs_maybe_owned_.encoding_view()}
     , self_{e}
