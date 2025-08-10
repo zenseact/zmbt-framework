@@ -103,7 +103,8 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         auto const iteration = generator(raw_v);
         auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
 
-        if (lang::Expression(v).is_error())
+        lang::Expression const v_as_expr(v);
+        if (v_as_expr.is_error())
         {
             auto generator_ctx = lang::EvalContext::make();
             generator.expression().eval(iteration, generator_ctx);
@@ -132,7 +133,8 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
             ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
                 << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
-            throw model_error("injection failure");
+            // throw model_error("injection failure");
+            return {v_as_expr.prettify().c_str()};
         }
 
         else
@@ -251,6 +253,7 @@ Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(std::si
     {
         throw environment_error("Trigger[%s] #%d input evaluation error: `%s`", ref, nofcall, e.what());
     }
+
     try
     {
         capture = trigger(args);
