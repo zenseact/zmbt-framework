@@ -191,14 +191,16 @@ struct ModelDefinition::T_Filter : protected virtual ModelDefinition::BaseTransi
 template <class Target>
 struct ModelDefinition::T_As : protected virtual ModelDefinition::BaseTransition
 {
-    /// Apply Overload operator
+    /// Apply Overload operator and optionally pipe with Cast
+    /// if expression is non-predicate constant.
     Target As(boost::json::string_view ref)
     {
         state().cur_pipe()["overload"] = ref;
         return transit_to<Target>();
     }
 
-    /// Apply Overload operator
+    /// Apply Overload operator and optionally pipe with Cast
+    /// if expression is non-predicate constant.
     Target As(lang::Operator const& op)
     {
         return As(op.annotation());

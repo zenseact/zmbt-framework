@@ -1259,12 +1259,12 @@ keyword_groups:
           Expression Op(op, f) instructs f to use op operator on
           invocation instead of the default generic.
 
-          Operator parameter singleton can be referenced with string key
-          or constructed in place using type<T> tag.
+          Operator parameter singleton can be referenced with a
+          string key or constructed in place using type<T> tag.
 
           This operator handler is propagated downstream to all terminal
-          subexpression in `f`. Result of `f(x)` is also reserialized (undecorated)
-          as operator type, unless f is constant or boolean expression.
+          subexpression in `f`.
+          The result of `f(x)` is not decorated as type<T>.
 
         domain: any
         codomain: any

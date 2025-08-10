@@ -686,7 +686,7 @@ std::vector<TestEvalSample> const TestSamples
     {Op(type<int>, Eq(42) | Not|Not)       , 41     , false               }, // overload by default ignores boolean keywords
 
     {Op(type<int>, Add(1)) | Str | Eq("42"), 41, true               },
-    {Op(type<int>, Add(1) | Str | Op("", Eq("42"))), 41, true },
+    {Op(type<int>, Add(1) | Str | Op("", Eq("42"))), 41, true }, // nested
 
     {Error("foo")           , {}              , Err({
                                                     {"message", "foo"}

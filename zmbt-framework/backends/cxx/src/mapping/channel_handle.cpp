@@ -8,6 +8,7 @@
 
 #include "zmbt/model/environment_interface_record.hpp"
 #include "zmbt/expr/api.hpp"
+#include "zmbt/expr/operator.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 
 
@@ -211,7 +212,13 @@ bool PipeHandle::overload(lang::Expression& e) const
 {
     if (data_.contains("overload"))
     {
-        e = expr::Overload(data_.at("overload").as_string(), e);
+        auto const& op_ref = data_.at("overload").as_string();
+        bool const shall_decorate_result = (e.is_const() && !e.is_boolean());
+        e = expr::Overload(op_ref, e);
+        if (shall_decorate_result)
+        {
+            e = e | expr::Cast(op_ref);
+        }
         return true;
     }
     return false;

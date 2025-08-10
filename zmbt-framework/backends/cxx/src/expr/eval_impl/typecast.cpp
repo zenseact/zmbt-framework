@@ -44,9 +44,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Op)
     ASSERT(if_str, "invalid parameter");
     EvalContext ctx = curr_ctx();
     ctx.op = O{*if_str};
-    auto result = F.eval_e(lhs(), ctx).to_json();
-
-    return (F.is_const() && !F.is_boolean()) ? ctx.op.decorate(result) : result;
+    return F.eval_e(lhs(), ctx);
 }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Cast)

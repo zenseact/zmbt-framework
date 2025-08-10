@@ -551,7 +551,9 @@ they will be substituted with stubs that will fail in runtime without blocking c
 
 
 The `.As` clause that precedes pipe condition can be used to specify the default overload per
-pipe to avoid repetition in `.Test` table.
+pipe to avoid repetition in `.Test` table. In addition to overloading, it also decorates the result
+of non-boolean constant expressions by piping it to Cast expression, reducing the conversion
+boilerplate in both inputs and outputs.
 
 ```c++
 */
@@ -566,10 +568,30 @@ BOOST_AUTO_TEST_CASE(DecorUnderlying)
         .At(id).As(Underlying<Foo>).Inject()
         .At(id).As(Underlying<Foo>).Expect()
     .Test
-        (Foo::A, Foo::A        )
-        (Foo::B, Foo::B        )
-        (Foo::A, Eq(Foo::B)|Not)
-        (Foo::B, Eq(Foo::C)|Not)
+        (Foo::A              , Foo::A              )
+        (Foo::B              , Foo::B              )
+        (Foo::A              , Ne(Foo::B)          )
+        (Foo::B              , Ne(Foo::C)          )
+        (Foo::A | Add(Foo::B), Foo::B | Add(Foo::A))
+    ;
+
+
+    SignalMapping("Equivalent test with verbose casts and overloads")
+    .OnTrigger(id)
+        .At(id).Inject()
+        .At(id).Expect()
+    .Test
+        (Foo::A | Cast(Underlying<Foo>), Cast(type<Foo>) | Eq(Foo::A))
+        (Foo::B | Cast(Underlying<Foo>), Cast(type<Foo>) | Eq(Foo::B))
+        (Foo::B | Cast(Underlying<Foo>), Cast(type<Foo>) | Eq(Foo::B))
+
+        (Foo::A | Cast(Underlying<Foo>), Cast(type<Foo>) | Ne(Foo::B))
+        (Foo::B | Cast(Underlying<Foo>), Cast(type<Foo>) | Ne(Foo::C))
+
+        (
+            Overload(Underlying<Foo>, Foo::A | Add(Foo::B)),
+            Eq(Overload(Underlying<Foo>, Foo::B | Add(Foo::A)))
+        )
     ;
 }
 
@@ -578,7 +600,18 @@ BOOST_AUTO_TEST_CASE(DecorUnderlying)
 
 In this example we utilize a signal decorator `zmbt::decor::Underlying`,
 that maps input Foo to int before passing to trigger function. Without this cast
-the model will throw exception on attempt to cast string representation of Foo:A to integer.
+the test will yield an error on attempt to cast string representation of Foo:A to integer,
+or on trying to evaluate `Foo::A | Add(Foo::B)` as `Foo::A + Foo::B` rather then
+`static_cast<std::underlying_t<Foo>(Foo::A) + static_cast<std::underlying_t<Foo>(Foo::B)`.
+
+Note that in the verbose example the `Cast(Underlying<Foo>)` cannot be replaced with
+`Cast(type<int>)`, as the conversion is done on serialized JSON values and not on C++ types.
+The `Cast(type<Foo>)` in this context is equivalent to `Uncast(Underlying<Foo>)`.
+
+Any user-defined type can be used as an argument to `Overload` and `Cast/Uncast` expressions
+as `type<MyType>` tag. If default MyType JSON serialization is not sufficient for all test conversions,
+it is possible to customize it by creating a decorator class with `decorated_type` member type,
+that should provide non-explicit constructor and conversion operator for `decorated_type`.
 
 
 ### Mocks
