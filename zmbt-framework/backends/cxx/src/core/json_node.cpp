@@ -5,8 +5,8 @@
  */
 
 
+#include "zmbt/application/log.hpp"
 #include "zmbt/core/json_node.hpp"
-#include "zmbt/logging.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/range/adaptor/sliced.hpp>

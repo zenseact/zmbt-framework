@@ -10,8 +10,8 @@
 
 #include <ostream>
 
+#include "zmbt/application/log.hpp"
 #include "zmbt/core.hpp"
-#include "zmbt/logging.hpp"
 #include "zmbt/reflect.hpp"
 #include "operator.hpp"
 #include "keyword.hpp"

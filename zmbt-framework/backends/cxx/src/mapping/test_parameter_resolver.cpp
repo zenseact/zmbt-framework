@@ -4,22 +4,20 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include "zmbt/mapping/test_parameter_resolver.hpp"
-
-#include <boost/json.hpp>
-#include <zmbt/logging.hpp>
-#include <zmbt/core/aliases.hpp>
-#include <zmbt/core/entity_id.hpp>
-#include <zmbt/core/interface_id.hpp>
-#include <zmbt/core/json_pretty_print.hpp>
-#include <zmbt/core/object_id.hpp>
-#include <zmbt/model/exceptions.hpp>
-#include <zmbt/expr/expression.hpp>
 #include <cstddef>
 #include <exception>
 #include <iostream>
 #include <utility>
 #include <vector>
+
+#include <boost/json.hpp>
+
+#include <zmbt/application.hpp>
+#include <zmbt/core.hpp>
+#include <zmbt/model.hpp>
+#include <zmbt/expr.hpp>
+
+#include "zmbt/mapping/test_parameter_resolver.hpp"
 
 
 namespace zmbt {

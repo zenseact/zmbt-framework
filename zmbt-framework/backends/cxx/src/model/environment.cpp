@@ -7,15 +7,13 @@
 
 #include <mutex>
 
-#include <zmbt/logging.hpp>
-
-#include "zmbt/model/environment.hpp"
+#include <zmbt/application.hpp>
 
 #include <zmbt/model/environment_data.hpp>
 #include <zmbt/model/exceptions.hpp>
-#include <zmbt/model/test_failure.hpp>
 #include <zmbt/model/trigger.hpp>
 
+#include "zmbt/model/environment.hpp"
 
 namespace zmbt {
 
@@ -33,14 +31,6 @@ Environment::Environment()
     {
         data_ = std::make_shared<EnvironmentData>();
         instance = data_;
-    }
-
-    static std::shared_ptr<PersistentConfig> config;
-    config_ = config;
-    if (not config_)
-    {
-        config_ = std::make_shared<PersistentConfig>();
-        config = config_;
     }
 }
 
@@ -193,37 +183,6 @@ Environment& Environment::RegisterInterface(boost::json::string_view key, interf
     refs_ids("/obj") = obj_id;
     refs_ids("/ifc") = ifc_id;
     refs_key() = key;
-    return *this;
-}
-
-
-Environment::PersistentConfig Environment::Config() const
-{
-    return *config_;
-}
-
-Environment& Environment::SetPrettyPrint(bool const pretty_print)
-{
-    config_->pretty_print = pretty_print;
-    return *this;
-}
-
-Environment& Environment::SetFailureHandler(std::function<void(boost::json::value const&)> const& fn)
-{
-    config_->failure_handler = fn;
-    return *this;
-}
-
-Environment& Environment::ResetFailureHandler()
-{
-    config_->failure_handler = default_test_failure;
-    return *this;
-}
-
-Environment& Environment::HandleTestFailure(boost::json::value const& diagnostics)
-{
-    ZMBT_LOG_JSON(WARNING) << diagnostics;
-    config_->failure_handler(diagnostics);
     return *this;
 }
 

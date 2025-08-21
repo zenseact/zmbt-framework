@@ -18,7 +18,6 @@
 #include <type_traits>
 
 
-#include "test_failure.hpp"
 #include "trigger.hpp"
 #include "generator.hpp"
 #include "channel_kind.hpp"
@@ -46,7 +45,6 @@ struct EnvironmentData {
     static boost::json::value init_json_data();
 
     shared_data_table shared;
-    FailureHandler failure_handler {default_test_failure};
     JsonNode json_data {init_json_data()};
 
     std::map<boost::json::string, std::function<void()>> callbacks;

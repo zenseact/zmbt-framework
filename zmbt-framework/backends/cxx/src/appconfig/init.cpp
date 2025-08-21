@@ -16,8 +16,7 @@
 
 #include <boost/program_options.hpp>
 
-#include <zmbt/appconfig.hpp>
-#include <zmbt/logging.hpp>
+#include <zmbt/application.hpp>
 
 #include <zmbt/reflect.hpp>
 
@@ -57,7 +56,7 @@ void InitZmbt(int argc, char **argv)
     }
 #endif
 
-    po::options_description desc("ZMBT test appconfig options");
+    po::options_description desc("ZMBT test application options");
     desc.add_options()
         ("zmbt_log_level", po::value<std::string>()->default_value(default_log_level), "[trace|debug|info|warning|error|fatal] log level level")
         ("zmbt_log_sink", po::value<std::string>()->default_value(default_log_sink), "file name")
@@ -86,9 +85,7 @@ void InitZmbt(int argc, char **argv)
         }}
     };
     Logger::set_notrim(zmbt_log_notrim);
-    static_cast<void>(zmbt_log_prettify);
-
-    //TODO: zmbt::Environment().SetPrettyPrint(zmbt_log_prettify);
+    Logger::set_pretty_print(zmbt_log_prettify);
 }
 
 } // namespace zmbt

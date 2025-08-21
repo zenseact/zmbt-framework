@@ -14,7 +14,6 @@
 #include "model/trigger.hpp"
 #include "model/parameter.hpp"
 #include "model/param_transform.hpp"
-#include "model/test_failure.hpp"
 
 
 #endif // ZMBT_MAPPING_HPP_

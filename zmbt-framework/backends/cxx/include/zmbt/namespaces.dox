@@ -43,7 +43,7 @@
  */
 
 /**
- * @namespace zmbt::appconfig
+ * @namespace zmbt::application
  * @brief Test application configuration (work in progress)
  */
 

@@ -5,24 +5,16 @@
  */
 
 #include <boost/json.hpp>
-#include <zmbt/core/exceptions.hpp>
-#include <zmbt/core/format_string.hpp>
-#include <zmbt/core/json_node.hpp>
-#include <zmbt/model/environment.hpp>
-#include <zmbt/model/environment_interface_record.hpp>
-#include <zmbt/model/exceptions.hpp>
-#include <zmbt/expr/expression.hpp>
-#include <zmbt/expr/api.hpp>
-#include <zmbt/expr/keyword.hpp>
-#include <zmbt/expr/operator.hpp>
+#include <zmbt/application.hpp>
 #include <zmbt/core.hpp>
+#include <zmbt/model.hpp>
+#include <zmbt/expr.hpp>
 #include <cstddef>
 #include <exception>
 #include <memory>
 #include <stdexcept>
 #include <tuple>
 
-#include "zmbt/logging.hpp"
 #include "zmbt/mapping/test_runner.hpp"
 #include "zmbt/mapping/test_diagnostics.hpp"
 #include "zmbt/mapping/test_parameter_resolver.hpp"
@@ -78,7 +70,7 @@ public:
 
 void InstanceTestRunner::report_failure(TestDiagnostics const& report)
 {
-    env.HandleTestFailure(report.to_json());
+    Config().HandleTestFailure(report.to_json());
 }
 
 
