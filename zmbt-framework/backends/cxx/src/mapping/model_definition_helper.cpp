@@ -126,11 +126,11 @@ void DefinitionHelper::init_prod()
 
 void DefinitionHelper::init_pairwise()
 {
-    throw model_error("Pairwise clause not implemented");
+    throw_exception(model_error("Pairwise clause not implemented"));
 }
 void DefinitionHelper::init_parametrize()
 {
-    throw model_error("Parametrize clause not implemented");
+    throw_exception(model_error("Parametrize clause not implemented"));
 }
 
 
@@ -138,7 +138,7 @@ void DefinitionHelper::continue_pipe(boost::json::string_view combo)
 {
     if ((not head_pipe_type_.is_null()) and (head_pipe_type_ != combo)) // already a pipe continuation
     {
-        throw model_error("can't chain different combination clauses, %s vs %s", head_pipe_type_, combo);
+        throw_exception(model_error("can't chain different combination clauses, %s vs %s", head_pipe_type_, combo));
     }
 
     model("/pipes/@/type") = combo;

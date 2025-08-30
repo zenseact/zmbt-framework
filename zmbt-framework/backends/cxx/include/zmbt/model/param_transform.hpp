@@ -85,7 +85,7 @@ struct param_transform_interface<T, require_cal<T>> : public param_transform_bas
         boost::json::value pvalue {};
         if ((Kind::trig_ifc & pkind) && (Kind::ifc_node & pkind) )
         {
-            throw model_error("Ambiguous param %s (missing object on channel nodes?)", param);
+            throw_exception(model_error("Ambiguous param %s (missing object on channel nodes?)", param));
         }
         if (Kind::trig_node & pkind)
         {
@@ -116,7 +116,7 @@ struct param_transform_interface<T, require_cal<T>> : public param_transform_bas
         }
         else
         {
-            throw model_error("Ambiguous param %s (should it be a part of an interface?) `%s`", param, pointers);
+            throw_exception(model_error("Ambiguous param %s (should it be a part of an interface?) `%s`", param, pointers));
         }
         return pvalue;
     }
@@ -154,7 +154,7 @@ struct param_transform_interface<T, require_not_cal<T>> : public param_transform
         }
         else
         {
-            throw model_error("Ambiguous param %s (should it be a trigger or channel object?)", param);
+            throw_exception(model_error("Ambiguous param %s (should it be a trigger or channel object?)", param));
         }
         return nullptr;
     }

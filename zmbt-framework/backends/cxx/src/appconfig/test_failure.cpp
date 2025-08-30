@@ -86,7 +86,7 @@ void default_test_failure(boost::json::value const& report)
 {
     std::stringstream ss;
     format_failure_report(ss, report);
-    throw test_assertion_failure(ss.str());
+    throw_exception(test_assertion_failure(ss.str()));
 }
 } // namespace zmbt
 

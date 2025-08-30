@@ -124,7 +124,7 @@ struct custom_serialization<decor::underlying<T>> {
                 result = v.get_uint64();
                 break;
             default:
-                throw zmbt::serialization_error("can't construct zmbt::decor::underlying<T> from `%s`", v);
+                throw_exception(zmbt::serialization_error("can't construct zmbt::decor::underlying<T> from `%s`", v));
                 break;
         }
         return result;

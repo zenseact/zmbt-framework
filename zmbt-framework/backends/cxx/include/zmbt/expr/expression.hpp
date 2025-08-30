@@ -211,6 +211,10 @@ public:
         return is(Keyword::Err);
     }
 
+    /// Internal error identifier.
+    /// Returns empty string when is_error() equals false.
+    std::string error_id() const;
+
     bool is_complete_flip() const
     {
         return is(Keyword::Flip) && encoding_view().size() > 1;

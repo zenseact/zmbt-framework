@@ -155,9 +155,13 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
     try {
         Environment::InterfaceHandle ifc_rec{model_.at("/trigger").as_string()};
         auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
-        for (std::uint64_t i = 0; i < runs; i++)
+
+        ifc_rec.RunAsTrigger(runs);
+
+        if (env.HasTestError())
         {
-            ifc_rec.RunAsTrigger(i);
+            report_failure(diagnostics.Error("test error", env.TestError()));
+            return false;
         }
         return true;
     }
@@ -362,7 +366,7 @@ void InstanceTestRunner::Run()
         boost::json::array const& test_vector = tests.at(i).as_array();
         if (test_vector.size() != N)
         {
-            throw model_error("inconsistent test vecor size at test case %d", i);
+            throw_exception(model_error("inconsistent test vecor size at test case %d", i));
         }
 
         run_test_procedure(test_vector, i);

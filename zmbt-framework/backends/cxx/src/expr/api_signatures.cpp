@@ -8,6 +8,8 @@
 #include "zmbt/expr/api_signatures.hpp"
 #include "zmbt/expr/api.hpp"
 
+#include "zmbt/model/environment.hpp"
+
 
 namespace
 {
@@ -58,6 +60,12 @@ boost::json::value handle_list_init(std::initializer_list<Expression> set)
 } // namespace detail
 
 
+
+
+void SignatureErr::make_throw_action(std::string const key, std::function<void()> f) const
+{
+    Environment().RegisterAction(key, f);
+}
 
 Expression SignatureErr::make_error(boost::json::string_view type, boost::json::string_view msg, boost::json::string_view ctx) const
 {

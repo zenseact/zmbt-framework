@@ -23,15 +23,12 @@ namespace
 
         if (role.ends_with("one"))
         {
-            if (observed_size == 1)
-            {
-                return true;
-            }
-            else
+            if (observed_size != 1)
             {
                 // TODO: return Error
-                throw zmbt::model_error("expected single value capture, but got %s samples", observed_size);
+                throw_exception(zmbt::model_error("expected single value capture, but got %s samples", observed_size));
             }
+            return true;
         }
         else if (role.ends_with("batch"))
         {
@@ -41,7 +38,7 @@ namespace
         {
             if (observed_size == 0)
             {
-                throw zmbt::model_error("expected non-empty capture, but got 0 samples");
+                throw_exception(zmbt::model_error("expected non-empty capture, but got 0 samples"));
             }
             return observed_size == 1;
         }
@@ -162,10 +159,10 @@ boost::json::array ChannelHandle::captures() const
         observed.push_back(ifc_handle.ObservedCalls());
         break;
     case ChannelHandle::Kind::Exception:
-        throw model_error("Exception channel not implemented");
+        observed = ifc_handle.CaptureSlice("/exception", start, stop, step);
         break;
     default:
-        throw model_error("invalid channel kind");
+        throw_exception(model_error("invalid channel kind"));
         break;
     }
 
@@ -257,7 +254,7 @@ boost::json::value PipeHandle::observe() const
 {
     if (!is_output())
     {
-        throw model_error("calling observe on non-output channel");
+        throw_exception(model_error("calling observe on non-output channel"));
     }
     auto const& role = data_.at("role").as_string();
     boost::json::value result;
@@ -282,7 +279,7 @@ boost::json::value PipeHandle::observe() const
     {
         if (role.ends_with("one"))
         {
-            throw model_error("cant use %s on blend pipe, try without -One", role);
+            throw_exception(model_error("cant use %s on blend pipe, try without -One", role));
         }
         result = observe_blend();
     }

@@ -697,11 +697,12 @@ std::vector<TestEvalSample> const TestSamples
                                                     {"context", "bar"}
                                                 })                             },
 
-    {Error(type<int>, "foo", "bar"), {}       , Err({
-                                                    {"type"   , "int"},
-                                                    {"message", "foo"},
-                                                    {"context", "bar"}
-                                                })                             },
+    {Error(type<std::runtime_error>, "foo", "bar"), {},
+                                        Err({
+                                            {"type"   , "std::runtime_error"},
+                                            {"message", "foo"               },
+                                            {"context", "bar"               }
+                                        })                                     },
 
     {0 | Assert(Ne(0)) | Flip(Div(1)), {}     , Err("assertion failure", "Ne(0)")},
     {1 | Assert(Ne(0)) | Flip(Div(1)), {}     , 1                              },

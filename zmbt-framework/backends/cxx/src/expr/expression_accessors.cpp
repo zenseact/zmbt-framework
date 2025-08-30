@@ -135,5 +135,18 @@ boost::json::value ExpressionView::to_json() const
     }
 }
 
+
+std::string ExpressionView::error_id() const
+{
+    if (!is_error()) return "";
+
+    auto const& payload = data().as_object();
+    auto const type_name = payload.at("type").as_string();
+    auto const msg       = payload.at("message").as_string();
+    auto const ctx       = payload.contains("context") ? payload.at("context").as_string() : "";
+    auto const hash = std::hash<boost::json::string>();
+    return format("$(%s-%s-%s)", type_name, hash(msg), hash(ctx));
+}
+
 }  // namespace lang
 }  // namespace zmbt

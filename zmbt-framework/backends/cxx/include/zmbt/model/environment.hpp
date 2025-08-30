@@ -70,12 +70,20 @@ class Environment {
     using hookout_args_t = mp_transform<rvref_to_val, argsref_t<I>>;
 
     std::shared_ptr<EnvironmentData> data_;
+
+    void SetTestError(boost::json::value&& msg);
+
   public:
     class InterfaceHandle;
 
     template <class Interface>
     class TypedInterfaceHandle;
 
+    /// Current test error payload, null if none
+    boost::json::value const& TestError();
+
+    /// Current test error payload, null if none
+    bool HasTestError();
 
     JsonNode& json_data()
     {
@@ -249,7 +257,7 @@ class Environment {
         auto const record = found->second;
         if (std::type_index(typeid(T)) != record.first)
         {
-            throw environment_error("GetShared invoked with incompatible type for `%s`", key);
+            throw_exception(environment_error("GetShared invoked with incompatible type for `%s`", key));
         }
 
         return std::static_pointer_cast<T>(record.second);
@@ -273,7 +281,7 @@ class Environment {
 
             if (not data_->shared.emplace(key, record).second)
             {
-                throw environment_error("GetSharedRef failed to create shared object at `%s`", key);
+                throw_exception(environment_error("GetSharedRef failed to create shared object at `%s`", key));
             }
             return *shared;
         }
@@ -281,7 +289,7 @@ class Environment {
         auto const record = found->second;
         if (std::type_index(typeid(T)) != record.first)
         {
-            throw environment_error("GetSharedRef invoked with incompatible type for `%s`", key);
+            throw_exception(environment_error("GetSharedRef invoked with incompatible type for `%s`", key));
         }
 
         return *std::static_pointer_cast<T>(record.second);
@@ -328,6 +336,7 @@ class Environment {
 
 
     Environment& RunAction(lang::Expression const& key_expr);
+    Environment& RunActionNoCatch(lang::Expression const& key_expr);
 
 
     template <class I>
@@ -386,7 +395,7 @@ class Environment {
         {
             if (trigger_found->second != trigger)
             {
-                throw environment_error(err_msg);
+                throw_exception(environment_error(err_msg));
             }
             return *this;
         }

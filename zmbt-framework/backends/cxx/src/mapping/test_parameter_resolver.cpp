@@ -52,7 +52,7 @@ try
         trigger = env.GetOrRegisterParametricTrigger(trig_obj, trig_ifc);
     }
     else{
-        throw model_error("invalid trigger: %s", trigger);
+        throw_exception(model_error("invalid trigger: %s", trigger));
     }
 
     for(auto& pipe: next_model("/pipes").as_array())
@@ -92,7 +92,7 @@ try
                 interface = env.GetOrRegisterInterface(obj_id, ifc_id);
             }
             else{
-                throw model_error("invalid interface: %s", interface);
+                throw_exception(model_error("invalid interface: %s", interface));
             }
 
 
@@ -114,7 +114,7 @@ try
             }
             else if (!signal_path.is_string())
             {
-                throw model_error("invalid signal_path: %s", signal_path);
+                throw_exception(model_error("invalid signal_path: %s", signal_path));
             }
         }
     }
@@ -122,7 +122,7 @@ try
 catch (std::exception const& e)
 {
     log_debug(next_model);
-    throw model_error("Resolving model parameters failed with `%s`", e.what());
+    throw_exception(model_error("Resolving model parameters failed with `%s`", e.what()));
 }
 
 
@@ -176,7 +176,7 @@ void TestParameterResolver::init_param_iters()
                 continuation_parameters.push_back(i);
             }
             else if (zip_length && (N != zip_length)) {
-                throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
+                throw_exception(model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i)));
             }
             else
             {
@@ -248,7 +248,7 @@ JsonNode TestParameterResolver::Next()
             }
             catch(const std::exception& e)
             {
-                throw model_error("failed to resolve parameter on %s, error:", ptr, e.what());
+                throw_exception(model_error("failed to resolve parameter on %s, error:", ptr, e.what()));
             }
         }
 

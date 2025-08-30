@@ -85,6 +85,10 @@ class Operator
 {
   public:
 
+    struct operator_error : public base_error {
+        using base_error::base_error;
+    };
+
     using V = boost::json::value;
     using LV = LazyParam;
 

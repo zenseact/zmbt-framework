@@ -67,7 +67,7 @@ struct default_serialization<T, first_if_t<void,
                 std::int64_t value = v.as_int64();
                 std::int64_t test_value = static_cast<std::int64_t>(static_cast<underlying_t>(value));
                 if (value != test_value) {
-                    throw serialization_error("narrowing enum conversion, can't represent " + std::to_string(value));
+                    throw_exception(serialization_error("narrowing enum conversion, can't represent " + std::to_string(value)));
                 }
                 t = static_cast<T>(value);
             }
@@ -75,7 +75,7 @@ struct default_serialization<T, first_if_t<void,
 
                 std::uint64_t value = v.as_uint64();
                 if (value > std::numeric_limits<underlying_t>::max()) {
-                    throw serialization_error("narrowing enum conversion, can't represent " + std::to_string(value));
+                    throw_exception(serialization_error("narrowing enum conversion, can't represent " + std::to_string(value)));
                 }
                 t = static_cast<T>(value);
             }
@@ -93,7 +93,7 @@ struct default_serialization<T, first_if_t<void,
             });
 
             if (not found) {
-                throw serialization_error("invalid enum value: %s", value);
+                throw_exception(serialization_error("invalid enum value: %s", value));
             }
 
         }
@@ -205,7 +205,7 @@ struct default_serialization<std::complex<T>>
         }
         else
         {
-            throw serialization_error("can't produce std::complex from `%s`", v);
+            throw_exception(serialization_error("can't produce std::complex from `%s`", v));
         }
         return {real, imag};
     }

@@ -18,7 +18,6 @@
 #include "expr/expression_grammar.hpp"
 #include "expr/api.hpp"
 #include "expr/api_signatures.hpp"
-#include "expr/exceptions.hpp"
 #include "expr/encoding.hpp"
 
 #endif // ZMBT_EXPR_HPP_
