@@ -7,6 +7,8 @@
 #ifndef ZMBT_MODEL_TRIGGER_HPP_
 #define ZMBT_MODEL_TRIGGER_HPP_
 
+#include <boost/type_index.hpp>
+
 #include "zmbt/model/exceptions.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
@@ -139,26 +141,75 @@ public:
             using args_unqf_t = tuple_unqf_t<args_t>;
             using ifc_host_unref_t = remove_reference_t<typename reflection::host_t>;
 
-            args_unqf_t stored_args = args_in.is_array()
-                ? dejsonize<args_unqf_t>(args_in)
-                : dejsonize<args_unqf_t>(boost::json::array{args_in});
+            boost::json::value args_json_in_out;
+            std::function<return_t()> fn;
+            std::function<boost::json::value()> get_in_out_args = []{ return nullptr; };
 
-            args_t test_args = convert_tuple_to<args_t>(stored_args);
+            boost::json::value capture_args;
+            boost::json::value capture_return;
+            boost::json::value capture_ts;
+            boost::json::value capture_tid;
+            boost::json::value capture_exception;
 
-            auto ret = apply_fn<return_t>([obj, ifc_ptr, test_args]() -> return_t {
-                if (is_member_function_pointer<I>::value && !obj) {
-                    throw environment_error("invoking mfp trigger with null object");
+            try
+            {
+                args_unqf_t args_typed_unqf_in = args_in.is_array()
+                    ? dejsonize<args_unqf_t>(args_in)
+                    : dejsonize<args_unqf_t>(boost::json::array{args_in});
+
+                args_t args_typed_in_out = convert_tuple_to<args_t>(args_typed_unqf_in);
+
+                fn = [obj, ifc_ptr, args_typed_in_out]() -> return_t {
+                    if (is_member_function_pointer<I>::value && !obj) {
+                        throw_exception(environment_error("invoking mfp trigger with null object"));
+                    }
+                    // WARN: is_unsafe_ptr cast
+                    // TODO: check type_index by comp option
+                    return reflection::apply(detail::static_ptr_cast<ifc_host_unref_t>(obj), ifc_ptr, args_typed_in_out);
+                };
+
+                capture_ts = get_ts();
+                capture_tid = get_tid();
+                try
+                {
+                    capture_return = apply_fn<return_t>(fn);
                 }
-                // WARN: is_unsafe_ptr cast
-                // TODO: check type_index by comp option
-                return reflection::apply(detail::static_ptr_cast<ifc_host_unref_t>(obj), ifc_ptr, test_args);
-            });
+                catch(const std::exception& e)
+                {
+                    auto const dynamic_exception_type = boost::typeindex::type_id_runtime(e).pretty_name();
+                    capture_exception = {
+                        {"type"   , dynamic_exception_type   },
+                        {"what"   , e.what()                 },
+                        {"context", "trigger execution"}
+                    };
+                }
+                catch(...)
+                {
+                    // TODO: try to gget type info from std::exception_ptr
+                    capture_exception = {
+                        {"type"   , "unknown"          },
+                        {"what"   , "unknown"          },
+                        {"context", "trigger execution"}
+                    };
+                }
+                capture_args = json_from(convert_tuple_to<args_unqf_t>(args_typed_in_out));
+            }
+            catch(const std::exception& e)
+            {
+                auto const dynamic_exception_type = boost::typeindex::type_id_runtime(e).pretty_name();
+                capture_exception = {
+                    {"type"   , dynamic_exception_type   },
+                    {"what"   , e.what()                 },
+                    {"context", "trigger args evaluation"}
+                };
+            }
 
             return {
-                {"args", json_from(convert_tuple_to<args_unqf_t>(test_args))},
-                {"return", ret},
-                {"ts", get_ts()},
-                {"tid", get_tid()},
+                {"args"     , capture_args     },
+                {"return"   , capture_return   },
+                {"ts"       , capture_ts       },
+                {"tid"      , capture_tid      },
+                {"exception", capture_exception},
             };
         }}
     {

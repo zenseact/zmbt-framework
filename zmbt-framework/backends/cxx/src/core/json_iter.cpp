@@ -26,7 +26,7 @@ void zmbt::JsonIterZipProdBase::init_iters(boost::json::array const& seqences)
     {
         if (!v.is_array())
         {
-            throw base_error("not a sequence: `%s`", v);
+            throw_exception(base_error("not a sequence: `%s`", v));
         }
         ends_.push_back(v.as_array().cend());
         begins_.push_back(v.as_array().cbegin());

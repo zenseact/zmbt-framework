@@ -46,6 +46,7 @@ BOOST_AUTO_TEST_CASE(Slice)
     // single element reverse step yields empty set, equivalent to python slice [0:1:-1]
     BOOST_CHECK_EQUAL(slice({42, 43},  0, 0, -1), (boost::json::array{}));
 
+    BOOST_CHECK_THROW(slice({42, 43},  0, 0, 0), std::exception);
     BOOST_CHECK_THROW(slice({42, 43},  0, 0, 0), base_error);
 }
 

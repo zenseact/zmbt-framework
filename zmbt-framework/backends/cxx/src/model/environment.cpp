@@ -7,15 +7,13 @@
 
 #include <mutex>
 
-#include <zmbt/logging.hpp>
-
-#include "zmbt/model/environment.hpp"
+#include <zmbt/application.hpp>
 
 #include <zmbt/model/environment_data.hpp>
 #include <zmbt/model/exceptions.hpp>
-#include <zmbt/model/test_failure.hpp>
 #include <zmbt/model/trigger.hpp>
 
+#include "zmbt/model/environment.hpp"
 
 namespace zmbt {
 
@@ -33,14 +31,6 @@ Environment::Environment()
     {
         data_ = std::make_shared<EnvironmentData>();
         instance = data_;
-    }
-
-    static std::shared_ptr<PersistentConfig> config;
-    config_ = config;
-    if (not config_)
-    {
-        config_ = std::make_shared<PersistentConfig>();
-        config = config_;
     }
 }
 
@@ -61,6 +51,30 @@ Environment::lock_t Environment::DeferLock() const
     return lock_t{data_->mutex, std::defer_lock};
 }
 
+void Environment::SetTestError(boost::json::value&& msg)
+{
+    if (!data_->has_test_error.exchange(true, std::memory_order_relaxed))
+    {
+        ZMBT_LOG(ERROR) << msg;
+        auto lock = Lock();
+        data_->json_data("/test_error") = std::move(msg);
+    }
+    else
+    {
+        ZMBT_LOG(DEBUG) << msg;
+    }
+}
+
+boost::json::value const& Environment::TestError()
+{
+    return data_->json_data("/test_error");
+}
+
+bool Environment::HasTestError()
+{
+    return data_->has_test_error.load(std::memory_order_relaxed);
+}
+
 void Environment::DumpToJsonLog()
 {
     ZMBT_LOG_JSON(INFO) << data_->json_data.node();
@@ -72,7 +86,7 @@ void Environment::ResetInterfaceData()
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().clear();
     data_->input_generators.clear();
-
+    data_->has_test_error = false;
 }
 
 
@@ -91,6 +105,7 @@ void Environment::ResetAll()
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
     data_->input_generators.clear();
+    data_->has_test_error = false;
 }
 
 
@@ -181,7 +196,7 @@ Environment& Environment::RegisterInterface(boost::json::string_view key, interf
     boost::json::string_view errmsg {"register failure: node \"%s\" is not empty"};
     if (!refs_key.is_null() && (refs_key.node() != key))
     {
-        throw environment_error("RegisterInterface failure: `%s` is already registered as %s", key, refs_key.node());
+        throw_exception(environment_error("RegisterInterface failure: `%s` is already registered as %s", key, refs_key.node()));
     }
     if (!refs_ids.is_null() && ((refs_ids.at("/obj") != obj_id) || (refs_ids.at("/ifc") != ifc_id)))
     {
@@ -193,37 +208,6 @@ Environment& Environment::RegisterInterface(boost::json::string_view key, interf
     refs_ids("/obj") = obj_id;
     refs_ids("/ifc") = ifc_id;
     refs_key() = key;
-    return *this;
-}
-
-
-Environment::PersistentConfig Environment::Config() const
-{
-    return *config_;
-}
-
-Environment& Environment::SetPrettyPrint(bool const pretty_print)
-{
-    config_->pretty_print = pretty_print;
-    return *this;
-}
-
-Environment& Environment::SetFailureHandler(std::function<void(boost::json::value const&)> const& fn)
-{
-    config_->failure_handler = fn;
-    return *this;
-}
-
-Environment& Environment::ResetFailureHandler()
-{
-    config_->failure_handler = default_test_failure;
-    return *this;
-}
-
-Environment& Environment::HandleTestFailure(boost::json::value const& diagnostics)
-{
-    ZMBT_LOG_JSON(WARNING) << diagnostics;
-    config_->failure_handler(diagnostics);
     return *this;
 }
 
@@ -279,7 +263,7 @@ boost::json::value Environment::GetVar(lang::Expression const& key_expr)
     }
     else
     {
-        throw environment_error("Environment variable `%s` not found", key);
+        throw_exception(environment_error("Environment variable `%s` not found", key));
         return nullptr;
     }
 }
@@ -326,7 +310,7 @@ Environment& Environment::RegisterAction(lang::Expression const& key_expr, std::
     auto lock = Lock();
     if (data_->callbacks.count(key))
     {
-        throw environment_error("Callback registering failed: key \"%s\" already exists", key);
+        throw_exception(environment_error("Callback registering failed: key \"%s\" already exists", key));
     }
     data_->callbacks.emplace(key, action);
     data_->json_data("/callbacks/%s", key) = 0; // TODO: timestamp
@@ -339,7 +323,7 @@ Environment& Environment::RunAction(lang::Expression const& key_expr)
     boost::json::string const key = key_expr.eval().as_string();
     if (0 == data_->callbacks.count(key))
     {
-        throw environment_error("Callback execution failed: %s is not registered", key);
+        throw_exception(environment_error("Callback execution failed: %s is not registered", key));
     }
 
     try
@@ -348,8 +332,20 @@ Environment& Environment::RunAction(lang::Expression const& key_expr)
     }
     catch(const std::exception& e)
     {
-        throw environment_error("Callback execution failed: %s throws %s", key, e.what());
+        throw_exception(environment_error("Callback execution failed: %s throws %s", key, e.what()));
     }
+    return *this;
+}
+
+Environment& Environment::RunActionNoCatch(lang::Expression const& key_expr)
+{
+    boost::json::string const key = key_expr.eval().as_string();
+    if (0 == data_->callbacks.count(key))
+    {
+        throw_exception(environment_error("Callback execution failed: %s is not registered", key));
+    }
+
+    data_->callbacks.at(key).operator()();
     return *this;
 }
 

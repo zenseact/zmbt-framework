@@ -13,15 +13,14 @@
 #include <sstream>
 #include <chrono>
 
-#include <zmbt/logging.hpp>
-// #include <boost/date_time/posix_time/ptime.hpp>
-// #include <boost/date_time/posix_time/time_formatters_limited.hpp>
+#include <zmbt/application/log.hpp>
 
 namespace{
 using Level = zmbt::Logger::Level;
 
 static Level g_max_log_level = Level::INFO;
 static bool g_notrim = true;
+static bool g_pretty_print = false;
 
 
 class AsyncJsonLogger {
@@ -117,14 +116,25 @@ void Logger::set_notrim(bool const notrim)
     g_notrim = notrim;
 }
 
-bool Logger::get_notrim()
+bool Logger::is_notrim_enabled()
 {
     return g_notrim;
 }
 
-Level Logger::get_max_level()
+Level Logger::max_level()
 {
     return g_max_log_level;
+}
+
+
+void Logger::set_pretty_print(bool const pretty_print)
+{
+    g_pretty_print = pretty_print;
+}
+
+bool Logger::is_pretty_print_enabled()
+{
+    return g_pretty_print;
 }
 
 Logger::Logger()

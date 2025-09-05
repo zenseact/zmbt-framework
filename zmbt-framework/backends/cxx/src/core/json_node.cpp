@@ -5,8 +5,8 @@
  */
 
 
+#include "zmbt/application/log.hpp"
 #include "zmbt/core/json_node.hpp"
-#include "zmbt/logging.hpp"
 
 #include <boost/algorithm/string.hpp>
 #include <boost/range/adaptor/sliced.hpp>
@@ -101,7 +101,7 @@ boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
         catch(const std::exception& e)
         {
             ZMBT_LOG_CERR(FATAL) << "failed to create node at " << json_ptr << " in " << node();
-            throw e;
+            throw_exception(e);
             static boost::json::value _ = {};
             return _;
         }

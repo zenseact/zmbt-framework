@@ -15,7 +15,6 @@
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
 #include "zmbt/expr/api.hpp"
-#include "zmbt/expr/exceptions.hpp"
 
 namespace
 {
@@ -54,10 +53,6 @@ Expression::Expression(Encoding const& encoding)
 Expression::Expression(Keyword const& keyword)
     : Expression(encodeNested(keyword, {}))
 {
-    if (keyword == Keyword::Literal || keyword == Keyword::PreProc)
-    {
-        throw zmbt::expression_error("expression requires a value");
-    }
 }
 
 Expression::Expression(ExpressionView const& view)

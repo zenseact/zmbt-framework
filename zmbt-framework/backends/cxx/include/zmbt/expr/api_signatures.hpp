@@ -15,6 +15,8 @@
 #include "keyword.hpp"
 #include "expression.hpp"
 
+
+
 namespace zmbt {
 namespace lang {
 namespace detail {
@@ -229,12 +231,18 @@ struct SignatureErr : public SignatureBase<Keyword::Err>
 
     /// \brief Error type, message, and context
     template <class T>
-    Expression operator()(type_tag<T>, boost::json::string_view msg = "", boost::json::string_view ctx = "") const
+    Expression operator()(type_tag<T>, boost::json::string msg = "", boost::json::string ctx = "") const
     {
-        return make_error(zmbt::type_name<T>(), msg, ctx);
+        static_assert(std::is_base_of<std::exception, T>::value, "Error type is not supported");
+        Expression e = make_error(zmbt::type_name<T>(), msg, ctx);
+        make_throw_action(e.error_id(), [msg]{
+            throw T(msg.c_str());
+        });
+        return std::move(e);
     }
 
     private:
+        void make_throw_action(std::string const key, std::function<void()> f) const;
         Expression make_error(boost::json::string_view type, boost::json::string_view msg, boost::json::string_view ctx) const;
 };
 

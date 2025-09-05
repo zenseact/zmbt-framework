@@ -8,7 +8,7 @@
 #ifndef ZMBT_MODEL_ENVIRONMENT_DATA_HPP_
 #define ZMBT_MODEL_ENVIRONMENT_DATA_HPP_
 
-
+#include <atomic>
 #include <cstdint>
 #include <map>
 #include <memory>
@@ -18,7 +18,6 @@
 #include <type_traits>
 
 
-#include "test_failure.hpp"
 #include "trigger.hpp"
 #include "generator.hpp"
 #include "channel_kind.hpp"
@@ -30,7 +29,7 @@ namespace zmbt {
 
 
 /// Data container for the Environment
-struct EnvironmentData {
+struct EnvironmentData final {
 
     using mutex_t = std::recursive_mutex;
     using lock_t = std::unique_lock<mutex_t>;
@@ -46,7 +45,6 @@ struct EnvironmentData {
     static boost::json::value init_json_data();
 
     shared_data_table shared;
-    FailureHandler failure_handler {default_test_failure};
     JsonNode json_data {init_json_data()};
 
     std::map<boost::json::string, std::function<void()>> callbacks;
@@ -57,21 +55,19 @@ struct EnvironmentData {
         std::map<interface_id,           // obj
         std::map<ChannelKind,            // grp
         GeneratorsTable>>> input_generators;
+    std::atomic_bool has_test_error{false};
 
 
     mutex_t mutable mutex;
 
     EnvironmentData();
 
-    EnvironmentData(EnvironmentData &&o);
+    EnvironmentData(EnvironmentData &&o) = delete;
+    EnvironmentData(EnvironmentData const& o) = delete;
+    EnvironmentData& operator=(EnvironmentData &&o) = delete;
+    EnvironmentData& operator=(EnvironmentData const& o) = delete;
 
-    EnvironmentData& operator=(EnvironmentData &&o);
-
-    EnvironmentData(EnvironmentData const& o);
-
-    EnvironmentData& operator=(EnvironmentData const& o);
-
-    virtual ~EnvironmentData();
+    ~EnvironmentData();
 };
 
 

@@ -443,7 +443,7 @@ BOOST_AUTO_TEST_CASE(ModelWithMocks)
     .OnTrigger(SUT)
         .At(SUT).Inject()
         .At(&TestObject::in_out).Args("/1").Inject()
-        .At(&TestObject::in_out).Args("/0").Expect()
+        .At(&TestObject::in_out).Args("/0").Take(Last).Expect()
         .At(SUT).Expect()
     .Test
         ( _,  _,  _,  _)
@@ -557,10 +557,10 @@ BOOST_AUTO_TEST_CASE(ExpressionClauses)
 
     auto N = Param(1);
 
-    SignalMapping("Parametric Repeat")
+    SignalMapping("Parametric Repeat (%d)", N)
     .OnTrigger(identity).Repeat(N)
         .At(identity).Inject()
-        .At(identity).ExpectBatch()
+        .At(identity).Expect()
     .Test
         (Id               , N | Arange                    )
         (Flip(Sub(N))     , "%d:0:-1" | Fmt(N) | Arange   )
@@ -1098,4 +1098,39 @@ BOOST_AUTO_TEST_CASE(MockReturnRef)
         ( 3,  3,  6)
         (42, -3, 39)
     ;
+}
+
+
+
+BOOST_AUTO_TEST_CASE(FlattenExpect)
+{
+    struct Mock
+    {
+        static void ping()
+        {
+            return InterfaceRecord(&Mock::ping).Hook();
+        }
+    };
+
+    auto SUT = [](int& x)
+    {
+        Mock::ping();
+        x = 42;
+        return 13;
+    };
+
+    SignalMapping("Flatten Trigger arg when no repeat set ")
+    .OnTrigger(SUT).At(SUT).Args(0).Expect(42);
+
+    SignalMapping("Flatten Trigger return when no repeat set ")
+    .OnTrigger(SUT).At(SUT).Expect(13);
+
+    SignalMapping("Flatten mock callcount")
+    .OnTrigger(SUT).At(&Mock::ping).CallCount().Expect(1);
+
+    SignalMapping("Do not flatten mock assertions when no repeat set")
+    .OnTrigger(SUT).At(&Mock::ping).Expect(L{}|ToList); // args are empty on void input
+
+    SignalMapping("Do not flatten mock assertions when repeat is set")
+    .OnTrigger(SUT).Repeat(2).At(&Mock::ping).Expect({L{}, L{}});
 }

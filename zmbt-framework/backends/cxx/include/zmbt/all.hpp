@@ -15,7 +15,6 @@
 #include "mapping.hpp"
 #include "decor.hpp"
 #include "api.hpp"
-#include "appconfig.hpp"
-#include "logging.hpp"
+#include "application.hpp"
 
 #endif  // ZMBT_ALL_HPP_

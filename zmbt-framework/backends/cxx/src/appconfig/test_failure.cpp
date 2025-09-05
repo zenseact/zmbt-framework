@@ -5,7 +5,7 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include "zmbt/model/test_failure.hpp"
+#include "zmbt/application/test_failure.hpp"
 #include "zmbt/model/exceptions.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/model/environment.hpp"
@@ -20,7 +20,7 @@ namespace zmbt {
 
 void format_failure_report(std::ostream& os, boost::json::value const& sts)
 {
-    auto const pretty_print = Environment().Config().pretty_print;
+    auto const pretty_print = Logger::is_pretty_print_enabled();
     std::string const verdict = sts.at("verdict").as_string().c_str();
 
     boost::json::string_view const prefix {"\n      "};
@@ -86,7 +86,7 @@ void default_test_failure(boost::json::value const& report)
 {
     std::stringstream ss;
     format_failure_report(ss, report);
-    throw test_assertion_failure(ss.str());
+    throw_exception(test_assertion_failure(ss.str()));
 }
 } // namespace zmbt
 

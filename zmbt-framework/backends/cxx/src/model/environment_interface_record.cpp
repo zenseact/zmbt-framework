@@ -4,6 +4,10 @@
  * @copyright (c) Copyright 2024-2025 Zenseact AB
  * @license SPDX-License-Identifier: Apache-2.0
  */
+#include <atomic>
+#include <exception>
+#include <thread>
+
 #include "zmbt/model/environment_interface_record.hpp"
 
 
@@ -64,6 +68,27 @@ void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::
 }
 
 
+void Environment::InterfaceHandle::MaybeThrowException()
+{
+    auto const maybe_exception = YieldInjection(ChannelKind::Exception);
+    if (maybe_exception.is_null())
+    {
+        return;
+    }
+
+    lang::Expression const e(maybe_exception);
+    auto const key = e.error_id();
+    if (env.HasAction(key))
+    {
+        env.RunActionNoCatch(key);
+    }
+    else
+    {
+        throw_exception(std::runtime_error(e.data().at("message").as_string().c_str()));
+    }
+}
+
+
 boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
     boost::json::value result_value;
@@ -76,12 +101,16 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
     {
         result_value = PrototypeArgs();
     }
+    else if (ChannelKind::Exception == kind)
+    {
+        result_value = nullptr;
+    }
     else
     {
-        throw model_error("%s injection not implemented", json_from(kind));
+        throw_exception(model_error("%s injection not implemented", json_from(kind)));
     }
 
-    // TODO: ensure no it is closed for updates
+    // TODO: ensure it is closed for updates
     // non-const - only generator atomic counters are incremented
     auto& inputs = [&]() -> EnvironmentData::GeneratorsTable& {
         // auto lock = env.Lock();
@@ -106,6 +135,13 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         lang::Expression const v_as_expr(v);
         if (v_as_expr.is_error())
         {
+            if (kind == ChannelKind::Exception)
+            {
+                result_value = v_as_expr.to_json();
+                break;
+            }
+            // reevaluate to collect log
+
             auto generator_ctx = lang::EvalContext::make();
             generator.expression().eval(iteration, generator_ctx);
 
@@ -133,10 +169,9 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
             ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
                 << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
-            // throw model_error("injection failure");
+            // throw_exception(model_error("injection failure"));
             return {v_as_expr.prettify().c_str()};
         }
-
         else
         {
             result_value.set_at_pointer(record_pointer, v);
@@ -161,12 +196,12 @@ boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
     auto const N = captures().as_array().size();
     if (N == 0)
     {
-        throw environment_error("ObservedArgs(%s) no captures found", interface());
+        throw_exception(environment_error("ObservedArgs(%s) no captures found", interface()));
     }
     auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
     if (idx >= N)
     {
-        throw environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N);
+        throw_exception(environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N));
     }
     return captures.get_or_create_array("/%d/args", idx);
 }
@@ -191,12 +226,12 @@ boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcal
     auto const N = captures().as_array().size();
     if (N == 0)
     {
-        throw environment_error("ObservedReturn(%s) no captures found", interface());
+        throw_exception(environment_error("ObservedReturn(%s) no captures found", interface()));
     }
     auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
     if (idx >= N)
     {
-        throw environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N);
+        throw_exception(environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N));
     }
     return captures.at("/%d/return", idx);
 }
@@ -212,12 +247,12 @@ boost::json::string const& Environment::InterfaceHandle::key() const
 Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsAction()
 {
     // TODO: handle actions as registered interfaces
-    throw environment_error("RunAsAction not implemented!");
+    throw_exception(environment_error("RunAsAction not implemented!"));
     boost::json::string_view ref = key();
     auto const& actions = Env().data_->callbacks;
     if (0 == actions.count(ref))
     {
-        throw environment_error("Action %s is not registered!", ref);
+        throw_exception(environment_error("Action %s is not registered!", ref));
     }
 
     try
@@ -226,48 +261,50 @@ Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsAction()
     }
     catch(const std::exception& e)
     {
-        throw environment_error("Action %s error: `%s`", ref, e.what());
+        throw_exception(environment_error("Action %s error: `%s`", ref, e.what()));
     }
     return *this;
 }
 
-Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(std::size_t const nofcall)
+Environment::InterfaceHandle& Environment::InterfaceHandle::RunAsTrigger(std::size_t const repeats)
+try
 {
-    // TODO: make it thread safe without recursive mutex
     boost::json::string_view ref = key();
     auto const& triggers = Env().data_->triggers;
     if (0 == triggers.count(ref))
     {
-        throw environment_error("Trigger %s is not registered!", ref);
+        env.SetTestError({
+            {"error"    , "no registered trigger found"},
+            {"reference", ref},
+        });
+        return *this;
     }
 
     Trigger const& trigger = triggers.at(ref);
-    boost::json::value args;
-    boost::json::value capture;
 
-    try
+    for (size_t frame = 0; frame < repeats; frame++)
     {
-        args = YieldInjection(ChannelKind::Args);
-    }
-    catch(const std::exception& e)
-    {
-        throw environment_error("Trigger[%s] #%d input evaluation error: `%s`", ref, nofcall, e.what());
-    }
-
-    try
-    {
-        capture = trigger(args);
-        captures("/+") = capture;
-    }
-    catch(const model_error& e)
-    {
-        throw e;
-    }
-    catch(const std::exception& e)
-    {
-        throw environment_error("Trigger[%s] #%d execution error: `%s`, args: %s", ref, nofcall, e.what(), args);
+        boost::json::value args = YieldInjection(ChannelKind::Args);
+        captures("/+") = trigger(args);
+        if (env.data_->has_test_error.load(std::memory_order_relaxed))
+        {
+            std::cerr << "TestError : " << env.TestError() << '\n';
+            break;
+        }
     }
 
+    return *this;
+}
+catch(const std::exception& e)
+{
+    auto const dynamic_exception_type = boost::typeindex::type_id_runtime(e).pretty_name();
+    env.SetTestError({
+        {"error"    , "exception thrown at trigger evaluation"},
+        {"interface", interface()                             },
+        {"context"  , "Trigger"                               },
+        {"what"     , e.what()                                },
+        {"type"     , dynamic_exception_type                  }
+    });
     return *this;
 }
 

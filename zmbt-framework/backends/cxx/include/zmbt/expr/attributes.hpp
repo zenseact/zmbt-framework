@@ -135,11 +135,16 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Enumerate: return is_unary;
     case Keyword::Flatten: return is_unary;
     case Keyword::ToList: return is_unary | is_autogen;
+    case Keyword::First: return is_unary;
+    case Keyword::Last: return is_unary;
     case Keyword::Arange: return is_unary;
     case Keyword::Parse: return is_unary | is_autogen;
     case Keyword::Str: return is_unary | is_autogen;
     case Keyword::Re: return is_binary | is_predicate;
     case Keyword::Fmt: return is_variadic;
+    case Keyword::Capitalize: return is_unary;
+    case Keyword::LowerCase: return is_unary;
+    case Keyword::UpperCase: return is_unary;
     case Keyword::Card: return is_unary;
     case Keyword::Size: return is_unary;
     case Keyword::Sum: return is_unary;

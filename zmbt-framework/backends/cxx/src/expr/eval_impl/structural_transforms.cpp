@@ -249,7 +249,15 @@ ZMBT_DEFINE_EVALUATE_IMPL(Flatten)
     return out;
 }
 
+ZMBT_DEFINE_EVALUATE_IMPL(First)
+{
+    return expr::At(0).eval_e(lhs(), curr_ctx());
+}
 
+ZMBT_DEFINE_EVALUATE_IMPL(Last)
+{
+    return expr::At(-1).eval_e(lhs(), curr_ctx());
+}
 
 
 } // namespace lang

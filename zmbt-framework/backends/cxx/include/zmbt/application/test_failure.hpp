@@ -5,8 +5,8 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_MODEL_TEST_FAILURE_HPP_
-#define ZMBT_MODEL_TEST_FAILURE_HPP_
+#ifndef ZMBT_APPLICATION_TEST_FAILURE_HPP_
+#define ZMBT_APPLICATION_TEST_FAILURE_HPP_
 
 #include <sstream>
 

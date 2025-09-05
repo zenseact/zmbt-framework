@@ -5,29 +5,21 @@
  */
 
 #include <boost/json.hpp>
-#include <zmbt/core/exceptions.hpp>
-#include <zmbt/core/format_string.hpp>
-#include <zmbt/core/json_node.hpp>
-#include <zmbt/model/environment.hpp>
-#include <zmbt/model/environment_interface_record.hpp>
-#include <zmbt/model/exceptions.hpp>
-#include <zmbt/expr/expression.hpp>
-#include <zmbt/expr/api.hpp>
-#include <zmbt/expr/keyword.hpp>
-#include <zmbt/expr/operator.hpp>
+#include <zmbt/application.hpp>
 #include <zmbt/core.hpp>
+#include <zmbt/model.hpp>
+#include <zmbt/expr.hpp>
 #include <cstddef>
 #include <exception>
 #include <memory>
 #include <stdexcept>
 #include <tuple>
 
-#include "zmbt/logging.hpp"
 #include "zmbt/mapping/test_runner.hpp"
 #include "zmbt/mapping/test_diagnostics.hpp"
 #include "zmbt/mapping/test_parameter_resolver.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
-
+#include "zmbt/mapping/pipe_handle.hpp"
 
 
 namespace
@@ -78,7 +70,7 @@ public:
 
 void InstanceTestRunner::report_failure(TestDiagnostics const& report)
 {
-    env.HandleTestFailure(report.to_json());
+    Config().HandleTestFailure(report.to_json());
 }
 
 
@@ -163,9 +155,13 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
     try {
         Environment::InterfaceHandle ifc_rec{model_.at("/trigger").as_string()};
         auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
-        for (std::uint64_t i = 0; i < runs; i++)
+
+        ifc_rec.RunAsTrigger(runs);
+
+        if (env.HasTestError())
         {
-            ifc_rec.RunAsTrigger(i);
+            report_failure(diagnostics.Error("test error", env.TestError()));
+            return false;
         }
         return true;
     }
@@ -243,15 +239,11 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
     {
         lang::Expression expect = pipe.expression();
 
-        if (passed)
+        // FIXME: diagnostics is shared
+        if (!eval_assertion(pipe, expect, diagnostics))
         {
-            passed = eval_assertion(pipe, expect, diagnostics) && passed;
-        }
-
-        if (!passed)
-        {
-            report_failure(
-                diagnostics
+            passed = false;
+            report_failure(diagnostics
                 .PipeId(pipe.index()));
         }
     }
@@ -260,21 +252,21 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
 
 bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, TestDiagnostics diagnostics)
 {
-    bool test_case_passed {true};
+    bool passed {true};
 
     for (auto const& pipe: tabular_outputs_)
     {
-
-        test_case_passed = eval_assertion(pipe, test_vector.at(pipe.column()), diagnostics) && test_case_passed;
-
-        if (!test_case_passed)
+        lang::Expression expect = test_vector.at(pipe.column());
+        // FIXME: diagnostics is shared
+        if (!eval_assertion(pipe, expect, diagnostics))
         {
+            passed = false;
             report_failure(diagnostics
                 .TabularConditionFailure(pipe.column()));
         }
     }
 
-    return test_case_passed;
+    return passed;
 }
 
 
@@ -370,7 +362,7 @@ void InstanceTestRunner::Run()
         boost::json::array const& test_vector = tests.at(i).as_array();
         if (test_vector.size() != N)
         {
-            throw model_error("inconsistent test vecor size at test case %d", i);
+            throw_exception(model_error("inconsistent test vecor size at test case %d", i));
         }
 
         run_test_procedure(test_vector, i);

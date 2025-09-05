@@ -15,7 +15,7 @@ bool init_unit_test()
 {
     auto const& master_suite = boost::unit_test::framework::master_test_suite();
     zmbt::InitZmbt(master_suite.argc, master_suite.argv);
-    zmbt::Environment().SetFailureHandler([](boost::json::value const& sts){
+    zmbt::Config().SetFailureHandler([](boost::json::value const& sts){
         std::stringstream ss;
         zmbt::format_failure_report(ss, sts);
         BOOST_ERROR(ss.str());

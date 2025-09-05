@@ -340,6 +340,16 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::Flatten> const Flatten;
 /// Equivalent to At([""])
 extern lang::SignatureUnary<::zmbt::lang::Keyword::ToList> const ToList;
 
+/// \brief First item of sequence
+/// \details
+/// Equivalent to At(0)
+extern lang::SignatureUnary<::zmbt::lang::Keyword::First> const First;
+
+/// \brief Last item of sequence
+/// \details
+/// Equivalent to At(-1)
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Last> const Last;
+
 /// \brief Generate range of numbers
 /// \details
 /// Return evenly spaced values within a given interval.
@@ -377,6 +387,15 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Regex;
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fmt> const Fmt;
 /// \brief Alias for Fmt
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fmt> const Format;
+
+/// \brief Capitalize string
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Capitalize> const Capitalize;
+
+/// \brief Lower case string
+extern lang::SignatureUnary<::zmbt::lang::Keyword::LowerCase> const LowerCase;
+
+/// \brief Upper case string
+extern lang::SignatureUnary<::zmbt::lang::Keyword::UpperCase> const UpperCase;
 
 /// \brief Set cardinality (uniques count)
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Card> const Card;

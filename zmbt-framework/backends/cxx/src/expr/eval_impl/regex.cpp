@@ -3,8 +3,10 @@
  * \copyright (c) Copyright 2024-2025 Zenseact AB
  * \license SPDX-License-Identifier: Apache-2.0
  */
+#include <cctype>
 #include <regex>
 #include <boost/math/constants/constants.hpp>
+#include <boost/algorithm/string/case_conv.hpp>
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/expression.hpp"
@@ -40,6 +42,37 @@ ZMBT_DEFINE_EVALUATE_IMPL(Re)
     auto const sample = x.get_string().c_str();
     std::regex const re(pattern);
     return std::regex_match(sample, re);
+}
+
+ZMBT_DEFINE_EVALUATE_IMPL(Capitalize)
+{
+    auto const& x = lhs().data();
+    ASSERT(x.is_string(), "invalid argument");
+    auto sample = x.get_string();
+    if (!sample.empty())
+    {
+        sample.at(0) = std::toupper(sample.at(0));
+    }
+    return sample.c_str();
+}
+
+ZMBT_DEFINE_EVALUATE_IMPL(LowerCase)
+{
+    auto const& x = lhs().data();
+    ASSERT(x.is_string(), "invalid argument");
+    auto sample = x.get_string();
+    boost::to_lower(sample);
+    return sample.c_str();
+
+}
+
+ZMBT_DEFINE_EVALUATE_IMPL(UpperCase)
+{
+    auto const& x = lhs().data();
+    ASSERT(x.is_string(), "invalid argument");
+    auto sample = x.get_string();
+    boost::to_upper(sample);
+    return sample.c_str();
 }
 
 } // namespace lang

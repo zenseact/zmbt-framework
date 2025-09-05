@@ -17,7 +17,6 @@
 #include <zmbt/core/interface_traits.hpp>
 #include <zmbt/core/json_node.hpp>
 #include <zmbt/core/object_id.hpp>
-#include <zmbt/model/test_failure.hpp>
 #include <zmbt/reflect/signal_traits.hpp>
 #include <zmbt/reflect/invocation.hpp>
 #include <zmbt/reflect/prototypes.hpp>
@@ -72,16 +71,7 @@ class Environment {
 
     std::shared_ptr<EnvironmentData> data_;
 
-    // TODO: move to persistent config
-    using FailureHandler = std::function<void(boost::json::value const&)>;
-    struct PersistentConfig
-    {
-        FailureHandler failure_handler {&zmbt::default_test_failure};
-        bool pretty_print {false};
-    };
-
-    std::shared_ptr<PersistentConfig> config_;
-
+    void SetTestError(boost::json::value&& msg);
 
   public:
     class InterfaceHandle;
@@ -89,6 +79,11 @@ class Environment {
     template <class Interface>
     class TypedInterfaceHandle;
 
+    /// Current test error payload, null if none
+    boost::json::value const& TestError();
+
+    /// Current test error payload, null if none
+    bool HasTestError();
 
     JsonNode& json_data()
     {
@@ -262,7 +257,7 @@ class Environment {
         auto const record = found->second;
         if (std::type_index(typeid(T)) != record.first)
         {
-            throw environment_error("GetShared invoked with incompatible type for `%s`", key);
+            throw_exception(environment_error("GetShared invoked with incompatible type for `%s`", key));
         }
 
         return std::static_pointer_cast<T>(record.second);
@@ -286,7 +281,7 @@ class Environment {
 
             if (not data_->shared.emplace(key, record).second)
             {
-                throw environment_error("GetSharedRef failed to create shared object at `%s`", key);
+                throw_exception(environment_error("GetSharedRef failed to create shared object at `%s`", key));
             }
             return *shared;
         }
@@ -294,7 +289,7 @@ class Environment {
         auto const record = found->second;
         if (std::type_index(typeid(T)) != record.first)
         {
-            throw environment_error("GetSharedRef invoked with incompatible type for `%s`", key);
+            throw_exception(environment_error("GetSharedRef invoked with incompatible type for `%s`", key));
         }
 
         return *std::static_pointer_cast<T>(record.second);
@@ -341,6 +336,7 @@ class Environment {
 
 
     Environment& RunAction(lang::Expression const& key_expr);
+    Environment& RunActionNoCatch(lang::Expression const& key_expr);
 
 
     template <class I>
@@ -399,7 +395,7 @@ class Environment {
         {
             if (trigger_found->second != trigger)
             {
-                throw environment_error(err_msg);
+                throw_exception(environment_error(err_msg));
             }
             return *this;
         }
@@ -483,19 +479,6 @@ class Environment {
     }
 
 
-    PersistentConfig Config() const;
-
-
-    /// Set pretty print JSON values
-    Environment& SetPrettyPrint(bool const pretty_print = true);
-
-    /// Set custom test failure handler
-    Environment& SetFailureHandler(std::function<void(boost::json::value const&)> const& fn);
-
-    /// Reset the test handler to default
-    Environment& ResetFailureHandler();
-
-    Environment& HandleTestFailure(boost::json::value const& diagnostics);
 
     object_id ObjectId(boost::json::string_view interface_key) const;
 

@@ -39,7 +39,7 @@ safe_slice_t get_safe_slice(std::size_t const N, slice_t slice)
 
     if (step == 0)
     {
-        throw zmbt::base_error("slice step cannot be zero");
+        throw_exception(zmbt::base_error("slice step cannot be zero"));
     }
 
     safe_slice_t dummy {0U,1,[](std::size_t const){return false;}, 0};
@@ -132,7 +132,7 @@ boost::json::array slice(boost::json::array const& src, boost::json::string_view
         boost::json::value const* subelement = element->find_pointer(jp, dummy_ec);
         if (!subelement)
         {
-            throw base_error("slice error: %s not found at %s", jp, *element);
+            throw_exception(base_error("slice error: %s not found at %s", jp, *element));
         }
         output.emplace_back(*subelement);
     }
@@ -194,7 +194,7 @@ std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr
 
     if (tokens.size() < 2 || tokens.size() > 3)
     {
-        throw zmbt::base_error("invalid str_to_slice_idx(%s)", slice_expr);
+        throw_exception(zmbt::base_error("invalid str_to_slice_idx(%s)", slice_expr));
     }
 
     try
@@ -214,7 +214,7 @@ std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr
     }
     catch (std::exception const& e)
     {
-        throw zmbt::base_error("invalid str_to_slice_idx(%s): %s", slice_expr, e.what());
+        throw_exception(zmbt::base_error("invalid str_to_slice_idx(%s): %s", slice_expr, e.what()));
     }
 
     return out;

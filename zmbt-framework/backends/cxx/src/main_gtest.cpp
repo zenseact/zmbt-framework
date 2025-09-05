@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);
     zmbt::InitZmbt(argc, argv);
-    zmbt::Environment().SetFailureHandler([](boost::json::value const& sts){
+    zmbt::Config().SetFailureHandler([](boost::json::value const& sts){
         std::stringstream ss;
         zmbt::format_failure_report(ss, sts);
         ADD_FAILURE() << ss.str();

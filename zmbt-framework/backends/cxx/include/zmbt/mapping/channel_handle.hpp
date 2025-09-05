@@ -59,45 +59,6 @@ public:
 
 
 
-class PipeHandle
-{
-    JsonNode data_;
-    Environment env;
-
-    std::list<ChannelHandle> channels_;
-    boost::json::value observe_blend() const;
-
-
-public:
-    ~PipeHandle() = default;
-    PipeHandle(JsonNode& model, std::size_t const pipe_idx)
-        : data_(model.branch("/pipes/%d", pipe_idx))
-    {
-        auto const N = data_.at("/channels").as_array().size();
-        auto const ptr_pref = data_.node_ptr();
-        for (std::size_t i = 0; i < N; i++)
-        {
-            channels_.push_back({model, format("%s/channels/%d", data_.node_ptr(), i)});
-        }
-    }
-
-
-    boost::json::value type() const;
-    bool is_input() const;
-    bool is_output() const;
-    bool has_expression() const;
-    lang::Expression expression() const;
-    bool overload(lang::Expression& e) const;
-
-    void inject(lang::Expression expr) const;
-    boost::json::value observe() const;
-
-    int column() const;
-    boost::json::value index() const;
-
-};
-
-
 } // namespace mapping
 } // namespace zmbt
 

@@ -106,7 +106,7 @@ void EvalLog::format(std::ostream& os, boost::json::array const& log, int const 
     std::uint64_t prev_depth = 0;
     std::size_t vertical_groups = 0;
 
-    auto const notrim = Logger::get_notrim();
+    auto const notrim = Logger::is_notrim_enabled();
 
 
     for (auto const& item: log)

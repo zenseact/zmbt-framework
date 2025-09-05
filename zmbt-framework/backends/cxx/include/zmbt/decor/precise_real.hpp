@@ -82,7 +82,7 @@ struct precise
     {
         decorated_type value = static_cast<decorated_type>(init_value);
         if (std::isnormal(init_value) and (T {value} !=  init_value)) {
-            throw precision_loss_error("precision loss when creating zmbt::decor::precise<T>");
+            throw_exception(precision_loss_error("precision loss when creating zmbt::decor::precise<T>"));
         }
         return value;
     }
@@ -95,12 +95,12 @@ struct precise
         auto const value_as_t = detail::strto<T>(str, &end);
 
         if (end == str.cbegin() ) {
-            throw std::invalid_argument("zmbt::decor::precise<T> string parsing error");
+            throw_exception(std::invalid_argument("zmbt::decor::precise<T> string parsing error"));
         }
 
         // test reverse
         if (std::isnormal(value_as_t) and (value_as_t != detail::strto<decorated_type>(str, nullptr))) {
-            throw precision_loss_error("precision loss when creating zmbt::decor::precise<T>");
+            throw_exception(precision_loss_error("precision loss when creating zmbt::decor::precise<T>"));
         }
 
         return validate(value_as_t);
@@ -132,7 +132,7 @@ struct precise
             }
         }
         else {
-            throw std::invalid_argument("zmbt::decor::precise<T> string parsing error");
+            throw_exception(std::invalid_argument("zmbt::decor::precise<T> string parsing error"));
             return {};
         }
     }
@@ -255,7 +255,7 @@ struct custom_serialization<decor::precise<T>> {
                 result = v.get_uint64();
                 break;
             default:
-                throw std::invalid_argument("zmbt::decor::precise<T> conversion failure");
+                throw_exception(std::invalid_argument("zmbt::decor::precise<T> conversion failure"));
                 break;
         }
         return result;

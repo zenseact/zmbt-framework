@@ -4,22 +4,20 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include "zmbt/mapping/test_parameter_resolver.hpp"
-
-#include <boost/json.hpp>
-#include <zmbt/logging.hpp>
-#include <zmbt/core/aliases.hpp>
-#include <zmbt/core/entity_id.hpp>
-#include <zmbt/core/interface_id.hpp>
-#include <zmbt/core/json_pretty_print.hpp>
-#include <zmbt/core/object_id.hpp>
-#include <zmbt/model/exceptions.hpp>
-#include <zmbt/expr/expression.hpp>
 #include <cstddef>
 #include <exception>
 #include <iostream>
 #include <utility>
 #include <vector>
+
+#include <boost/json.hpp>
+
+#include <zmbt/application.hpp>
+#include <zmbt/core.hpp>
+#include <zmbt/model.hpp>
+#include <zmbt/expr.hpp>
+
+#include "zmbt/mapping/test_parameter_resolver.hpp"
 
 
 namespace zmbt {
@@ -54,7 +52,7 @@ try
         trigger = env.GetOrRegisterParametricTrigger(trig_obj, trig_ifc);
     }
     else{
-        throw model_error("invalid trigger: %s", trigger);
+        throw_exception(model_error("invalid trigger: %s", trigger));
     }
 
     for(auto& pipe: next_model("/pipes").as_array())
@@ -94,7 +92,7 @@ try
                 interface = env.GetOrRegisterInterface(obj_id, ifc_id);
             }
             else{
-                throw model_error("invalid interface: %s", interface);
+                throw_exception(model_error("invalid interface: %s", interface));
             }
 
 
@@ -116,7 +114,7 @@ try
             }
             else if (!signal_path.is_string())
             {
-                throw model_error("invalid signal_path: %s", signal_path);
+                throw_exception(model_error("invalid signal_path: %s", signal_path));
             }
         }
     }
@@ -124,7 +122,7 @@ try
 catch (std::exception const& e)
 {
     log_debug(next_model);
-    throw model_error("Resolving model parameters failed with `%s`", e.what());
+    throw_exception(model_error("Resolving model parameters failed with `%s`", e.what()));
 }
 
 
@@ -178,7 +176,7 @@ void TestParameterResolver::init_param_iters()
                 continuation_parameters.push_back(i);
             }
             else if (zip_length && (N != zip_length)) {
-                throw model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i));
+                throw_exception(model_error("inconsistent zip parameters shape on parameter %s", param_names.at(i)));
             }
             else
             {
@@ -250,7 +248,7 @@ JsonNode TestParameterResolver::Next()
             }
             catch(const std::exception& e)
             {
-                throw model_error("failed to resolve parameter on %s, error:", ptr, e.what());
+                throw_exception(model_error("failed to resolve parameter on %s, error:", ptr, e.what()));
             }
         }
 

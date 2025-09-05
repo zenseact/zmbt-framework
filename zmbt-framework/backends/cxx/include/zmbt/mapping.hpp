@@ -15,6 +15,7 @@
 #include "mapping/model_definition_node.hpp"
 #include "mapping/model_definition_states.hpp"
 #include "mapping/model_definition_main.hpp"
+#include "mapping/pipe_handle.hpp"
 #include "mapping/test_parameter_resolver.hpp"
 #include "mapping/test_runner.hpp"
 #include "mapping/test_diagnostics.hpp"

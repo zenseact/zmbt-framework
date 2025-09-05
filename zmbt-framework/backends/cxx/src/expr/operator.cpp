@@ -17,7 +17,6 @@
 #include <zmbt/core/type_info.hpp>
 
 #include "zmbt/expr/operator.hpp"
-#include "zmbt/expr/exceptions.hpp"
 #include "zmbt/expr/api.hpp"
 
 
@@ -81,7 +80,7 @@ Operator::Operator(boost::json::string_view annotation)
     handle_.annotation = annotation;
     if (!exchangeHandle(handle_, true))
     {
-        throw expression_error("`%s` operator not found", annotation);
+        throw_exception(operator_error("`%s` operator not found", annotation));
     }
 }
 

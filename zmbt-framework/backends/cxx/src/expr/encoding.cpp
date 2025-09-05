@@ -233,7 +233,7 @@ EncodingView::ExprRow EncodingView::at(std::size_t i) const
 {
     if (i >= size_)
     {
-        throw std::range_error("Out of bounds EncodingView::at");
+        throw_exception(std::range_error("Out of bounds EncodingView::at"));
     }
     return ExprRow{keywords_[i], depth_[i] - depth_[0], &data_[i], i + index_offset_};
 }

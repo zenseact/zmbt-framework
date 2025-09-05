@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(RegAction)
 
     BOOST_CHECK_THROW(env.RunAction("none"), environment_error);
 
-    env.RegisterAction("I will throw", [&](){ throw std::runtime_error("lol"); });
+    env.RegisterAction("I will throw", [&](){ throw_exception(std::runtime_error("lol")); });
     BOOST_CHECK_THROW(env.RunAction("I will throw"), std::runtime_error);
 }
 

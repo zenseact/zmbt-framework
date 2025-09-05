@@ -97,6 +97,9 @@ public:
 
     boost::json::value const& PrototypeArgs() const;
 
+    /// throw exception if set for current call
+    void MaybeThrowException();
+
     /// \brief Yield input generator
     boost::json::value YieldInjection(ChannelKind const kind);
 
@@ -159,7 +162,7 @@ public:
 
     InterfaceHandle& RunAsAction();
 
-    InterfaceHandle& RunAsTrigger(std::size_t const nofcall = 0);
+    InterfaceHandle& RunAsTrigger(std::size_t const repeats = 1);
 };
 
 /// @brief Environment API handler for specific interface
@@ -178,6 +181,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     using hookout_args_t = mp_transform<rvalue_reference_to_value, args_t>;
 
     void HookArgsImpl(hookout_args_t & args)
+    try
     {
         auto const ts = get_ts();
         std::string const tid = get_tid();
@@ -193,14 +197,31 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
             captures("/+") = capture;
         }
 
-        auto const injection = YieldInjection(ChannelKind::Args) .as_array();
+        auto const injection = YieldInjection(ChannelKind::Args).as_array();
+
         if (injection.size() != std::tuple_size<unqf_args_t>())
         {
-            throw model_error("invalid inject arguments arity");
+            env.SetTestError({
+                {"error"    , "invalid inject arguments arity"},
+                {"interface", interface()                     },
+                {"context"  , "Hook"                          },
+                {"injection", injection                       },
+            });
         }
-
-        auto args_out = dejsonize<unqf_args_t>(injection);
-        tuple_exchange(args, args_out);
+        else
+        {
+            auto args_out = dejsonize<unqf_args_t>(injection);
+            tuple_exchange(args, args_out);
+        }
+    }
+    catch(const std::exception& e)
+    {
+        env.SetTestError({
+            {"error"    , "exception thrown at args evaluation"},
+            {"interface", interface()                          },
+            {"context"  , "Hook"                               },
+            {"what"     , e.what()                             },
+        });
     }
 
 
@@ -210,28 +231,20 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 
     template <class T>
     auto HookReturnImpl(type_tag<T>) -> mp_if<mp_not<is_reference<T>>, T>
+    try
     {
-        boost::json::value result;
-        try
-        {
-            result = YieldInjection(ChannelKind::Return);
-        }
-        catch(const std::exception& e)
-        {
-            throw model_error("Hook %s return evaluation error: `%s`", interface(), e.what());
-            return dejsonize<T>(nullptr);
-        }
-
-        try
-        {
-            return dejsonize<T>(result);
-        }
-        catch(const std::exception& e)
-        {
-            throw model_error("Hook %s return evaluation error, can't deserialize %s as %s",
-                interface(), boost::json::serialize(result), type_name<T>());
-            return dejsonize<T>(nullptr);
-        }
+        boost::json::value result = YieldInjection(ChannelKind::Return);
+        return dejsonize<T>(result);
+    }
+    catch(const std::exception& e)
+    {
+        env.SetTestError({
+            {"error"    , "exception thrown at return evaluation"},
+            {"interface", interface()                            },
+            {"context"  , "Hook"                                 },
+            {"what"     , e.what()                               },
+        });
+        return dejsonize<T>(PrototypeReturn());
     }
 
     template <class T>
@@ -274,17 +287,8 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     {
         std::size_t nofcall;
         boost::json::value result;
-
-        try
-        {
-            HookArgsImpl(args);
-        }
-        catch(const std::exception& e)
-        {
-            throw model_error("Hook %s capture error: `%s`, args: %s",
-                interface(), e.what(), json_from(args));
-        }
-
+        HookArgsImpl(args);
+        MaybeThrowException();
         return HookReturnImpl(type<return_t>);
     }
 
