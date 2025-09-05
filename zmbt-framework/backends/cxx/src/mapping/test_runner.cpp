@@ -239,15 +239,11 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
     {
         lang::Expression expect = pipe.expression();
 
-        if (passed)
+        // FIXME: diagnostics is shared
+        if (!eval_assertion(pipe, expect, diagnostics))
         {
-            passed = eval_assertion(pipe, expect, diagnostics) && passed;
-        }
-
-        if (!passed)
-        {
-            report_failure(
-                diagnostics
+            passed = false;
+            report_failure(diagnostics
                 .PipeId(pipe.index()));
         }
     }
@@ -256,21 +252,21 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
 
 bool InstanceTestRunner::observe_results(boost::json::array const& test_vector, TestDiagnostics diagnostics)
 {
-    bool test_case_passed {true};
+    bool passed {true};
 
     for (auto const& pipe: tabular_outputs_)
     {
-
-        test_case_passed = eval_assertion(pipe, test_vector.at(pipe.column()), diagnostics) && test_case_passed;
-
-        if (!test_case_passed)
+        lang::Expression expect = test_vector.at(pipe.column());
+        // FIXME: diagnostics is shared
+        if (!eval_assertion(pipe, expect, diagnostics))
         {
+            passed = false;
             report_failure(diagnostics
                 .TabularConditionFailure(pipe.column()));
         }
     }
 
-    return test_case_passed;
+    return passed;
 }
 
 
