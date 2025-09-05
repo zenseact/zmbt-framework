@@ -1056,6 +1056,34 @@ Equivalent to At([""])
 
  * `42 | List `$\mapsto$` [42]`
 
+### First
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+First item of sequence
+
+Equivalent to At(0)
+
+*Examples*:
+
+ * `[1,2,3] | First `$\mapsto$` 1`
+ * `[] | First `$\mapsto$` null`
+
+### Last
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Last item of sequence
+
+Equivalent to At(-1)
+
+*Examples*:
+
+ * `[1,2,3] | Last `$\mapsto$` 3`
+ * `[] | Last `$\mapsto$` null`
+
 
 ## Unary Generators
 
@@ -1147,6 +1175,42 @@ s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
 
  * `["Hello, %s!", ["world"]] | Format `$\mapsto$` "Hello, world!"`
  * `"%d + %d = %d" | Format(2,2,4) `$\mapsto$` "2 + 2 = 4"`
+
+### Capitalize
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Capitalize string
+
+
+*Examples*:
+
+ * `"foo" | Capitalize `$\mapsto$` "Foo"`
+
+### LowerCase
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Lower case string
+
+
+*Examples*:
+
+ * `"Foo" | LowerCase `$\mapsto$` "foo"`
+
+### UpperCase
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Upper case string
+
+
+*Examples*:
+
+ * `"foo" | UpperCase `$\mapsto$` "FOO"`
 
 
 ## Structural properties

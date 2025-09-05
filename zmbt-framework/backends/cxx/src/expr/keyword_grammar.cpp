@@ -154,6 +154,8 @@ KeywordSymbol::KeywordSymbol()
     ("Enumerate", Keyword::Enumerate)
     ("Flatten", Keyword::Flatten)
     ("ToList", Keyword::ToList)
+    ("First", Keyword::First)
+    ("Last", Keyword::Last)
     ("Arange", Keyword::Arange)
     ("Parse", Keyword::Parse)
     ("Str", Keyword::Str)
@@ -162,6 +164,9 @@ KeywordSymbol::KeywordSymbol()
     ("Regex", Keyword::Re)
     ("Fmt", Keyword::Fmt)
     ("Format", Keyword::Fmt)
+    ("Capitalize", Keyword::Capitalize)
+    ("LowerCase", Keyword::LowerCase)
+    ("UpperCase", Keyword::UpperCase)
     ("Card", Keyword::Card)
     ("Size", Keyword::Size)
     ("Sum", Keyword::Sum)
@@ -339,11 +344,16 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Enumerate: { return "Enumerate"; break; }
     case Keyword::Flatten: { return "Flatten"; break; }
     case Keyword::ToList: { return "ToList"; break; }
+    case Keyword::First: { return "First"; break; }
+    case Keyword::Last: { return "Last"; break; }
     case Keyword::Arange: { return "Arange"; break; }
     case Keyword::Parse: { return "Parse"; break; }
     case Keyword::Str: { return "Str"; break; }
     case Keyword::Re: { return "Re"; break; }
     case Keyword::Fmt: { return "Fmt"; break; }
+    case Keyword::Capitalize: { return "Capitalize"; break; }
+    case Keyword::LowerCase: { return "LowerCase"; break; }
+    case Keyword::UpperCase: { return "UpperCase"; break; }
     case Keyword::Card: { return "Card"; break; }
     case Keyword::Size: { return "Size"; break; }
     case Keyword::Sum: { return "Sum"; break; }

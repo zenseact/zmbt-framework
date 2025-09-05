@@ -283,6 +283,12 @@ enum class Keyword
     /// ToList
     ToList,
 
+    /// First
+    First,
+
+    /// Last
+    Last,
+
     /// Arange
     Arange,
 
@@ -297,6 +303,15 @@ enum class Keyword
 
     /// Fmt
     Fmt,
+
+    /// Capitalize
+    Capitalize,
+
+    /// LowerCase
+    LowerCase,
+
+    /// UpperCase
+    UpperCase,
 
     /// Card
     Card,

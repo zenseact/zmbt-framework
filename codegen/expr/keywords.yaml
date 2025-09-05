@@ -757,6 +757,24 @@ keyword_groups:
         codegen-value:
           cxx: boost::json::array{ lhs().to_json() }
 
+      - name: First
+        brief: First item of sequence
+        details: Equivalent to At(0)
+        domain: any
+        codomain: any
+        examples: |-
+          [1,2,3] | First ↦ 1
+          [] | First ↦ null
+
+      - name: Last
+        brief: Last item of sequence
+        details: Equivalent to At(-1)
+        domain: any
+        codomain: any
+        examples: |-
+          [1,2,3] | Last ↦ 3
+          [] | Last ↦ null
+
 
   Unary Generators:
     defaults:
@@ -843,6 +861,30 @@ keyword_groups:
         examples: |-
           ["Hello, %s!", ["world"]] | Format ↦ "Hello, world!"
           "%d + %d = %d" | Format(2,2,4) ↦ "2 + 2 = 4"
+
+      - name: Capitalize
+        brief: Capitalize string
+        signature: Unary
+        domain: str
+        codomain: str
+        examples: |-
+          "foo" | Capitalize ↦ "Foo"
+
+      - name: LowerCase
+        brief: Lower case string
+        signature: Unary
+        domain: str
+        codomain: str
+        examples: |-
+          "Foo" | LowerCase ↦ "foo"
+
+      - name: UpperCase
+        brief: Upper case string
+        signature: Unary
+        domain: str
+        codomain: str
+        examples: |-
+          "foo" | UpperCase ↦ "FOO"
 
   Structural properties:
     defaults:

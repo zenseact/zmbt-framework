@@ -485,6 +485,9 @@ std::vector<TestEvalSample> const TestSamples
     {(At(0)|Str)&At(1)|Re       , {42, "42"}            , true                  },
     {(At(0)|Str)&At(1)|Re       , {{1,2}, "\\[1,2\\]"}  , true                  },
 
+    {Capitalize                 , "foo"                 , "Foo"                 },
+    {UpperCase                  , "foo"                 , "FOO"                 },
+    {LowerCase                  , "FOO"                 , "foo"                 },
 
     {At(0)                      , {1,2,3}               , 1                     },
     {At(1)                      , {1,2,3}               , 2                     },
@@ -507,6 +510,12 @@ std::vector<TestEvalSample> const TestSamples
     {At({"", ""})               , 42                     , {42, 42}             },
     // single-element bracket init is always an array in Expression ctor
     {At({""})                   , 42                     , L{42}                },
+
+    {First                      , {1,2,3}                , 1                    },
+    {Last                       , {1,2,3}                , 3                    },
+    {First                      , "abc"                  , 'a'                  },
+    {Last                       , "abc"                  , 'c'                  },
+
 
     {Delete({"/lol"})           , 42                     , 42                   },
     {Delete("")                 , 42                     , nullptr              },
