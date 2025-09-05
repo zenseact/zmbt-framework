@@ -331,37 +331,6 @@ struct ModelDefinition::T_TerminatePipe : protected virtual ModelDefinition::Bas
         return transit_to<Target>();
     }
 
-    Target ExpectBatch(lang::Expression const& expr)
-    {
-        state().head_pipe_type_.emplace_null();
-        state().cur_pipe()["role"] = "expect_batch";
-        state().set_expr(expr);
-        return transit_to<Target>();
-
-    }
-    Target ExpectBatch()
-    {
-        state().head_pipe_type_.emplace_null();
-        state().cur_pipe()["column"] = state().test_column_count_++;
-        state().cur_pipe()["role"] = "expect_batch";
-        return transit_to<Target>();
-    }
-
-    Target ExpectOne(lang::Expression const& expr)
-    {
-        state().head_pipe_type_.emplace_null();
-        state().cur_pipe()["role"] = "expect_one";
-        state().set_expr(expr);
-        return transit_to<Target>();
-    }
-    Target ExpectOne()
-    {
-        state().head_pipe_type_.emplace_null();
-        state().cur_pipe()["column"] = state().test_column_count_++;
-        state().cur_pipe()["role"] = "expect_one";
-        return transit_to<Target>();
-    }
-
     // TODO: add Assert* clauses
 };
 

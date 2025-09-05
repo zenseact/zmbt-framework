@@ -19,7 +19,7 @@
 #include "zmbt/mapping/test_diagnostics.hpp"
 #include "zmbt/mapping/test_parameter_resolver.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
-
+#include "zmbt/mapping/pipe_handle.hpp"
 
 
 namespace

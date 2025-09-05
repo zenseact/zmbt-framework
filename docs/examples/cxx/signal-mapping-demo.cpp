@@ -54,8 +54,6 @@ using namespace zmbt::expr; //(3)
 */
 BOOST_AUTO_TEST_CASE(QuickExample)
 {
-    ZMBT_LOG_JSON(INFO) << "Hello, World! JSON";
-    ZMBT_LOG(DEBUG) << "Hello, World Debug!";
     auto sum = [](int x, int y){ return x + y; };
 
     SignalMapping("Simple function test")
@@ -391,30 +389,23 @@ In this context, any **constant expression** like `42` is interpreted as an equa
 
 ZMBT provides several matcher clauses with varying behavior:
 
-* `Expect`, `ExpectOne`, `ExpectBatch`
-* `Assert`, `AssertOne`, `AssertBatch`
 
-The difference between the `Expect*` and `Assert*` sets is in test control:
-
-* `Expect*` records matcher failure but **allows the test to continue**.
-* `Assert*` triggers an **immediate failure**, stopping execution.
+* `Expect` records matcher failure but **allows the test to continue**.
+* `Assert` :construction: triggers an **immediate failure**, stopping execution.
 
 
-#### Batch vs atomic sample
-
-The `*Batch` clause variants provide captured sample series directly to the matcher.
-The `*One` clause flattens the response if there is a single value (i.e., passes this sample rather then array),
-or yields a failure otherwise.
-
-The adaptive base clauses `Expect` and `Assert` switches to one of these behaviors
-automatically based on test configuration and the number of observed values:
-
-1. Tests with .Repeat(N) (where N > 1) or `Blend` pipes never flatten the response (i.e., same as `*Batch`)
-2. Same for captures with more then one sample - they are passed to matcher as is
-3. Otherwise, flatten if a single sample captured or yield a failure if none.
+#### Series vs atomic samples
 
 
-This implicit flattening makes tests ergonomic:
+The `Expect` or `Assert` clauses provide captured sample series directly to the matcher.
+
+For convenience, the output is implicitly flattened (i.e., [x] becomes x) in the following cases:
+
+- The channel has a CallCount clause.
+- The channel is bound to a trigger interface and the Repeat clause is not set.
+
+
+This implicit flattening improves ergonomics:
 
 ```c++
 OnTrigger(f)
@@ -426,6 +417,7 @@ OnTrigger(f).Repeat(N)
     .At(f).Expect(Each(Eq(42)));
 ```
 
+Specifying `Repeat(1)` explicitly disables flattening on trigger channels.
 
 ### JSON Serialization
 
@@ -794,12 +786,13 @@ BOOST_AUTO_TEST_CASE(ZipParametrization)
     SignalMapping("Test with zip params on %s", Name /*(2)*/)
     .OnTrigger(Method, sut)
         .At(&Mock::log)
-            .Expect( All(Contains(Name/*(3)*/), Contains("Sut")))
-    .Zip // (4)
-        (Name   , "Sut::foo", "Sut::bar", "Sut::baz") // (5)
-        (Method , &Sut::foo , &Sut::bar , &Sut::baz ) // (6)
+            .Take(Last) // 3
+            .Expect(All(Contains(Name/*(4)*/), Contains("Sut")))
+    .Zip // (5)
+        (Name   , "Sut::foo", "Sut::bar", "Sut::baz") // (6)
+        (Method , &Sut::foo , &Sut::bar , &Sut::baz ) // (7)
 
-    .Description("Method: %s, Name: %s", Method, Name) // (7)
+    .Description("Method: %s, Name: %s", Method, Name) // (8)
     ;
 }
 /*
@@ -809,11 +802,12 @@ BOOST_AUTO_TEST_CASE(ZipParametrization)
     It must be unique within the test model. These identifiers are also
     used for diagnostics and reporting, so meaningful names are encouraged.
 2. Strings can be parametrized as expressions, deferring the string formatting.
-3. Parameters can be nested deep in the expressions.
-4. Use `Zip` or `Pro` to generate multiple test instances with different parameter combinations.
-5. Each parameter list follows the syntax: $(key, x_1, x_2, ..., x_n)$.
-6. Any model element can be parametrized - including member function pointers.
-7. An optional test description clause.
+3. Extracting captured value from series, as mock outputs are not flattened by default.
+4. Parameters can be nested deep in the expressions.
+5. Use `Zip` or `Pro` to generate multiple test instances with different parameter combinations.
+6. Each parameter list follows the syntax: $(key, x_1, x_2, ..., x_n)$.
+7. Any model element can be parametrized - including member function pointers.
+8. An optional test description clause.
 
 
 In this example, the `Zip` clause introduces model parametrization.
@@ -954,7 +948,7 @@ BOOST_AUTO_TEST_CASE(UsingRegistry)
     SignalMapping("Test with zip params on %s", Method)
     .OnTrigger(Method)
         .At("Mock::log")
-            .Expect(Eq(Method))
+            .Expect(Eq({Method}))
     .Zip(Method, "Sut::foo", "Sut::bar", "Sut::baz")
     ;
 }
