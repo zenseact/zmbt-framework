@@ -181,7 +181,6 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
 
 
     boost::json::value observed;
-    bool observe_success{true};
 
     try
     {
@@ -189,45 +188,44 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
     }
     catch (std::exception const& error) {
         diagnostics.Error("output observation",error.what());
-        observe_success = false;
+        return false;
     }
 
-    // testing observed value
-    if (observe_success)
+    lang::Expression::to_predicate_if_const(e);
+    condition_pipe.overload(e);
+
+    try
     {
-        lang::Expression::to_predicate_if_const(e);
-        condition_pipe.overload(e);
-
-        try
-        {
-            auto const result = e.eval(observed);
-            auto const passed = result.is_bool() && result.get_bool();
-            if (lang::Expression(result).is_error())
-            {
-                diagnostics
-                    .Error("output match evaluation", result);
-                return false;
-            }
-            else if (not passed)
-            {
-                auto ctx = lang::EvalContext::make();
-                e.eval(observed, ctx);
-
-                diagnostics
-                    .Fail(e, observed)
-                    .EvalStack(ctx.log);
-
-                return false;
-            }
-        }
-        catch(const std::exception& e)
+        auto const result = e.eval(observed);
+        auto const passed = result.is_bool() && result.get_bool();
+        if (lang::Expression(result).is_error())
         {
             diagnostics
-                .Error("output match evaluation", e.what());
+                .Error("output match evaluation", result);
             return false;
         }
+        else if (not passed)
+        {
+            auto ctx = lang::EvalContext::make();
+            e.eval(observed, ctx);
+
+            diagnostics
+                .Fail(e, observed)
+                .EvalStack(ctx.log);
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
-    return true;
+    catch(const std::exception& e)
+    {
+        diagnostics
+            .Error("output match evaluation", e.what());
+        return false;
+    }
 }
 
 

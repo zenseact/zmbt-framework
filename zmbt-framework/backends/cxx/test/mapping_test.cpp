@@ -7,6 +7,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "zmbt/application.hpp"
 #include "zmbt/mapping.hpp"
 #include "zmbt/model.hpp"
 
@@ -1133,4 +1134,22 @@ BOOST_AUTO_TEST_CASE(FlattenExpect)
 
     SignalMapping("Do not flatten mock assertions when repeat is set")
     .OnTrigger(SUT).Repeat(2).At(&Mock::ping).Expect({L{}, L{}});
+}
+
+
+BOOST_AUTO_TEST_CASE(BadSignalPath)
+{
+    boost::json::value error = nullptr;
+    zmbt::Config()
+        .SetFailureHandler([&error](boost::json::value const& sts){ error = sts; });
+
+    auto const sut = [](int){return 42;};
+
+    SignalMapping("Invalid signal path")
+    .OnTrigger(sut)
+        .At(sut).Return("/foo/bar") .Expect(42)
+    ;
+
+    BOOST_CHECK_NE(error, nullptr);
+    BOOST_CHECK_EQUAL(error.at("verdict"), "ERROR");
 }
