@@ -45,11 +45,10 @@ class object_id : public entity_id {
     using entity_id::operator>=;
 
 
-    object_id(boost::json::string_view str)
-        : entity_id(to_string(str), "string")
+    object_id(boost::json::string_view str) : entity_id(to_string(str), "string")
     {
     }
-    object_id(std::string const& str) : object_id(boost::json::string_view(str))
+    object_id(std::string const& str) : entity_id(str, "string")
     {
     }
     // required to bypass is_ptr<T> overload

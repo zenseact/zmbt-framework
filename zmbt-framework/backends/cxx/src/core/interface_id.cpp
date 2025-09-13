@@ -13,9 +13,8 @@
 template <>
 struct std::hash<zmbt::interface_id>
 {
-  std::size_t operator()(const zmbt::interface_id& k) const
-  {
-    using std::hash;
-    return hash<boost::json::string>()(k.key());
-  }
+    std::size_t operator()(const zmbt::interface_id& k) const
+    {
+        return k.hash();
+    }
 };

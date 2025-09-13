@@ -8,6 +8,7 @@
 #define ZMBT_CORE_ENTITY_ID_HPP_
 
 #include <cstdint>
+#include <boost/json.hpp>
 
 #include "aliases.hpp"
 
@@ -18,13 +19,18 @@ namespace zmbt {
 /// Base class for annotated key objects
 class entity_id {
 
-    boost::json::string key_;
-    boost::json::string annotation_;
     boost::json::string str_;
+    boost::json::string_view key_;
+    boost::json::string_view annotation_;
+    std::size_t hash_;
+
+    explicit entity_id(boost::json::string&& str);
+
 
   public:
 
     entity_id() = default;
+
 
     entity_id(boost::json::string_view key, boost::json::string_view type);
     explicit entity_id(boost::json::value const& val);
@@ -40,6 +46,7 @@ class entity_id {
         *this = entity_id(v);
         return *this;
     };
+
     entity_id& operator=(boost::json::value && v)
     {
         *this = entity_id(std::move(v));
@@ -49,13 +56,13 @@ class entity_id {
 
 
     bool operator==(entity_id const& other) const {
-        return key() == other.key();
+        return hash() == other.hash();
     }
     bool operator!=(entity_id const& other) const {
         return !this->operator==(other);
     }
     bool operator<(entity_id const& other) const {
-        return key() < other.key();
+        return hash() < other.hash();
     }
     bool operator>(entity_id const& other) const {
         return other.operator<(*this);
@@ -67,25 +74,30 @@ class entity_id {
         return !this->operator<(other);
     }
 
-    friend std::ostream& operator<< (std::ostream& os, entity_id const& id)
+    friend std::ostream& operator<<(std::ostream& os, entity_id const& id)
     {
         os << id.str();
         return os;
     }
 
-    boost::json::string str() const
+    boost::json::string_view str() const
     {
         return str_;
     }
 
-    boost::json::string key() const
+    boost::json::string_view key() const
     {
         return key_;
     }
 
-    boost::json::string annotation() const
+    boost::json::string_view annotation() const
     {
         return annotation_;
+    }
+
+    std::size_t hash() const
+    {
+        return hash_;
     }
 
     operator boost::json::value() const
