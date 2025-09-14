@@ -33,12 +33,19 @@ For complete documentation, refer to the [Signal Mapping DSL Reference](../dsl-r
 
 ```c++
 */
+
+#include <chrono>
+#include <thread>
+
 #include <boost/test/unit_test.hpp> //(1)
 #include <zenseact-mbt.hpp>
 
 namespace utf = boost::unit_test;
 using namespace zmbt::api;  //(2)
 using namespace zmbt::expr; //(3)
+
+using namespace std::literals::chrono_literals;
+
 /*
 ```
 
@@ -1095,17 +1102,17 @@ BOOST_AUTO_TEST_CASE(TestMultithreading)
         while(true) {
             auto const item = producer.produce();
             if (item <= 0) break;
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::this_thread::sleep_for(1ms);
             consumer.consume(item);
         }
     };
 
     auto const SUT = [&](){
         constexpr int N {8};
-        std::vector<std::thread> threads(N);
+        std::vector<std::thread> threads;
         for(int i = 0; i < N; ++i) threads.emplace_back(task);
         for(auto& thread: threads) {
-            if (thread.joinable())  thread.join();
+            thread.join();
         }
     };
 
