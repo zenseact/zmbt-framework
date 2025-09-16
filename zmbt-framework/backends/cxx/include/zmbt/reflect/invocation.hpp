@@ -200,7 +200,7 @@ using invocation_ret_t = typename invocation<T>::return_t;
  * @tparam T Interface pointer type
  */
 template <class T>
-using invocation_unqf_ret_t = remove_cvref_t<invocation_ret_t<T>>;
+using invocation_ret_unqf_t = remove_cvref_t<invocation_ret_t<T>>;
 
 /**
  * @brief Interface has no return
@@ -209,6 +209,12 @@ using invocation_unqf_ret_t = remove_cvref_t<invocation_ret_t<T>>;
  */
 template <class T>
 using invocation_has_void_ret = std::is_void<invocation_ret_t<T>>;
+
+
+template <class T>
+using invocation_ret_unqf_or_nullptr_t = mp_if<invocation_has_void_ret<T>, invocation_ret_unqf_t<T>, nullptr_t>;
+
+
 
 
 /**

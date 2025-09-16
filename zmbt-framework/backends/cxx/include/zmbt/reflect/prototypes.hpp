@@ -45,7 +45,7 @@ boost::json::object prototypes()
     static_assert(is_ifc_handle<T>::value, "");
 
     using args_unqf_t = reflect::invocation_args_unqf_t<T>;
-    using unqf_ret_t = reflect::invocation_unqf_ret_t<T>;
+    using unqf_ret_t = reflect::invocation_ret_unqf_t<T>;
     return {
         {"args"  , detail::init_args<args_unqf_t>()},
         {"return", detail::init_return<unqf_ret_t>()}
