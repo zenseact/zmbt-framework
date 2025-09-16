@@ -32,8 +32,12 @@ struct serialization_error : public base_error {
     using base_error::base_error;
 };
 
+/// Test environment error
+struct environment_error : public base_error {
+    using base_error::base_error;
+};
 
-// using boost::throw_exception;
+
 
 namespace detail
 {
