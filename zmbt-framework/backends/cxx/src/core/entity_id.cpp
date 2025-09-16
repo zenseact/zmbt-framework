@@ -7,9 +7,11 @@
 
 #include "zmbt/core/entity_id.hpp"
 
-#include <boost/json.hpp>
 #include <cstddef>
 #include <typeindex>
+
+#include <boost/json.hpp>
+#include <boost/container_hash/hash.hpp>
 
 #include "zmbt/core/format_string.hpp"
 
@@ -34,8 +36,8 @@ zmbt::entity_id::entity_id(boost::json::string&& str)
     , key_{get_key_view(str_)}
     , annotation_{get_annotation_view(str_)}
     , hash_{[key=key_]() -> std::size_t {
-        using std::hash;
-        return hash<boost::json::string>()(key);
+        using boost::hash_value;
+        return hash_value(key);
     }()}
 {
 }
@@ -54,6 +56,6 @@ template <>
 struct std::hash<zmbt::entity_id> {
     std::size_t operator()(zmbt::entity_id const& k) const
     {
-        return k.hash();
+        return hash_value(k);
     }
 };

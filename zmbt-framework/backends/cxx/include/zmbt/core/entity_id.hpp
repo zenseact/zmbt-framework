@@ -56,13 +56,13 @@ class entity_id {
 
 
     bool operator==(entity_id const& other) const {
-        return hash() == other.hash();
+        return hash_ == other.hash_;
     }
     bool operator!=(entity_id const& other) const {
         return !this->operator==(other);
     }
     bool operator<(entity_id const& other) const {
-        return hash() < other.hash();
+        return hash_ < other.hash_;
     }
     bool operator>(entity_id const& other) const {
         return other.operator<(*this);
@@ -80,6 +80,12 @@ class entity_id {
         return os;
     }
 
+    /// Boost.Hash customization point
+    friend inline std::size_t hash_value(entity_id const& v)
+    {
+        return v.hash_;
+    }
+
     boost::json::string_view str() const
     {
         return str_;
@@ -93,11 +99,6 @@ class entity_id {
     boost::json::string_view annotation() const
     {
         return annotation_;
-    }
-
-    std::size_t hash() const
-    {
-        return hash_;
     }
 
     operator boost::json::value() const

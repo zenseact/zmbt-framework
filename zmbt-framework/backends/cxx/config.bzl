@@ -12,6 +12,7 @@ ZMBT_COPTS = [
 BOOST_LIBS = [
     "@boost//:algorithm",
     "@boost//:callable_traits",
+    "@boost//:container_hash",
     "@boost//:describe",
     "@boost//:format",
     "@boost//:filesystem",

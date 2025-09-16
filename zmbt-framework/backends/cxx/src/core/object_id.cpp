@@ -29,6 +29,6 @@ struct std::hash<zmbt::object_id>
 {
     std::size_t operator()(const zmbt::object_id& k) const
     {
-        return k.hash();
+        return hash_value(k);
     }
 };
