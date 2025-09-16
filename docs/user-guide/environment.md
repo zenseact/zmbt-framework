@@ -65,6 +65,4 @@ All automated test models are designed to reset their data before each test, ens
 
 The clean-up methods are
  - `zmbt::Environment::ResetInterfaceData`
- - `zmbt::Environment::ResetInterfaceDataFor`
  - `zmbt::Environment::ResetAll`
- - `zmbt::Environment::ResetAllFor`

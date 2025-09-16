@@ -11,11 +11,13 @@
 #include <atomic>
 #include <cstdint>
 #include <map>
+#include <unordered_map>
 #include <memory>
 #include <tuple>
 #include <mutex>
 #include <typeindex>
 #include <type_traits>
+#include <boost/unordered/concurrent_flat_map.hpp>
 
 
 #include "trigger.hpp"
@@ -38,9 +40,6 @@ struct EnvironmentData final {
     using shared_data_table = std::map<boost::json::string, shared_data_record>;
     using FailureHandler = std::function<void(boost::json::value const&)>;
 
-    using GeneratorsTable = std::map<boost::json::string,    // jptr
-        std::pair<Generator::Shared, lang::Expression>>;
-
 
     static boost::json::value init_json_data();
 
@@ -51,10 +50,23 @@ struct EnvironmentData final {
     std::map<boost::json::string, Trigger> triggers;
     std::map<interface_id, TriggerIfc> trigger_ifcs;
     std::map<object_id, TriggerObj> trigger_objs;
-    std::map<object_id,                  // ifc
-        std::map<interface_id,           // obj
-        std::map<ChannelKind,            // grp
-        GeneratorsTable>>> input_generators;
+
+
+    struct InputRecord
+    {
+        boost::json::string jptr;
+        Generator::Shared generator;
+        lang::Expression transform;
+    };
+
+    using InputRecordList = std::vector<InputRecord>;
+    /// Args, Return, Exception
+    using InjectionTable = std::array<InputRecordList, 3U>;
+
+    boost::concurrent_flat_map<
+        std::pair<interface_id,object_id>,
+            InjectionTable> injection_tables{};
+
     std::atomic_bool has_test_error{false};
 
 

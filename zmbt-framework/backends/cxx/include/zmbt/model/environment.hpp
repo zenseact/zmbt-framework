@@ -309,27 +309,10 @@ class Environment {
 
 
     /**
-     * @brief Clear interface data associated with the object (accessed via ArgsFor/ReturnFor)
-     *
-     * @warning this will invalidate interface records
-     * @param obj
-     */
-    void ResetInterfaceDataFor(object_id obj);
-
-
-    /**
      * @brief Clear all data
      *
      */
     void ResetAll();
-
-
-    /**
-     * @brief Clear data associated with the object
-     *
-     * @param obj
-     */
-    void ResetAllFor(object_id obj);
 
 
     Environment& RegisterAction(lang::Expression const& key_expr, std::function<void()> action);

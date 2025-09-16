@@ -85,17 +85,10 @@ void Environment::ResetInterfaceData()
 {
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().clear();
-    data_->input_generators.clear();
+    data_->injection_tables.clear();
     data_->has_test_error = false;
 }
 
-
-void Environment::ResetInterfaceDataFor(object_id obj)
-{
-    auto lock = Lock();
-    data_->json_data("/interface_records").as_object().erase(obj.str());
-    data_->input_generators[obj].clear();
-}
 
 
 void Environment::ResetAll()
@@ -104,19 +97,10 @@ void Environment::ResetAll()
     auto lock = Lock();
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
-    data_->input_generators.clear();
+    data_->injection_tables.clear();
     data_->has_test_error = false;
 }
 
-
-void Environment::ResetAllFor(object_id obj)
-{
-    ResetInterfaceDataFor(obj);
-    auto lock = Lock();
-    data_->json_data("/interface_records").as_object().erase(obj.str());
-    data_->json_data("/vars").as_object().erase(obj.str());
-    data_->input_generators[obj].clear();
-}
 
 
 boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id)

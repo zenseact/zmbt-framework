@@ -63,8 +63,15 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
 
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
-    auto lock = Env().Lock();
-    env.data_->input_generators[refobj_][interface_][kind][jp] = {gen, tf};
+    auto const key = std::make_pair(interface_, refobj_);
+    auto const kind_idx = static_cast<unsigned>(kind);
+    EnvironmentData::InjectionTable table{};
+    table.at(kind_idx).push_back({jp, gen, tf});
+
+    using value_type = decltype(env.data_->injection_tables)::value_type;
+    env.data_->injection_tables.try_emplace_or_visit(key, table, [kind_idx, &table](value_type& record){
+        record.second.at(kind_idx).push_back(std::move(table.at(kind_idx).back()));
+    });
 }
 
 
@@ -112,19 +119,26 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
     // TODO: ensure it is closed for updates
     // non-const - only generator atomic counters are incremented
-    auto& inputs = [&]() -> EnvironmentData::GeneratorsTable& {
         // auto lock = env.Lock();
         // no lock here - it runs under assumption there are no updates during test execution.
         // TODO: split Env interface for managed and unmanaged,
         // and close modification of managed data on client-side during test execution.
-        return env.data_->input_generators[refobj_][interface_][kind];
-    }();
 
-    for (auto& record: inputs)
+    using value_type = decltype(env.data_->injection_tables)::value_type;
+    auto const kind_idx = static_cast<unsigned>(kind);
+    boost::optional<EnvironmentData::InputRecordList&> maybe_inputs;
+    env.data_->injection_tables.visit(std::make_pair(interface_, refobj_), [kind_idx, &maybe_inputs](value_type& v){
+        maybe_inputs = v.second.at(kind_idx);
+    });
+
+    if (!maybe_inputs.has_value()) return result_value;
+
+
+    for (auto& record: *maybe_inputs)
     {
-        boost::json::string_view const record_pointer = record.first;
-        auto& generator = *record.second.first;
-        auto const& tf = record.second.second;
+        boost::json::string_view const record_pointer = record.jptr;
+        auto& generator = *record.generator;
+        auto const& tf = record.transform;
         if (generator.is_noop()) continue;
 
         boost::json::value raw_v;

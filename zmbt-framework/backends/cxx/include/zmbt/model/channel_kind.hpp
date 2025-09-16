@@ -13,9 +13,16 @@
 
 namespace zmbt {
 
-enum class ChannelKind
+enum class ChannelKind : unsigned
 {
-    Undefined, Args, Return, Exception, Timestamp, ThreadId, CallCount,
+    // Injectable and observable channels
+
+    Args, Return, Exception,
+
+    // Observable-only channels
+
+    Timestamp, ThreadId, CallCount,
+    Undefined
 };
 
 
