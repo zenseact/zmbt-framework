@@ -212,7 +212,7 @@ using invocation_has_void_ret = std::is_void<invocation_ret_t<T>>;
 
 
 template <class T>
-using invocation_ret_unqf_or_nullptr_t = mp_if<invocation_has_void_ret<T>, invocation_ret_unqf_t<T>, nullptr_t>;
+using invocation_ret_unqf_or_nullptr_t = mp_if<invocation_has_void_ret<T>, nullptr_t, invocation_ret_unqf_t<T>>;
 
 
 

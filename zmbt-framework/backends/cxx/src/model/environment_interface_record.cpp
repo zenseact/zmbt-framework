@@ -18,10 +18,8 @@ Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id
     : refobj_{refobj}
     , interface_{interface}
     , env{e}
+    , capture_{env.GetCapture(interface_, refobj_)}
 {
-    auto lock = Env().Lock();
-    auto& ifc_rec = Env().data_->json_data;
-    captures = ifc_rec.branch(boost::json::kind::array, "/interface_records/%s/%s/captures", refobj, interface);
 }
 
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, boost::json::string_view ref)
@@ -199,56 +197,23 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
 std::size_t Environment::InterfaceHandle::ObservedCalls() const
 {
-    auto lock = Env().Lock();
-    return captures().as_array().size();
+    capture_->flush();
+    return capture_->count();
 }
 
 
-boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
+boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path) const
 {
-    auto lock = Env().Lock();
-    auto const N = captures().as_array().size();
-    if (N == 0)
-    {
-        throw_exception(environment_error("ObservedArgs(%s) no captures found", interface()));
-    }
-    auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
-    if (idx >= N)
-    {
-        throw_exception(environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N));
-    }
-    return captures.get_or_create_array("/%d/args", idx);
-}
-
-
-boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path, int start, int stop, int const step) const
-{
-    auto lock = Env().Lock();
-    return slice(captures().as_array(), signal_path, start, stop, step);
+    capture_->flush();
+    return slice(capture_->data_frames(), signal_path);
 }
 
 boost::json::array const& Environment::InterfaceHandle::Captures() const
 {
-    auto lock = Env().Lock();
-    return captures().as_array();
+    capture_->flush();
+    return capture_->data_frames();
 }
 
-
-boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcall) const
-{
-    auto lock = Env().Lock();
-    auto const N = captures().as_array().size();
-    if (N == 0)
-    {
-        throw_exception(environment_error("ObservedReturn(%s) no captures found", interface()));
-    }
-    auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
-    if (idx >= N)
-    {
-        throw_exception(environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N));
-    }
-    return captures.at("/%d/return", idx);
-}
 
 boost::json::string const& Environment::InterfaceHandle::key() const
 {
@@ -298,9 +263,8 @@ try
 
     for (size_t frame = 0; frame < repeats; frame++)
     {
-        boost::json::value args = YieldInjection(ChannelKind::Args);
-        captures("/+") = trigger(args);
-        if (env.data_->has_test_error.load(std::memory_order_relaxed))
+        trigger(YieldInjection(ChannelKind::Args));
+        if (env.data_->has_test_error.load(std::memory_order_acquire))
         {
             std::cerr << "TestError : " << env.TestError() << '\n';
             break;

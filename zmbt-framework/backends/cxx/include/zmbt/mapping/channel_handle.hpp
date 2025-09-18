@@ -38,7 +38,6 @@ public:
     boost::json::string full_path() const;
     boost::json::string signal_path() const;
     Kind kind() const;
-    std::tuple<int,int,int> slice() const;
 
     bool operator==(boost::json::value const& v) const;
 

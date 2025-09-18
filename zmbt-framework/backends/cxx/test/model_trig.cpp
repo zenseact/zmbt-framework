@@ -49,12 +49,20 @@ void increment_args(int& x, int& y) { ++x; ++y; }
 using zmbt::Trigger;
 
 struct TestMappingTrigger {
+
     Environment env {};
+
+    TestMappingTrigger()
+    {
+        zmbt::flags::TestIsRunning::set();
+    }
+
+    ~TestMappingTrigger()
+    {
+        zmbt::flags::TestIsRunning::clear();
+    }
 };
 
-struct TestActuator {
-    Environment env {};
-};
 
 BOOST_FIXTURE_TEST_CASE(GetIfcPointer, TestMappingTrigger)
 {
@@ -68,8 +76,8 @@ BOOST_FIXTURE_TEST_CASE(InterfaceId, TestMappingTrigger)
 {
     BOOST_CHECK_EQUAL(interface_id(&return_int), interface_id(return_int));
 
-    auto trig_ref = Trigger(nullptr, return_int ).ifc_id();
-    auto trig_ptr = Trigger(nullptr, &return_int).ifc_id();
+    auto trig_ref = Trigger(nullptr, return_int , nullptr).ifc_id();
+    auto trig_ptr = Trigger(nullptr, &return_int, nullptr).ifc_id();
 
     auto id_ref = interface_id(return_int);
     auto id_ptr = interface_id(&return_int);
@@ -83,26 +91,29 @@ BOOST_FIXTURE_TEST_CASE(InterfaceId, TestMappingTrigger)
 
     auto lambda = [](){};
 
-    BOOST_CHECK_EQUAL(Trigger(nullptr, lambda).ifc_id(), interface_id(lambda));
-    BOOST_CHECK_EQUAL(Trigger(nullptr, &lambda).ifc_id(), interface_id(&lambda));
-    BOOST_CHECK_EQUAL(Trigger(nullptr, &lambda).ifc_id(), interface_id(lambda));
+    BOOST_CHECK_EQUAL(Trigger(nullptr, lambda , nullptr).ifc_id(), interface_id(lambda));
+    BOOST_CHECK_EQUAL(Trigger(nullptr, &lambda, nullptr).ifc_id(), interface_id(&lambda));
+    BOOST_CHECK_EQUAL(Trigger(nullptr, &lambda, nullptr).ifc_id(), interface_id(lambda));
 }
 
 
 BOOST_FIXTURE_TEST_CASE(TriggerReturn, TestMappingTrigger)
 {
-    auto trigger = Trigger(nullptr, return_int);
+    auto trigger = Trigger(nullptr, return_int, env.GetCapture(return_int));
     auto ifc_rec = InterfaceRecord(return_int);
-    boost::json::object capture = trigger(0).as_object();
-    BOOST_CHECK_EQUAL(capture.at("return"), 42);
+
+    trigger(0);
+
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
 }
 
 BOOST_FIXTURE_TEST_CASE(TriggerInOutArgs, TestMappingTrigger)
 {
     auto ifc_rec = InterfaceRecord(increment_args);
-    auto trigger = Trigger(nullptr, increment_args);
-    boost::json::object capture = trigger({1,2}).as_object();
-    BOOST_CHECK_EQUAL(capture.at("args"), (array{2, 3}));
+    auto trigger = Trigger(nullptr, increment_args, env.GetCapture(increment_args));
+    trigger({1,2});
+
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/args").back(), (array{2, 3}));
 }
 
 
@@ -112,10 +123,12 @@ BOOST_FIXTURE_TEST_CASE(LambdaRef, TestMappingTrigger)
     int side_effect = 0;
     auto lambda {[&](){ ++side_effect; return 42; }};
     auto ifc_rec = InterfaceRecord(lambda);
-    auto trigger = Trigger(nullptr, lambda);
-    boost::json::object capture = trigger().as_object();
+    auto trigger = Trigger(nullptr, lambda, env.GetCapture(lambda));
+
+    trigger({});
+
     BOOST_CHECK_EQUAL(side_effect, 1);
-    BOOST_CHECK_EQUAL(capture.at("return"), 42);
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
 }
 
 
@@ -123,9 +136,9 @@ BOOST_FIXTURE_TEST_CASE(StdFunctionRef, TestMappingTrigger)
 {
     std::function<decltype(increment_args)> std_functor = increment_args;
     auto ifc_rec = InterfaceRecord(std_functor);
-    auto trigger = Trigger(nullptr, std_functor);
-    boost::json::object capture = trigger({1,2}).as_object();
-    BOOST_CHECK_EQUAL(capture.at("args"), (array{2, 3}));
+    auto trigger = Trigger(nullptr, std_functor, env.GetCapture(std_functor));
+    trigger({1,2});
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/args").back(), (array{2, 3}));
 }
 
 
@@ -133,19 +146,19 @@ BOOST_FIXTURE_TEST_CASE(ObjFunctorRef, TestMappingTrigger)
 {
     O obj_functor {};
     auto ifc_rec = InterfaceRecord(obj_functor);
-    auto trigger = Trigger(nullptr, obj_functor);
-    boost::json::object capture = trigger(42).as_object();
-    BOOST_CHECK_EQUAL(capture.at("return"), 42);
+    auto trigger = Trigger(nullptr, obj_functor, env.GetCapture(obj_functor));
+    trigger(42);
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
 }
 
 BOOST_FIXTURE_TEST_CASE(AddressEquivalence, TestMappingTrigger)
 {
     O obj {11};
-    BOOST_CHECK_EQUAL(Trigger(&obj, &O::set_x).obj_id(), InterfaceRecord(&O::set_x, &obj).refobj());
-    BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , InterfaceRecord(&O::set_x, obj ).refobj());
-    BOOST_CHECK_EQUAL(Trigger(obj, &O::set_x).obj_id() , Trigger(&obj, &O::set_x).obj_id());
+    BOOST_CHECK_EQUAL(Trigger(&obj, &O::set_x, nullptr).obj_id(), InterfaceRecord(&O::set_x, &obj).refobj());
+    BOOST_CHECK_EQUAL(Trigger( obj, &O::set_x, nullptr).obj_id() , InterfaceRecord(&O::set_x, obj ).refobj());
+    BOOST_CHECK_EQUAL(Trigger( obj, &O::set_x, nullptr).obj_id() , Trigger(&obj, &O::set_x, nullptr).obj_id());
 
-    BOOST_CHECK_EQUAL(Trigger(nullptr, return_int).obj_id(), object_id(nullptr));
+    BOOST_CHECK_EQUAL(Trigger(nullptr, return_int, nullptr).obj_id(), object_id(nullptr));
 }
 
 
@@ -153,20 +166,11 @@ BOOST_FIXTURE_TEST_CASE(PointerObjectMemberPointer, TestMappingTrigger)
 {
     O obj {11};
     auto ifc_rec = InterfaceRecord(&O::set_x, obj);
-    auto trigger = Trigger(&obj, &O::set_x);
+    auto trigger = Trigger(&obj, &O::set_x, env.GetCapture(&O::set_x));
     trigger(13);
     BOOST_CHECK_EQUAL(obj.x, 13);
 }
 
-
-BOOST_FIXTURE_TEST_CASE(ExecSharedActuator, TestActuator)
-{
-    auto obj = std::make_shared<O>(11.5);
-    auto actuator = Trigger(obj, &O::set_x);
-    InterfaceRecord(&O::set_x, actuator.obj_id());
-    actuator(13);
-    BOOST_CHECK_EQUAL(obj->x, 13);
-}
 
 
 struct Base
@@ -217,28 +221,16 @@ BOOST_FIXTURE_TEST_CASE(PolymorphicSmartPtr, TestMappingTrigger)
     std::shared_ptr<void> final = std::make_shared<Final>();
     std::shared_ptr<Base> base_ptr = std::static_pointer_cast<Base>(final);
 
-    {
-        auto result = Trigger(final, &Base::test_method).execute().as_object().at("return");
-        BOOST_CHECK_EQUAL(result, "Final");
-    }
+    auto capture = env.GetCapture(&Base::test_method);
+    auto ifc_rec = InterfaceRecord(&Base::test_method);
 
+    Trigger(final, &Base::test_method, capture)({});
+    Trigger(base_ptr, &Base::test_method, capture)({});
+    Trigger([base_ptr]{ return base_ptr; }(), &Base::test_method, capture)({});
+    Trigger(TriggerObj([base_ptr]{ return base_ptr; }()), TriggerIfc(&Base::test_method), capture)({});
 
-    {
-        auto result = Trigger(base_ptr, &Base::test_method).execute().as_object().at("return");
-        BOOST_CHECK_EQUAL(result, "Final");
-    }
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return"), (array{"Final", "Final", "Final", "Final"}));
 
-    {
-        auto ptr_getter = [base_ptr]{ return base_ptr; };
-        auto result = Trigger(ptr_getter(), &Base::test_method).execute().as_object().at("return");
-        BOOST_CHECK_EQUAL(result, "Final");
-    }
-
-    {
-        auto ptr_getter = [base_ptr]{ return base_ptr; };
-        auto result = Trigger(TriggerObj(ptr_getter()), TriggerIfc(&Base::test_method)).execute().as_object().at("return");
-        BOOST_CHECK_EQUAL(result, "Final");
-    }
 }
 
 BOOST_FIXTURE_TEST_CASE(PolymorphicUnsafeRef, TestMappingTrigger)
@@ -246,16 +238,14 @@ BOOST_FIXTURE_TEST_CASE(PolymorphicUnsafeRef, TestMappingTrigger)
     Final final;
     Base& base_ref = final;
 
-    {
-        auto result = Trigger(final, &Base::test_method).execute().as_object().at("return");
-        BOOST_CHECK_EQUAL(result, "Final");
-    }
+    auto capture = env.GetCapture(&Base::test_method);
+    auto ifc_rec = InterfaceRecord(&Base::test_method);
 
+    Trigger(final, &Base::test_method, capture)({});
+    Trigger(base_ref, &Base::test_method, capture)({});
 
-    {
-        auto result = Trigger(base_ref, &Base::test_method).execute().as_object().at("return");
-        BOOST_CHECK_EQUAL(result, "Final");
-    }
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return"), (array{"Final", "Final"}));
+
 }
 
 
@@ -263,5 +253,10 @@ BOOST_FIXTURE_TEST_CASE(ReturnRef, TestMappingTrigger)
 {
     int x = 42;
     auto const getx = [&x] () -> int& { return x; };
-    BOOST_CHECK_EQUAL(Trigger(nullptr, getx).execute().as_object().at("return"), 42);
+
+    auto capture = env.GetCapture(getx);
+    auto ifc_rec = InterfaceRecord(getx);
+    Trigger(nullptr, getx, capture)({});
+
+    BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
 }

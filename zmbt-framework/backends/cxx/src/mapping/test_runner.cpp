@@ -20,6 +20,7 @@
 #include "zmbt/mapping/test_parameter_resolver.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 #include "zmbt/mapping/pipe_handle.hpp"
+#include "zmbt/model/global_flags.hpp"
 
 
 namespace
@@ -156,7 +157,9 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
         Environment::InterfaceHandle ifc_rec{model_.at("/trigger").as_string()};
         auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
 
+        flags::TestIsRunning::set();
         ifc_rec.RunAsTrigger(runs);
+        flags::TestIsRunning::clear();
 
         if (env.HasTestError())
         {
@@ -166,6 +169,7 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
         return true;
     }
     catch (std::exception const& error) {
+        flags::TestIsRunning::clear();
         report_failure(diagnostics.Error("trigger", error.what()));
         return false;
     }

@@ -9,9 +9,9 @@
 
 #include <boost/type_index.hpp>
 
-#include "zmbt/model/exceptions.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
+#include "output_capture.hpp"
 
 namespace zmbt {
 
@@ -108,24 +108,25 @@ public:
 
 
 
-/// Function wrapper. Transforms `(T...) -> R` or `(O*)(T...) -> R` to `(shared_ptr<void>, JSON) -> JSON`
+/// Function wrapper. Transforms `(T...) -> R` or `(O*)(T...) -> R` to `(shared_ptr<void>, JSON) -> void`,
+/// capturing R with OutputCapture
 class TriggerIfc
 {
     interface_id id_;
-    std::function<boost::json::value(std::shared_ptr<void>, boost::json::value const&)> fn_;
+    std::function<void(OutputCapture&)> setup_capture_;
+    std::function<void(std::shared_ptr<void>, boost::json::value const&, OutputCapture&)> fn_;
 
     template <class R>
-    static auto apply_fn(std::function<R()> fn) -> mp_if<is_void<R>, boost::json::value>
+    static auto apply_fn(std::function<R()> fn) -> mp_if<is_void<R>, nullptr_t>
     {
         fn();
         return nullptr;
     }
 
     template <class R>
-    static auto apply_fn(std::function<R()> fn) -> mp_if<mp_not<is_void<R>>, boost::json::value>
+    static auto apply_fn(std::function<R()> fn) -> mp_if<mp_not<is_void<R>>, R>
     {
-        auto ret = fn();
-        return json_from(ret);
+        return fn();
     }
 
 public:
@@ -133,23 +134,23 @@ public:
     template <class I>
     TriggerIfc(I&& interface)
         : id_{std::forward<I>(interface)}
+        , setup_capture_{[&interface](OutputCapture& capture){ capture.setup_handlers<I>();}}
         , fn_{[ifc_ptr = get_ifc_pointer(std::forward<I>(interface))]
-            (std::shared_ptr<void> obj, boost::json::value const& args_in) -> boost::json::value {
+            (std::shared_ptr<void> obj, boost::json::value const& args_in, OutputCapture& capture) {
             using reflection = reflect::invocation<I const&>;
             using return_t = typename reflection::return_t;
             using args_t = typename reflection::args_t;
             using args_unqf_t = tuple_unqf_t<args_t>;
             using ifc_host_unref_t = remove_reference_t<typename reflection::host_t>;
 
+            using result_t = mp_if<is_void<return_t>, nullptr_t, remove_cvref_t<return_t>>;
+
             boost::json::value args_json_in_out;
             std::function<return_t()> fn;
             std::function<boost::json::value()> get_in_out_args = []{ return nullptr; };
 
-            boost::json::value capture_args;
-            boost::json::value capture_return;
-            boost::json::value capture_ts;
-            boost::json::value capture_tid;
-            boost::json::value capture_exception;
+            args_unqf_t args_to_capture = reflect::signal_traits<args_unqf_t>::init();
+            ErrorOr<result_t> return_or_error {};
 
             try
             {
@@ -168,49 +169,44 @@ public:
                     return reflection::apply(detail::static_ptr_cast<ifc_host_unref_t>(obj), ifc_ptr, args_typed_in_out);
                 };
 
-                capture_ts = get_ts();
-                capture_tid = get_tid();
                 try
                 {
-                    capture_return = apply_fn<return_t>(fn);
+                    return_or_error = ErrorOr<result_t>::MakeValue(apply_fn<return_t>(fn));
                 }
                 catch(const std::exception& e)
                 {
                     auto const dynamic_exception_type = boost::typeindex::type_id_runtime(e).pretty_name();
-                    capture_exception = {
-                        {"type"   , dynamic_exception_type   },
-                        {"what"   , e.what()                 },
-                        {"context", "trigger execution"}
-                    };
+                    ErrorInfo err;
+                    err.type = dynamic_exception_type.c_str();
+                    err.what = e.what();
+                    err.context = "trigger execution";
+                    return_or_error = ErrorOr<result_t>::MakeError(err);
+
                 }
                 catch(...)
                 {
-                    // TODO: try to gget type info from std::exception_ptr
-                    capture_exception = {
-                        {"type"   , "unknown"          },
-                        {"what"   , "unknown"          },
-                        {"context", "trigger execution"}
-                    };
+                    // TODO: try to get type info from std::exception_ptr
+
+                    ErrorInfo err;
+                    err.type = "unknown";
+                    err.what = "unknown";
+                    err.context = "trigger execution";
+                    return_or_error = ErrorOr<result_t>::MakeError(err);
                 }
-                capture_args = json_from(convert_tuple_to<args_unqf_t>(args_typed_in_out));
+
+                args_to_capture = convert_tuple_to<args_unqf_t>(args_typed_in_out);
             }
             catch(const std::exception& e)
             {
                 auto const dynamic_exception_type = boost::typeindex::type_id_runtime(e).pretty_name();
-                capture_exception = {
-                    {"type"   , dynamic_exception_type   },
-                    {"what"   , e.what()                 },
-                    {"context", "trigger args evaluation"}
-                };
+                    ErrorInfo err;
+                    err.type = dynamic_exception_type.c_str();
+                    err.what = e.what();
+                    err.context = "trigger args evaluation";
+                    return_or_error = ErrorOr<result_t>::MakeError(err);
             }
 
-            return {
-                {"args"     , capture_args     },
-                {"return"   , capture_return   },
-                {"ts"       , capture_ts       },
-                {"tid"      , capture_tid      },
-                {"exception", capture_exception},
-            };
+            capture.push(args_to_capture, return_or_error);
         }}
     {
     }
@@ -228,9 +224,14 @@ public:
         return id_;
     }
 
-    boost::json::value operator()(std::shared_ptr<void> obj, boost::json::value const& args) const
+    void setup_capture(OutputCapture& capture)
     {
-        return fn_(obj, args);
+        setup_capture_(capture);
+    }
+
+    void execute(std::shared_ptr<void> obj, boost::json::value const& args_in, OutputCapture& capture) const
+    {
+        return fn_(obj, args_in, capture);
     }
 };
 
@@ -239,9 +240,17 @@ class Trigger final {
     struct internal_ctor {};
     TriggerObj obj_;
     TriggerIfc ifc_;
+    std::shared_ptr<OutputCapture> output_capture_;
 
-    Trigger(internal_ctor, TriggerObj const& obj, TriggerIfc const& ifc) : obj_{obj}, ifc_{ifc}
+    Trigger(internal_ctor, TriggerObj const& obj, TriggerIfc const& ifc, std::shared_ptr<OutputCapture> capture)
+        : obj_{obj}
+        , ifc_{ifc}
+        , output_capture_{capture}
     {
+        if(output_capture_)
+        {
+            ifc_.setup_capture(*output_capture_);
+        }
     }
 
 
@@ -254,26 +263,15 @@ class Trigger final {
     Trigger& operator=(Trigger &&) = default;
 
     template <class T, class I>
-    Trigger(T&& obj, I&& interface)
-        : Trigger(internal_ctor{}, TriggerObj(std::forward<T>(obj)), TriggerIfc(std::forward<I>(interface)))
-    {
-    }
-
-    template <class T, class I, class... A>
-    Trigger(type_tag<T>, I&& interface, A&&... args)
-        : Trigger(std::make_shared<T>(std::forward<A>(args)...), std::forward<I>(interface))
+    Trigger(T&& obj, I&& interface, std::shared_ptr<OutputCapture> capture)
+        : Trigger(internal_ctor{}, TriggerObj(std::forward<T>(obj)), TriggerIfc(std::forward<I>(interface)), capture)
     {
     }
 
 
-    boost::json::value execute(boost::json::value const& args_in = boost::json::array{}) const
+    void operator()(boost::json::value args_in) const
     {
-        return ifc_(obj_.ptr(), args_in);
-    }
-
-    boost::json::value operator()(boost::json::value const& args_in = boost::json::array{}) const
-    {
-        return execute(args_in);
+        ifc_.execute(obj_.ptr(), std::move(args_in), *output_capture_);
     }
 
     bool operator==(Trigger const& o) const

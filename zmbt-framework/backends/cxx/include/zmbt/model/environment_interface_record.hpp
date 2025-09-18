@@ -45,7 +45,7 @@ private:
 protected:
 
     mutable zmbt::Environment env;
-    JsonNode captures;
+    std::shared_ptr<OutputCapture> capture_;
 public:
 
 
@@ -147,16 +147,10 @@ public:
     std::size_t ObservedCalls() const;
 
 
-    /// Input arguments observed at nofcall
-    boost::json::array ObservedArgs(int const nofcall = -1);
 
-
-    boost::json::array CaptureSlice(boost::json::string_view signal_path, int start = 0, int stop = -1, int const step = 1) const;
+    boost::json::array CaptureSlice(boost::json::string_view signal_path) const;
 
     boost::json::array const& Captures() const;
-
-    /// Observed return value at nofcall
-    boost::json::value ObservedReturn(int const nofcall = -1) const;
 
     boost::json::string const& key() const;
 
@@ -175,6 +169,9 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     using args_t      = typename reflection::args_t;
     using unqf_args_t = tuple_unqf_t<args_t>;
 
+    using return_or_nullptr_t = reflect::invocation_ret_unqf_or_nullptr_t<Interface const&>;
+
+
     template <class T>
     using rvalue_reference_to_value = mp_if<std::is_rvalue_reference<T>, std::remove_reference_t<T>, T>;
 
@@ -183,19 +180,8 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     void HookArgsImpl(hookout_args_t & args)
     try
     {
-        auto const ts = get_ts();
-        std::string const tid = get_tid();
-        // TODO: use thread_local or lockfree capture cache
-        boost::json::object capture {
-            {"ts", ts},
-            {"tid", tid },
-            {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
-        };
+        capture_->push(convert_tuple_to<unqf_args_t>(args), ErrorOr<return_or_nullptr_t>());
 
-        {
-            auto lock = Env().Lock();
-            captures("/+") = capture;
-        }
 
         auto const injection = YieldInjection(ChannelKind::Args).as_array();
 
@@ -268,6 +254,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     TypedInterfaceHandle(interface_id const& interface, H const& refobj)
         : Environment::InterfaceHandle(interface, refobj)
     {
+        capture_->setup_handlers<Interface>();
     }
 
     TypedInterfaceHandle(TypedInterfaceHandle const&) = default;

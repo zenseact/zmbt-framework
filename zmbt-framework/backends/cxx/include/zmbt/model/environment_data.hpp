@@ -23,6 +23,7 @@
 #include "trigger.hpp"
 #include "generator.hpp"
 #include "channel_kind.hpp"
+#include "output_capture.hpp"
 
 
 namespace zmbt {
@@ -66,6 +67,10 @@ struct EnvironmentData final {
     boost::concurrent_flat_map<
         std::pair<interface_id,object_id>,
             InjectionTable> injection_tables{};
+
+    boost::concurrent_flat_map<
+        std::pair<interface_id,object_id>,
+            std::shared_ptr<OutputCapture>> output_captures{};
 
     std::atomic_bool has_test_error{false};
 

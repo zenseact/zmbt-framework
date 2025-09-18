@@ -353,6 +353,25 @@ class Environment {
         return {format("%s:%s", obj_id.key(), ifc_id.key())};
     }
 
+
+    template <class I>
+    std::shared_ptr<OutputCapture> GetCapture(I&& interface)
+    {
+        return GetCapture(std::forward<I>(interface), ifc_host_nullptr<I>);
+    }
+
+    std::shared_ptr<OutputCapture> GetCapture(interface_id const& ifc_id, object_id const& obj_id)
+    {
+        using value_type = decltype(data_->output_captures)::value_type;
+        auto capture_ptr = std::make_shared<OutputCapture>();
+
+        data_->output_captures.try_emplace_or_visit(std::make_pair(ifc_id, obj_id), capture_ptr,
+            [&capture_ptr](value_type& record){
+            capture_ptr = record.second;
+        });
+        return capture_ptr;
+    }
+
     boost::json::string GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id);
 
     /**
@@ -369,7 +388,13 @@ class Environment {
     template <class I, class H>
     Environment& RegisterTrigger(boost::json::string_view key, I&& interface, H&& host)
     {
-        Trigger trigger{std::forward<H>(host), interface};
+
+        interface_id const ifc_id{interface};
+        object_id const obj_id{host};
+
+        auto capture_ptr = GetCapture(ifc_id, obj_id);
+
+        Trigger trigger{std::forward<H>(host), interface, capture_ptr};
         auto const json_data_key = format("/triggers/%s", key);
         auto const err_msg = format("Trigger registering failed: key \"%s\" is taken", key);
         auto lock = Lock();

@@ -188,9 +188,7 @@ boost::json::value PipeHandle::observe_blend() const
     {
         auto const& alias = channel.alias();
         auto ifc_handle = Environment::InterfaceHandle(channel.interface(), channel.host());
-        // Captures()
         auto const& captures = ifc_handle.Captures();
-        //  channel.captures();
 
         if (channel.kind() == ChannelKind::CallCount)
         {
@@ -208,21 +206,18 @@ boost::json::value PipeHandle::observe_blend() const
 
         auto const& full_path = channel.full_path();
 
-        int start, stop, step;
-        std::tie(start, stop, step) = channel.slice();
-        auto captures_slice = make_slice_const_generator(captures, start, stop, step);
+
         auto insert_begin = join_captures.begin();
-        auto capture = captures.cend();
 
         auto const tf = channel.transform();
 
 
-        while ((capture = captures_slice()) != captures.cend())
+        for (auto const& capture: captures)
         {
             boost::json::value signal_value;
             boost::json::error_code ec;
 
-            if (auto const p = capture->find_pointer(full_path, ec))
+            if (auto const p = capture.find_pointer(full_path, ec))
             {
 
                 signal_value = tf.is_noop() ? *p : tf.eval(*p);
@@ -231,7 +226,7 @@ boost::json::value PipeHandle::observe_blend() const
             boost::json::array record {
                 alias,
                 signal_value,
-                capture->at_pointer("/ts")
+                capture.at_pointer("/ts")
             };
 
             insert_begin = join_captures.insert(

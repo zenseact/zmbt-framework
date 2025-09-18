@@ -1117,7 +1117,7 @@ BOOST_AUTO_TEST_CASE(TestMultithreading)
     };
 
 
-    SignalMapping("Test Blend on output")
+    SignalMapping("Test SUT with multithreading")
     .OnTrigger(SUT)
         .At(&Mock::produce, producer).Inject(~Sub(42)) // xi = 42 - i
         .At(&Mock::consume, consumer).Take(Max).Expect(42)
