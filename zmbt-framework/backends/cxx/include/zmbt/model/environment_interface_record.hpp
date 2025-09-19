@@ -97,6 +97,8 @@ public:
 
     boost::json::value const& PrototypeArgs() const;
 
+    void AddCaptureCategory(ChannelKind const kind);
+
     /// throw exception if set for current call
     void MaybeThrowException();
 
@@ -254,7 +256,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     TypedInterfaceHandle(interface_id const& interface, H const& refobj)
         : Environment::InterfaceHandle(interface, refobj)
     {
-        capture_->setup_handlers<Interface>();
+        capture_->setup_handlers<Interface const&>();
     }
 
     TypedInterfaceHandle(TypedInterfaceHandle const&) = default;

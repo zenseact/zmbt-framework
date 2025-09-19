@@ -136,6 +136,24 @@ class DefinitionHelper {
 
     void add_channel_impl(boost::json::value const& ifc, uint32_t const param_type);
 
+
+    template <class O>
+    void add_channel(O&& obj, Param cal)
+    {
+        uint32_t param_type = cnl_prm_none;
+        boost::json::value obj_node = handle_obj_p(obj, param_type);
+        boost::json::value cal_node = handle_cal_p(cal, param_type);
+
+        add_channel_impl({
+            {"obj", obj_node},
+            {"ifc", cal_node},
+        }, param_type);
+
+        if (cnl_prm_none == param_type) {
+            env.RegisterAnonymousInterface(interface_id(cal_node), object_id(obj_node));
+        }
+    }
+
     template <class O, class C>
     void add_channel(O&& obj, C&& cal)
     {
@@ -149,7 +167,7 @@ class DefinitionHelper {
         }, param_type);
 
         if (cnl_prm_none == param_type) {
-            env.RegisterAnonymousInterface(interface_id(cal_node), object_id(obj_node));
+            env.RegisterAnonymousInterface(std::forward<C>(cal), object_id(obj_node));
         }
     }
 
@@ -166,7 +184,7 @@ class DefinitionHelper {
         }, param_type);
 
         if (cnl_prm_none == param_type) {
-            env.RegisterAnonymousInterface(interface_id(cal_node), ifc_host_nullptr<T>);
+            env.RegisterAnonymousInterface(std::forward<T>(cal), ifc_host_nullptr<T>);
         }
     }
 

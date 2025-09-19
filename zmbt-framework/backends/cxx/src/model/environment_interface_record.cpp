@@ -59,6 +59,11 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
     return env.data_->json_data.at("/prototypes/%s/args", interface());
 }
 
+void Environment::InterfaceHandle::AddCaptureCategory(ChannelKind const ck)
+{
+    capture_->enable_category(ck);
+};
+
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
     auto const key = std::make_pair(interface_, refobj_);
@@ -266,7 +271,6 @@ try
         trigger(YieldInjection(ChannelKind::Args));
         if (env.data_->has_test_error.load(std::memory_order_acquire))
         {
-            std::cerr << "TestError : " << env.TestError() << '\n';
             break;
         }
     }

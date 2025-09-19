@@ -8,6 +8,7 @@
 #define ZMBT_ENV_OUTPUT_CAPTURE_HPP_
 
 #include <atomic>
+#include <bitset>
 #include <deque>
 #include <functional>
 #include <memory>
@@ -24,11 +25,16 @@
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
 
+#include "channel_kind.hpp"
 #include "global_flags.hpp"
 #include "error_or_return.hpp"
 
 
 namespace zmbt {
+
+struct capture_error : public base_error {
+    using base_error::base_error;
+};
 
 class OutputCapture
 {
@@ -69,6 +75,8 @@ class OutputCapture
         using FramesBuffMap = std::shared_ptr<boost::concurrent_flat_map<std::thread::id, FrameBuffs>>;
 
         std::type_index data_typeid;
+        boost::json::string interface_name;
+
         extract_fn_t extract_fn;
         FramesBuffMap frame_buff_map;
 
@@ -76,23 +84,24 @@ class OutputCapture
         boost::json::array serialized_frames{};
         std::atomic<std::size_t> count{0};
         std::atomic<std::size_t> lost_count{0};
-        std::atomic_bool serialization_in_progress{false};
+
+        std::bitset<static_cast<unsigned>(ChannelKind::Undefined)> enable_capture_categories_;
 
         Registry(
             std::type_index typid,
+            boost::json::string name,
             extract_fn_t efn,
             FramesBuffMap fbm
         )
             : data_typeid(typid)
+            , interface_name{name}
             , extract_fn(efn)
             , frame_buff_map(fbm)
         {
-            ZMBT_LOG(TRACE) << object_id(this) << " +++";
         }
 
         ~Registry()
         {
-            ZMBT_LOG(TRACE) << object_id(this) << " ---";
         }
 
         template <class I>
@@ -108,12 +117,20 @@ class OutputCapture
                 return 0;
             };
 
-            return std::make_shared<Registry>(typid, extract_fn, nullptr);
+            return std::make_shared<Registry>(typid, type_name<I>().c_str(), extract_fn, nullptr);
         }
     };
 
     /// Single-consumer extraction
     std::size_t consume_all(consumer_fn_t const consume_fn);
+
+    template <ChannelKind ck>
+    bool check_filter()
+    {
+        return registry_->enable_capture_categories_[static_cast<unsigned>(ck)];
+    }
+
+    void report_test_error(ErrorInfo const&) const;
 
 
   public:
@@ -130,13 +147,11 @@ class OutputCapture
     /// Flush interal buffers and complete serialization
     void flush();
 
-    template <class I>
+    template <class I, class II = ifc_pointer_t<I>>
     void setup_handlers()
     {
-        ZMBT_LOG(TRACE) << object_id(this) << " setup_handlers for " << type_name<I>().c_str();
-
         if (registry_ != nullptr) return;
-        registry_ = Registry::Make<I>();
+        registry_ = Registry::Make<II>();
     }
 
 
@@ -144,35 +159,71 @@ class OutputCapture
     template <class ArgsTuple, class Return>
     void push(ArgsTuple const& args, ErrorOr<Return> const& return_or_error)
     {
-        ZMBT_LOG(TRACE) << object_id(this) << " push";
 
         if (!registry_)
         {
-            throw_exception(environment_error("access to unregistered trigger OutputCapture"));
+            ErrorInfo e;
+            e.type = type_name<capture_error>();
+            e.what = "accessing unregistered OutputCapture";
+            e.context = "OutputCapture";
+            report_test_error(e);
+            return;
         }
 
         std::type_index const ti {typeid(std::tuple<ArgsTuple, Return>)};
 
         if (ti != registry_->data_typeid)
         {
-            throw_exception(environment_error("invalid type on OutputCapture trigger push"));
+            ErrorInfo e;
+            e.type = type_name<capture_error>();
+            e.what = "invalid type on push";
+            e.context = "OutputCapture";
+            report_test_error(e);
+            return;
         }
 
         if (!flags::TestIsRunning::status())
         {
             registry_->lost_count++;
-            // throw_exception(environment_error("access to closed trigger OutputCapture"));
+            ErrorInfo e;
+            e.type = type_name<capture_error>();
+            e.what = "accessing to capture outside of managed test";
+            e.context = "OutputCapture";
+            report_test_error(e);
             return;
         }
 
         registry_->count++;
 
         boost::json::object f {
-            {"args", json_from(args)},
-            {"tid" , get_tid()      },
-            {"ts"  , 0UL            },
+            {"ts"  , 0UL      },
         };
-        return_or_error.dump_to(f);
+
+        if (registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::ThreadId)])
+        {
+            f["tid"] = get_tid();
+        }
+
+        if (registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::Args)])
+        {
+            f["args"] = json_from(args);
+        }
+
+        if (return_or_error.is_error())
+        {
+            return_or_error.dump_to(f);
+            // let the test fail if no error expectations
+            // and stop capturing outputs
+            if (not registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::Exception)])
+            {
+                report_test_error(return_or_error.as_error());
+                registry_->enable_capture_categories_.reset();
+            }
+        }
+        else if (registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::Return)] && return_or_error.is_return())
+        {
+            return_or_error.dump_to(f);
+        }
 
         auto& ts = f["ts"];
 
@@ -202,6 +253,8 @@ class OutputCapture
     boost::json::array const& data_frames() const;
 
     void clear();
+
+    void enable_category(ChannelKind const ck);
 
   private:
 

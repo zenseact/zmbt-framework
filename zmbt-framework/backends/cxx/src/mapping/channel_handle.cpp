@@ -50,6 +50,11 @@ lang::Expression ChannelHandle::transform() const
     return e;
 }
 
+Environment::InterfaceHandle ChannelHandle::inerface_handle() const
+{
+    return {interface(), host()};
+}
+
 interface_id ChannelHandle::interface() const
 {
     return env.InterfaceId(data_.at("/interface").as_string());

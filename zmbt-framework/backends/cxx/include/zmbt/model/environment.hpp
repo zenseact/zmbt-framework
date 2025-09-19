@@ -49,6 +49,7 @@ namespace zmbt {
  */
 class Environment {
 
+    friend class OutputCapture;
   protected:
 
     using lock_t = typename EnvironmentData::lock_t;
@@ -389,7 +390,7 @@ class Environment {
     Environment& RegisterTrigger(boost::json::string_view key, I&& interface, H&& host)
     {
 
-        interface_id const ifc_id{interface};
+        interface_id const ifc_id{std::forward<I>(interface)};
         object_id const obj_id{host};
 
         auto capture_ptr = GetCapture(ifc_id, obj_id);
@@ -475,15 +476,16 @@ class Environment {
     RegisterInterface(boost::json::string_view key, I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
         RegisterPrototypes(std::forward<I>(interface));
-        return RegisterInterface(key, interface_id{std::forward<I>(interface)}, obj_id);
+        interface_id ifc_id{std::forward<I>(interface)};
+        GetCapture(ifc_id, obj_id)->setup_handlers<I>();
+        return RegisterInterface(key, ifc_id, obj_id);
     }
 
     template <class I>
     enable_if_t<is_ifc_handle<I>::value, Environment&>
     RegisterAnonymousInterface(I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
-        RegisterPrototypes(std::forward<I>(interface));
-        return RegisterInterface(autokey(obj_id, interface_id{interface}), interface_id(interface), obj_id);
+        return RegisterInterface(autokey(obj_id, std::forward<I>(interface)), std::forward<I>(interface), obj_id);
     }
 
 

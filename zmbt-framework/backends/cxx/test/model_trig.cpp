@@ -101,6 +101,7 @@ BOOST_FIXTURE_TEST_CASE(TriggerReturn, TestMappingTrigger)
 {
     auto trigger = Trigger(nullptr, return_int, env.GetCapture(return_int));
     auto ifc_rec = InterfaceRecord(return_int);
+    ifc_rec.AddCaptureCategory(ChannelKind::Return);
 
     trigger(0);
 
@@ -110,6 +111,7 @@ BOOST_FIXTURE_TEST_CASE(TriggerReturn, TestMappingTrigger)
 BOOST_FIXTURE_TEST_CASE(TriggerInOutArgs, TestMappingTrigger)
 {
     auto ifc_rec = InterfaceRecord(increment_args);
+    ifc_rec.AddCaptureCategory(ChannelKind::Args);
     auto trigger = Trigger(nullptr, increment_args, env.GetCapture(increment_args));
     trigger({1,2});
 
@@ -123,6 +125,7 @@ BOOST_FIXTURE_TEST_CASE(LambdaRef, TestMappingTrigger)
     int side_effect = 0;
     auto lambda {[&](){ ++side_effect; return 42; }};
     auto ifc_rec = InterfaceRecord(lambda);
+    ifc_rec.AddCaptureCategory(ChannelKind::Return);
     auto trigger = Trigger(nullptr, lambda, env.GetCapture(lambda));
 
     trigger({});
@@ -136,6 +139,7 @@ BOOST_FIXTURE_TEST_CASE(StdFunctionRef, TestMappingTrigger)
 {
     std::function<decltype(increment_args)> std_functor = increment_args;
     auto ifc_rec = InterfaceRecord(std_functor);
+    ifc_rec.AddCaptureCategory(ChannelKind::Args);
     auto trigger = Trigger(nullptr, std_functor, env.GetCapture(std_functor));
     trigger({1,2});
     BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/args").back(), (array{2, 3}));
@@ -146,6 +150,7 @@ BOOST_FIXTURE_TEST_CASE(ObjFunctorRef, TestMappingTrigger)
 {
     O obj_functor {};
     auto ifc_rec = InterfaceRecord(obj_functor);
+    ifc_rec.AddCaptureCategory(ChannelKind::Return);
     auto trigger = Trigger(nullptr, obj_functor, env.GetCapture(obj_functor));
     trigger(42);
     BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
@@ -223,6 +228,7 @@ BOOST_FIXTURE_TEST_CASE(PolymorphicSmartPtr, TestMappingTrigger)
 
     auto capture = env.GetCapture(&Base::test_method);
     auto ifc_rec = InterfaceRecord(&Base::test_method);
+    ifc_rec.AddCaptureCategory(ChannelKind::Return);
 
     Trigger(final, &Base::test_method, capture)({});
     Trigger(base_ptr, &Base::test_method, capture)({});
@@ -240,6 +246,7 @@ BOOST_FIXTURE_TEST_CASE(PolymorphicUnsafeRef, TestMappingTrigger)
 
     auto capture = env.GetCapture(&Base::test_method);
     auto ifc_rec = InterfaceRecord(&Base::test_method);
+    ifc_rec.AddCaptureCategory(ChannelKind::Return);
 
     Trigger(final, &Base::test_method, capture)({});
     Trigger(base_ref, &Base::test_method, capture)({});
@@ -256,6 +263,7 @@ BOOST_FIXTURE_TEST_CASE(ReturnRef, TestMappingTrigger)
 
     auto capture = env.GetCapture(getx);
     auto ifc_rec = InterfaceRecord(getx);
+    ifc_rec.AddCaptureCategory(ChannelKind::Return);
     Trigger(nullptr, getx, capture)({});
 
     BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);

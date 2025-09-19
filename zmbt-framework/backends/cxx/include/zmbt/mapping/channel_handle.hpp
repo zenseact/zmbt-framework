@@ -54,6 +54,8 @@ public:
 
     lang::Expression transform() const;
 
+    Environment::InterfaceHandle inerface_handle() const;
+
 };
 
 

@@ -52,6 +52,8 @@ class InstanceTestRunner
 
     bool inject_inline_inputs(TestDiagnostics diagnostics);
 
+    void set_capture_filters();
+
     bool eval_inline_assertions(TestDiagnostics diagnostics);
 
     bool inject_tabular_inputs(boost::json::array const& test_vector, TestDiagnostics diagnostics);
@@ -232,6 +234,24 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
     }
 }
 
+void InstanceTestRunner::set_capture_filters()
+{
+    for (auto const& pipe: inline_outputs_)
+    {
+        for (auto const& channel: pipe.channels())
+        {
+            channel.inerface_handle().AddCaptureCategory(channel.kind());
+        }
+    }
+
+    for (auto const& pipe: tabular_outputs_)
+    {
+        for (auto const& channel: pipe.channels())
+        {
+            channel.inerface_handle().AddCaptureCategory(channel.kind());
+        }
+    }
+}
 
 bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
 {
@@ -332,6 +352,7 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
     success = success && exec_prerun_tasks(diagnostics);
     success = success && inject_inline_inputs(diagnostics);
     success = success && inject_tabular_inputs(test_vector, diagnostics);
+    set_capture_filters();
     success = success && execute_trigger(diagnostics);
     success = success && eval_inline_assertions(diagnostics);
     success = success && observe_results(test_vector, diagnostics);
@@ -366,7 +387,6 @@ void InstanceTestRunner::Run()
         {
             throw_exception(model_error("inconsistent test vecor size at test case %d", i));
         }
-
         run_test_procedure(test_vector, i);
     }
 }
