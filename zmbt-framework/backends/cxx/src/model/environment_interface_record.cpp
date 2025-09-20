@@ -18,7 +18,7 @@ Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id
     : refobj_{refobj}
     , interface_{interface}
     , env{e}
-    , capture_{env.GetCapture(interface_, refobj_)}
+    , output_recorder_{env.GetRecorder(interface_, refobj_)}
 {
 }
 
@@ -59,9 +59,9 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
     return env.data_->json_data.at("/prototypes/%s/args", interface());
 }
 
-void Environment::InterfaceHandle::AddCaptureCategory(ChannelKind const ck)
+void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
 {
-    capture_->enable_category(ck);
+    output_recorder_->enable_category(ck);
 };
 
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
@@ -202,21 +202,21 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
 std::size_t Environment::InterfaceHandle::ObservedCalls() const
 {
-    capture_->flush();
-    return capture_->count();
+    output_recorder_->flush();
+    return output_recorder_->count();
 }
 
 
 boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path) const
 {
-    capture_->flush();
-    return slice(capture_->data_frames(), signal_path);
+    output_recorder_->flush();
+    return slice(output_recorder_->data_frames(), signal_path);
 }
 
 boost::json::array const& Environment::InterfaceHandle::Captures() const
 {
-    capture_->flush();
-    return capture_->data_frames();
+    output_recorder_->flush();
+    return output_recorder_->data_frames();
 }
 
 

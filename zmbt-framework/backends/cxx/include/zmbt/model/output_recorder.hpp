@@ -4,8 +4,8 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#ifndef ZMBT_ENV_OUTPUT_CAPTURE_HPP_
-#define ZMBT_ENV_OUTPUT_CAPTURE_HPP_
+#ifndef ZMBT_ENV_OUTPUT_RECORDER_HPP_
+#define ZMBT_ENV_OUTPUT_RECORDER_HPP_
 
 #include <atomic>
 #include <bitset>
@@ -19,8 +19,6 @@
 #include <boost/json.hpp>
 #include <boost/unordered/concurrent_flat_map.hpp>
 
-
-
 #include "zmbt/application/log.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
@@ -32,11 +30,11 @@
 
 namespace zmbt {
 
-struct capture_error : public base_error {
+struct output_recorder_error : public base_error {
     using base_error::base_error;
 };
 
-class OutputCapture
+class OutputRecorder
 {
   public:
 
@@ -85,7 +83,7 @@ class OutputCapture
         std::atomic<std::size_t> count{0};
         std::atomic<std::size_t> lost_count{0};
 
-        std::bitset<static_cast<unsigned>(ChannelKind::Undefined)> enable_capture_categories_;
+        std::bitset<static_cast<unsigned>(ChannelKind::Undefined)> enable_categories_;
 
         Registry(
             std::type_index typid,
@@ -127,7 +125,7 @@ class OutputCapture
     template <ChannelKind ck>
     bool check_filter()
     {
-        return registry_->enable_capture_categories_[static_cast<unsigned>(ck)];
+        return registry_->enable_categories_[static_cast<unsigned>(ck)];
     }
 
     void report_test_error(ErrorInfo const&) const;
@@ -136,13 +134,13 @@ class OutputCapture
   public:
 
 
-    OutputCapture();
-    ~OutputCapture();
+    OutputRecorder();
+    ~OutputRecorder();
 
-    OutputCapture(OutputCapture const&) = default;
-    OutputCapture(OutputCapture &&) = default;
-    OutputCapture& operator=(OutputCapture const&) = default;
-    OutputCapture& operator=(OutputCapture &&) = default;
+    OutputRecorder(OutputRecorder const&) = default;
+    OutputRecorder(OutputRecorder &&) = default;
+    OutputRecorder& operator=(OutputRecorder const&) = default;
+    OutputRecorder& operator=(OutputRecorder &&) = default;
 
     /// Flush interal buffers and complete serialization
     void flush();
@@ -163,9 +161,9 @@ class OutputCapture
         if (!registry_)
         {
             ErrorInfo e;
-            e.type = type_name<capture_error>();
-            e.what = "accessing unregistered OutputCapture";
-            e.context = "OutputCapture";
+            e.type = type_name<output_recorder_error>();
+            e.what = "push to unregistered output recorder";
+            e.context = "OutputRecorder";
             report_test_error(e);
             return;
         }
@@ -175,9 +173,9 @@ class OutputCapture
         if (ti != registry_->data_typeid)
         {
             ErrorInfo e;
-            e.type = type_name<capture_error>();
+            e.type = type_name<output_recorder_error>();
             e.what = "invalid type on push";
-            e.context = "OutputCapture";
+            e.context = "OutputRecorder";
             report_test_error(e);
             return;
         }
@@ -186,9 +184,9 @@ class OutputCapture
         {
             registry_->lost_count++;
             ErrorInfo e;
-            e.type = type_name<capture_error>();
-            e.what = "accessing to capture outside of managed test";
-            e.context = "OutputCapture";
+            e.type = type_name<output_recorder_error>();
+            e.what = "push to output recorder outside of managed test";
+            e.context = "OutputRecorder";
             report_test_error(e);
             return;
         }
@@ -199,12 +197,12 @@ class OutputCapture
             {"ts"  , 0UL      },
         };
 
-        if (registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::ThreadId)])
+        if (registry_->enable_categories_[static_cast<unsigned>(ChannelKind::ThreadId)])
         {
             f["tid"] = get_tid();
         }
 
-        if (registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::Args)])
+        if (registry_->enable_categories_[static_cast<unsigned>(ChannelKind::Args)])
         {
             f["args"] = json_from(args);
         }
@@ -214,13 +212,13 @@ class OutputCapture
             return_or_error.dump_to(f);
             // let the test fail if no error expectations
             // and stop capturing outputs
-            if (not registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::Exception)])
+            if (not registry_->enable_categories_[static_cast<unsigned>(ChannelKind::Exception)])
             {
                 report_test_error(return_or_error.as_error());
-                registry_->enable_capture_categories_.reset();
+                registry_->enable_categories_.reset();
             }
         }
-        else if (registry_->enable_capture_categories_[static_cast<unsigned>(ChannelKind::Return)] && return_or_error.is_return())
+        else if (registry_->enable_categories_[static_cast<unsigned>(ChannelKind::Return)] && return_or_error.is_return())
         {
             return_or_error.dump_to(f);
         }
@@ -244,7 +242,7 @@ class OutputCapture
         return registry_ ? registry_->lost_count.load(std::memory_order_relaxed) : 0UL;
     }
 
-    /// OutputCapture
+    /// OutputRecorder
     bool is_registered() const
     {
         return registry_ != nullptr;

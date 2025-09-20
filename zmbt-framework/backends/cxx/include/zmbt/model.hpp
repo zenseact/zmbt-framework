@@ -13,7 +13,7 @@
 #include "model/environment_interface_record.hpp"
 #include "model/error_info.hpp"
 #include "model/error_or_return.hpp"
-#include "model/output_capture.hpp"
+#include "model/output_recorder.hpp"
 #include "model/trigger.hpp"
 #include "model/parameter.hpp"
 #include "model/param_transform.hpp"

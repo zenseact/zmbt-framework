@@ -86,7 +86,7 @@ void Environment::ResetInterfaceData()
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().clear();
     data_->injection_tables.clear();
-    data_->output_captures.visit_all([](auto& record){ record.second->clear();});
+    data_->output_recorders.visit_all([](auto& record){ record.second->clear();});
     data_->has_test_error = false;
 }
 
@@ -99,7 +99,7 @@ void Environment::ResetAll()
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
     data_->injection_tables.clear();
-    data_->output_captures.visit_all([](auto& record){ record.second->clear();});
+    data_->output_recorders.visit_all([](auto& record){ record.second->clear();});
     data_->has_test_error = false;
 }
 
@@ -113,11 +113,11 @@ boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const&
 
     if (is_obj_ok && is_ifc_ok)
     {
-        auto capture_ptr = GetCapture(ifc_id, obj_id);
+        auto recorder = GetRecorder(ifc_id, obj_id);
         TriggerObj const& obj = data_->trigger_objs.at(obj_id);
         TriggerIfc const& ifc = data_->trigger_ifcs.at(ifc_id);
 
-        Trigger trigger {obj, ifc, capture_ptr};
+        Trigger trigger {obj, ifc, recorder};
         auto key = GetOrRegisterInterface(obj_id, ifc_id);
         auto lock = Lock();
         data_->triggers.emplace(key, std::move(trigger));

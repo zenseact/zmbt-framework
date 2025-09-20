@@ -45,7 +45,7 @@ private:
 protected:
 
     mutable zmbt::Environment env;
-    std::shared_ptr<OutputCapture> capture_;
+    std::shared_ptr<OutputRecorder> output_recorder_;
 public:
 
 
@@ -97,7 +97,7 @@ public:
 
     boost::json::value const& PrototypeArgs() const;
 
-    void AddCaptureCategory(ChannelKind const kind);
+    void EnableOutputRecordFor(ChannelKind const kind);
 
     /// throw exception if set for current call
     void MaybeThrowException();
@@ -182,7 +182,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     void HookArgsImpl(hookout_args_t & args)
     try
     {
-        capture_->push(convert_tuple_to<unqf_args_t>(args), ErrorOr<return_or_nullptr_t>());
+        output_recorder_->push(convert_tuple_to<unqf_args_t>(args), ErrorOr<return_or_nullptr_t>());
 
 
         auto const injection = YieldInjection(ChannelKind::Args).as_array();
@@ -256,7 +256,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     TypedInterfaceHandle(interface_id const& interface, H const& refobj)
         : Environment::InterfaceHandle(interface, refobj)
     {
-        capture_->setup_handlers<Interface const&>();
+        output_recorder_->setup_handlers<Interface const&>();
     }
 
     TypedInterfaceHandle(TypedInterfaceHandle const&) = default;

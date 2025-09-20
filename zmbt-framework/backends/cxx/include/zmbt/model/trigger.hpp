@@ -11,7 +11,7 @@
 
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
-#include "output_capture.hpp"
+#include "output_recorder.hpp"
 
 namespace zmbt {
 
@@ -109,12 +109,12 @@ public:
 
 
 /// Function wrapper. Transforms `(T...) -> R` or `(O*)(T...) -> R` to `(shared_ptr<void>, JSON) -> void`,
-/// capturing R with OutputCapture
+/// capturing R with OutputRecorder
 class TriggerIfc
 {
     interface_id id_;
-    std::function<void(OutputCapture&)> setup_capture_;
-    std::function<void(std::shared_ptr<void>, boost::json::value const&, OutputCapture&)> fn_;
+    std::function<void(OutputRecorder&)> setup_recorder_;
+    std::function<void(std::shared_ptr<void>, boost::json::value const&, OutputRecorder&)> fn_;
 
     template <class R>
     static auto apply_fn(std::function<R()> fn) -> mp_if<is_void<R>, nullptr_t>
@@ -134,9 +134,9 @@ public:
     template <class I>
     TriggerIfc(I&& interface)
         : id_{std::forward<I>(interface)}
-        , setup_capture_{[&interface](OutputCapture& capture){ capture.setup_handlers<I>();}}
+        , setup_recorder_{[&interface](OutputRecorder& recorder){ recorder.setup_handlers<I>();}}
         , fn_{[ifc_ptr = get_ifc_pointer(std::forward<I>(interface))]
-            (std::shared_ptr<void> obj, boost::json::value const& args_in, OutputCapture& capture) {
+            (std::shared_ptr<void> obj, boost::json::value const& args_in, OutputRecorder& recorder) {
             using reflection = reflect::invocation<I const&>;
             using return_t = typename reflection::return_t;
             using args_t = typename reflection::args_t;
@@ -206,7 +206,7 @@ public:
                     return_or_error = ErrorOr<result_t>::MakeError(err);
             }
 
-            capture.push(args_to_capture, return_or_error);
+            recorder.push(args_to_capture, return_or_error);
         }}
     {
     }
@@ -224,14 +224,14 @@ public:
         return id_;
     }
 
-    void setup_capture(OutputCapture& capture)
+    void setup_recorder(OutputRecorder& recorder)
     {
-        setup_capture_(capture);
+        setup_recorder_(recorder);
     }
 
-    void execute(std::shared_ptr<void> obj, boost::json::value const& args_in, OutputCapture& capture) const
+    void execute(std::shared_ptr<void> obj, boost::json::value const& args_in, OutputRecorder& recorder) const
     {
-        return fn_(obj, args_in, capture);
+        return fn_(obj, args_in, recorder);
     }
 };
 
@@ -240,16 +240,16 @@ class Trigger final {
     struct internal_ctor {};
     TriggerObj obj_;
     TriggerIfc ifc_;
-    std::shared_ptr<OutputCapture> output_capture_;
+    std::shared_ptr<OutputRecorder> output_recorder_;
 
-    Trigger(internal_ctor, TriggerObj const& obj, TriggerIfc const& ifc, std::shared_ptr<OutputCapture> capture)
+    Trigger(internal_ctor, TriggerObj const& obj, TriggerIfc const& ifc, std::shared_ptr<OutputRecorder> recorder)
         : obj_{obj}
         , ifc_{ifc}
-        , output_capture_{capture}
+        , output_recorder_{recorder}
     {
-        if(output_capture_)
+        if(output_recorder_)
         {
-            ifc_.setup_capture(*output_capture_);
+            ifc_.setup_recorder(*output_recorder_);
         }
     }
 
@@ -263,15 +263,15 @@ class Trigger final {
     Trigger& operator=(Trigger &&) = default;
 
     template <class T, class I>
-    Trigger(T&& obj, I&& interface, std::shared_ptr<OutputCapture> capture)
-        : Trigger(internal_ctor{}, TriggerObj(std::forward<T>(obj)), TriggerIfc(std::forward<I>(interface)), capture)
+    Trigger(T&& obj, I&& interface, std::shared_ptr<OutputRecorder> recorder)
+        : Trigger(internal_ctor{}, TriggerObj(std::forward<T>(obj)), TriggerIfc(std::forward<I>(interface)), recorder)
     {
     }
 
 
     void operator()(boost::json::value args_in) const
     {
-        ifc_.execute(obj_.ptr(), std::move(args_in), *output_capture_);
+        ifc_.execute(obj_.ptr(), std::move(args_in), *output_recorder_);
     }
 
     bool operator==(Trigger const& o) const

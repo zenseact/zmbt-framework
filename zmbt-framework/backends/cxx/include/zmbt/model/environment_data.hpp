@@ -23,7 +23,7 @@
 #include "trigger.hpp"
 #include "generator.hpp"
 #include "channel_kind.hpp"
-#include "output_capture.hpp"
+#include "output_recorder.hpp"
 
 
 namespace zmbt {
@@ -70,7 +70,7 @@ struct EnvironmentData final {
 
     boost::concurrent_flat_map<
         std::pair<interface_id,object_id>,
-            std::shared_ptr<OutputCapture>> output_captures{};
+            std::shared_ptr<OutputRecorder>> output_recorders{};
 
     std::atomic_bool has_test_error{false};
 

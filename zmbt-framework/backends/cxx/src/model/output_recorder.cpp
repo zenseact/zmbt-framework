@@ -4,18 +4,18 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include "zmbt/model/output_capture.hpp"
+#include "zmbt/model/output_recorder.hpp"
 #include "zmbt/model/environment.hpp"
 
 
 namespace zmbt {
 
-OutputCapture::OutputCapture()
+OutputRecorder::OutputRecorder()
     : registry_{}
 {
 }
 
-OutputCapture::~OutputCapture()
+OutputRecorder::~OutputRecorder()
 {
     if (registry_ && registry_->lost_count.load())
     {
@@ -23,7 +23,7 @@ OutputCapture::~OutputCapture()
     }
 }
 
-std::size_t OutputCapture::consume_all(OutputCapture::consumer_fn_t const consume_fn)
+std::size_t OutputRecorder::consume_all(OutputRecorder::consumer_fn_t const consume_fn)
 {
     if (!registry_) return 0;
     auto const n = registry_->extract_fn(*registry_, consume_fn);
@@ -31,7 +31,7 @@ std::size_t OutputCapture::consume_all(OutputCapture::consumer_fn_t const consum
 }
 
 
-void OutputCapture::flush()
+void OutputRecorder::flush()
 {
     if (registry_ && flags::TestIsRunning::status())
     {
@@ -43,47 +43,47 @@ void OutputCapture::flush()
 }
 
 
-boost::json::array const& OutputCapture::data_frames() const
+boost::json::array const& OutputRecorder::data_frames() const
 {
     if (!registry_)
     {
         // not expected to be called in mock context
-        throw_exception(capture_error("access to unregistered OutputCapture"));
+        throw_exception(output_recorder_error("access to unregistered OutputRecorder"));
     }
     return registry_->serialized_frames;
 }
 
-void OutputCapture::clear()
+void OutputRecorder::clear()
 {
     if (registry_)
     {
         registry_->serialized_frames.clear();
-        registry_->enable_capture_categories_.reset();
+        registry_->enable_categories_.reset();
         registry_->count.store(0);
     }
 }
 
-void OutputCapture::enable_category(ChannelKind const ck)
+void OutputRecorder::enable_category(ChannelKind const ck)
 {
     if (registry_)
     {
-        registry_->enable_capture_categories_[static_cast<unsigned>(ck)] = 1;
+        registry_->enable_categories_[static_cast<unsigned>(ck)] = 1;
     }
     else
     {
         // not expected to be called in mock context
-        throw_exception(capture_error("access to unregistered OutputCapture on enable_category"));
+        throw_exception(output_recorder_error("access to unregistered OutputRecorder on enable_category"));
     }
 }
 
-void OutputCapture::report_test_error(ErrorInfo const& ei) const
+void OutputRecorder::report_test_error(ErrorInfo const& ei) const
 {
     Environment().SetTestError({
-        {"error"    , "unhandled exception in test capture"},
-        {"interface", registry_->interface_name            },
-        {"context"  , ei.context                           },
-        {"what"     , ei.what                              },
-        {"type"     , ei.type                              },
+        {"error"    , "unhandled exception in test record"},
+        {"interface", registry_->interface_name           },
+        {"context"  , ei.context                          },
+        {"what"     , ei.what                             },
+        {"type"     , ei.type                             },
     });
 }
 

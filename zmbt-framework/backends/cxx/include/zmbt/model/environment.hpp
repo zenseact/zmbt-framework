@@ -49,7 +49,7 @@ namespace zmbt {
  */
 class Environment {
 
-    friend class OutputCapture;
+    friend class OutputRecorder;
   protected:
 
     using lock_t = typename EnvironmentData::lock_t;
@@ -356,21 +356,21 @@ class Environment {
 
 
     template <class I>
-    std::shared_ptr<OutputCapture> GetCapture(I&& interface)
+    std::shared_ptr<OutputRecorder> GetRecorder(I&& interface)
     {
-        return GetCapture(std::forward<I>(interface), ifc_host_nullptr<I>);
+        return GetRecorder(std::forward<I>(interface), ifc_host_nullptr<I>);
     }
 
-    std::shared_ptr<OutputCapture> GetCapture(interface_id const& ifc_id, object_id const& obj_id)
+    std::shared_ptr<OutputRecorder> GetRecorder(interface_id const& ifc_id, object_id const& obj_id)
     {
-        using value_type = decltype(data_->output_captures)::value_type;
-        auto capture_ptr = std::make_shared<OutputCapture>();
+        using value_type = decltype(data_->output_recorders)::value_type;
+        auto recorder = std::make_shared<OutputRecorder>();
 
-        data_->output_captures.try_emplace_or_visit(std::make_pair(ifc_id, obj_id), capture_ptr,
-            [&capture_ptr](value_type& record){
-            capture_ptr = record.second;
+        data_->output_recorders.try_emplace_or_visit(std::make_pair(ifc_id, obj_id), recorder,
+            [&recorder](value_type& record){
+            recorder = record.second;
         });
-        return capture_ptr;
+        return recorder;
     }
 
     boost::json::string GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id);
@@ -393,9 +393,9 @@ class Environment {
         interface_id const ifc_id{std::forward<I>(interface)};
         object_id const obj_id{host};
 
-        auto capture_ptr = GetCapture(ifc_id, obj_id);
+        auto recorder = GetRecorder(ifc_id, obj_id);
 
-        Trigger trigger{std::forward<H>(host), interface, capture_ptr};
+        Trigger trigger{std::forward<H>(host), interface, recorder};
         auto const json_data_key = format("/triggers/%s", key);
         auto const err_msg = format("Trigger registering failed: key \"%s\" is taken", key);
         auto lock = Lock();
@@ -477,7 +477,7 @@ class Environment {
     {
         RegisterPrototypes(std::forward<I>(interface));
         interface_id ifc_id{std::forward<I>(interface)};
-        GetCapture(ifc_id, obj_id)->setup_handlers<I>();
+        GetRecorder(ifc_id, obj_id)->setup_handlers<I>();
         return RegisterInterface(key, ifc_id, obj_id);
     }
 
