@@ -279,11 +279,15 @@ class OutputRecorder
         if (!flags::TestIsRunning::status())
         {
             registry_->lost_count++;
-            ErrorInfo e;
-            e.type = type_name<output_recorder_error>();
-            e.what = "push to output recorder outside of managed test";
-            e.context = "OutputRecorder";
-            report_test_error(e);
+            // TODO: redesign me
+            // lost call may come from SUT initialization
+            // before expectations are st, which may be ok to skip
+
+            // ErrorInfo e;
+            // e.type = type_name<output_recorder_error>();
+            // e.what = "push to output recorder outside of managed test";
+            // e.context = "OutputRecorder";
+            // report_test_error(e);
             return;
         }
 

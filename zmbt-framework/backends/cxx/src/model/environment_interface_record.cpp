@@ -62,7 +62,7 @@ boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
 void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
 {
     output_recorder_->enable_category(ck);
-};
+}
 
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {

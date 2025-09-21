@@ -3,6 +3,25 @@
 
 load("//zmbt-framework/backends/cxx/test:rules.bzl", "make_unit_tests")
 
+GTEST_COMMON_DEPS = [
+    "//zmbt-framework/backends/cxx:zmbt",
+    "//zmbt-framework/backends/cxx:zmbt_main_gtest",
+]
+
+GTEST_COMMON_COPTS = [
+    "-std=c++14",
+    "-Werror",
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic",
+    "-Wno-parentheses",  # allow `x & y | z` in tests
+]
+
+GTEST_COMMON_LINKOPTS = [
+    "-lpthread",
+    "-lm",
+]
+
 make_unit_tests(
     srcs = glob([
         "*.cpp"
@@ -15,22 +34,9 @@ cc_library(
     name = 'gtest_test_exe',
     srcs = ['gtest_test.cpp'],
     visibility = [':__pkg__'],
-    deps = [
-        "//zmbt-framework/backends/cxx:zmbt",
-        "//zmbt-framework/backends/cxx:zmbt_main_gtest",
-    ],
-    copts = [
-        "-std=c++14",
-        "-Werror",
-        "-Wall",
-        "-Wextra",
-        "-Wpedantic",
-        "-Wno-parentheses", # allow `x & y | z` in tests
-    ],
-    linkopts = [
-        '-lpthread',
-        '-lm'
-    ],
+    deps = GTEST_COMMON_DEPS,
+    copts = GTEST_COMMON_COPTS,
+    linkopts = GTEST_COMMON_LINKOPTS,
 )
 
 cc_test(
@@ -46,4 +52,14 @@ cc_test(
         "--gtest_repeat=10",
         "--gtest_recreate_environments_when_repeating",
     ]
+)
+
+
+cc_test(
+    name = 'model_output_recorder_gtest',
+    srcs = ['model_output_recorder_gtest.cpp'],
+    visibility = [':__pkg__'],
+    deps = GTEST_COMMON_DEPS,
+    copts = GTEST_COMMON_COPTS,
+    linkopts = GTEST_COMMON_LINKOPTS,
 )

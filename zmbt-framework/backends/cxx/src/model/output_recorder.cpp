@@ -19,7 +19,10 @@ OutputRecorder::~OutputRecorder()
 {
     if (registry_ && registry_->lost_count.load())
     {
-        ZMBT_LOG(WARNING) << "test system state leak detected"; // TODO: details
+        ZMBT_LOG(WARNING)
+        << "detected " << registry_->lost_count.load() << " lost calls on"
+        << registry_->interface_name
+        ;
     }
 }
 

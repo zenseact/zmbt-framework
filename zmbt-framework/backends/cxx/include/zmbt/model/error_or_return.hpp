@@ -45,12 +45,12 @@ class ErrorOr
 
     ErrorInfo const& as_error() const
     {
-        return get<0>(error_or_return);
+        return boost::variant2::get<0>(error_or_return);
     }
 
     Return const& as_return() const
     {
-        return get<1>(error_or_return);
+        return boost::variant2::get<1>(error_or_return);
     }
 
     bool is_null() const
@@ -72,11 +72,11 @@ class ErrorOr
     {
         if (is_error())
         {
-            obj["exception"] = get<0>(error_or_return).to_json();
+            obj["exception"] = boost::variant2::get<0>(error_or_return).to_json();
         }
         else if (is_return())
         {
-            obj["return"] = json_from(get<1>(error_or_return));
+            obj["return"] = json_from(boost::variant2::get<1>(error_or_return));
         }
         else
         {
