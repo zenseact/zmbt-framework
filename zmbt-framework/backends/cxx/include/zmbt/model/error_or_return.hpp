@@ -48,6 +48,11 @@ class ErrorOr
         return get<0>(error_or_return);
     }
 
+    Return const& as_return() const
+    {
+        return get<1>(error_or_return);
+    }
+
     bool is_null() const
     {
         return (error_or_return.index() == 0) && as_error().type.empty();

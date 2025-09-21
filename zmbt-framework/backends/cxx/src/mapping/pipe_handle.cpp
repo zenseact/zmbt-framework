@@ -194,8 +194,8 @@ boost::json::value PipeHandle::observe_blend() const
         {
             boost::json::array record {
                 alias,
-                captures.size(),
-                captures.empty() ? 0U : captures.crbegin()->as_object().at("ts")
+                ifc_handle.ObservedCalls(),
+                0UL // With zero timestamp, ObservedCalls are joined in order of channel definition
             };
             join_captures.insert(
                 std::upper_bound(join_captures.begin(), join_captures.end(), record,  sort_pred),

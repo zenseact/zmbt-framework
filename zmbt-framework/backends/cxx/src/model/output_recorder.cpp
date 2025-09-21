@@ -26,14 +26,16 @@ OutputRecorder::~OutputRecorder()
 std::size_t OutputRecorder::consume_all(OutputRecorder::consumer_fn_t const consume_fn)
 {
     if (!registry_) return 0;
-    auto const n = registry_->extract_fn(*registry_, consume_fn);
+    auto frame_buff_map = std::exchange(registry_->frame_buff_map, std::make_shared<Registry::FramesBuffMap>());
+    auto const n = registry_->extract_fn(frame_buff_map, consume_fn);
     return n;
 }
 
 
 void OutputRecorder::flush()
 {
-    if (registry_ && flags::TestIsRunning::status())
+
+    if (registry_)
     {
         // TODO: enable with delayed conversion
         consume_all([&arr_out=registry_->serialized_frames](boost::json::value&& v){
@@ -57,6 +59,7 @@ void OutputRecorder::clear()
 {
     if (registry_)
     {
+        registry_->frame_buff_map = std::make_shared<Registry::FramesBuffMap>();
         registry_->serialized_frames.clear();
         registry_->enable_categories_.reset();
         registry_->count.store(0);
