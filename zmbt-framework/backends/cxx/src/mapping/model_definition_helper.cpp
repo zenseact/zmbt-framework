@@ -40,7 +40,7 @@ DefinitionHelper::~DefinitionHelper()
 
 boost::json::object& DefinitionHelper::cur_pipe()
 {
-    return model("/pipes/@").as_object();
+    return model("/pipes").as_array().back().as_object();
 }
 
 boost::json::object& DefinitionHelper::cur_channel()
@@ -61,7 +61,7 @@ void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, lan
         auto const preproc_params = expr.preprocessing_parameters();
         for (auto const& pp: preproc_params)
         {
-            params("/%s/pointers/+", pp.first) = format("%s%s", node_ptr, pp.second);
+            params.get_or_create_array("/%s/pointers", pp.first).push_back(format("%s%s", node_ptr, pp.second).c_str());
         }
         model(node_ptr) = expr.to_json(); // Expression
     }
@@ -69,8 +69,8 @@ void DefinitionHelper::set_deferred_param(boost::json::string_view node_ptr, lan
 
 void DefinitionHelper::add_task(boost::json::string_view ref, bool const pre)
 {
-    boost::json::string_view node = pre ? "/pre-run/+" : "/post-run/+";
-    model(node) = ref;
+    boost::json::string_view node = pre ? "/pre-run" : "/post-run";
+    model.get_or_create_array(node).push_back(ref);
 }
 
 void DefinitionHelper::add_task(std::function<void()> fn, bool const pre)
@@ -141,8 +141,10 @@ void DefinitionHelper::continue_pipe(boost::json::string_view combo)
         throw_exception(model_error("can't chain different combination clauses, %s vs %s", head_pipe_type_, combo));
     }
 
-    model("/pipes/@/type") = combo;
     head_pipe_type_ = combo;
+    auto& pipe = model("/pipes").as_array().back();
+    auto& pipe_obj = pipe.is_null() ? pipe.emplace_object() : pipe.as_object();
+    pipe_obj.insert_or_assign("type", combo);
 }
 
 void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t const param_type)
@@ -188,19 +190,19 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 
     if (param_type & cnl_prm_key)
     {
-        params("/%s/pointers/+", ifc) = interface_ptr;
+       params.get_or_create_array("/%s/pointers", ifc).push_back(interface_ptr.c_str());
     }
 
     if (param_type & cnl_prm_obj)
     {
         auto const& p = ifc.at_pointer("/obj");
-        params("/%s/pointers/+", p) = interface_ptr + "/obj";
+       params.get_or_create_array("/%s/pointers", p).push_back((interface_ptr + "/obj").c_str());
     }
 
     if (param_type & cnl_prm_cal)
     {
         auto const& p = ifc.at_pointer("/ifc");
-        params("/%s/pointers/+", p) = interface_ptr + "/ifc";
+       params.get_or_create_array("/%s/pointers", p).push_back((interface_ptr + "/ifc").c_str());
     }
 }
 
@@ -221,11 +223,11 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
         auto const preproc_params = expr.preprocessing_parameters();
         for (auto const& pp: preproc_params)
         {
-            params("/%s/pointers/+", pp.first) = format(
-                    "/tests/%d/%d%s", N, i, pp.second);
+            params.get_or_create_array("/%s/pointers", pp.first).push_back(format(
+                    "/tests/%d/%d%s", N, i, pp.second).c_str());
         }
     }
-    model("/tests/+") = json_from(tv);
+    model.get_or_create_array("/tests").push_back(json_from(tv));
 }
 
 void DefinitionHelper::set_expr(lang::Expression const& expr)
@@ -234,8 +236,8 @@ void DefinitionHelper::set_expr(lang::Expression const& expr)
     auto const preproc_params = expr.preprocessing_parameters();
     for (auto const& pp: preproc_params)
     {
-        params("/%s/pointers/+", pp.first) = format(
-            "/pipes/%d/expr%s", (pipe_count_ - 1), pp.second);
+        params.get_or_create_array("/%s/pointers", pp.first).push_back(format(
+            "/pipes/%d/expr%s", (pipe_count_ - 1), pp.second).c_str());
     }
 }
 

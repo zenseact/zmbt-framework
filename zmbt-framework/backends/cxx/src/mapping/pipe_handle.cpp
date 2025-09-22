@@ -60,7 +60,7 @@ lang::Expression PipeHandle::expression() const
 {
     lang::Expression e = expr::Noop;
 
-    if (auto const p =  data_.find_pointer("expr"))
+    if (auto const p =  data_.find_pointer("/expr"))
     {
         e = *p;
     }
@@ -86,9 +86,9 @@ bool PipeHandle::has_expression() const
 
 bool PipeHandle::overload(lang::Expression& e) const
 {
-    if (data_.contains("overload"))
+    if (data_.contains("/overload"))
     {
-        auto const& op_ref = data_.at("overload").as_string();
+        auto const& op_ref = data_.at("/overload").as_string();
         bool const shall_decorate_result = (e.is_const() && !e.is_boolean());
         e = expr::Overload(op_ref, e);
         if (shall_decorate_result)
@@ -247,13 +247,13 @@ boost::json::value PipeHandle::observe_blend() const
 
 int PipeHandle::column() const
 {
-    return data_.get_or_default("column", -1).as_int64();
+    return data_.get_or_default("/column", -1).as_int64();
 }
 
 
 boost::json::value PipeHandle::index() const
 {
-    return data_.at("index");
+    return data_.at("/index");
 }
 
 

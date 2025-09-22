@@ -57,7 +57,7 @@ class JsonNode
 
     boost::json::value& get_or_create(boost::json::string_view json_ptr);
 
-    boost::json::string resolve_tokens(boost::json::string_view query) const;
+    boost::json::string_view validate_jptr(boost::json::string_view query) const;
 
     boost::json::value& get_or_create_as(boost::json::kind request_kind, boost::json::string_view json_ptr);
 
@@ -168,7 +168,7 @@ public:
     boost::json::value const* find_pointer(boost::json::string_view json_ptr) const
     {
         boost::json::error_code ignored;
-        return node().find_pointer(resolve_tokens(json_ptr), ignored);
+        return node().find_pointer(validate_jptr(json_ptr), ignored);
     }
 
 
@@ -199,7 +199,7 @@ public:
 
     boost::json::value& operator()(boost::json::string_view json_ptr = "")
     {
-        return this->get_or_create(resolve_tokens(json_ptr));
+        return this->get_or_create(validate_jptr(json_ptr));
     }
 
     template <class T, class... A>

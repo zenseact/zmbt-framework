@@ -374,7 +374,6 @@ void InstanceTestRunner::Run()
     auto const N = tabular_inputs_.size() + tabular_outputs_.size();
     boost::json::array const& tests = model_("/tests").as_array();
 
-
     if (N == 0 && tests.empty())
     {
         run_test_procedure({}, 0); // no Test() clause

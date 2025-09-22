@@ -44,7 +44,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
 
     Target OnTrigger(Param const& key)
     {
-        state().params("/%s/pointers/+", key) = "/trigger";
+        state().params.get_or_create_array("/%s/pointers", key).push_back("/trigger");
         state().model("/trigger") = key;
         return transit_to<Target>();
     }
@@ -55,8 +55,8 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
             {"obj", obj},
             {"ifc", ifc},
         };
-        state().params("/%s/pointers/+", obj) = "/trigger/obj";
-        state().params("/%s/pointers/+", ifc) = "/trigger/ifc";
+        state().params.get_or_create_array("/%s/pointers", obj).push_back("/trigger/obj");
+        state().params.get_or_create_array("/%s/pointers", ifc).push_back("/trigger/ifc");
         return transit_to<Target>();
     }
 
@@ -83,7 +83,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
         state().model("/trigger") = {
             {"ifc", state().env.RegisterParametricTriggerIfc(ifc)}
         };
-        state().params("/%s/pointers/+", obj) = "/trigger/obj";
+        state().params.get_or_create_array("/%s/pointers", obj).push_back("/trigger/obj");
         return transit_to<Target>();
     }
 
@@ -94,7 +94,7 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
         state().model("/trigger") = {
             {"obj", state().env.RegisterParametricTriggerObj(obj)}
         };
-        state().params("/%s/pointers/+", ifc) = "/trigger/ifc";
+        state().params.get_or_create_array("/%s/pointers", ifc).push_back("/trigger/ifc");
         return transit_to<Target>();
     }
 };
@@ -114,7 +114,7 @@ struct ModelDefinition::T_Repeat : protected virtual ModelDefinition::BaseTransi
     Target Repeat(Param const& N)
     {
         state().model("/repeat_trigger") = N;
-        state().params("/%s/pointers/+", N) = "/repeat_trigger";
+        state().params.get_or_create_array("/%s/pointers", N).push_back("/repeat_trigger");
         return transit_to<Target>();
     }
 };

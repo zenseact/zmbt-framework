@@ -110,64 +110,16 @@ boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
 // catch (std::exception)
 
 
-boost::json::string JsonNode::resolve_tokens(boost::json::string_view query) const
+boost::json::string_view JsonNode::validate_jptr(boost::json::string_view query) const
 {
     if (query.empty()) { return ""; }
-
-    std::vector<boost::json::string> tokens;
-    boost::split(
-        tokens,
-        query.starts_with('/') ? query.substr(1) : query,
-        boost::is_any_of("/")
-    );
-
-    for (std::size_t idx = 0; idx < tokens.size(); idx++)
-    {
-        auto& token = tokens[idx];
-        if ((token != "+") and (token != "@")) { continue; }
-
-        auto subquery = join(tokens | boost::adaptors::sliced(0, idx));
-
-        boost::json::error_code errcode;
-        boost::json::value const* subnode = node().find_pointer(subquery, errcode);
-
-        if (errcode.failed() || !subnode || subnode->is_null())
-        {
-            token = "0";
-            continue;
-        }
-
-        if (subnode and !subnode->is_array())
-        {
-            throw base_error(
-                "%s token is not applicable at node %s (not an array = %s)", token, subquery, *subnode
-            );
-            continue;
-        }
-
-        auto const& array = subnode->get_array();
-
-        if (array.empty())
-        {
-            token = "0";
-        }
-        else if (token == "+")
-        {
-            token = std::to_string(array.size());
-        }
-        else if (token == "@")
-        {
-            token = std::to_string(array.size() - 1);
-        }
-    }
-
-    return join(tokens);
+    return query;
 }
 
 
 boost::json::value& JsonNode::get_or_create_as(boost::json::kind request_kind, boost::json::string_view json_ptr)
 {
-    boost::json::value& node = get_or_create(resolve_tokens(json_ptr));
+    boost::json::value& node = get_or_create(validate_jptr(json_ptr));
     if (node.is_null()) emplace_as(request_kind, node);
 
     if (request_kind != node.kind())
@@ -192,14 +144,14 @@ boost::json::value const& JsonNode::at(boost::json::string_view json_ptr) const
             , json_ptr
         );
     }
-    return node().at_pointer(resolve_tokens(json_ptr));
+    return node().at_pointer(validate_jptr(json_ptr));
 }
 
 
 /// create JsonNode proxy over subnode
 JsonNode JsonNode::branch(boost::json::kind kind, boost::json::string_view subnode_ptr)
 {
-    auto new_ptr = boost::json::string(node_ptr()).append(resolve_tokens(subnode_ptr));
+    auto new_ptr = boost::json::string(node_ptr()).append(validate_jptr(subnode_ptr));
     boost::json::value& new_node = get_or_create(new_ptr);
 
     if (new_node.is_null()) { emplace_as(kind, new_node); }

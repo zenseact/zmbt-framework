@@ -43,7 +43,7 @@ lang::Expression ChannelHandle::transform() const
 {
     lang::Expression e = expr::Noop;
 
-    if (auto const p =  data_.find_pointer("transform"))
+    if (auto const p =  data_.find_pointer("/transform"))
     {
         e = *p;
     }
