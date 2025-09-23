@@ -14,7 +14,6 @@ boost::json::value EnvironmentData::init_json_data()
 {
     return {
         {"interface_records", boost::json::object()},
-        {"prototypes"       , boost::json::object()},
         {"vars"             , boost::json::object()},
         {"refs"             , boost::json::object()},
         {"test_error"       , nullptr              },

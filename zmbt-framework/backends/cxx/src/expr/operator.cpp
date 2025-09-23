@@ -15,6 +15,7 @@
 #include <boost/json.hpp>
 #include <zmbt/core/exceptions.hpp>
 #include <zmbt/core/type_info.hpp>
+#include <boost/unordered/concurrent_flat_map.hpp>
 
 #include "zmbt/expr/operator.hpp"
 #include "zmbt/expr/api.hpp"
@@ -35,33 +36,19 @@ boost::json::value make_error_expr(boost::json::string_view msg, boost::json::st
 
 bool Operator::exchangeHandle(Handle& handle, bool const retrieve)
 {
-    using Table = std::map<boost::json::string, Handle>;
+    using Table = boost::concurrent_flat_map<boost::json::string, Handle>;
 
-    static std::mutex ctor_mt;
-    std::lock_guard<std::mutex> guard(ctor_mt);
+    static std::shared_ptr<Table> table = std::make_shared<Table>();
 
-    static std::shared_ptr<Table> table;
-
-    if (not table)
+    if (!retrieve)
     {
-        table = std::make_shared<Table>();
-    }
-
-    auto const found = table->find(handle.annotation);
-
-    if (!retrieve && found == table->cend())
-    {
-        table->emplace_hint(found, handle.annotation, handle);
-        return true;
-    }
-    else if (retrieve && found != table->cend())
-    {
-        handle = found->second;
-        return true;
+        return table->emplace(handle.annotation, handle);
     }
     else
     {
-        return found != table->cend();
+        return 1 == table->visit(handle.annotation, [&handle](auto& rec){
+            handle = rec.second;
+        });
     }
 }
 

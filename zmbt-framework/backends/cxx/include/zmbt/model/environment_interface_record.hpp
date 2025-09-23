@@ -95,7 +95,7 @@ public:
 
     boost::json::value const& PrototypeReturn() const;
 
-    boost::json::value const& PrototypeArgs() const;
+    boost::json::array const& PrototypeArgs() const;
 
     void EnableOutputRecordFor(ChannelKind const kind);
 
@@ -191,6 +191,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         {
             env.SetTestError({
                 {"error"    , "invalid inject arguments arity"},
+                {"injection", injection},
                 {"interface", interface()                     },
                 {"context"  , "Hook"                          },
                 {"injection", injection                       },
@@ -256,7 +257,6 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     TypedInterfaceHandle(interface_id const& interface, H const& refobj)
         : Environment::InterfaceHandle(interface, refobj)
     {
-        output_recorder_->setup_handlers<Interface const&>();
     }
 
     TypedInterfaceHandle(TypedInterfaceHandle const&) = default;
@@ -312,7 +312,7 @@ template <class I>
 Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface, object_id const& obj = {ifc_host_nullptr<I>})
 {
     Environment env {};
-    env.RegisterPrototypes(interface);
+    env.InitializeInterfaceHandlers(interface);
     return {interface, obj};
 }
 

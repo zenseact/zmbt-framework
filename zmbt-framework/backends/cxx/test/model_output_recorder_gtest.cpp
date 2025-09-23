@@ -23,9 +23,8 @@ TEST(OutputRecorderTest, StressTest)
     std::condition_variable start_cv;
 
     auto const test_fun = [](std::size_t x){ return x; };
-
-    OutputRecorder output_recorder_under_test;
-    output_recorder_under_test.setup_handlers<decltype(test_fun)>();
+    env.InitializeInterfaceHandlers(test_fun);
+    OutputRecorder output_recorder_under_test{test_fun, env.DefaultObjectId(test_fun)};
     output_recorder_under_test.enable_category(ChannelKind::Args);
     output_recorder_under_test.enable_category(ChannelKind::Exception);
     output_recorder_under_test.enable_category(ChannelKind::Return);

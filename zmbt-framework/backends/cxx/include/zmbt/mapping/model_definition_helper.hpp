@@ -108,7 +108,7 @@ class DefinitionHelper {
     require_cal<P, boost::json::value>
     handle_cal_p(P&& cal, uint32_t&)
     {
-        env.RegisterPrototypes(cal);
+        env.InitializeInterfaceHandlers(std::forward<P>(cal));
         return {interface_id(cal)};
     }
 

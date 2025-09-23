@@ -10,6 +10,7 @@
 #include <zmbt/application.hpp>
 
 #include <zmbt/model/environment_data.hpp>
+#include <zmbt/model/permanent_data.hpp>
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/trigger.hpp>
 
@@ -21,16 +22,18 @@ namespace zmbt {
 
 Environment::Environment()
 {
+    static std::shared_ptr<PermanentEnvData> perm_data_instance = std::make_shared<PermanentEnvData>();
+    static std::weak_ptr<EnvironmentData> data_instance;
     static std::mutex ctor_mt;
-    std::lock_guard<std::mutex> guard(ctor_mt);
 
-    static std::weak_ptr<EnvironmentData> instance;
-
-    data_ = instance.lock();
-    if (not data_)
+    permanent_data_ = perm_data_instance;
     {
-        data_ = std::make_shared<EnvironmentData>();
-        instance = data_;
+        std::lock_guard<std::mutex> guard(ctor_mt);
+        data_ = data_instance.lock();
+        if (not data_)
+        {
+            data_instance = data_ = std::make_shared<EnvironmentData>();
+        }
     }
 }
 
@@ -229,8 +232,13 @@ boost::json::string Environment::GetOrRegisterInterface(object_id const& obj_id,
 
 object_id Environment::DefaultObjectId(interface_id const& ifc_id) const
 {
-    auto lock = Lock();
-    return object_id{json_data().at("/refs/defobj/%s", ifc_id)};
+    auto const maybe_id = permanent_data_->get_default_object(ifc_id);
+
+    if (!maybe_id.has_value())
+    {
+        throw_exception(environment_error("accessing unregistered DefaultObjectId for `%s`", ifc_id));
+    }
+    return maybe_id.value();
 }
 
 

@@ -37,6 +37,8 @@
 #include "exceptions.hpp"
 #include "trigger.hpp"
 
+#include "permanent_data.hpp"
+
 namespace zmbt {
 
 
@@ -71,6 +73,7 @@ class Environment {
     using hookout_args_t = mp_transform<rvref_to_val, argsref_t<I>>;
 
     std::shared_ptr<EnvironmentData> data_;
+    std::shared_ptr<PermanentEnvData> permanent_data_;
 
     void SetTestError(boost::json::value&& msg);
 
@@ -89,6 +92,16 @@ class Environment {
     JsonNode& json_data()
     {
         return data_->json_data;
+    }
+
+    reflect::Prototypes const& GetPrototypes(interface_id const& id) const
+    {
+        auto const maybe_proto = permanent_data_->get_prototypes(id);
+        if (!maybe_proto.has_value())
+        {
+            throw_exception(environment_error("accessing unregistered prototypes for `%s`", id));
+        }
+        return maybe_proto.value();
     }
 
     JsonNode const& json_data() const
@@ -326,7 +339,7 @@ class Environment {
     template <class I>
     interface_id RegisterParametricTriggerIfc(I&& interface)
     {
-        RegisterPrototypes(interface);
+        InitializeInterfaceHandlers(std::forward<I>(interface));
         TriggerIfc trigger_ifc{std::forward<I>(interface)};
         interface_id ifc_id{trigger_ifc.id()};
         auto key = format("/trigger_ifcs/%s", ifc_id);
@@ -364,7 +377,7 @@ class Environment {
     std::shared_ptr<OutputRecorder> GetRecorder(interface_id const& ifc_id, object_id const& obj_id)
     {
         using value_type = decltype(data_->output_recorders)::value_type;
-        auto recorder = std::make_shared<OutputRecorder>();
+        auto recorder = std::make_shared<OutputRecorder>(ifc_id, obj_id);
 
         data_->output_recorders.try_emplace_or_visit(std::make_pair(ifc_id, obj_id), recorder,
             [&recorder](value_type& record){
@@ -437,21 +450,16 @@ class Environment {
 
 
     template <class I>
-    Environment& RegisterPrototypes(I&& interface)
+    Environment& InitializeInterfaceHandlers(I&& interface)
     {
         static_assert(is_ifc_handle<I>::value, "");
-        auto const ifc_id = interface_id(interface);
-        auto const obj_id = object_id{ifc_host_nullptr<I>};
-        auto const proto_key = format("/prototypes/%s", ifc_id);
-        auto const defobj_key = format("/refs/defobj/%s", ifc_id);
-        auto const prototypes = reflect::prototypes<I>();
+        auto const ifc_id = interface_id(std::forward<I>(interface));
 
-        auto lock = Lock();
-        if (!data_->json_data.contains(proto_key))
-        {
-            data_->json_data(proto_key) = prototypes;
-            data_->json_data(defobj_key) = obj_id;
-        }
+        permanent_data_->prototypes.emplace(ifc_id, interface);
+        permanent_data_->default_objects.emplace(ifc_id, ifc_host_nullptr<I>);
+        permanent_data_->output_recorder_factories.emplace(ifc_id, [](OutputRecorder& rec){
+            rec.setup_handlers<I>();
+        });
         return *this;
     }
 
@@ -471,14 +479,13 @@ class Environment {
     }
 
 
+
     template <class I>
     enable_if_t<is_ifc_handle<I>::value, Environment&>
     RegisterInterface(boost::json::string_view key, I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
     {
-        RegisterPrototypes(std::forward<I>(interface));
-        interface_id ifc_id{std::forward<I>(interface)};
-        GetRecorder(ifc_id, obj_id)->setup_handlers<I>();
-        return RegisterInterface(key, ifc_id, obj_id);
+        InitializeInterfaceHandlers(std::forward<I>(interface));
+        return RegisterInterface(key, interface_id(std::forward<I>(interface)), obj_id);
     }
 
     template <class I>

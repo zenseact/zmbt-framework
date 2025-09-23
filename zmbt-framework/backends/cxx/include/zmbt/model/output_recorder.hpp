@@ -231,7 +231,7 @@ class OutputRecorder
   public:
 
 
-    OutputRecorder();
+    OutputRecorder(interface_id const& ifc_id, object_id const& obj_id);
     ~OutputRecorder();
 
     OutputRecorder(OutputRecorder const&) = default;
@@ -242,11 +242,11 @@ class OutputRecorder
     /// Flush interal buffers and complete serialization
     void flush();
 
-    template <class I, class II = ifc_pointer_t<I>>
+    template <class I>
     void setup_handlers()
     {
         if (registry_ != nullptr) return;
-        registry_ = Registry::Make<II>();
+        registry_ = Registry::Make<ifc_pointer_t<I>>();
     }
 
 
@@ -254,7 +254,7 @@ class OutputRecorder
     template <class ArgsTuple, class Return>
     void push(ArgsTuple const& args, ErrorOr<Return> const& return_or_error)
     {
-        if (!registry_)
+        if (!ensure_registry())
         {
             ErrorInfo e;
             e.type = type_name<output_recorder_error>();
@@ -282,12 +282,6 @@ class OutputRecorder
             // TODO: redesign me
             // lost call may come from SUT initialization
             // before expectations are st, which may be ok to skip
-
-            // ErrorInfo e;
-            // e.type = type_name<output_recorder_error>();
-            // e.what = "push to output recorder outside of managed test";
-            // e.context = "OutputRecorder";
-            // report_test_error(e);
             return;
         }
 
@@ -379,7 +373,10 @@ class OutputRecorder
 
   private:
 
+    interface_id ifc_id_;
+    object_id obj_id_;
     std::shared_ptr<Registry> registry_;
+    bool ensure_registry();
 };
 
 }

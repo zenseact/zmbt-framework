@@ -113,7 +113,6 @@ public:
 class TriggerIfc
 {
     interface_id id_;
-    std::function<void(OutputRecorder&)> setup_recorder_;
     std::function<void(std::shared_ptr<void>, boost::json::value const&, OutputRecorder&)> fn_;
 
     template <class R>
@@ -134,7 +133,6 @@ public:
     template <class I>
     TriggerIfc(I&& interface)
         : id_{std::forward<I>(interface)}
-        , setup_recorder_{[&interface](OutputRecorder& recorder){ recorder.setup_handlers<I>();}}
         , fn_{[ifc_ptr = get_ifc_pointer(std::forward<I>(interface))]
             (std::shared_ptr<void> obj, boost::json::value const& args_in, OutputRecorder& recorder) {
             using reflection = reflect::invocation<I const&>;
@@ -224,10 +222,6 @@ public:
         return id_;
     }
 
-    void setup_recorder(OutputRecorder& recorder)
-    {
-        setup_recorder_(recorder);
-    }
 
     void execute(std::shared_ptr<void> obj, boost::json::value const& args_in, OutputRecorder& recorder) const
     {
@@ -247,10 +241,6 @@ class Trigger final {
         , ifc_{ifc}
         , output_recorder_{recorder}
     {
-        if(output_recorder_)
-        {
-            ifc_.setup_recorder(*output_recorder_);
-        }
     }
 
 

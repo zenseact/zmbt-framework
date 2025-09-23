@@ -109,7 +109,7 @@ try
 
             if (signal_path == "$(default)")
             {
-                bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
+                bool const is_unary = env.GetPrototypes(ifc_id).args().size() == 1;
                 signal_path = (is_unary && (kind == "args")) ? "/0" : "";
             }
             else if (!signal_path.is_string())

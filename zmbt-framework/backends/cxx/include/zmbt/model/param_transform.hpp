@@ -80,7 +80,7 @@ struct param_transform_interface<T, require_cal<T>> : public param_transform_bas
     boost::json::value operator()(T&& arg)
     {
         Environment env {};
-        env.RegisterPrototypes(arg);
+        env.InitializeInterfaceHandlers(std::forward<T>(arg));
 
         boost::json::value pvalue {};
         if ((Kind::trig_ifc & pkind) && (Kind::ifc_node & pkind) )

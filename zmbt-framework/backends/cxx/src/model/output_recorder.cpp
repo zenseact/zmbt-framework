@@ -10,8 +10,10 @@
 
 namespace zmbt {
 
-OutputRecorder::OutputRecorder()
-    : registry_{}
+OutputRecorder::OutputRecorder(interface_id const& ifc_id, object_id const& obj_id)
+    : ifc_id_{ifc_id}
+    , obj_id_{obj_id}
+    , registry_{}
 {
 }
 
@@ -71,7 +73,7 @@ void OutputRecorder::clear()
 
 void OutputRecorder::enable_category(ChannelKind const ck)
 {
-    if (registry_)
+    if (ensure_registry())
     {
         registry_->enable_categories_[static_cast<unsigned>(ck)] = 1;
     }
@@ -91,6 +93,27 @@ void OutputRecorder::report_test_error(ErrorInfo const& ei) const
         {"what"     , ei.what                             },
         {"type"     , ei.type                             },
     });
+}
+
+bool OutputRecorder::ensure_registry()
+{
+    if (registry_)
+    {
+        return true;
+    }
+    else
+    {
+        auto maybe_factory = Environment().permanent_data_->get_output_recorder_factory(ifc_id_);
+        if (!maybe_factory.has_value())
+        {
+            return false;
+        }
+        else
+        {
+            maybe_factory.value().operator()(*this);
+            return nullptr != registry_;
+        }
+    }
 }
 
 }

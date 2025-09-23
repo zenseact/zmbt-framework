@@ -49,14 +49,12 @@ Environment::InterfaceHandle::InterfaceHandle(boost::json::string_view ref)
 
 boost::json::value const& Environment::InterfaceHandle::PrototypeReturn() const
 {
-    auto lock = Env().Lock();
-    return env.data_->json_data.at("/prototypes/%s/return", interface());
+    return env.GetPrototypes(interface()).ret();
 }
 
-boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
+boost::json::array const& Environment::InterfaceHandle::PrototypeArgs() const
 {
-    auto lock = Env().Lock();
-    return env.data_->json_data.at("/prototypes/%s/args", interface());
+    return env.GetPrototypes(interface()).args();
 }
 
 void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
@@ -70,6 +68,7 @@ void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::
     auto const kind_idx = static_cast<unsigned>(kind);
     EnvironmentData::InjectionTable table{};
     table.at(kind_idx).push_back({jp, gen, tf});
+
 
     using value_type = decltype(env.data_->injection_tables)::value_type;
     env.data_->injection_tables.try_emplace_or_visit(key, table, [kind_idx, &table](value_type& record){
@@ -130,12 +129,18 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
     using value_type = decltype(env.data_->injection_tables)::value_type;
     auto const kind_idx = static_cast<unsigned>(kind);
     boost::optional<EnvironmentData::InputRecordList&> maybe_inputs;
-    env.data_->injection_tables.visit(std::make_pair(interface_, refobj_), [kind_idx, &maybe_inputs](value_type& v){
+
+    auto const kkey = std::make_pair(interface_, refobj_);
+
+    env.data_->injection_tables.visit(kkey, [kind_idx, &maybe_inputs](value_type& v){
         maybe_inputs = v.second.at(kind_idx);
+
     });
 
-    if (!maybe_inputs.has_value()) return result_value;
-
+    if (!maybe_inputs.has_value())
+    {
+        return result_value;
+    }
 
     for (auto& record: *maybe_inputs)
     {
