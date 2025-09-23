@@ -56,13 +56,13 @@ class entity_id {
 
 
     bool operator==(entity_id const& other) const {
-        return hash_ == other.hash_;
+        return (str_ == other.str_);
     }
     bool operator!=(entity_id const& other) const {
         return !this->operator==(other);
     }
     bool operator<(entity_id const& other) const {
-        return hash_ < other.hash_;
+        return str_ < other.str_;
     }
     bool operator>(entity_id const& other) const {
         return other.operator<(*this);
