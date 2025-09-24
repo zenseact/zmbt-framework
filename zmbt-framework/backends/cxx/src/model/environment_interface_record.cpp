@@ -47,12 +47,12 @@ Environment::InterfaceHandle::InterfaceHandle(boost::json::string_view ref)
 }
 
 
-boost::json::value const& Environment::InterfaceHandle::PrototypeReturn() const
+boost::json::value Environment::InterfaceHandle::PrototypeReturn() const
 {
     return env.GetPrototypes(interface()).ret();
 }
 
-boost::json::array const& Environment::InterfaceHandle::PrototypeArgs() const
+boost::json::array Environment::InterfaceHandle::PrototypeArgs() const
 {
     return env.GetPrototypes(interface()).args();
 }
@@ -65,14 +65,12 @@ void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
     auto const key = std::make_pair(interface_, refobj_);
-    auto const kind_idx = static_cast<unsigned>(kind);
-    EnvironmentData::InjectionTable table{};
-    table.at(kind_idx).push_back({jp, gen, tf});
+    auto table = InjectionTable::Make();
+    table->at(kind).push_back({jp, gen, tf});
 
-
-    using value_type = decltype(env.data_->injection_tables)::value_type;
-    env.data_->injection_tables.try_emplace_or_visit(key, table, [kind_idx, &table](value_type& record){
-        record.second.at(kind_idx).push_back(std::move(table.at(kind_idx).back()));
+    env.data_->injection_tables.try_emplace_or_visit(key, table, [kind, &table](auto& record)
+    {
+        record.second->at(kind).push_back(std::move(table->at(kind).back()));
     });
 }
 
@@ -126,23 +124,19 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         // TODO: split Env interface for managed and unmanaged,
         // and close modification of managed data on client-side during test execution.
 
-    using value_type = decltype(env.data_->injection_tables)::value_type;
-    auto const kind_idx = static_cast<unsigned>(kind);
-    boost::optional<EnvironmentData::InputRecordList&> maybe_inputs;
 
-    auto const kkey = std::make_pair(interface_, refobj_);
+    InjectionTable::Shared table;
 
-    env.data_->injection_tables.visit(kkey, [kind_idx, &maybe_inputs](value_type& v){
-        maybe_inputs = v.second.at(kind_idx);
-
+    env.data_->injection_tables.visit(std::make_pair(interface_, refobj_), [&table](auto& record){
+        table = record.second;
     });
 
-    if (!maybe_inputs.has_value())
+    if (!table)
     {
         return result_value;
     }
 
-    for (auto& record: *maybe_inputs)
+    for (auto& record: table->at(kind))
     {
         boost::json::string_view const record_pointer = record.jptr;
         auto& generator = *record.generator;

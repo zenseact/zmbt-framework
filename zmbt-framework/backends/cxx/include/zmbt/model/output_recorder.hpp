@@ -17,6 +17,7 @@
 #include <typeinfo>
 
 #include <boost/json.hpp>
+#define BOOST_UNORDERED_DISABLE_REENTRANCY_CHECK
 #include <boost/unordered/concurrent_flat_map.hpp>
 
 #include "zmbt/application/log.hpp"

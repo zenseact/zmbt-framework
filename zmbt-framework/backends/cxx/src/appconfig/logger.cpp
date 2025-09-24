@@ -56,8 +56,6 @@ public:
         out_stream_ << R"({"messages lost":)" << lost_message_count_ << "}\n]\n";
         out_stream_.flush();
         out_stream_.close();
-
-        ZMBT_DEBUG;
     }
 
     void push(boost::json::object const& record) {

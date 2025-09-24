@@ -94,7 +94,7 @@ class Environment {
         return data_->json_data;
     }
 
-    reflect::Prototypes const& GetPrototypes(interface_id const& id) const
+    reflect::Prototypes GetPrototypes(interface_id const& id) const
     {
         auto const maybe_proto = permanent_data_->get_prototypes(id);
         if (!maybe_proto.has_value())
@@ -376,11 +376,10 @@ class Environment {
 
     std::shared_ptr<OutputRecorder> GetRecorder(interface_id const& ifc_id, object_id const& obj_id)
     {
-        using value_type = decltype(data_->output_recorders)::value_type;
         auto recorder = std::make_shared<OutputRecorder>(ifc_id, obj_id);
 
         data_->output_recorders.try_emplace_or_visit(std::make_pair(ifc_id, obj_id), recorder,
-            [&recorder](value_type& record){
+            [&recorder](auto& record){
             recorder = record.second;
         });
         return recorder;

@@ -17,12 +17,16 @@
 #include <mutex>
 #include <typeindex>
 #include <type_traits>
+
+#define BOOST_UNORDERED_DISABLE_REENTRANCY_CHECK
 #include <boost/unordered/concurrent_flat_map.hpp>
 
 
+#include "zmbt/core.hpp"
 #include "trigger.hpp"
 #include "generator.hpp"
 #include "channel_kind.hpp"
+#include "injection_table.hpp"
 #include "output_recorder.hpp"
 
 
@@ -53,20 +57,9 @@ struct EnvironmentData final {
     std::map<object_id, TriggerObj> trigger_objs;
 
 
-    struct InputRecord
-    {
-        boost::json::string jptr;
-        Generator::Shared generator;
-        lang::Expression transform;
-    };
-
-    using InputRecordList = std::vector<InputRecord>;
-    /// Args, Return, Exception
-    using InjectionTable = std::array<InputRecordList, 3U>;
-
     boost::concurrent_flat_map<
         std::pair<interface_id, object_id>,
-            InjectionTable> injection_tables{};
+            InjectionTable::Shared> injection_tables{};
 
     boost::concurrent_flat_map<
         std::pair<interface_id, object_id>,

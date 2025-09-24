@@ -22,8 +22,8 @@ OutputRecorder::~OutputRecorder()
     if (registry_ && registry_->lost_count.load())
     {
         ZMBT_LOG(WARNING)
-        << "detected " << registry_->lost_count.load() << " lost calls on"
-        << registry_->interface_name
+        << "detected " << registry_->lost_count.load() << " lost calls on "
+        << ifc_id_ << " : " << obj_id_;
         ;
     }
 }

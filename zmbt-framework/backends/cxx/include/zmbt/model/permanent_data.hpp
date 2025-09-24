@@ -9,6 +9,7 @@
 #define ZMBT_MODEL_PERMANENT_DATA_HPP_
 
 #include <functional>
+#define BOOST_UNORDERED_DISABLE_REENTRANCY_CHECK
 #include <boost/unordered/concurrent_flat_map.hpp>
 #include <boost/optional.hpp>
 
@@ -30,8 +31,8 @@ struct PermanentEnvData final
     boost::concurrent_flat_map<interface_id, SetupOutputRecorder> output_recorder_factories{};
 
     boost::optional<object_id>             get_default_object(interface_id const&) const;
-    boost::optional<reflect::Prototypes const&>   get_prototypes(interface_id const&) const;
-    boost::optional<SetupOutputRecorder const&>   get_output_recorder_factory(interface_id const&) const;
+    boost::optional<reflect::Prototypes>   get_prototypes(interface_id const&) const;
+    boost::optional<SetupOutputRecorder>   get_output_recorder_factory(interface_id const&) const;
 };
 
 } // namespace zmbt

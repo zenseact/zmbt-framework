@@ -93,9 +93,9 @@ public:
         return env;
     }
 
-    boost::json::value const& PrototypeReturn() const;
+    boost::json::value PrototypeReturn() const;
 
-    boost::json::array const& PrototypeArgs() const;
+    boost::json::array PrototypeArgs() const;
 
     void EnableOutputRecordFor(ChannelKind const kind);
 

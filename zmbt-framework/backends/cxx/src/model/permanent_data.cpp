@@ -10,9 +10,9 @@
 
 namespace zmbt {
 
-boost::optional<reflect::Prototypes const&> PermanentEnvData::get_prototypes(interface_id const& id) const
+boost::optional<reflect::Prototypes> PermanentEnvData::get_prototypes(interface_id const& id) const
 {
-    boost::optional<reflect::Prototypes const&> result{};
+    boost::optional<reflect::Prototypes> result{};
     prototypes.visit(id, [&result](auto& record){
         result = record.second;
     });
@@ -28,9 +28,9 @@ boost::optional<object_id> PermanentEnvData::get_default_object(interface_id con
     return result;
 }
 
-boost::optional<PermanentEnvData::SetupOutputRecorder const&> PermanentEnvData::get_output_recorder_factory(interface_id const& id) const
+boost::optional<PermanentEnvData::SetupOutputRecorder> PermanentEnvData::get_output_recorder_factory(interface_id const& id) const
 {
-    boost::optional<SetupOutputRecorder const&> result{};
+    boost::optional<SetupOutputRecorder> result{};
     output_recorder_factories.visit(id, [&result](auto& record){
         result = record.second;
     });
