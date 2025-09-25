@@ -49,8 +49,6 @@ class OutputRecorder
   private:
     class Registry;
 
-    using consumer_fn_t = std::function<void(boost::json::value&&)>;
-
 
     template <class I>
     static std::type_index get_args_typeid(I const& interface)
@@ -68,15 +66,14 @@ class OutputRecorder
             std::shared_ptr<void> args{};
             std::shared_ptr<void> ret{};
             std::shared_ptr<void> err{};
-            bool include_tid{false};
         };
 
         using FramesBuffMap = boost::concurrent_flat_map<std::thread::id, FrameBuffs, std::hash<std::thread::id>>;
-        using extract_fn_t = std::function<std::size_t(std::shared_ptr<FramesBuffMap>, consumer_fn_t const)>;
+        using consume_fn_t = std::function<void(Registry&)>;
 
         std::type_index data_typeid;
         boost::json::string interface_name;
-        extract_fn_t extract_fn;
+        consume_fn_t extract_fn;
         std::shared_ptr<FramesBuffMap> frame_buff_map;
 
         boost::json::array serialized_frames{};
@@ -88,7 +85,7 @@ class OutputRecorder
         Registry(
             std::type_index typid,
             boost::json::string name,
-            extract_fn_t efn,
+            consume_fn_t efn,
             std::shared_ptr<FramesBuffMap> fbm
         )
             : data_typeid(typid)
@@ -111,7 +108,10 @@ class OutputRecorder
 
             std::type_index const typid {typeid(std::tuple<ArgsTuple, Return>)};
 
-            auto extract_fn = [](std::shared_ptr<FramesBuffMap> frame_buff_map, consumer_fn_t const& consumer_fn) -> std::size_t {
+            consume_fn_t extract_fn = [](Registry& registry) {
+                auto frame_buff_map = std::exchange(registry.frame_buff_map, std::make_shared<Registry::FramesBuffMap>());
+                bool const tid_enabled = registry.enable_categories_[static_cast<unsigned>(ChannelKind::ThreadId)];
+
                 using FB = Registry::FrameBuffs;
                 using ThreadFrameBuffers = std::pair<std::thread::id, FB>;
 
@@ -153,7 +153,6 @@ class OutputRecorder
                     cursors.push_back({get_next_ts(tfbs.second), &tfbs});
                 }
 
-                std::size_t frame_count = 0;
                 Cursor null{};
                 for (;;) {
                     // find candidate with smallest ts
@@ -174,7 +173,7 @@ class OutputRecorder
 
                     FB& fb = cursor->buffs->second;
 
-                    if (fb.include_tid)
+                    if (tid_enabled)
                     {
                         json_frame["tid"] = tid2str(cursor->buffs->first);
                     }
@@ -202,23 +201,18 @@ class OutputRecorder
                         }
                     }
 
-                    consumer_fn(std::move(json_frame));
-                    ++frame_count;
+                    registry.serialized_frames.push_back(std::move(json_frame));
 
                     // refresh this candidate’s ts
                     cursor->ts = get_next_ts(fb);
                 }
-
-                return frame_count;
             };
+
             auto frame_buff_map = std::make_shared<FramesBuffMap>();
 
             return std::make_shared<Registry>(typid, type_name<I>().c_str(), extract_fn, frame_buff_map);
         }
     };
-
-    /// Single-consumer extraction
-    std::size_t consume_all(consumer_fn_t const consume_fn);
 
     template <ChannelKind ck>
     bool check_filter()
@@ -295,50 +289,41 @@ class OutputRecorder
         bool const err_en = registry_->enable_categories_[static_cast<unsigned>(ChannelKind::Exception)];
         bool const tid_en = registry_->enable_categories_[static_cast<unsigned>(ChannelKind::ThreadId)];
 
-        boost::optional<Registry::FrameBuffs&> maybe_fb_ref{};
+        boost::optional<Registry::FrameBuffs> maybe_fb_ref{};
 
-        registry_->frame_buff_map->try_emplace_or_visit(std::this_thread::get_id(), Registry::FrameBuffs{},
+        registry_->frame_buff_map->visit(std::this_thread::get_id(),
             [&maybe_fb_ref](auto& record){
             maybe_fb_ref = record.second;
         });
 
         if (!maybe_fb_ref.has_value())
         {
-            registry_->frame_buff_map->visit(std::this_thread::get_id(),
+            Registry::FrameBuffs new_fb;
+            if (args_en) new_fb.args = std::make_shared<std::deque<Frame<ArgsTuple>>>();
+            if (ret_en)  new_fb.ret  = std::make_shared<std::deque<Frame<Return>>>();
+            if (err_en)  new_fb.err  = std::make_shared<std::deque<Frame<ErrorInfo>>>();
+            maybe_fb_ref = new_fb;
+            registry_->frame_buff_map->try_emplace_or_visit(std::this_thread::get_id(), new_fb,
                 [&maybe_fb_ref](auto& record){
                 maybe_fb_ref = record.second;
             });
         }
 
-        if (!maybe_fb_ref.has_value())
-        {
-            ErrorInfo e;
-            e.type = type_name<output_recorder_error>();
-            e.what = "corrupted output recorder";
-            e.context = "OutputRecorder";
-            report_test_error(e);
-            return;
-        }
-
         Registry::FrameBuffs& fb = maybe_fb_ref.value();
 
-        if (!fb.args) fb.args = std::make_shared<std::deque<Frame<ArgsTuple>>>();
-        if (!fb.ret ) fb.ret  = std::make_shared<std::deque<Frame<Return>>>();
-        if (!fb.err ) fb.err  = std::make_shared<std::deque<Frame<ErrorInfo>>>();
-        if (tid_en) fb.include_tid = true;
 
-        std::deque<Frame<ArgsTuple>>& fb_args = *std::static_pointer_cast<std::deque<Frame<ArgsTuple>>>(fb.args);
-        std::deque<Frame<Return>>&    fb_ret  = *std::static_pointer_cast<std::deque<Frame<Return>>>(fb.ret);
-        std::deque<Frame<ErrorInfo>>& fb_err  = *std::static_pointer_cast<std::deque<Frame<ErrorInfo>>>(fb.err);
+        auto fb_args = std::static_pointer_cast<std::deque<Frame<ArgsTuple>>>(fb.args);
+        auto fb_ret  = std::static_pointer_cast<std::deque<Frame<Return>>>(fb.ret);
+        auto fb_err  = std::static_pointer_cast<std::deque<Frame<ErrorInfo>>>(fb.err);
 
-        if (args_en) fb_args.push_back({ts, args});
-        if (ret_en && return_or_error.is_return()) fb_ret.push_back({ts, return_or_error.as_return()});
+        if (args_en) fb_args->push_back({ts, args});
+        if (ret_en && return_or_error.is_return()) fb_ret->push_back({ts, return_or_error.as_return()});
 
         if (return_or_error.is_error())
         {
             if (err_en)
             {
-                fb_err.push_back({ts, return_or_error.as_error()});
+                fb_err->push_back({ts, return_or_error.as_error()});
             }
             else
             {
