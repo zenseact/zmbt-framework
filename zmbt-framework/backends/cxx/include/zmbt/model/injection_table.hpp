@@ -20,8 +20,9 @@
 namespace zmbt {
 
 
-struct InjectionTable
+class InjectionTable
 {
+  public:
     using Shared = std::shared_ptr<InjectionTable>;
 
     struct Record
@@ -29,34 +30,42 @@ struct InjectionTable
         boost::json::string jptr;
         Generator::Shared generator;
         lang::Expression transform;
+        boost::optional<boost::json::value> maybe_constant;
+
+        Record(
+            boost::json::string_view jp,
+            Generator::Shared gen,
+            lang::Expression const& tf
+        );
     };
 
-    std::vector<Record> args;
-    std::vector<Record> ret;
-    std::vector<Record> exception;
+  private:
+    interface_id ifc_id_;
+    object_id obj_id_;
+    reflect::Prototypes prototypes_;
 
-    std::vector<Record>& at(ChannelKind const& ck) &
-    {
-        static std::vector<Record> dummy {};
-        switch(ck)
-        {
-            case ChannelKind::Args:
-                return args;
-            case ChannelKind::Return:
-                return ret;
-            case ChannelKind::Exception:
-                return exception;
-            default:
-            throw_exception(environment_error(""));
-                return dummy;
-        }
-    }
+    std::vector<Record> args_;
+    std::vector<Record> ret_;
+    std::vector<Record> exception_;
+
+    boost::optional<boost::json::value> maybe_constant_args_;
+    boost::optional<boost::json::value> maybe_constant_ret_;
+    boost::optional<boost::json::value> maybe_constant_exception_;
 
 
-    static Shared Make() {
-        auto t = std::make_shared<InjectionTable>();
-        return t;
-    }
+    std::vector<Record>& get_records(ChannelKind const& ck) &;
+    boost::optional<boost::json::value>& get_maybe_const(ChannelKind const& ck) &;
+
+  public:
+
+    InjectionTable(interface_id const& ifc_id, object_id const& obj_id);
+    void add_record(ChannelKind const& ck, Record&& rec);
+    Record& last_record(ChannelKind const& ck) &;
+
+    /// Evaluate input for given category and return error object if any, null otherwise
+    boost::json::value yield(ChannelKind const& ck, boost::json::value& result_value);
+
+    static Shared Make(interface_id const& ifc_id, object_id const& obj_id);
 };
 
 } // namespace

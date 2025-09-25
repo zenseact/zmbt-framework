@@ -64,14 +64,12 @@ void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
 
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
-    auto const key = std::make_pair(interface_, refobj_);
-    auto table = InjectionTable::Make();
-    table->at(kind).push_back({jp, gen, tf});
-
-    env.data_->injection_tables.try_emplace_or_visit(key, table, [kind, &table](auto& record)
-    {
-        record.second->at(kind).push_back(std::move(table->at(kind).back()));
+    auto table = InjectionTable::Make(interface_, refobj_);
+    env.data_->injection_tables.try_emplace_or_visit(std::make_pair(interface_, refobj_), table,
+    [kind, &table](auto& record){
+        table = record.second;
     });
+    table->add_record(kind, InjectionTable::Record{jp, gen, tf});
 }
 
 
@@ -98,24 +96,6 @@ void Environment::InterfaceHandle::MaybeThrowException()
 
 boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
-    boost::json::value result_value;
-
-    if (ChannelKind::Return == kind)
-    {
-        result_value = PrototypeReturn();
-    }
-    else if (ChannelKind::Args == kind)
-    {
-        result_value = PrototypeArgs();
-    }
-    else if (ChannelKind::Exception == kind)
-    {
-        result_value = nullptr;
-    }
-    else
-    {
-        throw_exception(model_error("%s injection not implemented", json_from(kind)));
-    }
 
     // TODO: ensure it is closed for updates
     // non-const - only generator atomic counters are incremented
@@ -126,73 +106,28 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
 
 
     InjectionTable::Shared table;
-
     env.data_->injection_tables.visit(std::make_pair(interface_, refobj_), [&table](auto& record){
         table = record.second;
     });
 
     if (!table)
     {
-        return result_value;
+        switch (kind)
+        {
+        case ChannelKind::Args:
+            return env.GetPrototypes(interface_).args();
+        case ChannelKind::Return:
+            return env.GetPrototypes(interface_).ret();
+        default:
+            return nullptr;
+        }
     }
 
-    for (auto& record: table->at(kind))
+    boost::json::value maybe_error;
+    boost::json::value result_value = table->yield(kind, maybe_error);
+    if (!maybe_error.is_null())
     {
-        boost::json::string_view const record_pointer = record.jptr;
-        auto& generator = *record.generator;
-        auto const& tf = record.transform;
-        if (generator.is_noop()) continue;
-
-        boost::json::value raw_v;
-        // TODO: optimize recursive expr
-        auto const iteration = generator(raw_v);
-        auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
-
-        lang::Expression const v_as_expr(v);
-        if (v_as_expr.is_error())
-        {
-            if (kind == ChannelKind::Exception)
-            {
-                result_value = v_as_expr.to_json();
-                break;
-            }
-            // reevaluate to collect log
-
-            auto generator_ctx = lang::EvalContext::make();
-            generator.expression().eval(iteration, generator_ctx);
-
-            auto transform_ctx = lang::EvalContext::make();
-            if (not tf.is_noop())
-            {
-                tf.eval(raw_v, transform_ctx);
-            }
-
-            ZMBT_LOG_JSON(FATAL) << boost::json::object{
-                {"ZMBT_INJECTION", boost::json::object{
-                    {"interface", key()},
-                    {"group", json_from(kind)},
-                    {"pointer", record_pointer},
-                    {"Inject log", *generator_ctx.log.stack},
-                    {"Take log", *transform_ctx.log.stack},
-                }}
-            };
-
-            auto const failed_inject = raw_v == v;
-            auto const error_context = failed_inject ? "Inject" : "Take";
-
-            auto const origin = format("ZMBT_INJECTION(%s, %s%s, %s)",
-                key(), json_from(kind), record_pointer, error_context);
-
-            ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
-                << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
-            // throw_exception(model_error("injection failure"));
-            return {v_as_expr.prettify().c_str()};
-        }
-        else
-        {
-            result_value.set_at_pointer(record_pointer, v);
-        }
-
+        Environment().SetTestError(std::move(maybe_error));
     }
     return result_value;
 }
