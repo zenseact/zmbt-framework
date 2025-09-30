@@ -8,6 +8,7 @@
 #ifndef ZMBT_EXPR_EXPRESSION_V2_HPP_
 #define ZMBT_EXPR_EXPRESSION_V2_HPP_
 
+#include <memory>
 #include <ostream>
 
 #include "zmbt/application/log.hpp"
@@ -323,6 +324,7 @@ public:
 
   protected:
     EncodingView encoding_view_;
+    mutable std::shared_ptr<Expression> const_predicate_cache_;
 };
 
 
