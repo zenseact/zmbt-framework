@@ -303,13 +303,13 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 /**
  * @brief Make TypedInterfaceHandle instance
  *
- * @tparam I
+ * @tparam Interface
  * @param obj
  * @param interface
- * @return TypedInterfaceHandle<I>
+ * @return TypedInterfaceHandle<Interface>
  */
-template <class I>
-Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface, object_id const& obj = {ifc_host_nullptr<I>})
+template <class Interface>
+Environment::TypedInterfaceHandle<Interface> InterfaceRecord(Interface const& interface, object_id const& obj = {ifc_host_nullptr<Interface>})
 {
     Environment env {};
     env.InitializeInterfaceHandlers(interface);

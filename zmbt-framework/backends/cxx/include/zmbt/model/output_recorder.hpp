@@ -12,6 +12,7 @@
 #include <deque>
 #include <functional>
 #include <memory>
+#include <string>
 #include <thread>
 #include <typeindex>
 #include <typeinfo>
@@ -50,10 +51,10 @@ class OutputRecorder
     class Registry;
 
 
-    template <class I>
-    static std::type_index get_args_typeid(I const& interface)
+    template <class Interface>
+    static std::type_index get_args_typeid(Interface const&)
     {
-        using reflection  = reflect::invocation<I const&>;
+        using reflection  = reflect::invocation<Interface const&>;
         using args_t      = typename reflection::args_t;
         using unqf_args_t = tuple_unqf_t<args_t>;
         return {typeid(unqf_args_t)};
@@ -100,11 +101,11 @@ class OutputRecorder
         }
 
 
-        template <class I>
+        template <class Interface>
         static std::shared_ptr<Registry> Make()
         {
-            using ArgsTuple = reflect::invocation_args_unqf_t<I const&>;
-            using Return = reflect::invocation_ret_unqf_or_nullptr_t<I const&>;
+            using ArgsTuple = reflect::invocation_args_unqf_t<Interface const&>;
+            using Return = reflect::invocation_ret_unqf_or_nullptr_t<Interface const&>;
 
             std::type_index const typid {typeid(std::tuple<ArgsTuple, Return>)};
 
@@ -115,8 +116,6 @@ class OutputRecorder
                 using FB = Registry::FrameBuffs;
                 using ThreadFrameBuffers = std::pair<std::thread::id, FB>;
 
-                constexpr std::size_t npos = std::numeric_limits<std::size_t>::max();
-
                 // Snapshot thread buffers
                 std::vector<ThreadFrameBuffers> fbs;
                 fbs.reserve(frame_buff_map->size());
@@ -125,7 +124,7 @@ class OutputRecorder
                 });
 
                 auto get_next_ts = [](FB& fb) -> std::size_t {
-                    std::size_t ts = npos;
+                    std::size_t ts = std::string::npos;
                     if (fb.args) {
                         auto& dq = *std::static_pointer_cast<std::deque<Frame<ArgsTuple>>>(fb.args);
                         if (!dq.empty()) ts = std::min(ts, dq.front().ts);
@@ -142,7 +141,7 @@ class OutputRecorder
                 };
 
                 struct Cursor {
-                    std::size_t ts {npos}; // next timestamp
+                    std::size_t ts {std::string::npos}; // next timestamp
                     ThreadFrameBuffers* buffs{nullptr};
                 };
 
@@ -210,7 +209,7 @@ class OutputRecorder
 
             auto frame_buff_map = std::make_shared<FramesBuffMap>();
 
-            return std::make_shared<Registry>(typid, type_name<I>().c_str(), extract_fn, frame_buff_map);
+            return std::make_shared<Registry>(typid, type_name<Interface>().c_str(), extract_fn, frame_buff_map);
         }
     };
 
@@ -237,11 +236,11 @@ class OutputRecorder
     /// Flush interal buffers and complete serialization
     void flush();
 
-    template <class I>
+    template <class Interface, class InterfacePointer = ifc_pointer_t<Interface>>
     void setup_handlers()
     {
         if (registry_ != nullptr) return;
-        registry_ = Registry::Make<ifc_pointer_t<I>>();
+        registry_ = Registry::Make<InterfacePointer>();
     }
 
 

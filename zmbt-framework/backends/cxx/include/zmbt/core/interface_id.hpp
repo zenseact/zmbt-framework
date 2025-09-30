@@ -26,11 +26,11 @@ namespace zmbt {
 /// Pointer-based interface id with type annotation
 class interface_id : public entity_id {
 
-    template <class T>
-    boost::json::string ifc_addr(T const& ifc)
+    template <class Interface>
+    boost::json::string ifc_addr(Interface const& ifc)
     {
         struct {
-            ifc_pointer_t<T const&> ptr;
+            ifc_pointer_t<Interface const&> ptr;
         } wrapper {get_ifc_pointer(ifc)};
 
         std::array<char, sizeof(wrapper)> repr {};
@@ -57,12 +57,12 @@ class interface_id : public entity_id {
     using entity_id::operator<=;
     using entity_id::operator>=;
 
-    template <class T, class = mp_if<is_ifc_handle<T const&>, void>>
-    interface_id(T const& ifc)
+    template <class Interface, class = mp_if<is_ifc_handle<Interface const&>, void>>
+    interface_id(Interface const& ifc)
         : entity_id(
             ifc_addr(ifc),
             type_name<
-              remove_pointer_t<remove_cvref_t<ifc_handle_t<T const&>>>
+              remove_pointer_t<remove_cvref_t<ifc_handle_t<Interface const&>>>
             >()
         )
     {

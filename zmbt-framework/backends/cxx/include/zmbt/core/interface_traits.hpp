@@ -23,101 +23,101 @@ namespace zmbt {
 
 // PREDICATES
 
-template<class T, class D = decay_t<T>>
-using ifc_is_pmf_handle = is_member_function_pointer<D>;
+template<class Interface, class DecayedInterface = decay_t<Interface>>
+using ifc_is_pmf_handle = is_member_function_pointer<DecayedInterface>;
 
-template<class T, class D = decay_t<T>>
-using ifc_is_pmd_handle = is_member_object_pointer<D>;
+template<class Interface, class DecayedInterface = decay_t<Interface>>
+using ifc_is_pmd_handle = is_member_object_pointer<DecayedInterface>;
 
-template<class T, class D = decay_t<T>>
-using ifc_is_member_handle = is_member_pointer<D>;
+template<class Interface, class DecayedInterface = decay_t<Interface>>
+using ifc_is_member_handle = is_member_pointer<DecayedInterface>;
 
-template<class T, class D = decay_t<T>>
+template<class Interface, class DecayedInterface = decay_t<Interface>>
 using ifc_is_fn_ref = mp_all<
-    is_lvalue_reference<T>,
-    is_function<remove_pointer_t<D>>
+    is_lvalue_reference<Interface>,
+    is_function<remove_pointer_t<DecayedInterface>>
 >;
 
-template<class T, class D = decay_t<T>>
+template<class Interface, class DecayedInterface = decay_t<Interface>>
 using ifc_is_fn_ptr = mp_all<
-    is_pointer<T>,
-    is_function<remove_pointer_t<D>>
+    is_pointer<Interface>,
+    is_function<remove_pointer_t<DecayedInterface>>
 >;
 
-template<class T>
+template<class Interface>
 using ifc_is_fn_handle = mp_any<
-    ifc_is_fn_ref<T>, ifc_is_fn_ptr<T>
+    ifc_is_fn_ref<Interface>, ifc_is_fn_ptr<Interface>
 >;
 
 
 namespace detail {
-template<class T, class=void>
+template<class Interface, class = void>
 struct support_calltraits_function : mp_false {};
 
-template<class T>
-struct support_calltraits_function<T, void_t<ct::function_type_t<T>>> : mp_true {};
+template<class Interface>
+struct support_calltraits_function<Interface, void_t<ct::function_type_t<Interface>>> : mp_true {};
 }
 
 
 
 
-template<class T, class P = remove_reference_t<T>, class D = remove_pointer_t<P>>
+template<class Interface, class InterfacePointer = remove_reference_t<Interface>, class Functor = remove_pointer_t<InterfacePointer>>
 using ifc_is_functor_ptr = mp_all<
-    is_pointer<P>, is_class<D>,
-    detail::support_calltraits_function<D>
+    is_pointer<InterfacePointer>, is_class<Functor>,
+    detail::support_calltraits_function<Functor>
 >;
 
-template<class T, class D = remove_reference_t<T>>
+template<class Interface, class Functor = remove_reference_t<Interface>>
 using ifc_is_functor_ref = mp_all<
-    is_reference<T>, is_class<D>,
-    detail::support_calltraits_function<D>
+    is_reference<Interface>, is_class<Functor>,
+    detail::support_calltraits_function<Functor>
 >;
 
-template <class T>
+template <class Interface>
 using ifc_is_functor_handle = mp_any<
-    ifc_is_functor_ptr<T>,
-    ifc_is_functor_ref<T>
+    ifc_is_functor_ptr<Interface>,
+    ifc_is_functor_ref<Interface>
 >;
 
 
-template<class T>
+template<class Interface>
 using is_ifc_handle = mp_any<
-    ifc_is_pmf_handle<T>,
-    ifc_is_pmd_handle<T>,
-    ifc_is_fn_handle<T>,
-    ifc_is_functor_handle<T>
+    ifc_is_pmf_handle<Interface>,
+    ifc_is_pmd_handle<Interface>,
+    ifc_is_fn_handle<Interface>,
+    ifc_is_functor_handle<Interface>
 >;
 
 
 /// Get pointer to callable object
 //@{
-template <class T, class R = decay_t<T>>
-auto get_ifc_pointer (T  x) -> first_if_t<R,
-    ifc_is_member_handle<T>
+template <class Interface, class Result = decay_t<Interface>>
+auto get_ifc_pointer (Interface  x) -> first_if_t<Result,
+    ifc_is_member_handle<Interface>
 >
 {
     return x;
 }
 
-template <class T, class R = decay_t<T>>
-auto get_ifc_pointer (T x) -> first_if_t<R,
-    ifc_is_fn_handle<T>
+template <class Interface, class Result = decay_t<Interface>>
+auto get_ifc_pointer (Interface x) -> first_if_t<Result,
+    ifc_is_fn_handle<Interface>
 >
 {
     return x;
 }
 
-template <class T, class R = add_pointer_t<remove_reference_t<T>>>
-auto get_ifc_pointer (T*  x) -> first_if_t<R,
-    ifc_is_functor_ptr<T*>
+template <class Interface, class Result = add_pointer_t<remove_reference_t<Interface>>>
+auto get_ifc_pointer (Interface*  x) -> first_if_t<Result,
+    ifc_is_functor_ptr<Interface*>
 >
 {
     return x;
 }
 
-template <class T, class R = add_pointer_t<remove_reference_t<T>>>
-auto get_ifc_pointer (T&  x) -> first_if_t<R,
-    ifc_is_functor_ref<T&>
+template <class Interface, class Result = add_pointer_t<remove_reference_t<Interface>>>
+auto get_ifc_pointer (Interface&  x) -> first_if_t<Result,
+    ifc_is_functor_ref<Interface&>
 >
 {
     return &x;
@@ -127,33 +127,33 @@ auto get_ifc_pointer (T&  x) -> first_if_t<R,
 
 /// Get reference to callable object
 //@{
-template <class T, class R = decay_t<T> const>
-auto get_ifc_handle (T const  x) -> first_if_t<R,
-    ifc_is_member_handle<T>
+template <class Interface, class Result = decay_t<Interface> const>
+auto get_ifc_handle (Interface const  x) -> first_if_t<Result,
+    ifc_is_member_handle<Interface>
 >
 {
     return x;
 }
 
-template <class T, class R = decay_t<T> const>
-auto get_ifc_handle (T  const x) -> first_if_t<R,
-    ifc_is_fn_handle<T>
+template <class Interface, class Result = decay_t<Interface> const>
+auto get_ifc_handle (Interface  const x) -> first_if_t<Result,
+    ifc_is_fn_handle<Interface>
 >
 {
     return x;
 }
 
-template <class T, class R = add_lvalue_reference_t<T> const>
-auto get_ifc_handle (T *  x) -> first_if_t<R,
-    ifc_is_functor_ptr<T*>
+template <class Interface, class Result = add_lvalue_reference_t<Interface> const>
+auto get_ifc_handle (Interface *  x) -> first_if_t<Result,
+    ifc_is_functor_ptr<Interface*>
 >
 {
     return &x;
 }
 
-template <class T, class R = add_lvalue_reference_t<T> const>
-auto get_ifc_handle (T &  x) -> first_if_t<R,
-    ifc_is_functor_ref<T&>
+template <class Interface, class Result = add_lvalue_reference_t<Interface> const>
+auto get_ifc_handle (Interface &  x) -> first_if_t<Result,
+    ifc_is_functor_ref<Interface&>
 >
 {
     return x;
@@ -162,31 +162,31 @@ auto get_ifc_handle (T &  x) -> first_if_t<R,
 
 
 namespace detail {
-template <class T>
-using ifc_pointer_valid_t = decltype(get_ifc_pointer(std::declval<T>()));
+template <class Interface>
+using ifc_pointer_valid_t = decltype(get_ifc_pointer(std::declval<Interface>()));
 }
 
-template <class T>
+template <class Interface>
 struct ifc_pointer  {
-    using type = mp_eval_or<nullptr_t, detail::ifc_pointer_valid_t, T>;
+    using type = mp_eval_or<nullptr_t, detail::ifc_pointer_valid_t, Interface>;
 };
 
-template <class T>
-using ifc_pointer_t = typename ifc_pointer<T>::type;
+template <class Interface>
+using ifc_pointer_t = typename ifc_pointer<Interface>::type;
 
 
 namespace detail {
-template <class T>
-using ifc_handle_valid_t = decltype(get_ifc_handle(std::declval<T>()));
+template <class Interface>
+using ifc_handle_valid_t = decltype(get_ifc_handle(std::declval<Interface>()));
 }
 
-template <class T>
+template <class Interface>
 struct ifc_handle  {
-    using type = mp_eval_or<nullptr_t, detail::ifc_handle_valid_t, T>;
+    using type = mp_eval_or<nullptr_t, detail::ifc_handle_valid_t, Interface>;
 };
 
-template <class T>
-using ifc_handle_t = typename ifc_handle<T>::type;
+template <class Interface>
+using ifc_handle_t = typename ifc_handle<Interface>::type;
 
 
 
@@ -199,58 +199,57 @@ struct qualified_class_of {
 };
 }
 
-template <class T, class = void>
+template <class Interface, class = void>
 struct ifc_host {
-    using type = typename mp_if<ifc_is_member_handle<T>,  ct::qualified_class_of<T>, mp_identity<nullptr_t>>::type;
+    using type = typename mp_if<ifc_is_member_handle<Interface>,  ct::qualified_class_of<Interface>, mp_identity<nullptr_t>>::type;
 };
 
 
-template <class T>
-using ifc_host_t = typename ifc_host<T>::type;
+template <class Interface>
+using ifc_host_t = typename ifc_host<Interface>::type;
 
 /// @brief Resolves to H*{} for member function pointers of H,
 /// or to nullptr_t for other callables
-template <class T>
-constexpr add_pointer_t<remove_reference_t<ifc_host_t<T>>> ifc_host_nullptr {};
+template <class Interface>
+constexpr add_pointer_t<remove_reference_t<ifc_host_t<Interface>>> ifc_host_nullptr {};
 
 
 namespace detail {
-template <class T, class = void>
+template <class Interface, class = void>
 struct ifc_args_impl {
-    using type = ct::args_t<remove_pointer_t<T>>;
+    using type = ct::args_t<remove_pointer_t<Interface>>;
 };
 
-template <class T>
-struct ifc_args_impl <T, first_if_t<void_t<ct::args_t<T>>, ifc_is_member_handle<T>>> {
-    using type = mp_rest<ct::args_t<T>>;
+template <class Interface>
+struct ifc_args_impl <Interface, first_if_t<void_t<ct::args_t<Interface>>, ifc_is_member_handle<Interface>>> {
+    using type = mp_rest<ct::args_t<Interface>>;
 };
 
-template <class T>
-struct ifc_args_impl <T, first_if_none_t<void_t<ct::args_t<T>>, ifc_is_member_handle<T> >> {
-    using type = ct::args_t<T>;
+template <class Interface>
+struct ifc_args_impl <Interface, first_if_none_t<void_t<ct::args_t<Interface>>, ifc_is_member_handle<Interface> >> {
+    using type = ct::args_t<Interface>;
 };
 
 } // namespace detail
 
-template <class T>
+template <class Interface>
 struct ifc_args
 {
-    using type = typename mp_eval_or<mp_identity<void>, detail::ifc_args_impl, ifc_handle_t<T>>::type;
+    using type = typename mp_eval_or<mp_identity<void>, detail::ifc_args_impl, ifc_handle_t<Interface>>::type;
 };
 
-template <class T>
-using ifc_args_t = typename ifc_args<T>::type;
+template <class Interface>
+using ifc_args_t = typename ifc_args<Interface>::type;
 
 
-template <class T>
-struct ifc_return : ct::return_type<T> {
-    using type = typename mp_eval_or<mp_identity<void>, ct::return_type, ifc_handle_t<T>>::type;
+template <class Interface>
+struct ifc_return : ct::return_type<Interface> {
+    using type = typename mp_eval_or<mp_identity<void>, ct::return_type, ifc_handle_t<Interface>>::type;
 };
 
-template <class T>
-using ifc_return_t = typename ifc_return<T>::type;
+template <class Interface>
+using ifc_return_t = typename ifc_return<Interface>::type;
 
 }  // namespace zmbt
 
 #endif  // ZMBT_CORE_INTERFACE_TRAITS_HPP_
-

@@ -76,15 +76,15 @@ using custom_invocation_t = typename custom_invocation<T>::type;
 template<class T>
 using has_custom_invocation = mp_valid<custom_invocation_t, T>;
 
-template <class T>
+template <class Interface>
 using enable_default_invocation = first_if_t<void,
-    is_ifc_handle<T>,
-    mp_not<has_custom_invocation<ifc_pointer_t<T>>>
+    is_ifc_handle<Interface>,
+    mp_not<has_custom_invocation<ifc_pointer_t<Interface>>>
 >;
 
 
-template <class T>
-using enable_custom_invocation = first_if_t<void, has_custom_invocation<ifc_pointer_t<T>>>;
+template <class Interface>
+using enable_custom_invocation = first_if_t<void, has_custom_invocation<ifc_pointer_t<Interface>>>;
 
 } // namespace detail
 
@@ -157,62 +157,62 @@ template<class T>
 struct has_invocation_for<T, void_t<typename invocation<T>::type>> : std::true_type { };
 
 
-template <class I>
-using interface_t = typename reflect::invocation<I>::type;
+template <class Interface>
+using interface_t = typename reflect::invocation<Interface>::type;
 
 
 /**
  * @brief Interface arguments tuple type
  *
- * @tparam T Interface pointer type
+ * @tparam Interface Interface pointer type
  */
-template <class T>
-using invocation_args_t = typename invocation<T>::args_t;
+template <class Interface>
+using invocation_args_t = typename invocation<Interface>::args_t;
 
 /**
  * @brief Interface cv-unqualified arguments tuple type
  *
- * @tparam T Interface pointer type
+ * @tparam Interface Interface pointer type
  */
-template <class T>
-using invocation_args_unqf_t = tuple_unqf_t<invocation_args_t<T>>;
+template <class Interface>
+using invocation_args_unqf_t = tuple_unqf_t<invocation_args_t<Interface>>;
 
 /**
  * @brief Interface has no args
  *
- * @tparam T
+ * @tparam Interface
  */
-template <class T>
-using invocation_has_void_args = std::integral_constant<bool, 0 == boost::mp11::mp_size<invocation_args_t<T>>::value >;
+template <class Interface>
+using invocation_has_void_args = std::integral_constant<bool, 0 == boost::mp11::mp_size<invocation_args_t<Interface>>::value >;
 
 
 /**
  * @brief Interface return type
  *
- * @tparam T Interface pointer type
+ * @tparam Interface Interface pointer type
  */
-template <class T>
-using invocation_ret_t = typename invocation<T>::return_t;
+template <class Interface>
+using invocation_ret_t = typename invocation<Interface>::return_t;
 
 /**
  * @brief Interface cv-unqualified return type
  *
- * @tparam T Interface pointer type
+ * @tparam Interface Interface pointer type
  */
-template <class T>
-using invocation_ret_unqf_t = remove_cvref_t<invocation_ret_t<T>>;
+template <class Interface>
+using invocation_ret_unqf_t = remove_cvref_t<invocation_ret_t<Interface>>;
 
 /**
  * @brief Interface has no return
  *
- * @tparam T
+ * @tparam Interface
  */
-template <class T>
-using invocation_has_void_ret = std::is_void<invocation_ret_t<T>>;
+template <class Interface>
+using invocation_has_void_ret = std::is_void<invocation_ret_t<Interface>>;
 
 
-template <class T>
-using invocation_ret_unqf_or_nullptr_t = mp_if<invocation_has_void_ret<T>, nullptr_t, invocation_ret_unqf_t<T>>;
+template <class Interface>
+using invocation_ret_unqf_or_nullptr_t = mp_if<invocation_has_void_ret<Interface>, nullptr_t, invocation_ret_unqf_t<Interface>>;
 
 
 

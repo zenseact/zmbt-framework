@@ -130,12 +130,12 @@ class TriggerIfc
 
 public:
 
-    template <class I>
-    TriggerIfc(I&& interface)
-        : id_{std::forward<I>(interface)}
-        , fn_{[ifc_ptr = get_ifc_pointer(std::forward<I>(interface))]
+    template <class Interface>
+    TriggerIfc(Interface&& interface)
+        : id_{std::forward<Interface>(interface)}
+        , fn_{[ifc_ptr = get_ifc_pointer(std::forward<Interface>(interface))]
             (std::shared_ptr<void> obj, boost::json::value const& args_in, OutputRecorder& recorder) {
-            using reflection = reflect::invocation<I const&>;
+            using reflection = reflect::invocation<Interface const&>;
             using return_t = typename reflection::return_t;
             using args_t = typename reflection::args_t;
             using args_unqf_t = tuple_unqf_t<args_t>;
@@ -159,7 +159,7 @@ public:
                 args_t args_typed_in_out = convert_tuple_to<args_t>(args_typed_unqf_in);
 
                 fn = [obj, ifc_ptr, args_typed_in_out]() -> return_t {
-                    if (is_member_function_pointer<I>::value && !obj) {
+                    if (is_member_function_pointer<Interface>::value && !obj) {
                         throw_exception(environment_error("invoking mfp trigger with null object"));
                     }
                     // WARN: is_unsafe_ptr cast
@@ -252,9 +252,9 @@ class Trigger final {
     Trigger& operator=(Trigger const&) = default;
     Trigger& operator=(Trigger &&) = default;
 
-    template <class T, class I>
-    Trigger(T&& obj, I&& interface, std::shared_ptr<OutputRecorder> recorder)
-        : Trigger(internal_ctor{}, TriggerObj(std::forward<T>(obj)), TriggerIfc(std::forward<I>(interface)), recorder)
+    template <class T, class Interface>
+    Trigger(T&& obj, Interface&& interface, std::shared_ptr<OutputRecorder> recorder)
+        : Trigger(internal_ctor{}, TriggerObj(std::forward<T>(obj)), TriggerIfc(std::forward<Interface>(interface)), recorder)
     {
     }
 

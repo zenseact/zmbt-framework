@@ -61,24 +61,24 @@ struct ModelDefinition::T_OnTrigger : protected virtual ModelDefinition::BaseTra
     }
 
 
-    template <class O, class I>
-    require_literal<O, I, Target>
-    OnTrigger(I&& ifc, O&& obj) {
+    template <class O, class Interface>
+    require_literal<O, Interface, Target>
+    OnTrigger(Interface&& ifc, O&& obj) {
         auto key = state().env.RegisterAnonymousTrigger(ifc, obj);
         return OnTrigger(key);
     }
 
-    template <class I>
-    require_cal<I, Target>
-    OnTrigger(I&& ifc) {
-        static_assert(!is_member_pointer<I>::value, "");
-        return OnTrigger(std::forward<I>(ifc), ifc_host_nullptr<I>);
+    template <class Interface>
+    require_cal<Interface, Target>
+    OnTrigger(Interface&& ifc) {
+        static_assert(!is_member_pointer<Interface>::value, "");
+        return OnTrigger(std::forward<Interface>(ifc), ifc_host_nullptr<Interface>);
     }
 
 
-    template <class I>
-    require_cal<I, Target>
-    OnTrigger(I&& ifc, Param const& obj)
+    template <class Interface>
+    require_cal<Interface, Target>
+    OnTrigger(Interface&& ifc, Param const& obj)
     {
         state().model("/trigger") = {
             {"ifc", state().env.RegisterParametricTriggerIfc(ifc)}
@@ -236,29 +236,29 @@ template <class Target>
 struct ModelDefinition::T_At : protected virtual ModelDefinition::BaseTransition
 {
     /// Create input channel with an interface literal
-    template <class C>
-    require_not_str<C, Target>
-    At(C&& cal, object_id const& obj)
+    template <class Interface>
+    require_not_str<Interface, Target>
+    At(Interface&& cal, object_id const& obj)
     {
-        state().add_channel(obj, std::forward<C>(cal));
+        state().add_channel(obj, std::forward<Interface>(cal));
         return transit_to<Target>();
     }
 
-    template <class C>
-    require_not_str<C, Target>
-    At(C&& cal, Param const& obj)
+    template <class Interface>
+    require_not_str<Interface, Target>
+    At(Interface&& cal, Param const& obj)
     {
-        state().add_channel(obj, std::forward<C>(cal));
+        state().add_channel(obj, std::forward<Interface>(cal));
         return transit_to<Target>();
     }
 
 
     /// Create input channel
-    template <class C>
-    require_not_str<C, Target>
-    At(C&& cal)
+    template <class Interface>
+    require_not_str<Interface, Target>
+    At(Interface&& cal)
     {
-        state().add_channel(std::forward<C>(cal));
+        state().add_channel(std::forward<Interface>(cal));
         return transit_to<Target>();
     }
 

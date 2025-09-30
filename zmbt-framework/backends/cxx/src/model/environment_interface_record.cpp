@@ -66,7 +66,7 @@ void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::
 {
     auto table = InjectionTable::Make(interface_, refobj_);
     env.data_->injection_tables.try_emplace_or_visit(std::make_pair(interface_, refobj_), table,
-    [kind, &table](auto& record){
+    [&table](auto& record){
         table = record.second;
     });
     table->add_record(kind, InjectionTable::Record{jp, gen, tf});
