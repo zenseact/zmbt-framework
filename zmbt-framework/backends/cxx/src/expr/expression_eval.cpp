@@ -15,6 +15,19 @@
 namespace zmbt {
 namespace lang {
 
+namespace
+{
+
+ExpressionView make_literal_argument_view(boost::json::value const& value)
+{
+    static Keyword const keywords[]{Keyword::Literal};
+    static std::size_t const depth[]{0};
+    EncodingView literal_view{keywords, depth, &value, 1U, 0U};
+    return ExpressionView(literal_view);
+}
+
+} // namespace
+
 boost::json::value ExpressionView::eval(boost::json::value const& x, EvalContext ctx) const
 {
     auto const enc = encoding_view();
@@ -23,8 +36,8 @@ boost::json::value ExpressionView::eval(boost::json::value const& x, EvalContext
     {
         return *enc.front().data;
     }
-    Expression tmp(x); // TODO: literal view on x without copies
-    auto res = eval_e(tmp, std::move(ctx));
+    auto arg = make_literal_argument_view(x);
+    auto res = eval_e(arg, std::move(ctx));
     return res.to_json();
 }
 
@@ -50,8 +63,8 @@ bool ExpressionView::eval_as_predicate(ExpressionView const& x, Expression& err_
 
 bool ExpressionView::eval_as_predicate(boost::json::value const& x, Expression& err_sts, EvalContext ctx) const
 {
-    Expression const tmp(x);
-    return eval_as_predicate(tmp, err_sts, std::move(ctx));
+    auto arg = make_literal_argument_view(x);
+    return eval_as_predicate(arg, err_sts, std::move(ctx));
 }
 
 Expression ExpressionView::eval_maybe_predicate(ExpressionView const& x, EvalContext ctx) const
