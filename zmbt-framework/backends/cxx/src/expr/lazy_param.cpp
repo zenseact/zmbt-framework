@@ -4,6 +4,8 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <utility>
+
 #include "zmbt/expr/lazy_param.hpp"
 #include "zmbt/expr/expression.hpp"
 #include "zmbt/expr/eval_context.hpp"
@@ -15,18 +17,23 @@ namespace lang {
 
 
 LazyParam::LazyParam(std::function<V()> getter)
-    : getter_{getter}
+    : getter_{std::move(getter)}
 {
+    if (!getter_)
+    {
+        getter_ = []{ return V{}; };
+    }
 }
 
 LazyParam::LazyParam(ExpressionView v, EvalContext ctx)
-    : getter_{[v, ctx]{ return v.eval_e({}, ctx).to_json(); }}
+    : getter_{[view = std::move(v), context = std::move(ctx)]
+        { return view.eval_e({}, context).to_json(); }}
 {
 
 }
 
 LazyParam::LazyParam(V && v)
-    : getter_{[v=std::move(v)]{return v;}}
+    : getter_{[value = std::move(v)]{return value;}}
 {
 }
 
@@ -42,18 +49,22 @@ LazyParam::LazyParam(std::reference_wrapper<V const> v)
 
 
 LazyParam::LazyParam()
-    : LazyParam(nullptr)
+    : LazyParam(std::function<V()>{})
 {
 }
 
 LazyParam::V LazyParam::operator()() const
 {
-    return getter_();
+    if (!cache_)
+    {
+        cache_ = getter_();
+    }
+    return *cache_;
 }
 
 LazyParam::operator V() const
 {
-    return getter_();
+    return operator()();
 }
 
 } // namespace lang
