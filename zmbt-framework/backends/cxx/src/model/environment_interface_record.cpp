@@ -5,9 +5,11 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 #include <atomic>
+#include <chrono>
 #include <exception>
 #include <thread>
 
+#include "zmbt/model/global_stats.hpp"
 #include "zmbt/model/environment_interface_record.hpp"
 
 
@@ -96,6 +98,7 @@ void Environment::InterfaceHandle::MaybeThrowException()
 
 boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
+    auto const start = std::chrono::steady_clock::now();
 
     // TODO: ensure it is closed for updates
     // non-const - only generator atomic counters are incremented
@@ -110,26 +113,35 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         table = record.second;
     });
 
+    boost::json::value result{};
+
     if (!table)
     {
         switch (kind)
         {
         case ChannelKind::Args:
-            return env.GetPrototypes(interface_).args();
+            result = env.GetPrototypes(interface_).args();
+            break;
         case ChannelKind::Return:
-            return env.GetPrototypes(interface_).ret();
+            result = env.GetPrototypes(interface_).ret();
+            break;
         default:
-            return nullptr;
+            result = nullptr;
+            break;
+        }
+    }
+    else
+    {
+        boost::json::value maybe_error;
+        result = table->yield(kind, maybe_error);
+        if (!maybe_error.is_null())
+        {
+            Environment().SetTestError(std::move(maybe_error));
         }
     }
 
-    boost::json::value maybe_error;
-    boost::json::value result_value = table->yield(kind, maybe_error);
-    if (!maybe_error.is_null())
-    {
-        Environment().SetTestError(std::move(maybe_error));
-    }
-    return result_value;
+    flags::InjectionTime::add(std::chrono::steady_clock::now() - start);
+    return result;
 }
 
 

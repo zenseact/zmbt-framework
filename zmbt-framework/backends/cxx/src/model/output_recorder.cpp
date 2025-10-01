@@ -4,6 +4,9 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <chrono>
+
+#include "zmbt/model/global_stats.hpp"
 #include "zmbt/model/output_recorder.hpp"
 #include "zmbt/model/environment.hpp"
 
@@ -35,7 +38,9 @@ void OutputRecorder::flush()
 
     if (registry_)
     {
+        auto const start = std::chrono::steady_clock::now();
         registry_->extract_fn(*registry_);
+        flags::ConversionTime::add(std::chrono::steady_clock::now() - start);
     }
 }
 
