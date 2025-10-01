@@ -27,6 +27,7 @@ make_unit_tests(
         "*.cpp"
     ], exclude = [
         "*gtest*",
+        "signal_mapping_stress_test.cpp",
     ]),
 )
 
@@ -62,4 +63,23 @@ cc_test(
     deps = GTEST_COMMON_DEPS,
     copts = GTEST_COMMON_COPTS,
     linkopts = GTEST_COMMON_LINKOPTS,
+)
+
+cc_test(
+    name = 'signal_mapping_stress_test',
+    srcs = ['signal_mapping_stress_test.cpp'],
+    visibility = [':__pkg__'],
+    deps = GTEST_COMMON_DEPS,
+    copts = GTEST_COMMON_COPTS + [
+        "-fsanitize=address",
+    ],
+    linkopts = GTEST_COMMON_LINKOPTS + [
+        "-static-libasan",
+        "-fsanitize=address",
+    ],
+    args = [
+        "--gtest_repeat=50",
+        "--gtest_break_on_failure",
+        "--gtest_recreate_environments_when_repeating",
+    ]
 )

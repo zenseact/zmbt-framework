@@ -110,7 +110,16 @@ class OutputRecorder
             std::type_index const typid {typeid(std::tuple<ArgsTuple, Return>)};
 
             consume_fn_t extract_fn = [](Registry& registry) {
-                auto frame_buff_map = std::exchange(registry.frame_buff_map, std::make_shared<Registry::FramesBuffMap>());
+
+                std::shared_ptr<Registry> expected {nullptr};
+
+                auto frame_buff_map = std::atomic_exchange(&registry.frame_buff_map, std::make_shared<Registry::FramesBuffMap>());
+                if (!frame_buff_map)
+                {
+                    ZMBT_LOG(FATAL) << "corrupted output recorder registry on " << registry.interface_name;
+                    return;
+                }
+
                 bool const tid_enabled = registry.enable_categories_[static_cast<unsigned>(ChannelKind::ThreadId)];
 
                 using FB = Registry::FrameBuffs;
@@ -240,7 +249,8 @@ class OutputRecorder
     void setup_handlers()
     {
         if (registry_ != nullptr) return;
-        registry_ = Registry::Make<InterfacePointer>();
+        std::shared_ptr<Registry> expected {nullptr};
+        std::atomic_compare_exchange_weak(&(this->registry_), &expected, Registry::Make<InterfacePointer>());
     }
 
 
