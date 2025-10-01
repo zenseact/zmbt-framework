@@ -8,6 +8,8 @@
 #define ZMBT_MODEL_GLOBAL_FLAGS_HPP_
 
 #include <atomic>
+#include <chrono>
+#include <cstdint>
 
 namespace zmbt
 {

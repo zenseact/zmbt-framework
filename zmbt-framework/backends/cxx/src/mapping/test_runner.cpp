@@ -10,6 +10,8 @@
 #include <zmbt/model.hpp>
 #include <zmbt/expr.hpp>
 #include <cstddef>
+#include <chrono>
+#include <cstdint>
 #include <exception>
 #include <memory>
 #include <stdexcept>
@@ -21,6 +23,7 @@
 #include "zmbt/mapping/channel_handle.hpp"
 #include "zmbt/mapping/pipe_handle.hpp"
 #include "zmbt/model/global_flags.hpp"
+#include "zmbt/model/global_stats.hpp"
 
 
 namespace
@@ -64,6 +67,10 @@ class InstanceTestRunner
 
     bool eval_assertion(PipeHandle const& condition_pipe, lang::Expression expr, TestDiagnostics& diagnostics);
 
+    static void reset_performance_counters();
+
+    static boost::json::object collect_performance_report();
+
 
 public:
     InstanceTestRunner(JsonNode const& model);
@@ -73,7 +80,8 @@ public:
 
 void InstanceTestRunner::report_failure(TestDiagnostics const& report)
 {
-    Config().HandleTestFailure(report.to_json());
+    boost::json::value diagnostics = report.to_json();
+    Config().HandleTestFailure(diagnostics);
 }
 
 
@@ -337,6 +345,8 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 {
     bool success {true};
 
+    reset_performance_counters();
+
     auto to_string = [](boost::json::value const& node) {
         return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
     };
@@ -359,12 +369,38 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 
     exec_postrun_tasks(diagnostics);
 
+    ZMBT_LOG(DEBUG) << collect_performance_report();
+
     if (!success)
     {
         // TODO: handle
     }
 
+    // reset_performance_counters();
     return success;
+}
+
+
+void InstanceTestRunner::reset_performance_counters()
+{
+    flags::InjectionTime::reset();
+    flags::RecordingTime::reset();
+    flags::ConversionTime::reset();
+}
+
+boost::json::object InstanceTestRunner::collect_performance_report()
+{
+    using namespace std::chrono;
+
+    auto const to_milliseconds = [](std::uint64_t const ns_value) -> double {
+        return duration<double, std::milli>(nanoseconds(ns_value)).count();
+    };
+
+    return boost::json::object{
+        {"injection time", to_milliseconds(flags::InjectionTime::value())},
+        {"recording time", to_milliseconds(flags::RecordingTime::value())},
+        {"conversion time", to_milliseconds(flags::ConversionTime::value())},
+    };
 }
 
 
@@ -429,4 +465,3 @@ TestRunner::~TestRunner() {}
 
 } // namespace mapping
 } // namespace zmbt
-

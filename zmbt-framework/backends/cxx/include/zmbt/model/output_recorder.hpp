@@ -9,6 +9,7 @@
 
 #include <atomic>
 #include <bitset>
+#include <chrono>
 #include <deque>
 #include <functional>
 #include <memory>
@@ -27,6 +28,7 @@
 
 #include "channel_kind.hpp"
 #include "global_flags.hpp"
+#include "global_stats.hpp"
 #include "error_or_return.hpp"
 
 
@@ -289,6 +291,7 @@ class OutputRecorder
             return;
         }
 
+        auto const start = std::chrono::steady_clock::now();
         registry_->count++;
 
         auto const ts = get_ts();
@@ -340,6 +343,8 @@ class OutputRecorder
                 registry_->enable_categories_.reset();
             }
         }
+
+        flags::RecordingTime::add(std::chrono::steady_clock::now() - start);
     }
 
     /// Push calls count
