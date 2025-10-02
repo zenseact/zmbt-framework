@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(ViewCompare)
     }
 
     {
-        boost::json::value const token = "$[lol]";
+        boost::json::value const token("$[lol]");
         Encoding const enc1(token);
         Encoding const enc2(token);
         EncodingView const view1(enc1);
@@ -179,5 +179,4 @@ BOOST_AUTO_TEST_CASE(ViewCompare)
     }
 
 }
-
 

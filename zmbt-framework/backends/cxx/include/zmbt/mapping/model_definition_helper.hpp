@@ -141,8 +141,8 @@ class DefinitionHelper {
     void add_channel(O&& obj, Param cal)
     {
         uint32_t param_type = cnl_prm_none;
-        boost::json::value obj_node = handle_obj_p(obj, param_type);
-        boost::json::value cal_node = handle_cal_p(cal, param_type);
+        boost::json::value obj_node(handle_obj_p(obj, param_type));
+        boost::json::value cal_node(handle_cal_p(cal, param_type));
 
         add_channel_impl({
             {"obj", obj_node},
@@ -158,8 +158,8 @@ class DefinitionHelper {
     void add_channel(O&& obj, C&& cal)
     {
         uint32_t param_type = cnl_prm_none;
-        boost::json::value obj_node = handle_obj_p(obj, param_type);
-        boost::json::value cal_node = handle_cal_p(cal, param_type);
+        boost::json::value obj_node(handle_obj_p(obj, param_type));
+        boost::json::value cal_node(handle_cal_p(cal, param_type));
 
         add_channel_impl({
             {"obj", obj_node},
@@ -176,7 +176,7 @@ class DefinitionHelper {
     add_channel(T&& cal)
     {
         uint32_t param_type = cnl_prm_none;
-        boost::json::value cal_node = handle_cal_p(cal, param_type);
+        boost::json::value cal_node(handle_cal_p(cal, param_type));
 
         add_channel_impl({
             {"obj", "$(default)"},
@@ -193,7 +193,7 @@ class DefinitionHelper {
     add_channel(T&& key)
     {
         uint32_t param_type {cnl_prm_none};
-        boost::json::value key_node = handle_key_p(json_from(key), param_type);
+        boost::json::value key_node(handle_key_p(json_from(key), param_type));
         add_channel_impl(key_node, param_type);
     }
 

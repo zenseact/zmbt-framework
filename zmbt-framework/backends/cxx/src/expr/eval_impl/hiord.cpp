@@ -55,7 +55,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Sort)
     std::function<bool(V const&, V const&)> is_less = [&key_fn, &op](V const& lhs, V const& rhs) ->bool {
         return op.apply(Keyword::Lt, key_fn.eval(lhs), key_fn.eval(rhs)).as_bool();
     };
-    boost::json::array out = x.get_array();
+    boost::json::array out(x.get_array());
     std::stable_sort(out.begin(), out.end(), is_less);
     return out;
 }
@@ -248,4 +248,3 @@ ZMBT_DEFINE_EVALUATE_IMPL(Filter)
 
 } // namespace lang
 } // namespace zmbt
-

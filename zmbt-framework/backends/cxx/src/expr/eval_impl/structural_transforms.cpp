@@ -70,7 +70,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Cat)
     }
     else if (x.is_array())
     {
-        boost::json::array out = x.get_array();
+        boost::json::array out(x.get_array());
         out.reserve(out.size() + param.get_array().size());
         for (auto const& el: param.get_array())
         {
@@ -112,7 +112,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Reverse)
     auto const& x = lhs().data();
 
     ASSERT(x.is_array(), "invalid argument");
-    boost::json::array out = x.get_array();
+    boost::json::array out(x.get_array());
     std::reverse(out.begin(), out.end());
     return out;
 }
@@ -262,4 +262,3 @@ ZMBT_DEFINE_EVALUATE_IMPL(Last)
 
 } // namespace lang
 } // namespace zmbt
-

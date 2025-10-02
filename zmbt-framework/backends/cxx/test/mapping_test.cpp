@@ -1141,7 +1141,7 @@ BOOST_AUTO_TEST_CASE(FlattenExpect)
 
 BOOST_AUTO_TEST_CASE(BadSignalPath)
 {
-    boost::json::value error = nullptr;
+    boost::json::value error(nullptr);
     zmbt::Config()
         .SetFailureHandler([&error](boost::json::value const& sts){ error = sts; });
 

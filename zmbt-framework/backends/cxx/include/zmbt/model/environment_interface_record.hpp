@@ -222,7 +222,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     auto HookReturnImpl(type_tag<T>) -> mp_if<mp_not<is_reference<T>>, T>
     try
     {
-        boost::json::value result = YieldInjection(ChannelKind::Return);
+        boost::json::value result(YieldInjection(ChannelKind::Return));
         return dejsonize<T>(result);
     }
     catch(const std::exception& e)

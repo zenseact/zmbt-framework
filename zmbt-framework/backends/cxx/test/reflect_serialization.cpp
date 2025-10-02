@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(SerializeStaticCArray)
     Dummy const carr_in[3] {{1},{2},{3}};
     Dummy carr_out[3] {{}, {}, {}};
 
-    boost::json::array serialized = zmbt::json_from_array(carr_in).as_array();
+    boost::json::array serialized(zmbt::json_from_array(carr_in).as_array());
     zmbt::dejsonize_array(serialized, carr_out);
     BOOST_CHECK_EQUAL(carr_in[0].x, carr_out[0].x);
     BOOST_CHECK_EQUAL(carr_in[1].x, carr_out[1].x);

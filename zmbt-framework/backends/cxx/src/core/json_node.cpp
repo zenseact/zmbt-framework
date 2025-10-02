@@ -102,7 +102,7 @@ boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
         {
             ZMBT_LOG_CERR(FATAL) << "failed to create node at " << json_ptr << " in " << node();
             throw_exception(e);
-            static boost::json::value _ = {};
+            static boost::json::value _{};
             return _;
         }
     }

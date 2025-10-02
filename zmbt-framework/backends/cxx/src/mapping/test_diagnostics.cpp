@@ -23,7 +23,7 @@ TestDiagnostics& TestDiagnostics::Error(boost::json::string_view origin, boost::
 }
 
 /// report test expectation failure
-TestDiagnostics& TestDiagnostics::Fail(lang::Expression expected, boost::json::value observed)
+TestDiagnostics& TestDiagnostics::Fail(lang::Expression const& expected, boost::json::value const& observed)
 {
     this->result = Result::Fail;
     this->expected = expected.data();
@@ -50,9 +50,11 @@ boost::json::value TestDiagnostics::to_json() const
         break;
     }
 
-    boost::json::value cond = tabular_condition_failure_
-        ? boost::json::value{this->tr, this->tc}
-        : boost::json::value{{"pipe", this->pipe_id}};
+    boost::json::value cond(
+        tabular_condition_failure_
+            ? boost::json::value{this->tr, this->tc}
+            : boost::json::value{{"pipe", this->pipe_id}}
+    );
 
     return boost::json::object {
         {"model"         , this->model_name  },

@@ -80,7 +80,7 @@ public:
 
 void InstanceTestRunner::report_failure(TestDiagnostics const& report)
 {
-    boost::json::value diagnostics = report.to_json();
+    boost::json::value diagnostics(report.to_json());
     Config().HandleTestFailure(diagnostics);
 }
 

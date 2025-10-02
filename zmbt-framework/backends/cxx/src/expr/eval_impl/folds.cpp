@@ -41,7 +41,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fold)
     auto it = samples.cbegin();
 
     // take init term
-    boost::json::value ret = *it++;
+    boost::json::value ret(*it++);
 
     while (it != samples.cend())
     {
@@ -76,4 +76,3 @@ ZMBT_DEFINE_EVALUATE_IMPL(Avg)
 
 } // namespace lang
 } // namespace zmbt
-
