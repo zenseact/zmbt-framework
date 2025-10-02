@@ -180,3 +180,12 @@ BOOST_AUTO_TEST_CASE(ViewCompare)
 
 }
 
+BOOST_AUTO_TEST_CASE(EncodingJson)
+{
+    auto const js = zmbt::json_from(TestEncoding);
+    std::cerr << js << '\n';
+    Encoding from_js(js);
+
+    std::cerr << zmbt::json_from(from_js.keywords) << '\n';
+}
+
