@@ -58,7 +58,10 @@ class object_id : public entity_id {
 
     template<class T, is_ptr<T> = true>
     object_id(T obj)
-        : entity_id(to_string(static_cast<void const*>(obj)), type_name<remove_cvptr_t<T>>())
+        : entity_id(
+            to_string(static_cast<void const*>(obj)),
+            type<remove_cvptr_t<T>>
+        )
     {
     }
 

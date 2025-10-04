@@ -129,6 +129,8 @@ BOOST_AUTO_TEST_CASE(EliminatePtrRefConst)
     BOOST_CHECK_EQUAL(object_id(obj), object_id(cref));
     BOOST_CHECK_EQUAL(object_id(obj), object_id(cptr));
     BOOST_CHECK_EQUAL(object_id(obj), object_id(mptr));
+    BOOST_TEST_MESSAGE(obj);
+
 }
 
 BOOST_AUTO_TEST_CASE(StringId)
@@ -148,6 +150,8 @@ BOOST_AUTO_TEST_CASE(StringId)
 
     BOOST_CHECK_EQUAL(object_id(c_string).key(), c_string);
     BOOST_CHECK_EQUAL(object_id(c_string).annotation(), "string");
+    BOOST_TEST_MESSAGE(c_string);
+
 }
 
 

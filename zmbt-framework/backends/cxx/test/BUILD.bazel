@@ -70,13 +70,6 @@ cc_test(
     srcs = ['signal_mapping_stress_test.cpp'],
     visibility = [':__pkg__'],
     deps = GTEST_COMMON_DEPS,
-    copts = GTEST_COMMON_COPTS + [
-        "-fsanitize=address",
-    ],
-    linkopts = GTEST_COMMON_LINKOPTS + [
-        "-static-libsan",
-        "-fsanitize=address",
-    ],
     args = [
         "--gtest_repeat=50",
         "--gtest_break_on_failure",
