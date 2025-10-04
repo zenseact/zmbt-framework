@@ -376,12 +376,17 @@ class Environment {
 
     std::shared_ptr<OutputRecorder> GetRecorder(interface_id const& ifc_id, object_id const& obj_id)
     {
-        auto recorder = std::make_shared<OutputRecorder>(ifc_id, obj_id);
+        std::shared_ptr<OutputRecorder> recorder;
 
-        data_->output_recorders.try_emplace_or_visit(std::make_pair(ifc_id, obj_id), recorder,
+        data_->output_recorders.try_emplace_or_visit(std::make_pair(ifc_id, obj_id),
+            [&recorder, &ifc_id, &obj_id]() -> std::shared_ptr<OutputRecorder> {
+                recorder = std::make_shared<OutputRecorder>(ifc_id, obj_id);
+                return recorder;
+            },
             [&recorder](auto& record){
-            recorder = record.second;
-        });
+                recorder = record.second;
+            }
+        );
         return recorder;
     }
 

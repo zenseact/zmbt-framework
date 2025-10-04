@@ -23,7 +23,6 @@ namespace zmbt {
 class InjectionTable
 {
   public:
-    using Shared = std::shared_ptr<InjectionTable>;
 
     struct Record
     {
@@ -65,7 +64,7 @@ class InjectionTable
     /// Evaluate input for given category and return error object if any, null otherwise
     boost::json::value yield(ChannelKind const& ck, boost::json::value& result_value);
 
-    static Shared Make(interface_id const& ifc_id, object_id const& obj_id);
+    static std::shared_ptr<InjectionTable> Make(interface_id const& ifc_id, object_id const& obj_id);
 };
 
 } // namespace

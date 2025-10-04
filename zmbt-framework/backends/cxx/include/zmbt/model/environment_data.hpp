@@ -59,11 +59,11 @@ struct EnvironmentData final {
 
     boost::concurrent_flat_map<
         std::pair<interface_id, object_id>,
-            InjectionTable::Shared> injection_tables{};
+            shared_resource<InjectionTable>> injection_tables{};
 
     boost::concurrent_flat_map<
         std::pair<interface_id, object_id>,
-            std::shared_ptr<OutputRecorder>> output_recorders{};
+            shared_resource<OutputRecorder>> output_recorders{};
 
     std::atomic_bool has_test_error{false};
 

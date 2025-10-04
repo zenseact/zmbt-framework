@@ -21,6 +21,7 @@
 #include <boost/unordered/concurrent_flat_map.hpp>
 
 #include "zmbt/core/format_string.hpp"
+#include "zmbt/core/shared_resource.hpp"
 
 namespace {
 
@@ -37,32 +38,8 @@ class annotation_registry {
 
   private:
 
-    struct annotation_storage
-    {
-        std::shared_ptr<boost::json::string> str_;
 
-      public:
-
-        annotation_storage() = default;
-
-        annotation_storage(std::function<boost::json::string()> f)
-            : str_(std::make_shared<boost::json::string>(f()))
-        {
-        }
-
-        annotation_storage(boost::json::string_view v)
-            : str_(std::make_shared<boost::json::string>(v))
-        {
-        }
-
-        boost::json::string_view view() const
-        {
-            return *str_;
-        }
-
-    };
-
-    boost::concurrent_flat_map<std::size_t, annotation_storage> id_to_annotation_;
+    boost::concurrent_flat_map<std::size_t, zmbt::shared_resource<boost::json::string>> id_to_annotation_;
 };
 
 annotation_registry::annotation_registry()
@@ -72,12 +49,12 @@ annotation_registry::annotation_registry()
 
 std::size_t annotation_registry::ensure(std::size_t annotation_id, std::function<boost::json::string()> f)
 {
-    id_to_annotation_.emplace(annotation_id, f);
+    id_to_annotation_.try_emplace(annotation_id, f);
     return annotation_id;
 }
 std::size_t annotation_registry::ensure(std::size_t annotation_id, boost::json::string_view annotation)
 {
-    id_to_annotation_.emplace(annotation_id, annotation);
+    id_to_annotation_.try_emplace(annotation_id, zmbt::emplace_shared, annotation);
     return annotation_id;
 }
 
@@ -92,7 +69,7 @@ boost::json::string_view annotation_registry::get(std::size_t id) const
 {
     boost::json::string_view v;
     id_to_annotation_.cvisit(id, [&v](auto& record){
-        v = record.second.view();
+        v = *record.second;
     });
     return v;
 }

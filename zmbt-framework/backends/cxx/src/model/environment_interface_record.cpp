@@ -66,11 +66,17 @@ void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
 
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
-    auto table = InjectionTable::Make(interface_, refobj_);
-    env.data_->injection_tables.try_emplace_or_visit(std::make_pair(interface_, refobj_), table,
-    [&table](auto& record){
-        table = record.second;
-    });
+    std::shared_ptr<InjectionTable> table;
+    env.data_->injection_tables.try_emplace_or_visit(
+        std::make_pair(interface_, refobj_),
+        [&]() -> std::shared_ptr<InjectionTable> {
+            table = InjectionTable::Make(interface_, refobj_);
+            return table;
+        },
+        [&table](auto& record){
+            table = record.second;
+        }
+    );
     table->add_record(kind, InjectionTable::Record{jp, gen, tf});
 }
 
@@ -108,7 +114,7 @@ boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind cons
         // and close modification of managed data on client-side during test execution.
 
 
-    InjectionTable::Shared table;
+    std::shared_ptr<InjectionTable> table;
     env.data_->injection_tables.visit(std::make_pair(interface_, refobj_), [&table](auto& record){
         table = record.second;
     });

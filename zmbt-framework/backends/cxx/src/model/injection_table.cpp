@@ -209,7 +209,7 @@ boost::json::value InjectionTable::yield(ChannelKind const& ck, boost::json::val
     return result_value;
 }
 
-InjectionTable::Shared InjectionTable::Make(interface_id const& ifc_id, object_id const& obj_id) {
+std::shared_ptr<InjectionTable> InjectionTable::Make(interface_id const& ifc_id, object_id const& obj_id) {
     auto t = std::make_shared<InjectionTable>(ifc_id, obj_id);
     return t;
 }
