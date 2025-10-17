@@ -31,15 +31,13 @@ class annotation_registry {
 
     bool contains(std::size_t id) const;
 
-    std::size_t ensure(std::size_t annotation_id, std::function<boost::json::string()>);
-    std::size_t ensure(std::size_t id, boost::json::string_view annotation);
-    std::size_t ensure(boost::json::string_view annotation);
-    boost::json::string_view get(std::size_t id) const;
+    std::size_t ensure(std::type_index type_index);
+    std::type_index get(std::size_t id) const;
 
   private:
 
 
-    boost::concurrent_flat_map<std::size_t, zmbt::shared_resource<boost::json::string>> id_to_annotation_;
+    boost::concurrent_flat_map<std::size_t, zmbt::shared_resource<std::type_index>> id_to_annotation_;
 };
 
 annotation_registry::annotation_registry()
@@ -47,27 +45,17 @@ annotation_registry::annotation_registry()
     id_to_annotation_.reserve(255);
 }
 
-std::size_t annotation_registry::ensure(std::size_t annotation_id, std::function<boost::json::string()> f)
+std::size_t annotation_registry::ensure(std::type_index type_index)
 {
-    id_to_annotation_.try_emplace(annotation_id, f);
-    return annotation_id;
-}
-std::size_t annotation_registry::ensure(std::size_t annotation_id, boost::json::string_view annotation)
-{
-    id_to_annotation_.try_emplace(annotation_id, zmbt::emplace_shared, annotation);
-    return annotation_id;
-}
-
-std::size_t annotation_registry::ensure(boost::json::string_view annotation)
-{
-    return ensure(boost::hash_value(annotation), annotation);
+    id_to_annotation_.try_emplace(type_index.hash_code(), zmbt::emplace_shared, type_index);
+    return type_index.hash_code();
 }
 
 
 
-boost::json::string_view annotation_registry::get(std::size_t id) const
+std::type_index annotation_registry::get(std::size_t id) const
 {
-    boost::json::string_view v;
+    std::type_index v{typeid(void)};
     id_to_annotation_.cvisit(id, [&v](auto& record){
         v = *record.second;
     });
@@ -85,15 +73,15 @@ annotation_registry& registry()
 
 namespace zmbt {
 
-entity_id::entity_id(boost::json::string_view key, boost::json::string_view annotation)
-    : entity_id(key, registry().ensure(annotation))
+entity_id::entity_id(boost::json::string_view key, std::type_index type_index)
+    : entity_id(key, registry().ensure(type_index))
 {
 }
 
-entity_id::entity_id(boost::json::string_view key, std::size_t annotation_id)
+entity_id::entity_id(boost::json::string_view key, std::size_t type_index_hash)
     : key_{key}
-    , annotation_id_{annotation_id}
-    , hash_{boost::hash_value(key_)}
+    , type_index_hash_{type_index_hash}
+    , hash_{boost::hash_value(std::make_pair(type_index_hash_, key_))}
 {
 }
 
@@ -111,7 +99,7 @@ boost::json::string_view entity_id::annotation() const
 {
     if (annotation_.empty())
     {
-        annotation_ = registry().get(annotation_id_);
+        annotation_ = boost::core::demangle(registry().get(type_index_hash_).name());
     }
     return annotation_;
 }
@@ -126,20 +114,4 @@ boost::json::string_view entity_id::str() const
     return str_;
 }
 
-
-std::size_t entity_id::ensure_annotation(std::size_t annotation_id, std::function<boost::json::string()> f)
-{
-    return registry().ensure(annotation_id, f);
-}
-
-
 } // namespace zmbt
-
-
-template <>
-struct std::hash<zmbt::entity_id> {
-    std::size_t operator()(zmbt::entity_id const& k) const
-    {
-        return hash_value(k);
-    }
-};

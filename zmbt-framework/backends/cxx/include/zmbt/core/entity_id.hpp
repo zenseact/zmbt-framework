@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <utility>
+#include <typeindex>
 #include <boost/json.hpp>
 
 #include "aliases.hpp"
@@ -24,20 +25,10 @@ namespace zmbt {
 class entity_id {
 
     boost::json::string key_;
-    std::size_t annotation_id_ {};
-    std::size_t hash_ {};
-    mutable boost::json::string_view annotation_;
+    std::size_t type_index_hash_;
+    std::size_t hash_;
+    mutable boost::json::string annotation_;
     mutable boost::json::string str_;
-
-    template <class T>
-    static std::size_t ensure_annotation(type_tag<T>)
-    {
-        return ensure_annotation(typeid(T).hash_code(), [] () -> boost::json::string {
-            return type_name<T>().c_str();
-        });
-    }
-
-    static std::size_t ensure_annotation(std::size_t annotation_id, std::function<boost::json::string()> f);
 
 
   public:
@@ -45,16 +36,8 @@ class entity_id {
     entity_id() = default;
 
 
-    entity_id(boost::json::string_view key, boost::json::string_view annotation);
-    entity_id(boost::json::string_view key, std::size_t annotation_id);
-
-    template <class T>
-    entity_id(boost::json::string_view key, type_tag<T> ttag)
-        : entity_id(
-            key,
-            ensure_annotation(ttag)
-        )
-    {}
+    entity_id(boost::json::string_view key, std::type_index type_index);
+    entity_id(boost::json::string_view key, std::size_t type_index_hash);
 
     explicit entity_id(boost::json::array const& str);
     explicit entity_id(boost::json::value const& val);
@@ -80,22 +63,10 @@ class entity_id {
 
 
     bool operator==(entity_id const& other) const {
-        return (key_ == other.key_);
+        return (type_index_hash_ == other.type_index_hash_) && (key_ == other.key_) ;
     }
     bool operator!=(entity_id const& other) const {
         return !this->operator==(other);
-    }
-    bool operator<(entity_id const& other) const {
-        return key_ < other.key_;
-    }
-    bool operator>(entity_id const& other) const {
-        return other.operator<(*this);
-    }
-    bool operator<=(entity_id const& other) const {
-        return !other.operator<(*this);
-    }
-    bool operator>=(entity_id const& other) const {
-        return !this->operator<(other);
     }
 
     friend std::ostream& operator<<(std::ostream& os, entity_id const& id)
@@ -121,12 +92,20 @@ class entity_id {
 
     operator boost::json::value() const
     {
-        return boost::json::array{key_, annotation_id_};
+        return boost::json::array{key_, type_index_hash_};
     }
 };
 
 
 } // namespace zmbt
+
+template <>
+struct std::hash<zmbt::entity_id> {
+    std::size_t operator()(zmbt::entity_id const& k) const
+    {
+        return hash_value(k);
+    }
+};
 
 
 #endif // ZMBT_CORE_INTERFACE_ID_HPP_

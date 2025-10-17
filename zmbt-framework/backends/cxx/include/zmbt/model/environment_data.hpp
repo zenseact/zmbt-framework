@@ -53,8 +53,8 @@ struct EnvironmentData final {
 
     std::map<boost::json::string, std::function<void()>> callbacks;
     std::map<boost::json::string, Trigger> triggers;
-    std::map<interface_id, TriggerIfc> trigger_ifcs;
-    std::map<object_id, TriggerObj> trigger_objs;
+    std::unordered_map<interface_id, TriggerIfc> trigger_ifcs;
+    std::unordered_map<object_id, TriggerObj> trigger_objs;
 
 
     boost::concurrent_flat_map<

@@ -86,10 +86,11 @@ void Environment::DumpToJsonLog()
 
 void Environment::ResetInterfaceData()
 {
-    auto lock = Lock();
-    data_->json_data("/interface_records").as_object().clear();
     data_->injection_tables.clear();
     data_->output_recorders.visit_all([](auto& record){ record.second->clear();});
+    // data_->output_recorders.clear();
+    auto lock = Lock();
+    data_->json_data("/interface_records").as_object().clear();
     data_->has_test_error = false;
 }
 
@@ -101,9 +102,6 @@ void Environment::ResetAll()
     auto lock = Lock();
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
-    data_->injection_tables.clear();
-    data_->output_recorders.visit_all([](auto& record){ record.second->clear();});
-    data_->has_test_error = false;
 }
 
 

@@ -22,6 +22,8 @@
 #define BOOST_UNORDERED_DISABLE_REENTRANCY_CHECK
 #include <boost/unordered/concurrent_flat_map.hpp>
 
+#include <boost/core/demangle.hpp>
+
 #include "zmbt/application/log.hpp"
 #include "zmbt/core.hpp"
 #include "zmbt/reflect.hpp"
@@ -244,12 +246,13 @@ class OutputRecorder
     OutputRecorder& operator=(OutputRecorder const&) = default;
     OutputRecorder& operator=(OutputRecorder &&) = default;
 
-    /// Flush interal buffers and complete serialization
+    /// Flush interal bufferregistry_s and complete serialization
     void flush();
 
     template <class Interface, class InterfacePointer = ifc_pointer_t<Interface>>
     void setup_handlers()
     {
+        // std::atomic_store(&(this->registry_), Registry::Make<InterfacePointer>());
         if (registry_ != nullptr) return;
         std::shared_ptr<Registry> expected {nullptr};
         std::atomic_compare_exchange_weak(&(this->registry_), &expected, Registry::Make<InterfacePointer>());
@@ -276,8 +279,11 @@ class OutputRecorder
         {
             ErrorInfo e;
             e.type = type_name<output_recorder_error>();
-            e.what = "invalid type on push";
-            e.context = "OutputRecorder";
+            e.what = format("invalid type on push - expected `%s`, got `%s`",
+                boost::core::demangle(registry_->data_typeid.name()),
+                boost::core::demangle(ti.name())
+            ).c_str();
+            e.context = format("OutputRecorder[%s]", registry_->interface_name).c_str();
             report_test_error(e);
             return;
         }
@@ -364,6 +370,13 @@ class OutputRecorder
     {
         return registry_ != nullptr;
     }
+
+    boost::json::string_view interface_name() const
+    {
+        constexpr char* nil {"unregistered"};
+        return registry_ ? boost::json::string_view(registry_->interface_name) : boost::json::string_view(nil);
+    }
+
 
     boost::json::array const& data_frames() const;
 

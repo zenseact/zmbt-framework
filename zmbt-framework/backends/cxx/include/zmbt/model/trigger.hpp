@@ -239,7 +239,7 @@ class Trigger final {
     Trigger(internal_ctor, TriggerObj const& obj, TriggerIfc const& ifc, std::shared_ptr<OutputRecorder> recorder)
         : obj_{obj}
         , ifc_{ifc}
-        , output_recorder_{recorder}
+        , output_recorder_{std::move(recorder)}
     {
     }
 

@@ -129,9 +129,11 @@ BOOST_FIXTURE_TEST_CASE(LambdaRef, TestMappingTrigger)
     auto trigger = Trigger(nullptr, lambda, env.GetRecorder(lambda));
 
     trigger({});
-
+    BOOST_CHECK(not Environment().HasTestError());
     BOOST_CHECK_EQUAL(side_effect, 1);
     BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
+    Environment().ResetInterfaceData();
+
 }
 
 
@@ -153,6 +155,7 @@ BOOST_FIXTURE_TEST_CASE(ObjFunctorRef, TestMappingTrigger)
     ifc_rec.EnableOutputRecordFor(ChannelKind::Return);
     auto trigger = Trigger(nullptr, obj_functor, env.GetRecorder(obj_functor));
     trigger(42);
+    BOOST_CHECK(not Environment().HasTestError());
     BOOST_CHECK_EQUAL(ifc_rec.CaptureSlice("/return").back(), 42);
 }
 

@@ -102,16 +102,12 @@ class interface_id : public entity_id {
     using entity_id::operator boost::json::value;
     using entity_id::operator==;
     using entity_id::operator!=;
-    using entity_id::operator<;
-    using entity_id::operator>;
-    using entity_id::operator<=;
-    using entity_id::operator>=;
 
     template <class Interface, class = mp_if<is_ifc_handle<Interface const&>, void>>
     interface_id(Interface const& ifc)
         : entity_id(
             ifc_addr(ifc),
-            type<remove_pointer_t<remove_cvref_t<ifc_handle_t<Interface const&>>>>
+            typeid(remove_pointer_t<remove_cvref_t<ifc_handle_t<Interface const&>>>)
         )
     {
     }
@@ -119,6 +115,15 @@ class interface_id : public entity_id {
 
 
 } // namespace zmbt
+
+template <>
+struct std::hash<zmbt::interface_id>
+{
+    std::size_t operator()(const zmbt::interface_id& k) const
+    {
+        return hash_value(k);
+    }
+};
 
 
 #endif // ZMBT_CORE_INTERFACE_ID_HPP_
