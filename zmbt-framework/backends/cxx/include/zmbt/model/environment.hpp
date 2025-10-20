@@ -37,6 +37,8 @@
 #include "exceptions.hpp"
 #include "trigger.hpp"
 
+#include "permanent_data.hpp"
+
 namespace zmbt {
 
 
@@ -49,27 +51,29 @@ namespace zmbt {
  */
 class Environment {
 
+    friend class OutputRecorder;
   protected:
 
     using lock_t = typename EnvironmentData::lock_t;
 
-    template <class T>
-    using return_t = reflect::invocation_ret_t<ifc_pointer_t<T>>;
+    template <class Interface>
+    using return_t = reflect::invocation_ret_t<ifc_pointer_t<Interface>>;
 
-    template <class T>
-    using unqf_args_t = reflect::invocation_args_unqf_t<ifc_pointer_t<T>>;
+    template <class Interface>
+    using unqf_args_t = reflect::invocation_args_unqf_t<ifc_pointer_t<Interface>>;
 
 
-    template <class T>
-    using argsref_t = reflect::invocation_args_t<ifc_pointer_t<T>>;
+    template <class Interface>
+    using argsref_t = reflect::invocation_args_t<ifc_pointer_t<Interface>>;
 
     template <class T>
     using rvref_to_val = mp_if<std::is_rvalue_reference<T>, std::remove_reference_t<T>, T>;
 
-    template <class I>
-    using hookout_args_t = mp_transform<rvref_to_val, argsref_t<I>>;
+    template <class Interface>
+    using hookout_args_t = mp_transform<rvref_to_val, argsref_t<Interface>>;
 
     std::shared_ptr<EnvironmentData> data_;
+    std::shared_ptr<PermanentEnvData> permanent_data_;
 
     void SetTestError(boost::json::value&& msg);
 
@@ -88,6 +92,16 @@ class Environment {
     JsonNode& json_data()
     {
         return data_->json_data;
+    }
+
+    reflect::Prototypes GetPrototypes(interface_id const& id) const
+    {
+        auto const maybe_proto = permanent_data_->get_prototypes(id);
+        if (!maybe_proto.has_value())
+        {
+            throw_exception(environment_error("accessing unregistered prototypes for `%s`", id));
+        }
+        return maybe_proto.value();
     }
 
     JsonNode const& json_data() const
@@ -309,27 +323,10 @@ class Environment {
 
 
     /**
-     * @brief Clear interface data associated with the object (accessed via ArgsFor/ReturnFor)
-     *
-     * @warning this will invalidate interface records
-     * @param obj
-     */
-    void ResetInterfaceDataFor(object_id obj);
-
-
-    /**
      * @brief Clear all data
      *
      */
     void ResetAll();
-
-
-    /**
-     * @brief Clear data associated with the object
-     *
-     * @param obj
-     */
-    void ResetAllFor(object_id obj);
 
 
     Environment& RegisterAction(lang::Expression const& key_expr, std::function<void()> action);
@@ -339,11 +336,11 @@ class Environment {
     Environment& RunActionNoCatch(lang::Expression const& key_expr);
 
 
-    template <class I>
-    interface_id RegisterParametricTriggerIfc(I&& interface)
+    template <class Interface>
+    interface_id RegisterParametricTriggerIfc(Interface&& interface)
     {
-        RegisterPrototypes(interface);
-        TriggerIfc trigger_ifc{std::forward<I>(interface)};
+        InitializeInterfaceHandlers(std::forward<Interface>(interface));
+        TriggerIfc trigger_ifc{std::forward<Interface>(interface)};
         interface_id ifc_id{trigger_ifc.id()};
         auto key = format("/trigger_ifcs/%s", ifc_id);
         auto lock = Lock();
@@ -370,23 +367,52 @@ class Environment {
         return {format("%s:%s", obj_id.key(), ifc_id.key())};
     }
 
+
+    template <class Interface>
+    std::shared_ptr<OutputRecorder> GetRecorder(Interface&& interface)
+    {
+        return GetRecorder(std::forward<Interface>(interface), ifc_host_nullptr<Interface>);
+    }
+
+    std::shared_ptr<OutputRecorder> GetRecorder(interface_id const& ifc_id, object_id const& obj_id)
+    {
+        std::shared_ptr<OutputRecorder> recorder;
+
+        data_->output_recorders.try_emplace_or_visit(std::make_pair(ifc_id, obj_id),
+            [&recorder, &ifc_id, &obj_id]() -> std::shared_ptr<OutputRecorder> {
+                recorder = std::make_shared<OutputRecorder>(ifc_id, obj_id);
+                return recorder;
+            },
+            [&recorder](auto& record){
+                recorder = record.second;
+            }
+        );
+        return recorder;
+    }
+
     boost::json::string GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id);
 
     /**
      * @brief Register test trigger to enable FFI in the test model runners.
      *
      * @tparam H
-     * @tparam I
+     * @tparam Interface
      * @param host  callable host object
      * @param interface callable interface handle
      * @param key string key, unique per environment
      * @return
      */
     //@{
-    template <class I, class H>
-    Environment& RegisterTrigger(boost::json::string_view key, I&& interface, H&& host)
+    template <class Interface, class H>
+    Environment& RegisterTrigger(boost::json::string_view key, Interface&& interface, H&& host)
     {
-        Trigger trigger{std::forward<H>(host), interface};
+
+        interface_id const ifc_id{std::forward<Interface>(interface)};
+        object_id const obj_id{host};
+
+        auto recorder = GetRecorder(ifc_id, obj_id);
+
+        Trigger trigger{std::forward<H>(host), interface, recorder};
         auto const json_data_key = format("/triggers/%s", key);
         auto const err_msg = format("Trigger registering failed: key \"%s\" is taken", key);
         auto lock = Lock();
@@ -406,15 +432,15 @@ class Environment {
     }
 
 
-    template <class I>
-    Environment& RegisterTrigger(boost::json::string_view key, I&& interface)
+    template <class Interface>
+    Environment& RegisterTrigger(boost::json::string_view key, Interface&& interface)
     {
-        return RegisterTrigger(key, std::forward<I>(interface), ifc_host_nullptr<I>);
+        return RegisterTrigger(key, std::forward<Interface>(interface), ifc_host_nullptr<Interface>);
     }
     //@}
 
-    template <class H, class I>
-    boost::json::string RegisterAnonymousTrigger(I&& interface, H&& host)
+    template <class Interface, class H>
+    boost::json::string RegisterAnonymousTrigger(Interface&& interface, H&& host)
     {
         auto key = autokey(host, interface);
         RegisterTrigger(key, interface, host);
@@ -427,22 +453,17 @@ class Environment {
     bool HasAction(boost::json::string_view key) const;
 
 
-    template <class I>
-    Environment& RegisterPrototypes(I&& interface)
+    template <class Interface>
+    Environment& InitializeInterfaceHandlers(Interface&& interface)
     {
-        static_assert(is_ifc_handle<I>::value, "");
-        auto const ifc_id = interface_id(interface);
-        auto const obj_id = object_id{ifc_host_nullptr<I>};
-        auto const proto_key = format("/prototypes/%s", ifc_id);
-        auto const defobj_key = format("/refs/defobj/%s", ifc_id);
-        auto const prototypes = reflect::prototypes<I>();
+        static_assert(is_ifc_handle<Interface>::value, "");
+        auto const ifc_id = interface_id(std::forward<Interface>(interface));
 
-        auto lock = Lock();
-        if (!data_->json_data.contains(proto_key))
-        {
-            data_->json_data(proto_key) = prototypes;
-            data_->json_data(defobj_key) = obj_id;
-        }
+        permanent_data_->prototypes.emplace(ifc_id, interface);
+        permanent_data_->default_objects.emplace(ifc_id, ifc_host_nullptr<Interface>);
+        permanent_data_->output_recorder_factories.emplace(ifc_id, [](OutputRecorder& rec){
+            rec.setup_handlers<Interface>();
+        });
         return *this;
     }
 
@@ -462,20 +483,19 @@ class Environment {
     }
 
 
-    template <class I>
-    enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterInterface(boost::json::string_view key, I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
+    template <class Interface>
+    enable_if_t<is_ifc_handle<Interface>::value, Environment&>
+    RegisterInterface(boost::json::string_view key, Interface&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<Interface>})
     {
-        RegisterPrototypes(std::forward<I>(interface));
-        return RegisterInterface(key, interface_id{std::forward<I>(interface)}, obj_id);
+        InitializeInterfaceHandlers(std::forward<Interface>(interface));
+        return RegisterInterface(key, interface_id(std::forward<Interface>(interface)), obj_id);
     }
 
-    template <class I>
-    enable_if_t<is_ifc_handle<I>::value, Environment&>
-    RegisterAnonymousInterface(I&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<I>})
+    template <class Interface>
+    enable_if_t<is_ifc_handle<Interface>::value, Environment&>
+    RegisterAnonymousInterface(Interface&& interface, object_id const& obj_id = object_id{ifc_host_nullptr<Interface>})
     {
-        RegisterPrototypes(std::forward<I>(interface));
-        return RegisterInterface(autokey(obj_id, interface_id{interface}), interface_id(interface), obj_id);
+        return RegisterInterface(autokey(obj_id, std::forward<Interface>(interface)), std::forward<Interface>(interface), obj_id);
     }
 
 

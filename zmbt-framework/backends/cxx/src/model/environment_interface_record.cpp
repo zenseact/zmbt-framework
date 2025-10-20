@@ -5,9 +5,11 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 #include <atomic>
+#include <chrono>
 #include <exception>
 #include <thread>
 
+#include "zmbt/model/global_stats.hpp"
 #include "zmbt/model/environment_interface_record.hpp"
 
 
@@ -18,10 +20,8 @@ Environment::InterfaceHandle::InterfaceHandle(Environment const& e, interface_id
     : refobj_{refobj}
     , interface_{interface}
     , env{e}
+    , output_recorder_{env.GetRecorder(interface_, refobj_)}
 {
-    auto lock = Env().Lock();
-    auto& ifc_rec = Env().data_->json_data;
-    captures = ifc_rec.branch(boost::json::kind::array, "/interface_records/%s/%s/captures", refobj, interface);
 }
 
 Environment::InterfaceHandle::InterfaceHandle(Environment const& e, boost::json::string_view ref)
@@ -49,22 +49,35 @@ Environment::InterfaceHandle::InterfaceHandle(boost::json::string_view ref)
 }
 
 
-boost::json::value const& Environment::InterfaceHandle::PrototypeReturn() const
+boost::json::value Environment::InterfaceHandle::PrototypeReturn() const
 {
-    auto lock = Env().Lock();
-    return env.data_->json_data.at("/prototypes/%s/return", interface());
+    return env.GetPrototypes(interface()).ret();
 }
 
-boost::json::value const& Environment::InterfaceHandle::PrototypeArgs() const
+boost::json::array Environment::InterfaceHandle::PrototypeArgs() const
 {
-    auto lock = Env().Lock();
-    return env.data_->json_data.at("/prototypes/%s/args", interface());
+    return env.GetPrototypes(interface()).args();
+}
+
+void Environment::InterfaceHandle::EnableOutputRecordFor(ChannelKind const ck)
+{
+    output_recorder_->enable_category(ck);
 }
 
 void Environment::InterfaceHandle::Inject(std::shared_ptr<Generator> gen, lang::Expression const& tf, ChannelKind const kind, boost::json::string_view jp)
 {
-    auto lock = Env().Lock();
-    env.data_->input_generators[refobj_][interface_][kind][jp] = {gen, tf};
+    std::shared_ptr<InjectionTable> table;
+    env.data_->injection_tables.try_emplace_or_visit(
+        std::make_pair(interface_, refobj_),
+        [&]() -> std::shared_ptr<InjectionTable> {
+            table = InjectionTable::Make(interface_, refobj_);
+            return table;
+        },
+        [&table](auto& record){
+            table = record.second;
+        }
+    );
+    table->add_record(kind, InjectionTable::Record{jp, gen, tf});
 }
 
 
@@ -91,150 +104,73 @@ void Environment::InterfaceHandle::MaybeThrowException()
 
 boost::json::value Environment::InterfaceHandle::YieldInjection(ChannelKind const kind)
 {
-    boost::json::value result_value;
-
-    if (ChannelKind::Return == kind)
-    {
-        result_value = PrototypeReturn();
-    }
-    else if (ChannelKind::Args == kind)
-    {
-        result_value = PrototypeArgs();
-    }
-    else if (ChannelKind::Exception == kind)
-    {
-        result_value = nullptr;
-    }
-    else
-    {
-        throw_exception(model_error("%s injection not implemented", json_from(kind)));
-    }
+    auto const start = std::chrono::steady_clock::now();
 
     // TODO: ensure it is closed for updates
     // non-const - only generator atomic counters are incremented
-    auto& inputs = [&]() -> EnvironmentData::GeneratorsTable& {
         // auto lock = env.Lock();
         // no lock here - it runs under assumption there are no updates during test execution.
         // TODO: split Env interface for managed and unmanaged,
         // and close modification of managed data on client-side during test execution.
-        return env.data_->input_generators[refobj_][interface_][kind];
-    }();
 
-    for (auto& record: inputs)
+
+    std::shared_ptr<InjectionTable> table;
+    env.data_->injection_tables.visit(std::make_pair(interface_, refobj_), [&table](auto& record){
+        table = record.second;
+    });
+
+    boost::json::value result{};
+
+    if (!table)
     {
-        boost::json::string_view const record_pointer = record.first;
-        auto& generator = *record.second.first;
-        auto const& tf = record.second.second;
-        if (generator.is_noop()) continue;
-
-        boost::json::value raw_v;
-        // TODO: optimize recursive expr
-        auto const iteration = generator(raw_v);
-        auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
-
-        lang::Expression const v_as_expr(v);
-        if (v_as_expr.is_error())
+        switch (kind)
         {
-            if (kind == ChannelKind::Exception)
-            {
-                result_value = v_as_expr.to_json();
-                break;
-            }
-            // reevaluate to collect log
-
-            auto generator_ctx = lang::EvalContext::make();
-            generator.expression().eval(iteration, generator_ctx);
-
-            auto transform_ctx = lang::EvalContext::make();
-            if (not tf.is_noop())
-            {
-                tf.eval(raw_v, transform_ctx);
-            }
-
-            ZMBT_LOG_JSON(FATAL) << boost::json::object{
-                {"ZMBT_INJECTION", boost::json::object{
-                    {"interface", key()},
-                    {"group", json_from(kind)},
-                    {"pointer", record_pointer},
-                    {"Inject log", *generator_ctx.log.stack},
-                    {"Take log", *transform_ctx.log.stack},
-                }}
-            };
-
-            auto const failed_inject = raw_v == v;
-            auto const error_context = failed_inject ? "Inject" : "Take";
-
-            auto const origin = format("ZMBT_INJECTION(%s, %s%s, %s)",
-                key(), json_from(kind), record_pointer, error_context);
-
-            ZMBT_LOG_CERR(FATAL).WithSrcLoc(origin) << "\n"
-                << (error_context ? generator_ctx.log.str(2) : transform_ctx.log.str(2));
-            // throw_exception(model_error("injection failure"));
-            return {v_as_expr.prettify().c_str()};
+        case ChannelKind::Args:
+            result = env.GetPrototypes(interface_).args();
+            break;
+        case ChannelKind::Return:
+            result = env.GetPrototypes(interface_).ret();
+            break;
+        default:
+            result = nullptr;
+            break;
         }
-        else
-        {
-            result_value.set_at_pointer(record_pointer, v);
-        }
-
     }
-    return result_value;
+    else
+    {
+        boost::json::value maybe_error;
+        result = table->yield(kind, maybe_error);
+        if (!maybe_error.is_null())
+        {
+            Environment().SetTestError(std::move(maybe_error));
+        }
+    }
+
+    flags::InjectionTime::add(std::chrono::steady_clock::now() - start);
+    return result;
 }
 
 
 
 std::size_t Environment::InterfaceHandle::ObservedCalls() const
 {
-    auto lock = Env().Lock();
-    return captures().as_array().size();
+    output_recorder_->flush();
+    return output_recorder_->count();
 }
 
 
-boost::json::array Environment::InterfaceHandle::ObservedArgs(int const nofcall)
+boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path) const
 {
-    auto lock = Env().Lock();
-    auto const N = captures().as_array().size();
-    if (N == 0)
-    {
-        throw_exception(environment_error("ObservedArgs(%s) no captures found", interface()));
-    }
-    auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
-    if (idx >= N)
-    {
-        throw_exception(environment_error("ObservedArgs(%s) index %d is out of range, N = %lu", interface(), nofcall, N));
-    }
-    return captures.get_or_create_array("/%d/args", idx);
-}
-
-
-boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path, int start, int stop, int const step) const
-{
-    auto lock = Env().Lock();
-    return slice(captures().as_array(), signal_path, start, stop, step);
+    output_recorder_->flush();
+    return slice(output_recorder_->data_frames(), signal_path);
 }
 
 boost::json::array const& Environment::InterfaceHandle::Captures() const
 {
-    auto lock = Env().Lock();
-    return captures().as_array();
+    output_recorder_->flush();
+    return output_recorder_->data_frames();
 }
 
-
-boost::json::value Environment::InterfaceHandle::ObservedReturn(int const nofcall) const
-{
-    auto lock = Env().Lock();
-    auto const N = captures().as_array().size();
-    if (N == 0)
-    {
-        throw_exception(environment_error("ObservedReturn(%s) no captures found", interface()));
-    }
-    auto const idx = nofcall < 0 ? N + nofcall : static_cast<std::size_t>(nofcall - 1);
-    if (idx >= N)
-    {
-        throw_exception(environment_error("ObservedReturn(%s) index %lu is out of range, N = %lu", interface(), idx, N));
-    }
-    return captures.at("/%d/return", idx);
-}
 
 boost::json::string const& Environment::InterfaceHandle::key() const
 {
@@ -284,11 +220,9 @@ try
 
     for (size_t frame = 0; frame < repeats; frame++)
     {
-        boost::json::value args = YieldInjection(ChannelKind::Args);
-        captures("/+") = trigger(args);
-        if (env.data_->has_test_error.load(std::memory_order_relaxed))
+        trigger(YieldInjection(ChannelKind::Args));
+        if (env.data_->has_test_error.load(std::memory_order_acquire))
         {
-            std::cerr << "TestError : " << env.TestError() << '\n';
             break;
         }
     }

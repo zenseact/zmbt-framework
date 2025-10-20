@@ -23,6 +23,7 @@
 #include "core/slice.hpp"
 #include "core/preprocessor.hpp"
 #include "core/operator_traits.hpp"
+#include "core/shared_resource.hpp"
 #include "core/tuple_conversion.hpp"
 #include "core/tuple_exchange.hpp"
 #include "core/tuple_indexator.hpp"

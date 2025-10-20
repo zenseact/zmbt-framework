@@ -4,9 +4,12 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
+#include <unordered_set>
+
 #include <boost/test/unit_test.hpp>
 
 #include "zmbt/core.hpp"
+
 
 using namespace zmbt;
 
@@ -129,25 +132,29 @@ BOOST_AUTO_TEST_CASE(EliminatePtrRefConst)
     BOOST_CHECK_EQUAL(object_id(obj), object_id(cref));
     BOOST_CHECK_EQUAL(object_id(obj), object_id(cptr));
     BOOST_CHECK_EQUAL(object_id(obj), object_id(mptr));
+    BOOST_TEST_MESSAGE(obj);
+
 }
 
 BOOST_AUTO_TEST_CASE(StringId)
 {
     BOOST_CHECK_EQUAL(object_id("string literal").key(), "string literal");
-    BOOST_CHECK_EQUAL(object_id("string literal").annotation(), "string");
+    BOOST_CHECK_EQUAL(object_id("string literal").annotation(), "zmbt::object_id::string_key");
 
     std::string const std_string {"std::string"};
     boost::json::string_view const string_view {"boost::json::string_view"};
     char const* const c_string {"c_string"};
 
     BOOST_CHECK_EQUAL(object_id(std_string).key(), std_string);
-    BOOST_CHECK_EQUAL(object_id(std_string).annotation(), "string");
+    BOOST_CHECK_EQUAL(object_id(std_string).annotation(), "zmbt::object_id::string_key");
 
     BOOST_CHECK_EQUAL(object_id(string_view).key(), string_view);
-    BOOST_CHECK_EQUAL(object_id(string_view).annotation(), "string");
+    BOOST_CHECK_EQUAL(object_id(string_view).annotation(), "zmbt::object_id::string_key");
 
     BOOST_CHECK_EQUAL(object_id(c_string).key(), c_string);
-    BOOST_CHECK_EQUAL(object_id(c_string).annotation(), "string");
+    BOOST_CHECK_EQUAL(object_id(c_string).annotation(), "zmbt::object_id::string_key");
+    BOOST_TEST_MESSAGE(c_string);
+
 }
 
 
@@ -184,7 +191,7 @@ BOOST_AUTO_TEST_CASE(Uniqueness)
         interface_id(mem_tempref<Abstract>{&Abstract::h})
     };
 
-    std::set<interface_id> unique_ids;
+    std::unordered_set<interface_id, std::hash<interface_id>, std::equal_to<interface_id>> unique_ids{};
 
     for (auto const& id : ids)
     {

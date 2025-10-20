@@ -10,6 +10,8 @@
 #include <zmbt/model.hpp>
 #include <zmbt/expr.hpp>
 #include <cstddef>
+#include <chrono>
+#include <cstdint>
 #include <exception>
 #include <memory>
 #include <stdexcept>
@@ -20,6 +22,8 @@
 #include "zmbt/mapping/test_parameter_resolver.hpp"
 #include "zmbt/mapping/channel_handle.hpp"
 #include "zmbt/mapping/pipe_handle.hpp"
+#include "zmbt/model/global_flags.hpp"
+#include "zmbt/model/global_stats.hpp"
 
 
 namespace
@@ -51,6 +55,8 @@ class InstanceTestRunner
 
     bool inject_inline_inputs(TestDiagnostics diagnostics);
 
+    void set_recorder_filters();
+
     bool eval_inline_assertions(TestDiagnostics diagnostics);
 
     bool inject_tabular_inputs(boost::json::array const& test_vector, TestDiagnostics diagnostics);
@@ -61,6 +67,10 @@ class InstanceTestRunner
 
     bool eval_assertion(PipeHandle const& condition_pipe, lang::Expression expr, TestDiagnostics& diagnostics);
 
+    static void reset_performance_counters();
+
+    static boost::json::object collect_performance_report();
+
 
 public:
     InstanceTestRunner(JsonNode const& model);
@@ -70,7 +80,8 @@ public:
 
 void InstanceTestRunner::report_failure(TestDiagnostics const& report)
 {
-    Config().HandleTestFailure(report.to_json());
+    boost::json::value diagnostics(report.to_json());
+    Config().HandleTestFailure(diagnostics);
 }
 
 
@@ -156,7 +167,9 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
         Environment::InterfaceHandle ifc_rec{model_.at("/trigger").as_string()};
         auto const& runs =  boost::json::value_to<std::uint64_t>(model_.get_or_default("/repeat_trigger", 1U));
 
+        flags::TestIsRunning::set();
         ifc_rec.RunAsTrigger(runs);
+        flags::TestIsRunning::clear();
 
         if (env.HasTestError())
         {
@@ -166,6 +179,7 @@ bool InstanceTestRunner::execute_trigger(TestDiagnostics diagnostics)
         return true;
     }
     catch (std::exception const& error) {
+        flags::TestIsRunning::clear();
         report_failure(diagnostics.Error("trigger", error.what()));
         return false;
     }
@@ -228,6 +242,24 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
     }
 }
 
+void InstanceTestRunner::set_recorder_filters()
+{
+    for (auto const& pipe: inline_outputs_)
+    {
+        for (auto const& channel: pipe.channels())
+        {
+            channel.inerface_handle().EnableOutputRecordFor(channel.kind());
+        }
+    }
+
+    for (auto const& pipe: tabular_outputs_)
+    {
+        for (auto const& channel: pipe.channels())
+        {
+            channel.inerface_handle().EnableOutputRecordFor(channel.kind());
+        }
+    }
+}
 
 bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
 {
@@ -313,6 +345,8 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 {
     bool success {true};
 
+    reset_performance_counters();
+
     auto to_string = [](boost::json::value const& node) {
         return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
     };
@@ -328,18 +362,45 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
     success = success && exec_prerun_tasks(diagnostics);
     success = success && inject_inline_inputs(diagnostics);
     success = success && inject_tabular_inputs(test_vector, diagnostics);
+    set_recorder_filters();
     success = success && execute_trigger(diagnostics);
     success = success && eval_inline_assertions(diagnostics);
     success = success && observe_results(test_vector, diagnostics);
 
     exec_postrun_tasks(diagnostics);
 
+    ZMBT_LOG(DEBUG) << collect_performance_report();
+
     if (!success)
     {
         // TODO: handle
     }
 
+    // reset_performance_counters();
     return success;
+}
+
+
+void InstanceTestRunner::reset_performance_counters()
+{
+    flags::InjectionTime::reset();
+    flags::RecordingTime::reset();
+    flags::ConversionTime::reset();
+}
+
+boost::json::object InstanceTestRunner::collect_performance_report()
+{
+    using namespace std::chrono;
+
+    auto const to_milliseconds = [](std::uint64_t const ns_value) -> double {
+        return duration<double, std::milli>(nanoseconds(ns_value)).count();
+    };
+
+    return boost::json::object{
+        {"injection time", to_milliseconds(flags::InjectionTime::value())},
+        {"recording time", to_milliseconds(flags::RecordingTime::value())},
+        {"conversion time", to_milliseconds(flags::ConversionTime::value())},
+    };
 }
 
 
@@ -348,7 +409,6 @@ void InstanceTestRunner::Run()
 
     auto const N = tabular_inputs_.size() + tabular_outputs_.size();
     boost::json::array const& tests = model_("/tests").as_array();
-
 
     if (N == 0 && tests.empty())
     {
@@ -362,7 +422,6 @@ void InstanceTestRunner::Run()
         {
             throw_exception(model_error("inconsistent test vecor size at test case %d", i));
         }
-
         run_test_procedure(test_vector, i);
     }
 }
@@ -406,4 +465,3 @@ TestRunner::~TestRunner() {}
 
 } // namespace mapping
 } // namespace zmbt
-

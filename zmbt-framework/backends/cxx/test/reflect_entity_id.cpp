@@ -15,11 +15,11 @@ using namespace zmbt;
 BOOST_AUTO_TEST_CASE(ObjectIdSerialization)
 {
     BOOST_CHECK_NO_THROW(zmbt::json_from(object_id{nullptr}));
-    BOOST_CHECK_NO_THROW(zmbt::dejsonize<object_id>("[addr](type)"));
+    BOOST_CHECK_NO_THROW(zmbt::dejsonize<object_id>(boost::json::array{"addr",0U}));
 }
 
 BOOST_AUTO_TEST_CASE(InterfaceIdSerialization)
 {
     BOOST_CHECK_NO_THROW(zmbt::json_from(interface_id{}));
-    BOOST_CHECK_NO_THROW(zmbt::dejsonize<interface_id>("[addr](type)"));
+    BOOST_CHECK_NO_THROW(zmbt::dejsonize<interface_id>(boost::json::array{"addr",0U}));
 }

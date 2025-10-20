@@ -420,6 +420,12 @@ void tag_invoke(boost::json::value_from_tag const&, boost::json::value& v, Keywo
 
 Keyword tag_invoke(boost::json::value_to_tag<Keyword> const&, boost::json::value const& v)
 {
+
+    if (auto as_uint64 = v.if_uint64())
+    {
+        return *as_uint64 < static_cast<std::uint64_t>(Keyword::_count) ? static_cast<Keyword>(*as_uint64) : Keyword::Undefined;
+    }
+
     if (not v.is_string())
     {
         return Keyword::Undefined;

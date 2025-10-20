@@ -13,11 +13,17 @@
 
 namespace zmbt
 {
-std::string get_tid()
+
+std::string tid2str(std::thread::id const tid)
 {
     std::stringstream ss;
-    ss << std::this_thread::get_id();
+    ss << tid;
     return ss.str();
+}
+
+std::string get_tid()
+{
+    return tid2str(std::this_thread::get_id());
 }
 
 std::size_t get_ts()

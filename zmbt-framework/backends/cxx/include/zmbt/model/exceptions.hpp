@@ -23,10 +23,6 @@ struct model_error : public base_error {
     using base_error::base_error;
 };
 
-/// Environment operation error
-struct environment_error : public base_error {
-    using base_error::base_error;
-};
 
 }  // namespace zmbt
 

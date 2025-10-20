@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE(ViewCompare)
     }
 
     {
-        boost::json::value const token = "$[lol]";
+        boost::json::value const token("$[lol]");
         Encoding const enc1(token);
         Encoding const enc2(token);
         EncodingView const view1(enc1);
@@ -180,4 +180,12 @@ BOOST_AUTO_TEST_CASE(ViewCompare)
 
 }
 
+BOOST_AUTO_TEST_CASE(EncodingJson)
+{
+    auto const js = zmbt::json_from(TestEncoding);
+    std::cerr << js << '\n';
+    Encoding from_js(js);
+
+    std::cerr << zmbt::json_from(from_js.keywords) << '\n';
+}
 

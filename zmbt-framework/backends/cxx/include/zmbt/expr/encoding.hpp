@@ -48,6 +48,7 @@ struct Encoding
     void push_back(K const& k, std::size_t const d, V && v);
 
     void append_to_root(Encoding const& tail);
+    void append_to_root(Encoding&& tail);
 
     /// Single-pass preprocessing, return true if no multipass tokens left
     bool preprocess();
@@ -171,6 +172,8 @@ public:
     /// Hardcopy referenced encoding subview
     Encoding freeze() const;
 
+    boost::json::value to_json() const;
+
     /// Create a subview [start, start+count)
     EncodingView slice(std::size_t start, std::size_t count) const noexcept;
 
@@ -209,11 +212,11 @@ public:
 
 private:
 
-    K const* keywords_;
-    std::size_t const* depth_;
-    V const* data_;
-    std::size_t size_;
-    std::size_t index_offset_;
+    K const* keywords_ = nullptr;
+    std::size_t const* depth_ = nullptr;
+    V const* data_ = nullptr;
+    std::size_t size_ = 0U;
+    std::size_t index_offset_ = 0U;
 };
 
 

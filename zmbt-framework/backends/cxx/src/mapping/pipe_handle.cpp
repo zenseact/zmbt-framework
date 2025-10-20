@@ -60,7 +60,7 @@ lang::Expression PipeHandle::expression() const
 {
     lang::Expression e = expr::Noop;
 
-    if (auto const p =  data_.find_pointer("expr"))
+    if (auto const p =  data_.find_pointer("/expr"))
     {
         e = *p;
     }
@@ -86,9 +86,9 @@ bool PipeHandle::has_expression() const
 
 bool PipeHandle::overload(lang::Expression& e) const
 {
-    if (data_.contains("overload"))
+    if (data_.contains("/overload"))
     {
-        auto const& op_ref = data_.at("overload").as_string();
+        auto const& op_ref = data_.at("/overload").as_string();
         bool const shall_decorate_result = (e.is_const() && !e.is_boolean());
         e = expr::Overload(op_ref, e);
         if (shall_decorate_result)
@@ -188,16 +188,14 @@ boost::json::value PipeHandle::observe_blend() const
     {
         auto const& alias = channel.alias();
         auto ifc_handle = Environment::InterfaceHandle(channel.interface(), channel.host());
-        // Captures()
         auto const& captures = ifc_handle.Captures();
-        //  channel.captures();
 
         if (channel.kind() == ChannelKind::CallCount)
         {
             boost::json::array record {
                 alias,
-                captures.size(),
-                captures.empty() ? 0U : captures.crbegin()->as_object().at("ts")
+                ifc_handle.ObservedCalls(),
+                0UL // With zero timestamp, ObservedCalls are joined in order of channel definition
             };
             join_captures.insert(
                 std::upper_bound(join_captures.begin(), join_captures.end(), record,  sort_pred),
@@ -208,21 +206,18 @@ boost::json::value PipeHandle::observe_blend() const
 
         auto const& full_path = channel.full_path();
 
-        int start, stop, step;
-        std::tie(start, stop, step) = channel.slice();
-        auto captures_slice = make_slice_const_generator(captures, start, stop, step);
+
         auto insert_begin = join_captures.begin();
-        auto capture = captures.cend();
 
         auto const tf = channel.transform();
 
 
-        while ((capture = captures_slice()) != captures.cend())
+        for (auto const& capture: captures)
         {
             boost::json::value signal_value;
             boost::json::error_code ec;
 
-            if (auto const p = capture->find_pointer(full_path, ec))
+            if (auto const p = capture.find_pointer(full_path, ec))
             {
 
                 signal_value = tf.is_noop() ? *p : tf.eval(*p);
@@ -231,7 +226,7 @@ boost::json::value PipeHandle::observe_blend() const
             boost::json::array record {
                 alias,
                 signal_value,
-                capture->at_pointer("/ts")
+                capture.at_pointer("/ts")
             };
 
             insert_begin = join_captures.insert(
@@ -252,13 +247,13 @@ boost::json::value PipeHandle::observe_blend() const
 
 int PipeHandle::column() const
 {
-    return data_.get_or_default("column", -1).as_int64();
+    return data_.get_or_default("/column", -1).as_int64();
 }
 
 
 boost::json::value PipeHandle::index() const
 {
-    return data_.at("index");
+    return data_.at("/index");
 }
 
 

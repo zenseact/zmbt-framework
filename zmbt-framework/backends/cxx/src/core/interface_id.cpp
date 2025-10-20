@@ -9,13 +9,3 @@
 #include <boost/json.hpp>
 
 #include "zmbt/core/interface_id.hpp"
-
-template <>
-struct std::hash<zmbt::interface_id>
-{
-  std::size_t operator()(const zmbt::interface_id& k) const
-  {
-    using std::hash;
-    return hash<boost::json::string>()(k.key());
-  }
-};

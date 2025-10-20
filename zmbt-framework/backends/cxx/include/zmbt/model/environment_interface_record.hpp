@@ -45,7 +45,7 @@ private:
 protected:
 
     mutable zmbt::Environment env;
-    JsonNode captures;
+    std::shared_ptr<OutputRecorder> output_recorder_;
 public:
 
 
@@ -93,9 +93,11 @@ public:
         return env;
     }
 
-    boost::json::value const& PrototypeReturn() const;
+    boost::json::value PrototypeReturn() const;
 
-    boost::json::value const& PrototypeArgs() const;
+    boost::json::array PrototypeArgs() const;
+
+    void EnableOutputRecordFor(ChannelKind const kind);
 
     /// throw exception if set for current call
     void MaybeThrowException();
@@ -147,16 +149,10 @@ public:
     std::size_t ObservedCalls() const;
 
 
-    /// Input arguments observed at nofcall
-    boost::json::array ObservedArgs(int const nofcall = -1);
 
-
-    boost::json::array CaptureSlice(boost::json::string_view signal_path, int start = 0, int stop = -1, int const step = 1) const;
+    boost::json::array CaptureSlice(boost::json::string_view signal_path) const;
 
     boost::json::array const& Captures() const;
-
-    /// Observed return value at nofcall
-    boost::json::value ObservedReturn(int const nofcall = -1) const;
 
     boost::json::string const& key() const;
 
@@ -175,6 +171,9 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     using args_t      = typename reflection::args_t;
     using unqf_args_t = tuple_unqf_t<args_t>;
 
+    using return_or_nullptr_t = reflect::invocation_ret_unqf_or_nullptr_t<Interface const&>;
+
+
     template <class T>
     using rvalue_reference_to_value = mp_if<std::is_rvalue_reference<T>, std::remove_reference_t<T>, T>;
 
@@ -183,19 +182,8 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     void HookArgsImpl(hookout_args_t & args)
     try
     {
-        auto const ts = get_ts();
-        std::string const tid = get_tid();
-        // TODO: use thread_local or lockfree capture cache
-        boost::json::object capture {
-            {"ts", ts},
-            {"tid", tid },
-            {"args", json_from(convert_tuple_to<unqf_args_t>(args))}
-        };
+        output_recorder_->push(convert_tuple_to<unqf_args_t>(args), ErrorOr<return_or_nullptr_t>());
 
-        {
-            auto lock = Env().Lock();
-            captures("/+") = capture;
-        }
 
         auto const injection = YieldInjection(ChannelKind::Args).as_array();
 
@@ -203,6 +191,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         {
             env.SetTestError({
                 {"error"    , "invalid inject arguments arity"},
+                {"injection", injection},
                 {"interface", interface()                     },
                 {"context"  , "Hook"                          },
                 {"injection", injection                       },
@@ -233,7 +222,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     auto HookReturnImpl(type_tag<T>) -> mp_if<mp_not<is_reference<T>>, T>
     try
     {
-        boost::json::value result = YieldInjection(ChannelKind::Return);
+        boost::json::value result(YieldInjection(ChannelKind::Return));
         return dejsonize<T>(result);
     }
     catch(const std::exception& e)
@@ -314,16 +303,16 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
 /**
  * @brief Make TypedInterfaceHandle instance
  *
- * @tparam I
+ * @tparam Interface
  * @param obj
  * @param interface
- * @return TypedInterfaceHandle<I>
+ * @return TypedInterfaceHandle<Interface>
  */
-template <class I>
-Environment::TypedInterfaceHandle<I> InterfaceRecord(I const& interface, object_id const& obj = {ifc_host_nullptr<I>})
+template <class Interface>
+Environment::TypedInterfaceHandle<Interface> InterfaceRecord(Interface const& interface, object_id const& obj = {ifc_host_nullptr<Interface>})
 {
     Environment env {};
-    env.RegisterPrototypes(interface);
+    env.InitializeInterfaceHandlers(interface);
     return {interface, obj};
 }
 

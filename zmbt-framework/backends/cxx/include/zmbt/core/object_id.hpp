@@ -35,21 +35,18 @@ class object_id : public entity_id {
 
   public:
 
+    struct string_key final {};
+
     using entity_id::entity_id;
     using entity_id::operator boost::json::value;
     using entity_id::operator==;
     using entity_id::operator!=;
-    using entity_id::operator<;
-    using entity_id::operator>;
-    using entity_id::operator<=;
-    using entity_id::operator>=;
 
 
-    object_id(boost::json::string_view str)
-        : entity_id(to_string(str), "string")
+    object_id(boost::json::string_view str) : entity_id(to_string(str), typeid(string_key))
     {
     }
-    object_id(std::string const& str) : object_id(boost::json::string_view(str))
+    object_id(std::string const& str) : entity_id(str, typeid(string_key))
     {
     }
     // required to bypass is_ptr<T> overload
@@ -59,7 +56,10 @@ class object_id : public entity_id {
 
     template<class T, is_ptr<T> = true>
     object_id(T obj)
-        : entity_id(to_string(static_cast<void const*>(obj)), type_name<remove_cvptr_t<T>>())
+        : entity_id(
+            to_string(static_cast<void const*>(obj)),
+            typeid(remove_cvptr_t<T>)
+        )
     {
     }
 
@@ -86,6 +86,16 @@ class object_id : public entity_id {
 
 
 } // namespace zmbt
+
+
+template <>
+struct std::hash<zmbt::object_id>
+{
+    std::size_t operator()(const zmbt::object_id& k) const
+    {
+        return hash_value(k);
+    }
+};
 
 
 #endif // ZMBT_CORE_INTERFACE_ID_HPP_

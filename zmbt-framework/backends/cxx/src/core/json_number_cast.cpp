@@ -45,7 +45,7 @@ boost::json::value real_to_number(std::int64_t value)
 
 boost::json::value maybe_real_to_number(boost::json::value const& value)
 {
-    boost::json::value ret = value;
+    boost::json::value ret(value);
     maybe_real_to_number_inplace(ret);
     return ret;
 }

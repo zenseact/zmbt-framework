@@ -10,9 +10,13 @@
 #include <iostream>
 
 
+#include <array>
 #include <cstdint>
-#include <iomanip>
-#include <sstream>
+#include <cstring>
+#include <typeinfo>
+#include <utility>
+
+#include <boost/mp11/tuple.hpp>
 
 #include "aliases.hpp"
 
@@ -26,23 +30,69 @@ namespace zmbt {
 /// Pointer-based interface id with type annotation
 class interface_id : public entity_id {
 
-    template <class T>
-    boost::json::string ifc_addr(T const& ifc)
+
+    template <class Interface>
+    boost::json::string ifc_addr(Interface const& ifc)
     {
         struct {
-            ifc_pointer_t<T const&> ptr;
+            ifc_pointer_t<Interface const&> ptr;
         } wrapper {get_ifc_pointer(ifc)};
 
-        std::array<char, sizeof(wrapper)> repr {};
-        std::memcpy(repr.data(), &wrapper, sizeof(wrapper));
+        std::array<unsigned char, sizeof(wrapper)> repr {};
+        std::memcpy(repr.data(), &wrapper, repr.size());
 
-        std::stringstream ss;
-        ss << std::uppercase << std::hex << std::setfill('0') << "0x";
-        for (auto const c: repr)
+        constexpr char digits[] = "0123456789ABCDEF";
+
+        boost::json::string encoded;
+        encoded.reserve(repr.size() * 2 + 4);
+
+        std::size_t pending_zero_bytes = 0U;
+        std::size_t emitted_bytes = 0U;
+
+        boost::mp11::tuple_for_each(repr, [&](unsigned char byte){
+            if (byte == 0U)
+            {
+                ++pending_zero_bytes;
+                return;
+            }
+
+            while (pending_zero_bytes > 0U)
+            {
+                encoded.push_back('0');
+                encoded.push_back('0');
+                --pending_zero_bytes;
+                ++emitted_bytes;
+            }
+            encoded.push_back(digits[(byte >> 4U) & 0x0FU]);
+            encoded.push_back(digits[byte & 0x0FU]);
+            ++emitted_bytes;
+        });
+
+        if (emitted_bytes == 0U)
         {
-            ss  << std::setw(2) << (0xFFU & static_cast<std::uint32_t>(c));
+            encoded.push_back('0');
+            emitted_bytes = 1U;
+            pending_zero_bytes = 0U;
         }
-        return ss.str().c_str();
+
+        if (pending_zero_bytes > 0U)
+        {
+            // Put num of trailing zero bytes after underscore in decimal
+            encoded.push_back('_');
+            std::array<char, 20U> buffer {};
+            std::size_t idx = buffer.size();
+            std::size_t value = pending_zero_bytes * 2U;
+            do
+            {
+                buffer[--idx] = static_cast<char>('0' + (value % 10U));
+                value /= 10U;
+            }
+            while (value != 0U);
+
+            encoded.append(buffer.data() + idx, buffer.data() + buffer.size());
+        }
+
+        return encoded;
     }
 
 
@@ -52,18 +102,12 @@ class interface_id : public entity_id {
     using entity_id::operator boost::json::value;
     using entity_id::operator==;
     using entity_id::operator!=;
-    using entity_id::operator<;
-    using entity_id::operator>;
-    using entity_id::operator<=;
-    using entity_id::operator>=;
 
-    template <class T, class = mp_if<is_ifc_handle<T const&>, void>>
-    interface_id(T const& ifc)
+    template <class Interface, class = mp_if<is_ifc_handle<Interface const&>, void>>
+    interface_id(Interface const& ifc)
         : entity_id(
             ifc_addr(ifc),
-            type_name<
-              remove_pointer_t<remove_cvref_t<ifc_handle_t<T const&>>>
-            >()
+            typeid(remove_pointer_t<remove_cvref_t<ifc_handle_t<Interface const&>>>)
         )
     {
     }
@@ -71,6 +115,15 @@ class interface_id : public entity_id {
 
 
 } // namespace zmbt
+
+template <>
+struct std::hash<zmbt::interface_id>
+{
+    std::size_t operator()(const zmbt::interface_id& k) const
+    {
+        return hash_value(k);
+    }
+};
 
 
 #endif // ZMBT_CORE_INTERFACE_ID_HPP_

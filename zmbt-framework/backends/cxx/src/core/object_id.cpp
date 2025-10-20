@@ -23,13 +23,3 @@ boost::json::string zmbt::object_id::to_string(boost::json::string_view str)
 {
     return str;
 }
-
-template <>
-struct std::hash<zmbt::object_id>
-{
-  std::size_t operator()(const zmbt::object_id& k) const
-  {
-    using std::hash;
-    return hash<boost::json::string>()(k.str());
-  }
-};

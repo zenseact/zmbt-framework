@@ -130,8 +130,7 @@ boost::json::value ExpressionView::to_json() const
     }
     else
     {
-        // TODO: optimize value_from EncodingView
-        return boost::json::value_from(encoding_view().freeze());
+        return encoding_view().to_json();
     }
 }
 

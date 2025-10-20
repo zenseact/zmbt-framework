@@ -7,6 +7,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include "zmbt/application.hpp"
 #include "zmbt/mapping.hpp"
 #include "zmbt/model.hpp"
 
@@ -42,6 +43,26 @@ BOOST_AUTO_TEST_CASE(CaptureTriggerBadException)
     .OnTrigger(sut)
         .At(sut).Exception().Take(At("/type")).Expect("unknown")
         .At(sut).Exception().Take(At("/what")).Expect("unknown");
+}
+
+
+BOOST_AUTO_TEST_CASE(CaptureUnhandledException)
+{
+    boost::json::value error(nullptr);
+    zmbt::Config()
+        .SetFailureHandler([&error](boost::json::value const& sts){ error = sts; });
+
+    auto const sut = []{
+        throw "lol";
+    };
+
+    SignalMapping("Fail on unexpected exception")
+    .OnTrigger(sut)
+        .At(sut).Expect(Noop);
+
+    BOOST_CHECK_NE(error, nullptr);
+    BOOST_TEST_MESSAGE(error);
+    BOOST_CHECK_EQUAL(error.at("verdict"), "ERROR") ;
 }
 
 

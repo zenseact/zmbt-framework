@@ -114,7 +114,7 @@ struct TestDiagnostics
     TestDiagnostics& Error(boost::json::string_view origin, boost::json::value const& err);
 
     /// report test expectation failure
-    TestDiagnostics& Fail(lang::Expression expected, boost::json::value observed);
+    TestDiagnostics& Fail(lang::Expression const& expected, boost::json::value const& observed);
 
     boost::json::value to_json() const;
 };

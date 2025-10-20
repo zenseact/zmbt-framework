@@ -10,6 +10,7 @@
 #include <zmbt/application.hpp>
 
 #include <zmbt/model/environment_data.hpp>
+#include <zmbt/model/permanent_data.hpp>
 #include <zmbt/model/exceptions.hpp>
 #include <zmbt/model/trigger.hpp>
 
@@ -21,16 +22,18 @@ namespace zmbt {
 
 Environment::Environment()
 {
+    static std::shared_ptr<PermanentEnvData> perm_data_instance = std::make_shared<PermanentEnvData>();
+    static std::weak_ptr<EnvironmentData> data_instance;
     static std::mutex ctor_mt;
-    std::lock_guard<std::mutex> guard(ctor_mt);
 
-    static std::weak_ptr<EnvironmentData> instance;
-
-    data_ = instance.lock();
-    if (not data_)
+    permanent_data_ = perm_data_instance;
     {
-        data_ = std::make_shared<EnvironmentData>();
-        instance = data_;
+        std::lock_guard<std::mutex> guard(ctor_mt);
+        data_ = data_instance.lock();
+        if (not data_)
+        {
+            data_instance = data_ = std::make_shared<EnvironmentData>();
+        }
     }
 }
 
@@ -53,7 +56,7 @@ Environment::lock_t Environment::DeferLock() const
 
 void Environment::SetTestError(boost::json::value&& msg)
 {
-    if (!data_->has_test_error.exchange(true, std::memory_order_relaxed))
+    if (!data_->has_test_error.exchange(true))
     {
         ZMBT_LOG(ERROR) << msg;
         auto lock = Lock();
@@ -83,19 +86,14 @@ void Environment::DumpToJsonLog()
 
 void Environment::ResetInterfaceData()
 {
+    data_->injection_tables.clear();
+    data_->output_recorders.visit_all([](auto& record){ record.second->clear();});
+    // data_->output_recorders.clear();
     auto lock = Lock();
     data_->json_data("/interface_records").as_object().clear();
-    data_->input_generators.clear();
     data_->has_test_error = false;
 }
 
-
-void Environment::ResetInterfaceDataFor(object_id obj)
-{
-    auto lock = Lock();
-    data_->json_data("/interface_records").as_object().erase(obj.str());
-    data_->input_generators[obj].clear();
-}
 
 
 void Environment::ResetAll()
@@ -104,19 +102,8 @@ void Environment::ResetAll()
     auto lock = Lock();
     data_->json_data() = EnvironmentData::init_json_data();
     data_->shared.clear();
-    data_->input_generators.clear();
-    data_->has_test_error = false;
 }
 
-
-void Environment::ResetAllFor(object_id obj)
-{
-    ResetInterfaceDataFor(obj);
-    auto lock = Lock();
-    data_->json_data("/interface_records").as_object().erase(obj.str());
-    data_->json_data("/vars").as_object().erase(obj.str());
-    data_->input_generators[obj].clear();
-}
 
 
 boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const& obj_id, interface_id const& ifc_id)
@@ -127,9 +114,11 @@ boost::json::string Environment::GetOrRegisterParametricTrigger(object_id const&
 
     if (is_obj_ok && is_ifc_ok)
     {
+        auto recorder = GetRecorder(ifc_id, obj_id);
         TriggerObj const& obj = data_->trigger_objs.at(obj_id);
         TriggerIfc const& ifc = data_->trigger_ifcs.at(ifc_id);
-        Trigger trigger {obj, ifc};
+
+        Trigger trigger {obj, ifc, recorder};
         auto key = GetOrRegisterInterface(obj_id, ifc_id);
         auto lock = Lock();
         data_->triggers.emplace(key, std::move(trigger));
@@ -241,8 +230,13 @@ boost::json::string Environment::GetOrRegisterInterface(object_id const& obj_id,
 
 object_id Environment::DefaultObjectId(interface_id const& ifc_id) const
 {
-    auto lock = Lock();
-    return object_id{json_data().at("/refs/defobj/%s", ifc_id)};
+    auto const maybe_id = permanent_data_->get_default_object(ifc_id);
+
+    if (!maybe_id.has_value())
+    {
+        throw_exception(environment_error("accessing unregistered DefaultObjectId for `%s`", ifc_id));
+    }
+    return maybe_id.value();
 }
 
 

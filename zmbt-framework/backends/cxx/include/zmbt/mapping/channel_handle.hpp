@@ -38,7 +38,6 @@ public:
     boost::json::string full_path() const;
     boost::json::string signal_path() const;
     Kind kind() const;
-    std::tuple<int,int,int> slice() const;
 
     bool operator==(boost::json::value const& v) const;
 
@@ -54,6 +53,8 @@ public:
     boost::json::array captures() const;
 
     lang::Expression transform() const;
+
+    Environment::InterfaceHandle inerface_handle() const;
 
 };
 

@@ -437,8 +437,6 @@ BOOST_AUTO_TEST_CASE(ModelWithMocks)
         return out;
     };
 
-    auto FieldParam = Param(1);
-
 
     SignalMapping("Test side effect mocking")
     .OnTrigger(SUT)
@@ -960,7 +958,9 @@ BOOST_AUTO_TEST_CASE(TestWith)
 
 
     using test_map_t = std::map<int, int>;
-    auto test_map = [](test_map_t const& map){ return map; };
+    auto test_map = [](test_map_t const& map){
+        return map;
+    };
 
     SignalMapping("And clause test")
     .OnTrigger(test_map)
@@ -1027,7 +1027,9 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     .OnTrigger(test)
         .At(test).Inject({1,2,3,4,5,6,7})
         .At(&Mock::foo).CallCount().Alias("f").Blend()
-        .At(&Mock::bar).CallCount().Alias("b").Expect(L{{"b", 3}, {"f", 4}});
+        .At(&Mock::bar).CallCount().Alias("b")
+            // CallCount does not have timestamp, so it is blended in order of definition
+            .Expect(L{{"f", 4},{"b", 3}});
 }
 
 
@@ -1139,7 +1141,7 @@ BOOST_AUTO_TEST_CASE(FlattenExpect)
 
 BOOST_AUTO_TEST_CASE(BadSignalPath)
 {
-    boost::json::value error = nullptr;
+    boost::json::value error(nullptr);
     zmbt::Config()
         .SetFailureHandler([&error](boost::json::value const& sts){ error = sts; });
 

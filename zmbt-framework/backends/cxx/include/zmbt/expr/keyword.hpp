@@ -27,7 +27,7 @@ namespace lang {
 
 
 /// ZMBT Expression keyword
-enum class Keyword
+enum class Keyword : std::uint64_t
 {
     Undefined,
 

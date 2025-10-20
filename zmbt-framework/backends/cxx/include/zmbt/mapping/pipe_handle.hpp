@@ -51,6 +51,11 @@ public:
     int column() const;
     boost::json::value index() const;
 
+    std::list<ChannelHandle> const& channels() const
+    {
+        return channels_;
+    }
+
 };
 
 

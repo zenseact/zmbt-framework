@@ -109,7 +109,7 @@ try
 
             if (signal_path == "$(default)")
             {
-                bool const is_unary = env.json_data().at("/prototypes/%s/args", ifc_id).as_array().size() == 1;
+                bool const is_unary = env.GetPrototypes(ifc_id).args().size() == 1;
                 signal_path = (is_unary && (kind == "args")) ? "/0" : "";
             }
             else if (!signal_path.is_string())
@@ -221,17 +221,17 @@ JsonNode TestParameterResolver::Next()
         return JsonNode{};
     }
 
-    auto iter = iterators_.back();
-    if (iter->halt())
+    if (iterators_.back()->halt())
     {
         iterators_.pop_back();
         return Next();
     }
 
+    auto& iter = iterators_.back();
 
     JsonNode next_model {model_.copy()};
 
-    boost::json::array const param_values = iter->get();
+    boost::json::array const param_values(iter->get());
     boost::json::object const& params = model_.at("/params").as_object();
 
     auto param_it = params.cbegin();

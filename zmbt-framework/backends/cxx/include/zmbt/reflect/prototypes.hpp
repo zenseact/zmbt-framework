@@ -39,18 +39,35 @@ auto init_args()
 
 
 /// Interface prototypes in JSON as {"args": [...], "return": ... }
-template<class T>
-boost::json::object prototypes()
+class Prototypes
 {
-    static_assert(is_ifc_handle<T>::value, "");
+    boost::json::array args_;
+    boost::json::value return_;
 
-    using args_unqf_t = reflect::invocation_args_unqf_t<T>;
-    using unqf_ret_t = reflect::invocation_unqf_ret_t<T>;
-    return {
-        {"args"  , detail::init_args<args_unqf_t>()},
-        {"return", detail::init_return<unqf_ret_t>()}
-    };
-}
+  public:
+    Prototypes(boost::json::array&& args, boost::json::value&& ret)
+        : args_(std::move(args))
+        , return_(std::move(ret))
+    {
+    }
+
+    Prototypes() : Prototypes({}, {})
+    {
+    }
+
+    template<class T>
+    Prototypes(T const&)
+        : Prototypes(
+            detail::init_args<reflect::invocation_args_unqf_t<T const&>>(),
+            detail::init_return<reflect::invocation_ret_unqf_t<T const&>>()
+        )
+    {
+    }
+
+    boost::json::array const& args() const { return args_; };
+    boost::json::value const& ret() const { return return_; };
+
+};
 
 } // namespace reflect
 } // namespace zmbt

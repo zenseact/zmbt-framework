@@ -9,6 +9,8 @@
 #define ZMBT_EXPR_LAZY_PARAM_HPP_
 
 #include <functional>
+#include <boost/optional.hpp>
+
 #include <boost/json.hpp>
 
 #include "zmbt/reflect.hpp"
@@ -49,13 +51,14 @@ class LazyParam
     LazyParam& operator=(LazyParam const&) = default;
     LazyParam& operator=(LazyParam &&) = default;
 
-    V operator()() const;
+    [[nodiscard]] V operator()() const;
 
     operator V() const;
 
   private:
 
     std::function<V()> getter_;
+    mutable boost::optional<V> cache_;
 };
 
 } // namespace lang
