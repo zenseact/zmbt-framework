@@ -1,0 +1,761 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1Environment_1_1InterfaceHandle" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::Environment::InterfaceHandle</compoundname>
+    <derivedcompoundref refid="classzmbt_1_1Environment_1_1TypedInterfaceHandle" prot="public" virt="non-virtual">zmbt::Environment::TypedInterfaceHandle&lt; Interface &gt;</derivedcompoundref>
+    <includes refid="environment__interface__record_8hpp" local="no">environment_interface_record.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1Environment_1_1InterfaceHandle_1aa1bb0837671f745f20c4f7d6fc9973ae" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+        <definition>object_id zmbt::Environment::InterfaceHandle::refobj_</definition>
+        <argsstring></argsstring>
+        <name>refobj_</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::refobj_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="42" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Environment_1_1InterfaceHandle_1afe4e1b1b121dd38092c1a5b85bed9df4" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref></type>
+        <definition>interface_id zmbt::Environment::InterfaceHandle::interface_</definition>
+        <argsstring></argsstring>
+        <name>interface_</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::interface_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="43" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1Environment_1_1InterfaceHandle_1abf84249c65a626eb324e5d4cfdb0c310" prot="protected" static="no" mutable="yes">
+        <type><ref refid="classzmbt_1_1Environment" kindref="compound">zmbt::Environment</ref></type>
+        <definition>zmbt::Environment zmbt::Environment::InterfaceHandle::env</definition>
+        <argsstring></argsstring>
+        <name>env</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::env</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="47" column="31" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a07444acadec5bb8e5b5b5a5f13447198" prot="protected" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;OutputRecorder&gt; zmbt::Environment::InterfaceHandle::output_recorder_</definition>
+        <argsstring></argsstring>
+        <name>output_recorder_</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::output_recorder_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="48" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1ad584a6100b79cd50ed02369c46267990" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref></type>
+        <definition>interface_id zmbt::Environment::InterfaceHandle::interface</definition>
+        <argsstring>() const</argsstring>
+        <name>interface</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::interface</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="52" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="52" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a98b3b7e13553e6213ce3890c4af80428" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+        <definition>object_id zmbt::Environment::InterfaceHandle::refobj</definition>
+        <argsstring>() const</argsstring>
+        <name>refobj</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::refobj</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="57" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="57" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a8638825a02e669ca2eda72e66c790f4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(Environment const &amp;e, interface_id const &amp;interface, object_id refobj)</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref> const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref> const &amp;</type>
+          <declname>interface</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+          <declname>refobj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="62" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a6610b9db43f47599ca450bdca5cf4bc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(Environment const &amp;e, boost::json::string_view ref)</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref> const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>ref</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="63" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a55074a091aeb22ae69326813ead5f48a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(interface_id const &amp;interface, object_id refobj)</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref> const &amp;</type>
+          <declname>interface</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+          <declname>refobj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="67" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a239c4386856776eba81d90f5a4913763" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(interface_id const &amp;interface, nullptr_t)</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref> const &amp;</type>
+          <declname>interface</declname>
+        </param>
+        <param>
+          <type>nullptr_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="69" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a5a686aeb9d2005b1455e646ee962d952" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(boost::json::string_view ref)</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>ref</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="71" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a9ab3c5f6922fec399d0de5c5c2f1077b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class H</type>
+          </param>
+          <param>
+            <type>class E</type>
+            <defval>mp_if&lt;mp_not&lt;is_pointer&lt;H&gt;&gt;, void&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(interface_id const &amp;interface, H const &amp;obj)</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref> const &amp;</type>
+          <declname>interface</declname>
+        </param>
+        <param>
+          <type>H const &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="75" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="75" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a3d49e381569ea1e7f7cf40ccf8c18c32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(InterfaceHandle const &amp;)=default</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="80" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1af01668c888a1a599a303afb7ee9c5b98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::InterfaceHandle</definition>
+        <argsstring>(InterfaceHandle &amp;&amp;o)=default</argsstring>
+        <name>InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InterfaceHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> &amp;&amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="81" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1aa5ba72ceebdbc1958311b011d92d0587" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> &amp;</type>
+        <definition>InterfaceHandle &amp; zmbt::Environment::InterfaceHandle::operator=</definition>
+        <argsstring>(InterfaceHandle const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="82" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a9c3244f7c953356b3aee47d840cba802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> &amp;</type>
+        <definition>InterfaceHandle &amp; zmbt::Environment::InterfaceHandle::operator=</definition>
+        <argsstring>(InterfaceHandle &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="83" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a66b4496e950b2ec7a45fb20745313c87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Environment::InterfaceHandle::~InterfaceHandle</definition>
+        <argsstring>()=default</argsstring>
+        <name>~InterfaceHandle</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::~InterfaceHandle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="84" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1ab8070d44a72d1aa3e3eff6c6b5c63417" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref> &amp;</type>
+        <definition>Environment &amp; zmbt::Environment::InterfaceHandle::Env</definition>
+        <argsstring>() const</argsstring>
+        <name>Env</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::Env</qualifiedname>
+        <briefdescription>
+<para><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref> of the interface handle. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classzmbt_1_1Environment" kindref="compound">zmbt::Environment</ref>&amp; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="91" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="91" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a4bba892a40b5e3c8262c7e9e683a573d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::Environment::InterfaceHandle::PrototypeReturn</definition>
+        <argsstring>() const</argsstring>
+        <name>PrototypeReturn</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::PrototypeReturn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="96" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1aab9e5935c99a7ddd86b6f459071cedb9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::Environment::InterfaceHandle::PrototypeArgs</definition>
+        <argsstring>() const</argsstring>
+        <name>PrototypeArgs</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::PrototypeArgs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="98" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1af483174cd3940b9b272e573af065f2bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::Environment::InterfaceHandle::EnableOutputRecordFor</definition>
+        <argsstring>(ChannelKind const kind)</argsstring>
+        <name>EnableOutputRecordFor</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::EnableOutputRecordFor</qualifiedname>
+        <param>
+          <type>ChannelKind const</type>
+          <declname>kind</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="100" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a52ee896cff6df6f8347a0092724037b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::Environment::InterfaceHandle::MaybeThrowException</definition>
+        <argsstring>()</argsstring>
+        <name>MaybeThrowException</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::MaybeThrowException</qualifiedname>
+        <briefdescription>
+<para>throw exception if set for current call </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="103" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1ab78aaff8d5b3a149241f1c5f22b4a86d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::Environment::InterfaceHandle::YieldInjection</definition>
+        <argsstring>(ChannelKind const kind)</argsstring>
+        <name>YieldInjection</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::YieldInjection</qualifiedname>
+        <param>
+          <type>ChannelKind const</type>
+          <declname>kind</declname>
+        </param>
+        <briefdescription>
+<para>Yield input generator. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="106" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a23dea65681809ed788ca099b12f645e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::Environment::InterfaceHandle::YieldInjectionArgs</definition>
+        <argsstring>()</argsstring>
+        <name>YieldInjectionArgs</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::YieldInjectionArgs</qualifiedname>
+        <briefdescription>
+<para>Injection at nofcall. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="109" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="109" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a2d8e51277fb35e64088e93bf7c8d076e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::Environment::InterfaceHandle::YieldInjectionReturn</definition>
+        <argsstring>()</argsstring>
+        <name>YieldInjectionReturn</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::YieldInjectionReturn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="114" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="114" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1afcb83a6635007ce29bb09bc11211e5d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::Environment::InterfaceHandle::Inject</definition>
+        <argsstring>(std::shared_ptr&lt; Generator &gt; gen, lang::Expression const &amp;tf, ChannelKind const kind, boost::json::string_view jp=&quot;&quot;)</argsstring>
+        <name>Inject</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::Inject</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="classzmbt_1_1Generator" kindref="compound">Generator</ref> &gt;</type>
+          <declname>gen</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>tf</declname>
+        </param>
+        <param>
+          <type>ChannelKind const</type>
+          <declname>kind</declname>
+        </param>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>jp</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Set generating function for injection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input generator </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>group</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>return | args | exception </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSON Pointer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="123" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1ad31c646d1d199dd7194b32528b0d9afa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::Environment::InterfaceHandle::InjectReturn</definition>
+        <argsstring>(lang::Expression const &amp;e, boost::json::string_view jp=&quot;&quot;)</argsstring>
+        <name>InjectReturn</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InjectReturn</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>jp</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Set generating function for injection return. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The intput conditions are evaluated from the corresponding expressions with 0-based call index as an argument. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>generating funcion expression </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSON Pointer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="132" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="132" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a60b3b270ef2e853fb7df7b9329776616" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::Environment::InterfaceHandle::InjectArgs</definition>
+        <argsstring>(lang::Expression const &amp;e, boost::json::string_view jp=&quot;&quot;)</argsstring>
+        <name>InjectArgs</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::InjectArgs</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>jp</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Set generating function for injection args. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The intput conditions are evaluated from the corresponding expressions with 0-based call index as an argument. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>jp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSON Pointer </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="142" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="142" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a3b3bd8ae376aaba656ec754e788ec056" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::Environment::InterfaceHandle::ObservedCalls</definition>
+        <argsstring>() const</argsstring>
+        <name>ObservedCalls</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::ObservedCalls</qualifiedname>
+        <briefdescription>
+<para>Number of interface calls. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="149" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a1a0f1a8ba7e7aa65207a8e9a4f739798" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::Environment::InterfaceHandle::CaptureSlice</definition>
+        <argsstring>(boost::json::string_view signal_path) const</argsstring>
+        <name>CaptureSlice</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::CaptureSlice</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>signal_path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="153" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a3e19cfa0e07ee7095a13cd3cdc2acf18" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::array const &amp;</type>
+        <definition>boost::json::array const  &amp; zmbt::Environment::InterfaceHandle::Captures</definition>
+        <argsstring>() const</argsstring>
+        <name>Captures</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::Captures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="155" column="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a157ca98ff38002588d4b40df9289f021" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::string const &amp;</type>
+        <definition>boost::json::string const  &amp; zmbt::Environment::InterfaceHandle::key</definition>
+        <argsstring>() const</argsstring>
+        <name>key</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="157" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a6108b5d51b6d9af1b75f1d13f6c66955" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> &amp;</type>
+        <definition>InterfaceHandle &amp; zmbt::Environment::InterfaceHandle::RunAsAction</definition>
+        <argsstring>()</argsstring>
+        <name>RunAsAction</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::RunAsAction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="159" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Environment_1_1InterfaceHandle_1a6e707426262bbee1e94e5207c312eab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref> &amp;</type>
+        <definition>InterfaceHandle &amp; zmbt::Environment::InterfaceHandle::RunAsTrigger</definition>
+        <argsstring>(std::size_t const repeats=1)</argsstring>
+        <name>RunAsTrigger</name>
+        <qualifiedname>zmbt::Environment::InterfaceHandle::RunAsTrigger</qualifiedname>
+        <param>
+          <type>std::size_t const</type>
+          <declname>repeats</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="161" column="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref> extension handling the interface data. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>zmbt::Environment::InterfaceHandle</label>
+        <link refid="classzmbt_1_1Environment_1_1InterfaceHandle"/>
+      </node>
+      <node id="2">
+        <label>zmbt::Environment::TypedInterfaceHandle&lt; Interface &gt;</label>
+        <link refid="classzmbt_1_1Environment_1_1TypedInterfaceHandle"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::Environment</label>
+        <link refid="classzmbt_1_1Environment"/>
+      </node>
+      <node id="1">
+        <label>zmbt::Environment::InterfaceHandle</label>
+        <link refid="classzmbt_1_1Environment_1_1InterfaceHandle"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>env</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" line="38" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp" bodystart="39" bodyend="162"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a3e19cfa0e07ee7095a13cd3cdc2acf18" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>Captures</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a1a0f1a8ba7e7aa65207a8e9a4f739798" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>CaptureSlice</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1af483174cd3940b9b272e573af065f2bb" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>EnableOutputRecordFor</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1abf84249c65a626eb324e5d4cfdb0c310" prot="protected" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>env</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1ab8070d44a72d1aa3e3eff6c6b5c63417" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>Env</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1afcb83a6635007ce29bb09bc11211e5d6" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>Inject</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a60b3b270ef2e853fb7df7b9329776616" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InjectArgs</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1ad31c646d1d199dd7194b32528b0d9afa" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InjectReturn</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1ad584a6100b79cd50ed02369c46267990" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>interface</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1afe4e1b1b121dd38092c1a5b85bed9df4" prot="private" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>interface_</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a8638825a02e669ca2eda72e66c790f4b" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a6610b9db43f47599ca450bdca5cf4bc8" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a55074a091aeb22ae69326813ead5f48a" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a239c4386856776eba81d90f5a4913763" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a5a686aeb9d2005b1455e646ee962d952" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a9ab3c5f6922fec399d0de5c5c2f1077b" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a3d49e381569ea1e7f7cf40ccf8c18c32" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1af01668c888a1a599a303afb7ee9c5b98" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>InterfaceHandle</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a157ca98ff38002588d4b40df9289f021" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>key</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a52ee896cff6df6f8347a0092724037b3" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>MaybeThrowException</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a3b3bd8ae376aaba656ec754e788ec056" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>ObservedCalls</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1aa5ba72ceebdbc1958311b011d92d0587" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a9c3244f7c953356b3aee47d840cba802" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a07444acadec5bb8e5b5b5a5f13447198" prot="protected" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>output_recorder_</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1aab9e5935c99a7ddd86b6f459071cedb9" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>PrototypeArgs</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a4bba892a40b5e3c8262c7e9e683a573d" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>PrototypeReturn</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a98b3b7e13553e6213ce3890c4af80428" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>refobj</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1aa1bb0837671f745f20c4f7d6fc9973ae" prot="private" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>refobj_</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a6108b5d51b6d9af1b75f1d13f6c66955" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>RunAsAction</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a6e707426262bbee1e94e5207c312eab0" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>RunAsTrigger</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1ab78aaff8d5b3a149241f1c5f22b4a86d" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>YieldInjection</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a23dea65681809ed788ca099b12f645e9" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>YieldInjectionArgs</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a2d8e51277fb35e64088e93bf7c8d076e" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>YieldInjectionReturn</name></member>
+      <member refid="classzmbt_1_1Environment_1_1InterfaceHandle_1a66b4496e950b2ec7a45fb20745313c87" prot="public" virt="non-virtual"><scope>zmbt::Environment::InterfaceHandle</scope><name>~InterfaceHandle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

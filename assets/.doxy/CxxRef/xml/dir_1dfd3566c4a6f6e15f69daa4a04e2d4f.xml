@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_1dfd3566c4a6f6e15f69daa4a04e2d4f" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core</compoundname>
+    <innerfile refid="aliases_8hpp">aliases.hpp</innerfile>
+    <innerfile refid="entity__id_8hpp">entity_id.hpp</innerfile>
+    <innerfile refid="core_2exceptions_8hpp">exceptions.hpp</innerfile>
+    <innerfile refid="file__parser_8hpp">file_parser.hpp</innerfile>
+    <innerfile refid="format__string_8hpp">format_string.hpp</innerfile>
+    <innerfile refid="generic__traits_8hpp">generic_traits.hpp</innerfile>
+    <innerfile refid="get__info_8hpp">get_info.hpp</innerfile>
+    <innerfile refid="interface__id_8hpp">interface_id.hpp</innerfile>
+    <innerfile refid="interface__traits_8hpp">interface_traits.hpp</innerfile>
+    <innerfile refid="json__iter_8hpp">json_iter.hpp</innerfile>
+    <innerfile refid="json__node_8hpp">json_node.hpp</innerfile>
+    <innerfile refid="json__number__cast_8hpp">json_number_cast.hpp</innerfile>
+    <innerfile refid="json__pretty__print_8hpp">json_pretty_print.hpp</innerfile>
+    <innerfile refid="json__traverse_8hpp">json_traverse.hpp</innerfile>
+    <innerfile refid="object__id_8hpp">object_id.hpp</innerfile>
+    <innerfile refid="operator__traits_8hpp">operator_traits.hpp</innerfile>
+    <innerfile refid="preprocessor_8hpp">preprocessor.hpp</innerfile>
+    <innerfile refid="shared__resource_8hpp">shared_resource.hpp</innerfile>
+    <innerfile refid="slice_8hpp">slice.hpp</innerfile>
+    <innerfile refid="tuple__conversion_8hpp">tuple_conversion.hpp</innerfile>
+    <innerfile refid="tuple__exchange_8hpp">tuple_exchange.hpp</innerfile>
+    <innerfile refid="tuple__indexator_8hpp">tuple_indexator.hpp</innerfile>
+    <innerfile refid="type__info_8hpp">type_info.hpp</innerfile>
+    <innerfile refid="type__tag_8hpp">type_tag.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/"/>
+  </compounddef>
+</doxygen>

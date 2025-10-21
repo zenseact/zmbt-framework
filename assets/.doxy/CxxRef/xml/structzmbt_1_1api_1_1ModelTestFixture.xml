@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1api_1_1ModelTestFixture" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::api::ModelTestFixture</compoundname>
+    <basecompoundref refid="classzmbt_1_1api_1_1Environment" prot="public" virt="non-virtual">zmbt::api::Environment</basecompoundref>
+    <includes refid="model__test_8hpp" local="no">model_test.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1api_1_1ModelTestFixture_1a28f1351cf638a1fb558a49e8c71198e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::api::ModelTestFixture::ModelTestFixture</definition>
+        <argsstring>()=default</argsstring>
+        <name>ModelTestFixture</name>
+        <qualifiedname>zmbt::api::ModelTestFixture::ModelTestFixture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="27" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1api_1_1ModelTestFixture_1abdf709ef001e993d8b6b239d74c4dcf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::api::ModelTestFixture::~ModelTestFixture</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ModelTestFixture</name>
+        <qualifiedname>zmbt::api::ModelTestFixture::~ModelTestFixture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="28" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1api_1_1ModelTestFixture_1a37f1d060783966644aa21e52105d4f07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::api::ModelTestFixture::ModelTestFixture</definition>
+        <argsstring>(ModelTestFixture &amp;&amp;)=default</argsstring>
+        <name>ModelTestFixture</name>
+        <qualifiedname>zmbt::api::ModelTestFixture::ModelTestFixture</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1api_1_1ModelTestFixture" kindref="compound">ModelTestFixture</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="29" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1api_1_1ModelTestFixture_1a3293ea9d1f393c7ab308523f94a403be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1api_1_1ModelTestFixture" kindref="compound">ModelTestFixture</ref> &amp;</type>
+        <definition>ModelTestFixture &amp; zmbt::api::ModelTestFixture::operator=</definition>
+        <argsstring>(ModelTestFixture &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::api::ModelTestFixture::operator=</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1api_1_1ModelTestFixture" kindref="compound">ModelTestFixture</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="30" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1api_1_1ModelTestFixture_1a7b9a9c123c01e24114d34ffebf929b1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::api::ModelTestFixture::ModelTestFixture</definition>
+        <argsstring>(const ModelTestFixture &amp;)=delete</argsstring>
+        <name>ModelTestFixture</name>
+        <qualifiedname>zmbt::api::ModelTestFixture::ModelTestFixture</qualifiedname>
+        <param>
+          <type>const <ref refid="structzmbt_1_1api_1_1ModelTestFixture" kindref="compound">ModelTestFixture</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1api_1_1ModelTestFixture_1aa0f1eed2824a8ede866c06c87edab829" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1api_1_1ModelTestFixture" kindref="compound">ModelTestFixture</ref> &amp;</type>
+        <definition>ModelTestFixture &amp; zmbt::api::ModelTestFixture::operator=</definition>
+        <argsstring>(const ModelTestFixture &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::api::ModelTestFixture::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="structzmbt_1_1api_1_1ModelTestFixture" kindref="compound">ModelTestFixture</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="33" column="22"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Generic model-driven test fixture. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::api::Environment</label>
+        <link refid="classzmbt_1_1api_1_1Environment"/>
+      </node>
+      <node id="1">
+        <label>zmbt::api::ModelTestFixture</label>
+        <link refid="structzmbt_1_1api_1_1ModelTestFixture"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::api::Environment</label>
+        <link refid="classzmbt_1_1api_1_1Environment"/>
+      </node>
+      <node id="1">
+        <label>zmbt::api::ModelTestFixture</label>
+        <link refid="structzmbt_1_1api_1_1ModelTestFixture"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="25" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" bodystart="25" bodyend="35"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1api_1_1ModelTestFixture_1a28f1351cf638a1fb558a49e8c71198e7" prot="public" virt="non-virtual"><scope>zmbt::api::ModelTestFixture</scope><name>ModelTestFixture</name></member>
+      <member refid="structzmbt_1_1api_1_1ModelTestFixture_1a37f1d060783966644aa21e52105d4f07" prot="public" virt="non-virtual"><scope>zmbt::api::ModelTestFixture</scope><name>ModelTestFixture</name></member>
+      <member refid="structzmbt_1_1api_1_1ModelTestFixture_1a7b9a9c123c01e24114d34ffebf929b1e" prot="public" virt="non-virtual"><scope>zmbt::api::ModelTestFixture</scope><name>ModelTestFixture</name></member>
+      <member refid="structzmbt_1_1api_1_1ModelTestFixture_1a3293ea9d1f393c7ab308523f94a403be" prot="public" virt="non-virtual"><scope>zmbt::api::ModelTestFixture</scope><name>operator=</name></member>
+      <member refid="structzmbt_1_1api_1_1ModelTestFixture_1aa0f1eed2824a8ede866c06c87edab829" prot="public" virt="non-virtual"><scope>zmbt::api::ModelTestFixture</scope><name>operator=</name></member>
+      <member refid="structzmbt_1_1api_1_1ModelTestFixture_1abdf709ef001e993d8b6b239d74c4dcf5" prot="public" virt="virtual"><scope>zmbt::api::ModelTestFixture</scope><name>~ModelTestFixture</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

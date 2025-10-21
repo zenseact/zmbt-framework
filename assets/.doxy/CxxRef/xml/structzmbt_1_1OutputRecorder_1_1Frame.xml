@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1OutputRecorder_1_1Frame" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::OutputRecorder::Frame</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1OutputRecorder_1_1Frame_1aa86f75133438bc12fa9dac0a32429740" prot="public" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::OutputRecorder::Frame&lt; T &gt;::ts</definition>
+        <argsstring></argsstring>
+        <name>ts</name>
+        <qualifiedname>zmbt::OutputRecorder::Frame::ts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="50" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1OutputRecorder_1_1Frame_1ab5194222f32202ab9e04bcf02d17665f" prot="public" static="no" mutable="no">
+        <type>T</type>
+        <definition>T zmbt::OutputRecorder::Frame&lt; T &gt;::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <qualifiedname>zmbt::OutputRecorder::Frame::data</qualifiedname>
+        <initializer>{<ref refid="structzmbt_1_1reflect_1_1signal__traits" kindref="compound">reflect::signal_traits</ref>&lt;T&gt;::init()}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="51" column="11" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="51" bodyend="51"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>size_t</label>
+      </node>
+      <node id="1">
+        <label>zmbt::OutputRecorder::Frame&lt; T &gt;</label>
+        <link refid="structzmbt_1_1OutputRecorder_1_1Frame"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ts</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="48" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="49" bodyend="52"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1OutputRecorder_1_1Frame_1ab5194222f32202ab9e04bcf02d17665f" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder::Frame</scope><name>data</name></member>
+      <member refid="structzmbt_1_1OutputRecorder_1_1Frame_1aa86f75133438bc12fa9dac0a32429740" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder::Frame</scope><name>ts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

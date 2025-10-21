@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_OnTrigger</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Main</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1ac4a78d65e1f77b81b76912623a2d99b7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(boost::json::string_view key, T &amp;&amp;... fmtargs)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>T &amp;&amp;...</type>
+          <declname>fmtargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="39" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="39" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a8e7ffb0dc9cda9259737bcc0efa08185" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(Param const &amp;key)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="45" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="45" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1abe1652ccbb1ef4bf78d7abc53f3d32ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(Param const &amp;ifc, Param const &amp;obj)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>ifc</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="52" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="52" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a1ef2c00c9237652c3d224aa17d85bf4a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class O</type>
+          </param>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>require_literal&lt; O, Interface, Target &gt;</type>
+        <definition>require_literal&lt; O, Interface, Target &gt; zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(Interface &amp;&amp;ifc, O &amp;&amp;obj)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type>Interface &amp;&amp;</type>
+          <declname>ifc</declname>
+        </param>
+        <param>
+          <type>O &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="66" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a36079853aa6562f7c8c12e245231f6ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>require_cal&lt; Interface, Target &gt;</type>
+        <definition>require_cal&lt; Interface, Target &gt; zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(Interface &amp;&amp;ifc)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type>Interface &amp;&amp;</type>
+          <declname>ifc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="73" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="73" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a7542260a51e7f31f37f0a643c3a7c410" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>require_cal&lt; Interface, Target &gt;</type>
+        <definition>require_cal&lt; Interface, Target &gt; zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(Interface &amp;&amp;ifc, Param const &amp;obj)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type>Interface &amp;&amp;</type>
+          <declname>ifc</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="81" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="81" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1ae156ee7d8074e88a2cd50ebe2a139fc9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class H</type>
+          </param>
+        </templateparamlist>
+        <type>require_obj&lt; H, Target &gt;</type>
+        <definition>require_obj&lt; H, Target &gt; zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;::OnTrigger</definition>
+        <argsstring>(Param const &amp;ifc, H &amp;&amp;obj)</argsstring>
+        <name>OnTrigger</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_OnTrigger::OnTrigger</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>ifc</declname>
+        </param>
+        <param>
+          <type>H &amp;&amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="92" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="92" bodyend="99"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_OnTrigger transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Main&lt; ModelDefinition::N_Repeat &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::SignalMapping</label>
+        <link refid="classzmbt_1_1mapping_1_1SignalMapping"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="35" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="36" bodyend="100"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1ac4a78d65e1f77b81b76912623a2d99b7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a8e7ffb0dc9cda9259737bcc0efa08185" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1abe1652ccbb1ef4bf78d7abc53f3d32ca" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a1ef2c00c9237652c3d224aa17d85bf4a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a36079853aa6562f7c8c12e245231f6ce" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a7542260a51e7f31f37f0a643c3a7c410" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1ae156ee7d8074e88a2cd50ebe2a139fc9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>OnTrigger</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_OnTrigger</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

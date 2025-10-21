@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1shared__resource" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::shared_resource</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1shared__resource_1a6f5c5a158620541747e4861bd5cd12ef" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; T &gt;</type>
+        <definition>std::shared_ptr&lt;T&gt; zmbt::shared_resource&lt; T &gt;::ptr_</definition>
+        <argsstring></argsstring>
+        <name>ptr_</name>
+        <qualifiedname>zmbt::shared_resource::ptr_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="27" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a59c956ddeecf6c128575286fd0ee7941" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(T &amp;&amp;v)</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="31" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="31" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a3c8f510b0eda946512ff652c60931756" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(std::function&lt; T()&gt; f)</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type>std::function&lt; T()&gt;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="36" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="36" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a64efc480b6f55206b2398c254a0e42c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(std::function&lt; std::shared_ptr&lt; T &gt;()&gt; f)</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type>std::function&lt; std::shared_ptr&lt; T &gt;()&gt;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="41" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a15543c5ee34b2e07102fd9df892fe954" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(std::shared_ptr&lt; T &gt; ptr)</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; T &gt;</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="46" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a597d018b9a768ea31f655714466d6305" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>A</declname>
+            <defname>A</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(detail::emplace_shared_tag, A &amp;&amp;... args)</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type>detail::emplace_shared_tag</type>
+        </param>
+        <param>
+          <type>A &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="52" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="52" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1aa8d1d3d78d76734243e287b741d3f366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>()=default</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="57" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a31bb58dd3f4bb6704ed8b3ac620a5cfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(shared_resource const &amp;)=default</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1shared__resource" kindref="compound">shared_resource</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="58" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1ad8a41859b635fdd2f12f89c75691b916" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::shared_resource</definition>
+        <argsstring>(shared_resource &amp;&amp;)=default</argsstring>
+        <name>shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::shared_resource</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1shared__resource" kindref="compound">shared_resource</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="59" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a72ed7b292dd2829cfa986f46df2712ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1shared__resource" kindref="compound">shared_resource</ref> &amp;</type>
+        <definition>shared_resource &amp; zmbt::shared_resource&lt; T &gt;::operator=</definition>
+        <argsstring>(shared_resource const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::shared_resource::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1shared__resource" kindref="compound">shared_resource</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="61" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1aa046138cae00ef33c5a3b20788fb02df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1shared__resource" kindref="compound">shared_resource</ref> &amp;</type>
+        <definition>shared_resource &amp; zmbt::shared_resource&lt; T &gt;::operator=</definition>
+        <argsstring>(shared_resource &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::shared_resource::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1shared__resource" kindref="compound">shared_resource</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="62" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1af0b9b9a7317cfc84fab1c754fa6b325a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::shared_resource&lt; T &gt;::~shared_resource</definition>
+        <argsstring>()=default</argsstring>
+        <name>~shared_resource</name>
+        <qualifiedname>zmbt::shared_resource::~shared_resource</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="64" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1a41b9a8175be989fb0b7127e42961e2b1" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; T &gt;</type>
+        <definition>std::shared_ptr&lt; T &gt; zmbt::shared_resource&lt; T &gt;::ptr</definition>
+        <argsstring>() const</argsstring>
+        <name>ptr</name>
+        <qualifiedname>zmbt::shared_resource::ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="66" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1aa6310749b29b6d8eba143812d5032128" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; zmbt::shared_resource&lt; T &gt;::operator*</definition>
+        <argsstring>()</argsstring>
+        <name>operator*</name>
+        <qualifiedname>zmbt::shared_resource::operator*</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="71" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1abc129a69f033787b8df8d06b60bbd39a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T const &amp;</type>
+        <definition>T const  &amp; zmbt::shared_resource&lt; T &gt;::operator*</definition>
+        <argsstring>() const</argsstring>
+        <name>operator*</name>
+        <qualifiedname>zmbt::shared_resource::operator*</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="72" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1acd0195c7496869431ba4f9924839210d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; T &gt;</type>
+        <definition>std::shared_ptr&lt; T &gt; zmbt::shared_resource&lt; T &gt;::operator-&gt;</definition>
+        <argsstring>()</argsstring>
+        <name>operator-&gt;</name>
+        <qualifiedname>zmbt::shared_resource::operator-&gt;</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="74" column="27" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1shared__resource_1ac428dcf95765c55548f7971356a52949" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; T &gt; const</type>
+        <definition>std::shared_ptr&lt; T &gt; const zmbt::shared_resource&lt; T &gt;::operator-&gt;</definition>
+        <argsstring>() const</argsstring>
+        <name>operator-&gt;</name>
+        <qualifiedname>zmbt::shared_resource::operator-&gt;</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="75" column="27" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="75" bodyend="75"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" line="25" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/shared_resource.hpp" bodystart="26" bodyend="81"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1shared__resource_1aa6310749b29b6d8eba143812d5032128" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1shared__resource_1abc129a69f033787b8df8d06b60bbd39a" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1shared__resource_1acd0195c7496869431ba4f9924839210d" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>operator-&gt;</name></member>
+      <member refid="classzmbt_1_1shared__resource_1ac428dcf95765c55548f7971356a52949" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>operator-&gt;</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a72ed7b292dd2829cfa986f46df2712ae" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1shared__resource_1aa046138cae00ef33c5a3b20788fb02df" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a41b9a8175be989fb0b7127e42961e2b1" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>ptr</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a6f5c5a158620541747e4861bd5cd12ef" prot="private" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>ptr_</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a59c956ddeecf6c128575286fd0ee7941" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a3c8f510b0eda946512ff652c60931756" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a64efc480b6f55206b2398c254a0e42c9" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a15543c5ee34b2e07102fd9df892fe954" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a597d018b9a768ea31f655714466d6305" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1aa8d1d3d78d76734243e287b741d3f366" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1a31bb58dd3f4bb6704ed8b3ac620a5cfc" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1ad8a41859b635fdd2f12f89c75691b916" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>shared_resource</name></member>
+      <member refid="classzmbt_1_1shared__resource_1af0b9b9a7317cfc84fab1c754fa6b325a" prot="public" virt="non-virtual"><scope>zmbt::shared_resource</scope><name>~shared_resource</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

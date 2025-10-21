@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Operator_1_1Handle" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::lang::Operator::Handle</compoundname>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1A" prot="public">zmbt::lang::Operator::Handle::A</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1B" prot="public">zmbt::lang::Operator::Handle::B</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C" prot="public">zmbt::lang::Operator::Handle::C</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1D" prot="public">zmbt::lang::Operator::Handle::D</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L" prot="public">zmbt::lang::Operator::Handle::L</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S" prot="public">zmbt::lang::Operator::Handle::S</innerclass>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1af038ffd843cd409a9dbbeecef73fb3a8" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::lang::Operator::Handle::annotation</definition>
+        <argsstring></argsstring>
+        <name>annotation</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::annotation</qualifiedname>
+        <initializer>{&quot;&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="234" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="234" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1ae47c6b774d95e982dfde2b915030a551" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1D" kindref="compound">zmbt::lang::Operator::Handle::D</ref></type>
+        <definition>struct zmbt::lang::Operator::Handle::D zmbt::lang::Operator::Handle::decor</definition>
+        <argsstring></argsstring>
+        <name>decor</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::decor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="238" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1abecf0ea2fd5163bc12483b323e568f99" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C" kindref="compound">zmbt::lang::Operator::Handle::C</ref></type>
+        <definition>struct zmbt::lang::Operator::Handle::C zmbt::lang::Operator::Handle::comp</definition>
+        <argsstring></argsstring>
+        <name>comp</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::comp</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="244" column="14"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1a08019a542b82a8eb15377987f8d9028c" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1A" kindref="compound">zmbt::lang::Operator::Handle::A</ref></type>
+        <definition>struct zmbt::lang::Operator::Handle::A zmbt::lang::Operator::Handle::arithmetics</definition>
+        <argsstring></argsstring>
+        <name>arithmetics</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::arithmetics</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="253" column="21"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1a97ef329e17259da2d3006b80891291a6" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1B" kindref="compound">zmbt::lang::Operator::Handle::B</ref></type>
+        <definition>struct zmbt::lang::Operator::Handle::B zmbt::lang::Operator::Handle::bitwise</definition>
+        <argsstring></argsstring>
+        <name>bitwise</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::bitwise</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="260" column="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1a431a4ac4c412c5ac6f076a29aed12d4d" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S" kindref="compound">zmbt::lang::Operator::Handle::S</ref></type>
+        <definition>struct zmbt::lang::Operator::Handle::S zmbt::lang::Operator::Handle::shift</definition>
+        <argsstring></argsstring>
+        <name>shift</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::shift</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="265" column="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1aa6c1609518a68f2b9f8bcaca3b25722e" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L" kindref="compound">zmbt::lang::Operator::Handle::L</ref></type>
+        <definition>struct zmbt::lang::Operator::Handle::L zmbt::lang::Operator::Handle::logic</definition>
+        <argsstring></argsstring>
+        <name>logic</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::logic</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="271" column="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>zmbt::lang::Operator::Handle</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>decor</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>comp</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>arithmetics</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>bitwise</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>shift</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>logic</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::lang::Operator::Handle::A</label>
+        <link refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1A"/>
+      </node>
+      <node id="5">
+        <label>zmbt::lang::Operator::Handle::B</label>
+        <link refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1B"/>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::Operator::Handle::C</label>
+        <link refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Operator::Handle::D</label>
+        <link refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1D"/>
+      </node>
+      <node id="7">
+        <label>zmbt::lang::Operator::Handle::L</label>
+        <link refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L"/>
+      </node>
+      <node id="6">
+        <label>zmbt::lang::Operator::Handle::S</label>
+        <link refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S"/>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="232" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="232" bodyend="272"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1af038ffd843cd409a9dbbeecef73fb3a8" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>annotation</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1a08019a542b82a8eb15377987f8d9028c" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>arithmetics</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1a97ef329e17259da2d3006b80891291a6" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>bitwise</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1abecf0ea2fd5163bc12483b323e568f99" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>comp</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1ae47c6b774d95e982dfde2b915030a551" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>decor</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1aa6c1609518a68f2b9f8bcaca3b25722e" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>logic</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1a431a4ac4c412c5ac6f076a29aed12d4d" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle</scope><name>shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

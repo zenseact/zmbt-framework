@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1api" kind="namespace" language="C++">
+    <compoundname>zmbt::api</compoundname>
+    <innerclass refid="classzmbt_1_1api_1_1Environment" prot="public">zmbt::api::Environment</innerclass>
+    <innerclass refid="classzmbt_1_1api_1_1Expression" prot="public">zmbt::api::Expression</innerclass>
+    <innerclass refid="structzmbt_1_1api_1_1ModelTestFixture" prot="public">zmbt::api::ModelTestFixture</innerclass>
+    <innerclass refid="classzmbt_1_1api_1_1Param" prot="public">zmbt::api::Param</innerclass>
+    <innerclass refid="classzmbt_1_1api_1_1precise" prot="public">zmbt::api::precise</innerclass>
+    <innerclass refid="classzmbt_1_1api_1_1SignalMapping" prot="public">zmbt::api::SignalMapping</innerclass>
+    <innernamespace refid="namespacezmbt_1_1api_1_1decor">zmbt::api::decor</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1api_1_1expr">zmbt::api::expr</innernamespace>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacezmbt_1_1api_1a47f8fddc3c1ac6c8fcd215dec6e1c8a7" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto zmbt::api::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>zmbt::api::type</qualifiedname>
+        <briefdescription>
+<para>Alias for <ref refid="namespacezmbt_1aa6dbe066c6a84f4ab7134b8d2ed20359" kindref="member">zmbt::type</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp" line="40" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacezmbt_1_1api_1a5ff8bd9eb8c32a5e45dae4ad0314acbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto zmbt::api::InterfaceRecord</definition>
+        <argsstring>(...)</argsstring>
+        <name>InterfaceRecord</name>
+        <qualifiedname>zmbt::api::InterfaceRecord</qualifiedname>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Alias for <ref refid="namespacezmbt_1ab2939838766296487adab545be82a54f" kindref="member">zmbt::InterfaceRecord</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp" line="44" column="6" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp" declline="44" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Framework API with fixture classes and entries from main ns. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp" line="19" column="1"/>
+  </compounddef>
+</doxygen>

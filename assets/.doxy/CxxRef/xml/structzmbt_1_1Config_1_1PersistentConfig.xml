@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1Config_1_1PersistentConfig" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::Config::PersistentConfig</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1Config_1_1PersistentConfig_1a4effe6cf065d9546453f50175282ec60" prot="public" static="no" mutable="no">
+        <type>FailureHandler</type>
+        <definition>FailureHandler zmbt::Config::PersistentConfig::failure_handler</definition>
+        <argsstring></argsstring>
+        <name>failure_handler</name>
+        <qualifiedname>zmbt::Config::PersistentConfig::failure_handler</qualifiedname>
+        <initializer>{&amp;<ref refid="namespacezmbt_1ab558f561832f47da45707725386e7e86" kindref="member">zmbt::default_test_failure</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp" line="47" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp" line="45" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp" bodystart="46" bodyend="48"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1Config_1_1PersistentConfig_1a4effe6cf065d9546453f50175282ec60" prot="public" virt="non-virtual"><scope>zmbt::Config::PersistentConfig</scope><name>failure_handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

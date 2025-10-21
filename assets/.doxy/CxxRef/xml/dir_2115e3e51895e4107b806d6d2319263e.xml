@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_2115e3e51895e4107b806d6d2319263e" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt</compoundname>
+    <innerdir refid="dir_dac1628bc1b9dc0b2ecee59f2dfa09f4">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api</innerdir>
+    <innerdir refid="dir_0cc19fbf7340471280b165ed90304d9a">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application</innerdir>
+    <innerdir refid="dir_1dfd3566c4a6f6e15f69daa4a04e2d4f">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core</innerdir>
+    <innerdir refid="dir_23db209f70f961198fdaea8adff9f278">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor</innerdir>
+    <innerdir refid="dir_5ca6873c4d246ae1a35f5fe5ff3edd5d">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr</innerdir>
+    <innerdir refid="dir_84d9d905044f75949470ced2679fed92">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping</innerdir>
+    <innerdir refid="dir_b97e8e9bc83032fe6d4e26779db64c76">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model</innerdir>
+    <innerdir refid="dir_44621b39643a5ee7797a55bb572a295f">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect</innerdir>
+    <innerfile refid="all_8hpp">all.hpp</innerfile>
+    <innerfile refid="api_8hpp">api.hpp</innerfile>
+    <innerfile refid="application_8hpp">application.hpp</innerfile>
+    <innerfile refid="core_8hpp">core.hpp</innerfile>
+    <innerfile refid="decor_8hpp">decor.hpp</innerfile>
+    <innerfile refid="expr_8hpp">expr.hpp</innerfile>
+    <innerfile refid="mapping_8hpp">mapping.hpp</innerfile>
+    <innerfile refid="model_8hpp">model.hpp</innerfile>
+    <innerfile refid="reflect_8hpp">reflect.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/"/>
+  </compounddef>
+</doxygen>

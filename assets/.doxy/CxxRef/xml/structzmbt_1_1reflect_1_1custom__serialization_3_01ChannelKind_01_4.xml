@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1custom__serialization_3_01ChannelKind_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::custom_serialization&lt; ChannelKind &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01ChannelKind_01_4_1a19eda3c871054c6b95cebf12349ff344" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>static boost::json::value zmbt::reflect::custom_serialization&lt; ChannelKind &gt;::json_from</definition>
+        <argsstring>(ChannelKind const &amp;k)</argsstring>
+        <name>json_from</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; ChannelKind &gt;::json_from</qualifiedname>
+        <param>
+          <type>ChannelKind const &amp;</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp" line="34" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp" bodystart="34" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01ChannelKind_01_4_1a19ae9077684e2f9f2e56996c727ff042" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>ChannelKind</type>
+        <definition>static ChannelKind zmbt::reflect::custom_serialization&lt; ChannelKind &gt;::dejsonize</definition>
+        <argsstring>(boost::json::value const &amp;v)</argsstring>
+        <name>dejsonize</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; ChannelKind &gt;::dejsonize</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp" line="50" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp" bodystart="50" bodyend="59"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp" line="31" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp" bodystart="31" bodyend="60"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01ChannelKind_01_4_1a19ae9077684e2f9f2e56996c727ff042" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; ChannelKind &gt;</scope><name>dejsonize</name></member>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01ChannelKind_01_4_1a19eda3c871054c6b95cebf12349ff344" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; ChannelKind &gt;</scope><name>json_from</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

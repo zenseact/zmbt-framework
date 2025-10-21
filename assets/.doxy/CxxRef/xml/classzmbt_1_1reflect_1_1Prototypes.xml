@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1reflect_1_1Prototypes" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::reflect::Prototypes</compoundname>
+    <includes refid="prototypes_8hpp" local="no">prototypes.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1reflect_1_1Prototypes_1a58f9670954f582afc419b2df184cd657" prot="private" static="no" mutable="no">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::reflect::Prototypes::args_</definition>
+        <argsstring></argsstring>
+        <name>args_</name>
+        <qualifiedname>zmbt::reflect::Prototypes::args_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="44" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1reflect_1_1Prototypes_1a3541cb88928a60f72fca267e34d29d43" prot="private" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::reflect::Prototypes::return_</definition>
+        <argsstring></argsstring>
+        <name>return_</name>
+        <qualifiedname>zmbt::reflect::Prototypes::return_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="45" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1reflect_1_1Prototypes_1a0190f0b75b87ad5fbcb48af5115fa912" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::reflect::Prototypes::Prototypes</definition>
+        <argsstring>(boost::json::array &amp;&amp;args, boost::json::value &amp;&amp;ret)</argsstring>
+        <name>Prototypes</name>
+        <qualifiedname>zmbt::reflect::Prototypes::Prototypes</qualifiedname>
+        <param>
+          <type>boost::json::array &amp;&amp;</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type>boost::json::value &amp;&amp;</type>
+          <declname>ret</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="48" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="48" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1reflect_1_1Prototypes_1ace9a92d3f038ab0efef04a7c1e18a218" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::reflect::Prototypes::Prototypes</definition>
+        <argsstring>()</argsstring>
+        <name>Prototypes</name>
+        <qualifiedname>zmbt::reflect::Prototypes::Prototypes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="54" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1reflect_1_1Prototypes_1a239fa4beefd65ee1b443e9d01c2fec07" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::reflect::Prototypes::Prototypes</definition>
+        <argsstring>(T const &amp;)</argsstring>
+        <name>Prototypes</name>
+        <qualifiedname>zmbt::reflect::Prototypes::Prototypes</qualifiedname>
+        <param>
+          <type>T const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="59" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="59" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1reflect_1_1Prototypes_1aac4d62a55f7fb9d5dec4fee0198f1d09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::array const &amp;</type>
+        <definition>boost::json::array const  &amp; zmbt::reflect::Prototypes::args</definition>
+        <argsstring>() const</argsstring>
+        <name>args</name>
+        <qualifiedname>zmbt::reflect::Prototypes::args</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="67" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="67" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1reflect_1_1Prototypes_1a6062e6f05689ae2ee3b8de983a63d677" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value const &amp;</type>
+        <definition>boost::json::value const  &amp; zmbt::reflect::Prototypes::ret</definition>
+        <argsstring>() const</argsstring>
+        <name>ret</name>
+        <qualifiedname>zmbt::reflect::Prototypes::ret</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="68" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="68" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Interface prototypes in JSON as {&quot;args&quot;: [...], &quot;return&quot;: ... }. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" line="42" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp" bodystart="43" bodyend="70"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1aac4d62a55f7fb9d5dec4fee0198f1d09" prot="public" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>args</name></member>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1a58f9670954f582afc419b2df184cd657" prot="private" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>args_</name></member>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1a0190f0b75b87ad5fbcb48af5115fa912" prot="public" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>Prototypes</name></member>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1ace9a92d3f038ab0efef04a7c1e18a218" prot="public" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>Prototypes</name></member>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1a239fa4beefd65ee1b443e9d01c2fec07" prot="public" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>Prototypes</name></member>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1a6062e6f05689ae2ee3b8de983a63d677" prot="public" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>ret</name></member>
+      <member refid="classzmbt_1_1reflect_1_1Prototypes_1a3541cb88928a60f72fca267e34d29d43" prot="private" virt="non-virtual"><scope>zmbt::reflect::Prototypes</scope><name>return_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
