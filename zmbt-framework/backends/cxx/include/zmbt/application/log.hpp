@@ -7,19 +7,15 @@
 #ifndef ZMBT_LOGGING_HPP_
 #define ZMBT_LOGGING_HPP_
 
+#include <chrono>
+#include <iomanip>
+#include <string>
+
 #include <boost/describe.hpp>
 #include <boost/json.hpp>
-#include <zmbt/core/preprocessor.hpp>
 
-
-#include <chrono>
-#include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <memory>
-#include <mutex>
-#include <sstream>
-#include <string>
+#include "zmbt/core/preprocessor.hpp"
+#include "zmbt/core/entity_id.hpp"
 
 
 #ifdef NDEBUG
@@ -84,6 +80,7 @@ class Logger {
     Logger& WithSrcLoc(boost::json::string_view const src_loc);
 
     Logger& operator<<(boost::json::value const& value);
+    Logger& operator<<(entity_id const& value);
 
     ~Logger();
 

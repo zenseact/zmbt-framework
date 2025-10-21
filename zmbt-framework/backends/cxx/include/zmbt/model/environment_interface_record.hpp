@@ -192,7 +192,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
             env.SetTestError({
                 {"error"    , "invalid inject arguments arity"},
                 {"injection", injection},
-                {"interface", interface()                     },
+                {"interface", interface().str()               },
                 {"context"  , "Hook"                          },
                 {"injection", injection                       },
             });
@@ -207,7 +207,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     {
         env.SetTestError({
             {"error"    , "exception thrown at args evaluation"},
-            {"interface", interface()                          },
+            {"interface", interface().str()                    },
             {"context"  , "Hook"                               },
             {"what"     , e.what()                             },
         });
@@ -229,7 +229,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
     {
         env.SetTestError({
             {"error"    , "exception thrown at return evaluation"},
-            {"interface", interface()                            },
+            {"interface", interface().str()                      },
             {"context"  , "Hook"                                 },
             {"what"     , e.what()                               },
         });
@@ -242,7 +242,7 @@ class Environment::TypedInterfaceHandle : public Environment::InterfaceHandle
         using TT = remove_cvref_t<T>;
 
         TT value = HookReturnImpl(type<TT>);
-        auto const key = format("$(ret-ref-%s-%s)", interface(), refobj());
+        auto const key = format("$(ret-ref-%s-%s)", interface().key(), refobj().key());
         TT& ref = Env().template GetSharedRef<TT>(key, reflect::signal_traits<TT>::init());
         ref = value;
         return ref;

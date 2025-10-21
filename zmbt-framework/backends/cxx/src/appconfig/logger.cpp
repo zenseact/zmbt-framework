@@ -10,7 +10,8 @@
 #include <atomic>
 #include <fstream>
 #include <iostream>
-#include <sstream>
+#include <iostream>
+#include <mutex>
 #include <chrono>
 
 #include <zmbt/application/log.hpp>
@@ -164,6 +165,12 @@ Logger& Logger::operator<<(boost::json::value const& value)
     payload_cache_.emplace_back(value);
     return *this;
 }
+
+Logger& Logger::operator<<(entity_id const& value)
+{
+    return this->operator<<(value.str());
+}
+
 
 
 Logger::~Logger()
