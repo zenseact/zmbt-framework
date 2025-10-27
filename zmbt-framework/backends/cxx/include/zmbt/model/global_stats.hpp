@@ -35,11 +35,7 @@ class InjectionTime
     }
 
   private:
-    static std::atomic<std::uint64_t>& counter() noexcept
-    {
-        static auto* accumulator = new std::atomic<std::uint64_t>(0);
-        return *accumulator;
-    }
+    static std::atomic<std::uint64_t>& counter() noexcept;
 };
 
 class RecordingTime
@@ -61,11 +57,7 @@ class RecordingTime
     }
 
   private:
-    static std::atomic<std::uint64_t>& counter() noexcept
-    {
-        static auto* accumulator = new std::atomic<std::uint64_t>(0);
-        return *accumulator;
-    }
+    static std::atomic<std::uint64_t>& counter() noexcept;
 };
 
 class ConversionTime
@@ -87,11 +79,7 @@ class ConversionTime
     }
 
   private:
-    static std::atomic<std::uint64_t>& counter() noexcept
-    {
-        static auto* accumulator = new std::atomic<std::uint64_t>(0);
-        return *accumulator;
-    }
+    static std::atomic<std::uint64_t>& counter() noexcept;
 };
 
 } // namespace flags

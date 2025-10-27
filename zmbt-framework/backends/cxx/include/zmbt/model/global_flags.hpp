@@ -40,12 +40,7 @@ class TestIsRunning
     }
 
 private:
-    static std::atomic<bool>& flag() noexcept
-    {
-        // avoid destruction
-        static auto* flag = new std::atomic<bool>(false);
-        return *flag;
-    }
+    static std::atomic<bool>& flag() noexcept;
 };
 
 } // namespace flags
