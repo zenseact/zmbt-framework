@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1LazyParam" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::LazyParam</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1LazyParam_1ae63e4bf7ad2ceb00ec80ba1c01abf9da" prot="public" static="no">
+        <type>boost::json::value</type>
+        <definition>using zmbt::lang::LazyParam::V =  boost::json::value</definition>
+        <argsstring></argsstring>
+        <name>V</name>
+        <qualifiedname>zmbt::lang::LazyParam::V</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="27" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1LazyParam_1a3ef0dc1b3dfeb7f01bf51b73c5ff47f1" prot="private" static="no" mutable="no">
+        <type>std::function&lt; V()&gt;</type>
+        <definition>std::function&lt;V()&gt; zmbt::lang::LazyParam::getter_</definition>
+        <argsstring></argsstring>
+        <name>getter_</name>
+        <qualifiedname>zmbt::lang::LazyParam::getter_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="60" column="19" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1LazyParam_1a1a4effbcf8b2075a85e791102fa9f90f" prot="private" static="no" mutable="yes">
+        <type>boost::optional&lt; V &gt;</type>
+        <definition>boost::optional&lt;V&gt; zmbt::lang::LazyParam::cache_</definition>
+        <argsstring></argsstring>
+        <name>cache_</name>
+        <qualifiedname>zmbt::lang::LazyParam::cache_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="61" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a8b5ea74a67110c58c13275bf8aab8f4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>()</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="29" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a8b69f84f46c89c38bab5c34b0bd1738b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(std::function&lt; V()&gt; getter)</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type>std::function&lt; V()&gt;</type>
+          <declname>getter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="31" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1ab69e7380831c563593658c54b06840e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(ExpressionView, EvalContext)</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref></type>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="33" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a508053e4abd26b5d01563cbcdd46c839" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(V &amp;&amp;v)</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type>V &amp;&amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="35" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a1d165a7fcd8289b9edfe26e641d5ecd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(V const &amp;v)</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type>V const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="37" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1acd77306ab93ed2f9ff0e898345a5cd4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(std::reference_wrapper&lt; V const &gt; v)</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type>std::reference_wrapper&lt; V const &gt;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="39" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a9dffbc72c63f0efecefff02da01fc2f3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(T const &amp;v)</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type>T const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="42" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" bodystart="42" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1aa0629fc47f645ae211254fb2aace81c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::~LazyParam</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::~LazyParam</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="47" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1af457e5c373e76732e1686a3f614d675b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(LazyParam const &amp;)=default</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1LazyParam" kindref="compound">LazyParam</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="49" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1ac1c5ad1e930590887e5428a123e15523" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::LazyParam</definition>
+        <argsstring>(LazyParam &amp;&amp;)=default</argsstring>
+        <name>LazyParam</name>
+        <qualifiedname>zmbt::lang::LazyParam::LazyParam</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1LazyParam" kindref="compound">LazyParam</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="50" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1ab93b596ec11e87b34040eee83dbd6a3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1LazyParam" kindref="compound">LazyParam</ref> &amp;</type>
+        <definition>LazyParam &amp; zmbt::lang::LazyParam::operator=</definition>
+        <argsstring>(LazyParam const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::lang::LazyParam::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1LazyParam" kindref="compound">LazyParam</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="51" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a6a0308c1f220ab2e8918704acbb2b7b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1LazyParam" kindref="compound">LazyParam</ref> &amp;</type>
+        <definition>LazyParam &amp; zmbt::lang::LazyParam::operator=</definition>
+        <argsstring>(LazyParam &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::lang::LazyParam::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1LazyParam" kindref="compound">LazyParam</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="52" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1a901482b87cc85c004b3ebbd3071bc49a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>V</type>
+        <definition>V zmbt::lang::LazyParam::operator()</definition>
+        <argsstring>() const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::LazyParam::operator()</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="54" column="8"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1LazyParam_1acec490b1bcd65fc521e0d245c743c1db" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::LazyParam::operator V</definition>
+        <argsstring>() const</argsstring>
+        <name>operator V</name>
+        <qualifiedname>zmbt::lang::LazyParam::operator V</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="56" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" line="24" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp" bodystart="25" bodyend="62"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a1a4effbcf8b2075a85e791102fa9f90f" prot="private" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>cache_</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a3ef0dc1b3dfeb7f01bf51b73c5ff47f1" prot="private" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>getter_</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a8b5ea74a67110c58c13275bf8aab8f4e" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a8b69f84f46c89c38bab5c34b0bd1738b" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1ab69e7380831c563593658c54b06840e0" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a508053e4abd26b5d01563cbcdd46c839" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a1d165a7fcd8289b9edfe26e641d5ecd7" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1acd77306ab93ed2f9ff0e898345a5cd4f" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a9dffbc72c63f0efecefff02da01fc2f3" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1af457e5c373e76732e1686a3f614d675b" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1ac1c5ad1e930590887e5428a123e15523" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>LazyParam</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1acec490b1bcd65fc521e0d245c743c1db" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>operator V</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a901482b87cc85c004b3ebbd3071bc49a" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1ab93b596ec11e87b34040eee83dbd6a3c" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1a6a0308c1f220ab2e8918704acbb2b7b7" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1ae63e4bf7ad2ceb00ec80ba1c01abf9da" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1LazyParam_1aa0629fc47f645ae211254fb2aace81c4" prot="public" virt="non-virtual"><scope>zmbt::lang::LazyParam</scope><name>~LazyParam</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

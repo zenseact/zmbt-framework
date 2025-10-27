@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1ErrorOr" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::ErrorOr</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class Return</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classzmbt_1_1ErrorOr_1ad57ff939559cb75d05409f6e0566c88f" prot="private" static="no">
+        <type>boost::variant2::variant&lt; <ref refid="structzmbt_1_1ErrorInfo" kindref="compound">ErrorInfo</ref>, Return &gt;</type>
+        <definition>using zmbt::ErrorOr&lt; Return &gt;::variant_t =  boost::variant2::variant&lt;ErrorInfo, Return&gt;</definition>
+        <argsstring></argsstring>
+        <name>variant_t</name>
+        <qualifiedname>zmbt::ErrorOr::variant_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="23" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1ErrorOr_1adf02f7a9d71ce060625018daef14ed06" prot="private" static="no" mutable="no">
+        <type>variant_t</type>
+        <definition>variant_t zmbt::ErrorOr&lt; Return &gt;::error_or_return</definition>
+        <argsstring></argsstring>
+        <name>error_or_return</name>
+        <qualifiedname>zmbt::ErrorOr::error_or_return</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="25" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1a5c05b2e241cee243b94d99fa4009ba8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::ErrorOr&lt; Return &gt;::ErrorOr</definition>
+        <argsstring>()=default</argsstring>
+        <name>ErrorOr</name>
+        <qualifiedname>zmbt::ErrorOr::ErrorOr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="28" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1ab9872f3c8e4f9b30a8128461b8a2fe06" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1ErrorInfo" kindref="compound">ErrorInfo</ref> const &amp;</type>
+        <definition>ErrorInfo const  &amp; zmbt::ErrorOr&lt; Return &gt;::as_error</definition>
+        <argsstring>() const</argsstring>
+        <name>as_error</name>
+        <qualifiedname>zmbt::ErrorOr::as_error</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="46" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1a190ec09d6b3781d883e35a80a896d82c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>Return const &amp;</type>
+        <definition>Return const  &amp; zmbt::ErrorOr&lt; Return &gt;::as_return</definition>
+        <argsstring>() const</argsstring>
+        <name>as_return</name>
+        <qualifiedname>zmbt::ErrorOr::as_return</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="51" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="51" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1ab6f53874ae1f465226f64d7d9fb3ae47" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::ErrorOr&lt; Return &gt;::is_null</definition>
+        <argsstring>() const</argsstring>
+        <name>is_null</name>
+        <qualifiedname>zmbt::ErrorOr::is_null</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="56" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1a00dd06e36814afd35452efa1ee85e379" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::ErrorOr&lt; Return &gt;::is_error</definition>
+        <argsstring>() const</argsstring>
+        <name>is_error</name>
+        <qualifiedname>zmbt::ErrorOr::is_error</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="61" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="61" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1a391c71f45d202001aa0dff8c1944d82d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::ErrorOr&lt; Return &gt;::is_return</definition>
+        <argsstring>() const</argsstring>
+        <name>is_return</name>
+        <qualifiedname>zmbt::ErrorOr::is_return</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="66" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1a4513e91eb8c96acdf70b73ed2b261e85" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::ErrorOr&lt; Return &gt;::dump_to</definition>
+        <argsstring>(boost::json::object &amp;obj) const</argsstring>
+        <name>dump_to</name>
+        <qualifiedname>zmbt::ErrorOr::dump_to</qualifiedname>
+        <param>
+          <type>boost::json::object &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="71" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="71" bodyend="85"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1aca0529a46fcb67fbb069ce79539fa2d4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1ErrorOr" kindref="compound">ErrorOr</ref>&lt; Return &gt;</type>
+        <definition>static ErrorOr&lt; Return &gt; zmbt::ErrorOr&lt; Return &gt;::MakeError</definition>
+        <argsstring>(ErrorInfo err)</argsstring>
+        <name>MakeError</name>
+        <qualifiedname>zmbt::ErrorOr::MakeError</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1ErrorInfo" kindref="compound">ErrorInfo</ref></type>
+          <declname>err</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="30" column="20" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="30" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1ErrorOr_1aa0cbafc3cfc4ced66e02bac5325eb090" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1ErrorOr" kindref="compound">ErrorOr</ref>&lt; Return &gt;</type>
+        <definition>static ErrorOr&lt; Return &gt; zmbt::ErrorOr&lt; Return &gt;::MakeValue</definition>
+        <argsstring>(Return ret)</argsstring>
+        <name>MakeValue</name>
+        <qualifiedname>zmbt::ErrorOr::MakeValue</qualifiedname>
+        <param>
+          <type>Return</type>
+          <declname>ret</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="38" column="20" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="38" bodyend="44"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" line="21" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_or_return.hpp" bodystart="22" bodyend="86"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1ErrorOr_1ab9872f3c8e4f9b30a8128461b8a2fe06" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>as_error</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1a190ec09d6b3781d883e35a80a896d82c" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>as_return</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1a4513e91eb8c96acdf70b73ed2b261e85" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>dump_to</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1adf02f7a9d71ce060625018daef14ed06" prot="private" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>error_or_return</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1a5c05b2e241cee243b94d99fa4009ba8a" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>ErrorOr</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1a00dd06e36814afd35452efa1ee85e379" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>is_error</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1ab6f53874ae1f465226f64d7d9fb3ae47" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>is_null</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1a391c71f45d202001aa0dff8c1944d82d" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>is_return</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1aca0529a46fcb67fbb069ce79539fa2d4" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>MakeError</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1aa0cbafc3cfc4ced66e02bac5325eb090" prot="public" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>MakeValue</name></member>
+      <member refid="classzmbt_1_1ErrorOr_1ad57ff939559cb75d05409f6e0566c88f" prot="private" virt="non-virtual"><scope>zmbt::ErrorOr</scope><name>variant_t</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

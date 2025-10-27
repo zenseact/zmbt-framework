@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::Operator::Handle::L</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L_1a298e4f8e3fd640741c75c81e31967084" prot="public" static="no" mutable="no">
+        <type>unary_transform</type>
+        <definition>unary_transform zmbt::lang::Operator::Handle::L::bool_</definition>
+        <argsstring></argsstring>
+        <name>bool_</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::L::bool_</qualifiedname>
+        <initializer>{generic_is_truth}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="268" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="268" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L_1a4b001164262e909dd2f0d961f0ded91f" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::L::and_</definition>
+        <argsstring></argsstring>
+        <name>and_</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::L::and_</qualifiedname>
+        <initializer>{generic_logical_and}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="269" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="269" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L_1a8ac27150b2b08047ddc9e0d7b0901a42" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::L::or_</definition>
+        <argsstring></argsstring>
+        <name>or_</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::L::or_</qualifiedname>
+        <initializer>{generic_logical_or}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="270" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="270" bodyend="270"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="267" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="267" bodyend="271"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L_1a4b001164262e909dd2f0d961f0ded91f" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::L</scope><name>and_</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L_1a298e4f8e3fd640741c75c81e31967084" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::L</scope><name>bool_</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1L_1a8ac27150b2b08047ddc9e0d7b0901a42" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::L</scope><name>or_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

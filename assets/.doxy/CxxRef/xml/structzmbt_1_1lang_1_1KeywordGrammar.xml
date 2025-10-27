@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1KeywordGrammar" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::KeywordGrammar</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::spirit::qi::grammar&lt; boost::json::string::const_iterator, Keyword()&gt;</basecompoundref>
+    <includes refid="keyword__grammar_8hpp" local="no">keyword_grammar.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1KeywordGrammar_1adee2766fb7fd50c49613349c2f237719" prot="public" static="no" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1KeywordSymbol" kindref="compound">KeywordSymbol</ref></type>
+        <definition>KeywordSymbol zmbt::lang::KeywordGrammar::keyword_symbol</definition>
+        <argsstring></argsstring>
+        <name>keyword_symbol</name>
+        <qualifiedname>zmbt::lang::KeywordGrammar::keyword_symbol</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="31" column="19" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1KeywordGrammar_1a1ff545f0a18b81114d5bb6c89d67e25d" prot="public" static="no" mutable="no">
+        <type>boost::spirit::qi::rule&lt; boost::json::string::const_iterator, <ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref>()&gt;</type>
+        <definition>boost::spirit::qi::rule&lt;boost::json::string::const_iterator, Keyword()&gt; zmbt::lang::KeywordGrammar::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <qualifiedname>zmbt::lang::KeywordGrammar::start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="32" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1KeywordGrammar_1acd6c9d3978f8b1f7abe278015a9d410e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::KeywordGrammar::KeywordGrammar</definition>
+        <argsstring>()</argsstring>
+        <name>KeywordGrammar</name>
+        <qualifiedname>zmbt::lang::KeywordGrammar::KeywordGrammar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="29" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Boost.Sirit.Qi Grammar for <ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">zmbt::lang::Keyword</ref> parsing. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>boost::spirit::qi::grammar&lt; boost::json::string::const_iterator, Keyword()&gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::KeywordGrammar</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordGrammar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>boost::spirit::qi::grammar&lt; boost::json::string::const_iterator, Keyword()&gt;</label>
+      </node>
+      <node id="4">
+        <label>boost::spirit::qi::symbols&lt; char, Keyword &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::KeywordGrammar</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordGrammar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>keyword_symbol</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::KeywordSymbol</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordSymbol"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="27" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" bodystart="28" bodyend="33"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1KeywordGrammar_1adee2766fb7fd50c49613349c2f237719" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordGrammar</scope><name>keyword_symbol</name></member>
+      <member refid="structzmbt_1_1lang_1_1KeywordGrammar_1acd6c9d3978f8b1f7abe278015a9d410e" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordGrammar</scope><name>KeywordGrammar</name></member>
+      <member refid="structzmbt_1_1lang_1_1KeywordGrammar_1a1ff545f0a18b81114d5bb6c89d67e25d" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordGrammar</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

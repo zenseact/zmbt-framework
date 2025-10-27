@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1ifc__pointer" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::ifc_pointer</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class Interface</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzmbt_1_1ifc__pointer_1a20937585e241a82be8a75158738c839c" prot="public" static="no">
+        <type>mp_eval_or&lt; nullptr_t, detail::ifc_pointer_valid_t, Interface &gt;</type>
+        <definition>using zmbt::ifc_pointer&lt; Interface &gt;::type =  mp_eval_or&lt;nullptr_t, detail::ifc_pointer_valid_t, Interface&gt;</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>zmbt::ifc_pointer::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" line="171" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" line="170" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" bodystart="170" bodyend="172"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1ifc__pointer_1a20937585e241a82be8a75158738c839c" prot="public" virt="non-virtual"><scope>zmbt::ifc_pointer</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

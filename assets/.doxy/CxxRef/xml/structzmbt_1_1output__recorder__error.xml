@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1output__recorder__error" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::output_recorder_error</compoundname>
+    <basecompoundref refid="structzmbt_1_1base__error" prot="public" virt="non-virtual">zmbt::base_error</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1output__recorder__error_1a05ef92d4c820ebf6f4f6dfb9fe86dafa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>A</declname>
+            <defname>A</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>zmbt::base_error::base_error</definition>
+        <argsstring>(boost::json::string_view fmtstr, A &amp;&amp;... args)</argsstring>
+        <name>base_error</name>
+        <qualifiedname>zmbt::output_recorder_error::base_error</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>fmtstr</declname>
+        </param>
+        <param>
+          <type>A &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="40" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/exceptions.hpp" bodystart="24" bodyend="26"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="2">
+        <label>zmbt::base_error</label>
+        <link refid="structzmbt_1_1base__error"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::output_recorder_error</label>
+        <link refid="structzmbt_1_1output__recorder__error"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="2">
+        <label>zmbt::base_error</label>
+        <link refid="structzmbt_1_1base__error"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::output_recorder_error</label>
+        <link refid="structzmbt_1_1output__recorder__error"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="39" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="39" bodyend="41"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1output__recorder__error_1a05ef92d4c820ebf6f4f6dfb9fe86dafa" prot="public" virt="non-virtual"><scope>zmbt::output_recorder_error</scope><name>base_error</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

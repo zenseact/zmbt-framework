@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1ifc__return" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::ifc_return</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::callable_traits::return_type&lt; Interface &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Interface</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzmbt_1_1ifc__return_1ae22a9d70e222460630cd81b81db41d7a" prot="public" static="no">
+        <type>typename mp_eval_or&lt; mp_identity&lt; void &gt;, ct::return_type, ifc_handle_t&lt; Interface &gt; &gt;::type</type>
+        <definition>using zmbt::ifc_return&lt; Interface &gt;::type =  typename mp_eval_or&lt;mp_identity&lt;void&gt;, ct::return_type, ifc_handle_t&lt;Interface&gt; &gt;::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>zmbt::ifc_return::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" line="247" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" bodystart="247" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>ct::return_type&lt; Interface &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::ifc_return&lt; Interface &gt;</label>
+        <link refid="structzmbt_1_1ifc__return"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>ct::return_type&lt; Interface &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::ifc_return&lt; Interface &gt;</label>
+        <link refid="structzmbt_1_1ifc__return"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" line="246" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp" bodystart="246" bodyend="248"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1ifc__return_1ae22a9d70e222460630cd81b81db41d7a" prot="public" virt="non-virtual"><scope>zmbt::ifc_return</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

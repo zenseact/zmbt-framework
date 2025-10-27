@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1KeywordInfo" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::KeywordInfo</compoundname>
+    <templateparamlist>
+      <param>
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <declname>k</declname>
+        <defname>k</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1KeywordInfo_1aaa85446974f293500939560bdf369173" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr <ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <definition>constexpr Keyword zmbt::lang::KeywordInfo&lt; k &gt;::keyword</definition>
+        <argsstring>()</argsstring>
+        <name>keyword</name>
+        <qualifiedname>zmbt::lang::KeywordInfo::keyword</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" line="21" column="23" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1KeywordInfo_1af4b43fd4c2ccd92bf21eb392740f4735" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::KeywordInfo&lt; k &gt;::attributes</definition>
+        <argsstring>()</argsstring>
+        <name>attributes</name>
+        <qualifiedname>zmbt::lang::KeywordInfo::attributes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" line="22" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" bodystart="22" bodyend="22"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1KeywordInfo_1a83484027af23da1e9562e470964dc0df" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string_view</type>
+        <definition>static boost::json::string_view zmbt::lang::KeywordInfo&lt; k &gt;::keyword_to_str</definition>
+        <argsstring>()</argsstring>
+        <name>keyword_to_str</name>
+        <qualifiedname>zmbt::lang::KeywordInfo::keyword_to_str</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" line="23" column="37" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" line="19" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp" bodystart="20" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1KeywordInfo_1af4b43fd4c2ccd92bf21eb392740f4735" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordInfo</scope><name>attributes</name></member>
+      <member refid="structzmbt_1_1lang_1_1KeywordInfo_1aaa85446974f293500939560bdf369173" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordInfo</scope><name>keyword</name></member>
+      <member refid="structzmbt_1_1lang_1_1KeywordInfo_1a83484027af23da1e9562e470964dc0df" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordInfo</scope><name>keyword_to_str</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

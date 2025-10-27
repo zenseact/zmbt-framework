@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::EncodingView::Iterator</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a5f42d7ac7c573e3a0df73e0e3c77ea51" prot="public" static="no">
+        <type>std::random_access_iterator_tag</type>
+        <definition>using zmbt::lang::EncodingView::Iterator::iterator_category =  std::random_access_iterator_tag</definition>
+        <argsstring></argsstring>
+        <name>iterator_category</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::iterator_category</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="74" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1afcad3b1cb9e68e44d20040198d1c0989" prot="public" static="no">
+        <type><ref refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow" kindref="compound">ExprRow</ref></type>
+        <definition>using zmbt::lang::EncodingView::Iterator::value_type =  ExprRow</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::value_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="75" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a18bb712982cf6d54916f8599b575a985" prot="public" static="no">
+        <type>std::ptrdiff_t</type>
+        <definition>using zmbt::lang::EncodingView::Iterator::difference_type =  std::ptrdiff_t</definition>
+        <argsstring></argsstring>
+        <name>difference_type</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::difference_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="76" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a0a3cbf499f2f4ce8786e1316bc42c1a2" prot="public" static="no">
+        <type>void</type>
+        <definition>using zmbt::lang::EncodingView::Iterator::pointer =  void</definition>
+        <argsstring></argsstring>
+        <name>pointer</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::pointer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="77" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ab88eb3e3ff3ef8e296c58cb431005f0c" prot="public" static="no">
+        <type><ref refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow" kindref="compound">ExprRow</ref></type>
+        <definition>using zmbt::lang::EncodingView::Iterator::reference =  ExprRow</definition>
+        <argsstring></argsstring>
+        <name>reference</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::reference</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="78" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1aad7a9aa08eb8d4006a4489d61d644a23" prot="private" static="no" mutable="no">
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">K</ref> const  *</type>
+        <definition>K const* zmbt::lang::EncodingView::Iterator::k_</definition>
+        <argsstring></argsstring>
+        <name>k_</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::k_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="116" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1acea9f4ff99279702cd12360c463e593b" prot="private" static="no" mutable="no">
+        <type>std::size_t const  *</type>
+        <definition>std::size_t const* zmbt::lang::EncodingView::Iterator::d_</definition>
+        <argsstring></argsstring>
+        <name>d_</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::d_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="117" column="27" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ae3c85d20f1578bf1c79f5f115fbc4976" prot="private" static="no" mutable="no">
+        <type>V const  *</type>
+        <definition>V const* zmbt::lang::EncodingView::Iterator::v_</definition>
+        <argsstring></argsstring>
+        <name>v_</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::v_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="118" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1affd5e0a724728c9b870e45b5227bec29" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::lang::EncodingView::Iterator::index_offset_</definition>
+        <argsstring></argsstring>
+        <name>index_offset_</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::index_offset_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="119" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a447193e54881d2e97ece0ce5a5605393" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::lang::EncodingView::Iterator::i_</definition>
+        <argsstring></argsstring>
+        <name>i_</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::i_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="120" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a5f66c7dcbcc6b0eb84a4cfbc218922db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::EncodingView::Iterator::Iterator</definition>
+        <argsstring>(K const *k, std::size_t const *d, V const *v, std::size_t index, std::size_t offset)</argsstring>
+        <name>Iterator</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::Iterator</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">K</ref> const *</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>std::size_t const *</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>V const *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>index</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="80" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="80" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a64a02c7d5b545fd080f197751ba5abaa" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow" kindref="compound">reference</ref></type>
+        <definition>reference zmbt::lang::EncodingView::Iterator::operator*</definition>
+        <argsstring>() const</argsstring>
+        <name>operator*</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator*</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="89" column="19" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="89" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a4efc7f2a76a1fe3b04db088c76d1f32d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> &amp;</type>
+        <definition>Iterator &amp; zmbt::lang::EncodingView::Iterator::operator++</definition>
+        <argsstring>()</argsstring>
+        <name>operator++</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator++</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="93" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="93" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1aea6bce675a80232096d176d1050bd117" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref></type>
+        <definition>Iterator zmbt::lang::EncodingView::Iterator::operator++</definition>
+        <argsstring>(int)</argsstring>
+        <name>operator++</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator++</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="94" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="94" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ac8f839f6c52e662e500fc8f0dda9a22f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> &amp;</type>
+        <definition>Iterator &amp; zmbt::lang::EncodingView::Iterator::operator--</definition>
+        <argsstring>()</argsstring>
+        <name>operator--</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator--</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="95" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="95" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1abed41fa6854097399f5ba9e1d45a671e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref></type>
+        <definition>Iterator zmbt::lang::EncodingView::Iterator::operator--</definition>
+        <argsstring>(int)</argsstring>
+        <name>operator--</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator--</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="96" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a37c4f8b6bd35815226ecc1960384c5aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> &amp;</type>
+        <definition>Iterator &amp; zmbt::lang::EncodingView::Iterator::operator+=</definition>
+        <argsstring>(difference_type n)</argsstring>
+        <name>operator+=</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator+=</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="98" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="98" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a8f714a7e4457919d14e8ec994c3cebc3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> &amp;</type>
+        <definition>Iterator &amp; zmbt::lang::EncodingView::Iterator::operator-=</definition>
+        <argsstring>(difference_type n)</argsstring>
+        <name>operator-=</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator-=</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="99" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="99" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a4e44fda0d3fb25dde08e5b67c220e44e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow" kindref="compound">reference</ref></type>
+        <definition>reference zmbt::lang::EncodingView::Iterator::operator[]</definition>
+        <argsstring>(difference_type n) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator[]</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="101" column="19" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="101" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ae2c6115408e96f05e4ef120c40f12dea" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref></type>
+        <definition>Iterator zmbt::lang::EncodingView::Iterator::operator+</definition>
+        <argsstring>(difference_type n) const</argsstring>
+        <name>operator+</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator+</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="103" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="103" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a76b9c4d56562207082b6b527e6c91a10" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref></type>
+        <definition>Iterator zmbt::lang::EncodingView::Iterator::operator-</definition>
+        <argsstring>(difference_type n) const</argsstring>
+        <name>operator-</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator-</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="104" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="104" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1afbf19dc49a4e121463f4ee65501d7595" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>difference_type</type>
+        <definition>difference_type zmbt::lang::EncodingView::Iterator::operator-</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator-</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator-</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="106" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="106" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a44393be6c41b5ef5d5e2d161249e7ff8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EncodingView::Iterator::operator==</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator==</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="108" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="108" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ae310425132d048c5334b0117920192c0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EncodingView::Iterator::operator!=</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator!=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="109" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="109" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1aff439acc0c6f73841834896c3efc344e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EncodingView::Iterator::operator&lt;</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator&lt;</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="110" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="110" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a3dbf38e467293c69b2e9194147f09c60" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EncodingView::Iterator::operator&lt;=</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator&lt;=</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator&lt;=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="111" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="111" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a370e2c5d3045a2bc8d1e1d107e04e2b3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EncodingView::Iterator::operator&gt;</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator&gt;</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator&gt;</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="112" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="112" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1acf3769a38adc3ae07ff7628f281e0446" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EncodingView::Iterator::operator&gt;=</definition>
+        <argsstring>(Iterator const &amp;other) const</argsstring>
+        <name>operator&gt;=</name>
+        <qualifiedname>zmbt::lang::EncodingView::Iterator::operator&gt;=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator" kindref="compound">Iterator</ref> const &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="113" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="113" bodyend="113"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="72" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="72" bodyend="121"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1acea9f4ff99279702cd12360c463e593b" prot="private" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>d_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a18bb712982cf6d54916f8599b575a985" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>difference_type</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a447193e54881d2e97ece0ce5a5605393" prot="private" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>i_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1affd5e0a724728c9b870e45b5227bec29" prot="private" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>index_offset_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a5f66c7dcbcc6b0eb84a4cfbc218922db" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>Iterator</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a5f42d7ac7c573e3a0df73e0e3c77ea51" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>iterator_category</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1aad7a9aa08eb8d4006a4489d61d644a23" prot="private" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>k_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ae310425132d048c5334b0117920192c0" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator!=</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a64a02c7d5b545fd080f197751ba5abaa" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ae2c6115408e96f05e4ef120c40f12dea" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator+</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a4efc7f2a76a1fe3b04db088c76d1f32d" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator++</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1aea6bce675a80232096d176d1050bd117" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator++</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a37c4f8b6bd35815226ecc1960384c5aa" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator+=</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a76b9c4d56562207082b6b527e6c91a10" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator-</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1afbf19dc49a4e121463f4ee65501d7595" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator-</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ac8f839f6c52e662e500fc8f0dda9a22f" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator--</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1abed41fa6854097399f5ba9e1d45a671e" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator--</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a8f714a7e4457919d14e8ec994c3cebc3" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator-=</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1aff439acc0c6f73841834896c3efc344e" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator&lt;</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a3dbf38e467293c69b2e9194147f09c60" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator&lt;=</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a44393be6c41b5ef5d5e2d161249e7ff8" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a370e2c5d3045a2bc8d1e1d107e04e2b3" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator&gt;</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1acf3769a38adc3ae07ff7628f281e0446" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator&gt;=</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a4e44fda0d3fb25dde08e5b67c220e44e" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>operator[]</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1a0a3cbf499f2f4ce8786e1316bc42c1a2" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>pointer</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ab88eb3e3ff3ef8e296c58cb431005f0c" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>reference</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1ae3c85d20f1578bf1c79f5f115fbc4976" prot="private" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>v_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EncodingView_1_1Iterator_1afcad3b1cb9e68e44d20040198d1c0989" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::Iterator</scope><name>value_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

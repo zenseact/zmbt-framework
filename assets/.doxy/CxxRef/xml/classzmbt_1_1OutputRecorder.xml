@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1OutputRecorder" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::OutputRecorder</compoundname>
+    <innerclass refid="structzmbt_1_1OutputRecorder_1_1Frame" prot="public">zmbt::OutputRecorder::Frame</innerclass>
+    <innerclass refid="structzmbt_1_1OutputRecorder_1_1Registry" prot="private">zmbt::OutputRecorder::Registry</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1OutputRecorder_1a4a369c03009b18b44eb5c4dde0a877ed" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref></type>
+        <definition>interface_id zmbt::OutputRecorder::ifc_id_</definition>
+        <argsstring></argsstring>
+        <name>ifc_id_</name>
+        <qualifiedname>zmbt::OutputRecorder::ifc_id_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="389" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1OutputRecorder_1aa43d2ae2b1e6c01159ccd32803b19586" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+        <definition>object_id zmbt::OutputRecorder::obj_id_</definition>
+        <argsstring></argsstring>
+        <name>obj_id_</name>
+        <qualifiedname>zmbt::OutputRecorder::obj_id_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="390" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1OutputRecorder_1aeccbddc9fa893ff35727f8261af4c364" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; Registry &gt;</type>
+        <definition>std::shared_ptr&lt;Registry&gt; zmbt::OutputRecorder::registry_</definition>
+        <argsstring></argsstring>
+        <name>registry_</name>
+        <qualifiedname>zmbt::OutputRecorder::registry_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="391" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="391" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1ac397a4dd2100ef7128f27932b076688b" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>std::type_index</type>
+        <definition>static std::type_index zmbt::OutputRecorder::get_args_typeid</definition>
+        <argsstring>(Interface const &amp;)</argsstring>
+        <name>get_args_typeid</name>
+        <qualifiedname>zmbt::OutputRecorder::get_args_typeid</qualifiedname>
+        <param>
+          <type>Interface const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="59" column="28" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="59" bodyend="65"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a9dfc905bb22cb0841227c8f96c68c46e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>ChannelKind</type>
+            <declname>ck</declname>
+            <defname>ck</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool zmbt::OutputRecorder::check_filter</definition>
+        <argsstring>()</argsstring>
+        <name>check_filter</name>
+        <qualifiedname>zmbt::OutputRecorder::check_filter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="230" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="230" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1aa46dcc1cd208d6e5acce7a4a3a6d658e" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::OutputRecorder::report_test_error</definition>
+        <argsstring>(ErrorInfo const &amp;) const</argsstring>
+        <name>report_test_error</name>
+        <qualifiedname>zmbt::OutputRecorder::report_test_error</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1ErrorInfo" kindref="compound">ErrorInfo</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="235" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a1458dbe29020b636ac79a89c2ed0b583" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::OutputRecorder::ensure_registry</definition>
+        <argsstring>()</argsstring>
+        <name>ensure_registry</name>
+        <qualifiedname>zmbt::OutputRecorder::ensure_registry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="392" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a5e7c8c502c0fa5a3d7b11637841a6080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::OutputRecorder::OutputRecorder</definition>
+        <argsstring>(interface_id const &amp;ifc_id, object_id const &amp;obj_id)</argsstring>
+        <name>OutputRecorder</name>
+        <qualifiedname>zmbt::OutputRecorder::OutputRecorder</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref> const &amp;</type>
+          <declname>ifc_id</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref> const &amp;</type>
+          <declname>obj_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="241" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a0b93ca15e2123a0d9aa8dd7bbd93dafa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::OutputRecorder::~OutputRecorder</definition>
+        <argsstring>()</argsstring>
+        <name>~OutputRecorder</name>
+        <qualifiedname>zmbt::OutputRecorder::~OutputRecorder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="242" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a6d305c047096e59d907aa0ad53878311" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::OutputRecorder::OutputRecorder</definition>
+        <argsstring>(OutputRecorder const &amp;)=default</argsstring>
+        <name>OutputRecorder</name>
+        <qualifiedname>zmbt::OutputRecorder::OutputRecorder</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="244" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1afe98cc7b6494ea46a8584ec262784c8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::OutputRecorder::OutputRecorder</definition>
+        <argsstring>(OutputRecorder &amp;&amp;)=default</argsstring>
+        <name>OutputRecorder</name>
+        <qualifiedname>zmbt::OutputRecorder::OutputRecorder</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="245" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1ae0c2c98d5dc727f7e1cd3b862dd7aebd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> &amp;</type>
+        <definition>OutputRecorder &amp; zmbt::OutputRecorder::operator=</definition>
+        <argsstring>(OutputRecorder const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::OutputRecorder::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="246" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a1577d0b12967a626970f7b1d349de5dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> &amp;</type>
+        <definition>OutputRecorder &amp; zmbt::OutputRecorder::operator=</definition>
+        <argsstring>(OutputRecorder &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::OutputRecorder::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="247" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a8dc724c039e0fdb7b66b0cd78468f844" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::OutputRecorder::flush</definition>
+        <argsstring>()</argsstring>
+        <name>flush</name>
+        <qualifiedname>zmbt::OutputRecorder::flush</qualifiedname>
+        <briefdescription>
+<para>Flush interal bufferregistry_s and complete serialization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="250" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a764664758fa6fefe03dafb564d49bd23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+          <param>
+            <type>class InterfacePointer</type>
+            <defval>ifc_pointer_t&lt;Interface&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zmbt::OutputRecorder::setup_handlers</definition>
+        <argsstring>()</argsstring>
+        <name>setup_handlers</name>
+        <qualifiedname>zmbt::OutputRecorder::setup_handlers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="253" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="253" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1ae33858fea1bf4e365fecf6278a7fd105" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ArgsTuple</type>
+          </param>
+          <param>
+            <type>class Return</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void zmbt::OutputRecorder::push</definition>
+        <argsstring>(ArgsTuple const &amp;args, ErrorOr&lt; Return &gt; const &amp;return_or_error)</argsstring>
+        <name>push</name>
+        <qualifiedname>zmbt::OutputRecorder::push</qualifiedname>
+        <param>
+          <type>ArgsTuple const &amp;</type>
+          <declname>args</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1ErrorOr" kindref="compound">ErrorOr</ref>&lt; Return &gt; const &amp;</type>
+          <declname>return_or_error</declname>
+        </param>
+        <briefdescription>
+<para>Multi-producer push. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="264" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="264" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1aaaf5f0a4b2853be20dc3c495b03e66b5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::OutputRecorder::count</definition>
+        <argsstring>() const</argsstring>
+        <name>count</name>
+        <qualifiedname>zmbt::OutputRecorder::count</qualifiedname>
+        <briefdescription>
+<para>Push calls count. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="357" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="357" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1aa9c1d7e0c3e00e2c61471ac430427de9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::OutputRecorder::lost_count</definition>
+        <argsstring>() const</argsstring>
+        <name>lost_count</name>
+        <qualifiedname>zmbt::OutputRecorder::lost_count</qualifiedname>
+        <briefdescription>
+<para>Push calls count after the capture is closed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="363" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="363" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a2b3e1281b941200e9118ec552fd73302" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::OutputRecorder::is_registered</definition>
+        <argsstring>() const</argsstring>
+        <name>is_registered</name>
+        <qualifiedname>zmbt::OutputRecorder::is_registered</qualifiedname>
+        <briefdescription>
+<para><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="369" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="369" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a00119fa5df9a64a18ed95f3bb389ce1f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::string_view</type>
+        <definition>boost::json::string_view zmbt::OutputRecorder::interface_name</definition>
+        <argsstring>() const</argsstring>
+        <name>interface_name</name>
+        <qualifiedname>zmbt::OutputRecorder::interface_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="374" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="374" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1accd6c982ddf074d28f5a91ce93572816" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::array const &amp;</type>
+        <definition>boost::json::array const  &amp; zmbt::OutputRecorder::data_frames</definition>
+        <argsstring>() const</argsstring>
+        <name>data_frames</name>
+        <qualifiedname>zmbt::OutputRecorder::data_frames</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="381" column="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a1d8a52759d24a9401b7ca93ab28330ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::OutputRecorder::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>zmbt::OutputRecorder::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="383" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1OutputRecorder_1a1ff833afd08c8b040161b6ef50f58904" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::OutputRecorder::enable_category</definition>
+        <argsstring>(ChannelKind const ck)</argsstring>
+        <name>enable_category</name>
+        <qualifiedname>zmbt::OutputRecorder::enable_category</qualifiedname>
+        <param>
+          <type>ChannelKind const</type>
+          <declname>ck</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="385" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="43" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="44" bodyend="393"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1OutputRecorder_1a9dfc905bb22cb0841227c8f96c68c46e" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>check_filter</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a1d8a52759d24a9401b7ca93ab28330ae" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>clear</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1aaaf5f0a4b2853be20dc3c495b03e66b5" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>count</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1accd6c982ddf074d28f5a91ce93572816" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>data_frames</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a1ff833afd08c8b040161b6ef50f58904" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>enable_category</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a1458dbe29020b636ac79a89c2ed0b583" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>ensure_registry</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a8dc724c039e0fdb7b66b0cd78468f844" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>flush</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1ac397a4dd2100ef7128f27932b076688b" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>get_args_typeid</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a4a369c03009b18b44eb5c4dde0a877ed" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>ifc_id_</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a00119fa5df9a64a18ed95f3bb389ce1f" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>interface_name</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a2b3e1281b941200e9118ec552fd73302" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>is_registered</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1aa9c1d7e0c3e00e2c61471ac430427de9" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>lost_count</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1aa43d2ae2b1e6c01159ccd32803b19586" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>obj_id_</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1ae0c2c98d5dc727f7e1cd3b862dd7aebd" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a1577d0b12967a626970f7b1d349de5dc" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a5e7c8c502c0fa5a3d7b11637841a6080" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>OutputRecorder</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a6d305c047096e59d907aa0ad53878311" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>OutputRecorder</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1afe98cc7b6494ea46a8584ec262784c8e" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>OutputRecorder</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1ae33858fea1bf4e365fecf6278a7fd105" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>push</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1aeccbddc9fa893ff35727f8261af4c364" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>registry_</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1aa46dcc1cd208d6e5acce7a4a3a6d658e" prot="private" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>report_test_error</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a764664758fa6fefe03dafb564d49bd23" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>setup_handlers</name></member>
+      <member refid="classzmbt_1_1OutputRecorder_1a0b93ca15e2123a0d9aa8dd7bbd93dafa" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder</scope><name>~OutputRecorder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
