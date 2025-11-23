@@ -478,7 +478,7 @@ struct Bar {
 };
 
 BOOST_DESCRIBE_ENUM(Foo, A, B, C) //(1)
-BOOST_DESCRIBE_STRUCT(Bar, (void), (foo, x)) //(2)
+BOOST_DESCRIBE_STRUCT(Bar, (), (foo, x)) //(2)
 ZMBT_INJECT_JSON_TAG_INVOKE //(3)
 }
 

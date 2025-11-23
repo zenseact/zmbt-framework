@@ -64,7 +64,7 @@ cc_library(
         ":zmbt",
         "@googletest//:gtest",
     ],
-    copts = ZMBT_COPTS,
+    copts = ZMBT_COPTS + [ "-Wno-c++17-attribute-extensions"],
 )
 
 filegroup(

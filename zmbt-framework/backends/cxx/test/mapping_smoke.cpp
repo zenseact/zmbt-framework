@@ -37,7 +37,7 @@ namespace {
 BOOST_DEFINE_ENUM_CLASS(TestEnum, A, B)
 
 struct TestStruct { double x, y; };
-BOOST_DESCRIBE_STRUCT(TestStruct, (void), (x, y))
+BOOST_DESCRIBE_STRUCT(TestStruct, (), (x, y))
 
 
 inline bool operator<(const TestStruct& lhs, const TestStruct& rhs)

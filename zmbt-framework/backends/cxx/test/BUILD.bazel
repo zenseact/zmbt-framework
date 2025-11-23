@@ -36,7 +36,7 @@ cc_library(
     srcs = ['gtest_test.cpp'],
     visibility = [':__pkg__'],
     deps = GTEST_COMMON_DEPS,
-    copts = GTEST_COMMON_COPTS,
+    copts = GTEST_COMMON_COPTS + [ "-Wno-c++17-attribute-extensions"],
     linkopts = GTEST_COMMON_LINKOPTS,
 )
 
@@ -61,7 +61,7 @@ cc_test(
     srcs = ['model_output_recorder_gtest.cpp'],
     visibility = [':__pkg__'],
     deps = GTEST_COMMON_DEPS,
-    copts = GTEST_COMMON_COPTS,
+    copts = GTEST_COMMON_COPTS + [ "-Wno-c++17-attribute-extensions"],
     linkopts = GTEST_COMMON_LINKOPTS,
 )
 
