@@ -25,9 +25,9 @@ RUN clang-17 --version
 ENV PATH="/usr/lib/llvm-17/bin:${PATH}"
 
 # Install Bazel
-RUN wget https://github.com/bazelbuild/bazel/releases/download/7.4.1/bazel-7.4.1-installer-linux-x86_64.sh
-RUN chmod +x bazel-7.4.1-installer-linux-x86_64.sh
-RUN ./bazel-7.4.1-installer-linux-x86_64.sh
+RUN wget https://github.com/bazelbuild/bazel/releases/download/8.4.2/bazel-8.4.2-installer-linux-x86_64.sh
+RUN chmod +x bazel-8.4.2-installer-linux-x86_64.sh
+RUN ./bazel-8.4.2-installer-linux-x86_64.sh
 RUN bazel --version
 
 # Python 3.12 deps

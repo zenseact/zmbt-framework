@@ -1,0 +1,33 @@
+# (c) Copyright 2024 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
+
+module(
+    name = "com_github_zenseact_zmbt_framework",
+    version = "0.0.0",
+    compatibility_level = 0,
+)
+
+bazel_dep(name = "rules_pkg", version = "1.0.1")
+bazel_dep(name = "rules_cc", version = "0.2.0")
+bazel_dep(name = "rules_license", version = "1.0.0")
+
+bazel_dep(name = "googletest", dev_dependency = True)
+single_version_override(
+    module_name = "googletest",
+    version = "1.15.2",  # required for -std=c++14
+)
+
+bazel_dep(name = "rules_boost", repo_name = "com_github_nelhage_rules_boost")
+rules_boost_version = "9d42ebfa8ae231a5794040cc06926f467232ee43"
+archive_override(
+    module_name = "rules_boost",
+    integrity = "sha256-Tr6qbHHBEDTvyeG4XMIKiZo+1U3I4Dw469PK7TYvZSw=",
+    strip_prefix = "rules_boost-{}".format(rules_boost_version),
+    urls = ["https://github.com/nelhage/rules_boost/archive/{}.tar.gz".format(rules_boost_version)],
+)
+
+non_module_boost_repositories = use_extension("@com_github_nelhage_rules_boost//:boost/repositories.bzl", "non_module_dependencies")
+use_repo(
+    non_module_boost_repositories,
+    "boost",
+)

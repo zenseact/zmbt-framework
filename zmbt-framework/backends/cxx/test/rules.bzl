@@ -16,6 +16,7 @@ def make_unit_tests(srcs):
                 "-Wextra",
                 "-Wpedantic",
                 "-Wno-parentheses", # allow `x & y | z` in tests
+                "-Wno-gnu-zero-variadic-macro-arguments"
             ],
             linkopts = [
                 '-lm'
