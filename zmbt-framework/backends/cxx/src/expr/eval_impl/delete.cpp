@@ -120,7 +120,7 @@ void deleteval_impl(boost::json::value const& at, boost::json::value& x)
             }
             else // nested JSON pointer
             {
-                boost::json::error_code ec;
+                boost::system::error_code ec;
                 if (auto node_ptr = x.find_pointer(node_jp, ec))
                 {
                     deleteval_impl(element_jp, *node_ptr);

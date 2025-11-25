@@ -81,7 +81,7 @@ JsonNode::JsonNode(boost::json::string_view node_ptr, std::shared_ptr<boost::jso
 boost::json::value& JsonNode::get_or_create(boost::json::string_view json_ptr)
 // try
 {
-    boost::json::error_code errcode;
+    boost::system::error_code errcode;
     boost::json::value* ptr = node().find_pointer(json_ptr, errcode);
 
     // boost::json::set_pointer_options set_pointer_options {};

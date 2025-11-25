@@ -113,12 +113,12 @@ public:
         return JsonNode{node()};
     }
 
-    boost::json::value const* node(boost::json::error_code &ec) const
+    boost::json::value const* node(boost::system::error_code &ec) const
     {
         return root()->find_pointer(node_ptr(), ec);
     }
 
-    boost::json::value* node(boost::json::error_code &ec)
+    boost::json::value* node(boost::system::error_code &ec)
     {
         JsonNode const& self = *this;
         return const_cast<boost::json::value*>(self.node(ec));
@@ -167,7 +167,7 @@ public:
 
     boost::json::value const* find_pointer(boost::json::string_view json_ptr) const
     {
-        boost::json::error_code ignored;
+        boost::system::error_code ignored;
         return node().find_pointer(validate_jptr(json_ptr), ignored);
     }
 
