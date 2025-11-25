@@ -215,7 +215,7 @@ boost::json::value PipeHandle::observe_blend() const
         for (auto const& capture: captures)
         {
             boost::json::value signal_value;
-            boost::json::error_code ec;
+            boost::system::error_code ec;
 
             if (auto const p = capture.find_pointer(full_path, ec))
             {

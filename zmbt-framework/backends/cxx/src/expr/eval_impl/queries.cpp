@@ -128,7 +128,7 @@ boost::json::value query_at_impl(boost::json::value const& value, boost::json::v
         auto const& token = *at_as_string;
         if (token.starts_with("/") or token.empty())
         {
-            boost::json::error_code ec;
+            boost::system::error_code ec;
             if (boost::json::value const* ptr = value.find_pointer(at.get_string(), ec))
             {
                 result = *ptr;
