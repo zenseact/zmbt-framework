@@ -33,9 +33,8 @@ bazel_dep(name = "boost.utility", version = boost_cxx_version)
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_cc", version = "0.2.4")
 bazel_dep(name = "rules_license", version = "1.0.0")
-
-bazel_dep(name = "googletest", dev_dependency = True)
+bazel_dep(name = "googletest")
 single_version_override(
     module_name = "googletest",
-    version = "1.15.2",  # required for -std=c++14
+    version = "1.14.0.bcr.1",
 )
