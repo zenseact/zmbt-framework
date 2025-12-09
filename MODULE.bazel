@@ -7,6 +7,12 @@ module(
     compatibility_level = 0,
 )
 
+bazel_dep(name = "toolchains_llvm_bootstrapped", version = "0.3.1")
+
+register_toolchains(
+    "@toolchains_llvm_bootstrapped//toolchain:all",
+)
+
 boost_cxx_version = "1.89.0.bcr.1"
 
 bazel_dep(name = "boost.algorithm", version = boost_cxx_version)
@@ -31,7 +37,7 @@ bazel_dep(name = "boost.type_traits", version = boost_cxx_version)
 bazel_dep(name = "boost.unordered", version = boost_cxx_version)
 bazel_dep(name = "boost.utility", version = boost_cxx_version)
 bazel_dep(name = "rules_pkg", version = "1.0.1")
-bazel_dep(name = "rules_cc", version = "0.2.4")
+bazel_dep(name = "rules_cc", version = "0.2.14")
 bazel_dep(name = "rules_license", version = "1.0.0")
 bazel_dep(name = "googletest")
 single_version_override(

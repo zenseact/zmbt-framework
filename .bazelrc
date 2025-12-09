@@ -7,8 +7,3 @@ build:macos --sandbox_add_mount_pair=/var/tmp
 build:windows --sandbox_add_mount_pair=C:\Temp
 
 test --test_arg --log_level=all
-
-build:linux --cpu k8 # Force host platforms other than Linux to use this configuration.
-build:linux --strategy=remote,sandboxed
-build:linux --genrule_strategy=remote,sandboxed
-build:linux --spawn_strategy=remote,sandboxed
