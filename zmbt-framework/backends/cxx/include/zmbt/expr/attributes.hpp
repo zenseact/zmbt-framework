@@ -54,6 +54,8 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Literal: return is_unary | is_literal;
     case Keyword::Void: return is_unary;
     case Keyword::LazyToken: return is_unary;
+    case Keyword::_Continue: return is_unary;
+    case Keyword::_Resolve: return is_unary;
     case Keyword::Noop: return is_const | is_autogen | is_noop;
     case Keyword::Null: return is_const | is_autogen;
     case Keyword::True: return is_const | is_predicate | is_autogen;
@@ -124,6 +126,9 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Not: return is_unary | is_predicate | is_operator;
     case Keyword::And: return is_binary | is_operator;
     case Keyword::Or: return is_binary | is_operator;
+    case Keyword::If: return is_variadic;
+    case Keyword::Elif: return is_variadic;
+    case Keyword::Else: return is_binary;
     case Keyword::Id: return is_unary | is_autogen;
     case Keyword::Transp: return is_unary;
     case Keyword::Cartesian: return is_unary;

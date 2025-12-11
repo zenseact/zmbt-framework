@@ -406,6 +406,7 @@ X to power p
 Logarithm
 
 Logarithm with base b:
+
   1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
   2. $[b] \mapsto [x]    \mapsto log_b(x)$
 
@@ -422,6 +423,7 @@ Logarithm with base b:
 Modulo
 
 Modulo of x:
+
   1. $[ ] \mapsto [x, m] \mapsto x % m$
   2. $[m] \mapsto [x]    \mapsto x % m$
 
@@ -438,6 +440,7 @@ Modulo of x:
 Quotient
 
 Quotient of x:
+
   1. $[ ] \mapsto [x, d] \mapsto x // d$
   2. $[d] \mapsto [x]    \mapsto x // d$
 
@@ -612,14 +615,17 @@ Greater or equal
 Floating point approximately equal
 
 Based on numpy.isclose:
+
   abs(x - ref) <= (atol + rtol * abs(ref))
 
 Rhs parameters:
+
   ref: reference value
   rtol: relative tolerance, default = 1e-05
   atol: absolute tolerance, default = 1e-08
 
 Rhs dynamic evaluation:
+
   1. ref                -> [ref, default, default]
   2. [ref]              -> [ref, default, default]
   3. [ref, rtol]        -> [ref, rtol   , default]
@@ -918,6 +924,71 @@ Generic behavior:
  * `true | And(42) | Or(13) `$\mapsto$` 42`
  * `false | And(42) | Or(13) `$\mapsto$` 13`
 
+### If
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Branching operator
+
+Branching operator can be used either in
+Lisp-like mode as `If(predicate, then_expr, else_expr)`,
+or in pipe mode with Elif or Else operators (see examples).
+
+In pipe mode (without `else_expr` parameter), the chain will produce
+error if the following order is violated or interrupted:
+ `If [ Elif ]* Else`
+
+In both modes, `then_expr` and `else_expr` are lazy evaluated against
+run-time argument (which is also true for Elif and Else), making
+it possible to nest if-else expressions.
+
+*Examples*:
+
+**Pipe form**:
+
+ * `42 | If(Lt(42), Mul(-1)) | Else(Id) `$\mapsto$` -42`
+ * `67 | If(Lt(42), Mul(-1)) | Else(Id) `$\mapsto$`  67`
+
+**Lisp-like form**:
+
+ * `42 | If(Lt(42), Mul(-1), Id) `$\mapsto$` -42`
+ * `67 | If(Lt(42), Mul(-1), Id) `$\mapsto$`  67`
+
+**Nested Lisp-like**:
+
+ * ` 7 | If(42, "42", If(41, "41", Id)) `$\mapsto$` 7`
+ * `42 | If(42, "42", If(41, "41", Id)) `$\mapsto$` "41"`
+
+**Same in pipe form without nesting**:
+
+ * ` 7 | If(42, "42") | Elif(41, "41") | Else(Id) `$\mapsto$` 7`
+ * `42 | If(42, "42") | Elif(41, "41") | Else(Id) `$\mapsto$` "41"`
+
+### Elif
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Else if
+
+Continuation operator in If-Elif-Else pipe.
+Will fail if not preceded by If.
+See If.
+
+
+### Else
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Else
+
+Resolving operator in If-Elif-Else pipe.
+Will fail if not preceded by If or Elif.
+See If.
+
+
 
 ## Unary Structural transforms
 
@@ -1097,11 +1168,13 @@ Generate range of numbers
 Return evenly spaced values within a given interval.
 
 Parameters:
+
   1. start: start value
   2. stop: stop value
   3. step: step value
 
 Parameters dynamic evaluation:
+
   1. stop: int            -> [0, stop, 1]
   2. [start, stop]        -> [start, stop, 1]
   3. [start, stop, step]  -> [start, stop, step]
@@ -1169,7 +1242,7 @@ If input is not a string, match it's serialized form.
 Format string with the given parameter list.
 
 Constant expressions are supported for the token list,
-s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
+s.t. `"%s" | Fmt(Pi)`  produces "3.141592653589793E0"
 
 *Examples*:
 
@@ -1747,10 +1820,11 @@ including in the expr itself (essentially enabling an arbitrary recursion).
 
 **Infix operator form (left shift)**:
 
-"$f" << E ≡ Fn("$f", E)
+`"$f" << E` ≡ `Fn("$f", E)`
 
 *Examples*:
 
+```
 x | ("$f" << Add(1)) | "$f"  | "$f" = x + 1 + 1 + 1
 
 auto const factorial = "$f" << ("$x"
@@ -1759,6 +1833,7 @@ auto const factorial = "$f" << ("$x"
   | And(1)
   | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
 );
+```
 
 ### Link
 

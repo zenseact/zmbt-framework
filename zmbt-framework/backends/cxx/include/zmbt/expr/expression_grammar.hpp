@@ -81,7 +81,7 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
     }
 
     boost::spirit::karma::rule<OutputIterator, ExpressionView()> start, subexpr, keyword;
-    boost::spirit::karma::rule<OutputIterator, std::list<ExpressionView>()> parameters, fork, pipe, tuple, link, flip, nested_pipe, nested_fork, nested_tuple, nested_link;
+    boost::spirit::karma::rule<OutputIterator, std::vector<ExpressionView>()> parameters, fork, pipe, tuple, link, flip, nested_pipe, nested_fork, nested_tuple, nested_link;
 };
 
 }  // namespace lang

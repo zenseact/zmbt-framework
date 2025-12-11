@@ -91,6 +91,9 @@ extern template Expression dispatch_eval<Keyword::Bool>(ExpressionView const&, E
 extern template Expression dispatch_eval<Keyword::Not>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::And>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Or>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::If>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Elif>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Else>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Id>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Transp>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Cartesian>(ExpressionView const&, ExpressionView const&, EvalContext);
@@ -170,7 +173,13 @@ extern template Expression dispatch_eval<Keyword::PreProc>(ExpressionView const&
 Expression ExpressionView::eval_e(ExpressionView const& x, EvalContext context) const
 try
 {
-
+    if ((x.keyword() == Keyword::_Continue) || (x.keyword() == Keyword::_Resolve))
+    {
+        if (keyword() != Keyword::Elif && keyword() != Keyword::Else)
+        {
+            return detail::make_error_expr("Missing Else clause", keyword_to_str());
+        }
+    }
     switch (keyword())
     {
         case Keyword::Literal: return data();
@@ -244,6 +253,9 @@ try
         case Keyword::Not: return dispatch_eval<Keyword::Not>(*this, x, context);
         case Keyword::And: return dispatch_eval<Keyword::And>(*this, x, context);
         case Keyword::Or: return dispatch_eval<Keyword::Or>(*this, x, context);
+        case Keyword::If: return dispatch_eval<Keyword::If>(*this, x, context);
+        case Keyword::Elif: return dispatch_eval<Keyword::Elif>(*this, x, context);
+        case Keyword::Else: return dispatch_eval<Keyword::Else>(*this, x, context);
         case Keyword::Id: return dispatch_eval<Keyword::Id>(*this, x, context);
         case Keyword::Transp: return dispatch_eval<Keyword::Transp>(*this, x, context);
         case Keyword::Cartesian: return dispatch_eval<Keyword::Cartesian>(*this, x, context);

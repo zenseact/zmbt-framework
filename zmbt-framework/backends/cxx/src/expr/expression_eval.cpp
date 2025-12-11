@@ -38,6 +38,14 @@ boost::json::value ExpressionView::eval(boost::json::value const& x, EvalContext
     }
     auto arg = make_literal_argument_view(x);
     auto res = eval_e(arg, std::move(ctx));
+    switch (res.keyword())
+    {
+    case Keyword::_Resolve:
+    case Keyword::_Continue:
+        return detail::make_error_expr("Missing Else clause", this->keyword_to_str());
+    default:
+        break;
+    }
     return res.to_json();
 }
 

@@ -93,9 +93,9 @@ public:
     }
 
     /// Subexpressions
-    std::list<ExpressionView> subexpressions_list() const;
+    std::vector<ExpressionView> subexpressions_list() const;
 
-    std::list<ExpressionView> tuple_parameters() const;
+    std::vector<ExpressionView> tuple_parameters() const;
 
 
     //////////////////

@@ -673,6 +673,25 @@ std::vector<TestEvalSample> const TestSamples
 
     { 3 | Recur(Q(Fmt), Bind(Q)), {}                    , Q(Q(Q(Fmt)))          },
 
+    {41 | If(Eq(41), 0) | Elif(Ge(43), 14) | Else(11)   , {},                  0},
+    {42 | If(Eq(41), 0) | Elif(Ge(43), 14) | Else(11)   , {},                 11},
+    {43 | If(Eq(41), 0) | Elif(Ge(43), 14) | Else(11)   , {},                 14},
+
+    {41 | If(Eq(41), 0)                | Id | IsErr, {} , true                  },
+    {41 | If(Ne(41), 0)                | Id | IsErr, {} , true                  },
+    {11 | If(Eq(41), 0) | Elif(11, 42) | Id | IsErr, {} , true                  },
+    {12 | If(Ne(41), 0) | Elif(11, 42) | Id | IsErr, {} , true                  },
+    {12 | Else(42) | IsErr                         , {} , true                  },
+
+    // Lispy ternary if
+    {6 | If(Gt(7), Id, Add(1))  , {}                        ,                  7},
+    {8 | If(Gt(7), Id, Add(1))  , {}                        ,                  8},
+
+    {67| If(Mod(3)|Nil, Mul(10)) | Elif(Mod(5)|Nil, Mul(100)) | Else(Id), {},  67 },
+    {9 | If(Mod(3)|Nil, Mul(10)) | Elif(Mod(5)|Nil, Mul(100)) | Else(Id), {}, 90  },
+    {25| If(Mod(3)|Nil, Mul(10)) | Elif(Mod(5)|Nil, Mul(100)) | Else(Id), {}, 2500},
+
+
 
     {Eval                       , {}                    , {}                    },
     {Eval                       , 42                    , 42                    },
@@ -777,6 +796,8 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, stati
     Keyword const keyword = static_cast<Keyword>(sample);
     if (keyword == Keyword::Void) return;
     if (keyword == Keyword::LazyToken) return;
+    if (keyword == Keyword::_Resolve) return;
+    if (keyword == Keyword::_Continue) return;
     if (NotImplemented.count(keyword) == 0 && CoveredInTestEval.count(keyword) == 0)
     {
         BOOST_FAIL("Keyword " << json_from(keyword) << " is not covered in TestEval");
