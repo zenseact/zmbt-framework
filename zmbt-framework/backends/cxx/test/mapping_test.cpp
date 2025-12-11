@@ -563,7 +563,7 @@ BOOST_AUTO_TEST_CASE(ExpressionClauses)
     .Test
         (Id               , N | Arange                    )
         (Flip(Sub(N))     , "%d:0:-1" | Fmt(N) | Arange   )
-        (Recur(2 + Pow(2)) , N | Sub(1) | Unfold(2 + Pow(2)))
+        (Recur(2, Pow(2)) , N | Sub(1) | Unfold(2, Pow(2)))
     .Zip
         (N, 1, 42);
 }

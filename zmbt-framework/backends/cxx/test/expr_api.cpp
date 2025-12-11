@@ -122,7 +122,7 @@ std::vector<TestEvalSample> const TestSamples
 
     {Approx(42)                 , 42                    , true                  },
     {Approx(42)                 , 42.0 + 1e-09          , true                  },
-    {Approx(42.0 + 1e-09)       , 42                    , true                  },
+    {Approx({42.0, 1e-09})      , 42                    , true                  },
     {Approx                     , {42, 42.0 + 1e-09}    , true                  },
     {Approx(42.001)             , 42                    , false                 },
 
@@ -335,7 +335,7 @@ std::vector<TestEvalSample> const TestSamples
     {Size|Eq(2)                 , {1,2}                 , true                  },
     {Size|2                     , {1,2}                 , true                  },
 
-    {42 | (Size + Card)           , {}                  , {Size, Card}          },
+    {42 | (Size, Card)           , {}                  , {Size, Card}          },
 
     // arithmetic
     {Neg                        , 42                    , -42                   },
@@ -461,8 +461,8 @@ std::vector<TestEvalSample> const TestSamples
     {Push(3)|Reduce(Add)        , {1,2,3,4}             , 13                    },
     {Reduce(Add)                , L{42}                 , 42                    },
     {Reduce(Add)                , L{}                   , nullptr               },
-    {Reduce                     , {{2,2,2,2}, Add}      ,  8                },
-    {L{2,2,2,2} + Add | Reduce  , {}                    , 8                     },
+    {Reduce                     , {{2,2,2,2}, Add}      , 8                     },
+    {(L{2,2,2,2}, Add) | Reduce , {}                    , 8                     },
 
 
     // ternary and or
@@ -554,21 +554,21 @@ std::vector<TestEvalSample> const TestSamples
     {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
     {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
 
-    {Recur( 0 + Add(1) )         ,  4                     , 4                   },
-    {Recur(42 + Add(-1))         , 41                     , 1                   },
-    {Recur(42 + Sub(1) )         , 41                     , 1                   },
-    {Recur( 2 + Pow(2) )         ,  4                     , 65536               },
+    {Recur( 0, Add(1) )         ,  4                     , 4                   },
+    {Recur(42, Add(-1))         , 41                     , 1                   },
+    {Recur(42, Sub(1) )         , 41                     , 1                   },
+    {Recur( 2, Pow(2) )         ,  4                     , 65536               },
 
-    {Unfold(0 + Add(1))         , 4                      , {0,1,2,3,4}          },
-    {Unfold(1 + Add(1))         , 4                      , {1,2,3,4,5}          },
+    {Unfold(0, Add(1))          , 4                      , {0,1,2,3,4}          },
+    {Unfold(1, Add(1))          , 4                      , {1,2,3,4,5}          },
 
-    {Recur( 4 + Add(1))         ,  Ge(12)                , 11                   },
-    {Unfold(8 + Add(1))         ,  Ge(12)                , {8,9,10,11}          },
-    {Q(Ge(12)) | Recur( 4 + Add(1)),  {}                 , 11                   },
-    {Q(Ge(12)) | Unfold(8 + Add(1)),  {}                 , {8,9,10,11}          },
+    {Recur( 4, Add(1))          ,  Ge(12)                , 11                   },
+    {Unfold(8, Add(1))          ,  Ge(12)                , {8,9,10,11}          },
+    {Q(Ge(12)) | Recur( 4, Add(1)),  {}                , 11                   },
+    {Q(Ge(12)) | Unfold(8, Add(1)),  {}                , {8,9,10,11}          },
 
 
-    {4|Recur(Q({0,0}) + ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
+    {4|Recur(Q({0,0}), ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
 
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
@@ -666,12 +666,12 @@ std::vector<TestEvalSample> const TestSamples
     { (ToList & Id) | Bind          , Fmt     , Fmt(Fmt)              },
     { Q(Fmt) | (ToList & Id) | Bind , {}      , Fmt(Fmt)              },
 
-    {42 + Add(1) + Sub(1) + Mul(1) | Bind(Pipe) , {}
-                                                , 42 | Add(1) | Sub(1) | Mul(1) },
+    {(42, Add(1), Sub(1), Mul(1)) | Bind(Pipe) , {}
+                                               , 42 | Add(1) | Sub(1) | Mul(1) },
 
     { Q(Fmt) | Bind(Q) | Bind(Q), {}, Q(Q(Fmt))                                 },
 
-    { 3 | Recur(Q(Fmt) + Bind(Q)), {}                   , Q(Q(Q(Fmt)))          },
+    { 3 | Recur(Q(Fmt), Bind(Q)), {}                    , Q(Q(Q(Fmt)))          },
 
 
     {Eval                       , {}                    , {}                    },
@@ -686,7 +686,7 @@ std::vector<TestEvalSample> const TestSamples
     {Kwrd                       , Fold(Add)             , "Fold"                },
     {Q(Fold(Add)) | Kwrd        , {}                    , "Fold"                },
     {Q(Fold(Add)) | Prms        , {}                    , Tuple(Add)            },
-    {Q(Pipe(Add, Sub)) | Prms   , {}                    , Add + Sub             },
+    {Q(Pipe(Add, Sub)) | Prms   , {}                    , (Add, Sub)             },
 
     {Op(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Op(type<unsigned>, Eq(42)))       , -42    , nullptr             },
@@ -1059,8 +1059,8 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     TEST_PRETIFY(   (Fold(Add) & Size) | Div | Eq(2.5E0) | Not      )
     TEST_PRETIFY(   Eq(Pi | Div(2))                                 )
     TEST_PRETIFY(   "%s%d" | Fmt(Pi | Div(2), 2 | Add(2))           )
-    TEST_PRETIFY(   Recur(42 + Map(Add(2) | Div(E)))                )
-    TEST_PRETIFY(   Unfold(13 + Recur(42 + Map(Add(2) | Div(E))))   )
+    TEST_PRETIFY(   Recur(42, Map(Add(2) | Div(E)))                 )
+    TEST_PRETIFY(   Unfold(13, Recur(42, Map(Add(2) | Div(E))))     )
 
     TEST_PRETIFY(   Min                                             )
     TEST_PRETIFY(   Min(At("/%s" | Fmt("foo")))                     )

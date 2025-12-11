@@ -174,8 +174,8 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Max: return is_binary | is_hiord;
     case Keyword::Argmin: return is_binary | is_hiord;
     case Keyword::Argmax: return is_binary | is_hiord;
-    case Keyword::Recur: return is_binary | is_hiord;
-    case Keyword::Unfold: return is_binary | is_hiord;
+    case Keyword::Recur: return is_variadic | is_hiord;
+    case Keyword::Unfold: return is_variadic | is_hiord;
     case Keyword::Op: return is_unary | is_hiord | is_overload;
     case Keyword::Bind: return is_binary | is_hiord;
     case Keyword::Fn: return is_binary | is_hiord;

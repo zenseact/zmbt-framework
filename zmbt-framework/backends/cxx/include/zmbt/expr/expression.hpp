@@ -407,14 +407,16 @@ class Expression : public ExpressionView
     /// Pack expression results into an array. \see zmbt::expr::Fork.
     friend Expression operator&(Expression lhs, Expression rhs);
 
-    /// Pack expression into an array. without evaluation \see zmbt::expr::Tuple.
-    friend Expression operator+(Expression lhs, Expression rhs);
+    /// Pack expression into a tuple without evaluation \see zmbt::expr::Tuple.
+    friend Expression operator,(Expression lhs, Expression rhs);
 
     /// Inline named function, equivalent to Fn(link + expr)
     friend Expression operator<<(Expression link, Expression expr);
 
     /// Flip design-time and eval-time parameters.
     friend Expression operator~(Expression expr);
+
+    
 
   private:
     Encoding encoding_;

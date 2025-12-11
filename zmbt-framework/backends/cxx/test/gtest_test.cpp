@@ -59,7 +59,7 @@ TEST(RunInGtest, SignalMapping)
         .At(id).Inject()
         .At(id).Expect()
     .Test
-        (X + X + X             , X|Repeat(3)                )
+        ((X, X, X)             , X|Repeat(3)                )
         ("[%s,%s]"|Format(X, Y), Parse | Any({13,0}, {19,1}))
     .Zip
         (X, 13, 19)

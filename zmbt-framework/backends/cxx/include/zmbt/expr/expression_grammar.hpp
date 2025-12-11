@@ -68,13 +68,13 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
 
         pipe    = subexpr % lit(" | ");
         fork    = subexpr % lit(" & ");
-        tuple   = subexpr % lit(" + ");
+        tuple   = subexpr % lit(" , ");
         link    = subexpr % lit(" << ");
         flip    = lit('~') << subexpr;
         nested_link = lit('(') << subexpr % lit(" << ") << ')';
         nested_pipe  = lit('(') << subexpr % lit(" | ") << ')';
         nested_fork  = lit('(') << subexpr % lit(" & ") << ')';
-        nested_tuple = lit('(') << subexpr % lit(" + ") << ')';
+        nested_tuple = lit('(') << subexpr % lit(" , ") << ')';
         parameters   = lit('(') << -(start % lit(", "))  << ')';
 
         keyword = string[_1 = keyword_to_str] << -(eps(has_subexpr)  << parameters[_1 = subexpressions_list]);
