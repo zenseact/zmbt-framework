@@ -107,6 +107,9 @@ extern template Expression dispatch_eval<Keyword::Flatten>(ExpressionView const&
 extern template Expression dispatch_eval<Keyword::ToList>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::First>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Last>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Rand>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::RandInt>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Sequence>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Arange>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Parse>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Str>(ExpressionView const&, ExpressionView const&, EvalContext);
@@ -269,6 +272,9 @@ try
         case Keyword::ToList: return dispatch_eval<Keyword::ToList>(*this, x, context);
         case Keyword::First: return dispatch_eval<Keyword::First>(*this, x, context);
         case Keyword::Last: return dispatch_eval<Keyword::Last>(*this, x, context);
+        case Keyword::Rand: return dispatch_eval<Keyword::Rand>(*this, x, context);
+        case Keyword::RandInt: return dispatch_eval<Keyword::RandInt>(*this, x, context);
+        case Keyword::Sequence: return dispatch_eval<Keyword::Sequence>(*this, x, context);
         case Keyword::Arange: return dispatch_eval<Keyword::Arange>(*this, x, context);
         case Keyword::Parse: return dispatch_eval<Keyword::Parse>(*this, x, context);
         case Keyword::Str: return dispatch_eval<Keyword::Str>(*this, x, context);

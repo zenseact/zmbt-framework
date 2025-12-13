@@ -1156,7 +1156,48 @@ Equivalent to At(-1)
  * `[] | Last `$\mapsto$` null`
 
 
-## Unary Generators
+## Random number generators
+
+### Rand
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Uniformly distributed random number in the half-open interval [0.0, 1.0)
+
+
+
+### RandInt
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Uniformly distributed random integer in the given range
+
+RandInt(x, y) : range is [x, y]
+RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+RandInt()     : range is [0, RAND_MAX]
+
+
+
+## Sequence Generators
+
+### Sequence
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+*Aliases*: Seq
+
+Produce sequence from parameter using arg as size
+
+Behavior of `n | Sequence(F)`is similar to n | Flip(Repeat(F)),
+with the main difference that the parameter is reevaluated for each step,
+making it possible to utilize side-effects, s.a. with Rand.
+
+*Examples*:
+
+ * `3 | Sequence(42) `$\mapsto$` [42, 42, 42]`
+ * `3 | Sequence(Rand) `$\mapsto$` [..., ..., ...]`
 
 ### Arange
 

@@ -161,6 +161,10 @@ KeywordSymbol::KeywordSymbol()
     ("ToList", Keyword::ToList)
     ("First", Keyword::First)
     ("Last", Keyword::Last)
+    ("Rand", Keyword::Rand)
+    ("RandInt", Keyword::RandInt)
+    ("Sequence", Keyword::Sequence)
+    ("Seq", Keyword::Sequence)
     ("Arange", Keyword::Arange)
     ("Parse", Keyword::Parse)
     ("Str", Keyword::Str)
@@ -356,6 +360,9 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::ToList: { return "ToList"; break; }
     case Keyword::First: { return "First"; break; }
     case Keyword::Last: { return "Last"; break; }
+    case Keyword::Rand: { return "Rand"; break; }
+    case Keyword::RandInt: { return "RandInt"; break; }
+    case Keyword::Sequence: { return "Sequence"; break; }
     case Keyword::Arange: { return "Arange"; break; }
     case Keyword::Parse: { return "Parse"; break; }
     case Keyword::Str: { return "Str"; break; }

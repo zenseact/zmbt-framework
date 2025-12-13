@@ -304,6 +304,15 @@ enum class Keyword : std::uint64_t
     /// Last
     Last,
 
+    /// Rand
+    Rand,
+
+    /// RandInt
+    RandInt,
+
+    /// Sequence
+    Sequence,
+
     /// Arange
     Arange,
 

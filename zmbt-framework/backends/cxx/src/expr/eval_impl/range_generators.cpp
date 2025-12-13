@@ -48,6 +48,25 @@ ZMBT_DEFINE_EVALUATE_IMPL(Repeat)
     return ret;
 }
 
+ZMBT_DEFINE_EVALUATE_IMPL(Sequence)
+{
+    auto const& arg = x().data();
+    ASSERT(arg.is_number(), "invalid argument");
+    std::uint64_t count = boost::json::value_to<std::uint64_t>(arg);
+    boost::json::array ret {};
+
+    if (!count)
+    {
+        return ret;
+    }
+    ret.reserve(count);
+    for (std::uint64_t i = 0; i < count; i++)
+    {
+        ret.push_back(rhs().eval({}, curr_ctx()));
+    }
+    return ret;
+}
+
 
 
 ZMBT_DEFINE_EVALUATE_IMPL(Arange)

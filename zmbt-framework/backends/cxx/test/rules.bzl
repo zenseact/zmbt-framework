@@ -23,6 +23,6 @@ def make_unit_tests(srcs):
             env = {
             },
             args = [
-                "--color_output=no",
+                "--color_output=no -- --zmbt_seed 42",
             ],
         )

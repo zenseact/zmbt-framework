@@ -10,6 +10,7 @@
 
 #include "zmbt/expr.hpp"
 #include "zmbt/decor.hpp"
+#include "zmbt/application.hpp"
 
 
 namespace utf = boost::unit_test;
@@ -103,6 +104,21 @@ std::vector<TestEvalSample> const TestSamples
     { Eps                       , {}                    , *Eps                  },
 
     { Thread                    , {}                    , zmbt::get_tid().c_str()},
+
+    // random
+    { Rand | Ge(0)              , {}                    , true                  },
+    { Rand | Lt(1)              , {}                    , true                  },
+    { 16 | Sequence(RandInt(1)) | SetEq({0,1}), {}      , true                  },
+    {  3 | Sequence(RandInt(9)) , {}                    , {5,3,6} /* seed = 42*/},
+    { RandInt(0) | IsErr        , {}                    , true                  },
+    { RandInt(1, 1) | IsErr     , {}                    , true                  },
+    { RandInt(-3) | IsErr       , {}                    , true                  },
+    { 999 | Sequence(Rand) | All(
+            Size|Eq(999),
+            Each(Ge(0)),
+            Each(Lt(1)),
+            Avg|Near({0.5, 0.1})
+        )                       , {}                    , true                   },
 
 
     // comparison
@@ -455,6 +471,10 @@ std::vector<TestEvalSample> const TestSamples
     {Repeat(4)                  ,  1                    , {1,1,1,1}             },
     {Repeat(3)                  , 42                    , {42,42,42}            },
     {Repeat(3)|Repeat(2)        ,  1                    , {{1,1,1}, {1,1,1}}    },
+    {~Repeat(1)                 ,  4                    , {1,1,1,1}             },
+    {Sequence(1)                ,  4                    , {1,1,1,1}             },
+    {~Repeat(Pi)                ,  3                    , {*Pi,*Pi,*Pi}         },
+
 
     {Reduce(Add)                , {2,2,2,2}             ,  8                    },
     {Reduce(Add)                , {1,2,3,4}             , 10                    },
@@ -772,6 +792,7 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 
 
     Logger::set_max_level(Logger::DEBUG);
+    zmbt::Config().ResetRng();
 
     try
     {

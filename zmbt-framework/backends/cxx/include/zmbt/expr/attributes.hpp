@@ -142,6 +142,9 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::ToList: return is_unary | is_autogen;
     case Keyword::First: return is_unary;
     case Keyword::Last: return is_unary;
+    case Keyword::Rand: return is_unary;
+    case Keyword::RandInt: return is_variadic;
+    case Keyword::Sequence: return is_binary;
     case Keyword::Arange: return is_unary;
     case Keyword::Parse: return is_unary | is_autogen;
     case Keyword::Str: return is_unary | is_autogen;

@@ -845,12 +845,46 @@ keyword_groups:
           [] | Last ↦ null
 
 
-  Unary Generators:
+  Random number generators:
+    defaults:
+      signature: Variadic
+    keywords:
+      - name: Rand
+        signature: Unary
+        brief: Uniformly distributed random number in the half-open interval [0.0, 1.0)
+        details: |-
+
+      - name: RandInt
+        brief: Uniformly distributed random integer in the given range
+        details: |-
+          RandInt(x, y) : range is [x, y]
+          RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+          RandInt()     : range is [0, RAND_MAX]
+
+
+  Sequence Generators:
     defaults:
       signature: Unary
     keywords:
+      - name: Sequence
+        aliases: [ Seq ]
+        brief: Produce sequence from parameter using arg as size
+        signature: Binary
+        details: |-
+          Behavior of `n | Sequence(F)`is similar to n | Flip(Repeat(F)),
+          with the main difference that the parameter is reevaluated for each step,
+          making it possible to utilize side-effects, s.a. with Rand.
+        domain: [int, any]
+        codomain: list
+        params:
+          - label: count
+        examples: |-
+          3 | Sequence(42) ↦ [42, 42, 42]
+          3 | Sequence(Rand) ↦ [..., ..., ...]
+
       - name: Arange
         brief: Generate range of numbers
+        signature: Unary
         details: |-
           Return evenly spaced values within a given interval.
 

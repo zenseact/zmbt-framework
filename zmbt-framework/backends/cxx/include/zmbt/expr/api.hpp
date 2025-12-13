@@ -385,6 +385,25 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::First> const First;
 /// Equivalent to At(-1)
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Last> const Last;
 
+/// \brief Uniformly distributed random number in the half-open interval [0.0, 1.0)
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Rand> const Rand;
+
+/// \brief Uniformly distributed random integer in the given range
+/// \details
+/// RandInt(x, y) : range is [x, y]
+/// RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+/// RandInt()     : range is [0, RAND_MAX]
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::RandInt> const RandInt;
+
+/// \brief Produce sequence from parameter using arg as size
+/// \details
+/// Behavior of `n | Sequence(F)`is similar to n | Flip(Repeat(F)),
+/// with the main difference that the parameter is reevaluated for each step,
+/// making it possible to utilize side-effects, s.a. with Rand.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Sequence> const Sequence;
+/// \brief Alias for Sequence
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Sequence> const Seq;
+
 /// \brief Generate range of numbers
 /// \details
 /// Return evenly spaced values within a given interval.
