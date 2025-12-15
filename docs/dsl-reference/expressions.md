@@ -406,6 +406,7 @@ X to power p
 Logarithm
 
 Logarithm with base b:
+
   1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
   2. $[b] \mapsto [x]    \mapsto log_b(x)$
 
@@ -422,6 +423,7 @@ Logarithm with base b:
 Modulo
 
 Modulo of x:
+
   1. $[ ] \mapsto [x, m] \mapsto x % m$
   2. $[m] \mapsto [x]    \mapsto x % m$
 
@@ -438,6 +440,7 @@ Modulo of x:
 Quotient
 
 Quotient of x:
+
   1. $[ ] \mapsto [x, d] \mapsto x // d$
   2. $[d] \mapsto [x]    \mapsto x // d$
 
@@ -612,14 +615,17 @@ Greater or equal
 Floating point approximately equal
 
 Based on numpy.isclose:
+
   abs(x - ref) <= (atol + rtol * abs(ref))
 
 Rhs parameters:
+
   ref: reference value
   rtol: relative tolerance, default = 1e-05
   atol: absolute tolerance, default = 1e-08
 
 Rhs dynamic evaluation:
+
   1. ref                -> [ref, default, default]
   2. [ref]              -> [ref, default, default]
   3. [ref, rtol]        -> [ref, rtol   , default]
@@ -918,6 +924,71 @@ Generic behavior:
  * `true | And(42) | Or(13) `$\mapsto$` 42`
  * `false | And(42) | Or(13) `$\mapsto$` 13`
 
+### If
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Branching operator
+
+Branching operator can be used either in
+Lisp-like mode as `If(predicate, then_expr, else_expr)`,
+or in pipe mode with Elif or Else operators (see examples).
+
+In pipe mode (without `else_expr` parameter), the chain will produce
+error if the following order is violated or interrupted:
+ `If [ Elif ]* Else`
+
+In both modes, `then_expr` and `else_expr` are lazy evaluated against
+run-time argument (which is also true for Elif and Else), making
+it possible to nest if-else expressions.
+
+*Examples*:
+
+**Pipe form**:
+
+ * `42 | If(Lt(42), Mul(-1)) | Else(Id) `$\mapsto$` -42`
+ * `67 | If(Lt(42), Mul(-1)) | Else(Id) `$\mapsto$`  67`
+
+**Lisp-like form**:
+
+ * `42 | If(Lt(42), Mul(-1), Id) `$\mapsto$` -42`
+ * `67 | If(Lt(42), Mul(-1), Id) `$\mapsto$`  67`
+
+**Nested Lisp-like**:
+
+ * ` 7 | If(42, "42", If(41, "41", Id)) `$\mapsto$` 7`
+ * `42 | If(42, "42", If(41, "41", Id)) `$\mapsto$` "41"`
+
+**Same in pipe form without nesting**:
+
+ * ` 7 | If(42, "42") | Elif(41, "41") | Else(Id) `$\mapsto$` 7`
+ * `42 | If(42, "42") | Elif(41, "41") | Else(Id) `$\mapsto$` "41"`
+
+### Elif
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Else if
+
+Continuation operator in If-Elif-Else pipe.
+Will fail if not preceded by If.
+See If.
+
+
+### Else
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Else
+
+Resolving operator in If-Elif-Else pipe.
+Will fail if not preceded by If or Elif.
+See If.
+
+
 
 ## Unary Structural transforms
 
@@ -1085,7 +1156,48 @@ Equivalent to At(-1)
  * `[] | Last `$\mapsto$` null`
 
 
-## Unary Generators
+## Random number generators
+
+### Rand
+
+*Signature*: [Unary](../user-guide/expressions.md#syntax)
+
+
+Uniformly distributed random number in the half-open interval [0.0, 1.0)
+
+
+
+### RandInt
+
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
+
+
+Uniformly distributed random integer in the given range
+
+RandInt(x, y) : range is [x, y]
+RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+RandInt()     : range is [0, RAND_MAX]
+
+
+
+## Sequence Generators
+
+### Sequence
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+*Aliases*: Seq
+
+Produce sequence from parameter using arg as size
+
+Behavior of `n | Sequence(F)`is similar to n | Flip(Repeat(F)),
+with the main difference that the parameter is reevaluated for each step,
+making it possible to utilize side-effects, s.a. with Rand.
+
+*Examples*:
+
+ * `3 | Sequence(42) `$\mapsto$` [42, 42, 42]`
+ * `3 | Sequence(Rand) `$\mapsto$` [..., ..., ...]`
 
 ### Arange
 
@@ -1097,11 +1209,13 @@ Generate range of numbers
 Return evenly spaced values within a given interval.
 
 Parameters:
+
   1. start: start value
   2. stop: stop value
   3. step: step value
 
 Parameters dynamic evaluation:
+
   1. stop: int            -> [0, stop, 1]
   2. [start, stop]        -> [start, stop, 1]
   3. [start, stop, step]  -> [start, stop, step]
@@ -1169,7 +1283,7 @@ If input is not a string, match it's serialized form.
 Format string with the given parameter list.
 
 Constant expressions are supported for the token list,
-s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
+s.t. `"%s" | Fmt(Pi)`  produces "3.141592653589793E0"
 
 *Examples*:
 
@@ -1657,15 +1771,15 @@ Max value index by key function
 
 ### Recur
 
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Apply recursion to parameter expr and initial value
 
 Inference rules:
 
-  - `n | Recur(x & f)` $\mapsto ◯ⁿ f(x)$, or
-  - `Q(p) | Recur(x₀ & f)` $\mapsto x_k$, where
+  - `n | Recur(x, f)` $\mapsto ◯ⁿ f(x)$, or
+  - `Q(p) | Recur(x₀, f)` $\mapsto x_k$, where
 
     - $x_{i+1} = f(x_i)$
     - $p(x_{i}) = \top \quad \forall i \le k$
@@ -1673,12 +1787,12 @@ Inference rules:
 
 *Examples*:
 
- * `0 | Recur(0 & Add(1))  `$\mapsto$`  3`
- * `3 | Recur(1 & Mul(-1)) `$\mapsto$` -1`
+ * `0 | Recur(0, Add(1))  `$\mapsto$`  3`
+ * `3 | Recur(1, Mul(-1)) `$\mapsto$` -1`
 
 ### Unfold
 
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Put results of recursive fn call on initial value into an array
@@ -1686,8 +1800,8 @@ Put results of recursive fn call on initial value into an array
 
 Inference rules:
 
-  - `n | Unfold(x & f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
-  - `Q(p) | Unfold(x₀ & f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
+  - `n | Unfold(x, f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
+  - `Q(p) | Unfold(x₀, f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
 
     - $x_{i+1} = f(x_i)$
     - $p(x_{i}) = \top \quad \forall i \le k$
@@ -1695,8 +1809,8 @@ Inference rules:
 
 *Examples*:
 
- * `3 | Unfold(0 & Add(1)) `$\mapsto$`  [0, 1, 2, 3]`
- * `3 | Unfold(1 & Mul(-1)) `$\mapsto$`  [1,-1, 1,-1]`
+ * `3 | Unfold(0, Add(1)) `$\mapsto$`  [0, 1, 2, 3]`
+ * `3 | Unfold(1, Mul(-1)) `$\mapsto$`  [1,-1, 1,-1]`
 
 ### Op
 
@@ -1747,10 +1861,11 @@ including in the expr itself (essentially enabling an arbitrary recursion).
 
 **Infix operator form (left shift)**:
 
-"$f" << E ≡ Fn("$f", E)
+`"$f" << E` ≡ `Fn("$f", E)`
 
 *Examples*:
 
+```
 x | ("$f" << Add(1)) | "$f"  | "$f" = x + 1 + 1 + 1
 
 auto const factorial = "$f" << ("$x"
@@ -1759,6 +1874,7 @@ auto const factorial = "$f" << ("$x"
   | And(1)
   | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
 );
+```
 
 ### Link
 

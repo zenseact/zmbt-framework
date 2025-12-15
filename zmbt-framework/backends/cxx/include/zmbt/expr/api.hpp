@@ -158,6 +158,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Pow> const Pow;
 /// \brief Logarithm
 /// \details
 /// Logarithm with base b:
+/// 
 ///   1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
 ///   2. $[b] \mapsto [x]    \mapsto log_b(x)$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Log> const Log;
@@ -165,6 +166,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Log> const Log;
 /// \brief Modulo
 /// \details
 /// Modulo of x:
+/// 
 ///   1. $[ ] \mapsto [x, m] \mapsto x % m$
 ///   2. $[m] \mapsto [x]    \mapsto x % m$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Mod> const Mod;
@@ -172,6 +174,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Mod> const Mod;
 /// \brief Quotient
 /// \details
 /// Quotient of x:
+/// 
 ///   1. $[ ] \mapsto [x, d] \mapsto x // d$
 ///   2. $[d] \mapsto [x]    \mapsto x // d$
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Quot> const Quot;
@@ -221,14 +224,17 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Ge> const Ge;
 /// \brief Floating point approximately equal
 /// \details
 /// Based on numpy.isclose:
+/// 
 ///   abs(x - ref) <= (atol + rtol * abs(ref))
 /// 
 /// Rhs parameters:
+/// 
 ///   ref: reference value
 ///   rtol: relative tolerance, default = 1e-05
 ///   atol: absolute tolerance, default = 1e-08
 /// 
 /// Rhs dynamic evaluation:
+/// 
 ///   1. ref                -> [ref, default, default]
 ///   2. [ref]              -> [ref, default, default]
 ///   3. [ref, rtol]        -> [ref, rtol   , default]
@@ -301,6 +307,35 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::And> const And;
 ///   returns first operand, second otherwise
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Or> const Or;
 
+/// \brief Branching operator
+/// \details
+/// Branching operator can be used either in
+/// Lisp-like mode as `If(predicate, then_expr, else_expr)`,
+/// or in pipe mode with Elif or Else operators (see examples).
+/// 
+/// In pipe mode (without `else_expr` parameter), the chain will produce
+/// error if the following order is violated or interrupted:
+///  `If [ Elif ]* Else`
+/// 
+/// In both modes, `then_expr` and `else_expr` are lazy evaluated against
+/// run-time argument (which is also true for Elif and Else), making
+/// it possible to nest if-else expressions.
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::If> const If;
+
+/// \brief Else if
+/// \details
+/// Continuation operator in If-Elif-Else pipe.
+/// Will fail if not preceded by If.
+/// See If.
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Elif> const Elif;
+
+/// \brief Else
+/// \details
+/// Resolving operator in If-Elif-Else pipe.
+/// Will fail if not preceded by If or Elif.
+/// See If.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Else> const Else;
+
 /// \brief Identity function
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Id> const Id;
 
@@ -350,16 +385,37 @@ extern lang::SignatureUnary<::zmbt::lang::Keyword::First> const First;
 /// Equivalent to At(-1)
 extern lang::SignatureUnary<::zmbt::lang::Keyword::Last> const Last;
 
+/// \brief Uniformly distributed random number in the half-open interval [0.0, 1.0)
+extern lang::SignatureUnary<::zmbt::lang::Keyword::Rand> const Rand;
+
+/// \brief Uniformly distributed random integer in the given range
+/// \details
+/// RandInt(x, y) : range is [x, y]
+/// RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+/// RandInt()     : range is [0, RAND_MAX]
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::RandInt> const RandInt;
+
+/// \brief Produce sequence from parameter using arg as size
+/// \details
+/// Behavior of `n | Sequence(F)`is similar to n | Flip(Repeat(F)),
+/// with the main difference that the parameter is reevaluated for each step,
+/// making it possible to utilize side-effects, s.a. with Rand.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Sequence> const Sequence;
+/// \brief Alias for Sequence
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Sequence> const Seq;
+
 /// \brief Generate range of numbers
 /// \details
 /// Return evenly spaced values within a given interval.
 /// 
 /// Parameters:
+/// 
 ///   1. start: start value
 ///   2. stop: stop value
 ///   3. step: step value
 /// 
 /// Parameters dynamic evaluation:
+/// 
 ///   1. stop: int            -> [0, stop, 1]
 ///   2. [start, stop]        -> [start, stop, 1]
 ///   3. [start, stop, step]  -> [start, stop, step]
@@ -383,7 +439,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Re> const Regex;
 /// \brief Format string with the given parameter list.
 /// \details
 /// Constant expressions are supported for the token list,
-/// s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
+/// s.t. `"%s" | Fmt(Pi)`  produces "3.141592653589793E0"
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fmt> const Fmt;
 /// \brief Alias for Fmt
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fmt> const Format;
@@ -548,26 +604,26 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Argmax> const Argmax;
 /// \details
 /// Inference rules:
 /// 
-///   - `n | Recur(x & f)` $\mapsto ◯ⁿ f(x)$, or
-///   - `Q(p) | Recur(x₀ & f)` $\mapsto x_k$, where
+///   - `n | Recur(x, f)` $\mapsto ◯ⁿ f(x)$, or
+///   - `Q(p) | Recur(x₀, f)` $\mapsto x_k$, where
 /// 
 ///     - $x_{i+1} = f(x_i)$
 ///     - $p(x_{i}) = \top \quad \forall i \le k$
 ///     - $p(x_{i+1}) = \bot$ (exit condition)
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Recur> const Recur;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Recur> const Recur;
 
 /// \brief Put results of recursive fn call on initial value into an array
 /// \details
 /// 
 /// Inference rules:
 /// 
-///   - `n | Unfold(x & f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
-///   - `Q(p) | Unfold(x₀ & f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
+///   - `n | Unfold(x, f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
+///   - `Q(p) | Unfold(x₀, f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
 /// 
 ///     - $x_{i+1} = f(x_i)$
 ///     - $p(x_{i}) = \top \quad \forall i \le k$
 ///     - $p(x_{i+1}) = \bot$ (exit condition)
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Unfold> const Unfold;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Unfold> const Unfold;
 
 /// \brief Bind type-specific operator handler to function
 /// \details
@@ -596,7 +652,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 /// 
 /// **Infix operator form (left shift)**:
 /// 
-/// "$f" << E ≡ Fn("$f", E)
+/// `"$f" << E` ≡ `Fn("$f", E)`
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Fn> const Fn;
 
 /// \brief Symbolic binding of the input value

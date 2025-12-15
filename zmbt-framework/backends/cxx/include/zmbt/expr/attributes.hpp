@@ -54,6 +54,8 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Literal: return is_unary | is_literal;
     case Keyword::Void: return is_unary;
     case Keyword::LazyToken: return is_unary;
+    case Keyword::_Continue: return is_unary;
+    case Keyword::_Resolve: return is_unary;
     case Keyword::Noop: return is_const | is_autogen | is_noop;
     case Keyword::Null: return is_const | is_autogen;
     case Keyword::True: return is_const | is_predicate | is_autogen;
@@ -124,6 +126,9 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Not: return is_unary | is_predicate | is_operator;
     case Keyword::And: return is_binary | is_operator;
     case Keyword::Or: return is_binary | is_operator;
+    case Keyword::If: return is_variadic;
+    case Keyword::Elif: return is_variadic;
+    case Keyword::Else: return is_binary;
     case Keyword::Id: return is_unary | is_autogen;
     case Keyword::Transp: return is_unary;
     case Keyword::Cartesian: return is_unary;
@@ -137,6 +142,9 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::ToList: return is_unary | is_autogen;
     case Keyword::First: return is_unary;
     case Keyword::Last: return is_unary;
+    case Keyword::Rand: return is_unary;
+    case Keyword::RandInt: return is_variadic;
+    case Keyword::Sequence: return is_binary;
     case Keyword::Arange: return is_unary;
     case Keyword::Parse: return is_unary | is_autogen;
     case Keyword::Str: return is_unary | is_autogen;
@@ -174,8 +182,8 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Max: return is_binary | is_hiord;
     case Keyword::Argmin: return is_binary | is_hiord;
     case Keyword::Argmax: return is_binary | is_hiord;
-    case Keyword::Recur: return is_binary | is_hiord;
-    case Keyword::Unfold: return is_binary | is_hiord;
+    case Keyword::Recur: return is_variadic | is_hiord;
+    case Keyword::Unfold: return is_variadic | is_hiord;
     case Keyword::Op: return is_unary | is_hiord | is_overload;
     case Keyword::Bind: return is_binary | is_hiord;
     case Keyword::Fn: return is_binary | is_hiord;

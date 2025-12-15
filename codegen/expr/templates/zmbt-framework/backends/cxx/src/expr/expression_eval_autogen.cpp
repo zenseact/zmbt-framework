@@ -29,7 +29,13 @@ extern template Expression dispatch_eval<Keyword::@keyword.Name>(ExpressionView 
 Expression ExpressionView::eval_e(ExpressionView const& x, EvalContext context) const
 try
 {
-
+    if ((x.keyword() == Keyword::_Continue) || (x.keyword() == Keyword::_Resolve))
+    {
+        if (keyword() != Keyword::Elif && keyword() != Keyword::Else)
+        {
+            return detail::make_error_expr("Missing Else clause", keyword_to_str());
+        }
+    }
     switch (keyword())
     {
         case Keyword::Literal: return data();

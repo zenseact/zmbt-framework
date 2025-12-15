@@ -98,7 +98,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Flip)
     ExpressionView const roperand(child);
     auto const flip = E(E::encodeNested(rhs().keyword(), {lhs()}));
 
-    return flip.eval_e(roperand, curr_ctx());
+    return flip.eval_e(roperand.eval_e({}, curr_ctx()), curr_ctx());
 }
 
 

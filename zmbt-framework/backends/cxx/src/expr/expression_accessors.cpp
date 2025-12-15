@@ -90,9 +90,9 @@ bool ExpressionView::is_boolean() const
     return encoding_view().is_boolean();
 }
 
-std::list<ExpressionView> ExpressionView::tuple_parameters() const
+std::vector<ExpressionView> ExpressionView::tuple_parameters() const
 {
-    std::list<ExpressionView> result;
+    std::vector<ExpressionView> result;
 
     auto tuple = encoding_view().child(0);
     if (tuple.head() != Keyword::Tuple) return result;
@@ -105,16 +105,14 @@ std::list<ExpressionView> ExpressionView::tuple_parameters() const
 }
 
 
-std::list<ExpressionView> ExpressionView::subexpressions_list() const
+std::vector<ExpressionView> ExpressionView::subexpressions_list() const
 {
-    std::list<ExpressionView> result;
-
     auto subtrees = encoding_view().children();
-
-    for (auto const& s: subtrees)
-    {
-        result.emplace_back(s);
-    }
+    std::vector<ExpressionView> result;
+    result.reserve(subtrees.size());
+    std::transform(subtrees.cbegin(), subtrees.cend(),
+               std::back_inserter(result),
+               [](EncodingView const& v) { return ExpressionView{v}; });
     return result;
 }
 

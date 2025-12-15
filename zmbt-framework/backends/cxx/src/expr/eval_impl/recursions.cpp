@@ -34,13 +34,11 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Recur)
 {
-    auto const fork = self().encoding_view().child(0);
-    ASSERT(
-        (fork.head() == K::Tuple)
-        && fork.arity() == 2,
-    "invalid parameters, expected initial + Fn");
-    ExpressionView const init(fork.child(0));
-    ExpressionView const F (fork.child(1));
+    auto const subexpressions = self().subexpressions_list();
+    ASSERT(subexpressions.size() == 2,
+    "invalid parameters, expected (initial, Fn)");
+    ExpressionView const init(subexpressions.front());
+    ExpressionView const F (subexpressions.back());
     E item = init.eval_e({}, curr_ctx());
 
 
@@ -80,13 +78,12 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
 
 ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
 {
-    auto const fork = self().encoding_view().child(0);
-    ASSERT(
-        (fork.head() == K::Tuple)
-        && fork.arity() == 2,
-    "invalid parameters, expected initial + Fn");
-    ExpressionView const init(fork.child(0));
-    ExpressionView const F (fork.child(1));
+    auto const subexpressions = self().subexpressions_list();
+
+    ASSERT(subexpressions.size() == 2,
+    "invalid parameters, expected (initial, Fn)");
+    ExpressionView const init(subexpressions.front());
+    ExpressionView const F (subexpressions.back());
     E item = init.eval_e({}, curr_ctx());
 
     E const dummy(false);

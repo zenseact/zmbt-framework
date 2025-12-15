@@ -40,6 +40,12 @@ enum class Keyword : std::uint64_t
     /// LazyToken
     LazyToken,
 
+    /// _Continue
+    _Continue,
+
+    /// _Resolve
+    _Resolve,
+
     /// Noop
     Noop,
 
@@ -250,6 +256,15 @@ enum class Keyword : std::uint64_t
     /// Or
     Or,
 
+    /// If
+    If,
+
+    /// Elif
+    Elif,
+
+    /// Else
+    Else,
+
     /// Id
     Id,
 
@@ -288,6 +303,15 @@ enum class Keyword : std::uint64_t
 
     /// Last
     Last,
+
+    /// Rand
+    Rand,
+
+    /// RandInt
+    RandInt,
+
+    /// Sequence
+    Sequence,
 
     /// Arange
     Arange,

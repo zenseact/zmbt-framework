@@ -59,6 +59,8 @@ bool isBinary(Keyword const& k)
     case Keyword::NotNi:
     case Keyword::And:
     case Keyword::Or:
+    case Keyword::Else:
+    case Keyword::Sequence:
     case Keyword::Re:
     case Keyword::Slide:
     case Keyword::Stride:
@@ -82,8 +84,6 @@ bool isBinary(Keyword const& k)
     case Keyword::Max:
     case Keyword::Argmin:
     case Keyword::Argmax:
-    case Keyword::Recur:
-    case Keyword::Unfold:
     case Keyword::Bind:
     case Keyword::Fn:
     case Keyword::Link:

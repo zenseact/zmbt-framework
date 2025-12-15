@@ -407,13 +407,14 @@ std::size_t EncodingView::arity() const
     return n;
 }
 
-std::list<EncodingView> EncodingView::children() const
+std::vector<EncodingView> EncodingView::children() const
 {
-    std::list<EncodingView> st;
+    std::vector<EncodingView> st;
     if (size() < 2)
     {
         return st;
     }
+    st.reserve(size() - 1);
     std::size_t next{1};
     while(next < size())
     {

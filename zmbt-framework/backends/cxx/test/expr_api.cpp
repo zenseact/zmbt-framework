@@ -10,6 +10,7 @@
 
 #include "zmbt/expr.hpp"
 #include "zmbt/decor.hpp"
+#include "zmbt/application.hpp"
 
 
 namespace utf = boost::unit_test;
@@ -104,6 +105,21 @@ std::vector<TestEvalSample> const TestSamples
 
     { Thread                    , {}                    , zmbt::get_tid().c_str()},
 
+    // random
+    { Rand | Ge(0)              , {}                    , true                  },
+    { Rand | Lt(1)              , {}                    , true                  },
+    { 16 | Sequence(RandInt(1)) | SetEq({0,1}), {}      , true                  },
+    {  3 | Sequence(RandInt(9)) , {}                    , {5,3,6} /* seed = 42*/},
+    { RandInt(0) | IsErr        , {}                    , true                  },
+    { RandInt(1, 1) | IsErr     , {}                    , true                  },
+    { RandInt(-3) | IsErr       , {}                    , true                  },
+    { 999 | Sequence(Rand) | All(
+            Size|Eq(999),
+            Each(Ge(0)),
+            Each(Lt(1)),
+            Avg|Near({0.5, 0.1})
+        )                       , {}                    , true                   },
+
 
     // comparison
     {Eq(42)                     , 42                    , true                  },
@@ -122,7 +138,7 @@ std::vector<TestEvalSample> const TestSamples
 
     {Approx(42)                 , 42                    , true                  },
     {Approx(42)                 , 42.0 + 1e-09          , true                  },
-    {Approx(42.0 + 1e-09)       , 42                    , true                  },
+    {Approx({42.0, 1e-09})      , 42                    , true                  },
     {Approx                     , {42, 42.0 + 1e-09}    , true                  },
     {Approx(42.001)             , 42                    , false                 },
 
@@ -335,7 +351,7 @@ std::vector<TestEvalSample> const TestSamples
     {Size|Eq(2)                 , {1,2}                 , true                  },
     {Size|2                     , {1,2}                 , true                  },
 
-    {42 | (Size + Card)           , {}                  , {Size, Card}          },
+    {42 | (Size, Card)           , {}                  , {Size, Card}          },
 
     // arithmetic
     {Neg                        , 42                    , -42                   },
@@ -455,14 +471,18 @@ std::vector<TestEvalSample> const TestSamples
     {Repeat(4)                  ,  1                    , {1,1,1,1}             },
     {Repeat(3)                  , 42                    , {42,42,42}            },
     {Repeat(3)|Repeat(2)        ,  1                    , {{1,1,1}, {1,1,1}}    },
+    {~Repeat(1)                 ,  4                    , {1,1,1,1}             },
+    {Sequence(1)                ,  4                    , {1,1,1,1}             },
+    {~Repeat(Pi)                ,  3                    , {*Pi,*Pi,*Pi}         },
+
 
     {Reduce(Add)                , {2,2,2,2}             ,  8                    },
     {Reduce(Add)                , {1,2,3,4}             , 10                    },
     {Push(3)|Reduce(Add)        , {1,2,3,4}             , 13                    },
     {Reduce(Add)                , L{42}                 , 42                    },
     {Reduce(Add)                , L{}                   , nullptr               },
-    {Reduce                     , {{2,2,2,2}, Add}      ,  8                },
-    {L{2,2,2,2} + Add | Reduce  , {}                    , 8                     },
+    {Reduce                     , {{2,2,2,2}, Add}      , 8                     },
+    {(L{2,2,2,2}, Add) | Reduce , {}                    , 8                     },
 
 
     // ternary and or
@@ -470,6 +490,12 @@ std::vector<TestEvalSample> const TestSamples
     {And(42)|Or(13)             , false                 , 13                    },
     {And(42)|Or(13)|Not         , true                  , false                 },
     {And(E)|Or(NaN)             , true                  , *E                    },
+
+    {"$X" | Eq(42) | And("X = 42") | Or("$X" | ~Fmt("X = %d")), 42, "X = 42"    },
+    {"$X" | Eq(42) | And("X = 42") | Or("$X" | ~Fmt("X = %d")), 13, "X = 13"    },
+
+    {                  If(42, "X = 42") | Else(~Fmt("X = %d")), 42, "X = 42"    },
+    {                  If(42, "X = 42") | Else(~Fmt("X = %d")), 13, "X = 13"    },
 
     {Push("baz")|Reduce(And)    , {"foo", "bar"}        , "bar"                 },
     {Push(""   )|Reduce(And)    , {"foo", "bar"}        , ""                    },
@@ -503,7 +529,7 @@ std::vector<TestEvalSample> const TestSamples
     {At({{"$/b","/a"}})         , {{"a",42}, {"b",13}}  , {{"13",42}}           },
     {At("::2")                  , {1,2,3,4,5,6,7,8}     , {1,3,5,7}             },
     {At("4:")                   , {1,2,3,4,5,6,7,8}     , {5,6,7,8}             },
-    {At("-1:0:-1")              , {1,2,3,4,5,6,7,8}     , {8,7,6,5,4,3,2,1}     },
+    {At("::-1")                 , {1,2,3,4,5,6,7,8}     , {8,7,6,5,4,3,2,1}     },
 
     {At                         , {{1,2,3}, 0}           , 1                    },
 
@@ -540,10 +566,26 @@ std::vector<TestEvalSample> const TestSamples
     {At(0)                      , "foo"                 , 'f'                    },
     {Lookup("foo")              , 0                     , 'f'                    },
 
+    {Lookup({1, Pi, 42})        , 1                     ,  Pi                    },
+    {Lookup({1, Pi, 42}) | Eval , 1                     , *Pi                    },
+
+    // Json Pointer
+    {Lookup({{"a", {{"b", {10,20}}}}}), "/a/b/1"        , 20                     },
+
+    // evaluation
+    {Lookup({{"pi", Pi}, {"e", E}})        , "pi"       ,  Pi                    },
+    {Lookup({{"pi", Pi}, {"e", E}}) | Eval , "pi"       , *Pi                    },
+
     {"abcdefg" | At("-3::")     , {}                    , "efg"                  },
-    {"abcdefg" | At("-1:-3:-1") , {}                    , "gfe"                  },
+    {"abcdefg" | At("-3:")      , {}                    , "efg"                  },
+    {"abcdefg" | At("-1:-3:-1") , {}                    , "gf"                   },
+    {"abcdefg" | At("1:3:1")    , {}                    , "bc"                   },
     {"::2" | Lookup("abcdefg")  , {}                    , "aceg"                 },
     {"1:42:3" | Lookup("")      , {}                    , ""                     },
+    {Lookup("abcdef")           , "1:-1"                , "bcde"                 },
+    {Lookup({0,1,2,3,4})        , "1:-1"                , {1,2,3}                },
+    {Lookup({0,1,2,3,4})        , "1:-2"                , {1,2}                  },
+
 
     {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
     {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },
@@ -554,21 +596,21 @@ std::vector<TestEvalSample> const TestSamples
     {Filter(Mod(2)|0)           , {1,2,3,4}              , {2,4}                },
     {Filter(Mod(2)|1)           , {1,2,3,4}              , {1,3}                },
 
-    {Recur( 0 + Add(1) )         ,  4                     , 4                   },
-    {Recur(42 + Add(-1))         , 41                     , 1                   },
-    {Recur(42 + Sub(1) )         , 41                     , 1                   },
-    {Recur( 2 + Pow(2) )         ,  4                     , 65536               },
+    {Recur( 0, Add(1) )         ,  4                     , 4                   },
+    {Recur(42, Add(-1))         , 41                     , 1                   },
+    {Recur(42, Sub(1) )         , 41                     , 1                   },
+    {Recur( 2, Pow(2) )         ,  4                     , 65536               },
 
-    {Unfold(0 + Add(1))         , 4                      , {0,1,2,3,4}          },
-    {Unfold(1 + Add(1))         , 4                      , {1,2,3,4,5}          },
+    {Unfold(0, Add(1))          , 4                      , {0,1,2,3,4}          },
+    {Unfold(1, Add(1))          , 4                      , {1,2,3,4,5}          },
 
-    {Recur( 4 + Add(1))         ,  Ge(12)                , 11                   },
-    {Unfold(8 + Add(1))         ,  Ge(12)                , {8,9,10,11}          },
-    {Q(Ge(12)) | Recur( 4 + Add(1)),  {}                 , 11                   },
-    {Q(Ge(12)) | Unfold(8 + Add(1)),  {}                 , {8,9,10,11}          },
+    {Recur( 4, Add(1))          ,  Ge(12)                , 11                   },
+    {Unfold(8, Add(1))          ,  Ge(12)                , {8,9,10,11}          },
+    {Q(Ge(12)) | Recur( 4, Add(1)),  {}                , 11                   },
+    {Q(Ge(12)) | Unfold(8, Add(1)),  {}                , {8,9,10,11}          },
 
 
-    {4|Recur(Q({0,0}) + ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
+    {4|Recur(Q({0,0}), ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
 
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
@@ -666,12 +708,31 @@ std::vector<TestEvalSample> const TestSamples
     { (ToList & Id) | Bind          , Fmt     , Fmt(Fmt)              },
     { Q(Fmt) | (ToList & Id) | Bind , {}      , Fmt(Fmt)              },
 
-    {42 + Add(1) + Sub(1) + Mul(1) | Bind(Pipe) , {}
-                                                , 42 | Add(1) | Sub(1) | Mul(1) },
+    {(42, Add(1), Sub(1), Mul(1)) | Bind(Pipe) , {}
+                                               , 42 | Add(1) | Sub(1) | Mul(1) },
 
     { Q(Fmt) | Bind(Q) | Bind(Q), {}, Q(Q(Fmt))                                 },
 
-    { 3 | Recur(Q(Fmt) + Bind(Q)), {}                   , Q(Q(Q(Fmt)))          },
+    { 3 | Recur(Q(Fmt), Bind(Q)), {}                    , Q(Q(Q(Fmt)))          },
+
+    {41 | If(Eq(41), 0) | Elif(Ge(43), 14) | Else(11)   , {},                  0},
+    {42 | If(Eq(41), 0) | Elif(Ge(43), 14) | Else(11)   , {},                 11},
+    {43 | If(Eq(41), 0) | Elif(Ge(43), 14) | Else(11)   , {},                 14},
+
+    {41 | If(Eq(41), 0)                | Id | IsErr, {} , true                  },
+    {41 | If(Ne(41), 0)                | Id | IsErr, {} , true                  },
+    {11 | If(Eq(41), 0) | Elif(11, 42) | Id | IsErr, {} , true                  },
+    {12 | If(Ne(41), 0) | Elif(11, 42) | Id | IsErr, {} , true                  },
+    {12 | Else(42) | IsErr                         , {} , true                  },
+
+    // Lispy ternary if
+    {6 | If(Gt(7), Id, Add(1))  , {}                        ,                  7},
+    {8 | If(Gt(7), Id, Add(1))  , {}                        ,                  8},
+
+    {67| If(Mod(3)|Nil, Mul(10)) | Elif(Mod(5)|Nil, Mul(100)) | Else(Id), {},  67 },
+    {9 | If(Mod(3)|Nil, Mul(10)) | Elif(Mod(5)|Nil, Mul(100)) | Else(Id), {}, 90  },
+    {25| If(Mod(3)|Nil, Mul(10)) | Elif(Mod(5)|Nil, Mul(100)) | Else(Id), {}, 2500},
+
 
 
     {Eval                       , {}                    , {}                    },
@@ -686,7 +747,7 @@ std::vector<TestEvalSample> const TestSamples
     {Kwrd                       , Fold(Add)             , "Fold"                },
     {Q(Fold(Add)) | Kwrd        , {}                    , "Fold"                },
     {Q(Fold(Add)) | Prms        , {}                    , Tuple(Add)            },
-    {Q(Pipe(Add, Sub)) | Prms   , {}                    , Add + Sub             },
+    {Q(Pipe(Add, Sub)) | Prms   , {}                    , (Add, Sub)             },
 
     {Op(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Op(type<unsigned>, Eq(42)))       , -42    , nullptr             },
@@ -753,6 +814,7 @@ BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
 
 
     Logger::set_max_level(Logger::DEBUG);
+    zmbt::Config().ResetRng();
 
     try
     {
@@ -777,6 +839,8 @@ BOOST_DATA_TEST_CASE(EvalTestCoverage, utf::data::xrange(std::size_t{1ul}, stati
     Keyword const keyword = static_cast<Keyword>(sample);
     if (keyword == Keyword::Void) return;
     if (keyword == Keyword::LazyToken) return;
+    if (keyword == Keyword::_Resolve) return;
+    if (keyword == Keyword::_Continue) return;
     if (NotImplemented.count(keyword) == 0 && CoveredInTestEval.count(keyword) == 0)
     {
         BOOST_FAIL("Keyword " << json_from(keyword) << " is not covered in TestEval");
@@ -1059,8 +1123,8 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     TEST_PRETIFY(   (Fold(Add) & Size) | Div | Eq(2.5E0) | Not      )
     TEST_PRETIFY(   Eq(Pi | Div(2))                                 )
     TEST_PRETIFY(   "%s%d" | Fmt(Pi | Div(2), 2 | Add(2))           )
-    TEST_PRETIFY(   Recur(42 + Map(Add(2) | Div(E)))                )
-    TEST_PRETIFY(   Unfold(13 + Recur(42 + Map(Add(2) | Div(E))))   )
+    TEST_PRETIFY(   Recur(42, Map(Add(2) | Div(E)))                 )
+    TEST_PRETIFY(   Unfold(13, Recur(42, Map(Add(2) | Div(E))))     )
 
     TEST_PRETIFY(   Min                                             )
     TEST_PRETIFY(   Min(At("/%s" | Fmt("foo")))                     )

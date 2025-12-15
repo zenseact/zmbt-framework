@@ -32,6 +32,8 @@ KeywordSymbol::KeywordSymbol()
     ("Literal", Keyword::Literal)
     ("Void", Keyword::Void)
     ("LazyToken", Keyword::LazyToken)
+    ("_Continue", Keyword::_Continue)
+    ("_Resolve", Keyword::_Resolve)
     ("Noop", Keyword::Noop)
     ("_", Keyword::Noop)
     ("Null", Keyword::Null)
@@ -142,6 +144,9 @@ KeywordSymbol::KeywordSymbol()
     ("∧", Keyword::And)
     ("Or", Keyword::Or)
     ("∨", Keyword::Or)
+    ("If", Keyword::If)
+    ("Elif", Keyword::Elif)
+    ("Else", Keyword::Else)
     ("Id", Keyword::Id)
     ("Transp", Keyword::Transp)
     ("Cartesian", Keyword::Cartesian)
@@ -156,6 +161,10 @@ KeywordSymbol::KeywordSymbol()
     ("ToList", Keyword::ToList)
     ("First", Keyword::First)
     ("Last", Keyword::Last)
+    ("Rand", Keyword::Rand)
+    ("RandInt", Keyword::RandInt)
+    ("Sequence", Keyword::Sequence)
+    ("Seq", Keyword::Sequence)
     ("Arange", Keyword::Arange)
     ("Parse", Keyword::Parse)
     ("Str", Keyword::Str)
@@ -263,6 +272,8 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Literal: { return "Literal"; break; }
     case Keyword::Void: { return "Void"; break; }
     case Keyword::LazyToken: { return "LazyToken"; break; }
+    case Keyword::_Continue: { return "_Continue"; break; }
+    case Keyword::_Resolve: { return "_Resolve"; break; }
     case Keyword::Noop: { return "Noop"; break; }
     case Keyword::Null: { return "Null"; break; }
     case Keyword::True: { return "True"; break; }
@@ -333,6 +344,9 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Not: { return "Not"; break; }
     case Keyword::And: { return "And"; break; }
     case Keyword::Or: { return "Or"; break; }
+    case Keyword::If: { return "If"; break; }
+    case Keyword::Elif: { return "Elif"; break; }
+    case Keyword::Else: { return "Else"; break; }
     case Keyword::Id: { return "Id"; break; }
     case Keyword::Transp: { return "Transp"; break; }
     case Keyword::Cartesian: { return "Cartesian"; break; }
@@ -346,6 +360,9 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::ToList: { return "ToList"; break; }
     case Keyword::First: { return "First"; break; }
     case Keyword::Last: { return "Last"; break; }
+    case Keyword::Rand: { return "Rand"; break; }
+    case Keyword::RandInt: { return "RandInt"; break; }
+    case Keyword::Sequence: { return "Sequence"; break; }
     case Keyword::Arange: { return "Arange"; break; }
     case Keyword::Parse: { return "Parse"; break; }
     case Keyword::Str: { return "Str"; break; }

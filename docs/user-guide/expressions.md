@@ -125,6 +125,103 @@ e.g. variadic `Fmt`:
 * `["%s, %s!", ["Hello", "world"]] | Fmt` $=$ `"Hello, world!"`
 
 
+## Branching logic and piecewise functions
+
+The Expression API supports several options for branching and piecewise functions:
+
+ - `If` (Lisp-like): `If(cond, then_expr, else_expr)`
+ - `If`, `Elif`, `Else` keywords in pipe syntax: `If(cond, expr) | Elif(cond, expr) | Else(expr)`
+ - `Lookup` keyword for index- or key-based lookup tables or maps (i.e., arrays, strings, or objects): `Lookup({1,2,3}) | Default(42)`
+ - `Default`, `And`, `Or` selection operators
+
+
+### If-Elif-Else
+
+In both Lisp and pipe formats of `If` statements, the argument is implicitly passed
+to lazily-evaluated then/else parameters, so it is possible to produce both constant and computed values:
+
+```
+42 | If(42, "X = 42") | Else(~Fmt("X = %d")) -> "X = 42"
+13 | If(42, "X = 42") | Else(~Fmt("X = %d")) -> "X = 13"
+```
+
+or in Lisp style:
+
+```
+42 | If(42, "X = 42", ~Fmt("X = %d")) -> "X = 42"
+13 | If(42, "X = 42", ~Fmt("X = %d")) -> "X = 13"
+```
+
+For example, to get the same outcome with ternary `And/Or` one needs to capture argument explicitly:
+
+```
+"$X" | Eq(42) | And("X = 42") | Or("$X" | ~Fmt("X = %d"))
+```
+
+The main difference between two formats is the readability of long elif chains:
+
+```
+x   |   If(p1, v1)
+    | Elif(p2, v2)
+    | Elif(p3, v3)
+    | Elif(p4, v4)
+    | Else(v5)
+```
+
+In Lisp format, each elif case should be placed in nested else expression:
+
+```
+x | If(p1, v1, If(p2, v2, If(p3, v3, If(p4, v4, v5))))
+```
+
+
+### Default, And, Or
+
+The `And/Or` argument boolean cast is intended mostly for handling
+empty vs non-empty values, so you can write `"" | Or("default")` instead of `"" | If("", "default") | Else(Id)`.
+
+The difference compared to `D` (aka `Default`) is that the latter one emits value only on null and error inputs:
+
+```
+"" | Or("foo") -> "foo"
+"" | D("foo") -> ""
+
+<error> | Or("foo") -> <error>
+<error> | D("foo") -> "foo"
+
+null | Or("foo") -> "foo"
+null | D("foo") -> "foo"
+```
+
+It is possible to recreate if-else logic with ternary `And/Or` idiom, but very much like in Python or JavaScript,
+the `And` parameter cannot hold empty strings, arrays, zero or null:
+
+```
+false | And("") | Or("foo") -> "foo"
+```
+
+### Lookup
+
+`Lookup` is essentially the reversed counterpart of the query keyword `At` (See `At` and `Flip`).
+It is useful for long tables with exact matches by index or key. If no value found, the `Lookup`
+will return null, which can be handled with `Default` or `Or` keywords:
+
+```
+0 | Lookup({42, 13}) -> 42
+1 | Lookup({42, 13}) -> 13
+3 | Lookup({42, 13}) -> null
+3 | Lookup({42, 13}) | Default(67) -> 67
+```
+
+The result of Lookup is not evaluated (and is therefore more performant than an `If/Elif` chain),
+but evaluation can be forced with `Eval` keyword:
+
+```
+"pi" | Lookup({{"pi", Pi}, {"e", E}}) -> /* unevaluated internal representation */
+"pi" | Lookup({{"pi", Pi}, {"e", E}}) | Eval -> 3.141592653589793...
+```
+
+
 ## Parameter evaluation
 
 Design-time parameters are constant expressions. A simple use case

@@ -19,6 +19,12 @@ keyword_groups:
       - name: LazyToken
         brief: parameter evaluation argument
 
+      - name: _Continue
+        brief: Unresolved If/Elif unmatching argument
+
+      - name: _Resolve
+        brief: Unresoled If/Elif matching argument
+
   Constants:
     defaults:
       signature: Const
@@ -279,6 +285,7 @@ keyword_groups:
         brief: Logarithm
         details: |-
           Logarithm with base b:
+
             1. $[ ] \mapsto [x, b] \mapsto log_b(x)$
             2. $[b] \mapsto [x]    \mapsto log_b(x)$
         examples: |-
@@ -290,6 +297,7 @@ keyword_groups:
         symbol: '%'
         details: |-
           Modulo of x:
+
             1. $[ ] \mapsto [x, m] \mapsto x % m$
             2. $[m] \mapsto [x]    \mapsto x % m$
         examples: |-
@@ -301,6 +309,7 @@ keyword_groups:
         symbol: '//'
         details: |-
           Quotient of x:
+
             1. $[ ] \mapsto [x, d] \mapsto x // d$
             2. $[d] \mapsto [x]    \mapsto x // d$
         examples: |-
@@ -421,14 +430,17 @@ keyword_groups:
         brief: Floating point approximately equal
         details: |-
           Based on numpy.isclose:
+
             abs(x - ref) <= (atol + rtol * abs(ref))
 
           Rhs parameters:
+
             ref: reference value
             rtol: relative tolerance, default = 1e-05
             atol: absolute tolerance, default = 1e-08
 
           Rhs dynamic evaluation:
+
             1. ref                -> [ref, default, default]
             2. [ref]              -> [ref, default, default]
             3. [ref, rtol]        -> [ref, rtol   , default]
@@ -665,6 +677,63 @@ keyword_groups:
           true | And(42) | Or(13) ↦ 42
           false | And(42) | Or(13) ↦ 13
 
+      - name: If
+        brief: Branching operator
+        tags: []
+        signature: Variadic
+        details: |-
+          Branching operator can be used either in
+          Lisp-like mode as `If(predicate, then_expr, else_expr)`,
+          or in pipe mode with Elif or Else operators (see examples).
+
+          In pipe mode (without `else_expr` parameter), the chain will produce
+          error if the following order is violated or interrupted:
+           `If [ Elif ]* Else`
+
+          In both modes, `then_expr` and `else_expr` are lazy evaluated against
+          run-time argument (which is also true for Elif and Else), making
+          it possible to nest if-else expressions.
+
+        examples: |-
+          **Pipe form**:
+
+          42 | If(Lt(42), Mul(-1)) | Else(Id) ↦ -42
+          67 | If(Lt(42), Mul(-1)) | Else(Id) ↦  67
+
+          **Lisp-like form**:
+
+          42 | If(Lt(42), Mul(-1), Id) ↦ -42
+          67 | If(Lt(42), Mul(-1), Id) ↦  67
+
+          **Nested Lisp-like**:
+
+           7 | If(42, "42", If(41, "41", Id)) ↦ 7
+          42 | If(42, "42", If(41, "41", Id)) ↦ "41"
+
+          **Same in pipe form without nesting**:
+
+           7 | If(42, "42") | Elif(41, "41") | Else(Id) ↦ 7
+          42 | If(42, "42") | Elif(41, "41") | Else(Id) ↦ "41"
+
+
+
+      - name: Elif
+        brief: Else if
+        tags: []
+        signature: Variadic
+        details: |-
+          Continuation operator in If-Elif-Else pipe.
+          Will fail if not preceded by If.
+          See If.
+
+      - name: Else
+        signature: Binary
+        tags: []
+        details: |-
+          Resolving operator in If-Elif-Else pipe.
+          Will fail if not preceded by If or Elif.
+          See If.
+
 
   Unary Structural transforms:
     defaults:
@@ -776,21 +845,57 @@ keyword_groups:
           [] | Last ↦ null
 
 
-  Unary Generators:
+  Random number generators:
+    defaults:
+      signature: Variadic
+    keywords:
+      - name: Rand
+        signature: Unary
+        brief: Uniformly distributed random number in the half-open interval [0.0, 1.0)
+        details: |-
+
+      - name: RandInt
+        brief: Uniformly distributed random integer in the given range
+        details: |-
+          RandInt(x, y) : range is [x, y]
+          RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+          RandInt()     : range is [0, RAND_MAX]
+
+
+  Sequence Generators:
     defaults:
       signature: Unary
     keywords:
+      - name: Sequence
+        aliases: [ Seq ]
+        brief: Produce sequence from parameter using arg as size
+        signature: Binary
+        details: |-
+          Behavior of `n | Sequence(F)`is similar to n | Flip(Repeat(F)),
+          with the main difference that the parameter is reevaluated for each step,
+          making it possible to utilize side-effects, s.a. with Rand.
+        domain: [int, any]
+        codomain: list
+        params:
+          - label: count
+        examples: |-
+          3 | Sequence(42) ↦ [42, 42, 42]
+          3 | Sequence(Rand) ↦ [..., ..., ...]
+
       - name: Arange
         brief: Generate range of numbers
+        signature: Unary
         details: |-
           Return evenly spaced values within a given interval.
 
           Parameters:
+
             1. start: start value
             2. stop: stop value
             3. step: step value
 
           Parameters dynamic evaluation:
+
             1. stop: int            -> [0, stop, 1]
             2. [start, stop]        -> [start, stop, 1]
             3. [start, stop, step]  -> [start, stop, step]
@@ -854,7 +959,7 @@ keyword_groups:
         brief: Format string with the given parameter list.
         details: |-
           Constant expressions are supported for the token list,
-          s.t. "%s" | Fmt(Pi)  produces "3.141592653589793E0"
+          s.t. `"%s" | Fmt(Pi)`  produces "3.141592653589793E0"
         signature: Variadic
         domain: [str, list]
         codomain: str
@@ -1256,13 +1361,13 @@ keyword_groups:
           [-3, 1, -2] | Argmax(Abs) ↦ 0
 
       - name: Recur
-        signature: Binary
+        signature: Variadic
         brief: Apply recursion to parameter expr and initial value
         details: |-
           Inference rules:
 
-            - `n | Recur(x & f)` $\mapsto ◯ⁿ f(x)$, or
-            - `Q(p) | Recur(x₀ & f)` $\mapsto x_k$, where
+            - `n | Recur(x, f)` $\mapsto ◯ⁿ f(x)$, or
+            - `Q(p) | Recur(x₀, f)` $\mapsto x_k$, where
 
               - $x_{i+1} = f(x_i)$
               - $p(x_{i}) = \top \quad \forall i \le k$
@@ -1270,18 +1375,18 @@ keyword_groups:
         domain: [any, expr]
         codomain: any
         examples: |-
-          0 | Recur(0 & Add(1))  ↦  3
-          3 | Recur(1 & Mul(-1)) ↦ -1
+          0 | Recur(0, Add(1))  ↦  3
+          3 | Recur(1, Mul(-1)) ↦ -1
 
       - name: Unfold
-        signature: Binary
+        signature: Variadic
         brief: Put results of recursive fn call on initial value into an array
         details: |-
 
           Inference rules:
 
-            - `n | Unfold(x & f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
-            - `Q(p) | Unfold(x₀ & f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
+            - `n | Unfold(x, f)`$\mapsto [x_0, x_1, ...,  x_n]$, or
+            - `Q(p) | Unfold(x₀, f)` $\mapsto [x_0, x_1, ...,  x_k]$, where
 
               - $x_{i+1} = f(x_i)$
               - $p(x_{i}) = \top \quad \forall i \le k$
@@ -1290,8 +1395,8 @@ keyword_groups:
         domain: [any, expr]
         codomain: list
         examples: |-
-          3 | Unfold(0 & Add(1)) ↦  [0, 1, 2, 3]
-          3 | Unfold(1 & Mul(-1)) ↦  [1,-1, 1,-1]
+          3 | Unfold(0, Add(1)) ↦  [0, 1, 2, 3]
+          3 | Unfold(1, Mul(-1)) ↦  [1,-1, 1,-1]
 
       - name: Op
         aliases: [ Overload ]
@@ -1337,9 +1442,10 @@ keyword_groups:
 
           **Infix operator form (left shift)**:
 
-          "$f" << E ≡ Fn("$f", E)
+          `"$f" << E` ≡ `Fn("$f", E)`
 
         examples: |-
+          ```
           x | ("$f" << Add(1)) | "$f"  | "$f" = x + 1 + 1 + 1
 
           auto const factorial = "$f" << ("$x"
@@ -1348,6 +1454,7 @@ keyword_groups:
             | And(1)
             | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
           );
+          ```
 
         domain: [any, expr]
         codomain: expr
