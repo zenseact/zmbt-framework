@@ -491,6 +491,12 @@ std::vector<TestEvalSample> const TestSamples
     {And(42)|Or(13)|Not         , true                  , false                 },
     {And(E)|Or(NaN)             , true                  , *E                    },
 
+    {"$X" | Eq(42) | And("X = 42") | Or("$X" | ~Fmt("X = %d")), 42, "X = 42"    },
+    {"$X" | Eq(42) | And("X = 42") | Or("$X" | ~Fmt("X = %d")), 13, "X = 13"    },
+
+    {                  If(42, "X = 42") | Else(~Fmt("X = %d")), 42, "X = 42"    },
+    {                  If(42, "X = 42") | Else(~Fmt("X = %d")), 13, "X = 13"    },
+
     {Push("baz")|Reduce(And)    , {"foo", "bar"}        , "bar"                 },
     {Push(""   )|Reduce(And)    , {"foo", "bar"}        , ""                    },
     {Push(42   )|Reduce(Or )    , {"foo", "bar"}        , 42                    },
@@ -523,7 +529,7 @@ std::vector<TestEvalSample> const TestSamples
     {At({{"$/b","/a"}})         , {{"a",42}, {"b",13}}  , {{"13",42}}           },
     {At("::2")                  , {1,2,3,4,5,6,7,8}     , {1,3,5,7}             },
     {At("4:")                   , {1,2,3,4,5,6,7,8}     , {5,6,7,8}             },
-    {At("-1:0:-1")              , {1,2,3,4,5,6,7,8}     , {8,7,6,5,4,3,2,1}     },
+    {At("::-1")                 , {1,2,3,4,5,6,7,8}     , {8,7,6,5,4,3,2,1}     },
 
     {At                         , {{1,2,3}, 0}           , 1                    },
 
@@ -560,10 +566,26 @@ std::vector<TestEvalSample> const TestSamples
     {At(0)                      , "foo"                 , 'f'                    },
     {Lookup("foo")              , 0                     , 'f'                    },
 
+    {Lookup({1, Pi, 42})        , 1                     ,  Pi                    },
+    {Lookup({1, Pi, 42}) | Eval , 1                     , *Pi                    },
+
+    // Json Pointer
+    {Lookup({{"a", {{"b", {10,20}}}}}), "/a/b/1"        , 20                     },
+
+    // evaluation
+    {Lookup({{"pi", Pi}, {"e", E}})        , "pi"       ,  Pi                    },
+    {Lookup({{"pi", Pi}, {"e", E}}) | Eval , "pi"       , *Pi                    },
+
     {"abcdefg" | At("-3::")     , {}                    , "efg"                  },
-    {"abcdefg" | At("-1:-3:-1") , {}                    , "gfe"                  },
+    {"abcdefg" | At("-3:")      , {}                    , "efg"                  },
+    {"abcdefg" | At("-1:-3:-1") , {}                    , "gf"                   },
+    {"abcdefg" | At("1:3:1")    , {}                    , "bc"                   },
     {"::2" | Lookup("abcdefg")  , {}                    , "aceg"                 },
     {"1:42:3" | Lookup("")      , {}                    , ""                     },
+    {Lookup("abcdef")           , "1:-1"                , "bcde"                 },
+    {Lookup({0,1,2,3,4})        , "1:-1"                , {1,2,3}                },
+    {Lookup({0,1,2,3,4})        , "1:-2"                , {1,2}                  },
+
 
     {Map(Add(10))               , {1,2,3,4}              , {11,12,13,14}        },
     {Map(Mod(2))                , {1,2,3,4}              , {1,0,1,0}            },

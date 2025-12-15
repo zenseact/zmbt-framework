@@ -4,13 +4,12 @@
  * @license SPDX-License-Identifier: Apache-2.0
  */
 
-#include <iostream>
-
-
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <algorithm>
 #include <tuple>
+#include <limits>
 
 #include <boost/json.hpp>
 #include <boost/algorithm/string.hpp>
@@ -26,62 +25,99 @@ namespace
 /// Unsafe slice params: start, stop, step.
 using slice_t = std::tuple<std::int64_t, std::int64_t, std::int64_t>;
 /// Safe slice stop condition
-using slice_stop_cond_t = std::function<bool(std::size_t const)>;
+using slice_stop_cond_t = std::function<bool(std::int64_t const)>;
 /// Safe slice params: unsigned start, signed step, stop condition fn, slice size.
 using safe_slice_t = std::tuple<std::size_t, std::int64_t, slice_stop_cond_t, std::size_t>;
 
 /// get safe unsigned slice from signed slice and container size N
 safe_slice_t get_safe_slice(std::size_t const N, slice_t slice)
 {
-    std::int64_t const start {std::get<0>(slice)};
-    std::int64_t const stop {std::get<1>(slice)};
-    std::int64_t const step {std::get<2>(slice)};
+    auto const start_raw = std::get<0>(slice);
+    auto const stop_raw = std::get<1>(slice);
+    auto const step = std::get<2>(slice);
 
     if (step == 0)
     {
         throw_exception(zmbt::base_error("slice step cannot be zero"));
     }
 
-    safe_slice_t dummy {0U,1,[](std::size_t const){return false;}, 0};
+    constexpr std::int64_t none = std::numeric_limits<std::int64_t>::max();
+    constexpr std::int64_t limit = std::numeric_limits<std::int64_t>::max();
+    std::int64_t const length = std::min<std::int64_t>(static_cast<std::int64_t>(N), limit);
 
-    bool const start_is_negat = start < 0;
-    bool const stop_is_negat = stop < 0;
-    bool const start_in_range = start_is_negat ? (static_cast<std::size_t>(-start) < N) : (static_cast<std::size_t>(start) < N);
-    bool const stop_in_range = stop_is_negat ? (static_cast<std::size_t>(-stop) < N) : (static_cast<std::size_t>(stop) < N);
-    std::int64_t const step_sign = (step < 0) ? -1 : 1;
+    safe_slice_t const empty_slice {0U, step, [](std::int64_t const){ return false; }, 0U};
 
-    // keep unsafe signed to detect span
-    std::int64_t const start_unsafe = start_is_negat ? (N + start) : start;
-    std::int64_t const stop_unsafe = stop_is_negat ? (N + stop) : stop;
-
-    std::size_t const start_safe = start_is_negat ? 0U : N - 1;
-    std::size_t const stop_safe  = stop_is_negat  ? 0U : N - 1;
-
-    std::size_t const ustart = start_in_range ? static_cast<std::size_t>(start_unsafe) : start_safe;
-    std::size_t const ustop = stop_in_range ? static_cast<std::size_t>(stop_unsafe) : stop_safe;
-
-    std::int64_t const sN {static_cast<std::int64_t>(N)};
-    bool const span_too_high = (start_unsafe > sN) && (stop_unsafe > sN);
-    bool const span_too_low = (start_unsafe < 0) && (stop_unsafe < 0);
-    bool const span_is_negative = ((stop_unsafe - start_unsafe) * step_sign) < 0;
-    if (span_too_low || span_too_high || span_is_negative)
+    if (length <= 0)
     {
-        return dummy;
+        return empty_slice;
     }
-    bool const moving_forward = ustop >= ustart;
-    // the behavior is similar to python slice (but taken with exclusive stop +1):
-    // for x = [0,1,2], x[0:1:1] -> [0], but x[0:1:-1] -> []
-    bool const zero_step_wrong_dir = moving_forward ? (step < 0) : (step > 0);
-    if (zero_step_wrong_dir)
+
+    if (step > 0)
     {
-        return dummy;
+        std::int64_t start = (start_raw == none) ? 0 : start_raw;
+        std::int64_t stop = (stop_raw == none) ? length : stop_raw;
+
+        if (start < 0) start += length;
+        if (start < 0) start = 0;
+        if (start > length) start = length;
+
+        if (stop < 0) stop += length;
+        if (stop < 0) stop = 0;
+        if (stop > length) stop = length;
+
+        if (start >= stop)
+        {
+            return empty_slice;
+        }
+
+        auto const slice_size = static_cast<std::size_t>((stop - start + step - 1) / step);
+        auto const stop_exclusive = stop;
+        auto const stop_condition = [stop_exclusive, length](std::int64_t const idx){
+            if (idx < 0 || idx >= length) return false;
+            return idx < stop_exclusive;
+        };
+
+        return {
+            static_cast<std::size_t>(start),
+            step,
+            stop_condition,
+            slice_size
+        };
     }
-    auto const stop_condition = [N, moving_forward, ustop](std::size_t const idx){
-        if (idx > (N-1)) return false; // overflow with negative step
-        return moving_forward ? (idx <= ustop) : (idx >= ustop);
-    };
-    std::size_t size = (moving_forward ? ustop - ustart : ustart - ustop) / (step_sign * step) + 1;
-    return {ustart, step, stop_condition, size};
+    else
+    {
+        std::int64_t start = (start_raw == none) ? (length - 1) : start_raw;
+        std::int64_t stop = (stop_raw == none) ? -1 : stop_raw;
+
+        if (start < 0) start += length;
+        if (start < 0) start = -1;
+        if (start >= length) start = length - 1;
+
+        if (stop_raw != none && stop < 0) stop += length;
+        if (stop < -1) stop = -1;
+        if (stop >= length) stop = length - 1;
+
+        auto const step_abs = -step;
+
+        if ((start < 0) || (start <= stop))
+        {
+            return empty_slice;
+        }
+
+        auto const slice_size = static_cast<std::size_t>((start - stop - 1) / step_abs + 1);
+        auto const stop_exclusive = stop;
+        auto const stop_condition = [stop_exclusive, length](std::int64_t const idx){
+            if (idx < 0 || idx >= length) return false;
+            return idx > stop_exclusive;
+        };
+
+        return {
+            static_cast<std::size_t>(start),
+            step,
+            stop_condition,
+            slice_size
+        };
+    }
 
 }
 
@@ -94,12 +130,12 @@ F make_slice_generator_impl(T begin, T end, safe_slice_t slice)
     auto const it_cond = std::get<2>(slice);
 
     return [=]{
-        std::size_t idx {safe_start};
+        std::int64_t idx {static_cast<std::int64_t>(safe_start)};
         return [=]() mutable {
-            auto it = begin;
             if (it_cond(idx))
             {
-                it += idx;
+                auto it = begin;
+                it += static_cast<std::size_t>(idx);
                 idx += safe_step;
                 return it;
             }
@@ -180,7 +216,7 @@ namespace detail
 {
 std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr)
 {
-    std::array<std::int64_t, 3> out {0,-1,1};
+    std::array<std::int64_t, 3> out {std::numeric_limits<std::int64_t>::max(), std::numeric_limits<std::int64_t>::max(), 1};
     std::int64_t& start = out.at(0);
     std::int64_t& stop = out.at(1);
     std::int64_t& step = out.at(2);
@@ -194,7 +230,7 @@ std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr
 
     if (tokens.size() < 2 || tokens.size() > 3)
     {
-        throw_exception(zmbt::base_error("invalid str_to_slice_idx(%s)", slice_expr));
+        throw_exception(zmbt::base_error("invalid slice: \"%s\"", slice_expr));
     }
 
     try
@@ -214,7 +250,7 @@ std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr
     }
     catch (std::exception const& e)
     {
-        throw_exception(zmbt::base_error("invalid str_to_slice_idx(%s): %s", slice_expr, e.what()));
+        throw_exception(zmbt::base_error("invalid slice: \"%s\" , error: `%s`", slice_expr, e.what()));
     }
 
     return out;
@@ -222,4 +258,3 @@ std::array<std::int64_t, 3> str_to_slice_idx(boost::json::string_view slice_expr
 } // namespace detail
 
 } // namespace zmbt
-

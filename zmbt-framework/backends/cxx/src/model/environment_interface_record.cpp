@@ -162,7 +162,7 @@ std::size_t Environment::InterfaceHandle::ObservedCalls() const
 boost::json::array Environment::InterfaceHandle::CaptureSlice(boost::json::string_view signal_path) const
 {
     output_recorder_->flush();
-    return slice(output_recorder_->data_frames(), signal_path);
+    return slice(output_recorder_->data_frames(), signal_path, 0, output_recorder_->data_frames().size(), 1);
 }
 
 boost::json::array const& Environment::InterfaceHandle::Captures() const
