@@ -392,6 +392,12 @@ std::vector<TestEvalSample> const TestSamples
     {Sub(2)                     , 3                     , 1                     },
     {Sub(-2)                    , 3                     , 5                     },
 
+    // operand flip
+    {~Sub                       , {3,  2}               , -1                    },
+    {~Sub                       , {3, -2}               , -5                    },
+    {~Sub(2)                    , 3                     , -1                    },
+    {~Sub(-2)                   , 3                     , -5                    },
+
     {Mul                        , {3,  2}               ,  6                    },
     {Mul                        , {3, -2}               , -6                    },
     {Mul(2)                     , 3                     ,  6                    },

@@ -94,11 +94,21 @@ ZMBT_DEFINE_EVALUATE_IMPL(Bind)
 ZMBT_DEFINE_EVALUATE_IMPL(Flip)
 {
     auto const child = rhs().encoding_view().child(0);
-    ASSERT(!child.empty(), "invalid parameter");
-    ExpressionView const roperand(child);
-    auto const flip = E(E::encodeNested(rhs().keyword(), {lhs()}));
+    if(child.empty()) // expect argument pair
+    {
+        auto const if_array = lhs().data().if_array();
+        ASSERT(if_array && (if_array->size() == 2), "invalid argument");
+        auto const flip = E(E::encodeNested(rhs().keyword(), {if_array->at(0)}));
+        return flip.eval(if_array->at(1), curr_ctx());
+    }
+    else
+    {
+        ExpressionView const roperand(child);
+        auto const flip = E(E::encodeNested(rhs().keyword(), {lhs()}));
+        return flip.eval_e(roperand.eval_e({}, curr_ctx()), curr_ctx());
 
-    return flip.eval_e(roperand.eval_e({}, curr_ctx()), curr_ctx());
+    }
+
 }
 
 
