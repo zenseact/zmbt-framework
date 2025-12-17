@@ -21,8 +21,6 @@ def make_unit_tests(srcs):
                 '-lm'
             ],
             env = {
+                "ZMBT_SEED": "42",
             },
-            args = [
-                "--color_output=no -- --zmbt_seed 42",
-            ],
         )
