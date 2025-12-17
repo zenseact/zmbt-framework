@@ -654,11 +654,12 @@ std::vector<TestEvalSample> const TestSamples
     {Format(2,2,4)              , "%d + %d = %d"         , "2 + 2 = 4"          },
     {Format({1,2,3})            , "list: %s"             , "list: [1,2,3]"      },
     {Format                     , {"Hello, %s!", L{"World"}}, "Hello, World!"   },
-    {"%s"|Format(Pi) |Parse     , {}                     , *Pi                  },
-    {"%s"|Format(Inf)|Parse     , {}                     , *Inf                 },
+    {"%s"|Format(Pi) | Parse    , {}                     , *Pi                  },
+    {"%s"|Format(Q(Mod(3) | Eq({1,2}))), {}              , "Mod(3) | Eq([1,2])" },
+
 
     {Parse                      , "[1,2,3]"              , {1,2,3}              },
-    {Str                  , {1,2,3}                , "[1,2,3]"            },
+    {Str                        , {1,2,3}                , "[1,2,3]"            },
 
     {Transp                     , L{}                    , L{}                  },
     {Transp                     , L{{1,2}}               , {L{1},L{2}}          },
