@@ -56,6 +56,10 @@ void InitZmbt(int argc, char **argv)
     {
         default_log_notrim = true;
     }
+    if (const char* env_seed = std::getenv("ZMBT_SEED"))
+    {
+        default_rng_seed = std::stoull(env_seed);
+    }
 #endif
 
     po::options_description desc("ZMBT test application options");

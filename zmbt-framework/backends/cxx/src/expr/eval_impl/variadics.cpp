@@ -74,7 +74,15 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fmt)
         fmt = boost::format{if_str->c_str()};
         for (auto const& term: subexpressions)
         {
-            args.emplace_back(term.eval({}, curr_ctx()));
+            auto e = term.eval_e({}, curr_ctx());
+            if (!e.is_literal())
+            {
+                args.emplace_back(e.prettify());
+            }
+            else
+            {
+                args.emplace_back(e.data());
+            }
         }
     }
     else if (if_arr && subexpressions.empty())
