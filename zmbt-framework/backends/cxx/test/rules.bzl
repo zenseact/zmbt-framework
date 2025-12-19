@@ -5,6 +5,7 @@ def make_unit_tests(srcs):
         native.cc_test(
             name = src.replace(".cpp", ""),
             srcs = [src],
+            linkstatic=True,
             deps = [
                 "//zmbt-framework/backends/cxx:zmbt",
                 "//zmbt-framework/backends/cxx:zmbt_main_boost",
