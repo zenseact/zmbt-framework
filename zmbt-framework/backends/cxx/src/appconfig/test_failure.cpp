@@ -71,6 +71,23 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
 
     print_string("description");
 
+    auto const& traces = sts.at("traces").as_array();
+    if (!traces.empty())
+    {
+        os << prefix << "traces:";
+        for (auto const& msg: traces)
+        {
+            boost::json::object const* if_object;
+            if ((if_object = msg.if_object()) && !if_object->empty())
+            {
+                os << prefix << "  - " << if_object->begin()->key() << ": " << if_object->begin()->value();
+            }
+            else
+            {
+                os << prefix << "  - " << msg;
+            }
+        }
+    }
 
     auto const& eval_stack = sts.at("eval_stack").as_array();
     if (!eval_stack.empty())

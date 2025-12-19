@@ -17,11 +17,13 @@ EvalContext EvalContext::make(Operator const& op)
     EvalContext next{};
     next.log = EvalLog::make();
     next.op = op;
+    next.traces = std::make_shared<boost::json::array>();
     return next;
 }
 EvalContext::EvalContext()
     : op{}
     , log{}
+    , traces{}
     , capture_links{std::make_shared<std::deque<boost::json::object>>()}
     , expr_links{std::make_shared<std::map<boost::json::string, ExpressionView>>()}
     , depth{0}

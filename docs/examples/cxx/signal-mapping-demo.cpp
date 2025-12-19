@@ -292,6 +292,8 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         ( Pi | Div(2) | Sin , Approx(1)                          ) //(6)
         ( Pi | ~Div(1)      , Approx(1.0/3.14159265359)          ) //(7)
         ( "5:1:-1" | Arange , {5,4,3,2}                          ) //(8)
+        ( 42 | Trace("in")  , Trace("out") | 42                  ) //(9)
+
     ;
 }
 /*
@@ -311,7 +313,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 7. Flip expression (prefix ~) swaps the operands, which is useful for non-commutative transforms
 8. `Arange` is a generator similar to
     [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
-
+9. Trace keyword passes the argument unchanged with optional logging.
 
 For more detailes, see [Expression Guide](../user-guide/expressions.md) and [Expression Language Reference](../dsl-reference/expressions.md).
 

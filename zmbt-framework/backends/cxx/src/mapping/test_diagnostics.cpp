@@ -69,6 +69,7 @@ boost::json::value TestDiagnostics::to_json() const
         {"description"   , this->description },
         {"comment"       , this->comment     },
         {"eval_stack"    , this->eval_stack  },
+        {"traces"        , this->traces      },
     };
 }
 

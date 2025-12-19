@@ -64,6 +64,11 @@ class Keyword:
         return self._definition.get('codegen-value', {}).get(self._backend, None)
 
     @property
+    def SingleForm(self) -> str:
+        return self._definition.get('single-form', False)
+
+
+    @property
     def DefaultValue(self) -> str:
         default = self._definition.get('default', None)
         if default and not self.IsBinary:
@@ -122,6 +127,8 @@ class Keyword:
             attrs.append('is_overload')
         if self.Name in ('Rand', 'RandInt', 'EnvStore', 'EnvLoad'):
             attrs.append('is_sideeffect')
+        if self.SingleForm:
+            attrs.append('is_single_form')
 
         return ' | '.join(attrs)
 

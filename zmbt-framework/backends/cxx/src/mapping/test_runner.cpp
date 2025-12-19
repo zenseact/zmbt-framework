@@ -225,6 +225,7 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
 
             diagnostics
                 .Fail(e, observed)
+                .Traces(ctx.traces)
                 .EvalStack(ctx.log);
 
             return false;

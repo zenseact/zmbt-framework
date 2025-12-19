@@ -25,6 +25,7 @@ EvalParams::EvalParams(ExpressionView const& e, ExpressionView const& x, EvalCon
     auto const a = attributes(self().keyword());
     bool const is_binary = a & attr::is_binary;
     bool const is_variadic = a & attr::is_variadic;
+    bool const is_single_form = a & attr::is_single_form;
 
     lhs_ = x;
 
@@ -45,6 +46,10 @@ EvalParams::EvalParams(ExpressionView const& e, ExpressionView const& x, EvalCon
     else if (has_default_rhs())
     {
         rhs_ = expr::Id;
+    }
+    else if(is_single_form)
+    {
+        // keep null
     }
     else if (x.is_literal() && if_arr && if_arr->size() == 2)
     {

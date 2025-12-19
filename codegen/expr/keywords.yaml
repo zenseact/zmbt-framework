@@ -1668,7 +1668,10 @@ keyword_groups:
         aliases: [ Debug ]
         brief: Evaluate function and print evaluation log to stderr
         detail: |-
-          To trace the origin in log add Trace to the enveloped expression.
+          To trace the origin in log add Trace to the enveloped expression with optional message.
+          Runtime traces are printed in terminal with --zmbt_log_level TRACE.
+          In the context of SignalMapping test, traces from expectation expressions are included in
+          failure report for diagnostics.
         examples: |-
           42 | Dbg(Trace(ZMBT_CUR_LOC) | Add(2))
         params:
@@ -1770,6 +1773,7 @@ keyword_groups:
 
       - name: Trace
         signature: Binary
+        single-form: true
         brief: Same as Id, but also prints identifier parameter to debug log.
         domain: [any, str]
 
