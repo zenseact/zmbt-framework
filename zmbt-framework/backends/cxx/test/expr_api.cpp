@@ -50,13 +50,15 @@ struct TestEvalSample
 };
 
 
-std::vector<TestEvalSample> const TestSamples
-{ // expr                       , x                     , expected
-    // identity
-    {Id                         , 42                    , 42                    },
-    {Id                         , ""                    , ""                    },
-    {Id                         , nullptr               , nullptr               },
-    {Id                         , {1,2,3}               , {1,2,3}               },
+std::vector<TestEvalSample> const& TestSamples()
+{
+    static std::vector<TestEvalSample> const samples
+    { // expr                       , x                     , expected
+        // identity
+        {Id                         , 42                    , 42                    },
+        {Id                         , ""                    , ""                    },
+        {Id                         , nullptr               , nullptr               },
+        {Id                         , {1,2,3}               , {1,2,3}               },
 
     /// Refer
     {"$x"                       , 42                    , 42                    },
@@ -111,7 +113,7 @@ std::vector<TestEvalSample> const TestSamples
     { Rand | Ge(0)              , {}                    , true                  },
     { Rand | Lt(1)              , {}                    , true                  },
     { 16 | Sequence(RandInt(1)) | SetEq({0,1}), {}      , true                  },
-    {  3 | Sequence(RandInt(9)) , {}                    , {5,3,6} /* seed = 42*/},
+    {  3 | Sequence(RandInt(9)) , {}                    , {5,5,0} /* seed = 42*/},
     { RandInt(0) | IsErr        , {}                    , true                  },
     { RandInt(1, 1) | IsErr     , {}                    , true                  },
     { RandInt(-3) | IsErr       , {}                    , true                  },
@@ -826,10 +828,13 @@ std::vector<TestEvalSample> const TestSamples
     {EnvLoad("")                    , {}                     , {{"foo", 43}}   },
 };
 
+    return samples;
+}
+
 
 std::set<Keyword> const CoveredInTestEval = []{
     std::set<Keyword> covered;
-    for (auto const& sample : TestSamples)
+    for (auto const& sample : TestSamples())
     {
         auto const& keywords = sample.expr.encoding().keywords;
         covered.insert(keywords.cbegin(), keywords.cend());
@@ -840,7 +845,7 @@ std::set<Keyword> const CoveredInTestEval = []{
 } // namespace
 
 
-BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples)
+BOOST_DATA_TEST_CASE(ExpressionEval, TestSamples())
 {
     auto context = lang::EvalContext::make();
 

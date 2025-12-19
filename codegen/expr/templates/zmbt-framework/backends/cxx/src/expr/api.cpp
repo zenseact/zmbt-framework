@@ -18,13 +18,19 @@
 
 #include "zmbt/expr/api.hpp"
 
+#if defined(__clang__) || defined(__GNUC__)
+#define ZMBT_EXPR_API_INIT __attribute__((init_priority(101)))
+#else
+#define ZMBT_EXPR_API_INIT
+#endif
+
 namespace zmbt {
 namespace expr {
 
 @for keyword in data.ApiKeywords:
-lang::@keyword.Class const @keyword.Name = {};
+lang::@keyword.Class const ZMBT_EXPR_API_INIT @keyword.Name = {};
 @for alias in keyword.Aliases:
-lang::@keyword.Class const @alias.capitalize() = @keyword.Name;
+lang::@keyword.Class const ZMBT_EXPR_API_INIT @alias.capitalize() = @keyword.Name;
 @end
 @end
 
