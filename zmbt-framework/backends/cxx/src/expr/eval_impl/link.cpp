@@ -62,7 +62,9 @@ ZMBT_DEFINE_EVALUATE_IMPL(Link)
     }
     else if (link_found)
     {
-        return link_pos->second.eval_e(lhs(), curr_ctx());
+        auto ctx = curr_ctx();
+        ctx.captures = std::make_shared<boost::json::object>();
+        return link_pos->second.eval_e(lhs(), ctx);
     }
     else
     {

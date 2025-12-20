@@ -296,11 +296,10 @@ Expressions support two levels of symbolic linking using $-prefixed strings as r
 "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x")
 ```
 
-In this example the first encounter of `"$x"` will
-store the argument in isolated evaluation context and pass to the consequent term,
-making it available to all subexpressions,
-s.a. `And("$x" | ...)` (recall that expression parameters computation is lazy).
-
+In this example, the first encounter of "$x" stores the input value
+in an local environment and passes it to the subsequent term,
+making it available to all subexpressions, such as `And("$x" | ...)`.
+Recall that expression parameter evaluation is lazy.
 
 ### Design-level linking
 
@@ -309,27 +308,15 @@ s.a. `And("$x" | ...)` (recall that expression parameters computation is lazy).
    | Assert(Ge(0))
    | Lt(2)
    | And(1)
-   | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+   | Or("$x" | Sub(1) | "$f" | Mul("$x"))
 );
 ```
 
-This example constructs a recursive factorial function using << as an assignment operator.
+This example constructs a recursive factorial function using `<<` as an assignment operator.
 As with `"$x"`, the `"$f"` link is accessible in all subsequent subexpressions.
-From an implementation perspective, it behaves like a `goto` -
-the evaluation context stores a view of the expression (an AST pointer),
-so no design-time data is copied.
 
-
-!!! note
-
-    Note that the evaluation context *does not yet support local scoping*,
-    so any recursive `"$f"` invocation updates the same `"$x"` value.
-    Because of this, "$x" is not used directly inside the final Mul expression.
-    With the local scoping implemented, the equivalent expression would be
-    ``` c++
-    Or("$x" | Sub(1) | "$f" | Mul("$x"))
-    ```
-
+Each recursive invocation of `"$f"` has its own environment,
+ensuring that the eval-level linking of `"$x"` is isolated to the local scope.
 
 ## Quotation
 

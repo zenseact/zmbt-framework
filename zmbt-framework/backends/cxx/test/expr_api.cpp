@@ -1206,7 +1206,7 @@ BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
         | Assert(Ge(0))
         | Lt(2)
         | And(1)
-        | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+        | Or("$x" | Sub(1) | "$f" | Mul("$x"))
     );
 
     BOOST_TEST_INFO(fact.prettify());
