@@ -50,19 +50,19 @@ of shortcut infix and prefix operators:
 
 | Shortcut    | Verbose form    | Description               | Example                                              |
 | ----------- | --------------- | ------------------------- | ---------------------------------------------------- |
-| `A | B | C` | `Pipe(A, B, C)` | Left-to-Right composition | `X | Add(2) | Mul(3)` $= x \mapsto (x + 2) * 3$ |
-| `A + B`     | `Tuple(A, B)`   | Quoted constants tuple    | `x + y`               $= x \mapsto [x, y]$      |
-| `A & B`     | `Fork(A, B)`    | Evaluation branching      | `x | Add(2) & Mul(3)` $= x \mapsto [x + 2, 3x]$ |
-| `~A`        | `Flip(A)`       | Operands swap             | `x | ~Div(1)`         $= x \mapsto 1 / x$, <br> but `x | Div(1)` $= x \mapsto x / 1$|
+| `A | B | C` | `Pipe(A, B, C)` | Left-to-Right composition | `X | Add(2) | Mul(3)`  $= x \mapsto (x + 2) * 3$ |
+| `(A, B, C)` | `Fork(A, B, C)` | Parallel composition      | `x | (Add(2), Mul(3))` $= x \mapsto [x + 2, 3x]$ |
+| `~A`        | `Flip(A)`       | Operands swap             | `x | ~Div(1)` $= x \mapsto 1 / x$, <br> but `x | Div(1)` $= x \mapsto x / 1$|
 
-The expression pipe (`|`) operator is associative from evaluation perspective,
-and the chain of multiple infix pipes is unfolded on construction, producing a single variadic `Pipe`:
-`A | B | C` yields `Pipe(A, B, C)` rather than `Pipe(Pipe(A, B), C)`.
+The infix pipe and comma operators are left associative, s.t. `Pipe` and `Fork` expressions created
+this way are unfolded on construction, producing a single variadic expression instead of nested groups:
+`(A | B) | C` is equivalent to `A | B | C` and yields `Pipe(A, B, C)`,
+similarly, `((A, B), C)` is equivalent to `(A, B, C)`.
 
-Infix unfolding is not applied to the fork (`&`) operator, which is non-associative at evaluation.
-For this operator the grouping of infix operands is preserved, following
-the conventional C operator left-associativity:
-`A & B & C` = `(A & B) & C` = `Fork(Fork(A, B), C)`.
+!!! note
+
+    To preserve left grouping if necessary,
+    use explicit form: `Pipe(Pipe(A, B), C)` or `Fork(Fork(A, B), C)`.
 
 
 ### Arity forms
@@ -129,11 +129,24 @@ e.g. variadic `Fmt`:
 
 The Expression API supports several options for branching and piecewise functions:
 
+ - `Fork` expressions for parallel composition
  - `If` (Lisp-like): `If(cond, then_expr, else_expr)`
  - `If`, `Elif`, `Else` keywords in pipe syntax: `If(cond, expr) | Elif(cond, expr) | Else(expr)`
  - `Lookup` keyword for index- or key-based lookup tables or maps (i.e., arrays, strings, or objects): `Lookup({1,2,3}) | Default(42)`
  - `Default`, `And`, `Or` selection operators
 
+### Fork
+
+`Fork` packs results from enveloped functions into an array:
+
+```
+x | (f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+```
+
+It is useful in combination with Binary₁ form, e.g. in naive average example:
+`[1,2,3,4] | (Fold(Add), Size) | Div`, which is processed in the following steps:
+    1. `(Fold(Add), Size)` on input `[1,2,3,4]` produces `[10, 4]`
+    2. `Div` on input `[10, 4]` produces 2.5
 
 ### If-Elif-Else
 
@@ -276,8 +289,8 @@ Other useful keywords are:
     - `At("::2")` - array slice query
 - `Saturate`, `All`, `Any`, `Count` - matcher building elements
 - `Recur`, `Unfold` - recursion handlers with exit condition:
-    - `Q(Ge(12)) | Recur( 4 & Add(1))` $= 11$
-    - `Q(Ge(12)) | Unfold(8 & Add(1))` $= [8,9,10,11]$
+    - `Q(Ge(12)) | Recur( 4, Add(1))` $= 11$
+    - `Q(Ge(12)) | Unfold(8, Add(1))` $= [8,9,10,11]$
 
 
 For the complete information see [Expression Language Reference](../dsl-reference/expressions.md#higher-order).
@@ -334,7 +347,7 @@ or to escape the special treatment of $-prefixed strings in parameters:
 Consider the following example:
 
 ```cpp
-auto const f = Debug(Reduce(Add) & Size | Div);
+auto const f = Debug((Fold(Add), Size) | Div);
 auto const x = L{1,2,3,42.5};
 BOOST_CHECK_EQUAL(f.eval(x), 12.125);
 ```
@@ -348,9 +361,9 @@ When log level is set to `DEBUG` or higher, the following evaluation log is prin
            ├── Add $ [6,4.25E1] = 4.85E1
         ┌── Fold(Add) $ [1,2,3,4.25E1] = 4.85E1
         ├── Size $ [1,2,3,4.25E1] = 4
-     ┌── Fold(Add) & Size $ [1,2,3,4.25E1] = [4.85E1,4]
+     ┌── (Fold(Add), Size) $ [1,2,3,4.25E1] = [4.85E1,4]
      ├── Div $ [4.85E1,4] = 1.2125E1
-  □  (Fold(Add) & Size) | Div $ [1,2,3,4.25E1] = 1.2125E1
+  □  (Fold(Add), Size) | Div $ [1,2,3,4.25E1] = 1.2125E1
 ```
 
 Log lines are formatted as `f $ x = result`, and connected with line-drawing to show the expression terms hierarchy.
@@ -361,7 +374,7 @@ Another debugging utility keyword is `Trace`, which works like `Id` but also pri
 It can be combined with `ZMBT_CUR_LOC` macro to trace mock invocations:
 
 ```c++
-auto const f = Trace(ZMBT_CUR_LOC) | Reduce(Add) & Size | Div;
+auto const f = Trace(ZMBT_CUR_LOC) | (Fold(Add), Size) | Div;
 auto const x = L{1,2,3,42.5};
 ```
 

@@ -38,20 +38,18 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
         auto const serialize           = boost::phoenix::bind(&ExpressionView::serialize, _val);
         auto const keyword_to_str      = boost::phoenix::bind(&ExpressionView::keyword_to_str, _val);
         auto const subexpressions_list = boost::phoenix::bind(&ExpressionView::subexpressions_list, _val);
-        auto const tuple_parameters    = boost::phoenix::bind(&ExpressionView::tuple_parameters, _val);
+        auto const link_parameters    = boost::phoenix::bind(&ExpressionView::link_parameters, _val);
         auto const is_infix_pipe       = boost::phoenix::bind(&ExpressionView::is_infix_pipe, _val);
         auto const is_infix_fork       = boost::phoenix::bind(&ExpressionView::is_infix_fork, _val);
-        auto const is_infix_tuple      = boost::phoenix::bind(&ExpressionView::is_infix_tuple, _val);
         auto const is_complete_flip    = boost::phoenix::bind(&ExpressionView::is_complete_flip, _val);
 
         start
             = eps(is_literal)      << karma::lazy(serialize)
             | eps(is_preproc)      << karma::lazy(serialize)
             | eps(is_link)      << karma::lazy(serialize)
-            | eps(is_valid_link)   << link[_1 = tuple_parameters]
+            | eps(is_valid_link)   << link[_1 = link_parameters]
             | eps(is_infix_pipe)   << pipe[_1 = subexpressions_list]
-            | eps(is_infix_fork)   << fork[_1 = subexpressions_list]
-            | eps(is_infix_tuple)  << tuple[_1 = subexpressions_list]
+            | eps(is_infix_fork)   << nested_fork[_1 = subexpressions_list]
             | eps(is_complete_flip)<< flip[_1 = subexpressions_list]
             | keyword;
 
@@ -59,22 +57,19 @@ struct ExpressionGrammar : boost::spirit::karma::grammar<OutputIterator, Express
             = eps(is_literal)       << karma::lazy(serialize)
             | eps(is_preproc)       << karma::lazy(serialize)
             | eps(is_link)       << karma::lazy(serialize)
-            | eps(is_valid_link)    << nested_link[_1 = tuple_parameters]
+            | eps(is_valid_link)    << nested_link[_1 = link_parameters]
             | eps(is_infix_pipe)    << nested_pipe[_1 = subexpressions_list]
             | eps(is_infix_fork)    << nested_fork[_1 = subexpressions_list]
-            | eps(is_infix_tuple)   << nested_tuple[_1 = subexpressions_list]
             | eps(is_complete_flip) << flip[_1 = subexpressions_list]
             | keyword;
 
         pipe    = subexpr % lit(" | ");
-        fork    = subexpr % lit(" & ");
-        tuple   = subexpr % lit(" , ");
+        fork    = subexpr % lit(", ");
         link    = subexpr % lit(" << ");
         flip    = lit('~') << subexpr;
         nested_link = lit('(') << subexpr % lit(" << ") << ')';
         nested_pipe  = lit('(') << subexpr % lit(" | ") << ')';
-        nested_fork  = lit('(') << subexpr % lit(" & ") << ')';
-        nested_tuple = lit('(') << subexpr % lit(" , ") << ')';
+        nested_fork  = lit('(') << subexpr % lit(", ") << ')';
         parameters   = lit('(') << -(start % lit(", "))  << ')';
 
         keyword = string[_1 = keyword_to_str] << -(eps(has_subexpr)  << parameters[_1 = subexpressions_list]);

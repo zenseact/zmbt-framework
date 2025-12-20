@@ -15,7 +15,7 @@ def make_unit_tests(srcs):
                 "-Wall",
                 "-Wextra",
                 "-Wpedantic",
-                "-Wno-parentheses", # allow `x & y | z` in tests
+                "-Wno-parentheses", # allow `x | y | z` in tests
             ],
             linkopts = [
                 '-lm'

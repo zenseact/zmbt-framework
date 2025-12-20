@@ -22,10 +22,10 @@ namespace lang {
 using E = Expression;
 using V = boost::json::value;
 
-ZMBT_DEFINE_EVALUATE_IMPL(Tuple)
-{
-    return self().subexpressions_list();
-}
+// ZMBT_DEFINE_EVALUATE_IMPL(Tuple)
+// {
+//     return self().subexpressions_list();
+// }
 
 ZMBT_DEFINE_EVALUATE_IMPL(Pipe)
 {

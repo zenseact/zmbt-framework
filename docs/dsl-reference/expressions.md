@@ -1844,12 +1844,12 @@ Bind design-time parameters to function.
 
 *Examples*:
 
- * `42 & Q(Add) | Bind `$\mapsto$` Add(42)`
+ * `(42, Q(Add)) | Bind `$\mapsto$` Add(42)`
  * `42 | Bind(F) | Bind(G) | Bind(H) `$\mapsto$`  H(G(F(42)))`
 
 ### Fn
 
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
 Inline named function
@@ -1872,7 +1872,7 @@ auto const factorial = "$f" << ("$x"
   | Assert(Ge(0))
   | Lt(2)
   | And(1)
-  | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+  | Or("$x" | Sub(1) | "$f" | Mul("$x"))
 );
 ```
 
@@ -1959,22 +1959,6 @@ Pipe functions in left-to-right composition
  * `Add(1) | Mul(2) `$\equiv$` Pipe(Add(1), Mul(2))`
  * `3 | Add(1) | Mul(2) `$\mapsto$` 8`
 
-### Tuple
-
-*Signature*: [Variadic](../user-guide/expressions.md#syntax)
-
-
-Pack expressions into an tuple without evaluation
-
-
-*Examples*:
-
- * `null | Tuple(Reduce(Add), Size) `$\mapsto$` [Reduce(Add), Size]`
-
-**Infix operator form (plus):**
-
- * `Add(1) + Mul(2) `$\equiv$` Tuple(Add(1), Mul(2))`
-
 ### Fork
 
 *Signature*: [Variadic](../user-guide/expressions.md#syntax)
@@ -1982,24 +1966,27 @@ Pack expressions into an tuple without evaluation
 
 Pack results from enveloped functions into an array
 
-Allows to combine different properties in a single expression.
-Parameter
+Allows to combine different properties in a single expression:
+```
+x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+```
 
 *Examples*:
 
  * `[1,2,3] | Fork(Reduce(Add), Size) `$\mapsto$` [6,3]`
  * `[1,2,3] | Fork(42, Card, Id) `$\mapsto$` [42, 3, [1,2,3]]`
 
-**Infix operator form (ampersand):**
+**Infix operator form (comma):**
 
- * `Add(1) & Mul(2) `$\equiv$` Fork(Add(1), Mul(2))`
- * `[1,2,3] | Reduce(Add) & Size `$\mapsto$` [6,3]`
- * `[1,2,3] | Reduce(Add) & Size | Div `$\mapsto$` 2`
+ * `(Add(1), Mul(2)) `$\equiv$` Fork(Add(1), Mul(2))`
+ * `[1,2,3] | (Reduce(Add), Size) `$\mapsto$` [6,3]`
+ * `[1,2,3] | (Reduce(Add), Size) | Div `$\mapsto$` 2`
 
-Note that the Fork is not associative,
-therefore an infix operator chain is not unfolded
-as it is done for variadic Pipe or Tuple:
- * `a & b & c `$\equiv$` (a & b) & c `$\equiv$` Fork(Fork(a, b), c)`
+Note that the Fork expression created with coma operator
+is unfolded as left-associative, s.t.
+ * `((a, b), c) `$\equiv$` (a, b, c).`
+To preserve grouping, one should use keywords explicitly:
+Fork(Fork(a, b), c)
 
 ### Flip
 

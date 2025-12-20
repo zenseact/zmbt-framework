@@ -186,13 +186,12 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Unfold: return is_variadic | is_hiord;
     case Keyword::Op: return is_unary | is_hiord | is_overload;
     case Keyword::Bind: return is_binary | is_hiord;
-    case Keyword::Fn: return is_binary | is_hiord;
+    case Keyword::Fn: return is_variadic | is_hiord;
     case Keyword::Link: return is_binary | is_hiord;
     case Keyword::Any: return is_variadic | is_predicate | is_hiord;
     case Keyword::All: return is_variadic | is_predicate | is_hiord;
     case Keyword::Saturate: return is_variadic | is_predicate | is_hiord;
     case Keyword::Pipe: return is_variadic | is_hiord | is_pipe;
-    case Keyword::Tuple: return is_variadic | is_hiord;
     case Keyword::Fork: return is_variadic | is_hiord | is_fork;
     case Keyword::Flip: return is_binary | is_hiord;
     case Keyword::Dbg: return is_binary | is_hiord;

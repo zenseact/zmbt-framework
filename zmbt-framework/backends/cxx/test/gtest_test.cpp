@@ -46,8 +46,8 @@ TEST(RunInGtest, SignalMapping)
     .Test
         (2|Add(2)    , 4                                 ) ["Pipe on input"]
         ({42, 42, 42}, 42|Repeat(3)                      ) ["Pipe on output"]
-        ("[42,42,42]", Parse & (42|Repeat(3)) | Eq       ) ["Nested Pipe"]
-        ("1:5"|Arange, Reduce(Add) & Size | Div | Eq(2.5)) ["Complex example (computing average)"]
+        ("[42,42,42]", (Parse, (42|Repeat(3))) | Eq       ) ["Nested Pipe"]
+        ("1:5"|Arange, (Reduce(Add), Size) | Div | Eq(2.5)) ["Complex example (computing average)"]
     ;
 
 

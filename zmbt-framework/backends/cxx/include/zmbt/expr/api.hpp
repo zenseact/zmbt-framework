@@ -653,7 +653,7 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 /// **Infix operator form (left shift)**:
 /// 
 /// `"$f" << E` ≡ `Fn("$f", E)`
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Fn> const Fn;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fn> const Fn;
 
 /// \brief Symbolic binding of the input value
 /// \details
@@ -680,13 +680,12 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate;
 /// \brief Pipe functions in left-to-right composition
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Pipe> const Pipe;
 
-/// \brief Pack expressions into an tuple without evaluation
-extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
-
 /// \brief Pack results from enveloped functions into an array
 /// \details
-/// Allows to combine different properties in a single expression.
-/// Parameter
+/// Allows to combine different properties in a single expression:
+/// ```
+/// x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+/// ```
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
 /// \brief Flip design-time and eval-time parameters.
