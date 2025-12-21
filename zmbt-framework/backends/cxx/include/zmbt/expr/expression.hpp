@@ -95,7 +95,7 @@ public:
     /// Subexpressions
     std::vector<ExpressionView> subexpressions_list() const;
 
-    std::vector<ExpressionView> link_parameters() const;
+    std::vector<ExpressionView> tuple_parameters() const;
 
 
     //////////////////
@@ -182,6 +182,11 @@ public:
         return is(Keyword::Fork);
     }
 
+    bool is_tuple() const
+    {
+        return is(Keyword::Tuple);
+    }
+
     bool is_literal() const
     {
         return is(Keyword::Literal);
@@ -225,11 +230,26 @@ public:
 
     bool is_boolean() const;
 
-    bool is_valid_link() const;
+    bool is_valid_link() const
+    {
+        auto const child = encoding_view().child(0);
+        return is(Keyword::Fn) && (child.head() == Keyword::Tuple) && (child.arity() == 2);
+    }
 
-    bool is_infix_pipe() const;
+    bool is_infix_pipe() const
+    {
+        return is_compose() && (encoding_view().arity() > 1);
+    }
 
-    bool is_infix_fork() const;
+    bool is_infix_tuple() const
+    {
+        return is_tuple() && (encoding_view().arity() > 1);
+    }
+
+    bool is_infix_fork() const
+    {
+        return is_fork() && encoding_view().arity() == 2;
+    }
 
     explicit operator boost::json::value() const
     {
@@ -385,6 +405,9 @@ class Expression : public ExpressionView
     friend Expression operator|(Expression lhs, Expression rhs);
 
     /// Pack expression results into an array. \see zmbt::expr::Fork.
+    friend Expression operator&(Expression lhs, Expression rhs);
+
+    /// Pack expression into a tuple without evaluation \see zmbt::expr::Tuple.
     friend Expression operator,(Expression lhs, Expression rhs);
 
     /// Inline named function, equivalent to Fn(link + expr)

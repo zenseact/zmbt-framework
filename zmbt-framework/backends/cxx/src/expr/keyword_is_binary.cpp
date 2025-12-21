@@ -85,6 +85,7 @@ bool isBinary(Keyword const& k)
     case Keyword::Argmin:
     case Keyword::Argmax:
     case Keyword::Bind:
+    case Keyword::Fn:
     case Keyword::Link:
     case Keyword::Flip:
     case Keyword::Dbg:

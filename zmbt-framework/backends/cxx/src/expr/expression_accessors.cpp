@@ -90,37 +90,12 @@ bool ExpressionView::is_boolean() const
     return encoding_view().is_boolean();
 }
 
-bool ExpressionView::is_valid_link() const
-{
-    auto const self = encoding_view();
-    return is(Keyword::Fn) && (self.arity() == 2);
-}
-
-bool ExpressionView::is_infix_pipe() const
-{
-    if (not (is_compose() && (encoding_view().arity() > 1)))
-    {
-        return false;
-    }
-    return encoding_view().child(0).front().keyword != Keyword::Pipe;
-}
-
-bool ExpressionView::is_infix_fork() const
-{
-    if (not (is_fork() && (encoding_view().arity() > 1)))
-    {
-        return false;
-    }
-    return encoding_view().child(0).front().keyword != Keyword::Fork;
-}
-
-
-std::vector<ExpressionView> ExpressionView::link_parameters() const
+std::vector<ExpressionView> ExpressionView::tuple_parameters() const
 {
     std::vector<ExpressionView> result;
 
-    auto tuple = encoding_view();
-    if (tuple.head() != Keyword::Fn) return result;
+    auto tuple = encoding_view().child(0);
+    if (tuple.head() != Keyword::Tuple) return result;
 
     for (auto const& s: tuple.children())
     {

@@ -23,9 +23,13 @@ namespace lang {
 ZMBT_DEFINE_EVALUATE_IMPL(Fn)
 {
     auto const enc = self().encoding_view();
-    ASSERT(enc.arity() == 2, "invalid encoding");
+    auto const tuple = enc.child(0);
+    ASSERT((enc.arity() == 1)
+        && (tuple.head() == Keyword::Tuple)
+        && (tuple.arity() == 2)
+        , "invalid encoding");
 
-    ExpressionView link (enc.child(0));
+    ExpressionView link (tuple.child(0));
     auto const if_str_link = link.if_string();
     ASSERT(if_str_link, "Symbolic reference shall be a string")
 
@@ -33,8 +37,8 @@ ZMBT_DEFINE_EVALUATE_IMPL(Fn)
     ASSERT(link_pos == curr_ctx().links->cend(), "key refers to existing link")
     ASSERT(not curr_ctx().captures->contains(*if_str_link), "key refers to existing capture")
 
-    ExpressionView referent(enc.child(1));
-    curr_ctx().links->emplace_hint(link_pos, *if_str_link, enc.child(1));
+    ExpressionView referent(tuple.child(1));
+    curr_ctx().links->emplace_hint(link_pos, *if_str_link, tuple.child(1));
 
     return referent.eval_e(lhs(), curr_ctx());
 }

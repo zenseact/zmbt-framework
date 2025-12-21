@@ -313,9 +313,9 @@ std::vector<TestEvalSample> const TestSamples
 
 
     {Fork(Size|4, Size, Card)   , {2,2,3,3}             , {true, 4, 2}          },
-    {((Size|4), Size, Card)     , {2,2,3,3}             , {true, 4, 2}          },
-    {(At(0), At(2))              , {1,2,3}               , {1,3}                 },
-    {(Reduce(Add), Size) | Div   , {2,2,3,3}             , 2.5                   },
+    {(Size|4) & Size & Card     , {2,2,3,3}             , {{true, 4}, 2}        },
+    {At(0) & At(2)              , {1,2,3}               , {1,3}                 },
+    {Reduce(Add) & Size | Div   , {2,2,3,3}             , 2.5                   },
 
 
     {Stride(2)                  , {1,2,3,4,5,6}         , {{1,2},{3,4},{5,6}}   },
@@ -355,9 +355,7 @@ std::vector<TestEvalSample> const TestSamples
     {Size|Eq(2)                 , {1,2}                 , true                  },
     {Size|2                     , {1,2}                 , true                  },
 
-    {L{1, 1} | (Size, Card)     , {}                    , {2, 1}                },
-    {L{1, 1} | (Q(Size),Q(Card)), {}                    , {Size, Card}          },
-    {42 | Q((Q(Size), Q(Card))) , {}                    , (Q(Size), Q(Card))    },
+    {42 | (Size, Card)           , {}                  , {Size, Card}          },
 
     // arithmetic
     {Neg                        , 42                    , -42                   },
@@ -494,7 +492,7 @@ std::vector<TestEvalSample> const TestSamples
     {Reduce(Add)                , L{42}                 , 42                    },
     {Reduce(Add)                , L{}                   , nullptr               },
     {Reduce                     , {{2,2,2,2}, Add}      , 8                     },
-    {(L{2,2,2,2}, Q(Add)) | Reduce , {}                    , 8                     },
+    {(L{2,2,2,2}, Add) | Reduce , {}                    , 8                     },
 
 
     // ternary and or
@@ -520,8 +518,8 @@ std::vector<TestEvalSample> const TestSamples
     {Re("^.{3}$")               , "1234"                , false                 },
     {Str|Re("\\[1,2\\]")        , {1,2}                 , true                  },
     {Str|Re("42")               , 42                    , true                  },
-    {(At(0) | Str, At(1)) | Re  , {42, "42"}            , true                  },
-    {(At(0) | Str, At(1)) | Re  , {{1,2}, "\\[1,2\\]"}  , true                  },
+    {(At(0)|Str)&At(1)|Re       , {42, "42"}            , true                  },
+    {(At(0)|Str)&At(1)|Re       , {{1,2}, "\\[1,2\\]"}  , true                  },
 
     {Capitalize                 , "foo"                 , "Foo"                 },
     {UpperCase                  , "foo"                 , "FOO"                 },
@@ -622,7 +620,7 @@ std::vector<TestEvalSample> const TestSamples
     {Q(Ge(12)) | Unfold(8, Add(1)),  {}                , {8,9,10,11}          },
 
 
-    {4|Recur(Q({0,0}), ((At(0)|Add(1)), (At(1)|Sub(1)))),{}, {4, -4}          },
+    {4|Recur(Q({0,0}), ((At(0)|Add(1)) & (At(1)|Sub(1)))),{}, {4, -4}          },
 
 
     {All(Gt(5), Mod(2)|0)       , 6                      , true                 },
@@ -710,19 +708,19 @@ std::vector<TestEvalSample> const TestSamples
 
 
     {42 | Bind(Add)             , {}                    , Add(42)               },
-    {(42, Q(Add)) | Bind         , {}                    , Add(42)               },
+    {42 & Q(Add) | Bind         , {}                    , Add(42)               },
 
-    {(Id, Q(Add(1))) | Bind(Pipe)      , 42           , 42 | Add(1)           },
-    {(Id, Q(Add(1))) | Bind(Pipe)|Eval , 42           , 43                    },
+    {Id & Q(Add(1)) | Bind(Pipe)      , 42           , 42 | Add(1)           },
+    {Id & Q(Add(1)) | Bind(Pipe)|Eval , 42           , 43                    },
 
-    {42 | (Id, Q(Add(1))) | Bind(Pipe)      , {}      , 42 | Add(1)           },
-    {42 | (Id, Q(Add(1))) | Bind(Pipe)|Eval , {}      , 43                    },
+    {42 | Id & Q(Add(1)) | Bind(Pipe)      , {}      , 42 | Add(1)           },
+    {42 | Id & Q(Add(1)) | Bind(Pipe)|Eval , {}      , 43                    },
 
-    { (ToList, Id) | Bind          , Fmt     , Fmt(Fmt)              },
-    { Q(Fmt) | (ToList, Id) | Bind , {}      , Fmt(Fmt)              },
+    { (ToList & Id) | Bind          , Fmt     , Fmt(Fmt)              },
+    { Q(Fmt) | (ToList & Id) | Bind , {}      , Fmt(Fmt)              },
 
-    {(42, Q(Add(1)), Q(Sub(1)), Q(Mul(1))) | Bind(Pipe) , {}
-                                               , 42 | Add(1) | Sub(1) | Mul(1)  },
+    {(42, Add(1), Sub(1), Mul(1)) | Bind(Pipe) , {}
+                                               , 42 | Add(1) | Sub(1) | Mul(1) },
 
     { Q(Fmt) | Bind(Q) | Bind(Q), {}, Q(Q(Fmt))                                 },
 
@@ -759,8 +757,8 @@ std::vector<TestEvalSample> const TestSamples
 
     {Kwrd                       , Fold(Add)             , "Fold"                },
     {Q(Fold(Add)) | Kwrd        , {}                    , "Fold"                },
-    {Q(Fold(Add)) | Prms        , {}                    , L{Add}                },
-    {Q(Pipe(Add, Sub)) | Prms   , {}                    , L{Add, Sub}           },
+    {Q(Fold(Add)) | Prms        , {}                    , Tuple(Add)            },
+    {Q(Pipe(Add, Sub)) | Prms   , {}                    , (Add, Sub)             },
 
     {Op(type<unsigned>, Eq(42))            , 42     , true                },
     {Try(Op(type<unsigned>, Eq(42)))       , -42    , nullptr             },
@@ -1025,7 +1023,7 @@ BOOST_AUTO_TEST_CASE(ExpressionEvalLog)
 {
     auto ctx = EvalContext::make();
 
-    auto const f = Debug((Reduce(Add), Size) | Div);
+    auto const f = Debug(Reduce(Add) & Size | Div);
     auto const x = L{1,2,3,42.5};
     f.eval(x, ctx);
     BOOST_CHECK(!ctx.log.str().empty());
@@ -1099,22 +1097,22 @@ BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
 
 BOOST_AUTO_TEST_CASE(PrettifyExpressionTostaticBuffer)
 {
-    auto e = (Fold(Add), Size) | Div | Eq(2.5E0) | Not;
+    auto e = (Fold(Add) & Size) | Div | Eq(2.5E0) | Not;
     char buff[100];
 
     e.prettify_to(buff);
-    BOOST_CHECK_EQUAL(buff, "(Fold(Add), Size) | Div | Eq(2.5E0) | Not");
+    BOOST_CHECK_EQUAL(buff, "(Fold(Add) & Size) | Div | Eq(2.5E0) | Not");
 }
 
 BOOST_AUTO_TEST_CASE(DebugExample)
 {
     {
-        auto const f = Debug((Reduce(Add), Size) | Div);
+        auto const f = Debug(Reduce(Add) & Size | Div);
         auto const x = L{1,2,3,42.5};
         BOOST_CHECK_EQUAL(f.eval(x), 12.125);
     }
     {
-        auto const f = Trace(ZMBT_CUR_LOC) | (Reduce(Add), Size) | Div;
+        auto const f = Trace(ZMBT_CUR_LOC) | Reduce(Add) & Size | Div;
         auto const x = L{1,2,3,42.5};
         BOOST_CHECK_EQUAL(f.eval(x), 12.125);
     }
@@ -1133,7 +1131,7 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     { std::stringstream ss; (e).prettify_to(ss); \
         BOOST_CHECK_EQUAL(ss.str(), #e); }
 
-    TEST_PRETIFY(   (Fold(Add), Size) | Div | Eq(2.5E0) | Not       )
+    TEST_PRETIFY(   (Fold(Add) & Size) | Div | Eq(2.5E0) | Not      )
     TEST_PRETIFY(   Eq(Pi | Div(2))                                 )
     TEST_PRETIFY(   "%s%d" | Fmt(Pi | Div(2), 2 | Add(2))           )
     TEST_PRETIFY(   Recur(42, Map(Add(2) | Div(E)))                 )
@@ -1147,25 +1145,19 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
     // TEST_PRETIFY(All()) // FIXME: empty variadic != incomplete kw
 
     TEST_PRETIFY(   Q(Q | (Q | Q) | Q)                              )
-    TEST_PRETIFY(   Q((Q, (Q, Q), (Q | (Q | (Q | Q)))))             )
+    TEST_PRETIFY(   Q((Q & (Q & Q)) & (Q | (Q | (Q | Q))))          )
 
-    TEST_PRETIFY(   ((Q | Q), (Q | Q))                              )
-    TEST_PRETIFY(   (Q, Q) | (Q, Q)                                 )
+    TEST_PRETIFY(   (Q | Q) & (Q | Q)                               )
+    TEST_PRETIFY(   (Q & Q) | (Q & Q)                               )
 
-    TEST_PRETIFY(   (Q, Q, Q, Q)                                    )
-    // right grouping - parentheses preserved
-    TEST_PRETIFY(   (Q, (Q, (Q, Q)))                                )
-
-    // TODO: Explicit keywords necessary to preserve left grouping
-    TEST_PRETIFY( Fork(Fork((Q, Q), Q), Q)                      )
-    TEST_PRETIFY( Pipe(Pipe(Q | Q, Q), Q)                      )
-
-    // Id here prevents left group unfold
-    TEST_PRETIFY( (((((Q, Q) | Id), Q) | Id), Q)                    )
+     // right grouping - parentheses preserved
+    TEST_PRETIFY(   Q & (Q & (Q & Q))                               )
+     // left associativity - unfold groups
+    TEST_PRETIFY(   ((Q & Q) & Q) & Q                               );
 
     // no infix sugar for singleton Pipe and Fork
     TEST_PRETIFY(   Pipe(Fork(All))                                 )
-    TEST_PRETIFY(   Pipe((All, Any))                                )
+    TEST_PRETIFY(   Pipe(All & Any)                                 )
     TEST_PRETIFY(   Saturate(Eq(23), 42, Any(27, 13) | Not)         )
 
     TEST_PRETIFY(   Size | 3                                        )
@@ -1174,15 +1166,18 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
     // Symbolic links
     TEST_PRETIFY(
-        "$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x", ("$x" | Sub(1) | "$f")) | Mul))
+        "$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul))
     )
     TEST_PRETIFY(
-        Q("$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x", ("$x" | Sub(1) | "$f")) | Mul)))
+        Q("$f" << ("$x" | Assert(Ge(0)) | Lt(2) | And(1) | Or(("$x" & ("$x" | Sub(1) | "$f")) | Mul)))
     )
 
+
+
     BOOST_CHECK_EQUAL((~Diff({2,3,4})).prettify(), "~Diff([2,3,4])"); // true JSON syntax
-     // left associativity - unfold groups
-    BOOST_CHECK_EQUAL((((Q, Q), Q), Q).prettify(), "(Q, Q, Q, Q)");
+    BOOST_CHECK_EQUAL((Q & Q | Q & Q).prettify(), "(Q & Q) | (Q & Q)"); // prec(&) > prec(|)
+    BOOST_CHECK_EQUAL((Q | Q & Q | Q).prettify(), "Q | (Q & Q) | Q"); // prec(&) > prec(|)
+
 }
 
 
@@ -1218,9 +1213,7 @@ BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
         | Or("$x" | Sub(1) | "$f" | Mul("$x"))
     );
 
-    BOOST_TEST_INFO("Expression: " << fact.prettify());
-    BOOST_TEST_INFO("  encoding: " << json_from(fact.encoding()));
-
+    BOOST_TEST_INFO(fact.prettify());
     BOOST_CHECK_EQUAL(fact.eval(0),   1);
     BOOST_CHECK_EQUAL(fact.eval(1),   1);
     BOOST_CHECK_EQUAL(fact.eval(2),   2);

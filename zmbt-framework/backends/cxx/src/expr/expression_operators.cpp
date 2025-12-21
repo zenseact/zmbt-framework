@@ -34,12 +34,22 @@ Expression operator|(Expression lhs, Expression rhs)
 
 Expression operator,(Expression lhs, Expression rhs)
 {
-    return Expression::unfold_left_assoc(Keyword::Fork, std::move(lhs), std::move(rhs));
+    return Expression::unfold_left_assoc(Keyword::Tuple, std::move(lhs), std::move(rhs));
 }
 
+Expression operator&(Expression lhs, Expression rhs)
+{
+    return Expression(Expression::encodeNested(Keyword::Fork, {lhs, rhs}));
+
+}
 
 Expression operator<<(Expression link, Expression referent)
 {
+    // TODO: binding
+    // TODO: handle righ-assoc infix unfold
+    static_cast<void>(link);
+    static_cast<void>(referent);
+
     auto const if_string = link.if_string();
     if (!if_string)
     {
@@ -50,7 +60,7 @@ Expression operator<<(Expression link, Expression referent)
         return expr::Err("Invalid symbolic reference format", BOOST_CURRENT_FUNCTION);
     }
     return Expression(Expression::encodeNested(Keyword::Fn,
-        {std::move(link), std::move(referent)}
+        {expr::Tuple(std::move(link), std::move(referent))}
     ));
 }
 

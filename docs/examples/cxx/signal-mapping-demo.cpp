@@ -270,7 +270,7 @@ obtained from the parameter resolver over each test vector:
 
 ### Expressions
 
-The framework provides a tiny embedded functional programming language
+The framework provides an embedded functional programming language
 that enables flexible matchers and more complex test data manipulation:
 
 ```c++
@@ -288,7 +288,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         ( 42                , 42     /*(1)*/                     )
         ( {1,2,3}           , Size|3 /*(2)*/                     ) ["Expect structure size equal 3"] //(3)
         ( {1,2,3}           , Saturate(1, Ne(1), Ge(2)) /*(4)*/  )
-        ( {1,2,3,4}         , (Fold(Add), Size) | Div | Eq(2.5)  ) //(5)
+        ( {1,2,3,4}         , Fold(Add) & Size | Div | Eq(2.5)   ) //(5)
         ( Pi | Div(2) | Sin , Approx(1)                          ) //(6)
         ( Pi | ~Div(1)      , Approx(1.0/3.14159265359)          ) //(7)
         ( "5:1:-1" | Arange , {5,4,3,2}                          ) //(8)
@@ -301,12 +301,12 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 2. Expression composition with pipe operator. Equivalent to `Pipe(Size, Eq(3))`.
 3. Optional comment.
 4. Saturate the matchers over sequence input in given order.
-5. Comma operator creates Fork expression: `(f, g) ↦ x ↦ [f(x), g(x)]`.
-    Output is processed as `((Fold(Add), Size) | Div) | Eq(2.5)`
+5. Ampersand operator packs evaluation into array as `f & g ↦ x ↦ [f(x), g(x)]`.
+    Output is processed as `(((Reduce(Add) & Size) | Div) | Eq(2.5))`
     in the following steps:
-    1. `(Fold(Add), Size)` on input `[1,2,3,4]` produces [10, 4]
-    2. `Div` on input `[10, 4]` produces 2.5
-    3. `Eq(2.5)` on input `2.5` produces `true`
+    1. `Reduce(Add) & Size` on input `[1,2,3,4]` produces [10, 4]
+    2. `Div` on input `[10, 4]` produces [2.5]
+    3. `Eq(2.5)` on input `[2.5]` produces `true`
 6. A constant function can be used on input channel instead of literal
 7. Flip expression (prefix ~) swaps the operands, which is useful for non-commutative transforms
 8. `Arange` is a generator similar to
@@ -1190,7 +1190,7 @@ BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
     SignalMapping("SignalMapping test")
     .OnTrigger(id)
         .At(id).Inject("1:5"|Arange)
-        .At(id).Expect((Reduce(Add), Size) | Div | Eq(2.5) | Not) //(1)
+        .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5) | Not) //(1)
     ;
 }
 /*
@@ -1204,7 +1204,7 @@ Negation at the matcher end lead to test failure, and the log message is followi
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: (Fold(Add), Size) | Div | Eq(2.5E0) | Not
+      expected: (Fold(Add) & Size) | Div | Eq(2.5E0) | Not
       observed: [1,2,3,4]
       condition: {"pipe":1}
       expression eval stack: |-
@@ -1214,11 +1214,11 @@ Negation at the matcher end lead to test failure, and the log message is followi
                  ├── Add $ [6,4] = 10
               ┌── Fold(Add) $ [1,2,3,4] = 10
               ├── Size $ [1,2,3,4] = 4
-           ┌── (Fold(Add), Size) $ [1,2,3,4] = [10,4]
+           ┌── Fold(Add) & Size $ [1,2,3,4] = [10,4]
            ├── Div $ [10,4] = 2.5E0
            ├── Eq(2.5E0) $ 2.5E0 = true
            ├── Not $ true = false
-        □  (Fold(Add), Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
+        □  (Fold(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.

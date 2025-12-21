@@ -454,6 +454,9 @@ enum class Keyword : std::uint64_t
     /// Pipe
     Pipe,
 
+    /// Tuple
+    Tuple,
+
     /// Fork
     Fork,
 

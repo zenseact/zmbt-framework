@@ -1425,14 +1425,14 @@ keyword_groups:
         signature: Binary
         brief: Bind design-time parameters to function.
         examples: |-
-          (42, Q(Add)) | Bind ↦ Add(42)
+          42 & Q(Add) | Bind ↦ Add(42)
           42 | Bind(F) | Bind(G) | Bind(H) ↦  H(G(F(42)))
         domain: [any, expr]
         codomain: expr
 
 
       - name: Fn
-        signature: Variadic
+        signature: Binary
         brief: Inline named function
         details: |-
           Expression `Fn(reference, expr)` creates a symbolic link to expr,
@@ -1452,7 +1452,7 @@ keyword_groups:
             | Assert(Ge(0))
             | Lt(2)
             | And(1)
-            | Or("$x" | Sub(1) | "$f" | Mul("$x"))
+            | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
           );
           ```
 
@@ -1539,15 +1539,27 @@ keyword_groups:
           Add(1) | Mul(2) ≡ Pipe(Add(1), Mul(2))
           3 | Add(1) | Mul(2) ↦ 8
 
+      - name: Tuple
+        signature: Variadic
+        brief: Pack expressions into an tuple without evaluation
+        domain: any
+        codomain: list
+        params:
+          - label: functions
+            type: list[expr]
+        examples: |-
+          null | Tuple(Reduce(Add), Size) ↦ [Reduce(Add), Size]
+
+          **Infix operator form (plus):**
+
+          Add(1) + Mul(2) ≡ Tuple(Add(1), Mul(2))
 
       - name: Fork
         signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
-          Allows to combine different properties in a single expression:
-          ```
-          x | (f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
-          ```
+          Allows to combine different properties in a single expression.
+          Parameter
         domain: any
         codomain: list
         params:
@@ -1557,17 +1569,16 @@ keyword_groups:
           [1,2,3] | Fork(Reduce(Add), Size) ↦ [6,3]
           [1,2,3] | Fork(42, Card, Id) ↦ [42, 3, [1,2,3]]
 
-          **Infix operator form (comma):**
+          **Infix operator form (ampersand):**
 
-          (Add(1), Mul(2)) ≡ Fork(Add(1), Mul(2))
-          [1,2,3] | (Reduce(Add), Size) ↦ [6,3]
-          [1,2,3] | (Reduce(Add), Size) | Div ↦ 2
+          Add(1) & Mul(2) ≡ Fork(Add(1), Mul(2))
+          [1,2,3] | Reduce(Add) & Size ↦ [6,3]
+          [1,2,3] | Reduce(Add) & Size | Div ↦ 2
 
-          Note that the Fork expression created with coma operator
-          is unfolded as left-associative, s.t.
-          ((a, b), c) ≡ (a, b, c).
-          To preserve grouping, one should use keywords explicitly:
-          Fork(Fork(a, b), c)
+          Note that the Fork is not associative,
+          therefore an infix operator chain is not unfolded
+          as it is done for variadic Pipe or Tuple:
+          a & b & c ≡ (a & b) & c ≡ Fork(Fork(a, b), c)
 
       - name: Flip
         signature: Binary

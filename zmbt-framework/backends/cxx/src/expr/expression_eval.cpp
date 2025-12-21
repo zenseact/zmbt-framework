@@ -77,25 +77,17 @@ bool ExpressionView::eval_as_predicate(boost::json::value const& x, Expression& 
 
 Expression ExpressionView::eval_maybe_predicate(ExpressionView const& x, EvalContext ctx) const
 {
-    switch (keyword())
+    if (!is_noop() && is_const())
     {
-    case Keyword::Noop:
-    case Keyword::Fork:
-    case Keyword::Q:
-        break;
-    default:
-        if (is_const())
+        if (!const_predicate_cache_)
         {
-            if (!const_predicate_cache_)
-            {
-                auto cached = Expression(Expression::encodeNested(
-                    Keyword::Eq,
-                    {Expression(encoding_view().freeze())}
-                ));
-                const_predicate_cache_ = std::make_shared<Expression>(std::move(cached));
-            }
-            return const_predicate_cache_->eval_e(x, std::move(ctx));
+            auto cached = Expression(Expression::encodeNested(
+                Keyword::Eq,
+                {Expression(encoding_view().freeze())}
+            ));
+            const_predicate_cache_ = std::make_shared<Expression>(std::move(cached));
         }
+        return const_predicate_cache_->eval_e(x, std::move(ctx));
     }
     return eval_e(x, std::move(ctx));
 }

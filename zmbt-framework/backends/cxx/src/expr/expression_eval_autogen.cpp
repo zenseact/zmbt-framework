@@ -157,6 +157,7 @@ extern template Expression dispatch_eval<Keyword::Any>(ExpressionView const&, Ex
 extern template Expression dispatch_eval<Keyword::All>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Saturate>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Pipe>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Tuple>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Fork>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Flip>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Dbg>(ExpressionView const&, ExpressionView const&, EvalContext);
@@ -321,6 +322,7 @@ try
         case Keyword::All: return dispatch_eval<Keyword::All>(*this, x, context);
         case Keyword::Saturate: return dispatch_eval<Keyword::Saturate>(*this, x, context);
         case Keyword::Pipe: return dispatch_eval<Keyword::Pipe>(*this, x, context);
+        case Keyword::Tuple: return dispatch_eval<Keyword::Tuple>(*this, x, context);
         case Keyword::Fork: return dispatch_eval<Keyword::Fork>(*this, x, context);
         case Keyword::Flip: return dispatch_eval<Keyword::Flip>(*this, x, context);
         case Keyword::Dbg: return dispatch_eval<Keyword::Dbg>(*this, x, context);
