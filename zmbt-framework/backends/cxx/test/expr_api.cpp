@@ -71,6 +71,10 @@ std::vector<TestEvalSample> const TestSamples
     {Default(42)                , ""                    , ""                    },
     {Default(42)                , {1,2,3}               , {1,2,3}               },
 
+    { 2 | Div(0) | IsErr        , nullptr               , true                  },
+    { 2 | Div(0) | Default(42)  , nullptr               , 42                    },
+
+
     // boolean cast
     {Bool                       , true                  , true                  },
     {Bool                       , 42                    , true                  },

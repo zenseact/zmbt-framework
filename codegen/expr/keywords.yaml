@@ -1546,7 +1546,7 @@ keyword_groups:
         details: |-
           Allows to combine different properties in a single expression:
           ```
-          x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+          x | (f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
           ```
         domain: any
         codomain: list
@@ -1665,7 +1665,7 @@ keyword_groups:
         brief: Return x if not null, else return default value
         domain: [any, any]
         codegen-value:
-          cxx: '(lhs().is_literal() && lhs().is_null()) ? rhs().eval_e({}, curr_ctx()) : lhs()'
+          cxx: '(lhs().is_error() || (lhs().is_literal() && lhs().is_null())) ? rhs().eval_e({}, curr_ctx()) : lhs()'
         examples: |-
           null | Default(42) ↦ 42
           13 | Default(42) ↦ 13
