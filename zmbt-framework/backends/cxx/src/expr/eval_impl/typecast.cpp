@@ -32,13 +32,10 @@ namespace lang {
 
 ZMBT_DEFINE_EVALUATE_IMPL(Op)
 {
-    auto const tuple = self().encoding_view().child(0);
-    ASSERT(
-        (tuple.head() == K::Tuple)
-        && tuple.arity() == 2,
-        "invalid parameters, expected reference + Fn");
-    auto const operator_reference = ExpressionView(tuple.child(0)).eval({}, curr_ctx());
-    ExpressionView const F(tuple.child(1));
+    auto const enc = self().encoding_view();
+    ASSERT(enc.arity() == 2, "invalid parameters, expected [type, expression]");
+    auto const operator_reference = ExpressionView(enc.child(0)).eval({}, curr_ctx());
+    ExpressionView const F(enc.child(1));
 
     auto const if_str = operator_reference.if_string();
     ASSERT(if_str, "invalid parameter");

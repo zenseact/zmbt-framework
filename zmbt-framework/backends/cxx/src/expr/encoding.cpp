@@ -492,7 +492,7 @@ bool EncodingView::is_const() const
     }
     else if (a & attr::is_overload && size() > 1)
     {
-        return subtree(3).is_const();
+        return subtree(2).is_const();
     }
     else
     {

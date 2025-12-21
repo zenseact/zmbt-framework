@@ -1152,8 +1152,11 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
      // right grouping - parentheses preserved
     TEST_PRETIFY(   Q & (Q & (Q & Q))                               )
-     // left associativity - unfold groups
-    TEST_PRETIFY(   ((Q & Q) & Q) & Q                               );
+     // left associativity - parentheses preserved
+    TEST_PRETIFY(   ((Q & Q) & Q) & Q                               )
+    // Explicit keywords is necessary to preserve left grouping
+    // for non-associative Tuple
+    TEST_PRETIFY( Tuple(Tuple((Q, Q), Q), Q)                        )
 
     // no infix sugar for singleton Pipe and Fork
     TEST_PRETIFY(   Pipe(Fork(All))                                 )

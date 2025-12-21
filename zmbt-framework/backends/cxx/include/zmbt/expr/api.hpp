@@ -643,25 +643,26 @@ extern lang::SignatureOp const Overload;
 /// \brief Bind design-time parameters to function.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 
-/// \brief Inline named function
+/// \brief Symbolic binding of the inline function
 /// \details
 /// Expression `Fn(reference, expr)` creates a symbolic link to expr,
-/// at the same time evaluating given arguments (inlining the expr).
+/// at the same time evaluating the given arguments (inlining the expr).
 /// The reference is avaliable in the evaluation context,
 /// including in the expr itself (essentially enabling an arbitrary recursion).
 /// 
 /// **Infix operator form (left shift)**:
 /// 
 /// `"$f" << E` ≡ `Fn("$f", E)`
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Fn> const Fn;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fn> const Fn;
 
 /// \brief Symbolic binding of the input value
 /// \details
 /// The capture is referenced by an arbitrary string preceded by dollar sign,
 /// e.g. "$x".
 /// 
-/// On the first access it stores the input value in isolated expression context,
-/// and returns it on each subsequent call.
+/// On the first evaluation it stores the input value (equivalent to variable initialization)
+/// and passes it further.
+/// On subsequent calls it returns the stored value, acting as a constant.
 /// It can't be reset after the first access.
 /// 
 /// The string after $ sign shall not be enclosed in [], {}, or (),
@@ -685,8 +686,11 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details
-/// Allows to combine different properties in a single expression.
-/// Parameter
+/// Parallel composition operator:
+/// 
+/// ```
+/// x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+/// ```
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
 /// \brief Flip design-time and eval-time parameters.

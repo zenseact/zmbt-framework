@@ -1849,13 +1849,13 @@ Bind design-time parameters to function.
 
 ### Fn
 
-*Signature*: [Binary](../user-guide/expressions.md#syntax)
+*Signature*: [Variadic](../user-guide/expressions.md#syntax)
 
 
-Inline named function
+Symbolic binding of the inline function
 
 Expression `Fn(reference, expr)` creates a symbolic link to expr,
-at the same time evaluating given arguments (inlining the expr).
+at the same time evaluating the given arguments (inlining the expr).
 The reference is avaliable in the evaluation context,
 including in the expr itself (essentially enabling an arbitrary recursion).
 
@@ -1872,7 +1872,7 @@ auto const factorial = "$f" << ("$x"
   | Assert(Ge(0))
   | Lt(2)
   | And(1)
-  | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+  | Or("$x" | Sub(1) | "$f" | Mul("$x"))
 );
 ```
 
@@ -1886,8 +1886,9 @@ Symbolic binding of the input value
 The capture is referenced by an arbitrary string preceded by dollar sign,
 e.g. "$x".
 
-On the first access it stores the input value in isolated expression context,
-and returns it on each subsequent call.
+On the first evaluation it stores the input value (equivalent to variable initialization)
+and passes it further.
+On subsequent calls it returns the stored value, acting as a constant.
 It can't be reset after the first access.
 
 The string after $ sign shall not be enclosed in [], {}, or (),
@@ -1971,9 +1972,9 @@ Pack expressions into an tuple without evaluation
 
  * `null | Tuple(Reduce(Add), Size) `$\mapsto$` [Reduce(Add), Size]`
 
-**Infix operator form (plus):**
+**Infix operator form (comma):**
 
- * `Add(1) + Mul(2) `$\equiv$` Tuple(Add(1), Mul(2))`
+ * `(Add(1), Mul(2)) `$\equiv$` Tuple(Add(1), Mul(2))`
 
 ### Fork
 
@@ -1982,8 +1983,11 @@ Pack expressions into an tuple without evaluation
 
 Pack results from enveloped functions into an array
 
-Allows to combine different properties in a single expression.
-Parameter
+Parallel composition operator:
+
+```
+x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+```
 
 *Examples*:
 

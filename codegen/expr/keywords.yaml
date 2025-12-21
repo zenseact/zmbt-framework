@@ -1432,11 +1432,11 @@ keyword_groups:
 
 
       - name: Fn
-        signature: Binary
-        brief: Inline named function
+        signature: Variadic
+        brief: Symbolic binding of the inline function
         details: |-
           Expression `Fn(reference, expr)` creates a symbolic link to expr,
-          at the same time evaluating given arguments (inlining the expr).
+          at the same time evaluating the given arguments (inlining the expr).
           The reference is avaliable in the evaluation context,
           including in the expr itself (essentially enabling an arbitrary recursion).
 
@@ -1452,7 +1452,7 @@ keyword_groups:
             | Assert(Ge(0))
             | Lt(2)
             | And(1)
-            | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+            | Or("$x" | Sub(1) | "$f" | Mul("$x"))
           );
           ```
 
@@ -1466,8 +1466,9 @@ keyword_groups:
           The capture is referenced by an arbitrary string preceded by dollar sign,
           e.g. "$x".
 
-          On the first access it stores the input value in isolated expression context,
-          and returns it on each subsequent call.
+          On the first evaluation it stores the input value (equivalent to variable initialization)
+          and passes it further.
+          On subsequent calls it returns the stored value, acting as a constant.
           It can't be reset after the first access.
 
           The string after $ sign shall not be enclosed in [], {}, or (),
@@ -1550,16 +1551,19 @@ keyword_groups:
         examples: |-
           null | Tuple(Reduce(Add), Size) ↦ [Reduce(Add), Size]
 
-          **Infix operator form (plus):**
+          **Infix operator form (comma):**
 
-          Add(1) + Mul(2) ≡ Tuple(Add(1), Mul(2))
+          (Add(1), Mul(2)) ≡ Tuple(Add(1), Mul(2))
 
       - name: Fork
         signature: Variadic
         brief: Pack results from enveloped functions into an array
         details: |-
-          Allows to combine different properties in a single expression.
-          Parameter
+          Parallel composition operator:
+
+          ```
+          x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+          ```
         domain: any
         codomain: list
         params:
