@@ -284,13 +284,13 @@ For the complete information see [Expression Language Reference](../dsl-referenc
 
 ## Symbolic linking
 
-:construction: *This feature is in prototype state* :construction:
+:construction: *This feature is in preview state* :construction:
 
 As a step aside from tacit style,
-Expressions support two levels of symbolic linking using $-prefixed strings as references.
+Expressions support two types of symbolic linking using $-prefixed strings as references.
 
 
-### Eval-level linking
+### Argument linking
 
 ``` c++
 "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x")
@@ -301,7 +301,7 @@ in an local environment and passes it to the subsequent term,
 making it available to all subexpressions, such as `And("$x" | ...)`.
 Recall that expression parameter evaluation is lazy.
 
-### Design-level linking
+### Function linking
 
 ``` c++
 "$f" << ("$x"
@@ -313,10 +313,19 @@ Recall that expression parameter evaluation is lazy.
 ```
 
 This example constructs a recursive factorial function using `<<` as an assignment operator.
-As with `"$x"`, the `"$f"` link is accessible in all subsequent subexpressions.
+The referenced expression is inlined at the call site and evaluated with
+the current input. The reference is available to the bound expression itself
+and to all its subexpressions, enabling arbitrary recursion.
 
-Each recursive invocation of `"$f"` has its own environment,
-ensuring that the eval-level linking of `"$x"` is isolated to the local scope.
+Each invocation of a function bound with `Fn` establishes a local scope for
+argument bindings created via `Link`, forming a lexical closure over the
+surrounding bindings. Argument links from outer scopes are captured by the
+function and remain accessible unless shadowed by a local binding.
+Such captured values can be explicitly read using the `Get` expression
+
+
+Function bindings are shared across the whole expression and are immutable:
+once a reference is bound with `Fn`, it cannot be redefined or reset.
 
 ## Quotation
 

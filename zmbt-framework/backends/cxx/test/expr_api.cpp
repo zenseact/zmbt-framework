@@ -31,8 +31,6 @@ using zmbt::lang::EvalLog;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Fn,
-    Keyword::Link,
 };
 
 
@@ -803,6 +801,12 @@ std::vector<TestEvalSample> const TestSamples
     {Q({{"foo", {{"bar", "baz"}}}}) | FindIdx(At(0)|"foo") , {}, 0             },
 
     {"abcd" | FindIdx('d')          , {}                     , 3               },
+
+    {42 | Link("$x") | Eq(42)       , {}                     , true            },
+    {42 | ("$x" | Eq(42))           , {}                     , true            },
+    {42 | ("$x" | Eq(42)) | Id& "$x", {}                     , {true, true}    },
+    {42 | ("$x" | Eq(42)) | Id & Get("$x"), {}               , {true, 42}      },
+    {"$f" << Add(1)                 , 42                     , 43              },
 };
 
 
@@ -1224,4 +1228,21 @@ BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
     BOOST_CHECK_EQUAL(fact.eval(4),  24);
     BOOST_CHECK_EQUAL(fact.eval(5), 120);
     BOOST_CHECK_EQUAL((fact | IsErr).eval(-5), true);
+}
+
+BOOST_AUTO_TEST_CASE(Closure)
+{
+    auto const closure = "$closed"
+        | ("$f" << ("$local"
+        | Get("$closed")
+        | Add("$local")
+        | If(Abs|Ge(31), Id)
+        | Else("$f")
+        ))
+    ;
+
+    BOOST_TEST_INFO(closure.prettify());
+    BOOST_CHECK_EQUAL(Dbg(closure).eval(5),   35);
+    BOOST_CHECK_EQUAL(Dbg(closure).eval(4),   32);
+    BOOST_CHECK_EQUAL(Dbg(closure).eval(3),   33);
 }

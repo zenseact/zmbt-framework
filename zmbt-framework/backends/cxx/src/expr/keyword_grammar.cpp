@@ -219,6 +219,7 @@ KeywordSymbol::KeywordSymbol()
     ("Bind", Keyword::Bind)
     ("Fn", Keyword::Fn)
     ("Link", Keyword::Link)
+    ("Get", Keyword::Get)
     ("Any", Keyword::Any)
     ("All", Keyword::All)
     ("Saturate", Keyword::Saturate)
@@ -406,6 +407,7 @@ boost::json::string_view keyword_to_str(Keyword const& kw)
     case Keyword::Bind: { return "Bind"; break; }
     case Keyword::Fn: { return "Fn"; break; }
     case Keyword::Link: { return "Link"; break; }
+    case Keyword::Get: { return "Get"; break; }
     case Keyword::Any: { return "Any"; break; }
     case Keyword::All: { return "All"; break; }
     case Keyword::Saturate: { return "Saturate"; break; }

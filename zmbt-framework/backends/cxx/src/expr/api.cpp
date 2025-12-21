@@ -168,6 +168,7 @@ lang::SignatureOp const Overload = Op;
 lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Fn> const Fn = {};
 lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link = {};
+lang::SignatureBinary<::zmbt::lang::Keyword::Get> const Get = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::All> const All = {};
 lang::SignatureVariadic<::zmbt::lang::Keyword::Saturate> const Saturate = {};

@@ -22,10 +22,11 @@ EvalContext EvalContext::make(Operator const& op)
 EvalContext::EvalContext()
     : op{}
     , log{}
-    , captures{std::make_shared<boost::json::object>()}
-    , links{std::make_shared<std::map<boost::json::string, ExpressionView>>()}
+    , capture_links{std::make_shared<std::deque<boost::json::object>>()}
+    , expr_links{std::make_shared<std::map<boost::json::string, ExpressionView>>()}
     , depth{0}
 {
+    capture_links->push_back({});
 }
 
 EvalContext EvalContext::operator++() const

@@ -188,6 +188,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Bind: return is_binary | is_hiord;
     case Keyword::Fn: return is_variadic | is_hiord;
     case Keyword::Link: return is_binary | is_hiord;
+    case Keyword::Get: return is_binary | is_hiord;
     case Keyword::Any: return is_variadic | is_predicate | is_hiord;
     case Keyword::All: return is_variadic | is_predicate | is_hiord;
     case Keyword::Saturate: return is_variadic | is_predicate | is_hiord;
