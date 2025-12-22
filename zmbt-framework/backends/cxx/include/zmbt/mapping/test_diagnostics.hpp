@@ -56,6 +56,7 @@ struct TestDiagnostics
     boost::json::value channel_id  {};
     boost::json::value pipe_id  {};
 
+    boost::json::array traces      {};
     boost::json::array eval_stack  {};
     Result result                  {};
     bool tabular_condition_failure_{};
@@ -106,6 +107,15 @@ struct TestDiagnostics
         if (log.stack)
         {
             this->eval_stack = *log.stack;
+        }
+        return *this;
+    }
+
+    TestDiagnostics& Traces(std::shared_ptr<boost::json::array> const traces_ptr)
+    {
+        if (traces_ptr)
+        {
+            traces = *traces_ptr;
         }
         return *this;
     }

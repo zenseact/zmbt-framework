@@ -57,7 +57,8 @@ class Logger {
         WARNING,
         INFO,
         DEBUG,
-        TRACE
+        TRACE,
+        DEVMODE, // development troubleshooting and perf stats
     };
 
     /// Attach logger to file sink ("" means stdout)
@@ -100,7 +101,8 @@ class Logger {
         WARNING,
         INFO,
         DEBUG,
-        TRACE
+        TRACE,
+        DEVMODE
     )
 };
 

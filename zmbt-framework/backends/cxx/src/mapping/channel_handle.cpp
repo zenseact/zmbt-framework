@@ -41,7 +41,7 @@ object_id ChannelHandle::host() const
 
 lang::Expression ChannelHandle::transform() const
 {
-    lang::Expression e = expr::Noop;
+    lang::Expression e = expr::Id;
 
     if (auto const p =  data_.find_pointer("/transform"))
     {

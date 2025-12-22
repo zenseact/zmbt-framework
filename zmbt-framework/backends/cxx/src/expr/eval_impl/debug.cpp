@@ -60,6 +60,10 @@ ZMBT_DEFINE_EVALUATE_IMPL(Trace)
 {
     ZMBT_LOG_JSON(INFO).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data() << " " << lhs();
     ZMBT_LOG_CERR(DEBUG).WithSrcLoc("ZMBT_EXPR_TRACE") << rhs().data() << " " << lhs();
+    if( auto traces = curr_ctx().traces)
+    {
+        traces->push_back(boost::json::object{{rhs().prettify(), lhs().data()}});
+    }
     return lhs();
 }
 

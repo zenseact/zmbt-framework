@@ -56,21 +56,47 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     print_string("model");
     print_string("message");
 
+
+    auto const& test_row = sts.at("test_row");
+    auto const& test_column = sts.at("test_column");
+    auto const& pipe_id = sts.at("pipe");
+
+    os << prefix << "pipe: " << pipe_id;
+    os << prefix << "channel: " << sts.at("channel");
+    os << prefix << "test_row: " << test_row;
+    os << prefix << "test_column: " << test_column;
+
+
     if (verdict == "ERROR")
     {
-        os << prefix << "channel: " << sts.at("channel");
         print_expr("error");
     }
     else
     {
         print_expr("expected");
         print_js_section("observed");
-        os << prefix << "condition: " << sts.at("condition");
         print_string("comment");
     }
 
     print_string("description");
 
+    auto const& traces = sts.at("traces").as_array();
+    if (!traces.empty())
+    {
+        os << prefix << "traces:";
+        for (auto const& msg: traces)
+        {
+            boost::json::object const* if_object;
+            if ((if_object = msg.if_object()) && !if_object->empty())
+            {
+                os << prefix << "  - " << if_object->begin()->key() << ": " << if_object->begin()->value();
+            }
+            else
+            {
+                os << prefix << "  - " << msg;
+            }
+        }
+    }
 
     auto const& eval_stack = sts.at("eval_stack").as_array();
     if (!eval_stack.empty())

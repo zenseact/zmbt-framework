@@ -33,6 +33,7 @@ struct EvalContext
     /// Evaluation log
     EvalLog log;
     /// reference -> value map
+    std::shared_ptr<boost::json::array> traces;
     std::shared_ptr<std::deque<boost::json::object>> capture_links;
     std::shared_ptr<std::map<boost::json::string, ExpressionView>> expr_links;
     // boost::json::object captures;

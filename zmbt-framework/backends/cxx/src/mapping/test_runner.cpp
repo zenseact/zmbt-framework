@@ -225,6 +225,7 @@ bool InstanceTestRunner::eval_assertion(PipeHandle const& condition_pipe, lang::
 
             diagnostics
                 .Fail(e, observed)
+                .Traces(ctx.traces)
                 .EvalStack(ctx.log);
 
             return false;
@@ -371,7 +372,7 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
 
     exec_postrun_tasks(diagnostics);
 
-    ZMBT_LOG(DEBUG) << collect_performance_report();
+    ZMBT_LOG(DEVMODE) << collect_performance_report();
 
     if (!success)
     {

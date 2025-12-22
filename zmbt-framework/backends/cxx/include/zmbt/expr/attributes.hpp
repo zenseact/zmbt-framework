@@ -44,6 +44,7 @@ constexpr std::uint32_t is_overload    = 1 << 15;
 constexpr std::uint32_t is_infix_chain = 1 << 16;
 constexpr std::uint32_t is_autogen     = 1 << 17;
 constexpr std::uint32_t is_sideeffect  = 1 << 18;
+constexpr std::uint32_t is_single_form = 1 << 19;
 }
 
 
@@ -209,7 +210,7 @@ constexpr std::uint32_t attributes(Keyword const& k)
     case Keyword::Err: return is_unary | is_autogen | is_error;
     case Keyword::IsErr: return is_unary | is_autogen;
     case Keyword::Assert: return is_binary;
-    case Keyword::Trace: return is_binary;
+    case Keyword::Trace: return is_binary | is_single_form;
     case Keyword::PreProc: return is_binary | is_autogen | is_preproc;
     default:
         return 0U;

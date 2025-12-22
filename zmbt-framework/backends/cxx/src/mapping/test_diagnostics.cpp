@@ -50,15 +50,13 @@ boost::json::value TestDiagnostics::to_json() const
         break;
     }
 
-    boost::json::value cond(
-        tabular_condition_failure_
-            ? boost::json::value{this->tr, this->tc}
-            : boost::json::value{{"pipe", this->pipe_id}}
-    );
 
     return boost::json::object {
         {"model"         , this->model_name  },
-        {"condition"     , cond              },
+        {"tabular_failure", tabular_condition_failure_},
+        {"test_row"     , this->tr},
+        {"test_column"   , tabular_condition_failure_ ? boost::json::value{this->tc} : nullptr},
+        {"pipe"          , this->pipe_id     },
         {"channel"       , this->channel_id  },
         {"verdict"       , verdict           },
         {"message"       , this->message     },
@@ -69,6 +67,7 @@ boost::json::value TestDiagnostics::to_json() const
         {"description"   , this->description },
         {"comment"       , this->comment     },
         {"eval_stack"    , this->eval_stack  },
+        {"traces"        , this->traces      },
     };
 }
 
