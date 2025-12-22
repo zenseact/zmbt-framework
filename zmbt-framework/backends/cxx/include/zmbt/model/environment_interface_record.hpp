@@ -131,7 +131,7 @@ public:
     /// \param jp JSON Pointer
     void InjectReturn(lang::Expression const& e, boost::json::string_view jp = "")
     {
-        return Inject(std::make_shared<Generator>(e), expr::Noop, ChannelKind::Return, jp);
+        return Inject(std::make_shared<Generator>(e), expr::Id, ChannelKind::Return, jp);
     }
 
     /// \brief Set generating function for injection args
@@ -141,7 +141,7 @@ public:
     /// \param jp JSON Pointer
     void InjectArgs(lang::Expression const& e, boost::json::string_view jp = "")
     {
-        return Inject(std::make_shared<Generator>(e), expr::Noop, ChannelKind::Args, jp);
+        return Inject(std::make_shared<Generator>(e), expr::Id, ChannelKind::Args, jp);
     }
 
 

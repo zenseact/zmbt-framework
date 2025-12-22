@@ -172,6 +172,11 @@ public:
         return kwrd == keyword();
     }
 
+    bool is_identity() const
+    {
+        return is(Keyword::Id);
+    }
+
     bool is_compose() const
     {
         return is(Keyword::Pipe);

@@ -148,7 +148,7 @@ boost::json::value PipeHandle::observe() const
             auto const tf = channel.transform();
 
             auto o = should_flatten_ ? captures.at(0) : captures;
-            o = tf.is_noop() ? o : tf.eval(o);
+            o = tf.is_identity() ? o : tf.eval(o);
             group_result.push_back(o);
         }
     }
@@ -162,7 +162,7 @@ boost::json::value PipeHandle::observe() const
         auto const tf = channels_.back().transform();
 
         result = should_flatten_ ? captures.at(0) : captures;
-        result = tf.is_noop() ? result : tf.eval(result);
+        result = tf.is_identity() ? result : tf.eval(result);
     }
 
     return result;
@@ -220,7 +220,7 @@ boost::json::value PipeHandle::observe_blend() const
             if (auto const p = capture.find_pointer(full_path, ec))
             {
 
-                signal_value = tf.is_noop() ? *p : tf.eval(*p);
+                signal_value = tf.is_identity() ? *p : tf.eval(*p);
             }
 
             boost::json::array record {

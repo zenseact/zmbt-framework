@@ -23,7 +23,7 @@ InjectionTable::Record::Record(
 {
     if (!generator->is_noop() && generator->expression().is_const())
     {
-        if (!transform.is_noop())
+        if (!transform.is_identity())
         {
             auto res = transform.eval_e(generator->expression(), {});
             maybe_constant = res.to_json();
@@ -159,7 +159,7 @@ boost::json::value InjectionTable::yield(ChannelKind const& ck, boost::json::val
         // TODO: optimize recursive expr
         // TODO: optimize expr <-> json flow (v_as_expr for error check is expensive here)
         auto const iteration = generator(raw_v);
-        auto const v = tf.is_noop() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
+        auto const v = tf.is_identity() ? raw_v : tf.eval(raw_v); // transform can handle generator errors
         lang::Expression const v_as_expr(v);
 
         if (!v_as_expr.is_error())
@@ -180,7 +180,7 @@ boost::json::value InjectionTable::yield(ChannelKind const& ck, boost::json::val
             generator.expression().eval(iteration, generator_ctx);
 
             auto transform_ctx = lang::EvalContext::make();
-            if (not tf.is_noop())
+            if (not tf.is_identity())
             {
                 tf.eval(raw_v, transform_ctx);
             }
