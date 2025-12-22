@@ -445,6 +445,12 @@ enum class Keyword : std::uint64_t
     /// Get
     Get,
 
+    /// EnvLoad
+    EnvLoad,
+
+    /// EnvStore
+    EnvStore,
+
     /// Any
     Any,
 

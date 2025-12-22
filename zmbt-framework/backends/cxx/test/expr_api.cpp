@@ -807,6 +807,23 @@ std::vector<TestEvalSample> const TestSamples
     {42 | ("$x" | Eq(42)) | Id& "$x", {}                     , {true, true}    },
     {42 | ("$x" | Eq(42)) | Id & Get("$x"), {}               , {true, 42}      },
     {"$f" << Add(1)                 , 42                     , 43              },
+
+    // Side effects!
+    {EnvLoad("/foo")                , {}                     , nullptr         },
+    {42 | EnvStore("/foo")          , {}                     , 42              },
+    {EnvLoad("/foo")                , {}                     , 42              },
+
+    {EnvLoad("foo")                 , {}                     , 42              },
+    {43 | EnvStore("foo")           , {}                     , 43              },
+    {EnvLoad("foo")                 , {}                     , 43              },
+    {EnvLoad("/foo")                , {}                     , 43              },
+
+    {EnvStore | IsErr               , {}                     , true            },
+    {EnvLoad  | IsErr               , {}                     , true            },
+
+    {EnvLoad("")                    , {}                     , {{"foo", 43}}   },
+    {EnvStore("") | IsErr           , {}                     , true            },
+    {EnvLoad("")                    , {}                     , {{"foo", 43}}   },
 };
 
 
@@ -1245,4 +1262,12 @@ BOOST_AUTO_TEST_CASE(Closure)
     BOOST_CHECK_EQUAL(Dbg(closure).eval(5),   35);
     BOOST_CHECK_EQUAL(Dbg(closure).eval(4),   32);
     BOOST_CHECK_EQUAL(Dbg(closure).eval(3),   33);
+}
+
+BOOST_AUTO_TEST_CASE(SideEffectsNeverConst)
+{
+    BOOST_CHECK(!(Noop | EnvLoad("x")).is_const());
+    BOOST_CHECK(!(Noop | EnvStore("x")).is_const());
+    BOOST_CHECK(!(Noop | Rand).is_const());
+    BOOST_CHECK(!(Noop | RandInt(0, 25)).is_const());
 }

@@ -687,10 +687,27 @@ extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
 
 /// \brief Load linked value (maybe a closure) or return null
 /// \details
-/// Explicitly load the value bound to a symbolic reference without triggering capture semantics.
-/// In contexts where a `$`-prefixed reference would otherwise attempt to initialize a new binding, `Get` forces a read of an existing binding from the nearest enclosing scope. If no such binding exists, `null` is returned.
-/// This is particularly useful when working with immutable closures and recursive expressions, where it is necessary to distinguish between reading an upvalue and introducing a new local binding.
+/// Explicitly load the value bound to a symbolic reference without
+/// triggering capture semantics.
+/// 
+/// In contexts where a `$`-prefixed reference would otherwise attempt to
+/// initialize a new binding, `Get` forces a read of an existing binding from
+/// the nearest enclosing scope. If no such binding exists, `null` is returned.
+/// 
+/// This is particularly useful when working with immutable closures and
+/// recursive expressions, where it is necessary to distinguish between
+/// reading an upvalue and introducing a new local binding.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Get> const Get;
+
+/// \brief Load value from the test environment using json pointer
+/// \details
+/// Load the the value from a global environment table with a given JSON Pointer.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::EnvLoad> const EnvLoad;
+
+/// \brief Store value in the test environment using json pointer
+/// \details
+/// Capture the argument value and store it in a global environment table with a given JSON Pointer, passing the value further similarly to Link.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::EnvStore> const EnvStore;
 
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;

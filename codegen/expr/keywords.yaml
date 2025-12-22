@@ -1502,7 +1502,7 @@ keyword_groups:
       - name: Get
         signature: Binary
         brief: Load linked value (maybe a closure) or return null
-        details:
+        details: |-
           Explicitly load the value bound to a symbolic reference without
           triggering capture semantics.
 
@@ -1516,6 +1516,26 @@ keyword_groups:
         examples: |-
           "$x" | Add(1)          // captures input into $x on first encounter
           Get("$x") | Add(1)     // reads existing binding without capturing
+        domain: [any, expr]
+        codomain: expr
+
+      - name: EnvLoad
+        signature: Binary
+        brief: Load value from the test environment using JSON Pointer
+        details:
+          Load the the value from a global environment table with a given
+          JSON Pointer.
+
+        domain: [any, expr]
+        codomain: expr
+
+      - name: EnvStore
+        signature: Binary
+        brief: Store value in the test environment using JSON Pointer
+        details:
+          Capture the argument value and store it in a global environment
+          table with a given JSON Pointer, passing the value further similarly
+          to Link.
         domain: [any, expr]
         codomain: expr
 

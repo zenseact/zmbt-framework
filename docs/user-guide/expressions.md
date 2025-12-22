@@ -282,7 +282,7 @@ Other useful keywords are:
 
 For the complete information see [Expression Language Reference](../dsl-reference/expressions.md#higher-order).
 
-## Symbolic linking
+## Symbolic linking and global vars
 
 :construction: *This feature is in preview state* :construction:
 
@@ -326,6 +326,24 @@ Such captured values can be explicitly read using the `Get` expression
 
 Function bindings are shared across the whole expression and are immutable:
 once a reference is bound with `Fn`, it cannot be redefined or reset.
+
+
+### Global vars
+
+As a deviation from the pure functional paradigm, ZMBT expressions provide access to
+global mutable state via the `EnvLoad` and `EnvStore` expressions.
+
+`EnvStore` writes the current input value into the environment under the specified key (or JSON Pointer)
+and passes the same value downstream. Each call overwrites any previously stored value at that location.
+`EnvLoad` retrieves the current value from the environment or returns null if the key is not present.
+
+Both `EnvLoad` and `EnvStore` accept either a JSON Pointer or a string key to address environment
+entries. Any string starting with `/` is interpreted as a JSON Pointer.
+An empty string refers to the entire environment as a JSON object and is read-only:
+`EnvLoad("")` returns the full environment, while `EnvStore("")` produces an error.
+
+The test runner automatically resets the environment before each test execution. The environment
+remains available after the test completes and can be inspected for post-run assertions.
 
 ## Quotation
 

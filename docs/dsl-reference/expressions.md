@@ -1926,14 +1926,41 @@ or `()`, as those formats are reserved for internal use.
 
 Load linked value (maybe a closure) or return null
 
-Explicitly load the value bound to a symbolic reference without triggering capture semantics.
-In contexts where a `$`-prefixed reference would otherwise attempt to initialize a new binding, `Get` forces a read of an existing binding from the nearest enclosing scope. If no such binding exists, `null` is returned.
-This is particularly useful when working with immutable closures and recursive expressions, where it is necessary to distinguish between reading an upvalue and introducing a new local binding.
+Explicitly load the value bound to a symbolic reference without
+triggering capture semantics.
+
+In contexts where a `$`-prefixed reference would otherwise attempt to
+initialize a new binding, `Get` forces a read of an existing binding from
+the nearest enclosing scope. If no such binding exists, `null` is returned.
+
+This is particularly useful when working with immutable closures and
+recursive expressions, where it is necessary to distinguish between
+reading an upvalue and introducing a new local binding.
 
 *Examples*:
 
 "$x" | Add(1)          // captures input into $x on first encounter
 Get("$x") | Add(1)     // reads existing binding without capturing
+
+### EnvLoad
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Load value from the test environment using json pointer
+
+Load the the value from a global environment table with a given JSON Pointer.
+
+
+### EnvStore
+
+*Signature*: [Binary](../user-guide/expressions.md#syntax)
+
+
+Store value in the test environment using json pointer
+
+Capture the argument value and store it in a global environment table with a given JSON Pointer, passing the value further similarly to Link.
+
 
 ### Any
 

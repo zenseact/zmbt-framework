@@ -468,6 +468,17 @@ bool EncodingView::is_const() const
     auto const a = attributes(head());
     if (a & attr::is_pipe && size() > 1)
     {
+        {
+            // TODO: make it safe (maybe move to Encoding init)
+            auto const kwrds = if_keywords();
+            for (std::size_t i = 0; i < size(); i++)
+            {
+                if (attributes(kwrds[i]) & attr::is_sideeffect)
+                {
+                    return false;
+                }
+            }
+        }
         std::size_t next{1};
         auto st = traverse_subtrees(next, next);
         if (st.is_const() || st.head() == Keyword::Literal) return true;
@@ -481,7 +492,7 @@ bool EncodingView::is_const() const
         }
         return false;
     }
-    else if (a & attr::is_fork && size() > 1)
+    else if ((a & attr::is_fork) && (size() > 1))
     {
         std::size_t next{1};
         while(next < size())
@@ -490,7 +501,7 @@ bool EncodingView::is_const() const
         }
         return true;
     }
-    else if (a & attr::is_overload && size() > 1)
+    else if ((a & attr::is_overload) && (size() > 1))
     {
         return subtree(2).is_const();
     }

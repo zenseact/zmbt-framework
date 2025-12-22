@@ -120,6 +120,8 @@ class Keyword:
             attrs.append('is_fork')
         if self.Name == 'Op':
             attrs.append('is_overload')
+        if self.Name in ('Rand', 'RandInt', 'EnvStore', 'EnvLoad'):
+            attrs.append('is_sideeffect')
 
         return ' | '.join(attrs)
 
