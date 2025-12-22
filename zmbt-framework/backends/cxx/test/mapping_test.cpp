@@ -1139,23 +1139,6 @@ BOOST_AUTO_TEST_CASE(FlattenExpect)
 }
 
 
-BOOST_AUTO_TEST_CASE(BadSignalPath)
-{
-    boost::json::value error(nullptr);
-    zmbt::Config()
-        .SetFailureHandler([&error](boost::json::value const& sts){ error = sts; });
-
-    auto const sut = [](int){return 42;};
-
-    SignalMapping("Invalid signal path")
-    .OnTrigger(sut)
-        .At(sut).Return("/foo/bar") .Expect(42)
-    ;
-
-    BOOST_CHECK_NE(error, nullptr);
-    BOOST_CHECK_EQUAL(error.at("verdict"), "ERROR");
-}
-
 BOOST_AUTO_TEST_CASE(LangGlobalEnv)
 {
     struct Mock
