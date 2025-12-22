@@ -643,30 +643,71 @@ extern lang::SignatureOp const Overload;
 /// \brief Bind design-time parameters to function.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Bind> const Bind;
 
-/// \brief Inline named function
+/// \brief Symbolic binding of the inline function
 /// \details
-/// Expression `Fn(reference, expr)` creates a symbolic link to expr,
-/// at the same time evaluating given arguments (inlining the expr).
-/// The reference is avaliable in the evaluation context,
-/// including in the expr itself (essentially enabling an arbitrary recursion).
+/// Expression `Fn(reference, expr)` creates a symbolic binding between the given
+/// reference and an expression, making the expression callable by name within
+/// the evaluation context.
+/// 
+/// The referenced expression is inlined at the call site and evaluated with
+/// the current input. The reference is available to the bound expression itself
+/// and to all its subexpressions, enabling arbitrary recursion.
+/// 
+/// Each invocation of a function bound with `Fn` establishes a local scope for
+/// argument bindings created via `Link`, forming a lexical closure over the
+/// surrounding bindings. Argument links from outer scopes are captured by the
+/// function and remain accessible unless shadowed by a local binding.
+/// Such captured values can be explicitly read using the `Get` expression
+/// 
+/// Function bindings are shared across the whole expression and are immutable:
+/// once a reference is bound with `Fn`, it cannot be redefined or reset.
 /// 
 /// **Infix operator form (left shift)**:
 /// 
 /// `"$f" << E` ≡ `Fn("$f", E)`
-extern lang::SignatureBinary<::zmbt::lang::Keyword::Fn> const Fn;
+extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fn> const Fn;
 
 /// \brief Symbolic binding of the input value
 /// \details
-/// The capture is referenced by an arbitrary string preceded by dollar sign,
-/// e.g. "$x".
+/// Capture the current input value and associate it with a symbolic
+/// reference represented by a dollar-prefixed string, e.g. `"$x"`.
 /// 
-/// On the first access it stores the input value in isolated expression context,
-/// and returns it on each subsequent call.
-/// It can't be reset after the first access.
+/// On its first evaluation, the reference stores the input value (similar to
+/// variable initialization) and passes the value further through the pipeline.
+/// On subsequent evaluations within the same scope, the stored value is returned,
+/// acting as an immutable constant.
 /// 
-/// The string after $ sign shall not be enclosed in [], {}, or (),
-/// as those formats are reserved for internal usage.
+/// A `Link` instance cannot be reset after its first access. However, it may be
+/// shadowed by another binding with the same reference name in a nested scope,
+/// such as a recursive call created with `Fn`.
+/// 
+/// The reference name following the `$` sign must not be enclosed in `[]`, `{}`,
+/// or `()`, as those formats are reserved for internal use.
 extern lang::SignatureBinary<::zmbt::lang::Keyword::Link> const Link;
+
+/// \brief Load linked value (maybe a closure) or return null
+/// \details
+/// Explicitly load the value bound to a symbolic reference without
+/// triggering capture semantics.
+/// 
+/// In contexts where a `$`-prefixed reference would otherwise attempt to
+/// initialize a new binding, `Get` forces a read of an existing binding from
+/// the nearest enclosing scope. If no such binding exists, `null` is returned.
+/// 
+/// This is particularly useful when working with immutable closures and
+/// recursive expressions, where it is necessary to distinguish between
+/// reading an upvalue and introducing a new local binding.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::Get> const Get;
+
+/// \brief Load value from the test environment using json pointer
+/// \details
+/// Load the the value from a global environment table with a given JSON Pointer.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::EnvLoad> const EnvLoad;
+
+/// \brief Store value in the test environment using json pointer
+/// \details
+/// Capture the argument value and store it in a global environment table with a given JSON Pointer, passing the value further similarly to Link.
+extern lang::SignatureBinary<::zmbt::lang::Keyword::EnvStore> const EnvStore;
 
 /// \brief Match any predicate
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Any> const Any;
@@ -685,8 +726,11 @@ extern lang::SignatureVariadic<::zmbt::lang::Keyword::Tuple> const Tuple;
 
 /// \brief Pack results from enveloped functions into an array
 /// \details
-/// Allows to combine different properties in a single expression.
-/// Parameter
+/// Parallel composition operator:
+/// 
+/// ```
+/// x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+/// ```
 extern lang::SignatureVariadic<::zmbt::lang::Keyword::Fork> const Fork;
 
 /// \brief Flip design-time and eval-time parameters.

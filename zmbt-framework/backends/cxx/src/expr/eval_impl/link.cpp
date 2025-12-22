@@ -23,50 +23,87 @@ namespace lang {
 ZMBT_DEFINE_EVALUATE_IMPL(Fn)
 {
     auto const enc = self().encoding_view();
-    auto const tuple = enc.child(0);
-    ASSERT((enc.arity() == 1)
-        && (tuple.head() == Keyword::Tuple)
-        && (tuple.arity() == 2)
-        , "invalid encoding");
+    ASSERT(enc.arity() == 2, "invalid encoding");
 
-    ExpressionView link (tuple.child(0));
+    ExpressionView link (enc.child(0));
     auto const if_str_link = link.if_string();
     ASSERT(if_str_link, "Symbolic reference shall be a string")
 
-    auto const link_pos = curr_ctx().links->find(*if_str_link);
-    ASSERT(link_pos == curr_ctx().links->cend(), "key refers to existing link")
-    ASSERT(not curr_ctx().captures->contains(*if_str_link), "key refers to existing capture")
+    auto const link_pos = curr_ctx().expr_links->find(*if_str_link);
+    ASSERT(link_pos == curr_ctx().expr_links->cend(), "key refers to existing link")
+    for (auto const& scope_captures: *curr_ctx().capture_links)
+    {
+        ASSERT(not scope_captures.contains(*if_str_link), "key refers to existing capture")
+    }
 
-    ExpressionView referent(tuple.child(1));
-    curr_ctx().links->emplace_hint(link_pos, *if_str_link, tuple.child(1));
+    ExpressionView referent(enc.child(1));
+    curr_ctx().expr_links->emplace_hint(link_pos, *if_str_link, enc.child(1));
 
     return referent.eval_e(lhs(), curr_ctx());
 }
 
-ZMBT_DEFINE_EVALUATE_IMPL(Link)
+
+ZMBT_DEFINE_EVALUATE_IMPL(Get)
 {
-    auto const if_str_key = self().if_string();
+    auto const if_str_key = rhs().if_string();
     ASSERT(if_str_key, "reference not a string");
 
-    auto const link_pos = curr_ctx().links->find(*if_str_key);
-    auto const capture_pos = curr_ctx().captures->find(*if_str_key);
+    boost::json::value const* capture_found{};
 
-    auto const link_found    = link_pos     != curr_ctx().links->cend();
-    auto const capture_found = capture_pos  != curr_ctx().captures->cend();
-
-    ASSERT(not (link_found && capture_found), "corrupted context")
-
-    if(lhs().is(Keyword::LazyToken) && capture_found)
+    auto capture_links_it = std::make_reverse_iterator(curr_ctx().capture_links->cend());
+    auto capture_links_start = capture_links_it;
+    auto const capture_links_end = std::make_reverse_iterator(curr_ctx().capture_links->cbegin());
+    while (!capture_found && (capture_links_it != capture_links_end))
     {
-        return capture_pos->value();
+        capture_found = capture_links_it->if_contains(*if_str_key);
+        capture_links_it++;
     }
-    else if (link_found)
+
+    // load upvalue into local scope to prevent shadowing
+    if (capture_found && (capture_links_start != capture_links_it))
     {
-        return link_pos->second.eval_e(lhs(), curr_ctx());
+        curr_ctx().capture_links->back().insert_or_assign(*if_str_key, *capture_found);
+    }
+
+    return capture_found ? *capture_found : nullptr;
+
+}
+
+
+ZMBT_DEFINE_EVALUATE_IMPL(Link)
+{
+    auto if_str_key = self().if_string();
+    if (!if_str_key) if_str_key = rhs().if_string();
+    ASSERT(if_str_key, "reference not a string");
+
+    ExpressionView const* symlink_found{};
+    {
+        auto const link_pos = curr_ctx().expr_links->find(*if_str_key);
+        if(link_pos != curr_ctx().expr_links->cend())
+        {
+            symlink_found = &link_pos->second;
+        }
+    }
+
+
+    auto const capture_found = curr_ctx().capture_links->back().if_contains(*if_str_key);
+
+    ASSERT(not (symlink_found && capture_found), "corrupted context")
+
+    if(capture_found && lhs().is(Keyword::LazyToken))
+    {
+        return *capture_found;
+    }
+    else if (symlink_found)
+    {
+        curr_ctx().capture_links->push_back({});
+        auto const result = symlink_found->eval_e(lhs(), curr_ctx());
+        curr_ctx().capture_links->pop_back();
+        return result;
     }
     else
     {
-        curr_ctx().captures->insert_or_assign(*if_str_key, lhs().data());
+        curr_ctx().capture_links->back().insert_or_assign(*if_str_key, lhs().data());
         return lhs();
     }
 }

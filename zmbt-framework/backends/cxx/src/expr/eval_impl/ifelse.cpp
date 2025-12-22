@@ -51,9 +51,6 @@ E if_continue(
 namespace zmbt {
 namespace lang {
 
-// 42 | If(Eq(41), 0) | Elif(Gt(43), 14) | Else(11)
-
-
 
 ZMBT_DEFINE_EVALUATE_IMPL(If)
 {

@@ -59,7 +59,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Transp)
 ZMBT_DEFINE_EVALUATE_IMPL(Cat)
 {
     auto const& x = lhs().data();
-    auto const& param = rhs().data();
+    auto param = rhs().eval({}, curr_ctx());
 
     ASSERT(x.kind() == param.kind(), "invalid argument");
     ASSERT(x.is_string() || x.is_array(), "invalid argument");

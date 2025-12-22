@@ -282,54 +282,68 @@ Other useful keywords are:
 
 For the complete information see [Expression Language Reference](../dsl-reference/expressions.md#higher-order).
 
-## Symbolic linking
+## Symbolic linking and global vars
 
-:construction: *This feature is in prototype state* :construction:
+:construction: *This feature is in preview state* :construction:
 
 As a step aside from tacit style,
-Expressions support two levels of symbolic linking using $-prefixed strings as references.
+Expressions support two types of symbolic linking using $-prefixed strings as references.
 
 
-### Eval-level linking
+### Argument linking
 
 ``` c++
 "$x" | Ne(0) | And("$x" | Flip(Div(1))) | Or("$x")
 ```
 
-In this example the first encounter of `"$x"` will
-store the argument in isolated evaluation context and pass to the consequent term,
-making it available to all subexpressions,
-s.a. `And("$x" | ...)` (recall that expression parameters computation is lazy).
+In this example, the first encounter of "$x" stores the input value
+in an local environment and passes it to the subsequent term,
+making it available to all subexpressions, such as `And("$x" | ...)`.
+Recall that expression parameter evaluation is lazy.
 
-
-### Design-level linking
+### Function linking
 
 ``` c++
 "$f" << ("$x"
    | Assert(Ge(0))
    | Lt(2)
    | And(1)
-   | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+   | Or("$x" | Sub(1) | "$f" | Mul("$x"))
 );
 ```
 
-This example constructs a recursive factorial function using << as an assignment operator.
-As with `"$x"`, the `"$f"` link is accessible in all subsequent subexpressions.
-From an implementation perspective, it behaves like a `goto` -
-the evaluation context stores a view of the expression (an AST pointer),
-so no design-time data is copied.
+This example constructs a recursive factorial function using `<<` as an assignment operator.
+The referenced expression is inlined at the call site and evaluated with
+the current input. The reference is available to the bound expression itself
+and to all its subexpressions, enabling arbitrary recursion.
+
+Each invocation of a function bound with `Fn` establishes a local scope for
+argument bindings created via `Link`, forming a lexical closure over the
+surrounding bindings. Argument links from outer scopes are captured by the
+function and remain accessible unless shadowed by a local binding.
+Such captured values can be explicitly read using the `Get` expression
 
 
-!!! note
+Function bindings are shared across the whole expression and are immutable:
+once a reference is bound with `Fn`, it cannot be redefined or reset.
 
-    Note that the evaluation context *does not yet support local scoping*,
-    so any recursive `"$f"` invocation updates the same `"$x"` value.
-    Because of this, "$x" is not used directly inside the final Mul expression.
-    With the local scoping implemented, the equivalent expression would be
-    ``` c++
-    Or("$x" | Sub(1) | "$f" | Mul("$x"))
-    ```
 
+### Global vars
+
+As a deviation from the pure functional paradigm, ZMBT expressions provide access to
+global mutable state via the `EnvLoad` and `EnvStore` expressions.
+
+`EnvStore` writes the current input value into the environment under the specified key (or JSON Pointer)
+and passes the same value downstream. Each call overwrites any previously stored value at that location.
+`EnvLoad` retrieves the current value from the environment or returns null if the key is not present.
+
+Both `EnvLoad` and `EnvStore` accept either a JSON Pointer or a string key to address environment
+entries. Any string starting with `/` is interpreted as a JSON Pointer.
+An empty string refers to the entire environment as a JSON object and is read-only:
+`EnvLoad("")` returns the full environment, while `EnvStore("")` produces an error.
+
+The test runner automatically resets the environment before each test execution. The environment
+remains available after the test completes and can be inspected for post-run assertions.
 
 ## Quotation
 

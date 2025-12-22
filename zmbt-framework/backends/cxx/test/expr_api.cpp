@@ -31,8 +31,6 @@ using zmbt::lang::EvalLog;
 namespace {
 
 std::set<Keyword> const NotImplemented {
-    Keyword::Fn,
-    Keyword::Link,
 };
 
 
@@ -70,6 +68,10 @@ std::vector<TestEvalSample> const TestSamples
     {Default(42)                , nullptr               , 42                    },
     {Default(42)                , ""                    , ""                    },
     {Default(42)                , {1,2,3}               , {1,2,3}               },
+
+    { 2 | Div(0) | IsErr        , nullptr               , true                  },
+    { 2 | Div(0) | Default(42)  , nullptr               , 42                    },
+
 
     // boolean cast
     {Bool                       , true                  , true                  },
@@ -799,6 +801,29 @@ std::vector<TestEvalSample> const TestSamples
     {Q({{"foo", {{"bar", "baz"}}}}) | FindIdx(At(0)|"foo") , {}, 0             },
 
     {"abcd" | FindIdx('d')          , {}                     , 3               },
+
+    {42 | Link("$x") | Eq(42)       , {}                     , true            },
+    {42 | ("$x" | Eq(42))           , {}                     , true            },
+    {42 | ("$x" | Eq(42)) | Id& "$x", {}                     , {true, true}    },
+    {42 | ("$x" | Eq(42)) | Id & Get("$x"), {}               , {true, 42}      },
+    {"$f" << Add(1)                 , 42                     , 43              },
+
+    // Side effects!
+    {EnvLoad("/foo")                , {}                     , nullptr         },
+    {42 | EnvStore("/foo")          , {}                     , 42              },
+    {EnvLoad("/foo")                , {}                     , 42              },
+
+    {EnvLoad("foo")                 , {}                     , 42              },
+    {43 | EnvStore("foo")           , {}                     , 43              },
+    {EnvLoad("foo")                 , {}                     , 43              },
+    {EnvLoad("/foo")                , {}                     , 43              },
+
+    {EnvStore | IsErr               , {}                     , true            },
+    {EnvLoad  | IsErr               , {}                     , true            },
+
+    {EnvLoad("")                    , {}                     , {{"foo", 43}}   },
+    {EnvStore("") | IsErr           , {}                     , true            },
+    {EnvLoad("")                    , {}                     , {{"foo", 43}}   },
 };
 
 
@@ -1148,8 +1173,11 @@ BOOST_AUTO_TEST_CASE(PrettifyExpression)
 
      // right grouping - parentheses preserved
     TEST_PRETIFY(   Q & (Q & (Q & Q))                               )
-     // left associativity - unfold groups
-    TEST_PRETIFY(   ((Q & Q) & Q) & Q                               );
+     // left associativity - parentheses preserved
+    TEST_PRETIFY(   ((Q & Q) & Q) & Q                               )
+    // Explicit keywords is necessary to preserve left grouping
+    // for non-associative Tuple
+    TEST_PRETIFY( Tuple(Tuple((Q, Q), Q), Q)                        )
 
     // no infix sugar for singleton Pipe and Fork
     TEST_PRETIFY(   Pipe(Fork(All))                                 )
@@ -1206,7 +1234,7 @@ BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
         | Assert(Ge(0))
         | Lt(2)
         | And(1)
-        | Or("$x" & ("$x" | Sub(1) | "$f") | Mul)
+        | Or("$x" | Sub(1) | "$f" | Mul("$x"))
     );
 
     BOOST_TEST_INFO(fact.prettify());
@@ -1217,4 +1245,29 @@ BOOST_AUTO_TEST_CASE(SymbolicLinkRecursion)
     BOOST_CHECK_EQUAL(fact.eval(4),  24);
     BOOST_CHECK_EQUAL(fact.eval(5), 120);
     BOOST_CHECK_EQUAL((fact | IsErr).eval(-5), true);
+}
+
+BOOST_AUTO_TEST_CASE(Closure)
+{
+    auto const closure = "$closed"
+        | ("$f" << ("$local"
+        | Get("$closed")
+        | Add("$local")
+        | If(Abs|Ge(31), Id)
+        | Else("$f")
+        ))
+    ;
+
+    BOOST_TEST_INFO(closure.prettify());
+    BOOST_CHECK_EQUAL(Dbg(closure).eval(5),   35);
+    BOOST_CHECK_EQUAL(Dbg(closure).eval(4),   32);
+    BOOST_CHECK_EQUAL(Dbg(closure).eval(3),   33);
+}
+
+BOOST_AUTO_TEST_CASE(SideEffectsNeverConst)
+{
+    BOOST_CHECK(!(Noop | EnvLoad("x")).is_const());
+    BOOST_CHECK(!(Noop | EnvStore("x")).is_const());
+    BOOST_CHECK(!(Noop | Rand).is_const());
+    BOOST_CHECK(!(Noop | RandInt(0, 25)).is_const());
 }

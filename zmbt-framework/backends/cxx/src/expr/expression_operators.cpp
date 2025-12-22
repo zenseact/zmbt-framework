@@ -60,7 +60,7 @@ Expression operator<<(Expression link, Expression referent)
         return expr::Err("Invalid symbolic reference format", BOOST_CURRENT_FUNCTION);
     }
     return Expression(Expression::encodeNested(Keyword::Fn,
-        {expr::Tuple(std::move(link), std::move(referent))}
+        {std::move(link), std::move(referent)}
     ));
 }
 

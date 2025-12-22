@@ -346,6 +346,7 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
     bool success {true};
 
     zmbt::Config().ResetRng();
+    zmbt::lang::GlobalEnv().Reset();
     reset_performance_counters();
 
     auto to_string = [](boost::json::value const& node) {

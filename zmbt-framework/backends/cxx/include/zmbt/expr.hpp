@@ -7,6 +7,7 @@
 #ifndef ZMBT_EXPR_HPP_
 #define ZMBT_EXPR_HPP_
 
+#include "expr/global_env.hpp"
 #include "expr/operator.hpp"
 #include "expr/keyword.hpp"
 #include "expr/keyword_grammar.hpp"

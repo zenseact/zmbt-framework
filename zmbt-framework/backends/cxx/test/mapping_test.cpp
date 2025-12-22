@@ -1155,3 +1155,38 @@ BOOST_AUTO_TEST_CASE(BadSignalPath)
     BOOST_CHECK_NE(error, nullptr);
     BOOST_CHECK_EQUAL(error.at("verdict"), "ERROR");
 }
+
+BOOST_AUTO_TEST_CASE(LangGlobalEnv)
+{
+    struct Mock
+    {
+        int produce()
+        {
+            return InterfaceRecord(&Mock::produce, this).Hook();
+        }
+    } mock_x, mock_y;
+
+    auto const sut = [&](){
+        auto x = mock_x.produce();
+        auto y = mock_y.produce();
+        return boost::json::array{x, y};
+    };
+
+    BOOST_CHECK_EQUAL(*(42 | EnvStore("foo")), 42); // storing x = 42
+
+    SignalMapping("lang::GlobalEnv test")
+    .OnTrigger(sut).Repeat(3)
+        .At(&Mock::produce, mock_x).Return() .Inject(EnvStore("x") | Trace("x-store"))
+        .At(&Mock::produce, mock_y).Return() .Inject(Noop | EnvLoad("x") | Trace("x-load") | D(0) | Mul(-1))
+        .At(sut).Return().Expect()
+        .Test
+            (L{{0,0},{1,-1},{2,-2}}) ["env is reset before tests"]
+            (L{{0,0},{1,-1},{2,-2}}) ["same output, env is reset before tests"]
+        .PreRun([]{
+            BOOST_CHECK_EQUAL(*EnvLoad("foo"), nullptr); // env is reset before tests
+        })
+    ;
+    BOOST_CHECK_EQUAL(*EnvLoad("x"), 2); // state preserved after test
+    zmbt::lang::GlobalEnv().Reset();
+    BOOST_CHECK_EQUAL(*EnvLoad("x"), nullptr);
+}

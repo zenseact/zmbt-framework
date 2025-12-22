@@ -153,6 +153,9 @@ extern template Expression dispatch_eval<Keyword::Op>(ExpressionView const&, Exp
 extern template Expression dispatch_eval<Keyword::Bind>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Fn>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Link>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::Get>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::EnvLoad>(ExpressionView const&, ExpressionView const&, EvalContext);
+extern template Expression dispatch_eval<Keyword::EnvStore>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Any>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::All>(ExpressionView const&, ExpressionView const&, EvalContext);
 extern template Expression dispatch_eval<Keyword::Saturate>(ExpressionView const&, ExpressionView const&, EvalContext);
@@ -318,6 +321,9 @@ try
         case Keyword::Bind: return dispatch_eval<Keyword::Bind>(*this, x, context);
         case Keyword::Fn: return dispatch_eval<Keyword::Fn>(*this, x, context);
         case Keyword::Link: return dispatch_eval<Keyword::Link>(*this, x, context);
+        case Keyword::Get: return dispatch_eval<Keyword::Get>(*this, x, context);
+        case Keyword::EnvLoad: return dispatch_eval<Keyword::EnvLoad>(*this, x, context);
+        case Keyword::EnvStore: return dispatch_eval<Keyword::EnvStore>(*this, x, context);
         case Keyword::Any: return dispatch_eval<Keyword::Any>(*this, x, context);
         case Keyword::All: return dispatch_eval<Keyword::All>(*this, x, context);
         case Keyword::Saturate: return dispatch_eval<Keyword::Saturate>(*this, x, context);

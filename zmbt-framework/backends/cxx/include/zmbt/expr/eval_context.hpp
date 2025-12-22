@@ -8,7 +8,11 @@
 #ifndef ZMBT_EXPR_EVAL_CONTEXT_HPP_
 #define ZMBT_EXPR_EVAL_CONTEXT_HPP_
 
+
+#include <map>
 #include <memory>
+#include <deque>
+
 #include <boost/json.hpp>
 
 #include "operator.hpp"
@@ -29,8 +33,8 @@ struct EvalContext
     /// Evaluation log
     EvalLog log;
     /// reference -> value map
-    std::shared_ptr<boost::json::object> captures;
-    std::shared_ptr<std::map<boost::json::string, ExpressionView>> links;
+    std::shared_ptr<std::deque<boost::json::object>> capture_links;
+    std::shared_ptr<std::map<boost::json::string, ExpressionView>> expr_links;
     // boost::json::object captures;
     /// Evaluation stack depth
     std::uint64_t depth;
