@@ -6,7 +6,6 @@
 
 #include <cstddef>
 #include <exception>
-#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -86,7 +85,16 @@ try
                 if (obj_param == "$(default)") {
                     obj_id = (ifc_id == trig_ifc) ? trig_obj : env.DefaultObjectId(ifc_id);
                 } else {
-                    obj_id = object_id{lang::Expression(obj_param).eval()};
+                    // TODO: fix at entity_id/object_id ctors
+                    auto const evaluated = lang::Expression(obj_param).eval();
+                    if (evaluated.is_string())
+                    {
+                        obj_id = object_id{evaluated.as_string()};
+                    }
+                    else
+                    {
+                        obj_id = object_id{evaluated};
+                    }
                 }
 
                 interface = env.GetOrRegisterInterface(obj_id, ifc_id);
