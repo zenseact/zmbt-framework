@@ -10,7 +10,7 @@ The framework conceptualizes a software test as a mathematical problem.
 It enables users to define test parameters and goals using a declarative
 modeling syntax, upon which automated verification procedures are applied.
 
-[![Test and Scan Backends](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-backends.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-backends.yml)
+[![Test C++ Library](https://github.com/zenseact/zmbt-framework/actions/workflows/test-cxx-library.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-cxx-library.yml)
 [![Test and Scan Python](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-python.yml/badge.svg)](https://github.com/zenseact/zmbt-framework/actions/workflows/test-and-scan-python.yml)
 
 

@@ -1,4 +1,4 @@
-name: Test and Scan Backends
+name: Test C++ Library
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  test-and-scan-backends:
+  test-cxx-library:
     name: Build and test backends/cxx
     runs-on: ubuntu-latest
     permissions:
@@ -37,12 +37,6 @@ jobs:
         run: |
             bazel --version
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-          languages: c-cpp
-          build-mode: manual
-
       - name: Run all tests
         shell: bash
         run: |
@@ -61,13 +55,8 @@ jobs:
           name: test-logs-backends-cxx
           path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.log
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
-        with:
-          category: "/language:c-cpp"
-
   publish-test-results:
-    needs: test-and-scan-backends
+    needs: test-cxx-library
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
