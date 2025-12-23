@@ -8,35 +8,9 @@ on:
     branches: [ "main" ]
 
 jobs:
-  setup-cxx:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install tools
-        shell: bash
-        run: |
-          sudo apt install unzip zip wget gcc
-
-      - name: Install Bazel
-        shell: bash
-        run: |
-          wget https://github.com/bazelbuild/bazel/releases/download/7.4.1/bazel-7.4.1-installer-linux-x86_64.sh
-          chmod +x bazel-7.4.1-installer-linux-x86_64.sh
-          ./bazel-7.4.1-installer-linux-x86_64.sh --user
-          export PATH="$PATH:$HOME/bin"
-          bazel --version
-
-      - name: Install Clang-17
-        shell: bash
-        run: |
-          wget https://apt.llvm.org/llvm.sh
-          chmod u+x llvm.sh
-          sudo ./llvm.sh 17
-          clang-17 --version
-
 
   test-and-scan-backends:
-    needs: setup-cxx
-    name: Build and test backends/${{ matrix.backend }} with ${{ matrix.compiler }}
+    name: Build and test backends/cxx
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -48,52 +22,49 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        include:
-        - backend: cxx
-          language: c-cpp
-          compiler: gcc
-        - backend: cxx
-          language: c-cpp
-          compiler: clang-17
 
-    env:
-      CC: /usr/bin/${{ matrix.compiler }}
     steps:
 
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - if: matrix.backend == 'cxx' && matrix.compiler == 'gcc'
-        name: Initialize CodeQL
+      - uses: bazel-contrib/setup-bazel@0.16.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+
+      - shell: bash
+        run: |
+            bazel --version
+
+      - name: Initialize CodeQL
         uses: github/codeql-action/init@v4
         with:
-          languages: ${{ matrix.language }}
+          languages: c-cpp
           build-mode: manual
 
-      - if: matrix.language == 'c-cpp'
-        name: Run all tests
+      - name: Run all tests
         shell: bash
         run: |
-            bazel --output_user_root=/tmp/build_output test //zmbt-framework/backends/${{ matrix.backend }}/...
+            bazel clean --expunge
+            bazel test //zmbt-framework/backends/cxx/...
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-backends-${{ matrix.backend }}-${{ matrix.compiler }}
-          path: bazel-testlogs/zmbt-framework/backends/${{ matrix.backend }}/test/**/*.xml
+          name: test-results-backends-cxx
+          path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.xml
 
       - name: Upload test logs
         uses: actions/upload-artifact@v4
         with:
-          name: test-logs-backends-${{ matrix.backend }}-${{ matrix.compiler }}
-          path: bazel-testlogs/zmbt-framework/backends/${{ matrix.backend }}/test/**/*.log
+          name: test-results-backends-cxx
+          path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.log
 
-      - if: matrix.backend == 'cxx' && matrix.compiler == 'gcc'
-        name: Perform CodeQL Analysis
+      - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
         with:
-          category: "/language:${{matrix.language}}"
+          category: "/language:c-cpp"
 
   publish-test-results:
     needs: test-and-scan-backends
@@ -101,12 +72,8 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: test-results-backends-cxx-clang-17
-          path: cxx-clang-17
-      - uses: actions/download-artifact@v4
-        with:
-          name: test-results-backends-cxx-gcc
-          path: cxx-gcc
+          name: test-results-backends-cxx
+          path: backends-cxx-test-results
       - name: List downloaded files
         run: ls -R
       - name: Publish Test Results
@@ -114,5 +81,4 @@ jobs:
         with:
           action_fail_on_inconclusive: true
           junit_files: |
-            cxx-clang-17/**/*.xml
-            cxx-gcc/**/*.xml
+            backends-cxx-test-results/**/*.xml
