@@ -113,7 +113,7 @@ bool InstanceTestRunner::inject_inline_inputs(TestDiagnostics diagnostics)
         {
             report_failure(diagnostics
                 .Error("inline input injection", e.what())
-                .PipeId(pipe.index()));
+                .PipeId(pipe.id()));
             return false;
         }
     }
@@ -151,7 +151,7 @@ bool InstanceTestRunner::inject_tabular_inputs(boost::json::array const& test_ve
         catch (std::exception const& error) {
             report_failure(diagnostics
                 .Error("test input injection", error.what())
-                .PipeId(pipe.index())
+                .PipeId(pipe.id())
             );
             no_exception_met = false;
         }
@@ -275,7 +275,7 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
         {
             passed = false;
             report_failure(diagnostics
-                .PipeId(pipe.index()));
+                .PipeId(pipe.id()));
         }
     }
     return passed;
@@ -452,7 +452,6 @@ class TestRunner::Impl
 
     void Run()
     {
-
         JsonNode instance = resolver_.Next();
         while (!instance.is_null())
         {

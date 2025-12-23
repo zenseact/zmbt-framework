@@ -221,12 +221,23 @@ struct ModelDefinition::T_Take : protected virtual ModelDefinition::BaseTransiti
 
 
 template <class Target>
-struct ModelDefinition::T_Alias : protected virtual ModelDefinition::BaseTransition
+struct ModelDefinition::T_Tag : protected virtual ModelDefinition::BaseTransition
 {
-    /// Set channel Alias
-    Target Alias(boost::json::string_view alias)
+    /// Set channel tag
+    Target Tag(boost::json::string_view alias)
     {
-        state().cur_channel()["alias"] = alias;
+        state().cur_channel()["tag"] = alias;
+        return transit_to<Target>();
+    }
+};
+
+template <class Target>
+struct ModelDefinition::T_PipeId : protected virtual ModelDefinition::BaseTransition
+{
+    /// Set pipe identifier for test reports
+    Target operator[](lang::Expression const& expr)
+    {
+        state().set_deferred_param(format("/pipes/%d/id", (state().pipe_count_ - 1)), expr);
         return transit_to<Target>();
     }
 };
@@ -396,6 +407,10 @@ struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTrans
     Target operator[](boost::json::string_view comment)
     {
         state().set_comment(comment);
+    //     auto const idx = model.at("/tests").as_array().size() -1;
+    // model("/comments/%d", idx) = comment;
+    //     state().set_deferred_param(format("/pipes/%d/id", (pipe_count_ - 1)), expr);
+
         return transit_to<Target>();
     }
 

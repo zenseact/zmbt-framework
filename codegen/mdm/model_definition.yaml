@@ -12,11 +12,12 @@ nodes:
   N_TestTable:    { base: N_Param,        trans: { T_TestRow:         N_TestTable     } }
   N_Channel:      { base: null  ,         trans: { T_At:              N_Filter        } }
   N_MaybeChannel: { base: N_Test,         trans: { T_At:              N_Filter        } }
-  N_ChannelEnd:   { base: null,           trans: { T_TerminatePipe:   N_MaybeChannel  ,
+  N_PipeId:       { base: N_MaybeChannel, trans: { T_PipeId:          N_MaybeChannel  } }
+  N_ChannelEnd:   { base: null,           trans: { T_TerminatePipe:   N_PipeId        ,
                                                    T_ContinuePipe:    N_Channel       } }
   N_Decor:        { base: N_ChannelEnd,   trans: { T_As:              N_ChannelEnd    } }
-  N_Alias:        { base: N_Decor,        trans: { T_Alias:           N_Decor         } }
-  N_Take:         { base: N_Alias,        trans: { T_Take:            N_Alias         } }
+  N_CnlTag:       { base: N_Decor,        trans: { T_Tag:             N_Decor         } }
+  N_Take:         { base: N_CnlTag,       trans: { T_Take:            N_CnlTag        } }
   N_Filter:       { base: N_Take,         trans: { T_Filter:          N_Take          } }
   N_Repeat:       { base: N_MaybeChannel, trans: { T_Repeat:          N_MaybeChannel  } }
   N_Main:         { base: null,           trans: { T_OnTrigger:       N_Repeat        } }

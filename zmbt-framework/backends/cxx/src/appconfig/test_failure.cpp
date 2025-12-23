@@ -101,7 +101,7 @@ void format_failure_report(std::ostream& os, boost::json::value const& sts)
     auto const& eval_stack = sts.at("eval_stack").as_array();
     if (!eval_stack.empty())
     {
-        os << prefix << "expression eval stack: |-"
+        os << prefix << "evaluation: |-"
             << prefix << "  ---\n"; // needed to keep valid yaml string under |-
         zmbt::lang::EvalLog::format(os, eval_stack, 8);
     }

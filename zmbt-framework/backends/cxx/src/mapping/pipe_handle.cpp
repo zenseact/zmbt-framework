@@ -186,7 +186,7 @@ boost::json::value PipeHandle::observe_blend() const
 
     for (auto const& channel: channels_)
     {
-        auto const& alias = channel.alias();
+        auto const& alias = channel.tag();
         auto ifc_handle = Environment::InterfaceHandle(channel.interface(), channel.host());
         auto const& captures = ifc_handle.Captures();
 
@@ -254,6 +254,25 @@ int PipeHandle::column() const
 boost::json::value PipeHandle::index() const
 {
     return data_.at("/index");
+}
+
+boost::json::value PipeHandle::id() const
+{
+    if (id_cache_.is_null())
+    {
+        auto const idx = index();
+        auto const id_expr = lang::Expression(data_.get_or_default("/id", nullptr));
+        auto const id = id_expr.eval({});
+        if (id.is_null())
+        {
+            id_cache_ = idx;
+        }
+        else
+        {
+            id_cache_ = format("#%d: %s",idx, id);
+        }
+    }
+    return id_cache_;
 }
 
 

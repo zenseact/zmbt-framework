@@ -37,7 +37,7 @@ class DefinitionHelper {
     int test_column_count_{0};
 
     boost::json::value head_pipe_type_ {};
-    std::string head_pointer_{};
+    std::string channel_pointer_{};
     Environment env;
     JsonNode model;
     JsonNode params;
@@ -49,7 +49,7 @@ class DefinitionHelper {
 
     std::string head_pointer() const
     {
-        return head_pointer_;
+        return channel_pointer_;
     }
 
     boost::json::object& cur_channel();

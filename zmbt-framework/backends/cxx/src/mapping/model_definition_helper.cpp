@@ -45,7 +45,7 @@ boost::json::object& DefinitionHelper::cur_pipe()
 
 boost::json::object& DefinitionHelper::cur_channel()
 {
-    return model(head_pointer_).as_object();
+    return model(channel_pointer_).as_object();
 }
 
 
@@ -169,13 +169,13 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
         {"kind", "$(default)"},
         {"index_abs", channel_abs_count_},
         {"index_rel", channel_rel_count_},
-        {"alias", channel_abs_count_},
+        {"tag", channel_abs_count_},
     });
 
     channel_abs_count_++;
     channel_rel_count_++;
-    head_pointer_ = format("/pipes/%d/channels/%d", (pipe_count_ - 1), (channel_rel_count_ - 1));
-    auto const interface_ptr = format("%s/interface", head_pointer_);
+    channel_pointer_ = format("/pipes/%d/channels/%d", (pipe_count_ - 1), (channel_rel_count_ - 1));
+    auto const interface_ptr = format("%s/interface", channel_pointer_);
 
 
     if (param_type & cnl_prm_key & cnl_prm_obj & cnl_prm_cal)
@@ -209,8 +209,8 @@ void DefinitionHelper::add_channel_impl(boost::json::value const& ifc, uint32_t 
 
 void DefinitionHelper::set_channel_sp(boost::json::string_view kind, lang::Expression const& sp)
 {
-    model("%s/kind", head_pointer_) = kind;
-    set_deferred_param(format("%s/signal_path", head_pointer_), sp);
+    model("%s/kind", channel_pointer_) = kind;
+    set_deferred_param(format("%s/signal_path", channel_pointer_), sp);
 }
 
 void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)

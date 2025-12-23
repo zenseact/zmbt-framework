@@ -999,13 +999,13 @@ visible on non-constant generators.
 
 
 The output `Blend` pipr merges captured samples in a time series, producing a list of pairs `[id, signal]`, sorted by timestamp.
-Id field, if not defined explicitly with `Alias` clause, is a channel absolute index (ignoring the pipe boundaries).
+Id field, if not defined explicitly with `Tag` clause, is a channel absolute index (ignoring the pipe boundaries).
 
 In combination with `Saturate` or other custom matchers, the `Blend` output can be utilized for testing a strict or partial order on mock calls.
 
 ```c++
 */
-BOOST_AUTO_TEST_CASE(TestMultichannelPipes)
+BOOST_AUTO_TEST_CASE(TestInputBlend)
 {
 
     auto const repack = [](int a, int b, int c){
@@ -1038,8 +1038,11 @@ BOOST_AUTO_TEST_CASE(TestMultichannelPipes)
         .At(repack).Return("/b").Group()
         .At(repack).Return("/c").Expect({{0,3},{1,4},{2,5}})
     ;
+}
 
 
+BOOST_AUTO_TEST_CASE(TestOutputBlend)
+{
     struct Mock {
         void foo(int x) {
             return InterfaceRecord(&Mock::foo).Hook(x);
@@ -1061,16 +1064,20 @@ BOOST_AUTO_TEST_CASE(TestMultichannelPipes)
 
     SignalMapping("Test Blend on output")
     .OnTrigger(SUT).Repeat(N)
-        .At(SUT) .Inject()
-        .At(&Mock::foo).Alias("f").Blend()
-        .At(&Mock::bar).Alias("b").Expect(Match)
+        .At(&Mock::foo).Tag("f").Blend()
+        .At(&Mock::bar).Tag("b").Expect(Match) ["Blending input signals on N = %d, expect %s" | Fmt(N, Q(Match))]
     .Zip
         (N,  2)
-        (Match, Serialize | R"([["f",0],["b",1]])")
+        (Match, Serialize | Eq(R"([["f",0],["b",1]])"))
     .Zip
         (N, 42)
         (Match, Map(At(0)) | All(Count("f")|21, Count("b")|21))
-        (Match, Map(At(1)) | Slide(2) | Map(Sub) | Count(1) | 41)
+        (Match, Map(At(1)) | Slide(2) | Map(~Sub) | Count(1) | 41)
+
+    .PreRun([&](){
+        count = 0;
+        flip = false;
+    })
     ;
 }
 /*
@@ -1187,18 +1194,22 @@ Consider the following example:
 */
 BOOST_AUTO_TEST_CASE(ExpressionDiagnostics, * utf::disabled())
 {
-    auto id = [](boost::json::value const& x){ return x; };
+    auto identity = [](boost::json::value const& x){ return x; };
 
     SignalMapping("SignalMapping test")
-    .OnTrigger(id)
-        .At(id).Inject("1:5"|Arange)
-        .At(id).Expect(Reduce(Add) & Size | Div | Eq(2.5) | Not) //(1)
+    .OnTrigger(identity)
+        .At(identity).Inject("1:5"|Arange)
+        .At(identity)
+            .Expect(
+                Fold(Add) & Size | Div | Trace("avg") | Eq(2.5) | Not //(1)
+            ) ["identity output"] //(2)
     ;
 }
 /*
 ```
 
-1. Naive average computation - use Avg instead for real tasks.
+1. Naive average computation - use Avg instead. Trace is used to print intermediate result.
+2. Optional pipe identifier for failure reports (see output below)
 
 Negation at the matcher end lead to test failure, and the log message is following:
 
@@ -1206,10 +1217,15 @@ Negation at the matcher end lead to test failure, and the log message is followi
   - ZMBT FAIL:
       model: "SignalMapping test"
       message: "expectation match failed"
-      expected: (Fold(Add) & Size) | Div | Eq(2.5E0) | Not
+      pipe: "#1: identity output"
+      channel: null
+      test_row: 0
+      test_column: null
+      expected: "(Fold(Add) & Size) | Div | Trace(\"avg\") | Eq(2.5E0) | Not"
       observed: [1,2,3,4]
-      condition: {"pipe":1}
-      expression eval stack: |-
+      traces:
+        - "avg": 2.5E0
+      evaluation: |-
         ---
                  ┌── Add $ [1,2] = 3
                  ├── Add $ [3,3] = 6
@@ -1218,9 +1234,10 @@ Negation at the matcher end lead to test failure, and the log message is followi
               ├── Size $ [1,2,3,4] = 4
            ┌── Fold(Add) & Size $ [1,2,3,4] = [10,4]
            ├── Div $ [10,4] = 2.5E0
+           ├── Trace("avg") $ 2.5E0 = 2.5E0
            ├── Eq(2.5E0) $ 2.5E0 = true
            ├── Not $ true = false
-        □  (Fold(Add) & Size) | Div | Eq(2.5E0) | Not $ [1,2,3,4] = false
+        □  (Fold(Add) & Size) | Div | Trace("avg") | Eq(2.5E0) | Not $ [1,2,3,4] = false
 ```
 
 To enable pretty-printing for JSON items, pass `--zmbt_log_prettify` command line argument.
