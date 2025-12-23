@@ -417,15 +417,21 @@ void InstanceTestRunner::Run()
     {
         run_test_procedure({}, 0); // no Test() clause
     }
-
-    for (std::size_t i = 0; i < tests.size(); i++)
+    else if(!tests.empty())
     {
-        boost::json::array const& test_vector = tests.at(i).as_array();
-        if (test_vector.size() != N)
+        for (std::size_t i = 0; i < tests.size(); i++)
         {
-            throw_exception(model_error("inconsistent test vecor size at test case %d", i));
+            boost::json::array const& test_vector = tests.at(i).as_array();
+            if (test_vector.size() != N)
+            {
+                throw_exception(model_error("inconsistent test vecor size at test case %d", i));
+            }
+            run_test_procedure(test_vector, i);
         }
-        run_test_procedure(test_vector, i);
+    }
+    else
+    {
+        throw_exception(model_error("missing the Test clause or inline conditions"));
     }
 }
 
