@@ -46,6 +46,9 @@ class object_id : public entity_id {
     object_id(boost::json::string_view str) : entity_id(to_string(str), typeid(string_key))
     {
     }
+    object_id(boost::json::string const& str) : entity_id(str, typeid(string_key))
+    {
+    }
     object_id(std::string const& str) : entity_id(str, typeid(string_key))
     {
     }

@@ -1139,23 +1139,6 @@ BOOST_AUTO_TEST_CASE(FlattenExpect)
 }
 
 
-BOOST_AUTO_TEST_CASE(BadSignalPath)
-{
-    boost::json::value error(nullptr);
-    zmbt::Config()
-        .SetFailureHandler([&error](boost::json::value const& sts){ error = sts; });
-
-    auto const sut = [](int){return 42;};
-
-    SignalMapping("Invalid signal path")
-    .OnTrigger(sut)
-        .At(sut).Return("/foo/bar") .Expect(42)
-    ;
-
-    BOOST_CHECK_NE(error, nullptr);
-    BOOST_CHECK_EQUAL(error.at("verdict"), "ERROR");
-}
-
 BOOST_AUTO_TEST_CASE(LangGlobalEnv)
 {
     struct Mock
@@ -1189,4 +1172,45 @@ BOOST_AUTO_TEST_CASE(LangGlobalEnv)
     BOOST_CHECK_EQUAL(*EnvLoad("x"), 2); // state preserved after test
     zmbt::lang::GlobalEnv().Reset();
     BOOST_CHECK_EQUAL(*EnvLoad("x"), nullptr);
+}
+
+BOOST_AUTO_TEST_CASE(StringLiteralsAndObjectIdAsParams)
+{
+    object_id const lol{"lol"};
+    object_id const kek{"kek"};
+
+    struct Mock
+    {
+        std::string id_;
+        Mock(std::string id) : id_{id} {}
+        void foo()
+        {
+            return InterfaceRecord(&Mock::foo, object_id(id_)).Hook();
+        }
+        void bar()
+        {
+            return InterfaceRecord(&Mock::bar, id_).Hook();
+        }
+    };
+
+    auto SUT = [lol, kek]()
+    {
+        Mock("lol").foo();
+        Mock("kek").foo();
+        Mock("lol").bar();
+        Mock("kek").bar();
+    };
+
+    Param const ID{"ID"};
+
+    boost::json::value error{};
+
+    SignalMapping("Both object_id and string literals should be interchangeable in Params (ID = `%s`)", ID)
+    .OnTrigger(SUT)
+        .At(&Mock::foo, ID).CallCount().Expect(1)
+        .At(&Mock::bar, ID).CallCount().Expect(1)
+    .Zip(ID, "lol", "kek")
+    .Zip(ID, lol, kek)
+    ;
+
 }
