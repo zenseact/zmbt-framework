@@ -79,9 +79,9 @@ std::size_t ChannelHandle::index() const
 
 }
 
-boost::json::value ChannelHandle::alias() const
+boost::json::value ChannelHandle::tag() const
 {
-    return data_.at("/alias");
+    return data_.at("/tag");
 }
 
 

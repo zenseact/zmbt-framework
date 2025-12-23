@@ -35,9 +35,10 @@ class DefinitionHelper {
     std::size_t channel_abs_count_{0}; // channels per model
     std::size_t channel_rel_count_{0}; // channels per pipe
     int test_column_count_{0};
+    int test_row_count_{0};
 
     boost::json::value head_pipe_type_ {};
-    std::string head_pointer_{};
+    std::string channel_pointer_{};
     Environment env;
     JsonNode model;
     JsonNode params;
@@ -49,7 +50,7 @@ class DefinitionHelper {
 
     std::string head_pointer() const
     {
-        return head_pointer_;
+        return channel_pointer_;
     }
 
     boost::json::object& cur_channel();
@@ -58,7 +59,6 @@ class DefinitionHelper {
 
     void set_deferred_param(boost::json::string_view node_ptr, lang::Expression const& param);
     void set_description(boost::json::string_view comment);
-    void set_comment(boost::json::string_view comment);
     void add_task(boost::json::string_view ref, bool const pre);
     void add_task(std::function<void()> fn, bool const pre);
     void add_param_values(Param const& p, boost::json::array const& values);

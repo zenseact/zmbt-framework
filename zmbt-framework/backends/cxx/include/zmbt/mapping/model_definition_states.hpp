@@ -195,8 +195,27 @@ class ModelDefinition::N_MaybeChannel
     }
 };
 
+class ModelDefinition::N_PipeId 
+    : public ModelDefinition::N_MaybeChannel
+    , public ModelDefinition::T_PipeId<ModelDefinition::N_MaybeChannel>
+{
+  private:
+    friend class ModelDefinition;
+    N_PipeId(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
+    {
+    }
+    N_PipeId(N_PipeId const&) = delete;
+    N_PipeId(N_PipeId&&) = default;
+
+  public:
+    N_PipeId() : N_PipeId(detail::DefinitionHelper{}) {}
+    virtual ~N_PipeId()
+    {
+    }
+};
+
 class ModelDefinition::N_ChannelEnd 
-    : public ModelDefinition::T_TerminatePipe<ModelDefinition::N_MaybeChannel>
+    : public ModelDefinition::T_TerminatePipe<ModelDefinition::N_PipeId>
     , public ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel>
 {
   private:
@@ -233,28 +252,28 @@ class ModelDefinition::N_Decor
     }
 };
 
-class ModelDefinition::N_Alias 
+class ModelDefinition::N_CnlTag 
     : public ModelDefinition::N_Decor
-    , public ModelDefinition::T_Alias<ModelDefinition::N_Decor>
+    , public ModelDefinition::T_Tag<ModelDefinition::N_Decor>
 {
   private:
     friend class ModelDefinition;
-    N_Alias(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
+    N_CnlTag(detail::DefinitionHelper&& m) : ModelDefinition::BaseTransition(std::move(m))
     {
     }
-    N_Alias(N_Alias const&) = delete;
-    N_Alias(N_Alias&&) = default;
+    N_CnlTag(N_CnlTag const&) = delete;
+    N_CnlTag(N_CnlTag&&) = default;
 
   public:
-    N_Alias() : N_Alias(detail::DefinitionHelper{}) {}
-    virtual ~N_Alias()
+    N_CnlTag() : N_CnlTag(detail::DefinitionHelper{}) {}
+    virtual ~N_CnlTag()
     {
     }
 };
 
 class ModelDefinition::N_Take 
-    : public ModelDefinition::N_Alias
-    , public ModelDefinition::T_Take<ModelDefinition::N_Alias>
+    : public ModelDefinition::N_CnlTag
+    , public ModelDefinition::T_Take<ModelDefinition::N_CnlTag>
 {
   private:
     friend class ModelDefinition;
@@ -337,11 +356,12 @@ extern template class ModelDefinition::T_ParamRow<ModelDefinition::N_ParamTable>
 extern template class ModelDefinition::T_Test<ModelDefinition::N_TestTable>;
 extern template class ModelDefinition::T_TestRow<ModelDefinition::N_TestTable>;
 extern template class ModelDefinition::T_At<ModelDefinition::N_Filter>;
-extern template class ModelDefinition::T_TerminatePipe<ModelDefinition::N_MaybeChannel>;
+extern template class ModelDefinition::T_PipeId<ModelDefinition::N_MaybeChannel>;
+extern template class ModelDefinition::T_TerminatePipe<ModelDefinition::N_PipeId>;
 extern template class ModelDefinition::T_ContinuePipe<ModelDefinition::N_Channel>;
 extern template class ModelDefinition::T_As<ModelDefinition::N_ChannelEnd>;
-extern template class ModelDefinition::T_Alias<ModelDefinition::N_Decor>;
-extern template class ModelDefinition::T_Take<ModelDefinition::N_Alias>;
+extern template class ModelDefinition::T_Tag<ModelDefinition::N_Decor>;
+extern template class ModelDefinition::T_Take<ModelDefinition::N_CnlTag>;
 extern template class ModelDefinition::T_Filter<ModelDefinition::N_Take>;
 extern template class ModelDefinition::T_Repeat<ModelDefinition::N_MaybeChannel>;
 extern template class ModelDefinition::T_OnTrigger<ModelDefinition::N_Repeat>;

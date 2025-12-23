@@ -29,7 +29,7 @@ class PipeHandle
 
     std::list<ChannelHandle> channels_;
     boost::json::value observe_blend() const;
-
+    mutable boost::json::value id_cache_{};
 
 public:
 
@@ -50,6 +50,7 @@ public:
 
     int column() const;
     boost::json::value index() const;
+    boost::json::value id() const;
 
     std::list<ChannelHandle> const& channels() const
     {

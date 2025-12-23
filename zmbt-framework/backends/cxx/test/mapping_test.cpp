@@ -1004,8 +1004,8 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     .OnTrigger(test)
         .At(test).Inject({1,2,3,4})
 
-        .At(&Mock::foo).Alias("f").Blend()
-        .At(&Mock::bar).Alias("b").Expect(L{
+        .At(&Mock::foo).Tag("f").Blend()
+        .At(&Mock::bar).Tag("b").Expect(L{
             {"f", 1},
             {"b", 2},
             {"f", 3},
@@ -1016,8 +1016,8 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     SignalMapping("Test series with range")
     .OnTrigger(test)
         .At(test).Inject()
-        .At(&Mock::foo).Alias("f").Blend()
-        .At(&Mock::bar).Alias("b").Expect()
+        .At(&Mock::foo).Tag("f").Blend()
+        .At(&Mock::bar).Tag("b").Expect()
     .Test
         ({1,2,3,4}, L{{"f", 1}, {"b", 2}, {"f", 3}, {"b", 4}})
         ({1,2,3,4}, Saturate({"f", 1}, {"b", 2}, {"f", 3}, {"b", 4}))
@@ -1026,8 +1026,8 @@ BOOST_AUTO_TEST_CASE(TestUnion)
     SignalMapping("Test series with CallCount clause")
     .OnTrigger(test)
         .At(test).Inject({1,2,3,4,5,6,7})
-        .At(&Mock::foo).CallCount().Alias("f").Blend()
-        .At(&Mock::bar).CallCount().Alias("b")
+        .At(&Mock::foo).CallCount().Tag("f").Blend()
+        .At(&Mock::bar).CallCount().Tag("b")
             // CallCount does not have timestamp, so it is blended in order of definition
             .Expect(L{{"f", 4},{"b", 3}});
 }
@@ -1050,8 +1050,8 @@ BOOST_AUTO_TEST_CASE(TestFixedChannels)
     .At(sut) .Return("/2") .Group()
     .At(sut) .Return("/1") .Expect({42,1})
 
-    .At(sut) .Return("/1") .Alias("a").Blend()
-    .At(sut) .Return("/2") .Alias("b").Expect(
+    .At(sut) .Return("/1") .Tag("a").Blend()
+    .At(sut) .Return("/2") .Tag("b").Expect(
         L{
             {"a",  1},
             {"b", 42},

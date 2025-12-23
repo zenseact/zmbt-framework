@@ -38,9 +38,6 @@ class ModelDefinition
     struct N_Term;
 
     // Transition templates
-    /// T_Alias transition
-    template <class Target>
-    struct T_Alias;
     /// T_As transition
     template <class Target>
     struct T_As;
@@ -68,6 +65,9 @@ class ModelDefinition
     /// T_ParamRow transition
     template <class Target>
     struct T_ParamRow;
+    /// T_PipeId transition
+    template <class Target>
+    struct T_PipeId;
     /// T_PostRun transition
     template <class Target>
     struct T_PostRun;
@@ -77,6 +77,9 @@ class ModelDefinition
     /// T_Repeat transition
     template <class Target>
     struct T_Repeat;
+    /// T_Tag transition
+    template <class Target>
+    struct T_Tag;
     /// T_Take transition
     template <class Target>
     struct T_Take;
@@ -109,12 +112,14 @@ class ModelDefinition
     class N_Channel;
     /// N_MaybeChannel node
     class N_MaybeChannel;
+    /// N_PipeId node
+    class N_PipeId;
     /// N_ChannelEnd node
     class N_ChannelEnd;
     /// N_Decor node
     class N_Decor;
-    /// N_Alias node
-    class N_Alias;
+    /// N_CnlTag node
+    class N_CnlTag;
     /// N_Take node
     class N_Take;
     /// N_Filter node

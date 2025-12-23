@@ -113,7 +113,7 @@ bool InstanceTestRunner::inject_inline_inputs(TestDiagnostics diagnostics)
         {
             report_failure(diagnostics
                 .Error("inline input injection", e.what())
-                .PipeId(pipe.index()));
+                .PipeId(pipe.id()));
             return false;
         }
     }
@@ -151,7 +151,7 @@ bool InstanceTestRunner::inject_tabular_inputs(boost::json::array const& test_ve
         catch (std::exception const& error) {
             report_failure(diagnostics
                 .Error("test input injection", error.what())
-                .PipeId(pipe.index())
+                .PipeId(pipe.id())
             );
             no_exception_met = false;
         }
@@ -275,7 +275,7 @@ bool InstanceTestRunner::eval_inline_assertions(TestDiagnostics diagnostics)
         {
             passed = false;
             report_failure(diagnostics
-                .PipeId(pipe.index()));
+                .PipeId(pipe.id()));
         }
     }
     return passed;
@@ -354,12 +354,15 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
         return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
     };
 
+
+    auto const comment = to_string(lang::Expression(model_.get_or_default(format("/comments/%d", idx), "")).eval());
+
     auto diagnostics = TestDiagnostics(to_string(model_("/name")))
         .Description(to_string(model_("/description")))
         .Vector(test_vector)
         .TestRow(idx)
-        .Comment(model_.get_or_default(format("/comments/%d", idx), "").as_string());
-        ;
+        .Comment(comment)
+    ;
 
     env.ResetInterfaceData();
     success = success && exec_prerun_tasks(diagnostics);
@@ -417,15 +420,21 @@ void InstanceTestRunner::Run()
     {
         run_test_procedure({}, 0); // no Test() clause
     }
-
-    for (std::size_t i = 0; i < tests.size(); i++)
+    else if(!tests.empty())
     {
-        boost::json::array const& test_vector = tests.at(i).as_array();
-        if (test_vector.size() != N)
+        for (std::size_t i = 0; i < tests.size(); i++)
         {
-            throw_exception(model_error("inconsistent test vecor size at test case %d", i));
+            boost::json::array const& test_vector = tests.at(i).as_array();
+            if (test_vector.size() != N)
+            {
+                throw_exception(model_error("inconsistent test vecor size at test case %d", i));
+            }
+            run_test_procedure(test_vector, i);
         }
-        run_test_procedure(test_vector, i);
+    }
+    else
+    {
+        throw_exception(model_error("missing the Test clause or inline conditions"));
     }
 }
 
@@ -446,7 +455,6 @@ class TestRunner::Impl
 
     void Run()
     {
-
         JsonNode instance = resolver_.Next();
         while (!instance.is_null())
         {

@@ -48,7 +48,7 @@ public:
 
     std::size_t index() const;
     /// Channel alias or index if not set
-    boost::json::value alias() const;
+    boost::json::value tag() const;
 
     boost::json::array captures() const;
 
