@@ -58,7 +58,7 @@ jobs:
       - name: Upload test logs
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-backends-cxx
+          name: test-logs-backends-cxx
           path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.log
 
       - name: Perform CodeQL Analysis
