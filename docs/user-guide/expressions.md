@@ -445,8 +445,7 @@ title Expression Language syntax
 !define ONEORMORE(x) x, REST(x)
 
 Expression = Literal | (Keyword, [Parameters]) | Pipe | Fork | Tuple | Flip;
-Parameters = (LB, Expression, RB)
-    | (LB, ONEORMORE(Expression), RB);
+Parameters = (LB, Expression, RB) | (LB, ONEORMORE(Expression), RB);
 
 Pipe  = Expression, '|', Expression;
 Fork  = Expression, '&', Expression;
@@ -455,3 +454,11 @@ Flip  = '~', Expression;
 
 @endebnf
 ```
+
+## Notes on usage
+
+!!! warning
+
+    The builtin keywords from `zmbt::expr` namespace are callable objects with static storage,
+    which makes them vulnerable to [SIOF](https://en.cppreference.com/w/cpp/language/siof.html)
+    in a context of other static complex expressions.

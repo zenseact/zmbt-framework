@@ -14,7 +14,7 @@ struct Dummy
     int x;
 };
 
-BOOST_DESCRIBE_STRUCT(Dummy, (void), (x))
+BOOST_DESCRIBE_STRUCT(Dummy, (), (x))
 
 
 BOOST_AUTO_TEST_CASE(SerializeStaticCArray)

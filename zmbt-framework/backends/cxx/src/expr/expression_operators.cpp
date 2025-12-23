@@ -15,6 +15,9 @@ namespace lang {
 
 Expression Expression::unfold_left_assoc(Keyword const keyword, Expression&& lhs, Expression&& rhs)
 {
+    // TODO: add SIOF guard here (can be detected by empty encoding_)
+    // It may occur if expr builtin keywords are used in complex expressions with
+    // static storage, s.t. this function is evaluated before operands initialization.
     if (lhs.encoding_.keywords.front() == keyword)
     {
         lhs.encoding_.append_to_root(std::move(rhs.encoding_));

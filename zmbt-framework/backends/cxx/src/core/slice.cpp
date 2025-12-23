@@ -160,7 +160,7 @@ boost::json::array slice(boost::json::array const& src, std::int64_t const start
 boost::json::array slice(boost::json::array const& src, boost::json::string_view jp, std::int64_t const start, std::int64_t const stop, std::int64_t const step)
 {
     auto gen = make_slice_const_generator(src, start, stop, step);
-    boost::json::error_code dummy_ec;
+    boost::system::error_code dummy_ec;
     boost::json::array output {};
     auto element = src.cend();
     while ((element = gen()) != src.cend())

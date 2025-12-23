@@ -47,7 +47,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Recur)
     auto const maybe_depth
         = lhs().is_literal()
         ? boost::json::try_value_to<std::uint64_t>(lhs().data())
-        : boost::json::result<std::uint64_t>(MAX_RECURSION_DEPTH);
+        : boost::system::result<std::uint64_t>(MAX_RECURSION_DEPTH);
     ASSERT(maybe_depth.has_value(), "invalid parameter")
     std::uint64_t max_recursion_depth = maybe_depth.value();
 
@@ -91,7 +91,7 @@ ZMBT_DEFINE_EVALUATE_IMPL(Unfold)
     auto const maybe_depth
         = lhs().is_literal()
         ? boost::json::try_value_to<std::uint64_t>(lhs().data())
-        : boost::json::result<std::uint64_t>(MAX_RECURSION_DEPTH);
+        : boost::system::result<std::uint64_t>(MAX_RECURSION_DEPTH);
     ASSERT(maybe_depth.has_value(), "invalid parameter")
     std::uint64_t max_recursion_depth = maybe_depth.value();
 

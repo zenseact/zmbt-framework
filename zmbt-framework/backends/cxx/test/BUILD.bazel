@@ -18,8 +18,12 @@ GTEST_COMMON_COPTS = [
 ]
 
 GTEST_COMMON_LINKOPTS = [
-    "-lpthread",
     "-lm",
+]
+
+MANUAL_TESTS = [
+    "keyword_serialization_speed.cpp",
+    "mapping_types.cpp",
 ]
 
 make_unit_tests(
@@ -27,27 +31,30 @@ make_unit_tests(
         "*.cpp"
     ], exclude = [
         "*gtest*",
-        "signal_mapping_stress_test.cpp",
-    ]),
+        "signal_mapping_stress_test.cpp"
+    ] + MANUAL_TESTS),
 )
 
-cc_library(
-    name = 'gtest_test_exe',
+make_unit_tests(
+    srcs = MANUAL_TESTS,
+    tags = ["manual"],
+)
+
+
+cc_test(
+    name = 'gtest_test',
     srcs = ['gtest_test.cpp'],
-    visibility = [':__pkg__'],
     deps = GTEST_COMMON_DEPS,
-    copts = GTEST_COMMON_COPTS,
+    linkstatic=True,
     linkopts = GTEST_COMMON_LINKOPTS,
 )
 
 cc_test(
-    name = 'gtest_test',
-    deps = [':gtest_test_exe'],
-)
-
-cc_test(
     name = 'gtest_multithreading_test',
-    deps = [':gtest_test_exe'],
+    linkstatic=True,
+    srcs = ['gtest_test.cpp'],
+    deps = GTEST_COMMON_DEPS,
+    linkopts = GTEST_COMMON_LINKOPTS,
     args = [
         "--gtest_filter=RunInGtest.EnvThreadSafety",
         "--gtest_repeat=10",
@@ -59,15 +66,17 @@ cc_test(
 cc_test(
     name = 'model_output_recorder_gtest',
     srcs = ['model_output_recorder_gtest.cpp'],
+    linkstatic=True,
     visibility = [':__pkg__'],
     deps = GTEST_COMMON_DEPS,
-    copts = GTEST_COMMON_COPTS,
+    copts = GTEST_COMMON_COPTS + [ "-Wno-c++17-attribute-extensions"],
     linkopts = GTEST_COMMON_LINKOPTS,
 )
 
 cc_test(
     name = 'signal_mapping_stress_test',
     srcs = ['signal_mapping_stress_test.cpp'],
+    linkstatic=True,
     visibility = [':__pkg__'],
     deps = GTEST_COMMON_DEPS,
     args = [

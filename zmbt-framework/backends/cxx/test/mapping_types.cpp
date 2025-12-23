@@ -37,7 +37,7 @@ namespace {
 BOOST_DEFINE_ENUM_CLASS(TestEnum, A, B)
 
 struct TestStruct { double x, y; };
-BOOST_DESCRIBE_STRUCT(TestStruct, (void), (x, y))
+BOOST_DESCRIBE_STRUCT(TestStruct, (), (x, y))
 
 
 inline bool operator<(const TestStruct& lhs, const TestStruct& rhs)
@@ -121,7 +121,7 @@ using UmapStr2VectorString = std::unordered_map<TestString, VectorString>;  DEF_
 
 
 
-using SmokeTestTypes = mp_list<
+using TestTypes = mp_list<
     TestInt,
     TestDouble,
     TestEnum,
@@ -203,7 +203,7 @@ namespace TestInterface
 } // namespace
 
 
-BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, SmokeTestTypes)
+BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, TestTypes)
 {
 
     auto init_value = zmbt::reflect::signal_traits<T>::init();
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Identity, T, SmokeTestTypes)
     ;
 }
 
-BOOST_AUTO_TEST_CASE_TEMPLATE(Init, T, SmokeTestTypes)
+BOOST_AUTO_TEST_CASE_TEMPLATE(Init, T, TestTypes)
 {
 
     auto const init_value = zmbt::reflect::signal_traits<T>::init();
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(Init, T, SmokeTestTypes)
 }
 
 
-BOOST_AUTO_TEST_CASE_TEMPLATE(InitRef, T, SmokeTestTypes)
+BOOST_AUTO_TEST_CASE_TEMPLATE(InitRef, T, TestTypes)
 {
 
     auto init_value = zmbt::reflect::signal_traits<T>::init();
@@ -259,7 +259,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE(InitRef, T, SmokeTestTypes)
 }
 
 
-BOOST_AUTO_TEST_CASE_TEMPLATE(Ignore, T, SmokeTestTypes)
+BOOST_AUTO_TEST_CASE_TEMPLATE(Ignore, T, TestTypes)
 {
 
     auto init_value = zmbt::reflect::signal_traits<T>::init();

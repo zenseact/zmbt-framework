@@ -1,0 +1,73 @@
+name: Test C++ Library
+
+on:
+  push:
+    tags: [ "*" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  test-cxx-library:
+    name: Build and test backends/cxx
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: bazel-contrib/setup-bazel@0.16.0
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+
+      - shell: bash
+        run: |
+            bazel --version
+
+      - name: Run all tests
+        shell: bash
+        run: |
+            bazel clean --expunge
+            bazel test //zmbt-framework/backends/cxx/...
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-backends-cxx
+          path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.xml
+
+      - name: Upload test logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs-backends-cxx
+          path: bazel-testlogs/zmbt-framework/backends/cxx/test/**/*.log
+
+  publish-test-results:
+    needs: test-cxx-library
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: test-results-backends-cxx
+          path: backends-cxx-test-results
+      - name: List downloaded files
+        run: ls -R
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          action_fail_on_inconclusive: true
+          junit_files: |
+            backends-cxx-test-results/**/*.xml
