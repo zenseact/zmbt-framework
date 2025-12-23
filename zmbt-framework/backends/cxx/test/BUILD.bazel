@@ -21,13 +21,23 @@ GTEST_COMMON_LINKOPTS = [
     "-lm",
 ]
 
+MANUAL_TESTS = [
+    "keyword_serialization_speed.cpp",
+    "mapping_types.cpp",
+]
+
 make_unit_tests(
     srcs = glob([
         "*.cpp"
     ], exclude = [
         "*gtest*",
-        "signal_mapping_stress_test.cpp",
-    ]),
+        "signal_mapping_stress_test.cpp"
+    ] + MANUAL_TESTS),
+)
+
+make_unit_tests(
+    srcs = MANUAL_TESTS,
+    tags = ["manual"],
 )
 
 

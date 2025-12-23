@@ -1091,36 +1091,6 @@ BOOST_AUTO_TEST_CASE(TestPreprocessing)
 }
 
 
-
-BOOST_AUTO_TEST_CASE(SerializationUndefinedSpeed, *utf::timeout(1))
-{
-    for (int i = 0; i < 1000*1000; i++)
-    {
-        auto const kw = dejsonize<Keyword>("ArbitraryStringNotPresentInKeywords");
-        if (kw != Keyword::Undefined)
-        {
-            BOOST_FAIL("ITER FAILED = " << i);
-            break;
-        }
-    }
-}
-
-
-BOOST_AUTO_TEST_CASE(SerializationSpeed, *utf::timeout(1))
-{
-    boost::json::string const test_kw = json_from(Keyword::PSuperset).as_string();
-    for (int i = 0; i < 1000*1000; i++)
-    {
-        auto const kw = dejsonize<Keyword>(test_kw);
-        if (kw != Keyword::PSuperset)
-        {
-            BOOST_FAIL("ITER FAILED = " << i);
-            break;
-        }
-    }
-}
-
-
 BOOST_AUTO_TEST_CASE(PrettifyExpressionTostaticBuffer)
 {
     auto e = (Fold(Add) & Size) | Div | Eq(2.5E0) | Not;

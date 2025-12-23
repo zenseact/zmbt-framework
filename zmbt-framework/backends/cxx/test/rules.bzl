@@ -1,6 +1,6 @@
 # (c) Copyright 2024 Zenseact AB
 
-def make_unit_tests(srcs):
+def make_unit_tests(srcs, tags = []):
     for src in srcs:
         native.cc_test(
             name = src.replace(".cpp", ""),
@@ -25,4 +25,5 @@ def make_unit_tests(srcs):
             env = {
                 "ZMBT_SEED": "42",
             },
+            tags = tags,
         )
