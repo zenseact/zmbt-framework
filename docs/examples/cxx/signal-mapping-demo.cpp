@@ -293,7 +293,7 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
         ( Pi | ~Div(1)      , Approx(1.0/3.14159265359)          ) //(7)
         ( "5:1:-1" | Arange , {5,4,3,2}                          ) //(8)
         ( 42 | Trace("in")  , Trace("out") | 42                  ) //(9)
-
+        ( Pi | Div(2)       , Pi | Div(2)                        ) ["expect %s" | Fmt(Q(Pi | Div(2)))] //(10)
     ;
 }
 /*
@@ -314,6 +314,8 @@ BOOST_AUTO_TEST_CASE(ExpressionsExample)
 8. `Arange` is a generator similar to
     [numpy.arange](https://numpy.org/doc/stable/reference/generated/numpy.arange.html)
 9. Trace keyword passes the argument unchanged with optional logging.
+10. Test comments support expressions, which is especially useful for parametrized tests.
+    Wrap printed expressions in Q to prevent evaluation.
 
 For more detailes, see [Expression Guide](../user-guide/expressions.md) and [Expression Language Reference](../dsl-reference/expressions.md).
 

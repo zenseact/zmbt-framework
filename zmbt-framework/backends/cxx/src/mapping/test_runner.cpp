@@ -354,12 +354,15 @@ bool InstanceTestRunner::run_test_procedure(boost::json::array const& test_vecto
         return node.is_string() ? node.get_string().c_str() : boost::json::serialize(node);
     };
 
+
+    auto const comment = to_string(lang::Expression(model_.get_or_default(format("/comments/%d", idx), "")).eval());
+
     auto diagnostics = TestDiagnostics(to_string(model_("/name")))
         .Description(to_string(model_("/description")))
         .Vector(test_vector)
         .TestRow(idx)
-        .Comment(model_.get_or_default(format("/comments/%d", idx), "").as_string());
-        ;
+        .Comment(comment)
+    ;
 
     env.ResetInterfaceData();
     success = success && exec_prerun_tasks(diagnostics);

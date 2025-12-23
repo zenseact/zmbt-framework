@@ -94,12 +94,6 @@ void DefinitionHelper::set_description(boost::json::string_view comment)
 }
 
 
-void DefinitionHelper::set_comment(boost::json::string_view comment)
-{
-    auto const idx = model.at("/tests").as_array().size() -1;
-    model("/comments/%d", idx) = comment;
-}
-
 boost::json::array const& DefinitionHelper::pointers_for(Param const& p)
 {
     return params.at("/%s/pointers", p).as_array();
@@ -228,6 +222,7 @@ void DefinitionHelper::add_test_case(std::vector<lang::Expression> const& tv)
         }
     }
     model.get_or_create_array("/tests").push_back(json_from(tv));
+    test_row_count_++;
 }
 
 void DefinitionHelper::set_expr(lang::Expression const& expr)

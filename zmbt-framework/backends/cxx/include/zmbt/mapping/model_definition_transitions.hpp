@@ -404,13 +404,9 @@ template <class Target>
 struct ModelDefinition::T_TestRow : protected virtual ModelDefinition::BaseTransition
 {
     /// test comment
-    Target operator[](boost::json::string_view comment)
+    Target operator[](lang::Expression const& expr)
     {
-        state().set_comment(comment);
-    //     auto const idx = model.at("/tests").as_array().size() -1;
-    // model("/comments/%d", idx) = comment;
-    //     state().set_deferred_param(format("/pipes/%d/id", (pipe_count_ - 1)), expr);
-
+        state().set_deferred_param(format("/comments/%d", (state().test_row_count_ - 1)), expr);
         return transit_to<Target>();
     }
 

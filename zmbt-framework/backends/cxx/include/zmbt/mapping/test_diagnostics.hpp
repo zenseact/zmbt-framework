@@ -26,20 +26,6 @@ struct TestDiagnostics
         Error
     };
 
-    // print_string("model");
-    // print_string("message");
-    // print_js_section("expected");
-    // print_js_section("observed");
-
-    // os << prefix << "condition: [" << sts.at("test") << "," << sts.at("channel") << "]";
-
-    // print_string("description");
-    // print_string("comment");
-
-    // print_js_section("test vector");
-
-    // auto const& eval_stack = sts.at("eval_stack").as_array();
-
 
     boost::json::string model_name;
     boost::json::string message    {};
