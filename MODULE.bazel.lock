@@ -164,6 +164,8 @@
     "https://bcr.bazel.build/modules/boost.thread/1.89.0.bcr.1/source.json": "4fd62fcd14babb1d2de4333121b6fe87feaed05a9acd4ceabb98a4c6172a50e4",
     "https://bcr.bazel.build/modules/boost.throw_exception/1.89.0.bcr.1/MODULE.bazel": "047987fdfb50df9a7de5d68a91afe86eebd602e56116e1cd69adb8b37e1ea7e8",
     "https://bcr.bazel.build/modules/boost.throw_exception/1.89.0.bcr.1/source.json": "6a98cf273baf6187fa342a6a774fa011b6d562f85cc2d9eac219001fd2ac69d2",
+    "https://bcr.bazel.build/modules/boost.timer/1.89.0.bcr.1/MODULE.bazel": "ec94f040275579198988f1bce38435f79521d00178fe51ad02388029ab7dddb0",
+    "https://bcr.bazel.build/modules/boost.timer/1.89.0.bcr.1/source.json": "5b64aae36ac8f76a3f3b8250cc82172c99df96f2478b27dbc52b73e0ef6d861a",
     "https://bcr.bazel.build/modules/boost.tokenizer/1.89.0.bcr.1/MODULE.bazel": "c4c855e50bd35b75c1a568d2886c8b0748d1e0bf343625407641e87ed5e0bbc5",
     "https://bcr.bazel.build/modules/boost.tokenizer/1.89.0.bcr.1/source.json": "e7db01f32bf9d0830d672828030d94af0a6146c1a4fd616afe09f912c610d5cf",
     "https://bcr.bazel.build/modules/boost.tuple/1.89.0.bcr.1/MODULE.bazel": "19303c0178ef2cf84c475e8968275a5604cb5e0651517402383bbe79c6ab909b",
@@ -320,6 +322,46 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
+    "//:bazel/lua/setup.bzl%lua_and_sol": {
+      "general": {
+        "bzlTransitiveDigest": "CqAw9xrd1tgGqw45o+HDsEl50Mxc9hS1TvQg51uV++Q=",
+        "usagesDigest": "WF9b1NoO7wrFvNYvUb/Ju5fa8wzOIohrYlGv1/rYnYo=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "lua": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "build_file_content": "\ncc_library(\n    name = \"lua_includes\",\n    visibility = [\"//visibility:public\"],\n    hdrs = [\n        \"src/lauxlib.h\",\n        \"src/lua.h\",\n        \"src/luaconf.h\",\n        \"src/lualib.h\",\n    ],\n    includes = [\"src\"],\n)\n\ncc_library(\n    name = \"lua\",\n    visibility = [\"//visibility:public\"],\n    srcs = glob([\"src/l*\"], exclude=[\"src/lua.c\", \"src/luac.c\"]),\n    hdrs = [\n        \"src/lauxlib.h\",\n        \"src/lua.h\",\n        \"src/luaconf.h\",\n        \"src/lualib.h\",\n    ],\n    copts = [\"-w\"],\n    defines = [\"LUA_USE_LINUX\"],\n    includes = [\"src\"],\n    linkopts = [\n        \"-lm\",\n        \"-ldl\",\n    ],\n)\n",
+              "sha256": "fc5fd69bb8736323f026672b1b7235da613d7177e72558893a0bdcd320466d60",
+              "strip_prefix": "lua-5.3.6",
+              "urls": [
+                "https://www.lua.org/ftp/lua-5.3.6.tar.gz"
+              ]
+            }
+          },
+          "sol": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "urls": [
+                "https://github.com/ThePhD/sol2/archive/refs/tags/v2.17.5.tar.gz"
+              ],
+              "sha256": "1b017ca6228de606e5407d173cc552c86bd5b0309f38bf912c17e06943d1a0e4",
+              "strip_prefix": "sol2-2.17.5",
+              "build_file_content": "\ncc_library(\n    name = \"sol\",\n    hdrs = [\"single/sol/sol.hpp\"],\n    strip_include_prefix = \"single\",\n    visibility = [\"//visibility:public\"],\n)\n"
+            }
+          }
+        },
+        "recordedRepoMappingEntries": [
+          [
+            "",
+            "bazel_tools",
+            "bazel_tools"
+          ]
+        ]
+      }
+    },
     "@@rules_fuzzing+//fuzzing/private:extensions.bzl%non_module_dependencies": {
       "general": {
         "bzlTransitiveDigest": "v2H25KPHEkN56IHR41S67Kzp5Xjxd75GBiazhON8jzc=",
