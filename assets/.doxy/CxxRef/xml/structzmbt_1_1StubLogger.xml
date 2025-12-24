@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1StubLogger" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::StubLogger</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1StubLogger_1afcd801fba23f6b9c1d5b88dda0bea431" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1StubLogger" kindref="compound">StubLogger</ref> &amp;</type>
+        <definition>StubLogger &amp; zmbt::StubLogger::operator&lt;&lt;</definition>
+        <argsstring>(boost::json::value const &amp;)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>zmbt::StubLogger::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="36" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="36" bodyend="39"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="34" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="35" bodyend="40"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1StubLogger_1afcd801fba23f6b9c1d5b88dda0bea431" prot="public" virt="non-virtual"><scope>zmbt::StubLogger</scope><name>operator&lt;&lt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

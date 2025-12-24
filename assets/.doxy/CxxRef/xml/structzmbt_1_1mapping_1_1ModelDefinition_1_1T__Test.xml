@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_Test</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Test</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a27d8ef8287ed012c4625680eb5a01f73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>()</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="352" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="352" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a9b12bb983125cd278b8f5c9f40c0db3b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="356" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="356" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a1d8cbcc11a642405b6a368e6f83681df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="360" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="360" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1ae557a8b9cc62cc674c4c28205b8d0716" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="364" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="364" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1aa483bd535b8c12f812d1c2b175e77a6e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2, lang::Expression const &amp;e3)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e3</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="368" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="368" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a483740a12b434ab8c234a4ac5beac9e5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2, lang::Expression const &amp;e3, lang::Expression const &amp;e4)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e4</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="372" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="372" bodyend="376"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1ab61d87dfb60cf81cb29456682e209d3a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2, lang::Expression const &amp;e3, lang::Expression const &amp;e4, lang::Expression const &amp;e5)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e5</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="377" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="377" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a197b7e7fd38090c318d5ae7c6434bc24" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2, lang::Expression const &amp;e3, lang::Expression const &amp;e4, lang::Expression const &amp;e5, lang::Expression const &amp;e6)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e5</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e6</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="382" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="382" bodyend="386"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a601f9e8f0c881d7d3bfcbb3ed85ea758" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2, lang::Expression const &amp;e3, lang::Expression const &amp;e4, lang::Expression const &amp;e5, lang::Expression const &amp;e6, lang::Expression const &amp;e7)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e5</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e6</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e7</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="387" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="387" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a94898fc2fe8f07769078fb11415ef7ce" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>Rest</declname>
+            <defname>Rest</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;::Test</definition>
+        <argsstring>(lang::Expression const &amp;e0, lang::Expression const &amp;e1, lang::Expression const &amp;e2, lang::Expression const &amp;e3, lang::Expression const &amp;e4, lang::Expression const &amp;e5, lang::Expression const &amp;e6, lang::Expression const &amp;e7, Rest &amp;&amp;... rest)</argsstring>
+        <name>Test</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Test::Test</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e0</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e1</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e2</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e3</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e4</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e5</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e6</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e7</declname>
+        </param>
+        <param>
+          <type>Rest &amp;&amp;...</type>
+          <declname>rest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="394" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="394" bodyend="399"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_Test transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_MaybeChannel</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_PipeId</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__PipeId"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Repeat</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Repeat"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Test&lt; ModelDefinition::N_TestTable &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="350" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="351" bodyend="400"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>state</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a27d8ef8287ed012c4625680eb5a01f73" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a9b12bb983125cd278b8f5c9f40c0db3b" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a1d8cbcc11a642405b6a368e6f83681df" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1ae557a8b9cc62cc674c4c28205b8d0716" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1aa483bd535b8c12f812d1c2b175e77a6e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a483740a12b434ab8c234a4ac5beac9e5" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1ab61d87dfb60cf81cb29456682e209d3a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a197b7e7fd38090c318d5ae7c6434bc24" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a601f9e8f0c881d7d3bfcbb3ed85ea758" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a94898fc2fe8f07769078fb11415ef7ce" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>Test</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_Test</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1ExpressionView_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::custom_serialization&lt; lang::ExpressionView &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1ExpressionView_01_4_1a1d643f04bde39e966dfea8420d27e6e6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>static boost::json::value zmbt::reflect::custom_serialization&lt; lang::ExpressionView &gt;::json_from</definition>
+        <argsstring>(lang::ExpressionView const &amp;t)</argsstring>
+        <name>json_from</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; lang::ExpressionView &gt;::json_from</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">lang::ExpressionView</ref> const &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="425" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="425" bodyend="428"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="422" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="422" bodyend="429"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1ExpressionView_01_4_1a1d643f04bde39e966dfea8420d27e6e6" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; lang::ExpressionView &gt;</scope><name>json_from</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

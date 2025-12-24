@@ -1,0 +1,647 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="log_8hpp" kind="file" language="C++">
+    <compoundname>log.hpp</compoundname>
+    <includes local="no">chrono</includes>
+    <includes local="no">iomanip</includes>
+    <includes local="no">string</includes>
+    <includes local="no">boost/describe.hpp</includes>
+    <includes local="no">boost/json.hpp</includes>
+    <includes refid="preprocessor_8hpp" local="yes">zmbt/core/preprocessor.hpp</includes>
+    <includes refid="entity__id_8hpp" local="yes">zmbt/core/entity_id.hpp</includes>
+    <includedby refid="application_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</includedby>
+    <includedby refid="expression_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp</includedby>
+    <includedby refid="output__recorder_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp</label>
+        <link refid="log_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>aliases.hpp</label>
+        <link refid="aliases_8hpp"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt/core/entity_id.hpp</label>
+        <link refid="entity__id_8hpp"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt/core/preprocessor.hpp</label>
+        <link refid="preprocessor_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>type_info.hpp</label>
+        <link refid="type__info_8hpp"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>type_tag.hpp</label>
+        <link refid="type__tag_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>boost/callable_traits.hpp</label>
+      </node>
+      <node id="5">
+        <label>boost/describe.hpp</label>
+      </node>
+      <node id="6">
+        <label>boost/json.hpp</label>
+      </node>
+      <node id="18">
+        <label>boost/mp11.hpp</label>
+      </node>
+      <node id="8">
+        <label>boost/preprocessor.hpp</label>
+      </node>
+      <node id="21">
+        <label>boost/type_index.hpp</label>
+      </node>
+      <node id="2">
+        <label>chrono</label>
+      </node>
+      <node id="10">
+        <label>cstddef</label>
+      </node>
+      <node id="11">
+        <label>cstdint</label>
+      </node>
+      <node id="3">
+        <label>iomanip</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="16">
+        <label>tuple</label>
+      </node>
+      <node id="15">
+        <label>type_traits</label>
+      </node>
+      <node id="13">
+        <label>typeindex</label>
+      </node>
+      <node id="12">
+        <label>utility</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zenseact-mbt.hpp</label>
+        <link refid="zenseact-mbt_8hpp"/>
+      </node>
+      <node id="3">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/all.hpp</label>
+        <link refid="all_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api.hpp</label>
+        <link refid="api_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp</label>
+        <link refid="model__test_8hpp"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp</label>
+        <link refid="ns_8hpp"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</label>
+        <link refid="application_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp</label>
+        <link refid="log_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp</label>
+        <link refid="expr_2api_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp</label>
+        <link refid="api__signatures_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp</label>
+        <link refid="eval__impl_8hpp"/>
+      </node>
+      <node id="31">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp</label>
+        <link refid="eval__params_8hpp"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp</label>
+        <link refid="eval__validator_8hpp"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp</label>
+        <link refid="expression_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp</label>
+        <link refid="expression__grammar_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp</label>
+        <link refid="subexpression_8hpp"/>
+      </node>
+      <node id="8">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping.hpp</label>
+        <link refid="mapping_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp</label>
+        <link refid="channel__handle_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition.hpp</label>
+        <link refid="model__definition_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_helper.hpp</label>
+        <link refid="model__definition__helper_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_main.hpp</label>
+        <link refid="model__definition__main_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_node.hpp</label>
+        <link refid="model__definition__node_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp</label>
+        <link refid="model__definition__states_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp</label>
+        <link refid="model__definition__transitions_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/pipe_handle.hpp</label>
+        <link refid="pipe__handle_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp</label>
+        <link refid="test__diagnostics_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp</label>
+        <link refid="test__parameter__resolver_8hpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model.hpp</label>
+        <link refid="model_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp</label>
+        <link refid="environment_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp</label>
+        <link refid="environment__data_8hpp"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp</label>
+        <link refid="environment__interface__record_8hpp"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/generator.hpp</label>
+        <link refid="generator_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp</label>
+        <link refid="injection__table_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp</label>
+        <link refid="output__recorder_8hpp"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/param_transform.hpp</label>
+        <link refid="param__transform_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/parameter.hpp</label>
+        <link refid="parameter_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/permanent_data.hpp</label>
+        <link refid="permanent__data_8hpp"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/traits.hpp</label>
+        <link refid="traits_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp</label>
+        <link refid="trigger_8hpp"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structzmbt_1_1StubLogger" prot="public">zmbt::StubLogger</innerclass>
+    <innerclass refid="classzmbt_1_1Logger" prot="public">zmbt::Logger</innerclass>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="log_8hpp_1ad035128ff707698af0cf970f7dc417fd" prot="public" static="no">
+        <name>ZMBT_DEBUG</name>
+        <initializer><ref refid="structzmbt_1_1StubLogger" kindref="compound">::zmbt::StubLogger</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="24" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="log_8hpp_1a1ee9f07d6160068d811fa059731471be" prot="public" static="no">
+        <name>ZMBT_LOG</name>
+        <param><defname>lvl</defname></param>
+        <initializer><ref refid="classzmbt_1_1Logger" kindref="compound">::zmbt::Logger</ref>().WithSrcLoc(ZMBT_CUR_LOC).WithLevel(::zmbt::Logger::lvl)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="27" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="log_8hpp_1aefc9c649f52029a57aac59bc10337236" prot="public" static="no">
+        <name>ZMBT_LOG_CERR</name>
+        <param><defname>lvl</defname></param>
+        <initializer>ZMBT_LOG(lvl).WithOutput(::zmbt::Logger::STDERR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="28" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="log_8hpp_1a181f493c25c669ba073ccf686dea42cd" prot="public" static="no">
+        <name>ZMBT_LOG_JSON</name>
+        <param><defname>lvl</defname></param>
+        <initializer>ZMBT_LOG(lvl).WithOutput(::zmbt::Logger::JSON)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="29" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="copyright"><para>(c) Copyright 2024-2025 Zenseact AB </para>
+</simplesect>
+<simplesect kind="par"><title>License</title><para>SPDX-License-Identifier: Apache-2.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ZMBT_LOGGING_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOGGING_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iomanip&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/describe.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/json.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="preprocessor_8hpp" kindref="compound">zmbt/core/preprocessor.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="entity__id_8hpp" kindref="compound">zmbt/core/entity_id.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>NDEBUG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>ZMBT_DEBUG<sp/>(std::cerr<sp/>&lt;&lt;<sp/>ZMBT_CUR_LOC<sp/>&lt;&lt;<sp/>&quot;:<sp/>&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>ZMBT_DEBUG<sp/>::zmbt::StubLogger()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG(lvl)<sp/>::zmbt::Logger().WithSrcLoc(ZMBT_CUR_LOC).WithLevel(::zmbt::Logger::lvl)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_CERR(lvl)<sp/>ZMBT_LOG(lvl).WithOutput(::zmbt::Logger::STDERR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_LOG_JSON(lvl)<sp/>ZMBT_LOG(lvl).WithOutput(::zmbt::Logger::JSON)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacezmbt" kindref="compound">zmbt</ref><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NDEBUG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="structzmbt_1_1StubLogger" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structzmbt_1_1StubLogger" kindref="compound">StubLogger</ref></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structzmbt_1_1StubLogger" kindref="compound">StubLogger</ref>&amp;<sp/>operator&lt;&lt;(boost::json::value<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="classzmbt_1_1Logger" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref><sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Output</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NIL<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STDERR<sp/>=<sp/>1<sp/>&lt;&lt;<sp/>0,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JSON<sp/><sp/><sp/>=<sp/>1<sp/>&lt;&lt;<sp/>1,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Level</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATAL,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERROR,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WARNING,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INFO,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEBUG,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEVMODE,<sp/></highlight><highlight class="comment">//<sp/>development<sp/>troubleshooting<sp/>and<sp/>perf<sp/>stats</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="classzmbt_1_1Logger_1acfbcf44a2f9f0b232a00109423275523" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Logger_1acfbcf44a2f9f0b232a00109423275523" kindref="member">open_json</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>filename<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_max_level(Level<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>max_level);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Level<sp/>max_level();</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_notrim(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>trim_line);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_notrim_enabled();</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_pretty_print(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>trim_line);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_pretty_print_enabled();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref>();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref>&amp;<sp/>WithLevel(Level<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>level);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref>&amp;<sp/>WithOutput(Output<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>output);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref>&amp;<sp/>WithSrcLoc(boost::json::string_view<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>src_loc);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref>&amp;<sp/>operator&lt;&lt;(boost::json::value<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>value);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref>&amp;<sp/>operator&lt;&lt;(<ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>value);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Logger" kindref="compound">~Logger</ref>();</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>Level<sp/>level_{INFO};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>output_{STDERR<sp/>|<sp/>JSON};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::string_view<sp/>src_loc_{</highlight><highlight class="stringliteral">&quot;unknown&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>timestamp_[64];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::array<sp/>payload_cache_;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>set_timestamp();</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>BOOST_DESCRIBE_NESTED_ENUM(Level,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FATAL,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERROR,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WARNING,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INFO,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEBUG,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEVMODE</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>zmbt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp"/>
+  </compounddef>
+</doxygen>

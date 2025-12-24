@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1flags_1_1TestIsRunning" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::flags::TestIsRunning</compoundname>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1TestIsRunning_1a79dc9628e22014b8262a1d506f77be19" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::flags::TestIsRunning::set</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>set</name>
+        <qualifiedname>zmbt::flags::TestIsRunning::set</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="22" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" bodystart="22" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1TestIsRunning_1af73137e90d9084150105e671fbace976" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::flags::TestIsRunning::clear</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>clear</name>
+        <qualifiedname>zmbt::flags::TestIsRunning::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="27" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" bodystart="27" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1TestIsRunning_1acbd49e216eec94abcef6bc72524374d5" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::flags::TestIsRunning::status</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>status</name>
+        <qualifiedname>zmbt::flags::TestIsRunning::status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="32" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1TestIsRunning_1ad012a1636cb3aad3844c2d51ec3d89fd" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::flags::TestIsRunning::exchange</definition>
+        <argsstring>(bool const sts) noexcept</argsstring>
+        <name>exchange</name>
+        <qualifiedname>zmbt::flags::TestIsRunning::exchange</qualifiedname>
+        <param>
+          <type>bool const</type>
+          <declname>sts</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="37" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" bodystart="37" bodyend="40"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1TestIsRunning_1af9fee8421b54196cd6d971cdbe749d48" prot="private" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>std::atomic&lt; bool &gt; &amp;</type>
+        <definition>static std::atomic&lt; bool &gt; &amp; zmbt::flags::TestIsRunning::flag</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>flag</name>
+        <qualifiedname>zmbt::flags::TestIsRunning::flag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="43" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="19" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" bodystart="20" bodyend="44"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1flags_1_1TestIsRunning_1af73137e90d9084150105e671fbace976" prot="public" virt="non-virtual"><scope>zmbt::flags::TestIsRunning</scope><name>clear</name></member>
+      <member refid="classzmbt_1_1flags_1_1TestIsRunning_1ad012a1636cb3aad3844c2d51ec3d89fd" prot="public" virt="non-virtual"><scope>zmbt::flags::TestIsRunning</scope><name>exchange</name></member>
+      <member refid="classzmbt_1_1flags_1_1TestIsRunning_1af9fee8421b54196cd6d971cdbe749d48" prot="private" virt="non-virtual"><scope>zmbt::flags::TestIsRunning</scope><name>flag</name></member>
+      <member refid="classzmbt_1_1flags_1_1TestIsRunning_1a79dc9628e22014b8262a1d506f77be19" prot="public" virt="non-virtual"><scope>zmbt::flags::TestIsRunning</scope><name>set</name></member>
+      <member refid="classzmbt_1_1flags_1_1TestIsRunning_1acbd49e216eec94abcef6bc72524374d5" prot="public" virt="non-virtual"><scope>zmbt::flags::TestIsRunning</scope><name>status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

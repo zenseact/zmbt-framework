@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1lang_1_1attr" kind="namespace" language="C++">
+    <compoundname>zmbt::lang::attr</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="attributes_8hpp_1a9127c34f6f5a2eabb896e3a5795e0514" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_const</definition>
+        <argsstring></argsstring>
+        <name>is_const</name>
+        <qualifiedname>zmbt::lang::attr::is_const</qualifiedname>
+        <initializer>= 1 &lt;&lt;  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="29" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a67f4a8ea3f79cd6bed12119908a9e17d" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_unary</definition>
+        <argsstring></argsstring>
+        <name>is_unary</name>
+        <qualifiedname>zmbt::lang::attr::is_unary</qualifiedname>
+        <initializer>= 1 &lt;&lt;  2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="30" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a83f2025aa10c643b42baebe866bb45b8" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_binary</definition>
+        <argsstring></argsstring>
+        <name>is_binary</name>
+        <qualifiedname>zmbt::lang::attr::is_binary</qualifiedname>
+        <initializer>= 1 &lt;&lt;  3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="31" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a3468e3ce51eaa1f3e0b91d80710a605a" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_variadic</definition>
+        <argsstring></argsstring>
+        <name>is_variadic</name>
+        <qualifiedname>zmbt::lang::attr::is_variadic</qualifiedname>
+        <initializer>= 1 &lt;&lt;  4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="32" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1af50c7ece13e3045f459abb2d2915bea5" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_predicate</definition>
+        <argsstring></argsstring>
+        <name>is_predicate</name>
+        <qualifiedname>zmbt::lang::attr::is_predicate</qualifiedname>
+        <initializer>= 1 &lt;&lt;  5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="33" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1ae16fbfa9f51912017fdf3b43f2e86c30" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_operator</definition>
+        <argsstring></argsstring>
+        <name>is_operator</name>
+        <qualifiedname>zmbt::lang::attr::is_operator</qualifiedname>
+        <initializer>= 1 &lt;&lt;  6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="34" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1ac4f874700c3071b23c945073d62f17fa" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_hiord</definition>
+        <argsstring></argsstring>
+        <name>is_hiord</name>
+        <qualifiedname>zmbt::lang::attr::is_hiord</qualifiedname>
+        <initializer>= 1 &lt;&lt;  7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="35" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a4b061073154b888e1baa3fa7fdb84dde" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_noop</definition>
+        <argsstring></argsstring>
+        <name>is_noop</name>
+        <qualifiedname>zmbt::lang::attr::is_noop</qualifiedname>
+        <initializer>= 1 &lt;&lt;  8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="36" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a7f0eaf6f3346832036ff3121e89e7177" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_literal</definition>
+        <argsstring></argsstring>
+        <name>is_literal</name>
+        <qualifiedname>zmbt::lang::attr::is_literal</qualifiedname>
+        <initializer>= 1 &lt;&lt;  9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="37" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a7b8a951ac9f1f1ed6f9d3912ab41429c" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_quote</definition>
+        <argsstring></argsstring>
+        <name>is_quote</name>
+        <qualifiedname>zmbt::lang::attr::is_quote</qualifiedname>
+        <initializer>= 1 &lt;&lt; 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="38" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a6f7a3b51750487287b6ed611bb163804" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_preproc</definition>
+        <argsstring></argsstring>
+        <name>is_preproc</name>
+        <qualifiedname>zmbt::lang::attr::is_preproc</qualifiedname>
+        <initializer>= 1 &lt;&lt; 11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="39" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1adbd553620bd855d41018bdc6e9094e5d" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_error</definition>
+        <argsstring></argsstring>
+        <name>is_error</name>
+        <qualifiedname>zmbt::lang::attr::is_error</qualifiedname>
+        <initializer>= 1 &lt;&lt; 12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="40" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1aed0e6fd1720cb7772bb19c3a68bb392c" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_pipe</definition>
+        <argsstring></argsstring>
+        <name>is_pipe</name>
+        <qualifiedname>zmbt::lang::attr::is_pipe</qualifiedname>
+        <initializer>= 1 &lt;&lt; 13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="41" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a5670847af133e47fe6e3789878278e8d" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_fork</definition>
+        <argsstring></argsstring>
+        <name>is_fork</name>
+        <qualifiedname>zmbt::lang::attr::is_fork</qualifiedname>
+        <initializer>= 1 &lt;&lt; 14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="42" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a5a7efa24f6fff014fb8d2b62fc5a4421" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_overload</definition>
+        <argsstring></argsstring>
+        <name>is_overload</name>
+        <qualifiedname>zmbt::lang::attr::is_overload</qualifiedname>
+        <initializer>= 1 &lt;&lt; 15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="43" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a8eedc94a269162dccef6f90d5f033482" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_infix_chain</definition>
+        <argsstring></argsstring>
+        <name>is_infix_chain</name>
+        <qualifiedname>zmbt::lang::attr::is_infix_chain</qualifiedname>
+        <initializer>= 1 &lt;&lt; 16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="44" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a7ac4d1c5e6bea14ecc68897f55461272" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_autogen</definition>
+        <argsstring></argsstring>
+        <name>is_autogen</name>
+        <qualifiedname>zmbt::lang::attr::is_autogen</qualifiedname>
+        <initializer>= 1 &lt;&lt; 17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="45" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1aaa5fb2294f288455b030ecff6209b28e" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_sideeffect</definition>
+        <argsstring></argsstring>
+        <name>is_sideeffect</name>
+        <qualifiedname>zmbt::lang::attr::is_sideeffect</qualifiedname>
+        <initializer>= 1 &lt;&lt; 18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="46" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="attributes_8hpp_1a1154a2b49b0d06cd4d8dc951b9cf395d" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attr::is_single_form</definition>
+        <argsstring></argsstring>
+        <name>is_single_form</name>
+        <qualifiedname>zmbt::lang::attr::is_single_form</qualifiedname>
+        <initializer>= 1 &lt;&lt; 19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="47" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="27" column="1"/>
+  </compounddef>
+</doxygen>

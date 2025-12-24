@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Tag" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_Tag</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_CnlTag</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Tag_1a2a991face48ed5dda07a2639c11e1500" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Tag&lt; Target &gt;::Tag</definition>
+        <argsstring>(boost::json::string_view alias)</argsstring>
+        <name>Tag</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Tag::Tag</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>alias</declname>
+        </param>
+        <briefdescription>
+<para>Set channel tag. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="227" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="227" bodyend="231"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_Tag transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_CnlTag&lt; ModelDefinition::N_Decor &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_Filter</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Filter"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_Take</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Take"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_Tag&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_Tag&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="224" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="225" bodyend="232"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>state</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Tag_1a2a991face48ed5dda07a2639c11e1500" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>Tag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_Tag</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

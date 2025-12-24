@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1EvalImplBase" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::EvalImplBase</compoundname>
+    <basecompoundref refid="structzmbt_1_1lang_1_1FixedEvalParams" prot="public" virt="non-virtual">zmbt::lang::FixedEvalParams&lt; K &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <declname>K</declname>
+        <defname>K</defname>
+      </param>
+      <param>
+        <type>class Validator</type>
+        <defval><ref refid="structzmbt_1_1lang_1_1EvalValidator" kindref="compound">EvalValidator</ref>&lt;K&gt;</defval>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalImplBase_1ac802d6909c55bd8e09d7580e1d4b1ed2" prot="private" static="no" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>EvalContext zmbt::lang::EvalImplBase&lt; K, Validator &gt;::curr_ctx_</definition>
+        <argsstring></argsstring>
+        <name>curr_ctx_</name>
+        <qualifiedname>zmbt::lang::EvalImplBase::curr_ctx_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" line="41" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalImplBase_1a2218f4855310cf0c8bc4a5692bcafef8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>EvalContext zmbt::lang::EvalImplBase&lt; K, Validator &gt;::curr_ctx</definition>
+        <argsstring>() const</argsstring>
+        <name>curr_ctx</name>
+        <qualifiedname>zmbt::lang::EvalImplBase::curr_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" line="44" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalImplBase_1a5fc624cccc2821c80a2fa94b05aed360" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::EvalImplBase&lt; K, Validator &gt;::EvalImplBase</definition>
+        <argsstring>(ExpressionView const &amp;e, ExpressionView const &amp;x, EvalContext ctx)</argsstring>
+        <name>EvalImplBase</name>
+        <qualifiedname>zmbt::lang::EvalImplBase::EvalImplBase</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" line="46" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" bodystart="46" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalImplBase_1aa78e776451c98e76ac5f719cc5e1bef8" prot="public" static="no" const="no" explicit="no" inline="yes" refqual="rvalue" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::EvalImplBase&lt; K, Validator &gt;::operator()</definition>
+        <argsstring>() &amp;&amp;</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::lang::EvalImplBase::operator()</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" line="52" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" bodystart="52" bodyend="61"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>zmbt::lang::KeywordInfo&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordInfo"/>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::EvalImplBase&lt; K, Validator &gt;</label>
+        <link refid="classzmbt_1_1lang_1_1EvalImplBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::EvalParams</label>
+        <link refid="classzmbt_1_1lang_1_1EvalParams"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::FixedEvalParams&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1FixedEvalParams"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>zmbt::lang::KeywordInfo&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordInfo"/>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::EvalImplBase&lt; K, Validator &gt;</label>
+        <link refid="classzmbt_1_1lang_1_1EvalImplBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::EvalParams</label>
+        <link refid="classzmbt_1_1lang_1_1EvalParams"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::FixedEvalParams&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1FixedEvalParams"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" line="39" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" bodystart="40" bodyend="62"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1KeywordInfo_1af4b43fd4c2ccd92bf21eb392740f4735" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>attributes</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1ac2f9a3d54511de06a5356363b9e7866f" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>context</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalImplBase_1a2218f4855310cf0c8bc4a5692bcafef8" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>curr_ctx</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalImplBase_1ac802d6909c55bd8e09d7580e1d4b1ed2" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>curr_ctx_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalImplBase_1a5fc624cccc2821c80a2fa94b05aed360" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>EvalImplBase</name></member>
+      <member refid="structzmbt_1_1lang_1_1FixedEvalParams_1a101ab702231a32cbdfa0707a9fc30657" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>EvalParams</name></member>
+      <member refid="structzmbt_1_1lang_1_1KeywordInfo_1aaa85446974f293500939560bdf369173" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>keyword</name></member>
+      <member refid="structzmbt_1_1lang_1_1KeywordInfo_1a83484027af23da1e9562e470964dc0df" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>keyword_to_str</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1ae2f259f4632d2bb3f60592c76fa67e08" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>lhs</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalImplBase_1aa78e776451c98e76ac5f719cc5e1bef8" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a673e61e398a4e3d6963d3b22b82c7295" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>rhs</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a311a81c2e842b1570c341e2257feaf86" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>self</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a58cbc6e0a65478d37b0e8a4e93011f3a" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalImplBase</scope><name>x</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

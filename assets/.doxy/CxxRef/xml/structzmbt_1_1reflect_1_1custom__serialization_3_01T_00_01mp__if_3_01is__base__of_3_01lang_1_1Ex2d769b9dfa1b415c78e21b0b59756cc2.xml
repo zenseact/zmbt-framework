@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2_1abe0af93690544230db4b67b23924e667" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>static boost::json::value zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;::json_from</definition>
+        <argsstring>(T const &amp;t)</argsstring>
+        <name>json_from</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;::json_from</qualifiedname>
+        <param>
+          <type>T const &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="435" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="435" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2_1a3d95b4a8e11fb9cd5fb672832df1d4e4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>static T zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;::dejsonize</definition>
+        <argsstring>(boost::json::value const &amp;v)</argsstring>
+        <name>dejsonize</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;::dejsonize</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="441" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="441" bodyend="444"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" line="432" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp" bodystart="432" bodyend="445"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2_1a3d95b4a8e11fb9cd5fb672832df1d4e4" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;</scope><name>dejsonize</name></member>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2_1abe0af93690544230db4b67b23924e667" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;</scope><name>json_from</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

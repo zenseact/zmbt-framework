@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1EvalValidator" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::EvalValidator</compoundname>
+    <templateparamlist>
+      <param>
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <declname>K</declname>
+        <defname>K</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalValidator_1a059f4300aa9f8c7d696ae50b761b25ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::EvalValidator&lt; K &gt;::EvalValidator</definition>
+        <argsstring>(ExpressionView const &amp;lhs, ExpressionView const &amp;rhs)</argsstring>
+        <name>EvalValidator</name>
+        <qualifiedname>zmbt::lang::EvalValidator::EvalValidator</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" line="23" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalValidator_1ae8bfb3613d5838dde6fece2240929363" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EvalValidator&lt; K &gt;::is_invalid</definition>
+        <argsstring>() const</argsstring>
+        <name>is_invalid</name>
+        <qualifiedname>zmbt::lang::EvalValidator::is_invalid</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" line="25" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalValidator_1a3ff51c2210e4b7563219a5833ec216d0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::EvalValidator&lt; K &gt;::status</definition>
+        <argsstring>() const</argsstring>
+        <name>status</name>
+        <qualifiedname>zmbt::lang::EvalValidator::status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" line="30" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" bodystart="30" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" line="20" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp" bodystart="21" bodyend="34"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1EvalValidator_1a059f4300aa9f8c7d696ae50b761b25ca" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalValidator</scope><name>EvalValidator</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalValidator_1ae8bfb3613d5838dde6fece2240929363" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalValidator</scope><name>is_invalid</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalValidator_1a3ff51c2210e4b7563219a5833ec216d0" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalValidator</scope><name>status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

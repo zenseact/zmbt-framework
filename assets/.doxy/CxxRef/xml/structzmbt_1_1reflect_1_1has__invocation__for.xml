@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1has__invocation__for" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::has_invocation_for</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::false_type</basecompoundref>
+    <includes refid="invocation_8hpp" local="no">invocation.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+      <param>
+        <type>class E</type>
+        <defval>void</defval>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Trait check for reflect::invocation&lt;T&gt; </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>std::false_type</label>
+      </node>
+      <node id="1">
+        <label>zmbt::reflect::has_invocation_for&lt; T, E &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1has__invocation__for"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>std::false_type</label>
+      </node>
+      <node id="1">
+        <label>zmbt::reflect::has_invocation_for&lt; T, E &gt;</label>
+        <link refid="structzmbt_1_1reflect_1_1has__invocation__for"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="154" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="154" bodyend="154"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::Operator::Handle::S</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S_1a406a58d998b6066bcafd372a7f81bc6b" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::S::left</definition>
+        <argsstring></argsstring>
+        <name>left</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::S::left</qualifiedname>
+        <initializer>{generic_left_shift}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="263" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="263" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S_1af6cde109fa54fc642b9b75ff1e98c6b8" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::S::right</definition>
+        <argsstring></argsstring>
+        <name>right</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::S::right</qualifiedname>
+        <initializer>{generic_right_shift}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="264" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="264" bodyend="264"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="262" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="262" bodyend="265"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S_1a406a58d998b6066bcafd372a7f81bc6b" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::S</scope><name>left</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1S_1af6cde109fa54fc642b9b75ff1e98c6b8" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::S</scope><name>right</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

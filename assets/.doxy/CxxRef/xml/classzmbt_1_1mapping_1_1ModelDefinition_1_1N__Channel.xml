@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::ModelDefinition::N_Channel</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::T_At&lt; ModelDefinition::N_Filter &gt;</basecompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1ab10db554c05a9ae04dd655b342deac89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class ModelDefinition</definition>
+        <argsstring></argsstring>
+        <name>ModelDefinition</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Channel::ModelDefinition</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition" kindref="compound">ModelDefinition</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="165" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1aef4e87500d54985e0b1a4db88d25e8e6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</definition>
+        <argsstring>(detail::DefinitionHelper &amp;&amp;m)</argsstring>
+        <name>N_Channel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</qualifiedname>
+        <param>
+          <type>detail::DefinitionHelper &amp;&amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="166" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="166" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1ada2f02cb6cdb39768871a587be0bebf7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</definition>
+        <argsstring>(N_Channel const &amp;)=delete</argsstring>
+        <name>N_Channel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel" kindref="compound">N_Channel</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="169" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1a7dfdd2232976122e86ec09e218cafaff" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</definition>
+        <argsstring>(N_Channel &amp;&amp;)=default</argsstring>
+        <name>N_Channel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel" kindref="compound">N_Channel</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="170" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1aac737e3074e96fc4b13c58bd1d8ba35a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</definition>
+        <argsstring>()</argsstring>
+        <name>N_Channel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Channel::N_Channel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="173" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="173" bodyend="173"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1a26200c57b3fcc620b5aa89e4882f373b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::mapping::ModelDefinition::N_Channel::~N_Channel</definition>
+        <argsstring>()</argsstring>
+        <name>~N_Channel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Channel::~N_Channel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="174" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="174" bodyend="176"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_Channel</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;</label>
+        <childnode refid="3" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_Channel</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;</label>
+        <childnode refid="3" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="161" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="163" bodyend="177"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a10a1d200f3e16a62580ad81f1c785554" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a999b91af32c7d43395c9707b9d27dd14" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a909b4b4772b06044b7bd81f7c976b9fa" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a886dc91529ae296758a5bb65be475395" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>At</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1ab10db554c05a9ae04dd655b342deac89" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>ModelDefinition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1aef4e87500d54985e0b1a4db88d25e8e6" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>N_Channel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1ada2f02cb6cdb39768871a587be0bebf7" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>N_Channel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1a7dfdd2232976122e86ec09e218cafaff" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>N_Channel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1aac737e3074e96fc4b13c58bd1d8ba35a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>N_Channel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>~BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel_1a26200c57b3fcc620b5aa89e4882f373b" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_Channel</scope><name>~N_Channel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

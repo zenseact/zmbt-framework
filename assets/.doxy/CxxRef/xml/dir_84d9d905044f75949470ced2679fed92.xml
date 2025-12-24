@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_84d9d905044f75949470ced2679fed92" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping</compoundname>
+    <innerfile refid="channel__handle_8hpp">channel_handle.hpp</innerfile>
+    <innerfile refid="model__definition_8hpp">model_definition.hpp</innerfile>
+    <innerfile refid="model__definition__helper_8hpp">model_definition_helper.hpp</innerfile>
+    <innerfile refid="model__definition__main_8hpp">model_definition_main.hpp</innerfile>
+    <innerfile refid="model__definition__node_8hpp">model_definition_node.hpp</innerfile>
+    <innerfile refid="model__definition__states_8hpp">model_definition_states.hpp</innerfile>
+    <innerfile refid="model__definition__transitions_8hpp">model_definition_transitions.hpp</innerfile>
+    <innerfile refid="pipe__handle_8hpp">pipe_handle.hpp</innerfile>
+    <innerfile refid="test__diagnostics_8hpp">test_diagnostics.hpp</innerfile>
+    <innerfile refid="test__parameter__resolver_8hpp">test_parameter_resolver.hpp</innerfile>
+    <innerfile refid="test__runner_8hpp">test_runner.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/"/>
+  </compounddef>
+</doxygen>

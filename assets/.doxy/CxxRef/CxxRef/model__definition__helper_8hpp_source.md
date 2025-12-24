@@ -1,0 +1,229 @@
+
+
+# File model\_definition\_helper.hpp
+
+[**File List**](files.md) **>** [**backends**](dir_e0e3bad64fbfd08934d555b945409197.md) **>** [**cxx**](dir_2a0640ff8f8d193383b3226ce9e70e40.md) **>** [**include**](dir_33cabc3ab2bb40d6ea24a24cae2f30b8.md) **>** [**zmbt**](dir_2115e3e51895e4107b806d6d2319263e.md) **>** [**mapping**](dir_84d9d905044f75949470ced2679fed92.md) **>** [**model\_definition\_helper.hpp**](model__definition__helper_8hpp.md)
+
+[Go to the documentation of this file](model__definition__helper_8hpp.md)
+
+
+```C++
+
+#ifndef ZMBT_MAPPING_DEFINITION_HELPER_HPP_
+#define ZMBT_MAPPING_DEFINITION_HELPER_HPP_
+
+
+#include <stdint.h>
+#include <boost/json.hpp>
+#include <zmbt/core/interface_id.hpp>
+#include <zmbt/core/json_node.hpp>
+#include <zmbt/core/object_id.hpp>
+#include <zmbt/model/parameter.hpp>
+#include <zmbt/model/environment.hpp>
+#include <zmbt/expr/expression.hpp>
+#include <zmbt/model/traits.hpp>
+#include <zmbt/model/param_transform.hpp>
+#include <functional>
+#include <utility>
+#include <vector>
+
+namespace zmbt {
+namespace mapping {
+
+namespace detail {
+class DefinitionHelper {
+
+  public:
+
+    std::size_t pipe_count_{0};
+    std::size_t channel_abs_count_{0}; // channels per model
+    std::size_t channel_rel_count_{0}; // channels per pipe
+    int test_column_count_{0};
+    int test_row_count_{0};
+
+    boost::json::value head_pipe_type_ {};
+    std::string channel_pointer_{};
+    Environment env;
+    JsonNode model;
+    JsonNode params;
+
+
+    void execute();
+
+    boost::json::array const& pointers_for(Param const& p);
+
+    std::string head_pointer() const
+    {
+        return channel_pointer_;
+    }
+
+    boost::json::object& cur_channel();
+    boost::json::object& cur_pipe();
+
+
+    void set_deferred_param(boost::json::string_view node_ptr, lang::Expression const& param);
+    void set_description(boost::json::string_view comment);
+    void add_task(boost::json::string_view ref, bool const pre);
+    void add_task(std::function<void()> fn, bool const pre);
+    void add_param_values(Param const& p, boost::json::array const& values);
+
+
+    template <class... A>
+    void add_param_values_with_transform(Param const& p, A&&... args)
+    {
+        auto const& pointers = pointers_for(p);
+        boost::json::array values {param_transform(p, pointers, std::forward<A>(args))...};
+        add_param_values(p, values);
+    }
+
+    void init_zip();
+
+    void init_prod();
+
+    void init_pairwise();
+    void init_parametrize();
+
+
+    enum cnl_param : uint32_t {
+        cnl_prm_none = 0,
+        cnl_prm_cal = 1U << 0,
+        cnl_prm_obj = 1U << 1,
+        cnl_prm_key = 1U << 2,
+        cnl_prm_defer_key = 1U << 3
+    };
+
+    boost::json::value handle_obj_p(object_id const& obj, uint32_t&)
+    {
+        return {obj};
+    }
+
+    boost::json::value handle_obj_p(Param const& obj, uint32_t& param_type)
+    {
+        param_type |= cnl_prm_obj;
+        return obj.to_json();
+    }
+
+    boost::json::value handle_obj_p(boost::json::string_view obj, uint32_t&)
+    {
+        return {obj};
+    }
+
+    template <class P>
+    require_cal<P, boost::json::value>
+    handle_cal_p(P&& cal, uint32_t&)
+    {
+        env.InitializeInterfaceHandlers(std::forward<P>(cal));
+        return {interface_id(cal)};
+    }
+
+    boost::json::value handle_cal_p(Param const& cal, uint32_t& param_type)
+    {
+        param_type |= cnl_prm_cal;
+        return cal.to_json();
+    }
+
+
+    boost::json::value handle_key_p(boost::json::value const node, uint32_t& param_type)
+    {
+        if (Param::isParam(node))
+        {
+            param_type |= cnl_prm_key;
+        }
+        else if (!lang::Expression(node).is_literal())
+        {
+            param_type |= cnl_prm_defer_key;
+        }
+        return {node};
+    }
+
+    void continue_pipe(boost::json::string_view combo);
+
+    void add_channel_impl(boost::json::value const& ifc, uint32_t const param_type);
+
+
+    template <class O>
+    void add_channel(O&& obj, Param cal)
+    {
+        uint32_t param_type = cnl_prm_none;
+        boost::json::value obj_node(handle_obj_p(obj, param_type));
+        boost::json::value cal_node(handle_cal_p(cal, param_type));
+
+        add_channel_impl({
+            {"obj", obj_node},
+            {"ifc", cal_node},
+        }, param_type);
+
+        if (cnl_prm_none == param_type) {
+            env.RegisterAnonymousInterface(interface_id(cal_node), object_id(obj_node));
+        }
+    }
+
+    template <class O, class C>
+    void add_channel(O&& obj, C&& cal)
+    {
+        uint32_t param_type = cnl_prm_none;
+        boost::json::value obj_node(handle_obj_p(obj, param_type));
+        boost::json::value cal_node(handle_cal_p(cal, param_type));
+
+        add_channel_impl({
+            {"obj", obj_node},
+            {"ifc", cal_node},
+        }, param_type);
+
+        if (cnl_prm_none == param_type) {
+            env.RegisterAnonymousInterface(std::forward<C>(cal), object_id(obj_node));
+        }
+    }
+
+    template <class T>
+    require_cal<T>
+    add_channel(T&& cal)
+    {
+        uint32_t param_type = cnl_prm_none;
+        boost::json::value cal_node(handle_cal_p(cal, param_type));
+
+        add_channel_impl({
+            {"obj", "$(default)"},
+            {"ifc", cal_node},
+        }, param_type);
+
+        if (cnl_prm_none == param_type) {
+            env.RegisterAnonymousInterface(std::forward<T>(cal), ifc_host_nullptr<T>);
+        }
+    }
+
+    template <class T>
+    require_not_cal<T>
+    add_channel(T&& key)
+    {
+        uint32_t param_type {cnl_prm_none};
+        boost::json::value key_node(handle_key_p(json_from(key), param_type));
+        add_channel_impl(key_node, param_type);
+    }
+
+    void set_channel_sp(boost::json::string_view kind, lang::Expression const& sp);
+
+    void add_test_case(std::vector<lang::Expression> const& tv);
+
+    void set_expr(lang::Expression const& expr);
+
+    DefinitionHelper();
+
+    DefinitionHelper(DefinitionHelper const&) = default;
+    DefinitionHelper(DefinitionHelper &&) = default;
+    DefinitionHelper(DefinitionHelper &) = default;
+    DefinitionHelper& operator=(DefinitionHelper const&) = default;
+    DefinitionHelper& operator=(DefinitionHelper &&) = default;
+    ~DefinitionHelper();
+
+
+};  // DefinitionHelper
+
+}  // namespace detail
+}  // namespace mapping
+}  // namespace zmbt
+
+#endif
+```
+
+

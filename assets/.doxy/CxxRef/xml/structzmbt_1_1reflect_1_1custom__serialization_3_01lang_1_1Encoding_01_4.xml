@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1Encoding_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1Encoding_01_4_1abde8aa607e81d5935aa8ec0423477c3f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>static boost::json::value zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;::json_from</definition>
+        <argsstring>(lang::Encoding const &amp;enc)</argsstring>
+        <name>json_from</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;::json_from</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Encoding" kindref="compound">lang::Encoding</ref> const &amp;</type>
+          <declname>enc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="231" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1Encoding_01_4_1a89cc0f7d34971c75697f3e2ddde1ec1c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1Encoding" kindref="compound">lang::Encoding</ref></type>
+        <definition>static lang::Encoding zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;::dejsonize</definition>
+        <argsstring>(boost::json::value const &amp;v)</argsstring>
+        <name>dejsonize</name>
+        <qualifiedname>zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;::dejsonize</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="234" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="227" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="228" bodyend="235"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1Encoding_01_4_1a89cc0f7d34971c75697f3e2ddde1ec1c" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;</scope><name>dejsonize</name></member>
+      <member refid="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1Encoding_01_4_1abde8aa607e81d5935aa8ec0423477c3f" prot="public" virt="non-virtual"><scope>zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;</scope><name>json_from</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_At</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Channel</derivedcompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_MaybeChannel</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a10a1d200f3e16a62580ad81f1c785554" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>require_not_str&lt; Interface, Target &gt;</type>
+        <definition>require_not_str&lt; Interface, Target &gt; zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;::At</definition>
+        <argsstring>(Interface &amp;&amp;cal, object_id const &amp;obj)</argsstring>
+        <name>At</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_At::At</qualifiedname>
+        <param>
+          <type>Interface &amp;&amp;</type>
+          <declname>cal</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref> const &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+<para>Create input channel with an interface literal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="252" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="252" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a999b91af32c7d43395c9707b9d27dd14" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>require_not_str&lt; Interface, Target &gt;</type>
+        <definition>require_not_str&lt; Interface, Target &gt; zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;::At</definition>
+        <argsstring>(Interface &amp;&amp;cal, Param const &amp;obj)</argsstring>
+        <name>At</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_At::At</qualifiedname>
+        <param>
+          <type>Interface &amp;&amp;</type>
+          <declname>cal</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="260" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="260" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a909b4b4772b06044b7bd81f7c976b9fa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>require_not_str&lt; Interface, Target &gt;</type>
+        <definition>require_not_str&lt; Interface, Target &gt; zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;::At</definition>
+        <argsstring>(Interface &amp;&amp;cal)</argsstring>
+        <name>At</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_At::At</qualifiedname>
+        <param>
+          <type>Interface &amp;&amp;</type>
+          <declname>cal</declname>
+        </param>
+        <briefdescription>
+<para>Create input channel. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="270" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="270" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a886dc91529ae296758a5bb65be475395" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>T</declname>
+            <defname>T</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;::At</definition>
+        <argsstring>(boost::json::string_view key, T &amp;&amp;... fmtargs)</argsstring>
+        <name>At</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_At::At</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>T &amp;&amp;...</type>
+          <declname>fmtargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="278" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="278" bodyend="282"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_At transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Channel&lt; ModelDefinition::N_Filter &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Channel"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_MaybeChannel&lt; ModelDefinition::N_Filter &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_PipeId</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__PipeId"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Repeat</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Repeat"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="247" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="248" bodyend="283"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a10a1d200f3e16a62580ad81f1c785554" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a999b91af32c7d43395c9707b9d27dd14" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a909b4b4772b06044b7bd81f7c976b9fa" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a886dc91529ae296758a5bb65be475395" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>At</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_At</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1decor" kind="namespace" language="C++">
+    <compoundname>zmbt::decor</compoundname>
+    <innerclass refid="structzmbt_1_1decor_1_1precise" prot="public">zmbt::decor::precise</innerclass>
+    <innerclass refid="structzmbt_1_1decor_1_1precision__loss__error" prot="public">zmbt::decor::precision_loss_error</innerclass>
+    <innerclass refid="structzmbt_1_1decor_1_1underlying" prot="public">zmbt::decor::underlying</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacezmbt_1_1decor_1a2c1f13582b5ae2a7244824864037ccab" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structzmbt_1_1type__tag" kindref="compound">zmbt::type_tag</ref>&lt; <ref refid="structzmbt_1_1decor_1_1precise" kindref="compound">precise</ref>&lt; T &gt; &gt;</type>
+        <definition>constexpr zmbt::type_tag&lt;precise&lt;T&gt; &gt; zmbt::decor::Precise</definition>
+        <argsstring></argsstring>
+        <name>Precise</name>
+        <qualifiedname>zmbt::decor::Precise</qualifiedname>
+        <briefdescription>
+<para>precise&lt;T&gt; decorator </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp" line="225" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1decor_1accd39b6df4a7c978de7524aefeddb63d" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr <ref refid="structzmbt_1_1type__tag" kindref="compound">zmbt::type_tag</ref>&lt; <ref refid="structzmbt_1_1decor_1_1underlying" kindref="compound">underlying</ref>&lt; T &gt; &gt;</type>
+        <definition>constexpr zmbt::type_tag&lt;underlying&lt;T&gt; &gt; zmbt::decor::Underlying</definition>
+        <argsstring></argsstring>
+        <name>Underlying</name>
+        <qualifiedname>zmbt::decor::Underlying</qualifiedname>
+        <briefdescription>
+<para>underlying&lt;T&gt; decorator </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/underlying.hpp" line="95" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/underlying.hpp" bodystart="95" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Signal type decorators API. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp" line="20" column="1"/>
+  </compounddef>
+</doxygen>

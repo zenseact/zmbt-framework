@@ -1,0 +1,473 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1Logger" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::Logger</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Output</name>
+        <qualifiedname>zmbt::Logger::Output</qualifiedname>
+        <enumvalue id="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9a6e8f24931a6dc154372e0fd15a46f0fa" prot="public">
+          <name>NIL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9a0c0021c72d6452f6b0bd1fe8c6fcfc8d" prot="public">
+          <name>STDERR</name>
+          <initializer>= 1 &lt;&lt; 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9af697f75b7af60c8397a21888325ee551" prot="public">
+          <name>JSON</name>
+          <initializer>= 1 &lt;&lt; 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="46" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="47" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="enum" id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423a" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Level</name>
+        <qualifiedname>zmbt::Logger::Level</qualifiedname>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa267b6e0b868fc837f9020d7a9cfca35e" prot="public">
+          <name>FATAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa49efb2869f04543a4399e6db3114d3e4" prot="public">
+          <name>ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa2c917d7b002eb026866c9e3ddd546df8" prot="public">
+          <name>WARNING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa100d37d61b976baa7d989e90b9866788" prot="public">
+          <name>INFO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa82711538cd91bfa4bdb99c42e371b2c1" prot="public">
+          <name>DEBUG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa0ecb3031d486b9717be97bce4f01a11e" prot="public">
+          <name>TRACE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aadbb1cfdc331d084f9999c965b2fbf4e4" prot="public">
+          <name>DEVMODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="53" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="54" bodyend="62"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1Logger_1a5ed2dca71509096f205f97690be204cf" prot="private" static="no" mutable="no">
+        <type>Level</type>
+        <definition>Level zmbt::Logger::level_</definition>
+        <argsstring></argsstring>
+        <name>level_</name>
+        <qualifiedname>zmbt::Logger::level_</qualifiedname>
+        <initializer>{INFO}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="90" column="11" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="90" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Logger_1ae8ee0b39cc68f2eb658025139c5bb029" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int zmbt::Logger::output_</definition>
+        <argsstring></argsstring>
+        <name>output_</name>
+        <qualifiedname>zmbt::Logger::output_</qualifiedname>
+        <initializer>{STDERR | JSON}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="91" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="91" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Logger_1af25daecb60d4740ea77a2fc4dba048d6" prot="private" static="no" mutable="no">
+        <type>boost::json::string_view</type>
+        <definition>boost::json::string_view zmbt::Logger::src_loc_</definition>
+        <argsstring></argsstring>
+        <name>src_loc_</name>
+        <qualifiedname>zmbt::Logger::src_loc_</qualifiedname>
+        <initializer>{&quot;unknown&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="92" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="92" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Logger_1a79a693e04e8c607a3cbb74f4516e1927" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char zmbt::Logger::timestamp_[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>timestamp_</name>
+        <qualifiedname>zmbt::Logger::timestamp_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="93" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1Logger_1a9998f5031ff2bf28bd05bf62fc24ab33" prot="private" static="no" mutable="no">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::Logger::payload_cache_</definition>
+        <argsstring></argsstring>
+        <name>payload_cache_</name>
+        <qualifiedname>zmbt::Logger::payload_cache_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="94" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="94" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1Logger_1acfbcf44a2f9f0b232a00109423275523" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::Logger::open_json</definition>
+        <argsstring>(const std::string &amp;filename=&quot;&quot;)</argsstring>
+        <name>open_json</name>
+        <qualifiedname>zmbt::Logger::open_json</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>filename</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Attach logger to file sink (&quot;&quot; means stdout) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="65" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a15ef7f20fafe2f0b5ab153b590c7e8f7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::Logger::set_max_level</definition>
+        <argsstring>(Level const max_level)</argsstring>
+        <name>set_max_level</name>
+        <qualifiedname>zmbt::Logger::set_max_level</qualifiedname>
+        <param>
+          <type>Level const</type>
+          <declname>max_level</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="67" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a45a54ebf644a480281d47ee57933cc2c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Level</type>
+        <definition>static Level zmbt::Logger::max_level</definition>
+        <argsstring>()</argsstring>
+        <name>max_level</name>
+        <qualifiedname>zmbt::Logger::max_level</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="68" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a4cb8b7eda1812ce0d2fdc09186123688" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::Logger::set_notrim</definition>
+        <argsstring>(bool const trim_line)</argsstring>
+        <name>set_notrim</name>
+        <qualifiedname>zmbt::Logger::set_notrim</qualifiedname>
+        <param>
+          <type>bool const</type>
+          <declname>trim_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="70" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a9b158b07bd0d1cf0cd63af7784304417" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::Logger::is_notrim_enabled</definition>
+        <argsstring>()</argsstring>
+        <name>is_notrim_enabled</name>
+        <qualifiedname>zmbt::Logger::is_notrim_enabled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="71" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1adc52408083d2767a9f13193e2c20eeb7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::Logger::set_pretty_print</definition>
+        <argsstring>(bool const trim_line)</argsstring>
+        <name>set_pretty_print</name>
+        <qualifiedname>zmbt::Logger::set_pretty_print</qualifiedname>
+        <param>
+          <type>bool const</type>
+          <declname>trim_line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="73" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1ae363f775e665df15b65b9ba5eb27338e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::Logger::is_pretty_print_enabled</definition>
+        <argsstring>()</argsstring>
+        <name>is_pretty_print_enabled</name>
+        <qualifiedname>zmbt::Logger::is_pretty_print_enabled</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="74" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a3ffcf46b43cb0f8225529f905487a4c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Logger::Logger</definition>
+        <argsstring>()</argsstring>
+        <name>Logger</name>
+        <qualifiedname>zmbt::Logger::Logger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="77" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a856bb29f9913a7d4d12e730e82325dfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref> &amp;</type>
+        <definition>Logger &amp; zmbt::Logger::WithLevel</definition>
+        <argsstring>(Level const level)</argsstring>
+        <name>WithLevel</name>
+        <qualifiedname>zmbt::Logger::WithLevel</qualifiedname>
+        <param>
+          <type>Level const</type>
+          <declname>level</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="79" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a962c54644c6649378b03f8dbacf2f310" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref> &amp;</type>
+        <definition>Logger &amp; zmbt::Logger::WithOutput</definition>
+        <argsstring>(Output const output)</argsstring>
+        <name>WithOutput</name>
+        <qualifiedname>zmbt::Logger::WithOutput</qualifiedname>
+        <param>
+          <type>Output const</type>
+          <declname>output</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="80" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a0edf1eca9f5350793b98896429c0b4a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref> &amp;</type>
+        <definition>Logger &amp; zmbt::Logger::WithSrcLoc</definition>
+        <argsstring>(boost::json::string_view const src_loc)</argsstring>
+        <name>WithSrcLoc</name>
+        <qualifiedname>zmbt::Logger::WithSrcLoc</qualifiedname>
+        <param>
+          <type>boost::json::string_view const</type>
+          <declname>src_loc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="81" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1af4f59c5394a1e05f5d0ec32220328ce0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref> &amp;</type>
+        <definition>Logger &amp; zmbt::Logger::operator&lt;&lt;</definition>
+        <argsstring>(boost::json::value const &amp;value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>zmbt::Logger::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="83" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1ac25e46be02015d1186ff68f5fad8a4a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Logger" kindref="compound">Logger</ref> &amp;</type>
+        <definition>Logger &amp; zmbt::Logger::operator&lt;&lt;</definition>
+        <argsstring>(entity_id const &amp;value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>zmbt::Logger::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1entity__id" kindref="compound">entity_id</ref> const &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="84" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a7971e2ac36d3cdf3b04d95812d5051ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::Logger::~Logger</definition>
+        <argsstring>()</argsstring>
+        <name>~Logger</name>
+        <qualifiedname>zmbt::Logger::~Logger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="86" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1Logger_1a5689c63a66957e11e24feed729bb22f2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::Logger::set_timestamp</definition>
+        <argsstring>()</argsstring>
+        <name>set_timestamp</name>
+        <qualifiedname>zmbt::Logger::set_timestamp</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="96" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" line="43" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp" bodystart="43" bodyend="107"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa82711538cd91bfa4bdb99c42e371b2c1" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>DEBUG</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aadbb1cfdc331d084f9999c965b2fbf4e4" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>DEVMODE</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa49efb2869f04543a4399e6db3114d3e4" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>ERROR</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa267b6e0b868fc837f9020d7a9cfca35e" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>FATAL</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa100d37d61b976baa7d989e90b9866788" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>INFO</name></member>
+      <member refid="classzmbt_1_1Logger_1a9b158b07bd0d1cf0cd63af7784304417" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>is_notrim_enabled</name></member>
+      <member refid="classzmbt_1_1Logger_1ae363f775e665df15b65b9ba5eb27338e" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>is_pretty_print_enabled</name></member>
+      <member refid="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9af697f75b7af60c8397a21888325ee551" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>JSON</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423a" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>Level</name></member>
+      <member refid="classzmbt_1_1Logger_1a5ed2dca71509096f205f97690be204cf" prot="private" virt="non-virtual"><scope>zmbt::Logger</scope><name>level_</name></member>
+      <member refid="classzmbt_1_1Logger_1a3ffcf46b43cb0f8225529f905487a4c5" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>Logger</name></member>
+      <member refid="classzmbt_1_1Logger_1a45a54ebf644a480281d47ee57933cc2c" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>max_level</name></member>
+      <member refid="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9a6e8f24931a6dc154372e0fd15a46f0fa" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>NIL</name></member>
+      <member refid="classzmbt_1_1Logger_1acfbcf44a2f9f0b232a00109423275523" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>open_json</name></member>
+      <member refid="classzmbt_1_1Logger_1af4f59c5394a1e05f5d0ec32220328ce0" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classzmbt_1_1Logger_1ac25e46be02015d1186ff68f5fad8a4a7" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>Output</name></member>
+      <member refid="classzmbt_1_1Logger_1ae8ee0b39cc68f2eb658025139c5bb029" prot="private" virt="non-virtual"><scope>zmbt::Logger</scope><name>output_</name></member>
+      <member refid="classzmbt_1_1Logger_1a9998f5031ff2bf28bd05bf62fc24ab33" prot="private" virt="non-virtual"><scope>zmbt::Logger</scope><name>payload_cache_</name></member>
+      <member refid="classzmbt_1_1Logger_1a15ef7f20fafe2f0b5ab153b590c7e8f7" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>set_max_level</name></member>
+      <member refid="classzmbt_1_1Logger_1a4cb8b7eda1812ce0d2fdc09186123688" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>set_notrim</name></member>
+      <member refid="classzmbt_1_1Logger_1adc52408083d2767a9f13193e2c20eeb7" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>set_pretty_print</name></member>
+      <member refid="classzmbt_1_1Logger_1a5689c63a66957e11e24feed729bb22f2" prot="private" virt="non-virtual"><scope>zmbt::Logger</scope><name>set_timestamp</name></member>
+      <member refid="classzmbt_1_1Logger_1af25daecb60d4740ea77a2fc4dba048d6" prot="private" virt="non-virtual"><scope>zmbt::Logger</scope><name>src_loc_</name></member>
+      <member refid="classzmbt_1_1Logger_1a6007fe27e66588c39361c2c11d48c8b9a0c0021c72d6452f6b0bd1fe8c6fcfc8d" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>STDERR</name></member>
+      <member refid="classzmbt_1_1Logger_1a79a693e04e8c607a3cbb74f4516e1927" prot="private" virt="non-virtual"><scope>zmbt::Logger</scope><name>timestamp_</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa0ecb3031d486b9717be97bce4f01a11e" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>TRACE</name></member>
+      <member refid="classzmbt_1_1Logger_1ad0684618c4611d7e4f7f647838b8423aa2c917d7b002eb026866c9e3ddd546df8" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>WARNING</name></member>
+      <member refid="classzmbt_1_1Logger_1a856bb29f9913a7d4d12e730e82325dfc" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>WithLevel</name></member>
+      <member refid="classzmbt_1_1Logger_1a962c54644c6649378b03f8dbacf2f310" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>WithOutput</name></member>
+      <member refid="classzmbt_1_1Logger_1a0edf1eca9f5350793b98896429c0b4a0" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>WithSrcLoc</name></member>
+      <member refid="classzmbt_1_1Logger_1a7971e2ac36d3cdf3b04d95812d5051ad" prot="public" virt="non-virtual"><scope>zmbt::Logger</scope><name>~Logger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

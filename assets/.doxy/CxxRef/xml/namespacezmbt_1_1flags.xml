@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1flags" kind="namespace" language="C++">
+    <compoundname>zmbt::flags</compoundname>
+    <innerclass refid="classzmbt_1_1flags_1_1ConversionTime" prot="public">zmbt::flags::ConversionTime</innerclass>
+    <innerclass refid="classzmbt_1_1flags_1_1InjectionTime" prot="public">zmbt::flags::InjectionTime</innerclass>
+    <innerclass refid="classzmbt_1_1flags_1_1RecordingTime" prot="public">zmbt::flags::RecordingTime</innerclass>
+    <innerclass refid="classzmbt_1_1flags_1_1TestIsRunning" prot="public">zmbt::flags::TestIsRunning</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_flags.hpp" line="16" column="1"/>
+  </compounddef>
+</doxygen>

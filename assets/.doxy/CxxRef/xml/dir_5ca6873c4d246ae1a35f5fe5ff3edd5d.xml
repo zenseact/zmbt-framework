@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_5ca6873c4d246ae1a35f5fe5ff3edd5d" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr</compoundname>
+    <innerfile refid="expr_2api_8hpp">api.hpp</innerfile>
+    <innerfile refid="api__signatures_8hpp">api_signatures.hpp</innerfile>
+    <innerfile refid="attributes_8hpp">attributes.hpp</innerfile>
+    <innerfile refid="encoding_8hpp">encoding.hpp</innerfile>
+    <innerfile refid="eval__context_8hpp">eval_context.hpp</innerfile>
+    <innerfile refid="eval__impl_8hpp">eval_impl.hpp</innerfile>
+    <innerfile refid="eval__impl__pp_8hpp">eval_impl_pp.hpp</innerfile>
+    <innerfile refid="eval__log_8hpp">eval_log.hpp</innerfile>
+    <innerfile refid="eval__params_8hpp">eval_params.hpp</innerfile>
+    <innerfile refid="eval__validator_8hpp">eval_validator.hpp</innerfile>
+    <innerfile refid="expression_8hpp">expression.hpp</innerfile>
+    <innerfile refid="expression__grammar_8hpp">expression_grammar.hpp</innerfile>
+    <innerfile refid="global__env_8hpp">global_env.hpp</innerfile>
+    <innerfile refid="keyword_8hpp">keyword.hpp</innerfile>
+    <innerfile refid="keyword__grammar_8hpp">keyword_grammar.hpp</innerfile>
+    <innerfile refid="keyword__info_8hpp">keyword_info.hpp</innerfile>
+    <innerfile refid="lazy__param_8hpp">lazy_param.hpp</innerfile>
+    <innerfile refid="operator_8hpp">operator.hpp</innerfile>
+    <innerfile refid="subexpression_8hpp">subexpression.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::Operator::Handle::C</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C_1aa2aaa968be680f20a2ef07e60392c1d0" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::C::equal_to</definition>
+        <argsstring></argsstring>
+        <name>equal_to</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::C::equal_to</qualifiedname>
+        <initializer>{generic_equal_to}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="241" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="241" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C_1a5e5d363c3af5db0cd693f1eff99cf8bb" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::C::less</definition>
+        <argsstring></argsstring>
+        <name>less</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::C::less</qualifiedname>
+        <initializer>{generic_less}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="242" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="242" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C_1abc03aed0777ebe267cb99a274078a02e" prot="public" static="no" mutable="no">
+        <type>binary_transform</type>
+        <definition>binary_transform zmbt::lang::Operator::Handle::C::less_equal</definition>
+        <argsstring></argsstring>
+        <name>less_equal</name>
+        <qualifiedname>zmbt::lang::Operator::Handle::C::less_equal</qualifiedname>
+        <initializer>{generic_less_equal}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="243" column="30" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="243" bodyend="243"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" line="240" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp" bodystart="240" bodyend="244"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C_1aa2aaa968be680f20a2ef07e60392c1d0" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::C</scope><name>equal_to</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C_1a5e5d363c3af5db0cd693f1eff99cf8bb" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::C</scope><name>less</name></member>
+      <member refid="structzmbt_1_1lang_1_1Operator_1_1Handle_1_1C_1abc03aed0777ebe267cb99a274078a02e" prot="public" virt="non-virtual"><scope>zmbt::lang::Operator::Handle::C</scope><name>less_equal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

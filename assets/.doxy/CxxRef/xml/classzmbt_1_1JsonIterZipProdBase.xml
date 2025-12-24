@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1JsonIterZipProdBase" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::JsonIterZipProdBase</compoundname>
+    <basecompoundref refid="classzmbt_1_1JsonIter" prot="public" virt="virtual">zmbt::JsonIter</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1JsonProdIter" prot="public" virt="virtual">zmbt::JsonProdIter</derivedcompoundref>
+    <derivedcompoundref refid="classzmbt_1_1JsonZipIter" prot="public" virt="virtual">zmbt::JsonZipIter</derivedcompoundref>
+    <includes refid="json__iter_8hpp" local="no">json_iter.hpp</includes>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1JsonIterZipProdBase_1a5107676aafa8aa854d6ea443b879c229" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool zmbt::JsonIterZipProdBase::halt_</definition>
+        <argsstring></argsstring>
+        <name>halt_</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::halt_</qualifiedname>
+        <initializer>{false}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="63" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1JsonIterZipProdBase_1ac0063ec968875767634e30c7085f5e8c" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; boost::json::array::const_iterator &gt;</type>
+        <definition>std::vector&lt;boost::json::array::const_iterator&gt; zmbt::JsonIterZipProdBase::begins_</definition>
+        <argsstring></argsstring>
+        <name>begins_</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::begins_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="64" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="64" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1JsonIterZipProdBase_1a928cb53b6ba22c6219d3ef4195214583" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; boost::json::array::const_iterator &gt;</type>
+        <definition>std::vector&lt;boost::json::array::const_iterator&gt; zmbt::JsonIterZipProdBase::ends_</definition>
+        <argsstring></argsstring>
+        <name>ends_</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::ends_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="65" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="65" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1JsonIterZipProdBase_1a315c76dd93d7c43ee47e090a9545531d" prot="protected" static="no" mutable="no">
+        <type>std::vector&lt; boost::json::array::const_iterator &gt;</type>
+        <definition>std::vector&lt;boost::json::array::const_iterator&gt; zmbt::JsonIterZipProdBase::its_</definition>
+        <argsstring></argsstring>
+        <name>its_</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::its_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="66" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="66" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1JsonIterZipProdBase_1a1fa859048a603526416592a742dbe0cb" prot="protected" static="no" mutable="no">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::JsonIterZipProdBase::owned_sequences_</definition>
+        <argsstring></argsstring>
+        <name>owned_sequences_</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::owned_sequences_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="68" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a5a31d8d4a73ab1868172c6333b029f68" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::JsonIterZipProdBase::init_iters</definition>
+        <argsstring>(boost::json::array const &amp;seqences)</argsstring>
+        <name>init_iters</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::init_iters</qualifiedname>
+        <param>
+          <type>boost::json::array const &amp;</type>
+          <declname>seqences</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="72" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a8fac0558a527567fb28400ed134189e7" prot="public" static="no" const="yes" explicit="no" inline="yes" final="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool zmbt::JsonIterZipProdBase::halt</definition>
+        <argsstring>() const final</argsstring>
+        <name>halt</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::halt</qualifiedname>
+        <reimplements refid="classzmbt_1_1JsonIter_1a099328a6bcef32eb2c61af9b0ca14da5">halt</reimplements>
+        <briefdescription>
+<para>Iterator halted. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="76" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="76" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a2c5dc93d705cc05edf1822c38d4f8c89" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</definition>
+        <argsstring>(boost::json::array const &amp;sequences)</argsstring>
+        <name>JsonIterZipProdBase</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</qualifiedname>
+        <param>
+          <type>boost::json::array const &amp;</type>
+          <declname>sequences</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="81" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="81" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a05bd2a3af9d4c6f6b0ba28546ace7b27" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</definition>
+        <argsstring>(boost::json::array &amp;&amp;seqences)</argsstring>
+        <name>JsonIterZipProdBase</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</qualifiedname>
+        <param>
+          <type>boost::json::array &amp;&amp;</type>
+          <declname>seqences</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="86" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="86" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1aacd170641f53b705ba8fca5c89ef9c4b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</definition>
+        <argsstring>()</argsstring>
+        <name>JsonIterZipProdBase</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="91" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="91" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1ad3149d333715f0534cd5f49e5436b77a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::JsonIterZipProdBase::~JsonIterZipProdBase</definition>
+        <argsstring>()=default</argsstring>
+        <name>~JsonIterZipProdBase</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::~JsonIterZipProdBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="99" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a9f91da8baacf741f2bf9ec7677cd1b6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</definition>
+        <argsstring>(JsonIterZipProdBase const &amp;)=default</argsstring>
+        <name>JsonIterZipProdBase</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIterZipProdBase" kindref="compound">JsonIterZipProdBase</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="101" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a17b9de1214002678d1d714290df502f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1JsonIterZipProdBase" kindref="compound">JsonIterZipProdBase</ref> &amp;</type>
+        <definition>JsonIterZipProdBase &amp; zmbt::JsonIterZipProdBase::operator=</definition>
+        <argsstring>(JsonIterZipProdBase const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIterZipProdBase" kindref="compound">JsonIterZipProdBase</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="102" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1af08d6dc7ab5d450c864cbc5f5c945885" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</definition>
+        <argsstring>(JsonIterZipProdBase &amp;&amp;)=default</argsstring>
+        <name>JsonIterZipProdBase</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::JsonIterZipProdBase</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIterZipProdBase" kindref="compound">JsonIterZipProdBase</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="104" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a2964991c3ad0bce1bda4d8a35c14fec3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1JsonIterZipProdBase" kindref="compound">JsonIterZipProdBase</ref> &amp;</type>
+        <definition>JsonIterZipProdBase &amp; zmbt::JsonIterZipProdBase::operator=</definition>
+        <argsstring>(JsonIterZipProdBase &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonIterZipProdBase" kindref="compound">JsonIterZipProdBase</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="105" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonIterZipProdBase_1a313e0363c16d7f88730f811e54b80c18" prot="public" static="no" const="no" explicit="no" inline="no" final="yes" virt="virtual">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::JsonIterZipProdBase::get</definition>
+        <argsstring>() final</argsstring>
+        <name>get</name>
+        <qualifiedname>zmbt::JsonIterZipProdBase::get</qualifiedname>
+        <reimplements refid="classzmbt_1_1JsonIter_1acb086c14fdb58e6d189739b30a56562f">get</reimplements>
+        <briefdescription>
+<para>iterator value </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="108" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Boost JSON array iterator base for zip or cartesian product. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::JsonIter</label>
+        <link refid="classzmbt_1_1JsonIter"/>
+      </node>
+      <node id="1">
+        <label>zmbt::JsonIterZipProdBase</label>
+        <link refid="classzmbt_1_1JsonIterZipProdBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::JsonProdIter</label>
+        <link refid="classzmbt_1_1JsonProdIter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::JsonZipIter</label>
+        <link refid="classzmbt_1_1JsonZipIter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::JsonIter</label>
+        <link refid="classzmbt_1_1JsonIter"/>
+      </node>
+      <node id="1">
+        <label>zmbt::JsonIterZipProdBase</label>
+        <link refid="classzmbt_1_1JsonIterZipProdBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" line="59" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp" bodystart="60" bodyend="109"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1ac0063ec968875767634e30c7085f5e8c" prot="protected" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>begins_</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a928cb53b6ba22c6219d3ef4195214583" prot="protected" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>ends_</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a313e0363c16d7f88730f811e54b80c18" prot="public" virt="virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>get</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a8fac0558a527567fb28400ed134189e7" prot="public" virt="virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>halt</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a5107676aafa8aa854d6ea443b879c229" prot="protected" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>halt_</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a5a31d8d4a73ab1868172c6333b029f68" prot="private" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>init_iters</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a315c76dd93d7c43ee47e090a9545531d" prot="protected" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>its_</name></member>
+      <member refid="classzmbt_1_1JsonIter_1aef10ce60c7e4aad1d64d792cd1228a20" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIter_1ae0a15c74b490681c71fb2bd1caf6055f" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIter_1af25a3abe350f879ab2c94d033708ee41" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a2c5dc93d705cc05edf1822c38d4f8c89" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIterZipProdBase</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a05bd2a3af9d4c6f6b0ba28546ace7b27" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIterZipProdBase</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1aacd170641f53b705ba8fca5c89ef9c4b" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIterZipProdBase</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a9f91da8baacf741f2bf9ec7677cd1b6a" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIterZipProdBase</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1af08d6dc7ab5d450c864cbc5f5c945885" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>JsonIterZipProdBase</name></member>
+      <member refid="classzmbt_1_1JsonIter_1adac516fa51b9a25f3c0b1b35d4f6529c" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>operator*</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a5bbd69a27bfbfeaf1b3847f1c1e4c3f0" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>operator++</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a17b9de1214002678d1d714290df502f3" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a2964991c3ad0bce1bda4d8a35c14fec3" prot="public" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1JsonIter_1aa667051881f92d86c5cff2382dad9181" prot="public" virt="non-virtual" ambiguityscope="zmbt::JsonIter::"><scope>zmbt::JsonIterZipProdBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a938e2ee57bc55c83e54c6b865e0c233b" prot="public" virt="non-virtual" ambiguityscope="zmbt::JsonIter::"><scope>zmbt::JsonIterZipProdBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1a1fa859048a603526416592a742dbe0cb" prot="protected" virt="non-virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>owned_sequences_</name></member>
+      <member refid="classzmbt_1_1JsonIter_1a3a66fd4fc6ed0e3af4d7790af623fa42" prot="public" virt="virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>~JsonIter</name></member>
+      <member refid="classzmbt_1_1JsonIterZipProdBase_1ad3149d333715f0534cd5f49e5436b77a" prot="public" virt="virtual"><scope>zmbt::JsonIterZipProdBase</scope><name>~JsonIterZipProdBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

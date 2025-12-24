@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_Filter</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Filter" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Filter</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a0e825595cccdb70a13e976388f41055f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::Return</definition>
+        <argsstring>(lang::Expression const &amp;e=&quot;&quot;)</argsstring>
+        <name>Return</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::Return</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Interface return clause Refers to the return subsignal at the given JSON Pointer </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="130" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="130" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a4f9ff05dde46eb406d9610b4eb440c5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Rest</declname>
+            <defname>Rest</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::Return</definition>
+        <argsstring>(boost::json::string_view fmt, T &amp;&amp;arg1, Rest &amp;&amp;... args_rest)</argsstring>
+        <name>Return</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::Return</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>arg1</declname>
+        </param>
+        <param>
+          <type>Rest &amp;&amp;...</type>
+          <declname>args_rest</declname>
+        </param>
+        <briefdescription>
+<para>Interface return clause with printf-like format. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="138" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="138" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a5fd7585637b135c2e6e80e728aa80ae0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::Args</definition>
+        <argsstring>(lang::Expression const &amp;e=&quot;$(default)&quot;)</argsstring>
+        <name>Args</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::Args</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>e</declname>
+          <defval>&quot;$(default)&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Interface argument clause Refers to the arguments subsignal at the given JSON Pointer </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="145" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="145" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a0f4ac09b3a087be422bba5c77b4407eb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class...</type>
+            <declname>Rest</declname>
+            <defname>Rest</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::Args</definition>
+        <argsstring>(boost::json::string_view fmt, T &amp;&amp;arg1, Rest &amp;&amp;... args_rest)</argsstring>
+        <name>Args</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::Args</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>arg1</declname>
+        </param>
+        <param>
+          <type>Rest &amp;&amp;...</type>
+          <declname>args_rest</declname>
+        </param>
+        <briefdescription>
+<para>Interface argument clause with printf-like format. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="153" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="153" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a33d5f7453fe6a740fa1d5a7271aad750" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::Exception</definition>
+        <argsstring>()</argsstring>
+        <name>Exception</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::Exception</qualifiedname>
+        <briefdescription>
+<para>Interface exception. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="159" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="159" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1af6524777a85bab7f8e3d5bb24c238dd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::Timestamp</definition>
+        <argsstring>()</argsstring>
+        <name>Timestamp</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::Timestamp</qualifiedname>
+        <briefdescription>
+<para>Output capture timestamp. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="167" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="167" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a19e7e88bd7c7b82ef68f70e67e83dcf7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::ThreadId</definition>
+        <argsstring>()</argsstring>
+        <name>ThreadId</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::ThreadId</qualifiedname>
+        <briefdescription>
+<para>Output capture thread id. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="175" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="175" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1afc57b67d67cdfb591ce41654790445f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;::CallCount</definition>
+        <argsstring>()</argsstring>
+        <name>CallCount</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_Filter::CallCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="182" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="182" bodyend="187"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_Filter transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Filter&lt; ModelDefinition::N_Take &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Filter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_Filter&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="125" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="126" bodyend="188"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a5fd7585637b135c2e6e80e728aa80ae0" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>Args</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a0f4ac09b3a087be422bba5c77b4407eb" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>Args</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1afc57b67d67cdfb591ce41654790445f1" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>CallCount</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a33d5f7453fe6a740fa1d5a7271aad750" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>Exception</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a0e825595cccdb70a13e976388f41055f" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>Return</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a4f9ff05dde46eb406d9610b4eb440c5b" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>Return</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>state</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1a19e7e88bd7c7b82ef68f70e67e83dcf7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>ThreadId</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Filter_1af6524777a85bab7f8e3d5bb24c238dd7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>Timestamp</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_Filter</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

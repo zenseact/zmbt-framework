@@ -1,0 +1,260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1EvalParams" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::EvalParams</compoundname>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1FixedEvalParams" prot="public" virt="non-virtual">zmbt::lang::FixedEvalParams&lt; K &gt;</derivedcompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1acd06f1311356962d36e1fa7304bd02d0" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::EvalParams::lhs_maybe_owned_</definition>
+        <argsstring></argsstring>
+        <name>lhs_maybe_owned_</name>
+        <qualifiedname>zmbt::lang::EvalParams::lhs_maybe_owned_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="21" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1ae63abeb2032c12f196658714fc4e6289" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::EvalParams::rhs_maybe_owned_</definition>
+        <argsstring></argsstring>
+        <name>rhs_maybe_owned_</name>
+        <qualifiedname>zmbt::lang::EvalParams::rhs_maybe_owned_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="22" column="16" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1a58da17c55ad9856425a233e1e387c60b" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref></type>
+        <definition>ExpressionView zmbt::lang::EvalParams::lhs_</definition>
+        <argsstring></argsstring>
+        <name>lhs_</name>
+        <qualifiedname>zmbt::lang::EvalParams::lhs_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="23" column="20" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1a611fa4cea116e77c7acee8cd0a59b92d" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref></type>
+        <definition>ExpressionView zmbt::lang::EvalParams::rhs_</definition>
+        <argsstring></argsstring>
+        <name>rhs_</name>
+        <qualifiedname>zmbt::lang::EvalParams::rhs_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="24" column="20" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1a9433e77de36d785e5b7f081d1c10fffb" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const  &amp;</type>
+        <definition>ExpressionView const&amp; zmbt::lang::EvalParams::self_</definition>
+        <argsstring></argsstring>
+        <name>self_</name>
+        <qualifiedname>zmbt::lang::EvalParams::self_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="25" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1aeefeba9b0ec3f6bdc2f8c0ea993d38bc" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const  &amp;</type>
+        <definition>ExpressionView const&amp; zmbt::lang::EvalParams::x_</definition>
+        <argsstring></argsstring>
+        <name>x_</name>
+        <qualifiedname>zmbt::lang::EvalParams::x_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="26" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1EvalParams_1a4904eaaeee671877d19fed37c466eb3c" prot="private" static="no" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>EvalContext zmbt::lang::EvalParams::ctx_</definition>
+        <argsstring></argsstring>
+        <name>ctx_</name>
+        <qualifiedname>zmbt::lang::EvalParams::ctx_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="27" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1accfe1e2d1172156674b9ec76e577a73f" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::EvalParams::has_default_rhs</definition>
+        <argsstring>() const</argsstring>
+        <name>has_default_rhs</name>
+        <qualifiedname>zmbt::lang::EvalParams::has_default_rhs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="29" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1a101ab702231a32cbdfa0707a9fc30657" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::EvalParams::EvalParams</definition>
+        <argsstring>(ExpressionView const &amp;e, ExpressionView const &amp;x, EvalContext ctx)</argsstring>
+        <name>EvalParams</name>
+        <qualifiedname>zmbt::lang::EvalParams::EvalParams</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="33" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1a311a81c2e842b1570c341e2257feaf86" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+        <definition>ExpressionView const  &amp; zmbt::lang::EvalParams::self</definition>
+        <argsstring>() const</argsstring>
+        <name>self</name>
+        <qualifiedname>zmbt::lang::EvalParams::self</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="35" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1a58cbc6e0a65478d37b0e8a4e93011f3a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+        <definition>ExpressionView const  &amp; zmbt::lang::EvalParams::x</definition>
+        <argsstring>() const</argsstring>
+        <name>x</name>
+        <qualifiedname>zmbt::lang::EvalParams::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="36" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1ae2f259f4632d2bb3f60592c76fa67e08" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+        <definition>ExpressionView const  &amp; zmbt::lang::EvalParams::lhs</definition>
+        <argsstring>() const</argsstring>
+        <name>lhs</name>
+        <qualifiedname>zmbt::lang::EvalParams::lhs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="37" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1a673e61e398a4e3d6963d3b22b82c7295" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+        <definition>ExpressionView const  &amp; zmbt::lang::EvalParams::rhs</definition>
+        <argsstring>() const</argsstring>
+        <name>rhs</name>
+        <qualifiedname>zmbt::lang::EvalParams::rhs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="38" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1EvalParams_1ac2f9a3d54511de06a5356363b9e7866f" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>EvalContext zmbt::lang::EvalParams::context</definition>
+        <argsstring>() const</argsstring>
+        <name>context</name>
+        <qualifiedname>zmbt::lang::EvalParams::context</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="39" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zmbt::lang::EvalImplBase&lt; K, Validator &gt;</label>
+        <link refid="classzmbt_1_1lang_1_1EvalImplBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::EvalParams</label>
+        <link refid="classzmbt_1_1lang_1_1EvalParams"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::FixedEvalParams&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1FixedEvalParams"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" line="19" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp" bodystart="20" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1ac2f9a3d54511de06a5356363b9e7866f" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>context</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a4904eaaeee671877d19fed37c466eb3c" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>ctx_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a101ab702231a32cbdfa0707a9fc30657" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>EvalParams</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1accfe1e2d1172156674b9ec76e577a73f" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>has_default_rhs</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1ae2f259f4632d2bb3f60592c76fa67e08" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>lhs</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a58da17c55ad9856425a233e1e387c60b" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>lhs_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1acd06f1311356962d36e1fa7304bd02d0" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>lhs_maybe_owned_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a673e61e398a4e3d6963d3b22b82c7295" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>rhs</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a611fa4cea116e77c7acee8cd0a59b92d" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>rhs_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1ae63abeb2032c12f196658714fc4e6289" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>rhs_maybe_owned_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a311a81c2e842b1570c341e2257feaf86" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>self</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a9433e77de36d785e5b7f081d1c10fffb" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>self_</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1a58cbc6e0a65478d37b0e8a4e93011f3a" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>x</name></member>
+      <member refid="classzmbt_1_1lang_1_1EvalParams_1aeefeba9b0ec3f6bdc2f8c0ea993d38bc" prot="private" virt="non-virtual"><scope>zmbt::lang::EvalParams</scope><name>x_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

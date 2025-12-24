@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_dac1628bc1b9dc0b2ecee59f2dfa09f4" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api</compoundname>
+    <innerfile refid="model__test_8hpp">model_test.hpp</innerfile>
+    <innerfile refid="ns_8hpp">ns.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/"/>
+  </compounddef>
+</doxygen>

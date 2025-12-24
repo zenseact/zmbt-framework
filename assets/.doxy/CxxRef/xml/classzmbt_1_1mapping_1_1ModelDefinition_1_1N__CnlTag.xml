@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::ModelDefinition::N_CnlTag</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Decor" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Decor</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::T_Tag&lt; ModelDefinition::N_Decor &gt;</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Take" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Take</derivedcompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1ab10db554c05a9ae04dd655b342deac89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class ModelDefinition</definition>
+        <argsstring></argsstring>
+        <name>ModelDefinition</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_CnlTag::ModelDefinition</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition" kindref="compound">ModelDefinition</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="260" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="260" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a45450a29df21d3b145dfa617fe1e056d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</definition>
+        <argsstring>(detail::DefinitionHelper &amp;&amp;m)</argsstring>
+        <name>N_CnlTag</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</qualifiedname>
+        <param>
+          <type>detail::DefinitionHelper &amp;&amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="261" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="261" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a89246d6eeac3da51cf68e85d01ae719d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</definition>
+        <argsstring>(N_CnlTag const &amp;)=delete</argsstring>
+        <name>N_CnlTag</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag" kindref="compound">N_CnlTag</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="264" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a6f05e2b71856a73c16286a2b2e39efa8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</definition>
+        <argsstring>(N_CnlTag &amp;&amp;)=default</argsstring>
+        <name>N_CnlTag</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag" kindref="compound">N_CnlTag</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="265" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1afe62ea7690f84ba8cf4108618dc8918e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</definition>
+        <argsstring>()</argsstring>
+        <name>N_CnlTag</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_CnlTag::N_CnlTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="268" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="268" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a82781f18515c4b7a98649d9efc09fc90" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::mapping::ModelDefinition::N_CnlTag::~N_CnlTag</definition>
+        <argsstring>()</argsstring>
+        <name>~N_CnlTag</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_CnlTag::~N_CnlTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="269" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="269" bodyend="271"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_ChannelEnd</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ChannelEnd"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_CnlTag</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::N_Decor</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Decor"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::mapping::ModelDefinition::N_Filter</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Filter"/>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::mapping::ModelDefinition::N_Take</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Take"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::T_As&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::T_ContinuePipe&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt::mapping::ModelDefinition::T_Tag&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_ChannelEnd</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ChannelEnd"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_CnlTag</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::N_Decor</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Decor"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::T_As&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::T_ContinuePipe&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt::mapping::ModelDefinition::T_Tag&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::T_TerminatePipe&lt; Target &gt;</label>
+        <childnode refid="5" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="255" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="258" bodyend="272"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__As_1ad6f6b852f2985f51ae8f610711088b10" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>As</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__As_1accb8a6a94fc724586f27098bb0034826" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>As</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ContinuePipe_1af6fd98dcba8be7c68d4b4be6debe4abd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Blend</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1afea265cadaacc4ee722bdf477afcc301" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Expect</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a2da552af32bd8a0403eb9119382fa263" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Expect</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ContinuePipe_1ab5bff9a40d89727bc76f9585f92f7631" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Group</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1af4051179c16e22ef385c635e5089b968" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Inject</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TerminatePipe_1a5732ba3b41977a97494a8c59507c441d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Inject</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1ab10db554c05a9ae04dd655b342deac89" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>ModelDefinition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ChannelEnd_1adf301782d5a3664a592d51f0c02f682c" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>N_ChannelEnd</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a45450a29df21d3b145dfa617fe1e056d" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>N_CnlTag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a89246d6eeac3da51cf68e85d01ae719d" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>N_CnlTag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a6f05e2b71856a73c16286a2b2e39efa8" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>N_CnlTag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1afe62ea7690f84ba8cf4108618dc8918e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>N_CnlTag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Decor_1ac975e97d0b2e1c8321b49dbe70d7e980" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>N_Decor</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>state</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Tag_1a2a991face48ed5dda07a2639c11e1500" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>Tag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>~BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ChannelEnd_1a851c226d6d6fd1db477320750143e2cd" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>~N_ChannelEnd</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__CnlTag_1a82781f18515c4b7a98649d9efc09fc90" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>~N_CnlTag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Decor_1aaf5ebe2f43473ac54dfed3a923e9f8f4" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_CnlTag</scope><name>~N_Decor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1KeywordSymbol" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::KeywordSymbol</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::spirit::qi::symbols&lt; char, Keyword &gt;</basecompoundref>
+    <includes refid="keyword__grammar_8hpp" local="no">keyword_grammar.hpp</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1KeywordSymbol_1a34fab5f35dc8fb41235666c3d0c50170" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::KeywordSymbol::KeywordSymbol</definition>
+        <argsstring>()</argsstring>
+        <name>KeywordSymbol</name>
+        <qualifiedname>zmbt::lang::KeywordSymbol::KeywordSymbol</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="23" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Boost.Sirit.Qi Symbol for <ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">zmbt::lang::Keyword</ref> parsing. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>boost::spirit::qi::symbols&lt; char, Keyword &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::KeywordSymbol</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordSymbol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>boost::spirit::qi::symbols&lt; char, Keyword &gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::KeywordSymbol</label>
+        <link refid="structzmbt_1_1lang_1_1KeywordSymbol"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="21" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" bodystart="22" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1KeywordSymbol_1a34fab5f35dc8fb41235666c3d0c50170" prot="public" virt="non-virtual"><scope>zmbt::lang::KeywordSymbol</scope><name>KeywordSymbol</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1mapping" kind="namespace" language="C++">
+    <compoundname>zmbt::mapping</compoundname>
+    <innerclass refid="classzmbt_1_1mapping_1_1ChannelHandle" prot="public">zmbt::mapping::ChannelHandle</innerclass>
+    <innerclass refid="classzmbt_1_1mapping_1_1ModelDefinition" prot="public">zmbt::mapping::ModelDefinition</innerclass>
+    <innerclass refid="classzmbt_1_1mapping_1_1PipeHandle" prot="public">zmbt::mapping::PipeHandle</innerclass>
+    <innerclass refid="classzmbt_1_1mapping_1_1SignalMapping" prot="public">zmbt::mapping::SignalMapping</innerclass>
+    <innerclass refid="structzmbt_1_1mapping_1_1TestDiagnostics" prot="public">zmbt::mapping::TestDiagnostics</innerclass>
+    <innerclass refid="classzmbt_1_1mapping_1_1TestParameterResolver" prot="public">zmbt::mapping::TestParameterResolver</innerclass>
+    <innerclass refid="classzmbt_1_1mapping_1_1TestRunner" prot="public">zmbt::mapping::TestRunner</innerclass>
+    <briefdescription>
+<para>Signal Mapping model functionality. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="18" column="1"/>
+  </compounddef>
+</doxygen>

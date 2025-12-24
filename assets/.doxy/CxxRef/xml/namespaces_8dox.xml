@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespaces_8dox" kind="file" language="C++">
+    <compoundname>namespaces.dox</compoundname>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1reflect">zmbt::reflect</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1mapping">zmbt::mapping</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1lang">zmbt::lang</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1decor">zmbt::decor</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1expr">zmbt::expr</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1api">zmbt::api</innernamespace>
+    <innernamespace refid="namespacezmbt_1_1application">zmbt::application</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#error<sp/>Doxygen<sp/>documentation<sp/>file,<sp/>not<sp/>for<sp/>include</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/namespaces.dox"/>
+  </compounddef>
+</doxygen>

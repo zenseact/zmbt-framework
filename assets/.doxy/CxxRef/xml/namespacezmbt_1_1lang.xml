@@ -1,0 +1,1456 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1lang" kind="namespace" language="C++">
+    <compoundname>zmbt::lang</compoundname>
+    <innerclass refid="structzmbt_1_1lang_1_1Encoding" prot="public">zmbt::lang::Encoding</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1EncodingView" prot="public">zmbt::lang::EncodingView</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1EvalContext" prot="public">zmbt::lang::EvalContext</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1EvalImpl" prot="public">zmbt::lang::EvalImpl</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1EvalImplBase" prot="public">zmbt::lang::EvalImplBase</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1EvalLog" prot="public">zmbt::lang::EvalLog</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1EvalParams" prot="public">zmbt::lang::EvalParams</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1EvalValidator" prot="public">zmbt::lang::EvalValidator</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1Expression" prot="public">zmbt::lang::Expression</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1ExpressionGrammar" prot="public">zmbt::lang::ExpressionGrammar</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1ExpressionView" prot="public">zmbt::lang::ExpressionView</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1FixedEvalParams" prot="public">zmbt::lang::FixedEvalParams</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1GlobalEnv" prot="public">zmbt::lang::GlobalEnv</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1KeywordGrammar" prot="public">zmbt::lang::KeywordGrammar</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1KeywordInfo" prot="public">zmbt::lang::KeywordInfo</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1KeywordSymbol" prot="public">zmbt::lang::KeywordSymbol</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1LazyParam" prot="public">zmbt::lang::LazyParam</innerclass>
+    <innerclass refid="classzmbt_1_1lang_1_1Operator" prot="public">zmbt::lang::Operator</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureBase" prot="public">zmbt::lang::SignatureBase</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureBinary" prot="public">zmbt::lang::SignatureBinary</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureBinary_3_01Keyword_1_1PreProc_01_4" prot="public">zmbt::lang::SignatureBinary&lt; Keyword::PreProc &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureCast" prot="public">zmbt::lang::SignatureCast</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureConst" prot="public">zmbt::lang::SignatureConst</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureErr" prot="public">zmbt::lang::SignatureErr</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureOp" prot="public">zmbt::lang::SignatureOp</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureUnary" prot="public">zmbt::lang::SignatureUnary</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureUncast" prot="public">zmbt::lang::SignatureUncast</innerclass>
+    <innerclass refid="structzmbt_1_1lang_1_1SignatureVariadic" prot="public">zmbt::lang::SignatureVariadic</innerclass>
+    <innernamespace refid="namespacezmbt_1_1lang_1_1attr">zmbt::lang::attr</innernamespace>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" prot="public" static="no" strong="yes">
+        <type>std::uint64_t</type>
+        <name>Keyword</name>
+        <qualifiedname>zmbt::lang::Keyword</qualifiedname>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baec0fc0100c4fc1ce4eea230c3dc10360" prot="public">
+          <name>Undefined</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad7da1b76e5799f53a399b7a96ba67437" prot="public">
+          <name>Literal</name>
+          <briefdescription>
+<para>Literal. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba81ceb48a978444906d80119200aa358d" prot="public">
+          <name>Void</name>
+          <briefdescription>
+<para>Void. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba0be39a8077a5dbd7361ed20e09ceb8ad" prot="public">
+          <name>LazyToken</name>
+          <briefdescription>
+<para>LazyToken. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287babae1cf846e0a6ea2a42cd36ef3407c04" prot="public">
+          <name>_Continue</name>
+          <briefdescription>
+<para>_Continue </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4034f48319956309b9e3e5f9616c42e8" prot="public">
+          <name>_Resolve</name>
+          <briefdescription>
+<para>_Resolve </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba35721c181ec6a9cca6cdb99dd844d07b" prot="public">
+          <name>Noop</name>
+          <briefdescription>
+<para>Noop. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287babbb93ef26e3c101ff11cdd21cab08a94" prot="public">
+          <name>Null</name>
+          <briefdescription>
+<para>Null. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf827cf462f62848df37c5e1e94a4da74" prot="public">
+          <name>True</name>
+          <briefdescription>
+<para>True. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf8320b26d30ab433c5a54546d21f414c" prot="public">
+          <name>False</name>
+          <briefdescription>
+<para>False. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba127125672f1e85d1e676d4394d24e066" prot="public">
+          <name>Pi</name>
+          <briefdescription>
+<para>Pi. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3a3ea00cfc35332cedf6e5e9a32e94da" prot="public">
+          <name>E</name>
+          <briefdescription>
+<para>E. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba043788ce11dbb8a9d278aa691562740c" prot="public">
+          <name>Inf</name>
+          <briefdescription>
+<para>Inf. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba84e5e5128d886ca0c340ee5a407eaf1c" prot="public">
+          <name>Eps</name>
+          <briefdescription>
+<para>Eps. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7ecfb3bf076a6a9635f975fe96ac97fd" prot="public">
+          <name>NaN</name>
+          <briefdescription>
+<para>NaN. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad97477d6d8a838ead9348185bb5b6742" prot="public">
+          <name>Thread</name>
+          <briefdescription>
+<para>Thread. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba0986d137604183312e6d3599578bc6cd" prot="public">
+          <name>Sin</name>
+          <briefdescription>
+<para>Sin. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baffca562be079b9e4e41ea9d6a86c582b" prot="public">
+          <name>Cos</name>
+          <briefdescription>
+<para>Cos. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba1266b4e6f81e60733ec6c717e0181f60" prot="public">
+          <name>Tan</name>
+          <briefdescription>
+<para>Tan. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba76cfc54de4e2b9cde17334c821217d11" prot="public">
+          <name>Asin</name>
+          <briefdescription>
+<para>Asin. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baed4629033ecb516ed7d1536e162030bb" prot="public">
+          <name>Acos</name>
+          <briefdescription>
+<para>Acos. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac9968ab1fa8103acbb3a4f22265f2def" prot="public">
+          <name>Atan</name>
+          <briefdescription>
+<para>Atan. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba98ed804abf4edd1f3be3fa894fa8cc3d" prot="public">
+          <name>Sinh</name>
+          <briefdescription>
+<para>Sinh. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4371c3565b771b40c187487cc0190392" prot="public">
+          <name>Cosh</name>
+          <briefdescription>
+<para>Cosh. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bacc132a41cab5676334f353a22a0aa5c5" prot="public">
+          <name>Tanh</name>
+          <briefdescription>
+<para>Tanh. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba48b0c8f05b375d30e01ccf6c61987451" prot="public">
+          <name>Asinh</name>
+          <briefdescription>
+<para>Asinh. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9b01cdc4254cd9d858693b271d0f74f3" prot="public">
+          <name>Acosh</name>
+          <briefdescription>
+<para>Acosh. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba49ae96c7e8f2e19b9f2821f18d86a75e" prot="public">
+          <name>Atanh</name>
+          <briefdescription>
+<para>Atanh. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bacad39a154bffb61175f674d6eefaf6d0" prot="public">
+          <name>Exp</name>
+          <briefdescription>
+<para>Exp. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad9e1ca0ea29e34e3f69dae72061a831b" prot="public">
+          <name>Erf</name>
+          <briefdescription>
+<para>Erf. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba1d098c50ba71f801c74f9b5887ec8d2d" prot="public">
+          <name>Erfc</name>
+          <briefdescription>
+<para>Erfc. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad9cdb0f6e0d556347c10a8695545a4b5" prot="public">
+          <name>Gamma</name>
+          <briefdescription>
+<para>Gamma. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba1e34af023adeb7d5f484f8eb4b9826b6" prot="public">
+          <name>Abs</name>
+          <briefdescription>
+<para>Abs. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bab95a01ffffa8fcdd2a9af961937c097c" prot="public">
+          <name>Ceil</name>
+          <briefdescription>
+<para>Ceil. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf3f6d0343d56ce88ce7958170ed05cb3" prot="public">
+          <name>Floor</name>
+          <briefdescription>
+<para>Floor. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bab7f41fc1412ad2ee75e9b2635d3b9d5c" prot="public">
+          <name>Round</name>
+          <briefdescription>
+<para>Round. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baae77f3ad25595e35b327334d89410054" prot="public">
+          <name>Sqrt</name>
+          <briefdescription>
+<para>Sqrt. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba31c6b3fdfaaa80dba2dbf92a4600524c" prot="public">
+          <name>Sign</name>
+          <briefdescription>
+<para>Sign. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bafb278fa5defd7e699fcbc930c3e76ccd" prot="public">
+          <name>Neg</name>
+          <briefdescription>
+<para>Neg. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baec211f7c20af43e742bf2570c3cb84f9" prot="public">
+          <name>Add</name>
+          <briefdescription>
+<para>Add. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bae80155eceb940c89e2de63ad05868db2" prot="public">
+          <name>Sub</name>
+          <briefdescription>
+<para>Sub. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba62b6d55816cf737bfc6f42e60df1a3f2" prot="public">
+          <name>Mul</name>
+          <briefdescription>
+<para>Mul. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba43d11850893d2fe84a1e618121c1cc0a" prot="public">
+          <name>Div</name>
+          <briefdescription>
+<para>Div. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba8be6d3e955290ee50c00a4bc92aa7749" prot="public">
+          <name>Pow</name>
+          <briefdescription>
+<para>Pow. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bace0be71e33226e4c1db2bcea5959f16b" prot="public">
+          <name>Log</name>
+          <briefdescription>
+<para>Log. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7aeb0277500c86e4aa6bd23f9a737942" prot="public">
+          <name>Mod</name>
+          <briefdescription>
+<para>Mod. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9dd5c549cbd4deff00e6653e3943b961" prot="public">
+          <name>Quot</name>
+          <briefdescription>
+<para>Quot. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba63fdae580c8a3012c60caacddcde30c3" prot="public">
+          <name>BitNot</name>
+          <briefdescription>
+<para>BitNot. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bae5c7b3dc6fa17e0c1d0586d1a169c77d" prot="public">
+          <name>BitAnd</name>
+          <briefdescription>
+<para>BitAnd. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba04306ca0b4b3ed9a5cedc16d4acbc2b8" prot="public">
+          <name>BitOr</name>
+          <briefdescription>
+<para>BitOr. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac23bb1635c2e183c276b68ecdcf076c1" prot="public">
+          <name>BitXor</name>
+          <briefdescription>
+<para>BitXor. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287badab04477dbc9d6121935b21bfb07143f" prot="public">
+          <name>Lshift</name>
+          <briefdescription>
+<para>Lshift. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bab47ba2c791c99ed298916c06f6dce10a" prot="public">
+          <name>Rshift</name>
+          <briefdescription>
+<para>Rshift. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3718b5ecf60aa0dba49e150e96cb1fc3" prot="public">
+          <name>Eq</name>
+          <briefdescription>
+<para>Eq. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4dec99baa99738721da9c9b0c1a92498" prot="public">
+          <name>Ne</name>
+          <briefdescription>
+<para>Ne. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba50033c15af7795cd6617f117b29d6922" prot="public">
+          <name>Lt</name>
+          <briefdescription>
+<para>Lt. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287babccd5ec3ec8fd3a4471e71e9b407c60c" prot="public">
+          <name>Le</name>
+          <briefdescription>
+<para>Le. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba086cb8308e5a36e7c4ed1f8873ad801f" prot="public">
+          <name>Gt</name>
+          <briefdescription>
+<para>Gt. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac6a675552648c0becb8283f05c172483" prot="public">
+          <name>Ge</name>
+          <briefdescription>
+<para>Ge. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa535711d028372f87fdbce03cd43b25d" prot="public">
+          <name>Near</name>
+          <briefdescription>
+<para>Near. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baaef12e903e606a4895a16b393bfdec8c" prot="public">
+          <name>Union</name>
+          <briefdescription>
+<para>Union. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba6faa907d79c8bb46a12bea5c8de76654" prot="public">
+          <name>Intersect</name>
+          <briefdescription>
+<para>Intersect. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba49630f5d7723e9b41474bd1cb1887b9d" prot="public">
+          <name>Diff</name>
+          <briefdescription>
+<para>Diff. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3bc825aca7d124c70fecda54f90a8a48" prot="public">
+          <name>SetEq</name>
+          <briefdescription>
+<para>SetEq. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba5c5d90c6b40b16695958423f6a46f1d1" prot="public">
+          <name>Subset</name>
+          <briefdescription>
+<para>Subset. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad0ade311543d28471d13859c7cb04bb1" prot="public">
+          <name>Superset</name>
+          <briefdescription>
+<para>Superset. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba81cac97ae62c4f4963e8420e2e8b29e9" prot="public">
+          <name>PSubset</name>
+          <briefdescription>
+<para>PSubset. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baef1d2cd2181948f90fd506de2a9d5205" prot="public">
+          <name>PSuperset</name>
+          <briefdescription>
+<para>PSuperset. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baefeb369cccbd560588a756610865664c" prot="public">
+          <name>In</name>
+          <briefdescription>
+<para>In. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac949090e2cb12faab4dabb4621dd6c9e" prot="public">
+          <name>NotIn</name>
+          <briefdescription>
+<para>NotIn. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa26e174e330476756d2601ea5368aec3" prot="public">
+          <name>Ni</name>
+          <briefdescription>
+<para>Ni. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bafc95ebadb74d505098f38b75f0c375db" prot="public">
+          <name>NotNi</name>
+          <briefdescription>
+<para>NotNi. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac26f15e86e3de4c398a8273272aba034" prot="public">
+          <name>Bool</name>
+          <briefdescription>
+<para>Bool. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa74c05d080620f087c4e523977230666" prot="public">
+          <name>Not</name>
+          <briefdescription>
+<para>Not. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac33315685a0cba3ce53be378b3c7874b" prot="public">
+          <name>And</name>
+          <briefdescription>
+<para>And. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3a2d5fe857d8f9541136a124c2edec6c" prot="public">
+          <name>Or</name>
+          <briefdescription>
+<para>Or. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba786887572f6ef1c20f2d8177cb2f1639" prot="public">
+          <name>If</name>
+          <briefdescription>
+<para>If. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa4febedee5842ec113ebab30c44acc2a" prot="public">
+          <name>Elif</name>
+          <briefdescription>
+<para>Elif. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba6a0053231db40a4539b8f783a719a54a" prot="public">
+          <name>Else</name>
+          <briefdescription>
+<para>Else. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba490aa6e856ccf208a054389e47ce0d06" prot="public">
+          <name>Id</name>
+          <briefdescription>
+<para>Id. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba88faa34979154deafc6b73d69694c760" prot="public">
+          <name>Transp</name>
+          <briefdescription>
+<para>Transp. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac62cd6a7dfc8d04ae078b2b3d6293b9c" prot="public">
+          <name>Cartesian</name>
+          <briefdescription>
+<para>Cartesian. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba67f115c1fddc4ce1aeb1c754001585bc" prot="public">
+          <name>Reverse</name>
+          <briefdescription>
+<para>Reverse. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba1f592570f2351743f28cab90209c1d63" prot="public">
+          <name>Uniques</name>
+          <briefdescription>
+<para>Uniques. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9dea4016dbcc290b773ab2fae678aaa8" prot="public">
+          <name>Items</name>
+          <briefdescription>
+<para>Items. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa73e6bf278578e09d2351ee2ec7a7908" prot="public">
+          <name>Keys</name>
+          <briefdescription>
+<para>Keys. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac82a6100dace2b41087ba6cf99a5976a" prot="public">
+          <name>Values</name>
+          <briefdescription>
+<para>Values. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba81999728593fbd0249e73b02f3d7ad74" prot="public">
+          <name>Enumerate</name>
+          <briefdescription>
+<para>Enumerate. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4adae1c15e93fd1abd85fcdd8b948e10" prot="public">
+          <name>Flatten</name>
+          <briefdescription>
+<para>Flatten. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7a3c7674a92614095cf9f63b571ed115" prot="public">
+          <name>ToList</name>
+          <briefdescription>
+<para>ToList. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7fb55ed0b7a30342ba6da306428cae04" prot="public">
+          <name>First</name>
+          <briefdescription>
+<para>First. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad55b30607c2a9a2616347d6edb789f6b" prot="public">
+          <name>Last</name>
+          <briefdescription>
+<para>Last. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba17baa58f59079cf7bd3ef3659d426bfb" prot="public">
+          <name>Rand</name>
+          <briefdescription>
+<para>Rand. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba2bd78f984cb83241b3c9394731b9143b" prot="public">
+          <name>RandInt</name>
+          <briefdescription>
+<para>RandInt. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3ff39d3acb327553070a64ef0cb321d5" prot="public">
+          <name>Sequence</name>
+          <briefdescription>
+<para>Sequence. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287babd9f1507402b646a74febb1a105ded86" prot="public">
+          <name>Arange</name>
+          <briefdescription>
+<para>Arange. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac9ad95228aa735bdda1aebf38da022af" prot="public">
+          <name>Parse</name>
+          <briefdescription>
+<para>Parse. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baebccbbd337efb2ddb5979c57125bad1b" prot="public">
+          <name>Str</name>
+          <briefdescription>
+<para>Str. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf4473c4016648844fb129838f88b7ee7" prot="public">
+          <name>Re</name>
+          <briefdescription>
+<para>Re. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba22071e3727d6ab368d1ab9ea4a125f7b" prot="public">
+          <name>Fmt</name>
+          <briefdescription>
+<para>Fmt. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba97a62b5e6d3cae255036b6bc37b87b44" prot="public">
+          <name>Capitalize</name>
+          <briefdescription>
+<para>Capitalize. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf3fa26b7f03932f588080f5b22d68908" prot="public">
+          <name>LowerCase</name>
+          <briefdescription>
+<para>LowerCase. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4dd5882de4f7bbcb748ff15bebf21ce0" prot="public">
+          <name>UpperCase</name>
+          <briefdescription>
+<para>UpperCase. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba1d565b9e5303987bb1b1938d5d458bca" prot="public">
+          <name>Card</name>
+          <briefdescription>
+<para>Card. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba6f6cb72d544962fa333e2e34ce64f719" prot="public">
+          <name>Size</name>
+          <briefdescription>
+<para>Size. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa0ec87054b5e5b7847d0d8780a01a3d5" prot="public">
+          <name>Sum</name>
+          <briefdescription>
+<para>Sum. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba362a33c23b08e4a32a4ec53fbb82cccd" prot="public">
+          <name>Prod</name>
+          <briefdescription>
+<para>Prod. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba5c0c148daa2c67922abe6018b87a759f" prot="public">
+          <name>Avg</name>
+          <briefdescription>
+<para>Avg. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba6160a53ece50ce6d4f5ef4452549835e" prot="public">
+          <name>Slide</name>
+          <briefdescription>
+<para>Slide. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba8c7fd568f39aa9b653ac0088c2ecab39" prot="public">
+          <name>Stride</name>
+          <briefdescription>
+<para>Stride. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba58fce280a7c61344f3f5e26f2d2e114a" prot="public">
+          <name>Chunks</name>
+          <briefdescription>
+<para>Chunks. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7020426cfb0a204051be4b3053d2acc8" prot="public">
+          <name>Repeat</name>
+          <briefdescription>
+<para>Repeat. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bafa3ebd6742c360b2d9652b7f78d9bd7d" prot="public">
+          <name>Cat</name>
+          <briefdescription>
+<para>Cat. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9c6a9d9f033001a9b3104984d319563b" prot="public">
+          <name>Push</name>
+          <briefdescription>
+<para>Push. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287badc5f499e83aef4f6811faa4081631740" prot="public">
+          <name>At</name>
+          <briefdescription>
+<para>At. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba5526d60feb55086fbd12dd96b071a093" prot="public">
+          <name>Del</name>
+          <briefdescription>
+<para>Del. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bae3e321329b4c75f6a48e1c4cbdc99312" prot="public">
+          <name>Lookup</name>
+          <briefdescription>
+<para>Lookup. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4cd9f3996d60790cd11c04f842ebc43c" prot="public">
+          <name>Cast</name>
+          <briefdescription>
+<para>Cast. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba35f9accbd9124475f84f3e99f8728519" prot="public">
+          <name>Uncast</name>
+          <briefdescription>
+<para>Uncast. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7b0da812abcd107490aeb0aa803c9cfe" prot="public">
+          <name>Fold</name>
+          <briefdescription>
+<para>Fold. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba46f3ea056caa3126b91f3f70beea068c" prot="public">
+          <name>Map</name>
+          <briefdescription>
+<para>Map. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad7778d0c64b6ba21494c97f77a66885a" prot="public">
+          <name>Filter</name>
+          <briefdescription>
+<para>Filter. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bae93f994f01c537c4e2f7d8528c3eb5e9" prot="public">
+          <name>Count</name>
+          <briefdescription>
+<para>Count. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba265b922dc4330e38988041e6254cbb18" prot="public">
+          <name>Each</name>
+          <briefdescription>
+<para>Each. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba6b46ae48421828d9973deec5fa9aa0c3" prot="public">
+          <name>Sort</name>
+          <briefdescription>
+<para>Sort. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4cfa6c981549e990fe2344e4c805405e" prot="public">
+          <name>Find</name>
+          <briefdescription>
+<para>Find. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba43a1a2dd3a5679d4a5be8a5947b7f688" prot="public">
+          <name>FindPtr</name>
+          <briefdescription>
+<para>FindPtr. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac4164854992ecade9cdb4bc3690005d5" prot="public">
+          <name>FindIdx</name>
+          <briefdescription>
+<para>FindIdx. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba78d811e98514cd165dda532286610fd2" prot="public">
+          <name>Min</name>
+          <briefdescription>
+<para>Min. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba6a061313d22e51e0f25b7cd4dc065233" prot="public">
+          <name>Max</name>
+          <briefdescription>
+<para>Max. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba8a18bef8db4a245d994c4c7c94859c96" prot="public">
+          <name>Argmin</name>
+          <briefdescription>
+<para>Argmin. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba2c978c1dc4d52877220803916c037c34" prot="public">
+          <name>Argmax</name>
+          <briefdescription>
+<para>Argmax. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba61252e379543378caa02e3e10a0777fa" prot="public">
+          <name>Recur</name>
+          <briefdescription>
+<para>Recur. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac369ec10ec26ee72c3e6634529302d8e" prot="public">
+          <name>Unfold</name>
+          <briefdescription>
+<para>Unfold. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba38c4658d5308897a92cef9e113aefc3a" prot="public">
+          <name>Op</name>
+          <briefdescription>
+<para>Op. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba0b172674284d79079624051d2ae11581" prot="public">
+          <name>Bind</name>
+          <briefdescription>
+<para>Bind. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bada0e1c5d348be593152ee1f67df6f3b3" prot="public">
+          <name>Fn</name>
+          <briefdescription>
+<para>Fn. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba97e7c9a7d06eac006a28bf05467fcc8b" prot="public">
+          <name>Link</name>
+          <briefdescription>
+<para>Link. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac55582518cba2c464f29f5bae1c68def" prot="public">
+          <name>Get</name>
+          <briefdescription>
+<para>Get. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3ad2745a5f25cd78a4f43422df46b43e" prot="public">
+          <name>EnvLoad</name>
+          <briefdescription>
+<para>EnvLoad. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba0e940fdf9a0654029d1b4ff75fa79141" prot="public">
+          <name>EnvStore</name>
+          <briefdescription>
+<para>EnvStore. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baed36a1ef76a59ee3f15180e0441188ad" prot="public">
+          <name>Any</name>
+          <briefdescription>
+<para>Any. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bab1c94ca2fbc3e78fc30069c8d0f01680" prot="public">
+          <name>All</name>
+          <briefdescription>
+<para>All. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bafbf427bdeb4244eecca41246de32b36d" prot="public">
+          <name>Saturate</name>
+          <briefdescription>
+<para>Saturate. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba2ab1f3f893823298751fdf60b4e0365a" prot="public">
+          <name>Pipe</name>
+          <briefdescription>
+<para>Pipe. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baafcbeb58fca053cad573bd9efda1dc5b" prot="public">
+          <name>Tuple</name>
+          <briefdescription>
+<para>Tuple. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba36c81967df3424f919e89b09ed34c90d" prot="public">
+          <name>Fork</name>
+          <briefdescription>
+<para>Fork. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9ffbd422925a6839ee820ddbc59278c5" prot="public">
+          <name>Flip</name>
+          <briefdescription>
+<para>Flip. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba198388745e9612237ea49ec52b8afdb5" prot="public">
+          <name>Dbg</name>
+          <briefdescription>
+<para>Dbg. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba34f8a10ae57ac230a48fc44908bd40ad" prot="public">
+          <name>Eval</name>
+          <briefdescription>
+<para>Eval. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baeead05a01ff69770e90ba2a541988cab" prot="public">
+          <name>Try</name>
+          <briefdescription>
+<para>Try. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bacfda009e7942968c000a0496f8a4b0de" prot="public">
+          <name>Kwrd</name>
+          <briefdescription>
+<para>Kwrd. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9c4fb9cb6a72540612510200435ee217" prot="public">
+          <name>Prms</name>
+          <briefdescription>
+<para>Prms. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf09564c9ca56850d4cd6b3319e541aee" prot="public">
+          <name>Q</name>
+          <briefdescription>
+<para>Q. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf623e75af30e62bbd73d6df5b50bb7b5" prot="public">
+          <name>D</name>
+          <briefdescription>
+<para>D. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bab47f6a6092c5d7e4bffec12dff309c3b" prot="public">
+          <name>Err</name>
+          <briefdescription>
+<para>Err. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4c94780b4a04ebfe3ffeee1c0d09a1d4" prot="public">
+          <name>IsErr</name>
+          <briefdescription>
+<para>IsErr. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad530f9d1b94f864f2238775b0e19e48c" prot="public">
+          <name>Assert</name>
+          <briefdescription>
+<para>Assert. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287badd4ec0ac4e58f7c32a01244ae91150b1" prot="public">
+          <name>Trace</name>
+          <briefdescription>
+<para>Trace. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac1ce9699b6d0c3aaf60ba82af48fa37e" prot="public">
+          <name>PreProc</name>
+          <briefdescription>
+<para>PreProc. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bad69186af02738a9b3ced1bc5b652ba55" prot="public">
+          <name>_count</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>ZMBT <ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> keyword. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword.hpp" line="30" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword.hpp" bodystart="31" bodyend="512"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacezmbt_1_1lang_1aa82c4314bf4f1aff5dc2f95bc5702361" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>constexpr std::uint32_t</type>
+        <definition>constexpr std::uint32_t zmbt::lang::attributes</definition>
+        <argsstring>(Keyword const &amp;k)</argsstring>
+        <name>attributes</name>
+        <qualifiedname>zmbt::lang::attributes</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref> const &amp;</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" line="51" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp" bodystart="51" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1lang_1af317d0318866a0c9413829cfa6c9e59d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>Keyword</type>
+            <declname>K</declname>
+            <defname>K</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref></type>
+        <definition>Expression zmbt::lang::dispatch_eval</definition>
+        <argsstring>(ExpressionView const &amp;self, ExpressionView const &amp;x, EvalContext context)</argsstring>
+        <name>dispatch_eval</name>
+        <qualifiedname>zmbt::lang::dispatch_eval</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>self</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> const &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" line="65" column="12" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp" declline="65" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1lang_1afd3e5dd91b740f3e92940525fe2f4042" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::string_view</type>
+        <definition>boost::json::string_view zmbt::lang::keyword_to_str</definition>
+        <argsstring>(Keyword const &amp;)</argsstring>
+        <name>keyword_to_str</name>
+        <qualifiedname>zmbt::lang::keyword_to_str</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="35" column="26" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" declline="35" declcolumn="26"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1lang_1aa224877ad3e62dc2d9d7c4617605ba9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::tag_invoke</definition>
+        <argsstring>(boost::json::value_from_tag const &amp;, boost::json::value &amp;, Keyword const &amp;t)</argsstring>
+        <name>tag_invoke</name>
+        <qualifiedname>zmbt::lang::tag_invoke</qualifiedname>
+        <param>
+          <type>boost::json::value_from_tag const &amp;</type>
+        </param>
+        <param>
+          <type>boost::json::value &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref> const &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="39" column="6" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" declline="39" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1lang_1a6a61c51d49ec9c9debeb372e64e3ab19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <definition>Keyword zmbt::lang::tag_invoke</definition>
+        <argsstring>(boost::json::value_to_tag&lt; Keyword &gt; const &amp;, boost::json::value const &amp;)</argsstring>
+        <name>tag_invoke</name>
+        <qualifiedname>zmbt::lang::tag_invoke</qualifiedname>
+        <param>
+          <type>boost::json::value_to_tag&lt; <ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref> &gt; const &amp;</type>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" line="42" column="9" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp" declline="42" declcolumn="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> Language implementation. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="21" column="1"/>
+  </compounddef>
+</doxygen>

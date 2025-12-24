@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1ExpressionGrammar" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::ExpressionGrammar</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::spirit::karma::grammar&lt; OutputIterator, ExpressionView()&gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename OutputIterator</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a3b83d9e1e77ba18a2fe8428bf04438b5" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref>()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, ExpressionView()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="82" column="32" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1af4f8314a007cf3a95d977cb89007ac71" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref>()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, ExpressionView()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::subexpr</definition>
+        <argsstring></argsstring>
+        <name>subexpr</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::subexpr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="82" column="38" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a969106093b2c636f6c9849d024ad4210" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref>()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, ExpressionView()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::keyword</definition>
+        <argsstring></argsstring>
+        <name>keyword</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::keyword</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="82" column="46" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a4bc11ad4d78c207d567e6d785f349f30" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::parameters</definition>
+        <argsstring></argsstring>
+        <name>parameters</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::parameters</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="34" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a3e9f369f360d6e13141e325ff98e6cb8" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::fork</definition>
+        <argsstring></argsstring>
+        <name>fork</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::fork</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="45" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a5c55459dfeda60e7f77970037815d80f" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::pipe</definition>
+        <argsstring></argsstring>
+        <name>pipe</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::pipe</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="50" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a2ac07fe072512f4a6536d2719c68ff3d" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::tuple</definition>
+        <argsstring></argsstring>
+        <name>tuple</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::tuple</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="55" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a92e4d82c421180cd6edfd363cdfd7526" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::link</definition>
+        <argsstring></argsstring>
+        <name>link</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::link</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="61" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1acb785265411bb95d4ae18dd92ab37e90" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::flip</definition>
+        <argsstring></argsstring>
+        <name>flip</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::flip</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="66" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1aab47fbde7d6b60dd97adb76e76706a02" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::nested_pipe</definition>
+        <argsstring></argsstring>
+        <name>nested_pipe</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::nested_pipe</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="71" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a154a5881bfdbf937b548ceeffbcd082b" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::nested_fork</definition>
+        <argsstring></argsstring>
+        <name>nested_fork</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::nested_fork</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="83" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1ExpressionGrammar_1ac379c79ee5f1986f71090a262c6505e0" prot="public" static="no" mutable="no">
+        <type>boost::spirit::karma::rule&lt; OutputIterator, std::vector&lt; <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt;()&gt;</type>
+        <definition>boost::spirit::karma::rule&lt;OutputIterator, std::vector&lt;ExpressionView&gt;()&gt; zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::nested_link</definition>
+        <argsstring></argsstring>
+        <name>nested_link</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::nested_link</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="83" column="95" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1ExpressionGrammar_1a00f19082c2bba05b914e48711ab0c47d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;::ExpressionGrammar</definition>
+        <argsstring>()</argsstring>
+        <name>ExpressionGrammar</name>
+        <qualifiedname>zmbt::lang::ExpressionGrammar::ExpressionGrammar</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="22" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="22" bodyend="80"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>boost::spirit::karma::grammar&lt; OutputIterator, ExpressionView()&gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1ExpressionGrammar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>boost::spirit::karma::grammar&lt; OutputIterator, ExpressionView()&gt;</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::ExpressionGrammar&lt; OutputIterator &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1ExpressionGrammar"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" line="21" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp" bodystart="21" bodyend="84"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a00f19082c2bba05b914e48711ab0c47d" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>ExpressionGrammar</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1acb785265411bb95d4ae18dd92ab37e90" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>flip</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a3e9f369f360d6e13141e325ff98e6cb8" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>fork</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a969106093b2c636f6c9849d024ad4210" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>keyword</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a92e4d82c421180cd6edfd363cdfd7526" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>link</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a154a5881bfdbf937b548ceeffbcd082b" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>nested_fork</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1ac379c79ee5f1986f71090a262c6505e0" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>nested_link</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1aab47fbde7d6b60dd97adb76e76706a02" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>nested_pipe</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a4bc11ad4d78c207d567e6d785f349f30" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>parameters</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a5c55459dfeda60e7f77970037815d80f" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>pipe</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a3b83d9e1e77ba18a2fe8428bf04438b5" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>start</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1af4f8314a007cf3a95d977cb89007ac71" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>subexpr</name></member>
+      <member refid="structzmbt_1_1lang_1_1ExpressionGrammar_1a2ac07fe072512f4a6536d2719c68ff3d" prot="public" virt="non-virtual"><scope>zmbt::lang::ExpressionGrammar</scope><name>tuple</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

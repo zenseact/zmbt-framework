@@ -1,0 +1,2821 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1expr" kind="namespace" language="C++">
+    <compoundname>zmbt::expr</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab96232d44be44f757fdef50fa996f1c8" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::Noop &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Noop&gt; const zmbt::expr::Noop</definition>
+        <argsstring></argsstring>
+        <name>Noop</name>
+        <qualifiedname>zmbt::expr::Noop</qualifiedname>
+        <briefdescription>
+<para>No operation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns true without input validation. Used in place of matchers for uninteresting signals. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="30" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="30" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aaf455f6c019372ca59a7746d8160dcef" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba35721c181ec6a9cca6cdb99dd844d07b" kindref="member">::zmbt::lang::Keyword::Noop</ref> &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Noop&gt; const zmbt::expr::_</definition>
+        <argsstring></argsstring>
+        <name>_</name>
+        <qualifiedname>zmbt::expr::_</qualifiedname>
+        <briefdescription>
+<para>Alias for Noop. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="32" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="32" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a5c7e5992007f8e1ee01b4a5cd48e2e22" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::Null &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Null&gt; const zmbt::expr::Null</definition>
+        <argsstring></argsstring>
+        <name>Null</name>
+        <qualifiedname>zmbt::expr::Null</qualifiedname>
+        <briefdescription>
+<para>Null value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="35" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="35" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6ce8768ff0cb79570e6121db9e44e32c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::True &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::True&gt; const zmbt::expr::True</definition>
+        <argsstring></argsstring>
+        <name>True</name>
+        <qualifiedname>zmbt::expr::True</qualifiedname>
+        <briefdescription>
+<para>Logical true. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="38" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="38" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4dd8a7325934e7f4c907aa5dcb7b9b3d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::False &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::False&gt; const zmbt::expr::False</definition>
+        <argsstring></argsstring>
+        <name>False</name>
+        <qualifiedname>zmbt::expr::False</qualifiedname>
+        <briefdescription>
+<para>Logical false. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="41" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="41" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac076e700dd0903a5c05a4735278d8fe7" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::Pi &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Pi&gt; const zmbt::expr::Pi</definition>
+        <argsstring></argsstring>
+        <name>Pi</name>
+        <qualifiedname>zmbt::expr::Pi</qualifiedname>
+        <briefdescription>
+<para>Pi constant. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="44" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="44" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ace9f7fd96c47a9e8b3b5e32661dee023" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::E &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::E&gt; const zmbt::expr::E</definition>
+        <argsstring></argsstring>
+        <name>E</name>
+        <qualifiedname>zmbt::expr::E</qualifiedname>
+        <briefdescription>
+<para>Euler&apos;s number. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="47" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="47" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1abc15d0e4bf3a5854de4047be72414e78" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::Inf &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Inf&gt; const zmbt::expr::Inf</definition>
+        <argsstring></argsstring>
+        <name>Inf</name>
+        <qualifiedname>zmbt::expr::Inf</qualifiedname>
+        <briefdescription>
+<para>Infinity. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="50" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="50" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae69a457345d9b473bb5bd2833a65f931" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::Eps &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Eps&gt; const zmbt::expr::Eps</definition>
+        <argsstring></argsstring>
+        <name>Eps</name>
+        <qualifiedname>zmbt::expr::Eps</qualifiedname>
+        <briefdescription>
+<para>Machine epsilon. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="53" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="53" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af0080ee06c353c6dfed43ae912363091" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::NaN &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::NaN&gt; const zmbt::expr::NaN</definition>
+        <argsstring></argsstring>
+        <name>NaN</name>
+        <qualifiedname>zmbt::expr::NaN</qualifiedname>
+        <briefdescription>
+<para>Not a number. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="56" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="56" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ad0acf402108f164fdc51a040fb4285f7" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureConst" kindref="compound">lang::SignatureConst</ref>&lt;::zmbt::lang::Keyword::Thread &gt; const</type>
+        <definition>lang::SignatureConst&lt;::zmbt::lang::Keyword::Thread&gt; const zmbt::expr::Thread</definition>
+        <argsstring></argsstring>
+        <name>Thread</name>
+        <qualifiedname>zmbt::expr::Thread</qualifiedname>
+        <briefdescription>
+<para>Thread id. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Not really a constant, but useful for branching the test input conditions. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="62" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="62" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aebb86ca4e9cc02337107d5aecc619170" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Sin &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Sin&gt; const zmbt::expr::Sin</definition>
+        <argsstring></argsstring>
+        <name>Sin</name>
+        <qualifiedname>zmbt::expr::Sin</qualifiedname>
+        <briefdescription>
+<para>Sinus function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="65" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="65" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1acada2b7526416ecf54af09eddf10f8aa" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Cos &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Cos&gt; const zmbt::expr::Cos</definition>
+        <argsstring></argsstring>
+        <name>Cos</name>
+        <qualifiedname>zmbt::expr::Cos</qualifiedname>
+        <briefdescription>
+<para>Cosinus function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="68" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="68" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1adddd3f7e32ad27aa3221c96ed12a9c74" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Tan &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Tan&gt; const zmbt::expr::Tan</definition>
+        <argsstring></argsstring>
+        <name>Tan</name>
+        <qualifiedname>zmbt::expr::Tan</qualifiedname>
+        <briefdescription>
+<para>Tangens function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="71" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="71" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab239193318a1c93e4ef40219cbf6408e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Asin &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Asin&gt; const zmbt::expr::Asin</definition>
+        <argsstring></argsstring>
+        <name>Asin</name>
+        <qualifiedname>zmbt::expr::Asin</qualifiedname>
+        <briefdescription>
+<para>Arcsin function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="74" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="74" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2ef6b8018efc1edde0fa0644a12de02a" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Acos &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Acos&gt; const zmbt::expr::Acos</definition>
+        <argsstring></argsstring>
+        <name>Acos</name>
+        <qualifiedname>zmbt::expr::Acos</qualifiedname>
+        <briefdescription>
+<para>Arccos function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="77" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="77" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0763b46384d34dcb9a9fcb16df31d093" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Atan &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Atan&gt; const zmbt::expr::Atan</definition>
+        <argsstring></argsstring>
+        <name>Atan</name>
+        <qualifiedname>zmbt::expr::Atan</qualifiedname>
+        <briefdescription>
+<para>Arctan function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="80" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="80" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae2bc020a345a45c0020f1d6fcbc66d36" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Sinh &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Sinh&gt; const zmbt::expr::Sinh</definition>
+        <argsstring></argsstring>
+        <name>Sinh</name>
+        <qualifiedname>zmbt::expr::Sinh</qualifiedname>
+        <briefdescription>
+<para>Hyperbolic sin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="83" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="83" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1afaf1450fd50b88e417908d31b4ac3532" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Cosh &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Cosh&gt; const zmbt::expr::Cosh</definition>
+        <argsstring></argsstring>
+        <name>Cosh</name>
+        <qualifiedname>zmbt::expr::Cosh</qualifiedname>
+        <briefdescription>
+<para>Hyperbolic cos. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="86" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="86" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af2ea438c7dd4c4093546dce9325c3dca" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Tanh &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Tanh&gt; const zmbt::expr::Tanh</definition>
+        <argsstring></argsstring>
+        <name>Tanh</name>
+        <qualifiedname>zmbt::expr::Tanh</qualifiedname>
+        <briefdescription>
+<para>Hyperbolic tan. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="89" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="89" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a7135623597dbd555f59ffd918b23bb01" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Asinh &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Asinh&gt; const zmbt::expr::Asinh</definition>
+        <argsstring></argsstring>
+        <name>Asinh</name>
+        <qualifiedname>zmbt::expr::Asinh</qualifiedname>
+        <briefdescription>
+<para>Hyperbolic arcsin. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="92" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="92" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac431dd9a4dbf512ae5ad691494a2e0cd" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Acosh &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Acosh&gt; const zmbt::expr::Acosh</definition>
+        <argsstring></argsstring>
+        <name>Acosh</name>
+        <qualifiedname>zmbt::expr::Acosh</qualifiedname>
+        <briefdescription>
+<para>Hyperbolic arccos. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="95" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="95" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab4445e2990d73a439c31af29f37bb2a6" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Atanh &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Atanh&gt; const zmbt::expr::Atanh</definition>
+        <argsstring></argsstring>
+        <name>Atanh</name>
+        <qualifiedname>zmbt::expr::Atanh</qualifiedname>
+        <briefdescription>
+<para>Hyperbolic arctan. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="98" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="98" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0f82df12f6251c855c894f03fb763332" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Exp &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Exp&gt; const zmbt::expr::Exp</definition>
+        <argsstring></argsstring>
+        <name>Exp</name>
+        <qualifiedname>zmbt::expr::Exp</qualifiedname>
+        <briefdescription>
+<para>Exponential (e^x) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="101" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="101" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a17e364dfadc92b8bf78a5f7789fc39ba" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Erf &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Erf&gt; const zmbt::expr::Erf</definition>
+        <argsstring></argsstring>
+        <name>Erf</name>
+        <qualifiedname>zmbt::expr::Erf</qualifiedname>
+        <briefdescription>
+<para>Error function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="104" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="104" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a55d72165202cc124f819b0eeeb95748f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Erfc &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Erfc&gt; const zmbt::expr::Erfc</definition>
+        <argsstring></argsstring>
+        <name>Erfc</name>
+        <qualifiedname>zmbt::expr::Erfc</qualifiedname>
+        <briefdescription>
+<para>Error function complement. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="107" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="107" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a8cc58086945b3655af5bd0c77234a707" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Gamma &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Gamma&gt; const zmbt::expr::Gamma</definition>
+        <argsstring></argsstring>
+        <name>Gamma</name>
+        <qualifiedname>zmbt::expr::Gamma</qualifiedname>
+        <briefdescription>
+<para>Gamma function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="110" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="110" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a5750d62de2aa77d04ae0bdc2ccbbbd2d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Abs &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Abs&gt; const zmbt::expr::Abs</definition>
+        <argsstring></argsstring>
+        <name>Abs</name>
+        <qualifiedname>zmbt::expr::Abs</qualifiedname>
+        <briefdescription>
+<para>Absolute value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="113" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="113" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1260254aa6b59c0cecd83c72243adc33" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Ceil &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Ceil&gt; const zmbt::expr::Ceil</definition>
+        <argsstring></argsstring>
+        <name>Ceil</name>
+        <qualifiedname>zmbt::expr::Ceil</qualifiedname>
+        <briefdescription>
+<para>Ceil. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="116" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="116" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4e6c42ce9aed52ad4183881ccce56e60" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Floor &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Floor&gt; const zmbt::expr::Floor</definition>
+        <argsstring></argsstring>
+        <name>Floor</name>
+        <qualifiedname>zmbt::expr::Floor</qualifiedname>
+        <briefdescription>
+<para>Floor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="119" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="119" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1acc3d0e07603d81085e2584021e6879" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Round &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Round&gt; const zmbt::expr::Round</definition>
+        <argsstring></argsstring>
+        <name>Round</name>
+        <qualifiedname>zmbt::expr::Round</qualifiedname>
+        <briefdescription>
+<para>Round to nearest integer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Hint: To round to ndigits precision after the decimal point, use <computeroutput><ref refid="namespacezmbt_1_1expr_1ae23b9398e69f50d4acb88b6b54da2116" kindref="member">Mul(ndigits)</ref> | Round | <ref refid="namespacezmbt_1_1expr_1aa7650afe2642d981a8798d849e0b3ae3" kindref="member">Div(ndigits)</ref></computeroutput> combo. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="125" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="125" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a7fa22278c2462a82cfd9f66ba57d1a63" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Sqrt &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Sqrt&gt; const zmbt::expr::Sqrt</definition>
+        <argsstring></argsstring>
+        <name>Sqrt</name>
+        <qualifiedname>zmbt::expr::Sqrt</qualifiedname>
+        <briefdescription>
+<para>Square root. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="128" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="128" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6b6ef5d53271f5b9384cac0064a2d4be" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Sign &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Sign&gt; const zmbt::expr::Sign</definition>
+        <argsstring></argsstring>
+        <name>Sign</name>
+        <qualifiedname>zmbt::expr::Sign</qualifiedname>
+        <briefdescription>
+<para>Sign. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="131" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="131" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af8730be7d0fe6d08c527b29a80ff2468" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Neg &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Neg&gt; const zmbt::expr::Neg</definition>
+        <argsstring></argsstring>
+        <name>Neg</name>
+        <qualifiedname>zmbt::expr::Neg</qualifiedname>
+        <briefdescription>
+<para>Negate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="134" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="134" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a232bb4a0dd8ce4d6ccea33617f2efee3" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Add &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Add&gt; const zmbt::expr::Add</definition>
+        <argsstring></argsstring>
+        <name>Add</name>
+        <qualifiedname>zmbt::expr::Add</qualifiedname>
+        <briefdescription>
+<para>Addition. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="137" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="137" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a935ed4def065aee9e261bf2765c5e426" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Sub &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Sub&gt; const zmbt::expr::Sub</definition>
+        <argsstring></argsstring>
+        <name>Sub</name>
+        <qualifiedname>zmbt::expr::Sub</qualifiedname>
+        <briefdescription>
+<para>Subtraction. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="140" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="140" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae23b9398e69f50d4acb88b6b54da2116" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Mul &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Mul&gt; const zmbt::expr::Mul</definition>
+        <argsstring></argsstring>
+        <name>Mul</name>
+        <qualifiedname>zmbt::expr::Mul</qualifiedname>
+        <briefdescription>
+<para>Multiplication. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="143" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="143" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aa7650afe2642d981a8798d849e0b3ae3" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Div &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Div&gt; const zmbt::expr::Div</definition>
+        <argsstring></argsstring>
+        <name>Div</name>
+        <qualifiedname>zmbt::expr::Div</qualifiedname>
+        <briefdescription>
+<para>Division. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem><para>$[ ] \mapsto [x, y] \mapsto x / y$</para>
+</listitem><listitem><para>$[y] \mapsto [x] \mapsto x / y$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="149" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="149" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a49eb4dc78267b89b4074bb6d110fb21a" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Pow &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Pow&gt; const zmbt::expr::Pow</definition>
+        <argsstring></argsstring>
+        <name>Pow</name>
+        <qualifiedname>zmbt::expr::Pow</qualifiedname>
+        <briefdescription>
+<para>To power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>X to power p<orderedlist>
+<listitem><para>$[ ] \mapsto [x, p] \mapsto x^p$</para>
+</listitem><listitem><para>$[p] \mapsto [x] \mapsto x^p$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="156" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="156" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac4fa8353e7eabf78abcead5900bb2fa0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Log &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Log&gt; const zmbt::expr::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <qualifiedname>zmbt::expr::Log</qualifiedname>
+        <briefdescription>
+<para>Logarithm. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Logarithm with base b:</para>
+<para><orderedlist>
+<listitem><para>$[ ] \mapsto [x, b] \mapsto log_b(x)$</para>
+</listitem><listitem><para>$[b] \mapsto [x] \mapsto log_b(x)$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="164" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="164" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1177f209ba79478294cb5e03c0804e29" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Mod &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Mod&gt; const zmbt::expr::Mod</definition>
+        <argsstring></argsstring>
+        <name>Mod</name>
+        <qualifiedname>zmbt::expr::Mod</qualifiedname>
+        <briefdescription>
+<para>Modulo. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Modulo of x:</para>
+<para><orderedlist>
+<listitem><para>$[ ] \mapsto [x, m] \mapsto x % m$</para>
+</listitem><listitem><para>$[m] \mapsto [x] \mapsto x % m$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="172" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="172" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a57fa6f1476db752e7227276359e4624e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Quot &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Quot&gt; const zmbt::expr::Quot</definition>
+        <argsstring></argsstring>
+        <name>Quot</name>
+        <qualifiedname>zmbt::expr::Quot</qualifiedname>
+        <briefdescription>
+<para>Quotient. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Quotient of x:</para>
+<para><orderedlist>
+<listitem><para>$[ ] \mapsto [x, d] \mapsto x // d$</para>
+</listitem><listitem><para>$[d] \mapsto [x] \mapsto x // d$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="180" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="180" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9564c35bd2a125a31e993f70637256ce" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::BitNot &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::BitNot&gt; const zmbt::expr::BitNot</definition>
+        <argsstring></argsstring>
+        <name>BitNot</name>
+        <qualifiedname>zmbt::expr::BitNot</qualifiedname>
+        <briefdescription>
+<para>Bitwise not. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="183" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="183" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9078566cb9b2d716ab7f278a2a5ff619" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::BitAnd &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::BitAnd&gt; const zmbt::expr::BitAnd</definition>
+        <argsstring></argsstring>
+        <name>BitAnd</name>
+        <qualifiedname>zmbt::expr::BitAnd</qualifiedname>
+        <briefdescription>
+<para>Bitwise and. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="186" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="186" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9e9bc13babaaf12bac697c577a5903f2" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::BitOr &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::BitOr&gt; const zmbt::expr::BitOr</definition>
+        <argsstring></argsstring>
+        <name>BitOr</name>
+        <qualifiedname>zmbt::expr::BitOr</qualifiedname>
+        <briefdescription>
+<para>Bitwise or. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="189" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="189" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a84b3b723270b52e4583e1a33f16f4e9d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::BitXor &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::BitXor&gt; const zmbt::expr::BitXor</definition>
+        <argsstring></argsstring>
+        <name>BitXor</name>
+        <qualifiedname>zmbt::expr::BitXor</qualifiedname>
+        <briefdescription>
+<para>Bitwise xor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="192" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="192" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a919d57d9c0f13f621cd03d99a29a1dc0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Lshift &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Lshift&gt; const zmbt::expr::Lshift</definition>
+        <argsstring></argsstring>
+        <name>Lshift</name>
+        <qualifiedname>zmbt::expr::Lshift</qualifiedname>
+        <briefdescription>
+<para>Bitwise left shift. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem><para>$[ ] \mapsto [x, s] \mapsto x \texttt{ &lt;&lt; } s$</para>
+</listitem><listitem><para>$[s] \mapsto [x] \mapsto x \texttt{ &lt;&lt; } s$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="198" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="198" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a01a2079f3eba439e90f88ac14fa57b15" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Rshift &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Rshift&gt; const zmbt::expr::Rshift</definition>
+        <argsstring></argsstring>
+        <name>Rshift</name>
+        <qualifiedname>zmbt::expr::Rshift</qualifiedname>
+        <briefdescription>
+<para>Bitwise right shift. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem><para>$[ ] ↦ [x, s] ↦ x \texttt{ &gt;&gt; } s$</para>
+</listitem><listitem><para>$[s] ↦ [x] ↦ x \texttt{ &gt;&gt; } s$ </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="204" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="204" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aeac37d6318bb00e85a26e0989143b0e9" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Eq &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Eq&gt; const zmbt::expr::Eq</definition>
+        <argsstring></argsstring>
+        <name>Eq</name>
+        <qualifiedname>zmbt::expr::Eq</qualifiedname>
+        <briefdescription>
+<para>Is equal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="207" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="207" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab7a5091db8c2d0266dd3bfb79372805a" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Ne &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Ne&gt; const zmbt::expr::Ne</definition>
+        <argsstring></argsstring>
+        <name>Ne</name>
+        <qualifiedname>zmbt::expr::Ne</qualifiedname>
+        <briefdescription>
+<para>Not equal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="210" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="210" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a00371678f717d8f3b45352016ef562dd" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Lt &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Lt&gt; const zmbt::expr::Lt</definition>
+        <argsstring></argsstring>
+        <name>Lt</name>
+        <qualifiedname>zmbt::expr::Lt</qualifiedname>
+        <briefdescription>
+<para>Lesser than. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="213" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="213" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a96a61c3f234a45e67e21703e5ce42dcd" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Le &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Le&gt; const zmbt::expr::Le</definition>
+        <argsstring></argsstring>
+        <name>Le</name>
+        <qualifiedname>zmbt::expr::Le</qualifiedname>
+        <briefdescription>
+<para>Lesser or equal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="216" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="216" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6ebe4a89418386b1ff4a9b33ff311bcb" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Gt &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Gt&gt; const zmbt::expr::Gt</definition>
+        <argsstring></argsstring>
+        <name>Gt</name>
+        <qualifiedname>zmbt::expr::Gt</qualifiedname>
+        <briefdescription>
+<para>Greater than. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="219" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="219" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac9550ceab8055cf5f8b5044dc550962b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Ge &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Ge&gt; const zmbt::expr::Ge</definition>
+        <argsstring></argsstring>
+        <name>Ge</name>
+        <qualifiedname>zmbt::expr::Ge</qualifiedname>
+        <briefdescription>
+<para>Greater or equal. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="222" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="222" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a204d878dd7fc4120654be07066da81d0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Near &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Near&gt; const zmbt::expr::Near</definition>
+        <argsstring></argsstring>
+        <name>Near</name>
+        <qualifiedname>zmbt::expr::Near</qualifiedname>
+        <briefdescription>
+<para>Floating point approximately equal. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Based on numpy.isclose:</para>
+<para>abs(x - ref) &lt;= (atol + rtol * abs(ref))</para>
+<para>Rhs parameters:</para>
+<para>ref: reference value rtol: relative tolerance, default = 1e-05 atol: absolute tolerance, default = 1e-08</para>
+<para>Rhs dynamic evaluation:</para>
+<para><orderedlist>
+<listitem><para>ref -&gt; [ref, default, default]</para>
+</listitem><listitem><para>[ref] -&gt; [ref, default, default]</para>
+</listitem><listitem><para>[ref, rtol] -&gt; [ref, rtol , default]</para>
+</listitem><listitem><para>[ref, rtol, atol] -&gt; [ref, rtol , atol ] </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="242" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="242" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1d7f3daf856f7605bf69ae8b506d3cb4" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa535711d028372f87fdbce03cd43b25d" kindref="member">::zmbt::lang::Keyword::Near</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Near&gt; const zmbt::expr::Approx</definition>
+        <argsstring></argsstring>
+        <name>Approx</name>
+        <qualifiedname>zmbt::expr::Approx</qualifiedname>
+        <briefdescription>
+<para>Alias for Near. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="244" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="244" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af0813e78a76123f6f0f559cbeedf93bd" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Union &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Union&gt; const zmbt::expr::Union</definition>
+        <argsstring></argsstring>
+        <name>Union</name>
+        <qualifiedname>zmbt::expr::Union</qualifiedname>
+        <briefdescription>
+<para>Set union. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="247" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="247" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1afa675aafe8e12e42a1d14664114d9ec0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Intersect &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Intersect&gt; const zmbt::expr::Intersect</definition>
+        <argsstring></argsstring>
+        <name>Intersect</name>
+        <qualifiedname>zmbt::expr::Intersect</qualifiedname>
+        <briefdescription>
+<para>Set intersection. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="250" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="250" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9b678162c7c57a31c014727db9197583" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Diff &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Diff&gt; const zmbt::expr::Diff</definition>
+        <argsstring></argsstring>
+        <name>Diff</name>
+        <qualifiedname>zmbt::expr::Diff</qualifiedname>
+        <briefdescription>
+<para>Set difference. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="253" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="253" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ad915a95e8c6de1da16a6c3f1990ae3ed" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::SetEq &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::SetEq&gt; const zmbt::expr::SetEq</definition>
+        <argsstring></argsstring>
+        <name>SetEq</name>
+        <qualifiedname>zmbt::expr::SetEq</qualifiedname>
+        <briefdescription>
+<para>Equal as set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="256" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="256" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a5250299a9785be783fe5519eb926b886" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Subset &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Subset&gt; const zmbt::expr::Subset</definition>
+        <argsstring></argsstring>
+        <name>Subset</name>
+        <qualifiedname>zmbt::expr::Subset</qualifiedname>
+        <briefdescription>
+<para>Is subset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="259" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="259" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a168968344ed5a34776dd412bfc198226" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Superset &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Superset&gt; const zmbt::expr::Superset</definition>
+        <argsstring></argsstring>
+        <name>Superset</name>
+        <qualifiedname>zmbt::expr::Superset</qualifiedname>
+        <briefdescription>
+<para>Is superset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="262" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="262" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a45b877662c432fe71f2751b1f764da95" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::PSubset &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::PSubset&gt; const zmbt::expr::PSubset</definition>
+        <argsstring></argsstring>
+        <name>PSubset</name>
+        <qualifiedname>zmbt::expr::PSubset</qualifiedname>
+        <briefdescription>
+<para>Is proper subset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="265" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="265" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af5dc10299a77a34ec843b38f396ef8e2" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::PSuperset &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::PSuperset&gt; const zmbt::expr::PSuperset</definition>
+        <argsstring></argsstring>
+        <name>PSuperset</name>
+        <qualifiedname>zmbt::expr::PSuperset</qualifiedname>
+        <briefdescription>
+<para>Is proper superset. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="268" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="268" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a809e061ae3415d57d29fa4e69ecbb0aa" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::In &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::In&gt; const zmbt::expr::In</definition>
+        <argsstring></argsstring>
+        <name>In</name>
+        <qualifiedname>zmbt::expr::In</qualifiedname>
+        <briefdescription>
+<para>Element is in. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="271" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="271" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2268c8f6665b40ee611a36ec666c6571" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::NotIn &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::NotIn&gt; const zmbt::expr::NotIn</definition>
+        <argsstring></argsstring>
+        <name>NotIn</name>
+        <qualifiedname>zmbt::expr::NotIn</qualifiedname>
+        <briefdescription>
+<para>Element is not in. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="274" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="274" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a54ccc29b04cb2972bc07a946a26f1294" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Ni &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Ni&gt; const zmbt::expr::Ni</definition>
+        <argsstring></argsstring>
+        <name>Ni</name>
+        <qualifiedname>zmbt::expr::Ni</qualifiedname>
+        <briefdescription>
+<para>Contains element. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="277" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="277" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a358110ca6b41711390eee205e92bf10b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa26e174e330476756d2601ea5368aec3" kindref="member">::zmbt::lang::Keyword::Ni</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Ni&gt; const zmbt::expr::Contains</definition>
+        <argsstring></argsstring>
+        <name>Contains</name>
+        <qualifiedname>zmbt::expr::Contains</qualifiedname>
+        <briefdescription>
+<para>Alias for Ni. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="279" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="279" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aaa876f34066c92a5288f88861005012c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::NotNi &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::NotNi&gt; const zmbt::expr::NotNi</definition>
+        <argsstring></argsstring>
+        <name>NotNi</name>
+        <qualifiedname>zmbt::expr::NotNi</qualifiedname>
+        <briefdescription>
+<para>Not contains element. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="282" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="282" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a06e278a8209548c1809400daf0064dae" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Bool &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Bool&gt; const zmbt::expr::Bool</definition>
+        <argsstring></argsstring>
+        <name>Bool</name>
+        <qualifiedname>zmbt::expr::Bool</qualifiedname>
+        <briefdescription>
+<para>Predicate on boolean transform (aka truthy) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="285" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="285" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1f78d02607b0a9a7a1319f5d3748862e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bac26f15e86e3de4c398a8273272aba034" kindref="member">::zmbt::lang::Keyword::Bool</ref> &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Bool&gt; const zmbt::expr::Truthy</definition>
+        <argsstring></argsstring>
+        <name>Truthy</name>
+        <qualifiedname>zmbt::expr::Truthy</qualifiedname>
+        <briefdescription>
+<para>Alias for Bool. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="287" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="287" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ad0cfce4894a18d3e89d25c883187b4c7" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Not &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Not&gt; const zmbt::expr::Not</definition>
+        <argsstring></argsstring>
+        <name>Not</name>
+        <qualifiedname>zmbt::expr::Not</qualifiedname>
+        <briefdescription>
+<para>Logical complement. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="290" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="290" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9620b4f2d42987af80cb048d77f819a5" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa74c05d080620f087c4e523977230666" kindref="member">::zmbt::lang::Keyword::Not</ref> &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Not&gt; const zmbt::expr::Falsy</definition>
+        <argsstring></argsstring>
+        <name>Falsy</name>
+        <qualifiedname>zmbt::expr::Falsy</qualifiedname>
+        <briefdescription>
+<para>Alias for Not. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="292" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="292" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a3e6a36200e3b4e7eb15291b1e593d600" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baa74c05d080620f087c4e523977230666" kindref="member">::zmbt::lang::Keyword::Not</ref> &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Not&gt; const zmbt::expr::Nil</definition>
+        <argsstring></argsstring>
+        <name>Nil</name>
+        <qualifiedname>zmbt::expr::Nil</qualifiedname>
+        <briefdescription>
+<para>Alias for Not. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="294" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="294" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4dfd10cf70101e94530bbf5974e58e07" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::And &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::And&gt; const zmbt::expr::And</definition>
+        <argsstring></argsstring>
+        <name>And</name>
+        <qualifiedname>zmbt::expr::And</qualifiedname>
+        <briefdescription>
+<para>Logical and. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Generic behavior: if first operand is truthy, returns second operand, otherwise first </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="301" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="301" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae72d29e6dfeb60b58be153a8a82cc860" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Or &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Or&gt; const zmbt::expr::Or</definition>
+        <argsstring></argsstring>
+        <name>Or</name>
+        <qualifiedname>zmbt::expr::Or</qualifiedname>
+        <briefdescription>
+<para>Logical or. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Generic behavior: if first operand is truthy, returns first operand, second otherwise </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="308" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="308" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9bbab89a7bdbe06799684f3c670f1249" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::If &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::If&gt; const zmbt::expr::If</definition>
+        <argsstring></argsstring>
+        <name>If</name>
+        <qualifiedname>zmbt::expr::If</qualifiedname>
+        <briefdescription>
+<para>Branching operator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Branching operator can be used either in Lisp-like mode as <computeroutput><ref refid="namespacezmbt_1_1expr_1a9bbab89a7bdbe06799684f3c670f1249" kindref="member">If(predicate, then_expr, else_expr)</ref></computeroutput>, or in pipe mode with Elif or Else operators (see examples).</para>
+<para>In pipe mode (without <computeroutput>else_expr</computeroutput> parameter), the chain will produce error if the following order is violated or interrupted: <computeroutput>If [ Elif ]* Else</computeroutput></para>
+<para>In both modes, <computeroutput>then_expr</computeroutput> and <computeroutput>else_expr</computeroutput> are lazy evaluated against run-time argument (which is also true for Elif and Else), making it possible to nest if-else expressions. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="323" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="323" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aa9b148d11ac58321e7d5f875a222066e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Elif &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Elif&gt; const zmbt::expr::Elif</definition>
+        <argsstring></argsstring>
+        <name>Elif</name>
+        <qualifiedname>zmbt::expr::Elif</qualifiedname>
+        <briefdescription>
+<para>Else if. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Continuation operator in If-Elif-Else pipe. Will fail if not preceded by If. See If. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="330" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="330" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1acb0dc31099ef5b684c6f90f491546d4c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Else &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Else&gt; const zmbt::expr::Else</definition>
+        <argsstring></argsstring>
+        <name>Else</name>
+        <qualifiedname>zmbt::expr::Else</qualifiedname>
+        <briefdescription>
+<para>Else. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Resolving operator in If-Elif-Else pipe. Will fail if not preceded by If or Elif. See If. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="337" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="337" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a35d950ebfdb6c6609666ce6a0496499d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Id &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Id&gt; const zmbt::expr::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <qualifiedname>zmbt::expr::Id</qualifiedname>
+        <briefdescription>
+<para>Identity function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="340" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="340" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a3b11e3a36208635f5c7b50622d9df2f1" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Transp &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Transp&gt; const zmbt::expr::Transp</definition>
+        <argsstring></argsstring>
+        <name>Transp</name>
+        <qualifiedname>zmbt::expr::Transp</qualifiedname>
+        <briefdescription>
+<para>Transpose multidimensional list, turning rows into columns. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>May be used to zip sequences of equal length. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="345" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="345" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a76c653babf0dfe6f7cc0a1204903b0cf" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Cartesian &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Cartesian&gt; const zmbt::expr::Cartesian</definition>
+        <argsstring></argsstring>
+        <name>Cartesian</name>
+        <qualifiedname>zmbt::expr::Cartesian</qualifiedname>
+        <briefdescription>
+<para>Cartesian product. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="348" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="348" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aee8c42ffcd5797c8d0c40d5ab6022977" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Reverse &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Reverse&gt; const zmbt::expr::Reverse</definition>
+        <argsstring></argsstring>
+        <name>Reverse</name>
+        <qualifiedname>zmbt::expr::Reverse</qualifiedname>
+        <briefdescription>
+<para>Reverse sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="351" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="351" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aed9bccabcf0319a91ebdc2fc63e2ca21" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Uniques &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Uniques&gt; const zmbt::expr::Uniques</definition>
+        <argsstring></argsstring>
+        <name>Uniques</name>
+        <qualifiedname>zmbt::expr::Uniques</qualifiedname>
+        <briefdescription>
+<para>Filter unique elements. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="354" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="354" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4d2a595eb7bb773be0d3812baab32a36" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Items &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Items&gt; const zmbt::expr::Items</definition>
+        <argsstring></argsstring>
+        <name>Items</name>
+        <qualifiedname>zmbt::expr::Items</qualifiedname>
+        <briefdescription>
+<para>Extract key-value pairs from object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="357" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="357" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a985120963d0575708a67a747a3b1a1a6" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Keys &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Keys&gt; const zmbt::expr::Keys</definition>
+        <argsstring></argsstring>
+        <name>Keys</name>
+        <qualifiedname>zmbt::expr::Keys</qualifiedname>
+        <briefdescription>
+<para>Extract keys from object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="360" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="360" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af33f0f97c10c0da9b6f5387c4165605b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Values &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Values&gt; const zmbt::expr::Values</definition>
+        <argsstring></argsstring>
+        <name>Values</name>
+        <qualifiedname>zmbt::expr::Values</qualifiedname>
+        <briefdescription>
+<para>Extract values from object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="363" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="363" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a62efd0c0b8ddaa814d18ee10cddb754c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Enumerate &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Enumerate&gt; const zmbt::expr::Enumerate</definition>
+        <argsstring></argsstring>
+        <name>Enumerate</name>
+        <qualifiedname>zmbt::expr::Enumerate</qualifiedname>
+        <briefdescription>
+<para>Enumerate sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Enumerate sequence with index. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="368" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="368" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2ddb8db163ae0603b164c1381df0928d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Flatten &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Flatten&gt; const zmbt::expr::Flatten</definition>
+        <argsstring></argsstring>
+        <name>Flatten</name>
+        <qualifiedname>zmbt::expr::Flatten</qualifiedname>
+        <briefdescription>
+<para>Flatten nested list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="371" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="371" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ad1c2197a450ca62190429cb9e04f7e96" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::ToList &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::ToList&gt; const zmbt::expr::ToList</definition>
+        <argsstring></argsstring>
+        <name>ToList</name>
+        <qualifiedname>zmbt::expr::ToList</qualifiedname>
+        <briefdescription>
+<para>Put argument into a list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to At([&quot;&quot;]) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="376" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="376" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9c798d2f56e8426012fa00b6b948c8d8" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::First &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::First&gt; const zmbt::expr::First</definition>
+        <argsstring></argsstring>
+        <name>First</name>
+        <qualifiedname>zmbt::expr::First</qualifiedname>
+        <briefdescription>
+<para>First item of sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to <ref refid="namespacezmbt_1_1expr_1a734b405deaacb4ea43a7cd5dbc2de8a6" kindref="member">At(0)</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="381" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="381" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aa5c4107344332af4578ee649a8e403a1" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Last &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Last&gt; const zmbt::expr::Last</definition>
+        <argsstring></argsstring>
+        <name>Last</name>
+        <qualifiedname>zmbt::expr::Last</qualifiedname>
+        <briefdescription>
+<para>Last item of sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to At(-1) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="386" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="386" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab4c72ed1654fb64673b17c1be6c3820b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Rand &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Rand&gt; const zmbt::expr::Rand</definition>
+        <argsstring></argsstring>
+        <name>Rand</name>
+        <qualifiedname>zmbt::expr::Rand</qualifiedname>
+        <briefdescription>
+<para>Uniformly distributed random number in the half-open interval [0.0, 1.0) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="389" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="389" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a9b2f3b56bd6b7f49e4466aceabc5dc8e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::RandInt &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::RandInt&gt; const zmbt::expr::RandInt</definition>
+        <argsstring></argsstring>
+        <name>RandInt</name>
+        <qualifiedname>zmbt::expr::RandInt</qualifiedname>
+        <briefdescription>
+<para>Uniformly distributed random integer in the given range. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="namespacezmbt_1_1expr_1a9b2f3b56bd6b7f49e4466aceabc5dc8e" kindref="member">RandInt(x, y)</ref> : range is [x, y] <ref refid="namespacezmbt_1_1expr_1a9b2f3b56bd6b7f49e4466aceabc5dc8e" kindref="member">RandInt(x)</ref> : range is [0, x] for positive x and [x, 0] for negative <ref refid="namespacezmbt_1_1expr_1a9b2f3b56bd6b7f49e4466aceabc5dc8e" kindref="member">RandInt()</ref> : range is [0, RAND_MAX] </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="396" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="396" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a924057715bc0f838db32bf781a849d6e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Sequence &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Sequence&gt; const zmbt::expr::Sequence</definition>
+        <argsstring></argsstring>
+        <name>Sequence</name>
+        <qualifiedname>zmbt::expr::Sequence</qualifiedname>
+        <briefdescription>
+<para>Produce sequence from parameter using arg as size. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Behavior of <computeroutput>n | <ref refid="namespacezmbt_1_1expr_1a924057715bc0f838db32bf781a849d6e" kindref="member">Sequence(F)</ref></computeroutput>is similar to n | <ref refid="namespacezmbt_1_1expr_1af6eabeac21fc95772d13b7c0979fe1c8" kindref="member">Flip(Repeat(F))</ref>, with the main difference that the parameter is reevaluated for each step, making it possible to utilize side-effects, s.a. with Rand. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="403" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="403" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a04a43ca25ee8d77ee202cc33c9f23d23" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba3ff39d3acb327553070a64ef0cb321d5" kindref="member">::zmbt::lang::Keyword::Sequence</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Sequence&gt; const zmbt::expr::Seq</definition>
+        <argsstring></argsstring>
+        <name>Seq</name>
+        <qualifiedname>zmbt::expr::Seq</qualifiedname>
+        <briefdescription>
+<para>Alias for Sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="405" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="405" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1e2abf01e588a0ea074487ac48945fc5" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Arange &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Arange&gt; const zmbt::expr::Arange</definition>
+        <argsstring></argsstring>
+        <name>Arange</name>
+        <qualifiedname>zmbt::expr::Arange</qualifiedname>
+        <briefdescription>
+<para>Generate range of numbers. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Return evenly spaced values within a given interval.</para>
+<para>Parameters:</para>
+<para><orderedlist>
+<listitem><para>start: start value</para>
+</listitem><listitem><para>stop: stop value</para>
+</listitem><listitem><para>step: step value</para>
+</listitem></orderedlist>
+</para>
+<para>Parameters dynamic evaluation:</para>
+<para><orderedlist>
+<listitem><para>stop: int -&gt; [0, stop, 1]</para>
+</listitem><listitem><para>[start, stop] -&gt; [start, stop, 1]</para>
+</listitem><listitem><para>[start, stop, step] -&gt; [start, stop, step] </para>
+</listitem></orderedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="422" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="422" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aac5377f27e0c6762be0e7ea7ce0ffc69" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Parse &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Parse&gt; const zmbt::expr::Parse</definition>
+        <argsstring></argsstring>
+        <name>Parse</name>
+        <qualifiedname>zmbt::expr::Parse</qualifiedname>
+        <briefdescription>
+<para>Parse string as json. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="425" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="425" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1f41131848030cd8a24252b0635b2e40" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Str &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Str&gt; const zmbt::expr::Str</definition>
+        <argsstring></argsstring>
+        <name>Str</name>
+        <qualifiedname>zmbt::expr::Str</qualifiedname>
+        <briefdescription>
+<para>Serialize json as string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="428" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="428" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a7949cfac204ad8c92cb25c33568a2891" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baebccbbd337efb2ddb5979c57125bad1b" kindref="member">::zmbt::lang::Keyword::Str</ref> &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Str&gt; const zmbt::expr::Serialize</definition>
+        <argsstring></argsstring>
+        <name>Serialize</name>
+        <qualifiedname>zmbt::expr::Serialize</qualifiedname>
+        <briefdescription>
+<para>Alias for Str. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="430" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="430" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac48ffd92b6dabf8b2767f4d5537dfd0b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Re &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Re&gt; const zmbt::expr::Re</definition>
+        <argsstring></argsstring>
+        <name>Re</name>
+        <qualifiedname>zmbt::expr::Re</qualifiedname>
+        <briefdescription>
+<para>Regular expression match. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If input is not a string, match it&apos;s serialized form. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="435" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="435" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a96ca28dde8343704f39a5d07fd8f0be7" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf4473c4016648844fb129838f88b7ee7" kindref="member">::zmbt::lang::Keyword::Re</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Re&gt; const zmbt::expr::Regex</definition>
+        <argsstring></argsstring>
+        <name>Regex</name>
+        <qualifiedname>zmbt::expr::Regex</qualifiedname>
+        <briefdescription>
+<para>Alias for Re. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="437" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="437" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4fd28dad3399d8afbc5e5d0a553d27bb" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Fmt &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Fmt&gt; const zmbt::expr::Fmt</definition>
+        <argsstring></argsstring>
+        <name>Fmt</name>
+        <qualifiedname>zmbt::expr::Fmt</qualifiedname>
+        <briefdescription>
+<para>Format string with the given parameter list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constant expressions are supported for the token list, s.t. <computeroutput>&quot;%s&quot; | <ref refid="namespacezmbt_1_1expr_1a4fd28dad3399d8afbc5e5d0a553d27bb" kindref="member">Fmt(Pi)</ref></computeroutput> produces &quot;3.141592653589793E0&quot; </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="443" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="443" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a7ca5a8451b997c9ee773873298edb840" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba22071e3727d6ab368d1ab9ea4a125f7b" kindref="member">::zmbt::lang::Keyword::Fmt</ref> &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Fmt&gt; const zmbt::expr::Format</definition>
+        <argsstring></argsstring>
+        <name>Format</name>
+        <qualifiedname>zmbt::expr::Format</qualifiedname>
+        <briefdescription>
+<para>Alias for Fmt. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="445" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="445" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a965d7ccb0897c9bd790bbefb5d197fe8" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Capitalize &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Capitalize&gt; const zmbt::expr::Capitalize</definition>
+        <argsstring></argsstring>
+        <name>Capitalize</name>
+        <qualifiedname>zmbt::expr::Capitalize</qualifiedname>
+        <briefdescription>
+<para>Capitalize string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="448" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="448" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6f871b8d738fb3e249b75745687dea60" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::LowerCase &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::LowerCase&gt; const zmbt::expr::LowerCase</definition>
+        <argsstring></argsstring>
+        <name>LowerCase</name>
+        <qualifiedname>zmbt::expr::LowerCase</qualifiedname>
+        <briefdescription>
+<para>Lower case string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="451" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="451" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a56359cad965758c03dfa4e815075ba6d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::UpperCase &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::UpperCase&gt; const zmbt::expr::UpperCase</definition>
+        <argsstring></argsstring>
+        <name>UpperCase</name>
+        <qualifiedname>zmbt::expr::UpperCase</qualifiedname>
+        <briefdescription>
+<para>Upper case string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="454" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="454" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1adce391add057dbfc2c999dd0d6f9112b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Card &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Card&gt; const zmbt::expr::Card</definition>
+        <argsstring></argsstring>
+        <name>Card</name>
+        <qualifiedname>zmbt::expr::Card</qualifiedname>
+        <briefdescription>
+<para>Set cardinality (uniques count) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="457" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="457" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a5bdfe647eb6ebdd86ba30eb714e198d2" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Size &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Size&gt; const zmbt::expr::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <qualifiedname>zmbt::expr::Size</qualifiedname>
+        <briefdescription>
+<para>Sequence size. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="460" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="460" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a568060ff1e216864cc24214f0e2dbb4c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Sum &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Sum&gt; const zmbt::expr::Sum</definition>
+        <argsstring></argsstring>
+        <name>Sum</name>
+        <qualifiedname>zmbt::expr::Sum</qualifiedname>
+        <briefdescription>
+<para>Summation reduction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to <ref refid="namespacezmbt_1_1expr_1a2ba70f71b227a99b66ff97f94e3a6ddd" kindref="member">Reduce(Add)</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="465" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="465" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac3f5108076c56fabcc19cc0fbc3220df" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Prod &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Prod&gt; const zmbt::expr::Prod</definition>
+        <argsstring></argsstring>
+        <name>Prod</name>
+        <qualifiedname>zmbt::expr::Prod</qualifiedname>
+        <briefdescription>
+<para>Multiplication reduction. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to <ref refid="namespacezmbt_1_1expr_1a2ba70f71b227a99b66ff97f94e3a6ddd" kindref="member">Reduce(Mul)</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="470" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="470" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0231491a8b73cabeb46f3bb061869edc" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Avg &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Avg&gt; const zmbt::expr::Avg</definition>
+        <argsstring></argsstring>
+        <name>Avg</name>
+        <qualifiedname>zmbt::expr::Avg</qualifiedname>
+        <briefdescription>
+<para>Arythmetic average. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="473" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="473" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4d844a236f59f10b5bfd940c15b823ce" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Slide &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Slide&gt; const zmbt::expr::Slide</definition>
+        <argsstring></argsstring>
+        <name>Slide</name>
+        <qualifiedname>zmbt::expr::Slide</qualifiedname>
+        <briefdescription>
+<para>Sliding-window iteration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sliding window iteration by specified window width. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="478" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="478" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2f9e9b002dab9b5580f6bf6f124e9d95" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Stride &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Stride&gt; const zmbt::expr::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <qualifiedname>zmbt::expr::Stride</qualifiedname>
+        <briefdescription>
+<para>Striding iteration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Striding iteration by specified step width. Reminder subsequence smaller then step width is discarded. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="484" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="484" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0d1fadd6428cd0a43a5ebf3f63e71207" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Chunks &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Chunks&gt; const zmbt::expr::Chunks</definition>
+        <argsstring></argsstring>
+        <name>Chunks</name>
+        <qualifiedname>zmbt::expr::Chunks</qualifiedname>
+        <briefdescription>
+<para>Split into chunks of specified max width. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Similar to Stride, but includes the last subsequence smaller then step width. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="490" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="490" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a92a5fee14bb13805fb896f65f20f202c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Repeat &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Repeat&gt; const zmbt::expr::Repeat</definition>
+        <argsstring></argsstring>
+        <name>Repeat</name>
+        <qualifiedname>zmbt::expr::Repeat</qualifiedname>
+        <briefdescription>
+<para>Repeat value in list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="493" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="493" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0eec29516c50d578a522967956bc1c50" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Cat &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Cat&gt; const zmbt::expr::Cat</definition>
+        <argsstring></argsstring>
+        <name>Cat</name>
+        <qualifiedname>zmbt::expr::Cat</qualifiedname>
+        <briefdescription>
+<para>Concatenate sequences. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="496" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="496" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a8aaebe927a9775d4f395858009de2669" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287bafa3ebd6742c360b2d9652b7f78d9bd7d" kindref="member">::zmbt::lang::Keyword::Cat</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Cat&gt; const zmbt::expr::Concat</definition>
+        <argsstring></argsstring>
+        <name>Concat</name>
+        <qualifiedname>zmbt::expr::Concat</qualifiedname>
+        <briefdescription>
+<para>Alias for Cat. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="498" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="498" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a5e894610b7d8a752762dbd12f6d910ad" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Push &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Push&gt; const zmbt::expr::Push</definition>
+        <argsstring></argsstring>
+        <name>Push</name>
+        <qualifiedname>zmbt::expr::Push</qualifiedname>
+        <briefdescription>
+<para>Push element into a front of sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="501" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="501" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a734b405deaacb4ea43a7cd5dbc2de8a6" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::At &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::At&gt; const zmbt::expr::At</definition>
+        <argsstring></argsstring>
+        <name>At</name>
+        <qualifiedname>zmbt::expr::At</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>$</para>
+<para>Structure index is evaluated as array index or as key-value pair index for objects on order-preserving backends.</para>
+<para>Result is null if requested element not found. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="518" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="518" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1d782dbcfcc94353911c2c9277419000" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Del &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Del&gt; const zmbt::expr::Del</definition>
+        <argsstring></argsstring>
+        <name>Del</name>
+        <qualifiedname>zmbt::expr::Del</qualifiedname>
+        <briefdescription>
+<para>Delete elements from structure by given query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Possible queries:<orderedlist>
+<listitem><para>Structure index (negative resolves as reverse)</para>
+</listitem><listitem><para>JSON Pointer</para>
+</listitem><listitem><para>List of queries</para>
+</listitem></orderedlist>
+</para>
+<para>Structure index is evaluated as array index or as key-value pair index for objects on order-preserving backends. When deleting an object element, resulting items order may change. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="530" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="530" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae71e0ecfeef35d5c892d60c723701a20" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba5526d60feb55086fbd12dd96b071a093" kindref="member">::zmbt::lang::Keyword::Del</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Del&gt; const zmbt::expr::Delete</definition>
+        <argsstring></argsstring>
+        <name>Delete</name>
+        <qualifiedname>zmbt::expr::Delete</qualifiedname>
+        <briefdescription>
+<para>Alias for Del. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="532" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="532" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae8144c3a28f8487a3485b1831ccdf18f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Lookup &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Lookup&gt; const zmbt::expr::Lookup</definition>
+        <argsstring></argsstring>
+        <name>Lookup</name>
+        <qualifiedname>zmbt::expr::Lookup</qualifiedname>
+        <briefdescription>
+<para>Lookup table function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parametrized at design time with fixed array or object, produces the value at corresponding At query given as eval-time argument. Equivalent to ~At(...) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="540" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="540" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae4af3e23313f27d877a4ce2433c45cb6" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureCast" kindref="compound">lang::SignatureCast</ref> const</type>
+        <definition>lang::SignatureCast const zmbt::expr::Cast</definition>
+        <argsstring></argsstring>
+        <name>Cast</name>
+        <qualifiedname>zmbt::expr::Cast</qualifiedname>
+        <briefdescription>
+<para>Reserialize decorated type as decorator. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="543" column="34" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="543" declcolumn="34"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1afec4f4a0bffc8007eb7ad47f5e85eb10" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureCast" kindref="compound">lang::SignatureCast</ref> const</type>
+        <definition>lang::SignatureCast const zmbt::expr::Decorate</definition>
+        <argsstring></argsstring>
+        <name>Decorate</name>
+        <qualifiedname>zmbt::expr::Decorate</qualifiedname>
+        <briefdescription>
+<para>Alias for Cast. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="545" column="34" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="545" declcolumn="34"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6f66a47f4e84a565354f11c3ef136591" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUncast" kindref="compound">lang::SignatureUncast</ref> const</type>
+        <definition>lang::SignatureUncast const zmbt::expr::Uncast</definition>
+        <argsstring></argsstring>
+        <name>Uncast</name>
+        <qualifiedname>zmbt::expr::Uncast</qualifiedname>
+        <briefdescription>
+<para>Reserialize decorator as decorated type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="548" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="548" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2edaeb3532794d3a991f9531d235c0a9" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUncast" kindref="compound">lang::SignatureUncast</ref> const</type>
+        <definition>lang::SignatureUncast const zmbt::expr::Undecorate</definition>
+        <argsstring></argsstring>
+        <name>Undecorate</name>
+        <qualifiedname>zmbt::expr::Undecorate</qualifiedname>
+        <briefdescription>
+<para>Alias for Uncast. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="550" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="550" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aa90a5c04b9bf6c98cca15fdecd0b6b55" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Fold &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Fold&gt; const zmbt::expr::Fold</definition>
+        <argsstring></argsstring>
+        <name>Fold</name>
+        <qualifiedname>zmbt::expr::Fold</qualifiedname>
+        <briefdescription>
+<para>Reduce sequence with binary operator. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>To set a specific initial value, use composition with Push, e.g. <computeroutput><ref refid="namespacezmbt_1_1expr_1a5e894610b7d8a752762dbd12f6d910ad" kindref="member">Push(0)</ref> | <ref refid="namespacezmbt_1_1expr_1aa90a5c04b9bf6c98cca15fdecd0b6b55" kindref="member">Fold(Add)</ref></computeroutput></para>
+<para>For reverse operation, see Unfold </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="558" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="558" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2ba70f71b227a99b66ff97f94e3a6ddd" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba7b0da812abcd107490aeb0aa803c9cfe" kindref="member">::zmbt::lang::Keyword::Fold</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Fold&gt; const zmbt::expr::Reduce</definition>
+        <argsstring></argsstring>
+        <name>Reduce</name>
+        <qualifiedname>zmbt::expr::Reduce</qualifiedname>
+        <briefdescription>
+<para>Alias for Fold. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="560" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="560" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a105c0251e0d0b36004e0c7aeb868a4b3" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Map &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Map&gt; const zmbt::expr::Map</definition>
+        <argsstring></argsstring>
+        <name>Map</name>
+        <qualifiedname>zmbt::expr::Map</qualifiedname>
+        <briefdescription>
+<para>Apply param expr to every element of sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="563" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="563" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a49f8cc1f8afbc7ef56042adf482c1ad0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Filter &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Filter&gt; const zmbt::expr::Filter</definition>
+        <argsstring></argsstring>
+        <name>Filter</name>
+        <qualifiedname>zmbt::expr::Filter</qualifiedname>
+        <briefdescription>
+<para>Filter sequence by predicate param. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="566" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="566" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1adeb1222aa709901870691ead95626197" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Count &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Count&gt; const zmbt::expr::Count</definition>
+        <argsstring></argsstring>
+        <name>Count</name>
+        <qualifiedname>zmbt::expr::Count</qualifiedname>
+        <briefdescription>
+<para>Count matches by predicate param. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="569" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="569" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a67802056419a1dd5eba82a3b2f15dd10" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Each &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Each&gt; const zmbt::expr::Each</definition>
+        <argsstring></argsstring>
+        <name>Each</name>
+        <qualifiedname>zmbt::expr::Each</qualifiedname>
+        <briefdescription>
+<para>Test predicate for each item in a sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Equivalent to <computeroutput>Count(p | Not) | <ref refid="namespacezmbt_1_1expr_1aeac37d6318bb00e85a26e0989143b0e9" kindref="member">Eq(0)</ref></computeroutput> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="574" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="574" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a978b62b969dd3b3c48eaa57813b6e49f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Sort &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Sort&gt; const zmbt::expr::Sort</definition>
+        <argsstring></argsstring>
+        <name>Sort</name>
+        <qualifiedname>zmbt::expr::Sort</qualifiedname>
+        <briefdescription>
+<para>Sort list by key function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="577" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="577" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a96a19fda860358db35652cfc15bec192" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Find &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Find&gt; const zmbt::expr::Find</definition>
+        <argsstring></argsstring>
+        <name>Find</name>
+        <qualifiedname>zmbt::expr::Find</qualifiedname>
+        <briefdescription>
+<para>Find the first element that satisfies given predicate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="580" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="580" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a32a6ec1a104aea6047ad92005a5840a0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::FindPtr &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::FindPtr&gt; const zmbt::expr::FindPtr</definition>
+        <argsstring></argsstring>
+        <name>FindPtr</name>
+        <qualifiedname>zmbt::expr::FindPtr</qualifiedname>
+        <briefdescription>
+<para>Find json pointer of the first element that satisfies given predicate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="583" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="583" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0acb6ea2f30a1095dfc75af23390a0ea" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::FindIdx &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::FindIdx&gt; const zmbt::expr::FindIdx</definition>
+        <argsstring></argsstring>
+        <name>FindIdx</name>
+        <qualifiedname>zmbt::expr::FindIdx</qualifiedname>
+        <briefdescription>
+<para>Find index of the first element that satisfies given predicate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Similar to FindPtr, but will integer index or nullptr for non-indexable input. Objects are processed as list of key-value pairs. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="589" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="589" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af35223a882a25c751aaadd31e22fc5e6" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Min &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Min&gt; const zmbt::expr::Min</definition>
+        <argsstring></argsstring>
+        <name>Min</name>
+        <qualifiedname>zmbt::expr::Min</qualifiedname>
+        <briefdescription>
+<para>Min value by key function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="592" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="592" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a19fc46a96ac1353fe15669bcd4c57e7b" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Max &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Max&gt; const zmbt::expr::Max</definition>
+        <argsstring></argsstring>
+        <name>Max</name>
+        <qualifiedname>zmbt::expr::Max</qualifiedname>
+        <briefdescription>
+<para>Max value by key function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="595" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="595" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a7d0df168c73d93f6fe3f0dcb563e4c3f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Argmin &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Argmin&gt; const zmbt::expr::Argmin</definition>
+        <argsstring></argsstring>
+        <name>Argmin</name>
+        <qualifiedname>zmbt::expr::Argmin</qualifiedname>
+        <briefdescription>
+<para>Min value index by key function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="598" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="598" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a41afab8e59167cdf410ca7b0494be114" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Argmax &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Argmax&gt; const zmbt::expr::Argmax</definition>
+        <argsstring></argsstring>
+        <name>Argmax</name>
+        <qualifiedname>zmbt::expr::Argmax</qualifiedname>
+        <briefdescription>
+<para>Max value index by key function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="601" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="601" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2a760520c8f5497d56b107348f8ca529" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Recur &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Recur&gt; const zmbt::expr::Recur</definition>
+        <argsstring></argsstring>
+        <name>Recur</name>
+        <qualifiedname>zmbt::expr::Recur</qualifiedname>
+        <briefdescription>
+<para>Apply recursion to parameter expr and initial value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inference rules:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>n | <ref refid="namespacezmbt_1_1expr_1a2a760520c8f5497d56b107348f8ca529" kindref="member">Recur(x, f)</ref></computeroutput> $\mapsto ◯ⁿ f(x)$, or</para>
+</listitem><listitem><para><computeroutput><ref refid="namespacezmbt_1_1expr_1a70ab12e8ed93a6d6fd2037e473826fb0" kindref="member">Q(p)</ref> | Recur(x₀, f)</computeroutput> $\mapsto x_k$, where<itemizedlist>
+<listitem><para>$x_{i+1} = f(x_i)$</para>
+</listitem><listitem><para>$p(x_{i}) = \top \quad \forall i \le k$</para>
+</listitem><listitem><para>$p(x_{i+1}) = \bot$ (exit condition) </para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="613" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="613" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a8aef809a02353fc34423d796100803ce" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Unfold &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Unfold&gt; const zmbt::expr::Unfold</definition>
+        <argsstring></argsstring>
+        <name>Unfold</name>
+        <qualifiedname>zmbt::expr::Unfold</qualifiedname>
+        <briefdescription>
+<para>Put results of recursive fn call on initial value into an array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inference rules:</para>
+<para><itemizedlist>
+<listitem><para><computeroutput>n | <ref refid="namespacezmbt_1_1expr_1a8aef809a02353fc34423d796100803ce" kindref="member">Unfold(x, f)</ref></computeroutput>$\mapsto [x_0, x_1, ..., x_n]$, or</para>
+</listitem><listitem><para><computeroutput><ref refid="namespacezmbt_1_1expr_1a70ab12e8ed93a6d6fd2037e473826fb0" kindref="member">Q(p)</ref> | Unfold(x₀, f)</computeroutput> $\mapsto [x_0, x_1, ..., x_k]$, where<itemizedlist>
+<listitem><para>$x_{i+1} = f(x_i)$</para>
+</listitem><listitem><para>$p(x_{i}) = \top \quad \forall i \le k$</para>
+</listitem><listitem><para>$p(x_{i+1}) = \bot$ (exit condition) </para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="626" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="626" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1dd86d5d4334f389511277f3a0090745" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureOp" kindref="compound">lang::SignatureOp</ref> const</type>
+        <definition>lang::SignatureOp const zmbt::expr::Op</definition>
+        <argsstring></argsstring>
+        <name>Op</name>
+        <qualifiedname>zmbt::expr::Op</qualifiedname>
+        <briefdescription>
+<para>Bind type-specific operator handler to function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Expression <ref refid="namespacezmbt_1_1expr_1a1dd86d5d4334f389511277f3a0090745" kindref="member">Op(op, f)</ref> instructs f to use op operator on invocation instead of the default generic.</para>
+<para>Operator parameter singleton can be referenced with a string key or constructed in place using type&lt;T&gt; tag.</para>
+<para>This operator handler is propagated downstream to all terminal subexpression in <computeroutput>f</computeroutput>. The result of <computeroutput>f(x)</computeroutput> is not decorated as type&lt;T&gt;. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="639" column="32" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="639" declcolumn="32"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a7214510a554e787bbdc087868177163d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureOp" kindref="compound">lang::SignatureOp</ref> const</type>
+        <definition>lang::SignatureOp const zmbt::expr::Overload</definition>
+        <argsstring></argsstring>
+        <name>Overload</name>
+        <qualifiedname>zmbt::expr::Overload</qualifiedname>
+        <briefdescription>
+<para>Alias for Op. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="641" column="32" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="641" declcolumn="32"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a1116fe5bdaac043aa4e178a9016bf736" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Bind &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Bind&gt; const zmbt::expr::Bind</definition>
+        <argsstring></argsstring>
+        <name>Bind</name>
+        <qualifiedname>zmbt::expr::Bind</qualifiedname>
+        <briefdescription>
+<para>Bind design-time parameters to function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="644" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="644" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0a12dd568f56fb0c7a790260185f5f2c" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Fn &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Fn&gt; const zmbt::expr::Fn</definition>
+        <argsstring></argsstring>
+        <name>Fn</name>
+        <qualifiedname>zmbt::expr::Fn</qualifiedname>
+        <briefdescription>
+<para>Symbolic binding of the inline function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Expression <computeroutput><ref refid="namespacezmbt_1_1expr_1a0a12dd568f56fb0c7a790260185f5f2c" kindref="member">Fn(reference, expr)</ref></computeroutput> creates a symbolic binding between the given reference and an expression, making the expression callable by name within the evaluation context.</para>
+<para>The referenced expression is inlined at the call site and evaluated with the current input. The reference is available to the bound expression itself and to all its subexpressions, enabling arbitrary recursion.</para>
+<para>Each invocation of a function bound with <computeroutput>Fn</computeroutput> establishes a local scope for argument bindings created via <computeroutput>Link</computeroutput>, forming a lexical closure over the surrounding bindings. Argument links from outer scopes are captured by the function and remain accessible unless shadowed by a local binding. Such captured values can be explicitly read using the <computeroutput>Get</computeroutput> expression</para>
+<para>Function bindings are shared across the whole expression and are immutable: once a reference is bound with <computeroutput>Fn</computeroutput>, it cannot be redefined or reset.</para>
+<para><bold>Infix operator form (left shift)</bold>:</para>
+<para><computeroutput>&quot;$f&quot; &lt;&lt; E</computeroutput> ≡ <computeroutput>Fn(&quot;$f&quot;, E)</computeroutput> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="668" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="668" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1accce31816859a1aab52b6885300762ef" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Link &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Link&gt; const zmbt::expr::Link</definition>
+        <argsstring></argsstring>
+        <name>Link</name>
+        <qualifiedname>zmbt::expr::Link</qualifiedname>
+        <briefdescription>
+<para>Symbolic binding of the input value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Capture the current input value and associate it with a symbolic reference represented by a dollar-prefixed string, e.g. <computeroutput>&quot;$x&quot;</computeroutput>.</para>
+<para>On its first evaluation, the reference stores the input value (similar to variable initialization) and passes the value further through the pipeline. On subsequent evaluations within the same scope, the stored value is returned, acting as an immutable constant.</para>
+<para>A <computeroutput>Link</computeroutput> instance cannot be reset after its first access. However, it may be shadowed by another binding with the same reference name in a nested scope, such as a recursive call created with <computeroutput>Fn</computeroutput>.</para>
+<para>The reference name following the <computeroutput>$</computeroutput> sign must not be enclosed in <computeroutput>[]</computeroutput>, <computeroutput>{}</computeroutput>, or <computeroutput>()</computeroutput>, as those formats are reserved for internal use. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="686" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="686" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a5193a0cc6b28016f305166af0e6bc0aa" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Get &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Get&gt; const zmbt::expr::Get</definition>
+        <argsstring></argsstring>
+        <name>Get</name>
+        <qualifiedname>zmbt::expr::Get</qualifiedname>
+        <briefdescription>
+<para>Load linked value (maybe a closure) or return null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Explicitly load the value bound to a symbolic reference without triggering capture semantics.</para>
+<para>In contexts where a <computeroutput>$</computeroutput>-prefixed reference would otherwise attempt to initialize a new binding, <computeroutput>Get</computeroutput> forces a read of an existing binding from the nearest enclosing scope. If no such binding exists, <computeroutput>null</computeroutput> is returned.</para>
+<para>This is particularly useful when working with immutable closures and recursive expressions, where it is necessary to distinguish between reading an upvalue and introducing a new local binding. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="700" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="700" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a37421af227bf4ca5d5e192338e8f8e65" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::EnvLoad &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::EnvLoad&gt; const zmbt::expr::EnvLoad</definition>
+        <argsstring></argsstring>
+        <name>EnvLoad</name>
+        <qualifiedname>zmbt::expr::EnvLoad</qualifiedname>
+        <briefdescription>
+<para>Load value from the test environment using json pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Load the the value from a global environment table with a given JSON Pointer. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="705" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="705" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aa78ab44b8620657b0461a8fb722274f8" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::EnvStore &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::EnvStore&gt; const zmbt::expr::EnvStore</definition>
+        <argsstring></argsstring>
+        <name>EnvStore</name>
+        <qualifiedname>zmbt::expr::EnvStore</qualifiedname>
+        <briefdescription>
+<para>Store value in the test environment using json pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Capture the argument value and store it in a global environment table with a given JSON Pointer, passing the value further similarly to Link. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="710" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="710" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a81424985574e789b636c48e9788319ca" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Any &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Any&gt; const zmbt::expr::Any</definition>
+        <argsstring></argsstring>
+        <name>Any</name>
+        <qualifiedname>zmbt::expr::Any</qualifiedname>
+        <briefdescription>
+<para>Match any predicate. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="713" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="713" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ae10efdc83397567e963acf70abea9295" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::All &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::All&gt; const zmbt::expr::All</definition>
+        <argsstring></argsstring>
+        <name>All</name>
+        <qualifiedname>zmbt::expr::All</qualifiedname>
+        <briefdescription>
+<para>Match all predicates. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="716" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="716" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a12adb4c474ddfdd914c5680b9a9ba459" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Saturate &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Saturate&gt; const zmbt::expr::Saturate</definition>
+        <argsstring></argsstring>
+        <name>Saturate</name>
+        <qualifiedname>zmbt::expr::Saturate</qualifiedname>
+        <briefdescription>
+<para>Saturate matches in order. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="719" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="719" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ac644692b6f983b2095361d7b879b063f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Pipe &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Pipe&gt; const zmbt::expr::Pipe</definition>
+        <argsstring></argsstring>
+        <name>Pipe</name>
+        <qualifiedname>zmbt::expr::Pipe</qualifiedname>
+        <briefdescription>
+<para>Pipe functions in left-to-right composition. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="722" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="722" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af212d3c25b926240d0c7fbe43547c6cd" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Tuple &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Tuple&gt; const zmbt::expr::Tuple</definition>
+        <argsstring></argsstring>
+        <name>Tuple</name>
+        <qualifiedname>zmbt::expr::Tuple</qualifiedname>
+        <briefdescription>
+<para>Pack expressions into an tuple without evaluation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="725" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="725" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a4585d4656c09a45aad552b7e1eaf1408" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureVariadic" kindref="compound">lang::SignatureVariadic</ref>&lt;::zmbt::lang::Keyword::Fork &gt; const</type>
+        <definition>lang::SignatureVariadic&lt;::zmbt::lang::Keyword::Fork&gt; const zmbt::expr::Fork</definition>
+        <argsstring></argsstring>
+        <name>Fork</name>
+        <qualifiedname>zmbt::expr::Fork</qualifiedname>
+        <briefdescription>
+<para>Pack results from enveloped functions into an array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Parallel composition operator:</para>
+<para><programlisting><codeline><highlight class="normal">x<sp/>|<sp/><ref refid="namespacezmbt_1_1expr_1a4585d4656c09a45aad552b7e1eaf1408" kindref="member">Fork</ref>(f1,<sp/>f2,<sp/>...,<sp/>fn)<sp/>↦<sp/>[f1(x0),<sp/>f2(x),<sp/>...,<sp/>fn(x)]</highlight></codeline>
+</programlisting> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="734" column="38" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="734" declcolumn="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1af6eabeac21fc95772d13b7c0979fe1c8" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Flip &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Flip&gt; const zmbt::expr::Flip</definition>
+        <argsstring></argsstring>
+        <name>Flip</name>
+        <qualifiedname>zmbt::expr::Flip</qualifiedname>
+        <briefdescription>
+<para>Flip design-time and eval-time parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Useful for binding lhs operands to non-commutative operators. Unlike Haskell&apos;s flip, won&apos;t change the order or eval-time parameters - for that case use the Reverse keyword instead.</para>
+<para><bold>Prefix operator form (tilde)</bold>:</para>
+<para><ref refid="namespacezmbt_1_1expr_1af6eabeac21fc95772d13b7c0979fe1c8" kindref="member">Flip(Div(1))</ref> ≡ ~Div(1) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="746" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="746" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a836c530fdb355ac297e2fbcc8c33f666" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Dbg &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Dbg&gt; const zmbt::expr::Dbg</definition>
+        <argsstring></argsstring>
+        <name>Dbg</name>
+        <qualifiedname>zmbt::expr::Dbg</qualifiedname>
+        <briefdescription>
+<para>Evaluate function and print evaluation log to stderr. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="749" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="749" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab28021b959e613af80ca72bf34b9485d" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba198388745e9612237ea49ec52b8afdb5" kindref="member">::zmbt::lang::Keyword::Dbg</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Dbg&gt; const zmbt::expr::Debug</definition>
+        <argsstring></argsstring>
+        <name>Debug</name>
+        <qualifiedname>zmbt::expr::Debug</qualifiedname>
+        <briefdescription>
+<para>Alias for Dbg. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="751" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="751" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6de66a17238794aa903911c13d95a10e" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Eval &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Eval&gt; const zmbt::expr::Eval</definition>
+        <argsstring></argsstring>
+        <name>Eval</name>
+        <qualifiedname>zmbt::expr::Eval</qualifiedname>
+        <briefdescription>
+<para>Flip designtime and run-time parameters, evaluating input as expression. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="754" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="754" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a84b54727a84a7bd6c7087d1e645f7929" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Try &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Try&gt; const zmbt::expr::Try</definition>
+        <argsstring></argsstring>
+        <name>Try</name>
+        <qualifiedname>zmbt::expr::Try</qualifiedname>
+        <briefdescription>
+<para>Evaluate function and return result or null if it returns error. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="757" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="757" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a0e09a8b9237167c2078cbb625bd56cce" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Kwrd &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Kwrd&gt; const zmbt::expr::Kwrd</definition>
+        <argsstring></argsstring>
+        <name>Kwrd</name>
+        <qualifiedname>zmbt::expr::Kwrd</qualifiedname>
+        <briefdescription>
+<para>Introspect expression keyword. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="760" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="760" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a66aed76a471e80b64db3fe67ea186b6a" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::Prms &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Prms&gt; const zmbt::expr::Prms</definition>
+        <argsstring></argsstring>
+        <name>Prms</name>
+        <qualifiedname>zmbt::expr::Prms</qualifiedname>
+        <briefdescription>
+<para>Introspect expression parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="763" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="763" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a21c6610a3a44fee7a8021c0367057fab" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba9c4fb9cb6a72540612510200435ee217" kindref="member">::zmbt::lang::Keyword::Prms</ref> &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::Prms&gt; const zmbt::expr::Parameters</definition>
+        <argsstring></argsstring>
+        <name>Parameters</name>
+        <qualifiedname>zmbt::expr::Parameters</qualifiedname>
+        <briefdescription>
+<para>Alias for Prms. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="765" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="765" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a70ab12e8ed93a6d6fd2037e473826fb0" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Q &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Q&gt; const zmbt::expr::Q</definition>
+        <argsstring></argsstring>
+        <name>Q</name>
+        <qualifiedname>zmbt::expr::Q</qualifiedname>
+        <briefdescription>
+<para>Quote parameter, similar to lisp quotation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Quotation lifts any parameter to constant, s.t. produced expression will return the design-time parameter on evaluation, ignoring input. If evaluable expression is passed, it is returned unevaluated. Unlike plain literals which can be treated as predicate matchers in certain context, <ref refid="namespacezmbt_1_1expr_1a70ab12e8ed93a6d6fd2037e473826fb0" kindref="member">Q(x)</ref> is always a constant expression discarding input. ~Q (<ref refid="namespacezmbt_1_1expr_1af6eabeac21fc95772d13b7c0979fe1c8" kindref="member">Flip(Q)</ref>) is equivalent to Id. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="777" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="777" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6f2821f6ef01da784c8edc151e0727f3" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf09564c9ca56850d4cd6b3319e541aee" kindref="member">::zmbt::lang::Keyword::Q</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Q&gt; const zmbt::expr::C</definition>
+        <argsstring></argsstring>
+        <name>C</name>
+        <qualifiedname>zmbt::expr::C</qualifiedname>
+        <briefdescription>
+<para>Alias for Q. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="779" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="779" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1ab4011410148b0341ddeb84e6f85da32a" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf09564c9ca56850d4cd6b3319e541aee" kindref="member">::zmbt::lang::Keyword::Q</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Q&gt; const zmbt::expr::Const</definition>
+        <argsstring></argsstring>
+        <name>Const</name>
+        <qualifiedname>zmbt::expr::Const</qualifiedname>
+        <briefdescription>
+<para>Alias for Q. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="781" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="781" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6700ce28700784e1843d81f0c40a38c3" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::D &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::D&gt; const zmbt::expr::D</definition>
+        <argsstring></argsstring>
+        <name>D</name>
+        <qualifiedname>zmbt::expr::D</qualifiedname>
+        <briefdescription>
+<para>Return x if not null, else return default value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="784" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="784" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a8fd756c4e0da081c196a970f556c5410" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287baf623e75af30e62bbd73d6df5b50bb7b5" kindref="member">::zmbt::lang::Keyword::D</ref> &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::D&gt; const zmbt::expr::Default</definition>
+        <argsstring></argsstring>
+        <name>Default</name>
+        <qualifiedname>zmbt::expr::Default</qualifiedname>
+        <briefdescription>
+<para>Alias for D. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="786" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="786" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a24a5a192c1a83ec08a6911b93db42697" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureErr" kindref="compound">lang::SignatureErr</ref> const</type>
+        <definition>lang::SignatureErr const zmbt::expr::Err</definition>
+        <argsstring></argsstring>
+        <name>Err</name>
+        <qualifiedname>zmbt::expr::Err</qualifiedname>
+        <briefdescription>
+<para>Error object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Error object handling the message and context info </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="791" column="33" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="791" declcolumn="33"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a99c325c5bd1d3c8be2c75200901f3b05" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureErr" kindref="compound">lang::SignatureErr</ref> const</type>
+        <definition>lang::SignatureErr const zmbt::expr::Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <qualifiedname>zmbt::expr::Error</qualifiedname>
+        <briefdescription>
+<para>Alias for Err. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="793" column="33" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="793" declcolumn="33"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a62d0b60bd82e9f9747dd23a3fdb2e1c8" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;::zmbt::lang::Keyword::IsErr &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::IsErr&gt; const zmbt::expr::IsErr</definition>
+        <argsstring></argsstring>
+        <name>IsErr</name>
+        <qualifiedname>zmbt::expr::IsErr</qualifiedname>
+        <briefdescription>
+<para>Test the argument is err expression. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="796" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="796" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a2bc57eb930382266db6740d301825005" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureUnary" kindref="compound">lang::SignatureUnary</ref>&lt;<ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287ba4c94780b4a04ebfe3ffeee1c0d09a1d4" kindref="member">::zmbt::lang::Keyword::IsErr</ref> &gt; const</type>
+        <definition>lang::SignatureUnary&lt;::zmbt::lang::Keyword::IsErr&gt; const zmbt::expr::Iserror</definition>
+        <argsstring></argsstring>
+        <name>Iserror</name>
+        <qualifiedname>zmbt::expr::Iserror</qualifiedname>
+        <briefdescription>
+<para>Alias for IsErr. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="798" column="35" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="798" declcolumn="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aeb065c83db12f608bc7cc2b8e7fe5600" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Assert &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Assert&gt; const zmbt::expr::Assert</definition>
+        <argsstring></argsstring>
+        <name>Assert</name>
+        <qualifiedname>zmbt::expr::Assert</qualifiedname>
+        <briefdescription>
+<para>Return argument if it holds assertion or error otherwise. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="801" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="801" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1aeb93d069eee78ae8dba976a67410142f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::Trace &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::Trace&gt; const zmbt::expr::Trace</definition>
+        <argsstring></argsstring>
+        <name>Trace</name>
+        <qualifiedname>zmbt::expr::Trace</qualifiedname>
+        <briefdescription>
+<para>Same as id, but also prints identifier parameter to debug log. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="804" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="804" declcolumn="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespacezmbt_1_1expr_1a6c538b729a0b13c16f81495e94a53c50" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1SignatureBinary" kindref="compound">lang::SignatureBinary</ref>&lt;::zmbt::lang::Keyword::PreProc &gt; const</type>
+        <definition>lang::SignatureBinary&lt;::zmbt::lang::Keyword::PreProc&gt; const zmbt::expr::PreProc</definition>
+        <argsstring></argsstring>
+        <name>PreProc</name>
+        <qualifiedname>zmbt::expr::PreProc</qualifiedname>
+        <briefdescription>
+<para>Preprocessing token. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>String token that can be substituted with arbitrary expression on expression preprocessing. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="810" column="36" declfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" declline="810" declcolumn="36"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Expression Language API. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp" line="23" column="1"/>
+  </compounddef>
+</doxygen>

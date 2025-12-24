@@ -1,0 +1,446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow" kind="struct" language="C++" prot="private">
+    <compoundname>zmbt::mapping::ModelDefinition::T_ParamRow</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition" prot="protected" virt="virtual">zmbt::mapping::ModelDefinition::BaseTransition</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ParamTable" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_ParamTable</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Target</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a5300e2839ab06512c78c872cee867116" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>A</declname>
+            <defname>A</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, A &amp;&amp;... args)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>A &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="820" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="820" bodyend="824"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a8c5cd7b7f4878ce82b1a3df86e96a68d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="826" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="826" bodyend="830"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1ac4dc5160cbdd3c3c136af3a7a6b487b8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="831" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="831" bodyend="835"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1afcb385390c44ec1760a0fafb51097fa1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="837" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="837" bodyend="845"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1aa2ce1f4046c7c1327650bd412f666ad8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2, boost::json::value const &amp;v3)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v3</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="846" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="846" bodyend="855"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1abfc738f79ebb3dd02bc7521b88385692" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2, boost::json::value const &amp;v3, boost::json::value const &amp;v4)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v3</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v4</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="856" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="856" bodyend="866"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a175b39bedd591cc20bd77f2d829ee9ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2, boost::json::value const &amp;v3, boost::json::value const &amp;v4, boost::json::value const &amp;v5)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v3</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v4</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v5</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="867" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="867" bodyend="878"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a873d42ba638ab7e6ed336eceec6885f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2, boost::json::value const &amp;v3, boost::json::value const &amp;v4, boost::json::value const &amp;v5, boost::json::value const &amp;v6)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v3</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v4</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v5</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v6</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="879" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="879" bodyend="891"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a2f283a58e190a2e8153b9a2c60f3668f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2, boost::json::value const &amp;v3, boost::json::value const &amp;v4, boost::json::value const &amp;v5, boost::json::value const &amp;v6, boost::json::value const &amp;v7)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v3</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v4</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v5</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v6</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v7</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="892" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="892" bodyend="905"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1adced89c2e9269d18498914dd4e33fab4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class...</type>
+            <declname>A</declname>
+            <defname>A</defname>
+          </param>
+        </templateparamlist>
+        <type>Target</type>
+        <definition>Target zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;::operator()</definition>
+        <argsstring>(Param const &amp;p, boost::json::value const &amp;v0, boost::json::value const &amp;v1, boost::json::value const &amp;v2, boost::json::value const &amp;v3, boost::json::value const &amp;v4, boost::json::value const &amp;v5, boost::json::value const &amp;v6, boost::json::value const &amp;v7, A &amp;&amp;... args)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::T_ParamRow::operator()</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1Param" kindref="compound">Param</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v0</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v1</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v2</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v3</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v4</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v5</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v6</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v7</declname>
+        </param>
+        <param>
+          <type>A &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="907" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="907" bodyend="921"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>T_ParamRow transition. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_ParamTable&lt; ModelDefinition::N_ParamTable &gt;</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__ParamTable"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::T_ParamRow&lt; Target &gt;</label>
+        <childnode refid="2" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" line="817" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp" bodystart="818" bodyend="922"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a5300e2839ab06512c78c872cee867116" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a8c5cd7b7f4878ce82b1a3df86e96a68d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1ac4dc5160cbdd3c3c136af3a7a6b487b8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1afcb385390c44ec1760a0fafb51097fa1" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1aa2ce1f4046c7c1327650bd412f666ad8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1abfc738f79ebb3dd02bc7521b88385692" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a175b39bedd591cc20bd77f2d829ee9ef" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a873d42ba638ab7e6ed336eceec6885f7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1a2f283a58e190a2e8153b9a2c60f3668f" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__ParamRow_1adced89c2e9269d18498914dd4e33fab4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::T_ParamRow</scope><name>~BaseTransition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

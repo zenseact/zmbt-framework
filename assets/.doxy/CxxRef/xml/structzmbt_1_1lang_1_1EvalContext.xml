@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1EvalContext" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::EvalContext</compoundname>
+    <includes refid="eval__context_8hpp" local="no">eval_context.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalContext_1a4a5b2c277090355ef3a9b924ab73c492" prot="public" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref></type>
+        <definition>Operator zmbt::lang::EvalContext::op</definition>
+        <argsstring></argsstring>
+        <name>op</name>
+        <qualifiedname>zmbt::lang::EvalContext::op</qualifiedname>
+        <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="32" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalContext_1a6f45a4c02d4ddcb27747d7bd77473169" prot="public" static="no" mutable="no">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalLog" kindref="compound">EvalLog</ref></type>
+        <definition>EvalLog zmbt::lang::EvalContext::log</definition>
+        <argsstring></argsstring>
+        <name>log</name>
+        <qualifiedname>zmbt::lang::EvalContext::log</qualifiedname>
+        <briefdescription>
+<para>Evaluation log. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="34" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalContext_1a62201dac441cf90fa37671cd95f5bd97" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; boost::json::array &gt;</type>
+        <definition>std::shared_ptr&lt;boost::json::array&gt; zmbt::lang::EvalContext::traces</definition>
+        <argsstring></argsstring>
+        <name>traces</name>
+        <qualifiedname>zmbt::lang::EvalContext::traces</qualifiedname>
+        <briefdescription>
+<para>reference -&gt; value map </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="36" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalContext_1aae89e532f5fcf8e66eb7689451bec182" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; std::deque&lt; boost::json::object &gt; &gt;</type>
+        <definition>std::shared_ptr&lt;std::deque&lt;boost::json::object&gt; &gt; zmbt::lang::EvalContext::capture_links</definition>
+        <argsstring></argsstring>
+        <name>capture_links</name>
+        <qualifiedname>zmbt::lang::EvalContext::capture_links</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="37" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalContext_1a42fdd7db3293a91c2e22e7f0cdf64e7e" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; std::map&lt; boost::json::string, <ref refid="classzmbt_1_1lang_1_1ExpressionView" kindref="compound">ExpressionView</ref> &gt; &gt;</type>
+        <definition>std::shared_ptr&lt;std::map&lt;boost::json::string, ExpressionView&gt; &gt; zmbt::lang::EvalContext::expr_links</definition>
+        <argsstring></argsstring>
+        <name>expr_links</name>
+        <qualifiedname>zmbt::lang::EvalContext::expr_links</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="38" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalContext_1af1324929dcf3093ce8a50f89b38444ab" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t zmbt::lang::EvalContext::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>zmbt::lang::EvalContext::depth</qualifiedname>
+        <briefdescription>
+<para>Evaluation stack depth. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="41" column="19" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalContext_1aad645b2233ad09b05d3ac5092046f32b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>static EvalContext zmbt::lang::EvalContext::make</definition>
+        <argsstring>(Operator const &amp;op={})</argsstring>
+        <name>make</name>
+        <qualifiedname>zmbt::lang::EvalContext::make</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Operator" kindref="compound">Operator</ref> const &amp;</type>
+          <declname>op</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="30" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalContext_1a0ff5c0f1470b871ca2e51b0047434df1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::EvalContext::EvalContext</definition>
+        <argsstring>()</argsstring>
+        <name>EvalContext</name>
+        <qualifiedname>zmbt::lang::EvalContext::EvalContext</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="43" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalContext_1a27756eb6a882ae1395044067808807e9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalContext" kindref="compound">EvalContext</ref></type>
+        <definition>EvalContext zmbt::lang::EvalContext::operator++</definition>
+        <argsstring>() const</argsstring>
+        <name>operator++</name>
+        <qualifiedname>zmbt::lang::EvalContext::operator++</qualifiedname>
+        <briefdescription>
+<para>Copy context with depth increment. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="46" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> evaluation context. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>zmbt::lang::EvalContext</label>
+        <link refid="structzmbt_1_1lang_1_1EvalContext"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>op</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>log</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::EvalLog</label>
+        <link refid="structzmbt_1_1lang_1_1EvalLog"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Operator</label>
+        <link refid="classzmbt_1_1lang_1_1Operator"/>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" line="28" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp" bodystart="29" bodyend="47"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1aae89e532f5fcf8e66eb7689451bec182" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>capture_links</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1af1324929dcf3093ce8a50f89b38444ab" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>depth</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1a0ff5c0f1470b871ca2e51b0047434df1" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>EvalContext</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1a42fdd7db3293a91c2e22e7f0cdf64e7e" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>expr_links</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1a6f45a4c02d4ddcb27747d7bd77473169" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>log</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1aad645b2233ad09b05d3ac5092046f32b" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>make</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1a4a5b2c277090355ef3a9b924ab73c492" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>op</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1a27756eb6a882ae1395044067808807e9" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>operator++</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalContext_1a62201dac441cf90fa37671cd95f5bd97" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalContext</scope><name>traces</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

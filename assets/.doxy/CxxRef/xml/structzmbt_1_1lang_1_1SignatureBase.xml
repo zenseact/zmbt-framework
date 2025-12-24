@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1SignatureBase" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::SignatureBase</compoundname>
+    <basecompoundref refid="classzmbt_1_1lang_1_1Expression" prot="public" virt="non-virtual">zmbt::lang::Expression</basecompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureBinary" prot="public" virt="non-virtual">zmbt::lang::SignatureBinary&lt; Keyword::Cast &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureBinary" prot="public" virt="non-virtual">zmbt::lang::SignatureBinary&lt; Keyword::Uncast &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureBinary" prot="public" virt="non-virtual">zmbt::lang::SignatureBinary&lt; K &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureConst" prot="public" virt="non-virtual">zmbt::lang::SignatureConst&lt; K &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureUnary" prot="public" virt="non-virtual">zmbt::lang::SignatureUnary&lt; K &gt;</derivedcompoundref>
+    <derivedcompoundref refid="structzmbt_1_1lang_1_1SignatureVariadic" prot="public" virt="non-virtual">zmbt::lang::SignatureVariadic&lt; K &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <declname>K</declname>
+        <defname>K</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1SignatureBase_1a80a02093cbc3f8641f3c7eb45f13e335" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::SignatureBase&lt; K &gt;::SignatureBase</definition>
+        <argsstring>()</argsstring>
+        <name>SignatureBase</name>
+        <qualifiedname>zmbt::lang::SignatureBase::SignatureBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="29" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="29" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>zmbt::lang::SignatureBinary&lt; Keyword::Cast &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::lang::SignatureBinary&lt; Keyword::Uncast &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::ExpressionView</label>
+        <link refid="classzmbt_1_1lang_1_1ExpressionView"/>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt::lang::SignatureBinary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBinary"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::lang::SignatureCast</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureCast"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::lang::SignatureConst&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureConst"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::lang::SignatureUnary&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureUnary"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::lang::SignatureUncast</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureUncast"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt::lang::SignatureVariadic&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureVariadic"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>zmbt::lang::EncodingView</label>
+        <link refid="classzmbt_1_1lang_1_1EncodingView"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::ExpressionView</label>
+        <link refid="classzmbt_1_1lang_1_1ExpressionView"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>encoding_view_</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::SignatureBase&lt; K &gt;</label>
+        <link refid="structzmbt_1_1lang_1_1SignatureBase"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" line="27" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp" bodystart="28" bodyend="36"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a260effcfc4891ddc08c34d7f7a9506bf" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>as_array</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a24756321d3dfdb6ad31501049604925b" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>as_bool</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a37094dead81ca9b37a835328fcb4779c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>as_object</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a5ebffd81df5b03c36e6ab907a9c963a2" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>as_string</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a933b423c91b64ba0824b07b0491522bc" prot="protected" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>const_predicate_cache_</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a6ee5bea06fe516c546990f9662a93a40" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>data</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a92bc6285bc1cf56a09b3b4f9e8d0620e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encodeLiteral</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5f985649e6de84ad3c4f8bd3625ea7db" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encodeNested</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1afea435929af6accb4c579b0a554dc653" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encodeNested</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a3a80ca81132e0831753acd1fd2730f18" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encodePreProc</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1aa96863a347fa9f985db85cef94270597" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encoding</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aa49f7b2cebffa9250af01e3b7c56770c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encoding_view</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aad6d07d77257a959c943eb971251443b" prot="protected" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>encoding_view_</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aea2455ba17bbae2724d37ee502696d1c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>error_id</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a9c4254847bfc0189d8a0a2e5bd6f5eed" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>eval</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a8e9117cdba54e38686fe2bb1402fd794" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>eval_as_predicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ae309f88e54c6dd6dc641d01f049a2361" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>eval_as_predicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a5b959417671934a903314517741ad96e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>eval_e</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a5bece0613adf6905e8290aa3977e841b" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>eval_maybe_predicate</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ae7054c0b4cfbb198a794db486d573cbd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a7e140ca6ac4f3d07c23383ef12714655" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6bb12cf4a0f735fee632927e91cac909" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5d0580ecf76a2086e61b6c7b69cb99f6" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a05316dc0801acd9d324253d50d464d82" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a4858d93b13cbcb48f8debeea8e634d9e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a09f6682ad05dae77678a1999512ad741" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a99c1cf8e34c27aa2f3b2e93e7355de45" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a77ac7c3a86fbd2ca129c8835d3f42b03" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a2aea8dc08d3891a877a1b16d311c4e63" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a025f25cdd90c423beb894b8af890b06d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1adba8cc8e5eaaaf19c0b302dbaeb27ca3" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>ExpressionView</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1af45902f2a82f47f73f831484dcf8a028" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>ExpressionView</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a56f6fcbca65541322d05b3d62bd19b3f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>ExpressionView</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a501db33215f7f8e732a921675fa44371" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>ExpressionView</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aca4d36784259811c0227ae869dc12419" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>ExpressionView</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ab0da28ba5578a88216a3865d37f1bd72" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>has_subexpr</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a69b7b83b83b5239cd2f57d3c383de290" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>if_array</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ae3974ee6ffe1fec8006a467208c983eb" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>if_bool</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ac1bae282486148b6df97e08a1e425d06" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>if_object</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a6a852e7030eb499e83000bbb535cd21c" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>if_string</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a9d0ad02065145ebf3c44a3ba35c13c20" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a81d4bcc7d11bc3838039e9e79e62729a" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_boolean</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aeff244c64d5e8cd3654e20ed6247183e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_complete_flip</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ab4ffedc7175a62a5d1dfeb17d67ae2d0" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_compose</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a251fdebfdd64cf21de2db96785c9638e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_const</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a956045e86517e92eac3f70a58616117e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_error</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aa1284e9445bd3f1e502a4f3daee26764" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_fork</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aeb56072382897bc0cb75e5899d1668b7" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_identity</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a7fb9aba326207265e930b6ed16529f68" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_infix_fork</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a66bbf3dc1cfd344741aea1be70a0a8a9" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_infix_pipe</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a83fd5618ebaf45c4d189e1d675e3a2c6" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_infix_tuple</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a52a094ef7340fa6d398c7d570db1f679" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_link</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1abd0d52ee3e8fe7545d8760853738302e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_literal</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ae74d0c496ea05520dee09d8a855765cb" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_noop</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a141f01d9a011769b18ceea615badedd2" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_null</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a5b69b96e4c4ee741597f15738921069f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_preproc</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a79ee99969ec807892400cb6f59803a29" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_tuple</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a52c7a7683ba81001389dbd04cffdcd6e" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>is_valid_link</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a88237279806fcbddca915fed6d67ce62" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a25dbbec3030a9c67d47468346efafbcd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>Keyword</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a43c87f44f16337814fcef3b2c85e4bb1" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>keyword_to_str</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a4fbde628bd2c3b33697bc44524a1777f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>link_parameters</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a0db40880d0c5d7ee2198c63babf0b11d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>match</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a1986a86883177e8888f442aabb505005" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>operator!=</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a0e7b2ae56198bba772ee1c2a6b0acba3" prot="public" virt="non-virtual" ambiguityscope="zmbt::lang::ExpressionView::"><scope>zmbt::lang::SignatureBase</scope><name>operator!=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a39fffee660d276e7f60de89ff8b88bc8" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1ab75c5534143727704a642fb8d8de87d0" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a2f30046b49ff5df47e9f7065450c1488" prot="public" virt="non-virtual" ambiguityscope="zmbt::lang::ExpressionView::"><scope>zmbt::lang::SignatureBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a488f7c11cdeb1f6c9c4d1d22c2c39d1f" prot="public" virt="non-virtual" ambiguityscope="zmbt::lang::ExpressionView::"><scope>zmbt::lang::SignatureBase</scope><name>operator=</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a723d17207e2baaa8415d48c31ee88e70" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1afb2717100789a49159c9e80a08156b2d" prot="public" virt="non-virtual" ambiguityscope="zmbt::lang::ExpressionView::"><scope>zmbt::lang::SignatureBase</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a020a3932f951f1eba636ea1d6316cacd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>preprocessing_parameters</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a79962fd97199af0005867084e55776f1" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>prettify</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1af1d5d5540a555ad43dfba37ebd5c2a61" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>prettify_to</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a1c9c2075756786288a61357797c3f8cd" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>prettify_to</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aa5f6f2d4313b75e5d422e77f2c3589d3" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>prettify_to</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a2107afcab243b460e50460d998b64e74" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>serialize</name></member>
+      <member refid="structzmbt_1_1lang_1_1SignatureBase_1a80a02093cbc3f8641f3c7eb45f13e335" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>SignatureBase</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aa26b4186393a11b1b574209f6b4673de" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>subexpressions_list</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1aa73769da9122718d72721a488725cff9" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>to_json</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a6661cb02269c0c7aced7a08ab187110b" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>to_predicate_if_const</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1a32a2b1ba185e83e3ec6b20bbf040512f" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>V</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1a5605348c967d3eed2552904bb1501b4d" prot="public" virt="non-virtual"><scope>zmbt::lang::SignatureBase</scope><name>~Expression</name></member>
+      <member refid="classzmbt_1_1lang_1_1ExpressionView_1ab6ec0446f55b1b322c5363814a363d71" prot="public" virt="virtual"><scope>zmbt::lang::SignatureBase</scope><name>~ExpressionView</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

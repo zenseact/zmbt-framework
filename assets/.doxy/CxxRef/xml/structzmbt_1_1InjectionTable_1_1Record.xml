@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1InjectionTable_1_1Record" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::InjectionTable::Record</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1InjectionTable_1_1Record_1a7449ca168ba7f252da9a86004a379b52" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::InjectionTable::Record::jptr</definition>
+        <argsstring></argsstring>
+        <name>jptr</name>
+        <qualifiedname>zmbt::InjectionTable::Record::jptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" line="29" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1InjectionTable_1_1Record_1a73cb60d52a3a7ec90461e9fb7487ab7f" prot="public" static="no" mutable="no">
+        <type>Generator::Shared</type>
+        <definition>Generator::Shared zmbt::InjectionTable::Record::generator</definition>
+        <argsstring></argsstring>
+        <name>generator</name>
+        <qualifiedname>zmbt::InjectionTable::Record::generator</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" line="30" column="27" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1InjectionTable_1_1Record_1a54847e4688e8e96bdeac1fa4eb598acf" prot="public" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref></type>
+        <definition>lang::Expression zmbt::InjectionTable::Record::transform</definition>
+        <argsstring></argsstring>
+        <name>transform</name>
+        <qualifiedname>zmbt::InjectionTable::Record::transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" line="31" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1InjectionTable_1_1Record_1a2c4b3461474344ad520a38861404c92c" prot="public" static="no" mutable="no">
+        <type>boost::optional&lt; boost::json::value &gt;</type>
+        <definition>boost::optional&lt;boost::json::value&gt; zmbt::InjectionTable::Record::maybe_constant</definition>
+        <argsstring></argsstring>
+        <name>maybe_constant</name>
+        <qualifiedname>zmbt::InjectionTable::Record::maybe_constant</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" line="32" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1InjectionTable_1_1Record_1a8fc3ea781f21e3f6ee1c8c4d9688be8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::InjectionTable::Record::Record</definition>
+        <argsstring>(boost::json::string_view jp, Generator::Shared gen, lang::Expression const &amp;tf)</argsstring>
+        <name>Record</name>
+        <qualifiedname>zmbt::InjectionTable::Record::Record</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>jp</declname>
+        </param>
+        <param>
+          <type>Generator::Shared</type>
+          <declname>gen</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>tf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" line="34" column="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>zmbt::InjectionTable::Record</label>
+        <link refid="structzmbt_1_1InjectionTable_1_1Record"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>transform</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::lang::EncodingView</label>
+        <link refid="classzmbt_1_1lang_1_1EncodingView"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::ExpressionView</label>
+        <link refid="classzmbt_1_1lang_1_1ExpressionView"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>encoding_view_</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" line="27" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp" bodystart="28" bodyend="39"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1InjectionTable_1_1Record_1a73cb60d52a3a7ec90461e9fb7487ab7f" prot="public" virt="non-virtual"><scope>zmbt::InjectionTable::Record</scope><name>generator</name></member>
+      <member refid="structzmbt_1_1InjectionTable_1_1Record_1a7449ca168ba7f252da9a86004a379b52" prot="public" virt="non-virtual"><scope>zmbt::InjectionTable::Record</scope><name>jptr</name></member>
+      <member refid="structzmbt_1_1InjectionTable_1_1Record_1a2c4b3461474344ad520a38861404c92c" prot="public" virt="non-virtual"><scope>zmbt::InjectionTable::Record</scope><name>maybe_constant</name></member>
+      <member refid="structzmbt_1_1InjectionTable_1_1Record_1a8fc3ea781f21e3f6ee1c8c4d9688be8d" prot="public" virt="non-virtual"><scope>zmbt::InjectionTable::Record</scope><name>Record</name></member>
+      <member refid="structzmbt_1_1InjectionTable_1_1Record_1a54847e4688e8e96bdeac1fa4eb598acf" prot="public" virt="non-virtual"><scope>zmbt::InjectionTable::Record</scope><name>transform</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__initialization__trap_3_01T_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::reflect::signal_traits&lt; T, detail::enable_initialization_trap&lt; T &gt; &gt;</compoundname>
+    <includes refid="signal__traits_8hpp" local="no">signal_traits.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__initialization__trap_3_01T_01_4_01_4_1a4011efd7e06e633718de144d21f15c52" prot="public" static="yes" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr T</type>
+        <definition>static constexpr T zmbt::reflect::signal_traits&lt; T, detail::enable_initialization_trap&lt; T &gt; &gt;::init</definition>
+        <argsstring>()</argsstring>
+        <name>init</name>
+        <qualifiedname>zmbt::reflect::signal_traits&lt; T, detail::enable_initialization_trap&lt; T &gt; &gt;::init</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="146" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="146" bodyend="153"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Unhandled types catcher. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="143" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="144" bodyend="154"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__initialization__trap_3_01T_01_4_01_4_1a4011efd7e06e633718de144d21f15c52" prot="public" virt="non-virtual"><scope>zmbt::reflect::signal_traits&lt; T, detail::enable_initialization_trap&lt; T &gt; &gt;</scope><name>init</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

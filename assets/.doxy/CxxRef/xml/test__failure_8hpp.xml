@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="test__failure_8hpp" kind="file" language="C++">
+    <compoundname>test_failure.hpp</compoundname>
+    <includes local="no">sstream</includes>
+    <includes local="no">boost/json.hpp</includes>
+    <includes refid="json__pretty__print_8hpp" local="yes">zmbt/core/json_pretty_print.hpp</includes>
+    <includedby refid="application_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</includedby>
+    <includedby refid="config_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/test_failure.hpp</label>
+        <link refid="test__failure_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>aliases.hpp</label>
+        <link refid="aliases_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt/core/json_pretty_print.hpp</label>
+        <link refid="json__pretty__print_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>boost/callable_traits.hpp</label>
+      </node>
+      <node id="3">
+        <label>boost/json.hpp</label>
+      </node>
+      <node id="9">
+        <label>boost/mp11.hpp</label>
+      </node>
+      <node id="2">
+        <label>sstream</label>
+      </node>
+      <node id="7">
+        <label>tuple</label>
+      </node>
+      <node id="6">
+        <label>type_traits</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zenseact-mbt.hpp</label>
+        <link refid="zenseact-mbt_8hpp"/>
+      </node>
+      <node id="3">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/all.hpp</label>
+        <link refid="all_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</label>
+        <link refid="application_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp</label>
+        <link refid="config_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/test_failure.hpp</label>
+        <link refid="test__failure_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="copyright"><para>(c) Copyright 2022-2023 Volvo Car Corporation </para>
+</simplesect>
+<simplesect kind="copyright"><para>(c) Copyright 2024-2025 Zenseact AB </para>
+</simplesect>
+<simplesect kind="par"><title>License</title><para>SPDX-License-Identifier: Apache-2.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ZMBT_APPLICATION_TEST_FAILURE_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_APPLICATION_TEST_FAILURE_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/json.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="json__pretty__print_8hpp" kindref="compound">zmbt/core/json_pretty_print.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacezmbt" kindref="compound">zmbt</ref><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="namespacezmbt_1a127ed0c317817085db3ee42df8e9eeb7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacezmbt_1a127ed0c317817085db3ee42df8e9eeb7" kindref="member">format_failure_report</ref>(std::ostream&amp;<sp/>os,<sp/>boost::json::value<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>report);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="namespacezmbt_1ab558f561832f47da45707725386e7e86" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacezmbt_1ab558f561832f47da45707725386e7e86" kindref="member">default_test_failure</ref>(boost::json::value<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>report);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/test_failure.hpp"/>
+  </compounddef>
+</doxygen>

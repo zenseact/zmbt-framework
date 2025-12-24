@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_44621b39643a5ee7797a55bb572a295f" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect</compoundname>
+    <innerfile refid="ducktyping__traits__pp_8hpp">ducktyping_traits_pp.hpp</innerfile>
+    <innerfile refid="invocation_8hpp">invocation.hpp</innerfile>
+    <innerfile refid="prototypes_8hpp">prototypes.hpp</innerfile>
+    <innerfile refid="serialization_8hpp">serialization.hpp</innerfile>
+    <innerfile refid="serialization__defaults_8hpp">serialization_defaults.hpp</innerfile>
+    <innerfile refid="signal__traits_8hpp">signal_traits.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/"/>
+  </compounddef>
+</doxygen>

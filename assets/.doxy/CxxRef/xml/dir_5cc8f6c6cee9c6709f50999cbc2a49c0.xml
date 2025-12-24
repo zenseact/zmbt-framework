@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_5cc8f6c6cee9c6709f50999cbc2a49c0" kind="dir">
+    <compoundname>zmbt-framework</compoundname>
+    <innerdir refid="dir_bb0a9de190a5c1cb17a41c225c0cd423">zmbt-framework/zmbt-framework</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/"/>
+  </compounddef>
+</doxygen>

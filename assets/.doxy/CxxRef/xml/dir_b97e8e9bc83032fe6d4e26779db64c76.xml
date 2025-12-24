@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_b97e8e9bc83032fe6d4e26779db64c76" kind="dir">
+    <compoundname>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model</compoundname>
+    <innerfile refid="channel__kind_8hpp">channel_kind.hpp</innerfile>
+    <innerfile refid="environment_8hpp">environment.hpp</innerfile>
+    <innerfile refid="environment__data_8hpp">environment_data.hpp</innerfile>
+    <innerfile refid="environment__interface__record_8hpp">environment_interface_record.hpp</innerfile>
+    <innerfile refid="error__info_8hpp">error_info.hpp</innerfile>
+    <innerfile refid="error__or__return_8hpp">error_or_return.hpp</innerfile>
+    <innerfile refid="model_2exceptions_8hpp">exceptions.hpp</innerfile>
+    <innerfile refid="generator_8hpp">generator.hpp</innerfile>
+    <innerfile refid="global__flags_8hpp">global_flags.hpp</innerfile>
+    <innerfile refid="global__stats_8hpp">global_stats.hpp</innerfile>
+    <innerfile refid="injection__table_8hpp">injection_table.hpp</innerfile>
+    <innerfile refid="output__recorder_8hpp">output_recorder.hpp</innerfile>
+    <innerfile refid="param__transform_8hpp">param_transform.hpp</innerfile>
+    <innerfile refid="parameter_8hpp">parameter.hpp</innerfile>
+    <innerfile refid="permanent__data_8hpp">permanent_data.hpp</innerfile>
+    <innerfile refid="traits_8hpp">traits.hpp</innerfile>
+    <innerfile refid="trigger_8hpp">trigger.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/"/>
+  </compounddef>
+</doxygen>

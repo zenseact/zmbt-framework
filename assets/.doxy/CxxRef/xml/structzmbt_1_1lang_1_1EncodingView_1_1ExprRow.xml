@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::EncodingView::ExprRow</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a54b8c2afb646c16aef10b800cbf2a11f" prot="public" static="no" mutable="no">
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">K</ref></type>
+        <definition>K zmbt::lang::EncodingView::ExprRow::keyword</definition>
+        <argsstring></argsstring>
+        <name>keyword</name>
+        <qualifiedname>zmbt::lang::EncodingView::ExprRow::keyword</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="66" column="11" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a9b072bcb642424e6d08cfb59d1f3d3cc" prot="public" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::lang::EncodingView::ExprRow::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>zmbt::lang::EncodingView::ExprRow::depth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="67" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a5cc0533edda7406656546731359132fb" prot="public" static="no" mutable="no">
+        <type>V const  *</type>
+        <definition>V const* zmbt::lang::EncodingView::ExprRow::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <qualifiedname>zmbt::lang::EncodingView::ExprRow::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="68" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a1a3c4673797b51cc4c006e3e976f2b69" prot="public" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::lang::EncodingView::ExprRow::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <qualifiedname>zmbt::lang::EncodingView::ExprRow::index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="69" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>size_t</label>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::EncodingView::ExprRow</label>
+        <link refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>depth</edgelabel>
+          <edgelabel>index</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="65" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="65" bodyend="70"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a5cc0533edda7406656546731359132fb" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::ExprRow</scope><name>data</name></member>
+      <member refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a9b072bcb642424e6d08cfb59d1f3d3cc" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::ExprRow</scope><name>depth</name></member>
+      <member refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a1a3c4673797b51cc4c006e3e976f2b69" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::ExprRow</scope><name>index</name></member>
+      <member refid="structzmbt_1_1lang_1_1EncodingView_1_1ExprRow_1a54b8c2afb646c16aef10b800cbf2a11f" prot="public" virt="non-virtual"><scope>zmbt::lang::EncodingView::ExprRow</scope><name>keyword</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

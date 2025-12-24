@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1object__id_1_1string__key" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>zmbt::object_id::string_key</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/object_id.hpp" line="38" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/object_id.hpp" bodystart="38" bodyend="38"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="init_8hpp" kind="file" language="C++">
+    <compoundname>init.hpp</compoundname>
+    <includedby refid="application_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</includedby>
+    <invincdepgraph>
+      <node id="4">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zenseact-mbt.hpp</label>
+        <link refid="zenseact-mbt_8hpp"/>
+      </node>
+      <node id="3">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/all.hpp</label>
+        <link refid="all_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</label>
+        <link refid="application_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/init.hpp</label>
+        <link refid="init_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="copyright"><para>(c) Copyright 2024-2025 Zenseact AB </para>
+</simplesect>
+<simplesect kind="par"><title>License</title><para>SPDX-License-Identifier: Apache-2.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ZMBT_APPLICATION_INIT_ZMBT_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_APPLICATION_INIT_ZMBT_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacezmbt" kindref="compound">zmbt</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="namespacezmbt_1a1f8b1e33a88cc943fde9da9034504f3e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespacezmbt_1a1f8b1e33a88cc943fde9da9034504f3e" kindref="member">InitZmbt</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**argv);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>zmbt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>ZMBT_APPLICATION_INIT_ZMBT_HPP_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/init.hpp"/>
+  </compounddef>
+</doxygen>

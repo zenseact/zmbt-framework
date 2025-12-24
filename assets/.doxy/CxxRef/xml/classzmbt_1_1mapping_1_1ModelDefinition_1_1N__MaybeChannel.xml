@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::ModelDefinition::N_MaybeChannel</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Test</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::T_At&lt; ModelDefinition::N_Filter &gt;</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__PipeId" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_PipeId</derivedcompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Repeat" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Repeat</derivedcompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1ab10db554c05a9ae04dd655b342deac89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class ModelDefinition</definition>
+        <argsstring></argsstring>
+        <name>ModelDefinition</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_MaybeChannel::ModelDefinition</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition" kindref="compound">ModelDefinition</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="184" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1af83ed46e74b906b3110afc5a461bb597" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</definition>
+        <argsstring>(detail::DefinitionHelper &amp;&amp;m)</argsstring>
+        <name>N_MaybeChannel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</qualifiedname>
+        <param>
+          <type>detail::DefinitionHelper &amp;&amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="185" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="185" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a98e8275573fa473999eab3aff520b56b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</definition>
+        <argsstring>(N_MaybeChannel const &amp;)=delete</argsstring>
+        <name>N_MaybeChannel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel" kindref="compound">N_MaybeChannel</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="188" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a0ee5b9d0c72217e5c21836b7abbbad76" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</definition>
+        <argsstring>(N_MaybeChannel &amp;&amp;)=default</argsstring>
+        <name>N_MaybeChannel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel" kindref="compound">N_MaybeChannel</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="189" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a76861fd184646d78cb8a0722a1870d91" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</definition>
+        <argsstring>()</argsstring>
+        <name>N_MaybeChannel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_MaybeChannel::N_MaybeChannel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="192" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="192" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a90d529a09b1cc3d63270ee99f5942ec1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::mapping::ModelDefinition::N_MaybeChannel::~N_MaybeChannel</definition>
+        <argsstring>()</argsstring>
+        <name>~N_MaybeChannel</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_MaybeChannel::~N_MaybeChannel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="193" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="193" bodyend="195"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="8">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Descr</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_MaybeChannel</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Param</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>zmbt::mapping::ModelDefinition::N_PipeId</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__PipeId"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_Post</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_Pre</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>zmbt::mapping::ModelDefinition::N_Repeat</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Repeat"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::N_Term</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term"/>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::N_Test</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt::mapping::ModelDefinition::T_CustomParam&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::mapping::ModelDefinition::T_Description&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt::mapping::ModelDefinition::T_Param&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::mapping::ModelDefinition::T_PostRun&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt::mapping::ModelDefinition::T_PreRun&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="8">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Descr</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_MaybeChannel</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Param</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_Post</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_Pre</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::N_Term</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term"/>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::N_Test</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>zmbt::mapping::ModelDefinition::T_At&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt::mapping::ModelDefinition::T_CustomParam&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::mapping::ModelDefinition::T_Description&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt::mapping::ModelDefinition::T_Param&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::mapping::ModelDefinition::T_PostRun&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt::mapping::ModelDefinition::T_PreRun&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>zmbt::mapping::ModelDefinition::T_Test&lt; Target &gt;</label>
+        <childnode refid="8" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="179" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="182" bodyend="196"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a10a1d200f3e16a62580ad81f1c785554" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a999b91af32c7d43395c9707b9d27dd14" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a909b4b4772b06044b7bd81f7c976b9fa" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>At</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__At_1a886dc91529ae296758a5bb65be475395" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>At</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Description_1a597a881ebcb7618f2932b00fd01784c4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Description</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1ab10db554c05a9ae04dd655b342deac89" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>ModelDefinition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr_1a105fea655bc3070a501872120800a722" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_Descr</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1af83ed46e74b906b3110afc5a461bb597" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_MaybeChannel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a98e8275573fa473999eab3aff520b56b" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_MaybeChannel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a0ee5b9d0c72217e5c21836b7abbbad76" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_MaybeChannel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a76861fd184646d78cb8a0722a1870d91" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_MaybeChannel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param_1a096417386a2a81251854233bd992c3ce" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_Param</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post_1a6e7c91c3fd2a932cf69dadc54805fb6c" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_Post</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre_1ae4856852e73c5f2dc23455d34a9589e1" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_Pre</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term_1ab7366080fa36df79ca671dcf0507e0f4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_Term</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test_1a93e4e33afc73a17daacb6c4854ca3c72" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>N_Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a9eadda33d061e9eea48e9afbd97ebe4d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a7ab09bbbb9f5eb9683fc748d880b097f" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a3f5740d791ba79faaf5671f145328728" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a28f816d12e3301871c891bd6f44f2a0e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ab561ba9ee60c0e609ae9bd2a4abb26e8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a12fa8a5f07c2527008b3891fa6ab74f9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ad7e1370e6a07db691b28fb6be540dd37" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8c6050fea1dadfc84fc70eef1c30e82e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a0146d5b7125a4877fc9ddd777d32fa78" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a0ee625faf4f971351a605b9f6519dce2" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__CustomParam_1ad0c56c39ea80be66bfb5d8c14afb5754" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Parametrize</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__PostRun_1aa9a651ce45bc8492d9bae68386c86cfd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>PostRun</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__PreRun_1ada980496c402eed7d9f4835e4b90bce8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>PreRun</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a650786358851b82cc60527e35bbc5686" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a6d3d54fc8fc06e601cfddfb600d4625d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8843674859639bb64c2e4382c0e0e7a7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8578445204b3c49715bb4aa8230f8d97" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a5a821334eaf38c1cdfc10d47a53f2fcc" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1adcb6e37f5ee878f56dc0b3fb99f44fb7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ad308aee0c0a06148e419d26f861a3428" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1adf1f19c364c3957313ab8c809f2b19cd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8862b1a2485d96d3fb4106c2bcd590b4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1af99222d255cb7b7f2b8d5afa011384d5" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Prod</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>state</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a27d8ef8287ed012c4625680eb5a01f73" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a9b12bb983125cd278b8f5c9f40c0db3b" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a1d8cbcc11a642405b6a368e6f83681df" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1ae557a8b9cc62cc674c4c28205b8d0716" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1aa483bd535b8c12f812d1c2b175e77a6e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a483740a12b434ab8c234a4ac5beac9e5" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1ab61d87dfb60cf81cb29456682e209d3a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a197b7e7fd38090c318d5ae7c6434bc24" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a601f9e8f0c881d7d3bfcbb3ed85ea758" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Test_1a94898fc2fe8f07769078fb11415ef7ce" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Test</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>transit_to</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ac7e49efd15f1eca4eab27f29072b28ec" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a3f0126031583dc200f3834bc7632df33" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a6d83ff1e517cf92d47df6dd58c7f0683" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a1fb4fa96dad701cf9faeca49d2cc05f9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a917de7b3253eb7c23dd898eae2bf154e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a26455d0633c1d23e117ce6e9b75d1ce1" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a3438ae0bda930d17e307fa8176cc44bf" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ad5b68c24c585ba4b28ff44e461a8a654" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a33ec47ca0922264ff2b59977fe32c997" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a0a4b1f2914c093c9bde5dc5f217dfb0a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>Zip</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr_1a5b36415429417495c2c87b800a9ffac0" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_Descr</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__MaybeChannel_1a90d529a09b1cc3d63270ee99f5942ec1" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_MaybeChannel</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param_1af34effcc8052c8dd51dd2c40510ba1d2" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_Param</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post_1a6922c1855ea990d43392614260becb8d" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_Post</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre_1ac725fa4e1ce1ec2fd97ea936d14c1e84" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_Pre</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term_1af69fff59a013ee80392d3f9156a4f3ed" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_Term</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Test_1a4e99026e064537a95aa9bd3144d71e66" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_MaybeChannel</scope><name>~N_Test</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

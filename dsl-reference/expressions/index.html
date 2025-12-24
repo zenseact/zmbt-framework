@@ -1,0 +1,6722 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../signal-mapping/">
+      
+      
+        <link rel="next" href="../../CxxRef/namespaces/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/zenseact-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Expressions - Zenseact MBT Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#expression-language-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zenseact MBT Framework" class="md-header__button md-logo" aria-label="Zenseact MBT Framework" data-md-component="logo">
+      
+  <img src="../../images/zenseact-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zenseact MBT Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Expressions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zenseact/zmbt-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zenseact MBT Framework" class="md-nav__button md-logo" aria-label="Zenseact MBT Framework" data-md-component="logo">
+      
+  <img src="../../images/zenseact-logo.svg" alt="logo">
+
+    </a>
+    Zenseact MBT Framework
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zenseact/zmbt-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/signal-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signal Mapping Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/reflection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reflection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSL Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSL Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signal-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signal mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Noop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Null
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        True
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        False
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NaN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#math-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Math Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Math Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sinh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cosh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cosh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asinh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acosh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acosh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erfc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gamma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ceil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ceil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#round" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Round
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqrt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sqrt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arithmetic-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arithmetic Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arithmetic Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#neg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Neg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mul" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mul
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#div" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Div
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitnot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitNot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitAnd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitOr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitxor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitXor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lshift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rshift
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relation Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Relation Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#near" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Set Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Union
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intersect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intersect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diff
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-relation-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Relation Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Set Relation Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seteq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SetEq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#superset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Superset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psubset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSubset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psuperset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSuperset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NotIn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ni
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NotNi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branching Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#and" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        And
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Or
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elif
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Else
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unary-structural-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unary Structural transforms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unary Structural transforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cartesian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cartesian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Items
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flatten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flatten
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tolist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ToList
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Last
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-number-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random number generators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random number generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RandInt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Generators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arange
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Transforms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="String Transforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#re" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Re
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fmt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capitalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capitalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lowercase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LowerCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uppercase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UpperCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural properties
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Card
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avg
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-structural-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Structural transforms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Structural transforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stride" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stride
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Push
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        At
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cast
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uncast
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Each
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FindPtr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findidx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FindIdx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Min
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argmin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argmin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argmax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unfold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unfold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#op" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Op
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Link
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnvLoad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envstore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnvStore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#any" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Any
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saturate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saturate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fork
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dbg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kwrd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation handlers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#err" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Err
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iserr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IsErr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assert
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preproc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreProc
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++ API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespaces
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Namespaces
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_members/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Members
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_typedefs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Typedefs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Enumerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Classes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/annotated/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_members/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Members
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_typedefs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Typedefs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Enumerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/macros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Macros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constants
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#noop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Noop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Null
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#true" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        True
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        False
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#e" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        E
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NaN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#math-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Math Functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Math Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sinh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cosh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cosh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asinh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acosh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acosh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atanh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Erfc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamma" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gamma
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#abs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ceil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ceil
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Floor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#round" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Round
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqrt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sqrt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arithmetic-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arithmetic Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Arithmetic Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#neg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Neg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mul" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mul
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#div" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Div
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitnot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitNot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitAnd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitOr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitxor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BitXor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lshift
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rshift
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relation Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Relation Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ge
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#near" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Near
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Set Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#union" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Union
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intersect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intersect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diff
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-relation-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Relation Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Set Relation Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#seteq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SetEq
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#superset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Superset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psubset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSubset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#psuperset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PSuperset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NotIn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ni
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NotNi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-operators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching Operators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branching Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#and" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        And
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Or
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elif
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Else
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unary-structural-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unary Structural transforms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unary Structural transforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cartesian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cartesian
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Items
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keys
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Values
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flatten" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flatten
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tolist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ToList
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Last
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#random-number-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Random number generators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Random number generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rand
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#randint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RandInt
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sequence-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence Generators
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sequence Generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arange
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Transforms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="String Transforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#str" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Str
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#re" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Re
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fmt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fmt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capitalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capitalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lowercase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LowerCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uppercase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UpperCase
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural properties
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Structural properties">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Card
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Size
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sum
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prod" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prod
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avg
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binary-structural-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Binary Structural transforms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binary Structural transforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stride" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stride
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chunks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repeat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#push" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Push
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#at" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        At
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#del" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Del
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cast
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uncast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uncast
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Order
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="High-Order">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Count
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Each
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findptr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FindPtr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findidx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FindIdx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Min
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#max" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Max
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argmin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argmin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#argmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argmax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unfold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unfold
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#op" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Op
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Link
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Get
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnvLoad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envstore" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnvStore
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#any" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Any
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        All
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saturate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saturate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tuple" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tuple
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fork
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dbg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dbg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Eval
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Try
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kwrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kwrd
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-handlers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation handlers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#q" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Q
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#err" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Err
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iserr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IsErr
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assert
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preproc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PreProc
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- (c) Copyright 2025 Zenseact AB -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Autogenerated file - do not change!
+    app: codegen.expr
+    template: codegen/expr/templates/docs/dsl-reference/expressions.md
+
+    How to update:
+    1. Update the template
+    2. Run `python -m codegen` in the project root
+    3. Commit changes
+-->
+
+<h1 id="expression-language-reference">Expression Language Reference<a class="headerlink" href="#expression-language-reference" title="Permanent link">&para;</a></h1>
+<h2 id="constants">Constants<a class="headerlink" href="#constants" title="Permanent link">&para;</a></h2>
+<h3 id="noop">Noop<a class="headerlink" href="#noop" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p><em>Aliases</em>: _</p>
+<p>No operation</p>
+<p>Returns true without input validation.
+Used in place of matchers for uninteresting signals.</p>
+<h3 id="null">Null<a class="headerlink" href="#null" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Null value</p>
+<h3 id="true">True<a class="headerlink" href="#true" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Logical true</p>
+<h3 id="false">False<a class="headerlink" href="#false" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Logical false</p>
+<h3 id="pi">Pi<a class="headerlink" href="#pi" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Pi constant</p>
+<h3 id="e">E<a class="headerlink" href="#e" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Euler's number</p>
+<h3 id="inf">Inf<a class="headerlink" href="#inf" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Infinity</p>
+<h3 id="eps">Eps<a class="headerlink" href="#eps" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Machine epsilon</p>
+<h3 id="nan">NaN<a class="headerlink" href="#nan" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Not a number</p>
+<h3 id="thread">Thread<a class="headerlink" href="#thread" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Const</a></p>
+<p>Thread id</p>
+<p>Not really a constant, but useful for
+branching the test input conditions.</p>
+<h2 id="math-functions">Math Functions<a class="headerlink" href="#math-functions" title="Permanent link">&para;</a></h2>
+<h3 id="sin">Sin<a class="headerlink" href="#sin" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Sinus function</p>
+<h3 id="cos">Cos<a class="headerlink" href="#cos" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Cosinus function</p>
+<h3 id="tan">Tan<a class="headerlink" href="#tan" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Tangens function</p>
+<h3 id="asin">Asin<a class="headerlink" href="#asin" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Arcsin function</p>
+<h3 id="acos">Acos<a class="headerlink" href="#acos" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Arccos function</p>
+<h3 id="atan">Atan<a class="headerlink" href="#atan" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Arctan function</p>
+<h3 id="sinh">Sinh<a class="headerlink" href="#sinh" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Hyperbolic sin</p>
+<h3 id="cosh">Cosh<a class="headerlink" href="#cosh" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Hyperbolic cos</p>
+<h3 id="tanh">Tanh<a class="headerlink" href="#tanh" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Hyperbolic tan</p>
+<h3 id="asinh">Asinh<a class="headerlink" href="#asinh" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Hyperbolic arcsin</p>
+<h3 id="acosh">Acosh<a class="headerlink" href="#acosh" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Hyperbolic arccos</p>
+<h3 id="atanh">Atanh<a class="headerlink" href="#atanh" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Hyperbolic arctan</p>
+<h3 id="exp">Exp<a class="headerlink" href="#exp" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Exponential (e^x)</p>
+<h3 id="erf">Erf<a class="headerlink" href="#erf" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Error function</p>
+<h3 id="erfc">Erfc<a class="headerlink" href="#erfc" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Error function complement</p>
+<h3 id="gamma">Gamma<a class="headerlink" href="#gamma" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Gamma function</p>
+<h3 id="abs">Abs<a class="headerlink" href="#abs" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Absolute value</p>
+<h3 id="ceil">Ceil<a class="headerlink" href="#ceil" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Ceil</p>
+<h3 id="floor">Floor<a class="headerlink" href="#floor" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Floor</p>
+<h3 id="round">Round<a class="headerlink" href="#round" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Round to nearest integer</p>
+<p>Hint: To round to ndigits precision after the decimal point,
+use <code>Mul(ndigits) | Round | Div(ndigits)</code> combo.</p>
+<h3 id="sqrt">Sqrt<a class="headerlink" href="#sqrt" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Square root</p>
+<h3 id="sign">Sign<a class="headerlink" href="#sign" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Sign</p>
+<h2 id="arithmetic-operators">Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permanent link">&para;</a></h2>
+<h3 id="neg">Neg<a class="headerlink" href="#neg" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Negate</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Neg</code><span class="arithmatex">\(\mapsto\)</span><code>-42</code></li>
+</ul>
+<h3 id="add">Add<a class="headerlink" href="#add" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Addition</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[2, -1] | Add</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>2 | Add(-1)</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+</ul>
+<h3 id="sub">Sub<a class="headerlink" href="#sub" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Subtraction</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[2, 1] | Sub</code><span class="arithmatex">\(\mapsto\)</span><code>-1</code></li>
+<li><code>2 | Sub(1)</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+</ul>
+<h3 id="mul">Mul<a class="headerlink" href="#mul" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Multiplication</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[2, 3] | Mul</code><span class="arithmatex">\(\mapsto\)</span><code>6</code></li>
+<li><code>2 | Mul(3)</code><span class="arithmatex">\(\mapsto\)</span><code>6</code></li>
+</ul>
+<h3 id="div">Div<a class="headerlink" href="#div" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Division</p>
+<ol>
+<li><span class="arithmatex">\([ ] \mapsto [x, y] \mapsto x / y\)</span></li>
+<li><span class="arithmatex">\([y] \mapsto [x]    \mapsto x / y\)</span></li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[6, 3] | Div</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+<li><code>6 | Div(3)</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<h3 id="pow">Pow<a class="headerlink" href="#pow" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>To power</p>
+<p>X to power p
+  1. <span class="arithmatex">\([ ] \mapsto [x, p] \mapsto x^p\)</span>
+  2. <span class="arithmatex">\([p] \mapsto [x]    \mapsto x^p\)</span></p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[2, 3] | Pow</code><span class="arithmatex">\(\mapsto\)</span><code>8</code></li>
+<li><code>2 | Pow(3)</code><span class="arithmatex">\(\mapsto\)</span><code>8</code></li>
+</ul>
+<h3 id="log">Log<a class="headerlink" href="#log" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Logarithm</p>
+<p>Logarithm with base b:</p>
+<ol>
+<li><span class="arithmatex">\([ ] \mapsto [x, b] \mapsto log_b(x)\)</span></li>
+<li><span class="arithmatex">\([b] \mapsto [x]    \mapsto log_b(x)\)</span></li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[8, 2] | Log</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>8 | Log(2)</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+</ul>
+<h3 id="mod">Mod<a class="headerlink" href="#mod" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Modulo</p>
+<p>Modulo of x:</p>
+<ol>
+<li><span class="arithmatex">\([ ] \mapsto [x, m] \mapsto x % m\)</span></li>
+<li><span class="arithmatex">\([m] \mapsto [x]    \mapsto x % m\)</span></li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[7, 4] | Mod</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>7 | Mod(4)</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+</ul>
+<h3 id="quot">Quot<a class="headerlink" href="#quot" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Quotient</p>
+<p>Quotient of x:</p>
+<ol>
+<li><span class="arithmatex">\([ ] \mapsto [x, d] \mapsto x // d\)</span></li>
+<li><span class="arithmatex">\([d] \mapsto [x]    \mapsto x // d\)</span></li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[7, 4] | Quot</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>7 | Quot(4)</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+</ul>
+<h3 id="bitnot">BitNot<a class="headerlink" href="#bitnot" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Bitwise not</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>0b1010 | BitNot</code><span class="arithmatex">\(\mapsto\)</span><code>0b0101</code></li>
+</ul>
+<h3 id="bitand">BitAnd<a class="headerlink" href="#bitand" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Bitwise and</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[0b1010, 0b1100] | BitAnd</code><span class="arithmatex">\(\mapsto\)</span><code>0b1000</code></li>
+</ul>
+<h3 id="bitor">BitOr<a class="headerlink" href="#bitor" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Bitwise or</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[0b1010, 0b1100] | BitOr</code><span class="arithmatex">\(\mapsto\)</span><code>0b1110</code></li>
+</ul>
+<h3 id="bitxor">BitXor<a class="headerlink" href="#bitxor" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Bitwise xor</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[0b1010, 0b1100] | BitXor</code><span class="arithmatex">\(\mapsto\)</span><code>0b0110</code></li>
+</ul>
+<h3 id="lshift">Lshift<a class="headerlink" href="#lshift" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Bitwise left shift</p>
+<ol>
+<li><span class="arithmatex">\([ ] \mapsto [x, s] \mapsto x \texttt{ &lt;&lt; } s\)</span></li>
+<li><span class="arithmatex">\([s] \mapsto [x]    \mapsto x \texttt{ &lt;&lt; } s\)</span></li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[0b1010, 2] | Lshift</code><span class="arithmatex">\(\mapsto\)</span><code>0b101000</code></li>
+</ul>
+<h3 id="rshift">Rshift<a class="headerlink" href="#rshift" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Bitwise right shift</p>
+<ol>
+<li><span class="arithmatex">\([ ] ↦ [x, s] ↦ x \texttt{ &gt;&gt; } s\)</span></li>
+<li><span class="arithmatex">\([s] ↦ [x]    ↦ x \texttt{ &gt;&gt; } s\)</span></li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[0b1010, 2] | Rshift</code><span class="arithmatex">\(\mapsto\)</span><code>0b0010</code></li>
+</ul>
+<h2 id="relation-operators">Relation Operators<a class="headerlink" href="#relation-operators" title="Permanent link">&para;</a></h2>
+<h3 id="eq">Eq<a class="headerlink" href="#eq" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Is equal</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 1] | Eq</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>41 | Eq(42)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="ne">Ne<a class="headerlink" href="#ne" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Not equal</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2] | Ne</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>42 | Ne(42)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="lt">Lt<a class="headerlink" href="#lt" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Lesser than</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2] | Lt</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>41 | Lt(42)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="le">Le<a class="headerlink" href="#le" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Lesser or equal</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2] | Le</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>42 | Le(42)</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="gt">Gt<a class="headerlink" href="#gt" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Greater than</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[2, 1] | Gt</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>43 | Gt(42)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="ge">Ge<a class="headerlink" href="#ge" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Greater or equal</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[2, 1] | Ge</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>42 | Ge(42)</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="near">Near<a class="headerlink" href="#near" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Approx</p>
+<p>Floating point approximately equal</p>
+<p>Based on numpy.isclose:</p>
+<p>abs(x - ref) &lt;= (atol + rtol * abs(ref))</p>
+<p>Rhs parameters:</p>
+<p>ref: reference value
+  rtol: relative tolerance, default = 1e-05
+  atol: absolute tolerance, default = 1e-08</p>
+<p>Rhs dynamic evaluation:</p>
+<ol>
+<li>ref                -&gt; [ref, default, default]</li>
+<li>[ref]              -&gt; [ref, default, default]</li>
+<li>[ref, rtol]        -&gt; [ref, rtol   , default]</li>
+<li>[ref, rtol, atol]  -&gt; [ref, rtol   , atol   ]</li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[42, 42] | Approx</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>42 | Approx(42.0 + 1e-09)</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>42 | Approx(42.001)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<p>Relative tolerance 1e-03
+ * <code>pi | Approx([3.14, 0.001])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code>
+Absolute tolerance 0.01
+ * <code>pi | Approx([3.14, 0, 0.01])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+<h2 id="set-operators">Set Operators<a class="headerlink" href="#set-operators" title="Permanent link">&para;</a></h2>
+<h3 id="union">Union<a class="headerlink" href="#union" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Set union</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [2, 3]] | Union</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3]</code></li>
+<li><code>[1, 2] | Union([2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3]</code></li>
+</ul>
+<h3 id="intersect">Intersect<a class="headerlink" href="#intersect" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Set intersection</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [2, 3]] | Intersect</code><span class="arithmatex">\(\mapsto\)</span><code>[2]</code></li>
+<li><code>[1, 2] | Intersect([2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>[2]</code></li>
+</ul>
+<h3 id="diff">Diff<a class="headerlink" href="#diff" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Set difference</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [2, 3]] | Diff</code><span class="arithmatex">\(\mapsto\)</span><code>[1]</code></li>
+<li><code>[1, 2] | Diff([2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>[1]</code></li>
+</ul>
+<h2 id="set-relation-operators">Set Relation Operators<a class="headerlink" href="#set-relation-operators" title="Permanent link">&para;</a></h2>
+<h3 id="seteq">SetEq<a class="headerlink" href="#seteq" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Equal as set</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [2, 1]] | SetEq</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>[1, 2] | SetEq([2, 1])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="subset">Subset<a class="headerlink" href="#subset" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Is subset</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [1, 2, 3]] | Subset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li>
+<p><code>[1, 2] | Subset([1, 2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li>
+<p><code>[[1, 2, 3], [2, 3]] | Subset</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[1, 2, 3] | Subset([2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[[1, 2], []] | Subset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li><code>[[], []] | Subset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="superset">Superset<a class="headerlink" href="#superset" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Is superset</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2, 3], [1, 2]] | Superset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li>
+<p><code>[1, 2, 3] | Superset([1, 2])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li>
+<p><code>[[2, 3], [1, 2, 3]] | Superset</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[2, 3] | Superset([1, 2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[[], [1, 2]] | Superset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li><code>[[], []] | Superset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="psubset">PSubset<a class="headerlink" href="#psubset" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Is proper subset</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [1, 2, 3]] | PSubset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li>
+<p><code>[1, 2] | PSubset([1, 2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li>
+<p><code>[[1, 2, 3], [2, 3]] | PSubset</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[1, 2, 3] | PSubset([2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[[1, 2], []] | PSubset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li><code>[[], []] | PSubset</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="psuperset">PSuperset<a class="headerlink" href="#psuperset" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Is proper superset</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2, 3], [1, 2]] | PSuperset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li>
+<p><code>[1, 2, 3] | PSuperset([1, 2])</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li>
+<p><code>[[2, 3], [1, 2, 3]] | PSuperset</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[2, 3] | PSuperset([1, 2, 3])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[[], [1, 2]] | PSuperset</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li><code>[[], []] | PSuperset</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="in">In<a class="headerlink" href="#in" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Element is in</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, [1, 2]] | In</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>3 | In([1, 2])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="notin">NotIn<a class="headerlink" href="#notin" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Element is not in</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[3, [1, 2]] | NotIn</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>1 | NotIn([1, 2])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="ni">Ni<a class="headerlink" href="#ni" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Contains</p>
+<p>Contains element</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], 1] | Ni</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>3 | Ni([1, 2])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="notni">NotNi<a class="headerlink" href="#notni" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Not contains element</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], 3] | NotNi</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>1 | NotNi([1, 2])</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h2 id="branching-operators">Branching Operators<a class="headerlink" href="#branching-operators" title="Permanent link">&para;</a></h2>
+<h3 id="bool">Bool<a class="headerlink" href="#bool" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p><em>Aliases</em>: Truthy</p>
+<p>Predicate on boolean transform (aka truthy)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>0 | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>"false" | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>"" | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>[1] | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>[] | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>{} | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>null | Bool</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="not">Not<a class="headerlink" href="#not" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p><em>Aliases</em>: Falsy, Nil</p>
+<p>Logical complement</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Nil</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>0 | Nil</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="and">And<a class="headerlink" href="#and" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Logical and</p>
+<p>Generic behavior:
+  if first operand is truthy,
+  returns second operand, otherwise first</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[true, false] | And</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>[true, true] | And</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<p><strong>Generic behavior</strong>:</p>
+<ul>
+<li><code>["foo", [42, 43]] | And</code><span class="arithmatex">\(\mapsto\)</span><code>[42, 43]</code></li>
+<li>
+<p><code>[""   , [42, 43]] | And</code><span class="arithmatex">\(\mapsto\)</span><code>""</code></p>
+</li>
+<li>
+<p><code>13 | And(42)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></p>
+</li>
+<li><code>[] | And(42)</code><span class="arithmatex">\(\mapsto\)</span><code>[]</code></li>
+</ul>
+<p><strong>If-Else using composition</strong>:</p>
+<ul>
+<li><code>true | And(42) | Or(13)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+<li><code>false | And(42) | Or(13)</code><span class="arithmatex">\(\mapsto\)</span><code>13</code></li>
+</ul>
+<h3 id="or">Or<a class="headerlink" href="#or" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Logical or</p>
+<p>Generic behavior:
+  if first operand is truthy,
+  returns first operand, second otherwise</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[true, false] | Or</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>[false, false] | Or</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<p><strong>Generic behavior</strong>:</p>
+<ul>
+<li><code>["foo", [42, 43]] | Or</code><span class="arithmatex">\(\mapsto\)</span><code>"foo"</code></li>
+<li>
+<p><code>[""   , [42, 43]] | Or</code><span class="arithmatex">\(\mapsto\)</span><code>[42, 43]</code></p>
+</li>
+<li>
+<p><code>13 | Or(42)</code><span class="arithmatex">\(\mapsto\)</span><code>13</code></p>
+</li>
+<li><code>[] | Or(42)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+</ul>
+<p><strong>If-Else using composition</strong>:</p>
+<ul>
+<li><code>true | And(42) | Or(13)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+<li><code>false | And(42) | Or(13)</code><span class="arithmatex">\(\mapsto\)</span><code>13</code></li>
+</ul>
+<h3 id="if">If<a class="headerlink" href="#if" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Branching operator</p>
+<p>Branching operator can be used either in
+Lisp-like mode as <code>If(predicate, then_expr, else_expr)</code>,
+or in pipe mode with Elif or Else operators (see examples).</p>
+<p>In pipe mode (without <code>else_expr</code> parameter), the chain will produce
+error if the following order is violated or interrupted:
+ <code>If [ Elif ]* Else</code></p>
+<p>In both modes, <code>then_expr</code> and <code>else_expr</code> are lazy evaluated against
+run-time argument (which is also true for Elif and Else), making
+it possible to nest if-else expressions.</p>
+<p><em>Examples</em>:</p>
+<p><strong>Pipe form</strong>:</p>
+<ul>
+<li><code>42 | If(Lt(42), Mul(-1)) | Else(Id)</code><span class="arithmatex">\(\mapsto\)</span><code>-42</code></li>
+<li><code>67 | If(Lt(42), Mul(-1)) | Else(Id)</code><span class="arithmatex">\(\mapsto\)</span><code>67</code></li>
+</ul>
+<p><strong>Lisp-like form</strong>:</p>
+<ul>
+<li><code>42 | If(Lt(42), Mul(-1), Id)</code><span class="arithmatex">\(\mapsto\)</span><code>-42</code></li>
+<li><code>67 | If(Lt(42), Mul(-1), Id)</code><span class="arithmatex">\(\mapsto\)</span><code>67</code></li>
+</ul>
+<p><strong>Nested Lisp-like</strong>:</p>
+<ul>
+<li><code>7 | If(42, "42", If(41, "41", Id))</code><span class="arithmatex">\(\mapsto\)</span><code>7</code></li>
+<li><code>42 | If(42, "42", If(41, "41", Id))</code><span class="arithmatex">\(\mapsto\)</span><code>"41"</code></li>
+</ul>
+<p><strong>Same in pipe form without nesting</strong>:</p>
+<ul>
+<li><code>7 | If(42, "42") | Elif(41, "41") | Else(Id)</code><span class="arithmatex">\(\mapsto\)</span><code>7</code></li>
+<li><code>42 | If(42, "42") | Elif(41, "41") | Else(Id)</code><span class="arithmatex">\(\mapsto\)</span><code>"41"</code></li>
+</ul>
+<h3 id="elif">Elif<a class="headerlink" href="#elif" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Else if</p>
+<p>Continuation operator in If-Elif-Else pipe.
+Will fail if not preceded by If.
+See If.</p>
+<h3 id="else">Else<a class="headerlink" href="#else" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Else</p>
+<p>Resolving operator in If-Elif-Else pipe.
+Will fail if not preceded by If or Elif.
+See If.</p>
+<h2 id="unary-structural-transforms">Unary Structural transforms<a class="headerlink" href="#unary-structural-transforms" title="Permanent link">&para;</a></h2>
+<h3 id="id">Id<a class="headerlink" href="#id" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Identity function</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Id</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+</ul>
+<h3 id="transp">Transp<a class="headerlink" href="#transp" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Transpose multidimensional list, turning rows into columns</p>
+<p>May be used to zip sequences of equal length.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2, 3], [4, 5, 6]] | Transp</code><span class="arithmatex">\(\mapsto\)</span><code>[[1, 4], [2, 5], [3, 6]]</code></li>
+</ul>
+<h3 id="cartesian">Cartesian<a class="headerlink" href="#cartesian" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Cartesian product</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [3, 4]] | Cartesian</code><span class="arithmatex">\(\mapsto\)</span><code>[[1, 3], [1, 4], [2, 3], [2, 4]]</code></li>
+</ul>
+<h3 id="reverse">Reverse<a class="headerlink" href="#reverse" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Reverse sequence</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3] | Reverse</code><span class="arithmatex">\(\mapsto\)</span><code>[3, 2, 1]</code></li>
+</ul>
+<h3 id="uniques">Uniques<a class="headerlink" href="#uniques" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Filter unique elements</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 1, 3, 2] | Uniques</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3]</code></li>
+</ul>
+<h3 id="items">Items<a class="headerlink" href="#items" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Extract key-value pairs from object</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>{"a": 1, "b": 2} | Items</code><span class="arithmatex">\(\mapsto\)</span><code>[["a", 1], ["b", 2]]</code></li>
+</ul>
+<h3 id="keys">Keys<a class="headerlink" href="#keys" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Extract keys from object</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>{"a": 1, "b": 2} | Keys</code><span class="arithmatex">\(\mapsto\)</span><code>["a", "b"]</code></li>
+</ul>
+<h3 id="values">Values<a class="headerlink" href="#values" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Extract values from object</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>{"a": 1, "b": 2} | Values</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2]</code></li>
+</ul>
+<h3 id="enumerate">Enumerate<a class="headerlink" href="#enumerate" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Enumerate sequence</p>
+<p>Enumerate sequence with index.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3] | Enumerate</code><span class="arithmatex">\(\mapsto\)</span><code>[[0, 1], [1, 2], [2, 3]]</code></li>
+</ul>
+<h3 id="flatten">Flatten<a class="headerlink" href="#flatten" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Flatten nested list</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [3, 4]] | Flatten</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3, 4]</code></li>
+</ul>
+<h3 id="tolist">ToList<a class="headerlink" href="#tolist" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Put argument into a list</p>
+<p>Equivalent to At([""])</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | List</code><span class="arithmatex">\(\mapsto\)</span><code>[42]</code></li>
+</ul>
+<h3 id="first">First<a class="headerlink" href="#first" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>First item of sequence</p>
+<p>Equivalent to At(0)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3] | First</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>[] | First</code><span class="arithmatex">\(\mapsto\)</span><code>null</code></li>
+</ul>
+<h3 id="last">Last<a class="headerlink" href="#last" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Last item of sequence</p>
+<p>Equivalent to At(-1)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3] | Last</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>[] | Last</code><span class="arithmatex">\(\mapsto\)</span><code>null</code></li>
+</ul>
+<h2 id="random-number-generators">Random number generators<a class="headerlink" href="#random-number-generators" title="Permanent link">&para;</a></h2>
+<h3 id="rand">Rand<a class="headerlink" href="#rand" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Uniformly distributed random number in the half-open interval [0.0, 1.0)</p>
+<h3 id="randint">RandInt<a class="headerlink" href="#randint" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Uniformly distributed random integer in the given range</p>
+<p>RandInt(x, y) : range is [x, y]
+RandInt(x)    : range is [0, x] for positive x and [x, 0] for negative
+RandInt()     : range is [0, RAND_MAX]</p>
+<h2 id="sequence-generators">Sequence Generators<a class="headerlink" href="#sequence-generators" title="Permanent link">&para;</a></h2>
+<h3 id="sequence">Sequence<a class="headerlink" href="#sequence" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Seq</p>
+<p>Produce sequence from parameter using arg as size</p>
+<p>Behavior of <code>n | Sequence(F)</code>is similar to n | Flip(Repeat(F)),
+with the main difference that the parameter is reevaluated for each step,
+making it possible to utilize side-effects, s.a. with Rand.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>3 | Sequence(42)</code><span class="arithmatex">\(\mapsto\)</span><code>[42, 42, 42]</code></li>
+<li><code>3 | Sequence(Rand)</code><span class="arithmatex">\(\mapsto\)</span><code>[..., ..., ...]</code></li>
+</ul>
+<h3 id="arange">Arange<a class="headerlink" href="#arange" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Generate range of numbers</p>
+<p>Return evenly spaced values within a given interval.</p>
+<p>Parameters:</p>
+<ol>
+<li>start: start value</li>
+<li>stop: stop value</li>
+<li>step: step value</li>
+</ol>
+<p>Parameters dynamic evaluation:</p>
+<ol>
+<li>stop: int            -&gt; [0, stop, 1]</li>
+<li>[start, stop]        -&gt; [start, stop, 1]</li>
+<li>[start, stop, step]  -&gt; [start, stop, step]</li>
+</ol>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>6 | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[0,1,2,3,4,5]</code></li>
+<li><code>[2,6] | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[2,3,4,5]</code></li>
+<li><code>[1,9,2] | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[1,3,5,7]</code></li>
+<li>
+<p><code>[5,1,-1] | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[5,4,3,2]</code></p>
+</li>
+<li>
+<p><code>"2:6" | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[2,3,4,5]</code></p>
+</li>
+<li><code>"1:9:2" | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[1,3,5,7]</code></li>
+<li><code>"5:1:-1" | Arange</code><span class="arithmatex">\(\mapsto\)</span><code>[5,4,3,2]</code></li>
+</ul>
+<h2 id="string-transforms">String Transforms<a class="headerlink" href="#string-transforms" title="Permanent link">&para;</a></h2>
+<h3 id="parse">Parse<a class="headerlink" href="#parse" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Parse string as json</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>'{"a": 42}' | Parse</code><span class="arithmatex">\(\mapsto\)</span><code>{"a": 42}</code></li>
+</ul>
+<h3 id="str">Str<a class="headerlink" href="#str" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p><em>Aliases</em>: Serialize</p>
+<p>Serialize json as string</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>{"a": 42} | Serialize</code><span class="arithmatex">\(\mapsto\)</span><code>'{"a":42}'</code></li>
+</ul>
+<h3 id="re">Re<a class="headerlink" href="#re" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Regex</p>
+<p>Regular expression match</p>
+<p>If input is not a string, match it's serialized form.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>["[0-9]+", "42"] | Re</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>"42" | Re("[0-9]+")</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="fmt">Fmt<a class="headerlink" href="#fmt" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p><em>Aliases</em>: Format</p>
+<p>Format string with the given parameter list.</p>
+<p>Constant expressions are supported for the token list,
+s.t. <code>"%s" | Fmt(Pi)</code>  produces "3.141592653589793E0"</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>["Hello, %s!", ["world"]] | Format</code><span class="arithmatex">\(\mapsto\)</span><code>"Hello, world!"</code></li>
+<li><code>"%d + %d = %d" | Format(2,2,4)</code><span class="arithmatex">\(\mapsto\)</span><code>"2 + 2 = 4"</code></li>
+</ul>
+<h3 id="capitalize">Capitalize<a class="headerlink" href="#capitalize" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Capitalize string</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>"foo" | Capitalize</code><span class="arithmatex">\(\mapsto\)</span><code>"Foo"</code></li>
+</ul>
+<h3 id="lowercase">LowerCase<a class="headerlink" href="#lowercase" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Lower case string</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>"Foo" | LowerCase</code><span class="arithmatex">\(\mapsto\)</span><code>"foo"</code></li>
+</ul>
+<h3 id="uppercase">UpperCase<a class="headerlink" href="#uppercase" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Upper case string</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>"foo" | UpperCase</code><span class="arithmatex">\(\mapsto\)</span><code>"FOO"</code></li>
+</ul>
+<h2 id="structural-properties">Structural properties<a class="headerlink" href="#structural-properties" title="Permanent link">&para;</a></h2>
+<h3 id="card">Card<a class="headerlink" href="#card" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Set cardinality (uniques count)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 1, 3, 2] | Card</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>{"a": 1, "b": 2} | Card</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<h3 id="size">Size<a class="headerlink" href="#size" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Sequence size</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 1, 1] | Size</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>{"a": 1, "b": 2} | Size</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<h3 id="sum">Sum<a class="headerlink" href="#sum" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Summation reduction</p>
+<p>Equivalent to Reduce(Add)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3] | Sum</code><span class="arithmatex">\(\mapsto\)</span><code>6</code></li>
+</ul>
+<h3 id="prod">Prod<a class="headerlink" href="#prod" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Multiplication reduction</p>
+<p>Equivalent to Reduce(Mul)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3] | Prod</code><span class="arithmatex">\(\mapsto\)</span><code>6</code></li>
+</ul>
+<h3 id="avg">Avg<a class="headerlink" href="#avg" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Arythmetic average</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3] | Avg</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<h2 id="binary-structural-transforms">Binary Structural transforms<a class="headerlink" href="#binary-structural-transforms" title="Permanent link">&para;</a></h2>
+<h3 id="slide">Slide<a class="headerlink" href="#slide" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Sliding-window iteration</p>
+<p>Sliding window iteration by specified window width.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3,4,5] | Slide(3)</code><span class="arithmatex">\(\mapsto\)</span><code>[[1,2,3],[2,3,4],[3,4,5]]</code></li>
+<li><code>[1,2,3,4,5] | Slide(42)</code><span class="arithmatex">\(\mapsto\)</span><code>[]</code></li>
+</ul>
+<h3 id="stride">Stride<a class="headerlink" href="#stride" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Striding iteration</p>
+<p>Striding iteration by specified step width.
+Reminder subsequence smaller then step width is discarded.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3,4,5,6] | Stride(2)</code><span class="arithmatex">\(\mapsto\)</span><code>[[1,2],[3,4],[5,6]]</code></li>
+<li><code>[1,2,3,4,5] | Stride(3)</code><span class="arithmatex">\(\mapsto\)</span><code>[[1,2,3]]</code></li>
+</ul>
+<h3 id="chunks">Chunks<a class="headerlink" href="#chunks" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Split into chunks of specified max width</p>
+<p>Similar to Stride, but includes the last subsequence
+smaller then step width.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3,4,5,6] | Chunks(2)</code><span class="arithmatex">\(\mapsto\)</span><code>[[1,2],[3,4],[5,6]]</code></li>
+<li><code>[1,2,3,4,5] | Chunks(3)</code><span class="arithmatex">\(\mapsto\)</span><code>[[1,2,3],[4,5]]</code></li>
+</ul>
+<h3 id="repeat">Repeat<a class="headerlink" href="#repeat" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Repeat value in list</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Repeat(3)</code><span class="arithmatex">\(\mapsto\)</span><code>[42, 42, 42]</code></li>
+<li><code>1 | Repeat(3) | Repeat(2)</code><span class="arithmatex">\(\mapsto\)</span><code>[[1,1,1],[1,1,1]]</code></li>
+</ul>
+<h3 id="cat">Cat<a class="headerlink" href="#cat" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Concat</p>
+<p>Concatenate sequences</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], [3, 4]] | Concat</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3, 4]</code></li>
+<li><code>"Hello, " | Concat("World!")</code><span class="arithmatex">\(\mapsto\)</span><code>"Hello, World!"</code></li>
+</ul>
+<h3 id="push">Push<a class="headerlink" href="#push" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Push element into a front of sequence</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[[1, 2], 3] | Push</code><span class="arithmatex">\(\mapsto\)</span><code>[3, 1, 2]</code></li>
+<li><code>[1, 2] | Push(3)</code><span class="arithmatex">\(\mapsto\)</span><code>[3, 1, 2]</code></li>
+</ul>
+<h3 id="at">At<a class="headerlink" href="#at" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Transform json value with given query</p>
+<p>Query evaluation rules:</p>
+<ol>
+<li>Structure index (negative resolves as reverse): <span class="arithmatex">\(q: int   \mapsto x: list  \mapsto x_q\)</span></li>
+<li>Array slice: <span class="arithmatex">\(q: slice \mapsto x: list  \mapsto x[start:stop:step]\)</span></li>
+<li>JSON Pointer: <span class="arithmatex">\(q: str   \mapsto x: any   \mapsto x_q\)</span></li>
+<li>Array pack: <span class="arithmatex">\(q: list  \mapsto x: any   \mapsto [x_{q_1}, x_{q_2}, ...]\)</span></li>
+<li>Object pack:
+    <span class="arithmatex">\(\{key: q_1, \$q_2: q_3, ...\} \mapsto x: any \mapsto \{ key: x_{q_1}, q_2: x_{q_3}, ...\}\)</span></li>
+</ol>
+<p>Structure index is evaluated as array index or as key-value pair index for objects
+  on order-preserving backends.</p>
+<p>Result is null if requested element not found.</p>
+<p><em>Examples</em>:</p>
+<p><strong>Array index</strong>:</p>
+<ul>
+<li><code>[1, 2, 3] | At(2)</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>[1, 2, 3] | At(3)</code><span class="arithmatex">\(\mapsto\)</span><code>nullptr</code></li>
+<li><code>42 | At(0)</code><span class="arithmatex">\(\mapsto\)</span><code>nullptr</code></li>
+</ul>
+<p><strong>Array slice</strong>:</p>
+<ul>
+<li><code>[1,2,3,4,5,6,7,8] | At("::2")</code><span class="arithmatex">\(\mapsto\)</span><code>[1,3,5,7]</code></li>
+<li><code>[1,2,3,4,5,6,7,8] | At("4:")</code><span class="arithmatex">\(\mapsto\)</span><code>[5,6,7,8]</code></li>
+<li><code>[1,2,3,4,5,6,7,8] | At("-1:0:-1")</code><span class="arithmatex">\(\mapsto\)</span><code>[8,7,6,5,4,3,2,1]</code></li>
+</ul>
+<p><strong>JSON Pointer</strong>:</p>
+<ul>
+<li><code>"foo" | At("")</code><span class="arithmatex">\(\mapsto\)</span><code>"foo"</code></li>
+<li><code>{"a": 42, "b": 13} | At("/a")</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+</ul>
+<p><strong>Array pack</strong>:</p>
+<ul>
+<li><code>{"a": 42, "b": 13} | At(["/a", "/b"])</code><span class="arithmatex">\(\mapsto\)</span><code>[42, 13]</code></li>
+<li><code>42 | At([""])</code><span class="arithmatex">\(\mapsto\)</span><code>[42]</code></li>
+</ul>
+<p><strong>Object pack</strong>:</p>
+<ul>
+<li><code>{"a": 42, "b": 13} | At({"f": "/a", "g": "/b"})</code><span class="arithmatex">\(\mapsto\)</span><code>{"f": 42, "g": 13}</code></li>
+<li><code>{"a": 42, "b": 13} | At({"$/b": "/a"})</code><span class="arithmatex">\(\mapsto\)</span><code>{"13": 42}</code></li>
+</ul>
+<h3 id="del">Del<a class="headerlink" href="#del" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Delete</p>
+<p>Delete elements from structure by given query</p>
+<p>Possible queries:
+  1. Structure index (negative resolves as reverse)
+  2. JSON Pointer
+  3. List of queries</p>
+<p>Structure index is evaluated as array index or as key-value pair index for objects
+  on order-preserving backends.
+When deleting an object element, resulting items order may change.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3,4,5] | Del(2)</code><span class="arithmatex">\(\mapsto\)</span><code>[1,2,4,5]</code></li>
+<li><code>[[1, 2], 3] | Del("/0/1")</code><span class="arithmatex">\(\mapsto\)</span><code>[[1], 3]</code></li>
+<li><code>{"a": {"b": [1,2,3]}} | Del({"/a/b/0", "/a/b/1"})</code><span class="arithmatex">\(\mapsto\)</span><code>{"a": {"b": [3]}}</code></li>
+</ul>
+<h3 id="lookup">Lookup<a class="headerlink" href="#lookup" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Lookup table function</p>
+<p>Parametrized at design time with fixed array or object,
+produces the value at corresponding At query given
+as eval-time argument.
+Equivalent to ~At(...)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>0 | Lookup([1,2,3])</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>"/foo" | Lookup([1,2,3])</code><span class="arithmatex">\(\mapsto\)</span><code>null</code></li>
+</ul>
+<h3 id="cast">Cast<a class="headerlink" href="#cast" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Special</a></p>
+<p><em>Aliases</em>: Decorate</p>
+<p>Reserialize decorated type as decorator</p>
+<h3 id="uncast">Uncast<a class="headerlink" href="#uncast" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Special</a></p>
+<p><em>Aliases</em>: Undecorate</p>
+<p>Reserialize decorator as decorated type</p>
+<h2 id="high-order">High-Order<a class="headerlink" href="#high-order" title="Permanent link">&para;</a></h2>
+<h3 id="fold">Fold<a class="headerlink" href="#fold" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Reduce</p>
+<p>Reduce sequence with binary operator</p>
+<p>To set a specific initial value, use composition with Push, e.g.
+<code>Push(0) | Fold(Add)</code></p>
+<p>For reverse operation, see Unfold</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-1, 2, 3] | Fold(Add)</code><span class="arithmatex">\(\mapsto\)</span><code>4</code></li>
+<li><code>[-1, 2, 3] | Fold(Mul)</code><span class="arithmatex">\(\mapsto\)</span><code>-6</code></li>
+</ul>
+<h3 id="map">Map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Apply param expr to every element of sequence</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3] | Map(Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>[2, 3, 4]</code></li>
+</ul>
+<h3 id="filter">Filter<a class="headerlink" href="#filter" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Filter sequence by predicate param</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3, 4] | Filter(Gt(2))</code><span class="arithmatex">\(\mapsto\)</span><code>[3, 4]</code></li>
+</ul>
+<h3 id="count">Count<a class="headerlink" href="#count" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Count matches by predicate param</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3, 4] | Count(Gt(2))</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<h3 id="each">Each<a class="headerlink" href="#each" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Test predicate for each item in a sequence</p>
+<p>Equivalent to <code>Count(p | Not) | Eq(0)</code></p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1, 2, 3, 4] | Each(Gt(2))</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>[1, 2, 3, 4] | Slide(2) | Each(Lt)</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="sort">Sort<a class="headerlink" href="#sort" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Sort list by key function</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[3, 1, 2] | Sort</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3]</code></li>
+<li><code>[3, 1, 2] | Sort(Id)</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 2, 3]</code></li>
+<li><code>[-3, 1, -2] | Sort(Abs)</code><span class="arithmatex">\(\mapsto\)</span><code>[1, -2, -3]</code></li>
+<li><code>[3, 1, 2] | Sort | Reverse</code><span class="arithmatex">\(\mapsto\)</span><code>[3, 2, 1]</code></li>
+</ul>
+<h3 id="find">Find<a class="headerlink" href="#find" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Find the first element that satisfies given predicate</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | Find(Ge(2))</code><span class="arithmatex">\(\mapsto\)</span><code>nullptr</code></li>
+<li><code>[-3, 1,  4] | Find(Ge(2))</code><span class="arithmatex">\(\mapsto\)</span><code>4</code></li>
+</ul>
+<h3 id="findptr">FindPtr<a class="headerlink" href="#findptr" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Find json pointer of the first element that satisfies given predicate</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | FindPtr(Ge(2))</code><span class="arithmatex">\(\mapsto\)</span><code>nullptr</code></li>
+<li><code>[-3, 1,  4] | FindPtr(Ge(2))</code><span class="arithmatex">\(\mapsto\)</span><code>"/2"</code></li>
+</ul>
+<h3 id="findidx">FindIdx<a class="headerlink" href="#findidx" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Find index of the first element that satisfies given predicate</p>
+<p>Similar to FindPtr, but will integer index or nullptr for non-indexable input.
+Objects are processed as list of key-value pairs.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | FindIdx(Ge(2))</code><span class="arithmatex">\(\mapsto\)</span><code>nullptr</code></li>
+<li><code>[-3, 1,  4] | FindIdx(Ge(2))</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<h3 id="min">Min<a class="headerlink" href="#min" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Min value by key function</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | Min</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>[-3, 1, -2] | Min(Abs)</code><span class="arithmatex">\(\mapsto\)</span><code>-3</code></li>
+</ul>
+<h3 id="max">Max<a class="headerlink" href="#max" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Max value by key function</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | Max</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>[-3, 1, -2] | Max(Abs)</code><span class="arithmatex">\(\mapsto\)</span><code>-3</code></li>
+</ul>
+<h3 id="argmin">Argmin<a class="headerlink" href="#argmin" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Min value index by key function</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | Argmin</code><span class="arithmatex">\(\mapsto\)</span><code>0</code></li>
+<li><code>[-3, 1, -2] | Argmin(Abs)</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+</ul>
+<h3 id="argmax">Argmax<a class="headerlink" href="#argmax" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Max value index by key function</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[-3, 1, -2] | Argmax</code><span class="arithmatex">\(\mapsto\)</span><code>1</code></li>
+<li><code>[-3, 1, -2] | Argmax(Abs)</code><span class="arithmatex">\(\mapsto\)</span><code>0</code></li>
+</ul>
+<h3 id="recur">Recur<a class="headerlink" href="#recur" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Apply recursion to parameter expr and initial value</p>
+<p>Inference rules:</p>
+<ul>
+<li><code>n | Recur(x, f)</code> <span class="arithmatex">\(\mapsto ◯ⁿ f(x)\)</span>, or</li>
+<li>
+<p><code>Q(p) | Recur(x₀, f)</code> <span class="arithmatex">\(\mapsto x_k\)</span>, where</p>
+<ul>
+<li><span class="arithmatex">\(x_{i+1} = f(x_i)\)</span></li>
+<li><span class="arithmatex">\(p(x_{i}) = \top \quad \forall i \le k\)</span></li>
+<li><span class="arithmatex">\(p(x_{i+1}) = \bot\)</span> (exit condition)</li>
+</ul>
+</li>
+</ul>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>0 | Recur(0, Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>3</code></li>
+<li><code>3 | Recur(1, Mul(-1))</code><span class="arithmatex">\(\mapsto\)</span><code>-1</code></li>
+</ul>
+<h3 id="unfold">Unfold<a class="headerlink" href="#unfold" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Put results of recursive fn call on initial value into an array</p>
+<p>Inference rules:</p>
+<ul>
+<li><code>n | Unfold(x, f)</code><span class="arithmatex">\(\mapsto [x_0, x_1, ...,  x_n]\)</span>, or</li>
+<li>
+<p><code>Q(p) | Unfold(x₀, f)</code> <span class="arithmatex">\(\mapsto [x_0, x_1, ...,  x_k]\)</span>, where</p>
+<ul>
+<li><span class="arithmatex">\(x_{i+1} = f(x_i)\)</span></li>
+<li><span class="arithmatex">\(p(x_{i}) = \top \quad \forall i \le k\)</span></li>
+<li><span class="arithmatex">\(p(x_{i+1}) = \bot\)</span> (exit condition)</li>
+</ul>
+</li>
+</ul>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>3 | Unfold(0, Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>[0, 1, 2, 3]</code></li>
+<li><code>3 | Unfold(1, Mul(-1))</code><span class="arithmatex">\(\mapsto\)</span><code>[1,-1, 1,-1]</code></li>
+</ul>
+<h3 id="op">Op<a class="headerlink" href="#op" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Special</a></p>
+<p><em>Aliases</em>: Overload</p>
+<p>Bind type-specific operator handler to function</p>
+<p>Expression Op(op, f) instructs f to use op operator on
+invocation instead of the default generic.</p>
+<p>Operator parameter singleton can be referenced with a
+string key or constructed in place using type<T> tag.</p>
+<p>This operator handler is propagated downstream to all terminal
+subexpression in <code>f</code>.
+The result of <code>f(x)</code> is not decorated as type<T>.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[0.5, 2] | Op("complex", Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>[1.5, 2]</code></li>
+</ul>
+<h3 id="bind">Bind<a class="headerlink" href="#bind" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Bind design-time parameters to function.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 &amp; Q(Add) | Bind</code><span class="arithmatex">\(\mapsto\)</span><code>Add(42)</code></li>
+<li><code>42 | Bind(F) | Bind(G) | Bind(H)</code><span class="arithmatex">\(\mapsto\)</span><code>H(G(F(42)))</code></li>
+</ul>
+<h3 id="fn">Fn<a class="headerlink" href="#fn" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Symbolic binding of the inline function</p>
+<p>Expression <code>Fn(reference, expr)</code> creates a symbolic binding between the given
+reference and an expression, making the expression callable by name within
+the evaluation context.</p>
+<p>The referenced expression is inlined at the call site and evaluated with
+the current input. The reference is available to the bound expression itself
+and to all its subexpressions, enabling arbitrary recursion.</p>
+<p>Each invocation of a function bound with <code>Fn</code> establishes a local scope for
+argument bindings created via <code>Link</code>, forming a lexical closure over the
+surrounding bindings. Argument links from outer scopes are captured by the
+function and remain accessible unless shadowed by a local binding.
+Such captured values can be explicitly read using the <code>Get</code> expression</p>
+<p>Function bindings are shared across the whole expression and are immutable:
+once a reference is bound with <code>Fn</code>, it cannot be redefined or reset.</p>
+<p><strong>Infix operator form (left shift)</strong>:</p>
+<p><code>"$f" &lt;&lt; E</code> ≡ <code>Fn("$f", E)</code></p>
+<p><em>Examples</em>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>x | (&quot;$f&quot; &lt;&lt; Add(1)) | &quot;$f&quot;  | &quot;$f&quot; = x + 1 + 1 + 1
+</span></code></pre></div>
+<p>Recursive factorial:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>auto const factorial = &quot;$f&quot; &lt;&lt; (&quot;$x&quot;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  | Assert(Ge(0))
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  | Lt(2)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  | And(1)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  | Or(&quot;$x&quot; | Sub(1) | &quot;$f&quot; | Mul(&quot;$x&quot;))
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>);
+</span></code></pre></div>
+<h3 id="link">Link<a class="headerlink" href="#link" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Symbolic binding of the input value</p>
+<p>Capture the current input value and associate it with a symbolic
+reference represented by a dollar-prefixed string, e.g. <code>"$x"</code>.</p>
+<p>On its first evaluation, the reference stores the input value (similar to
+variable initialization) and passes the value further through the pipeline.
+On subsequent evaluations within the same scope, the stored value is returned,
+acting as an immutable constant.</p>
+<p>A <code>Link</code> instance cannot be reset after its first access. However, it may be
+shadowed by another binding with the same reference name in a nested scope,
+such as a recursive call created with <code>Fn</code>.</p>
+<p>The reference name following the <code>$</code> sign must not be enclosed in <code>[]</code>, <code>{}</code>,
+or <code>()</code>, as those formats are reserved for internal use.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1))</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+<li><code>-7 | "$x" | Ge(0) | And("$x") | Or("$x" | Mul(-1))</code><span class="arithmatex">\(\mapsto\)</span><code>7</code></li>
+</ul>
+<h3 id="get">Get<a class="headerlink" href="#get" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Load linked value (maybe a closure) or return null</p>
+<p>Explicitly load the value bound to a symbolic reference without
+triggering capture semantics.</p>
+<p>In contexts where a <code>$</code>-prefixed reference would otherwise attempt to
+initialize a new binding, <code>Get</code> forces a read of an existing binding from
+the nearest enclosing scope. If no such binding exists, <code>null</code> is returned.</p>
+<p>This is particularly useful when working with immutable closures and
+recursive expressions, where it is necessary to distinguish between
+reading an upvalue and introducing a new local binding.</p>
+<p><em>Examples</em>:</p>
+<p>"$x" | Add(1)          // captures input into <span class="arithmatex">\(x on first encounter
+Get("\)</span>x") | Add(1)     // reads existing binding without capturing</p>
+<h3 id="envload">EnvLoad<a class="headerlink" href="#envload" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Load value from the test environment using json pointer</p>
+<p>Load the the value from a global environment table with a given JSON Pointer.</p>
+<h3 id="envstore">EnvStore<a class="headerlink" href="#envstore" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Store value in the test environment using json pointer</p>
+<p>Capture the argument value and store it in a global environment table with a given JSON Pointer, passing the value further similarly to Link.</p>
+<h3 id="any">Any<a class="headerlink" href="#any" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Match any predicate</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>3 | Any(Gt(2), Lt(0))</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li><code>0 | Any(Gt(2), Lt(0))</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="all">All<a class="headerlink" href="#all" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Match all predicates</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>3 | All(Gt(2), Lt(0))</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>2.5 | All(Gt(2), Lt(3))</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+</ul>
+<h3 id="saturate">Saturate<a class="headerlink" href="#saturate" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Saturate matches in order</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>3 | Saturate(Gt(2), Lt(0))</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></li>
+<li>
+<p><code>0 | Saturate(Gt(2), Lt(0))</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></p>
+</li>
+<li>
+<p><code>[2,4,8,42,1,2] | Saturate(42, Mod(2)|0)</code><span class="arithmatex">\(\mapsto\)</span><code>true</code></p>
+</li>
+<li><code>[2,4,8,41,2] | Saturate(42, Mod(2)|0)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+<li><code>[2,4,8,42] | Saturate(42, Mod(2)|0)</code><span class="arithmatex">\(\mapsto\)</span><code>false</code></li>
+</ul>
+<h3 id="pipe">Pipe<a class="headerlink" href="#pipe" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Pipe functions in left-to-right composition</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>3 | Pipe(Mul(2), Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>7</code></li>
+<li><code>4 | Pipe(Mul(2), Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>9</code></li>
+</ul>
+<p><strong>Infix operator form (pipe)</strong>:</p>
+<ul>
+<li><code>Add(1) | Mul(2)</code><span class="arithmatex">\(\equiv\)</span><code>Pipe(Add(1), Mul(2))</code></li>
+<li><code>3 | Add(1) | Mul(2)</code><span class="arithmatex">\(\mapsto\)</span><code>8</code></li>
+</ul>
+<h3 id="tuple">Tuple<a class="headerlink" href="#tuple" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Pack expressions into an tuple without evaluation</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>null | Tuple(Reduce(Add), Size)</code><span class="arithmatex">\(\mapsto\)</span><code>[Reduce(Add), Size]</code></li>
+</ul>
+<p><strong>Infix operator form (comma):</strong></p>
+<ul>
+<li><code>(Add(1), Mul(2))</code><span class="arithmatex">\(\equiv\)</span><code>Tuple(Add(1), Mul(2))</code></li>
+</ul>
+<h3 id="fork">Fork<a class="headerlink" href="#fork" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Variadic</a></p>
+<p>Pack results from enveloped functions into an array</p>
+<p>Parallel composition operator:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>x | Fork(f1, f2, ..., fn) ↦ [f1(x0), f2(x), ..., fn(x)]
+</span></code></pre></div>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>[1,2,3] | Fork(Reduce(Add), Size)</code><span class="arithmatex">\(\mapsto\)</span><code>[6,3]</code></li>
+<li><code>[1,2,3] | Fork(42, Card, Id)</code><span class="arithmatex">\(\mapsto\)</span><code>[42, 3, [1,2,3]]</code></li>
+</ul>
+<p><strong>Infix operator form (ampersand):</strong></p>
+<ul>
+<li><code>Add(1) &amp; Mul(2)</code><span class="arithmatex">\(\equiv\)</span><code>Fork(Add(1), Mul(2))</code></li>
+<li><code>[1,2,3] | Reduce(Add) &amp; Size</code><span class="arithmatex">\(\mapsto\)</span><code>[6,3]</code></li>
+<li><code>[1,2,3] | Reduce(Add) &amp; Size | Div</code><span class="arithmatex">\(\mapsto\)</span><code>2</code></li>
+</ul>
+<p>Note that the Fork is not associative,
+therefore an infix operator chain is not unfolded
+as it is done for variadic Pipe or Tuple:
+ * <code>a &amp; b &amp; c</code><span class="arithmatex">\(\equiv\)</span><code>(a &amp; b) &amp; c</code><span class="arithmatex">\(\equiv\)</span><code>Fork(Fork(a, b), c)</code></p>
+<h3 id="flip">Flip<a class="headerlink" href="#flip" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Flip design-time and eval-time parameters.</p>
+<p>Useful for binding lhs operands to non-commutative
+operators. Unlike Haskell's flip, won't change the
+order or eval-time parameters - for that case use
+the Reverse keyword instead.</p>
+<p><strong>Prefix operator form (tilde)</strong>:</p>
+<p>Flip(Div(1)) ≡ ~Div(1)</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>2 | Div(1)</code><span class="arithmatex">\(\mapsto\)</span><code>2/1</code></li>
+<li><code>2 | ~Div(1)</code><span class="arithmatex">\(\mapsto\)</span><code>1/2</code></li>
+</ul>
+<h3 id="dbg">Dbg<a class="headerlink" href="#dbg" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Debug</p>
+<p>Evaluate function and print evaluation log to stderr</p>
+<p><em>Examples</em>:</p>
+<p>42 | Dbg(Trace(ZMBT_CUR_LOC) | Add(2))</p>
+<h3 id="eval">Eval<a class="headerlink" href="#eval" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Flip designtime and run-time parameters, evaluating input as expression</p>
+<h3 id="try">Try<a class="headerlink" href="#try" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Evaluate function and return result or null if it returns error</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Try(Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>43</code></li>
+<li><code>"foo" | Try(Add(1))</code><span class="arithmatex">\(\mapsto\)</span><code>null</code></li>
+</ul>
+<h3 id="kwrd">Kwrd<a class="headerlink" href="#kwrd" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p>Introspect expression keyword.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>Q(Fold(Add)) | Kwrd</code><span class="arithmatex">\(\mapsto\)</span><code>"Fold"</code></li>
+<li><code>[1, 1, 1] | Kwrd</code><span class="arithmatex">\(\mapsto\)</span><code>"Literal"</code></li>
+</ul>
+<h3 id="prms">Prms<a class="headerlink" href="#prms" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p><em>Aliases</em>: Parameters</p>
+<p>Introspect expression parameters.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>Q(Fold(Add)) | Prms</code><span class="arithmatex">\(\mapsto\)</span><code>Add</code></li>
+<li><code>[1, 1, 1] | Prms</code><span class="arithmatex">\(\mapsto\)</span><code>[1, 1, 1]</code></li>
+</ul>
+<h2 id="evaluation-handlers">Evaluation handlers<a class="headerlink" href="#evaluation-handlers" title="Permanent link">&para;</a></h2>
+<h3 id="q">Q<a class="headerlink" href="#q" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: C, Const</p>
+<p>Quote parameter, similar to lisp quotation.</p>
+<p>Quotation lifts any parameter to constant, s.t.
+produced expression will return the design-time parameter
+on evaluation, ignoring input. If evaluable expression
+is passed, it is returned unevaluated.
+Unlike plain literals which can be treated
+as predicate matchers in certain context, Q(x) is always
+a constant expression discarding input.
+~Q (Flip(Q)) is equivalent to Id.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>null | C(42)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+</ul>
+<h3 id="d">D<a class="headerlink" href="#d" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p><em>Aliases</em>: Default</p>
+<p>Return x if not null, else return default value</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>null | Default(42)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+<li><code>13 | Default(42)</code><span class="arithmatex">\(\mapsto\)</span><code>13</code></li>
+</ul>
+<h3 id="err">Err<a class="headerlink" href="#err" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Special</a></p>
+<p><em>Aliases</em>: Error</p>
+<p>Error object</p>
+<p>Error object handling the message and context info</p>
+<h3 id="iserr">IsErr<a class="headerlink" href="#iserr" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Unary</a></p>
+<p><em>Aliases</em>: IsError</p>
+<p>Test the argument is err expression</p>
+<h3 id="assert">Assert<a class="headerlink" href="#assert" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Return argument if it holds assertion or error otherwise.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>42 | Assert(Ge(0))</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+<li><code>-7 | Assert(Ge(0))</code><span class="arithmatex">\(\mapsto\)</span><code>Err("assertion failed", "-7 | Ge(0)")</code></li>
+</ul>
+<h3 id="trace">Trace<a class="headerlink" href="#trace" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Same as id, but also prints identifier parameter to debug log.</p>
+<h3 id="preproc">PreProc<a class="headerlink" href="#preproc" title="Permanent link">&para;</a></h3>
+<p><em>Signature</em>: <a href="../../user-guide/expressions/#syntax">Binary</a></p>
+<p>Preprocessing token</p>
+<p>String token that can be substituted with arbitrary expression
+on expression preprocessing.</p>
+<p><em>Examples</em>:</p>
+<ul>
+<li><code>null | C(42)</code><span class="arithmatex">\(\mapsto\)</span><code>42</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../signal-mapping/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Signal mapping">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Signal mapping
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../CxxRef/namespaces/" class="md-footer__link md-footer__link--next" aria-label="Next: Namespace List">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Namespace List
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022-2023 Volvo Car Corporation //
+Copyright &copy; 2024-2025 Zenseact AB
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.select", "content.code.copy", "content.code.annotate", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../docs/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>

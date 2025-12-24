@@ -1,0 +1,1137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="aliases_8hpp" kind="file" language="C++">
+    <compoundname>aliases.hpp</compoundname>
+    <includes local="no">type_traits</includes>
+    <includes local="no">tuple</includes>
+    <includes local="no">boost/callable_traits.hpp</includes>
+    <includes local="no">boost/mp11.hpp</includes>
+    <includedby refid="core_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core.hpp</includedby>
+    <includedby refid="entity__id_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp</includedby>
+    <includedby refid="file__parser_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/file_parser.hpp</includedby>
+    <includedby refid="generic__traits_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/generic_traits.hpp</includedby>
+    <includedby refid="interface__id_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_id.hpp</includedby>
+    <includedby refid="interface__traits_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp</includedby>
+    <includedby refid="json__iter_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp</includedby>
+    <includedby refid="json__pretty__print_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_pretty_print.hpp</includedby>
+    <includedby refid="object__id_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/object_id.hpp</includedby>
+    <includedby refid="operator__traits_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/operator_traits.hpp</includedby>
+    <includedby refid="slice_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/slice.hpp</includedby>
+    <includedby refid="tuple__conversion_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/tuple_conversion.hpp</includedby>
+    <includedby refid="tuple__exchange_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/tuple_exchange.hpp</includedby>
+    <includedby refid="tuple__indexator_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/tuple_indexator.hpp</includedby>
+    <includedby refid="type__info_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/type_info.hpp</includedby>
+    <includedby refid="type__tag_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/type_tag.hpp</includedby>
+    <includedby refid="model__definition__transitions_8hpp" local="no">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp</includedby>
+    <includedby refid="environment_8hpp" local="no">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp</includedby>
+    <includedby refid="param__transform_8hpp" local="no">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/param_transform.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp</label>
+        <link refid="aliases_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>boost/callable_traits.hpp</label>
+      </node>
+      <node id="5">
+        <label>boost/mp11.hpp</label>
+      </node>
+      <node id="3">
+        <label>tuple</label>
+      </node>
+      <node id="2">
+        <label>type_traits</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zenseact-mbt.hpp</label>
+        <link refid="zenseact-mbt_8hpp"/>
+      </node>
+      <node id="3">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/all.hpp</label>
+        <link refid="all_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api.hpp</label>
+        <link refid="api_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp</label>
+        <link refid="model__test_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp</label>
+        <link refid="ns_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application.hpp</label>
+        <link refid="application_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/config.hpp</label>
+        <link refid="config_8hpp"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/log.hpp</label>
+        <link refid="log_8hpp"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/application/test_failure.hpp</label>
+        <link refid="test__failure_8hpp"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core.hpp</label>
+        <link refid="core_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp</label>
+        <link refid="aliases_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/entity_id.hpp</label>
+        <link refid="entity__id_8hpp"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/exceptions.hpp</label>
+        <link refid="core_2exceptions_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/file_parser.hpp</label>
+        <link refid="file__parser_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/generic_traits.hpp</label>
+        <link refid="generic__traits_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_id.hpp</label>
+        <link refid="interface__id_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/interface_traits.hpp</label>
+        <link refid="interface__traits_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_iter.hpp</label>
+        <link refid="json__iter_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_pretty_print.hpp</label>
+        <link refid="json__pretty__print_8hpp"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/object_id.hpp</label>
+        <link refid="object__id_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/operator_traits.hpp</label>
+        <link refid="operator__traits_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/slice.hpp</label>
+        <link refid="slice_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/tuple_conversion.hpp</label>
+        <link refid="tuple__conversion_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/tuple_exchange.hpp</label>
+        <link refid="tuple__exchange_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/tuple_indexator.hpp</label>
+        <link refid="tuple__indexator_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/type_info.hpp</label>
+        <link refid="type__info_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/type_tag.hpp</label>
+        <link refid="type__tag_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor.hpp</label>
+        <link refid="decor_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp</label>
+        <link refid="precise__real_8hpp"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/underlying.hpp</label>
+        <link refid="underlying_8hpp"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api.hpp</label>
+        <link refid="expr_2api_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/api_signatures.hpp</label>
+        <link refid="api__signatures_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/attributes.hpp</label>
+        <link refid="attributes_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp</label>
+        <link refid="encoding_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_context.hpp</label>
+        <link refid="eval__context_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_impl.hpp</label>
+        <link refid="eval__impl_8hpp"/>
+      </node>
+      <node id="35">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_params.hpp</label>
+        <link refid="eval__params_8hpp"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_validator.hpp</label>
+        <link refid="eval__validator_8hpp"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression.hpp</label>
+        <link refid="expression_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/expression_grammar.hpp</label>
+        <link refid="expression__grammar_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword.hpp</label>
+        <link refid="keyword_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_grammar.hpp</label>
+        <link refid="keyword__grammar_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/keyword_info.hpp</label>
+        <link refid="keyword__info_8hpp"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/lazy_param.hpp</label>
+        <link refid="lazy__param_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/operator.hpp</label>
+        <link refid="operator_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp</label>
+        <link refid="subexpression_8hpp"/>
+      </node>
+      <node id="14">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping.hpp</label>
+        <link refid="mapping_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp</label>
+        <link refid="channel__handle_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition.hpp</label>
+        <link refid="model__definition_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_helper.hpp</label>
+        <link refid="model__definition__helper_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_main.hpp</label>
+        <link refid="model__definition__main_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_node.hpp</label>
+        <link refid="model__definition__node_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp</label>
+        <link refid="model__definition__states_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp</label>
+        <link refid="model__definition__transitions_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/pipe_handle.hpp</label>
+        <link refid="pipe__handle_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp</label>
+        <link refid="test__diagnostics_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp</label>
+        <link refid="test__parameter__resolver_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_runner.hpp</label>
+        <link refid="test__runner_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model.hpp</label>
+        <link refid="model_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/channel_kind.hpp</label>
+        <link refid="channel__kind_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp</label>
+        <link refid="environment_8hpp"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_data.hpp</label>
+        <link refid="environment__data_8hpp"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp</label>
+        <link refid="environment__interface__record_8hpp"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/exceptions.hpp</label>
+        <link refid="model_2exceptions_8hpp"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/generator.hpp</label>
+        <link refid="generator_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/injection_table.hpp</label>
+        <link refid="injection__table_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp</label>
+        <link refid="output__recorder_8hpp"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/param_transform.hpp</label>
+        <link refid="param__transform_8hpp"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/parameter.hpp</label>
+        <link refid="parameter_8hpp"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/permanent_data.hpp</label>
+        <link refid="permanent__data_8hpp"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/traits.hpp</label>
+        <link refid="traits_8hpp"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/trigger.hpp</label>
+        <link refid="trigger_8hpp"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect.hpp</label>
+        <link refid="reflect_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp</label>
+        <link refid="invocation_8hpp"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/prototypes.hpp</label>
+        <link refid="prototypes_8hpp"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp</label>
+        <link refid="serialization_8hpp"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization_defaults.hpp</label>
+        <link refid="serialization__defaults_8hpp"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp</label>
+        <link refid="signal__traits_8hpp"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="aliases_8hpp_1ae86b32d6e5c92be2c7ac19e444d5cb28" prot="public" static="no">
+        <name>USING_STD_TYPETRAIT</name>
+        <param><defname>trait</defname></param>
+        <initializer>template &lt;class T&gt; using trait = std::trait&lt;T&gt;;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" line="19" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aliases_8hpp_1a5481d46559caa1c9937d06efdb895dca" prot="public" static="no">
+        <name>USING_TYPETRAIT_V</name>
+        <param><defname>trait</defname></param>
+        <initializer>template&lt;class T&gt; static constexpr bool trait##_v = trait&lt;T&gt;::value;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" line="20" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aliases_8hpp_1a3abeb92811a95d5b1837b229865bf9b1" prot="public" static="no">
+        <name>USING_TYPETRAIT_T</name>
+        <param><defname>trait</defname></param>
+        <initializer>template&lt;class T&gt; using trait##_t = typename trait&lt;T&gt;::type;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" line="21" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aliases_8hpp_1aa17c9a0deac20a72efc66a49e15fc71c" prot="public" static="no">
+        <name>USING_STD_TYPETRAIT_BINARY</name>
+        <param><defname>trait</defname></param>
+        <initializer>template&lt;class A, class B&gt; using trait = std::trait&lt;A, B&gt;;                      \
+template&lt;class A, class B&gt; static constexpr bool trait##_v = trait&lt;A, B&gt;::value;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" line="23" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" bodystart="23" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="define" id="aliases_8hpp_1a0c98888ce03cc5baebc4720453d9523f" prot="public" static="no">
+        <name>USING_STD_TYPETRAIT_PROPERTY</name>
+        <param><defname>trait</defname></param>
+        <initializer>USING_STD_TYPETRAIT(trait) USING_TYPETRAIT_V(trait)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" line="27" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="aliases_8hpp_1a2047a5a286bed8ad76b2fd045283d3c6" prot="public" static="no">
+        <name>USING_STD_TYPETRAIT_TRANSFORM</name>
+        <param><defname>trait</defname></param>
+        <initializer>USING_STD_TYPETRAIT(trait) USING_TYPETRAIT_T(trait)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" line="28" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="copyright"><para>(c) Copyright 2022-2023 Volvo Car Corporation </para>
+</simplesect>
+<simplesect kind="copyright"><para>(c) Copyright 2024-2025 Zenseact AB </para>
+</simplesect>
+<simplesect kind="par"><title>License</title><para>SPDX-License-Identifier: Apache-2.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ZMBT_CORE_NS_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_CORE_NS_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/callable_traits.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mp11.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USING_STD_TYPETRAIT(trait)<sp/>template<sp/>&lt;class<sp/>T&gt;<sp/>using<sp/>trait<sp/>=<sp/>std::trait&lt;T&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USING_TYPETRAIT_V(trait)<sp/>template&lt;class<sp/>T&gt;<sp/>static<sp/>constexpr<sp/>bool<sp/>trait##_v<sp/>=<sp/>trait&lt;T&gt;::value;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USING_TYPETRAIT_T(trait)<sp/>template&lt;class<sp/>T&gt;<sp/>using<sp/>trait##_t<sp/>=<sp/>typename<sp/>trait&lt;T&gt;::type;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USING_STD_TYPETRAIT_BINARY(trait)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">template&lt;class<sp/>A,<sp/>class<sp/>B&gt;<sp/>using<sp/>trait<sp/>=<sp/>std::trait&lt;A,<sp/>B&gt;;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">template&lt;class<sp/>A,<sp/>class<sp/>B&gt;<sp/>static<sp/>constexpr<sp/>bool<sp/>trait##_v<sp/>=<sp/>trait&lt;A,<sp/>B&gt;::value;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USING_STD_TYPETRAIT_PROPERTY(trait)<sp/><sp/>USING_STD_TYPETRAIT(trait)<sp/>USING_TYPETRAIT_V(trait)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USING_STD_TYPETRAIT_TRANSFORM(trait)<sp/>USING_STD_TYPETRAIT(trait)<sp/>USING_TYPETRAIT_T(trait)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacezmbt" kindref="compound">zmbt</ref><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">boost::mp11;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">ct<sp/>=<sp/>boost::callable_traits;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">std::nullptr_t;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">std::size_t;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...&gt;<sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">void_t<sp/>=<sp/>void;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T,<sp/>T<sp/>V&gt;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">integral_constant<sp/>=<sp/>std::integral_constant&lt;T,<sp/>V&gt;;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>V&gt;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">bool_constant<sp/>=<sp/>integral_constant&lt;bool,<sp/>V&gt;;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>T&gt;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">tuple<sp/>=<sp/>std::tuple&lt;T...&gt;;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T<sp/>&gt;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">tuple_size<sp/>=<sp/>std::tuple_size&lt;T&gt;;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T<sp/>&gt;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tuple_size_v<sp/>=<sp/>tuple_size&lt;T&gt;::value;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">std::make_tuple;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">std::tie;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_void)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_null_pointer)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_integral)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_floating_point)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_array)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_enum)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_union)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_class)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_function)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_pointer)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_lvalue_reference)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_rvalue_reference)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_member_object_pointer)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_member_function_pointer)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_fundamental)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_arithmetic)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_scalar)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_object)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_compound)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_reference)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_member_pointer)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_const)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_volatile)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivial)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_copyable)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_standard_layout)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_empty)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_polymorphic)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_abstract)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_final)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_signed)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_unsigned)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_default_constructible)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_default_constructible)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_nothrow_default_constructible)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_copy_constructible)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_copy_constructible)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_nothrow_copy_constructible)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_move_constructible)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_move_constructible)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_nothrow_move_constructible)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_destructible)</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_destructible)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_nothrow_destructible)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(has_virtual_destructor)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_copy_assignable)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_copy_assignable)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_nothrow_copy_assignable)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_move_assignable)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_trivially_move_assignable)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">USING_STD_TYPETRAIT_PROPERTY(is_nothrow_move_assignable)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal">USING_STD_TYPETRAIT_BINARY(is_same)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">USING_STD_TYPETRAIT_BINARY(is_base_of)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">USING_STD_TYPETRAIT_BINARY(is_convertible)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">USING_STD_TYPETRAIT_BINARY(is_assignable)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">USING_STD_TYPETRAIT_BINARY(is_trivially_assignable)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">USING_STD_TYPETRAIT_BINARY(is_nothrow_assignable)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(remove_cv)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(remove_const)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(remove_volatile)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(add_cv)</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(add_const)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(add_volatile)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(remove_reference)</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(add_lvalue_reference)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(add_rvalue_reference)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(remove_pointer)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(add_pointer)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(make_signed)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(make_unsigned)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(underlying_type)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">USING_STD_TYPETRAIT_TRANSFORM(decay)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">is_constructible<sp/>=<sp/>std::is_constructible&lt;T,<sp/>Args...&gt;;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">is_trivially_constructible<sp/>=<sp/>std::is_trivially_constructible&lt;T,<sp/>Args...&gt;;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">is_nothrow_constructible<sp/>=<sp/>std::is_nothrow_constructible&lt;T,<sp/>Args...&gt;;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">remove_cvref_t<sp/>=<sp/>remove_cv_t&lt;remove_reference_t&lt;T&gt;&gt;;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">remove_cvptr_t<sp/>=<sp/>remove_cv_t&lt;remove_pointer_t&lt;T&gt;&gt;;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>B,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T<sp/>=<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>&gt;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">enable_if<sp/>=<sp/>std::enable_if&lt;B,<sp/>T&gt;;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>B,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T<sp/>=<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>&gt;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">enable_if_t<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>enable_if&lt;B,<sp/>T&gt;::type;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>B,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>F&gt;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">conditional<sp/>=<sp/>std::conditional&lt;B,<sp/>T,<sp/>F&gt;;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>B,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>F&gt;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">conditional_t<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>conditional&lt;B,<sp/>T,<sp/>F&gt;::type;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>T&gt;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">common_type<sp/>=<sp/>std::common_type&lt;T...&gt;;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>T&gt;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">common_type_t<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>common_type&lt;T...&gt;<ref refid="namespacezmbt_1aa6dbe066c6a84f4ab7134b8d2ed20359" kindref="member">::type</ref>;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">//<sp/>rank</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extent</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">//<sp/>remove_extent</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">//<sp/>remove_all_extents</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/aliases.hpp"/>
+  </compounddef>
+</doxygen>

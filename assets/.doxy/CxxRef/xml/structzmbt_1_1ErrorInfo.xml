@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1ErrorInfo" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::ErrorInfo</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1ErrorInfo_1a6ec7bf20360f9f16d1256cb3ad58810c" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::ErrorInfo::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>zmbt::ErrorInfo::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" line="18" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1ErrorInfo_1add51adb1854791650a777400243c1789" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::ErrorInfo::what</definition>
+        <argsstring></argsstring>
+        <name>what</name>
+        <qualifiedname>zmbt::ErrorInfo::what</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" line="19" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1ErrorInfo_1ad999ac5dfc944ed53c95978ae7010f66" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::ErrorInfo::context</definition>
+        <argsstring></argsstring>
+        <name>context</name>
+        <qualifiedname>zmbt::ErrorInfo::context</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" line="20" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1ErrorInfo_1a1857f12726657f18f511044288c14d98" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::ErrorInfo::to_json</definition>
+        <argsstring>() const</argsstring>
+        <name>to_json</name>
+        <qualifiedname>zmbt::ErrorInfo::to_json</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" line="22" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" bodystart="22" bodyend="29"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" line="16" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/error_info.hpp" bodystart="17" bodyend="30"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1ErrorInfo_1ad999ac5dfc944ed53c95978ae7010f66" prot="public" virt="non-virtual"><scope>zmbt::ErrorInfo</scope><name>context</name></member>
+      <member refid="structzmbt_1_1ErrorInfo_1a1857f12726657f18f511044288c14d98" prot="public" virt="non-virtual"><scope>zmbt::ErrorInfo</scope><name>to_json</name></member>
+      <member refid="structzmbt_1_1ErrorInfo_1a6ec7bf20360f9f16d1256cb3ad58810c" prot="public" virt="non-virtual"><scope>zmbt::ErrorInfo</scope><name>type</name></member>
+      <member refid="structzmbt_1_1ErrorInfo_1add51adb1854791650a777400243c1789" prot="public" virt="non-virtual"><scope>zmbt::ErrorInfo</scope><name>what</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

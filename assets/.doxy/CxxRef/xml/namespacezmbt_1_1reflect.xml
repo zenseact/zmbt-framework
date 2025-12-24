@@ -1,0 +1,492 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacezmbt_1_1reflect" kind="namespace" language="C++">
+    <compoundname>zmbt::reflect</compoundname>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__invocation" prot="public">zmbt::reflect::custom_invocation</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization" prot="public">zmbt::reflect::custom_serialization</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization_3_01ChannelKind_01_4" prot="public">zmbt::reflect::custom_serialization&lt; ChannelKind &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization_3_01decor_1_1precise_3_01T_01_4_01_4" prot="private">zmbt::reflect::custom_serialization&lt; decor::precise&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization_3_01decor_1_1underlying_3_01T_01_4_01_4" prot="private">zmbt::reflect::custom_serialization&lt; decor::underlying&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1Encoding_01_4" prot="public">zmbt::reflect::custom_serialization&lt; lang::Encoding &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization_3_01lang_1_1ExpressionView_01_4" prot="public">zmbt::reflect::custom_serialization&lt; lang::ExpressionView &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__serialization_3_01T_00_01mp__if_3_01is__base__of_3_01lang_1_1Ex2d769b9dfa1b415c78e21b0b59756cc2" prot="public">zmbt::reflect::custom_serialization&lt; T, mp_if&lt; is_base_of&lt; lang::Expression, T &gt;, void &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1custom__signal__traits" prot="public">zmbt::reflect::custom_signal_traits</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1default__invocation" prot="public">zmbt::reflect::default_invocation</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1default__invocation_3_01S_00_01first__if__any__t_3_01void_00_01ifc__is_03ee2f30da4b8a63c386d237830e07c9" prot="public">zmbt::reflect::default_invocation&lt; S, first_if_any_t&lt; void, ifc_is_fn_handle&lt; S &gt;, ifc_is_functor_ref&lt; S &gt; &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1default__invocation_3_01S_00_01first__if__t_3_01void_00_01ifc__is__functor__ptr_3_01S_01_4_01_4_01_4" prot="public">zmbt::reflect::default_invocation&lt; S, first_if_t&lt; void, ifc_is_functor_ptr&lt; S &gt; &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1default__invocation_3_01S_00_01first__if__t_3_01void_00_01ifc__is__member__handle_3_01S_01_4_01_4_01_4" prot="public">zmbt::reflect::default_invocation&lt; S, first_if_t&lt; void, ifc_is_member_handle&lt; S &gt; &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1has__invocation__for" prot="public">zmbt::reflect::has_invocation_for</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1invocation" prot="public">zmbt::reflect::invocation</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1invocation_3_01S_00_01detail_1_1enable__custom__invocation_3_01S_01_4_01_4" prot="public">zmbt::reflect::invocation&lt; S, detail::enable_custom_invocation&lt; S &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1invocation_3_01S_00_01detail_1_1enable__default__invocation_3_01S_01_4_01_4" prot="public">zmbt::reflect::invocation&lt; S, detail::enable_default_invocation&lt; S &gt; &gt;</innerclass>
+    <innerclass refid="classzmbt_1_1reflect_1_1Prototypes" prot="public">zmbt::reflect::Prototypes</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1serialization" prot="public">zmbt::reflect::serialization</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1serialization_3_01T_00_01detail_1_1enable__for__custom__serialization_3_01T_01_4_01_4" prot="public">zmbt::reflect::serialization&lt; T, detail::enable_for_custom_serialization&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1serialization_3_01T_00_01detail_1_1enable__for__default__serialization_3_01T_01_4_01_4" prot="public">zmbt::reflect::serialization&lt; T, detail::enable_for_default_serialization&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1signal__traits" prot="public">zmbt::reflect::signal_traits</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__custom__signal__traits_3_01T_01_4_01_4" prot="public">zmbt::reflect::signal_traits&lt; T, detail::enable_custom_signal_traits&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__default__signal__traits_3_01T_01_4_01_4" prot="public">zmbt::reflect::signal_traits&lt; T, detail::enable_default_signal_traits&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__initialization__trap_3_01T_01_4_01_4" prot="public">zmbt::reflect::signal_traits&lt; T, detail::enable_initialization_trap&lt; T &gt; &gt;</innerclass>
+    <innerclass refid="structzmbt_1_1reflect_1_1signal__traits_3_01void_01_4" prot="public">zmbt::reflect::signal_traits&lt; void &gt;</innerclass>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a49bd1897c9347324cadfadfd6603bfc0" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>typename <ref refid="structzmbt_1_1reflect_1_1invocation" kindref="compound">reflect::invocation</ref>&lt; Interface &gt;<ref refid="namespacezmbt_1aa6dbe066c6a84f4ab7134b8d2ed20359" kindref="member">::type</ref></type>
+        <definition>using zmbt::reflect::interface_t = typedef typename reflect::invocation&lt;Interface&gt;::type</definition>
+        <argsstring></argsstring>
+        <name>interface_t</name>
+        <qualifiedname>zmbt::reflect::interface_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="161" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a787b05eb9dd32f21a83f5867ce751585" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>typename <ref refid="structzmbt_1_1reflect_1_1invocation" kindref="compound">invocation</ref>&lt; Interface &gt;::args_t</type>
+        <definition>using zmbt::reflect::invocation_args_t = typedef typename invocation&lt;Interface&gt;::args_t</definition>
+        <argsstring></argsstring>
+        <name>invocation_args_t</name>
+        <qualifiedname>zmbt::reflect::invocation_args_t</qualifiedname>
+        <briefdescription>
+<para>Interface arguments tuple type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interface pointer type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="170" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a8b48be14f24e67dd05fd6b9fdde421ca" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>tuple_unqf_t&lt; <ref refid="namespacezmbt_1_1reflect_1a787b05eb9dd32f21a83f5867ce751585" kindref="member">invocation_args_t</ref>&lt; Interface &gt; &gt;</type>
+        <definition>using zmbt::reflect::invocation_args_unqf_t = typedef tuple_unqf_t&lt;invocation_args_t&lt;Interface&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>invocation_args_unqf_t</name>
+        <qualifiedname>zmbt::reflect::invocation_args_unqf_t</qualifiedname>
+        <briefdescription>
+<para>Interface cv-unqualified arguments tuple type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interface pointer type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="178" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1ae9e3e1cfb0271b0b00f3b7e2d3198400" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>std::integral_constant&lt; bool, 0==boost::mp11::mp_size&lt; <ref refid="namespacezmbt_1_1reflect_1a787b05eb9dd32f21a83f5867ce751585" kindref="member">invocation_args_t</ref>&lt; Interface &gt; &gt;::value &gt;</type>
+        <definition>using zmbt::reflect::invocation_has_void_args = typedef std::integral_constant&lt;bool, 0 == boost::mp11::mp_size&lt;invocation_args_t&lt;Interface&gt; &gt;::value &gt;</definition>
+        <argsstring></argsstring>
+        <name>invocation_has_void_args</name>
+        <qualifiedname>zmbt::reflect::invocation_has_void_args</qualifiedname>
+        <briefdescription>
+<para>Interface has no args. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="186" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1af2f57a48f2123b00a20e762360c16b8b" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>typename <ref refid="structzmbt_1_1reflect_1_1invocation" kindref="compound">invocation</ref>&lt; Interface &gt;::return_t</type>
+        <definition>using zmbt::reflect::invocation_ret_t = typedef typename invocation&lt;Interface&gt;::return_t</definition>
+        <argsstring></argsstring>
+        <name>invocation_ret_t</name>
+        <qualifiedname>zmbt::reflect::invocation_ret_t</qualifiedname>
+        <briefdescription>
+<para>Interface return type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interface pointer type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="195" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a218d102b70f853d68d59f3525ca2d58d" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>remove_cvref_t&lt; <ref refid="namespacezmbt_1_1reflect_1af2f57a48f2123b00a20e762360c16b8b" kindref="member">invocation_ret_t</ref>&lt; Interface &gt; &gt;</type>
+        <definition>using zmbt::reflect::invocation_ret_unqf_t = typedef remove_cvref_t&lt;invocation_ret_t&lt;Interface&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>invocation_ret_unqf_t</name>
+        <qualifiedname>zmbt::reflect::invocation_ret_unqf_t</qualifiedname>
+        <briefdescription>
+<para>Interface cv-unqualified return type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interface pointer type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="203" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a6bc3f9d0105aa054bd3a752415fa02ba" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>std::is_void&lt; <ref refid="namespacezmbt_1_1reflect_1af2f57a48f2123b00a20e762360c16b8b" kindref="member">invocation_ret_t</ref>&lt; Interface &gt; &gt;</type>
+        <definition>using zmbt::reflect::invocation_has_void_ret = typedef std::is_void&lt;invocation_ret_t&lt;Interface&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>invocation_has_void_ret</name>
+        <qualifiedname>zmbt::reflect::invocation_has_void_ret</qualifiedname>
+        <briefdescription>
+<para>Interface has no return. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Interface</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="211" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1af0c12ce0f08fa670e33004a2fe46a9da" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class Interface</type>
+          </param>
+        </templateparamlist>
+        <type>mp_if&lt; <ref refid="namespacezmbt_1_1reflect_1a6bc3f9d0105aa054bd3a752415fa02ba" kindref="member">invocation_has_void_ret</ref>&lt; Interface &gt;, nullptr_t, <ref refid="namespacezmbt_1_1reflect_1a218d102b70f853d68d59f3525ca2d58d" kindref="member">invocation_ret_unqf_t</ref>&lt; Interface &gt; &gt;</type>
+        <definition>using zmbt::reflect::invocation_ret_unqf_or_nullptr_t = typedef mp_if&lt;invocation_has_void_ret&lt;Interface&gt;, nullptr_t, invocation_ret_unqf_t&lt;Interface&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>invocation_ret_unqf_or_nullptr_t</name>
+        <qualifiedname>zmbt::reflect::invocation_ret_unqf_or_nullptr_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="215" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a1d748c28ea71b74abed6870339b0c9fb" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>typename <ref refid="structzmbt_1_1reflect_1_1invocation" kindref="compound">invocation</ref>&lt; T &gt;::host_t</type>
+        <definition>using zmbt::reflect::invocation_host_t = typedef typename invocation&lt;T&gt;::host_t</definition>
+        <argsstring></argsstring>
+        <name>invocation_host_t</name>
+        <qualifiedname>zmbt::reflect::invocation_host_t</qualifiedname>
+        <briefdescription>
+<para>Interface host object type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interface pointer type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="226" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1aeb56573d412dd5309c110adfccea52c2" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>remove_cvref_t&lt; <ref refid="namespacezmbt_1_1reflect_1a1d748c28ea71b74abed6870339b0c9fb" kindref="member">invocation_host_t</ref>&lt; T &gt; &gt;</type>
+        <definition>using zmbt::reflect::invocation_unqf_host_t = typedef remove_cvref_t&lt;invocation_host_t&lt;T&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>invocation_unqf_host_t</name>
+        <qualifiedname>zmbt::reflect::invocation_unqf_host_t</qualifiedname>
+        <briefdescription>
+<para>Interface cv-unqualified host object type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interface pointer type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" line="234" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/invocation.hpp" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a8ba20e0805410969b202e846e559dc44" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class E</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="structzmbt_1_1reflect_1_1signal__traits" kindref="compound">signal_traits</ref>&lt; T, E &gt;</type>
+        <definition>using zmbt::reflect::initialization = typedef signal_traits&lt;T, E&gt;</definition>
+        <argsstring></argsstring>
+        <name>initialization</name>
+        <qualifiedname>zmbt::reflect::initialization</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="195" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacezmbt_1_1reflect_1a7e2f8cb9d0d49850e6f9f665a33878a2" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+          <param>
+            <type>class E</type>
+            <defval>void</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="structzmbt_1_1reflect_1_1custom__signal__traits" kindref="compound">custom_signal_traits</ref>&lt; T, E &gt;</type>
+        <definition>using zmbt::reflect::custom_initialization = typedef custom_signal_traits&lt;T, E&gt;</definition>
+        <argsstring></argsstring>
+        <name>custom_initialization</name>
+        <qualifiedname>zmbt::reflect::custom_initialization</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="199" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="199" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespacezmbt_1_1reflect_1a3dfb6ab81c9456e5ddbbc023df43081e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>detail::enable_hermetic_serialization&lt; T, void &gt;</type>
+        <definition>detail::enable_hermetic_serialization&lt; T, void &gt; zmbt::reflect::tag_invoke</definition>
+        <argsstring>(boost::json::value_from_tag const &amp;, boost::json::value &amp;v, T const &amp;t)</argsstring>
+        <name>tag_invoke</name>
+        <qualifiedname>zmbt::reflect::tag_invoke</qualifiedname>
+        <param>
+          <type>boost::json::value_from_tag const &amp;</type>
+        </param>
+        <param>
+          <type>boost::json::value &amp;</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+<para>ADL injection wrapper enabling boost::json::value_from&lt;T&gt; conversion. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" line="113" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" bodystart="113" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1reflect_1a47d13c2e5358bdd1ee083e8964a1d50f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>detail::enable_hermetic_serialization&lt; T, T &gt;</type>
+        <definition>detail::enable_hermetic_serialization&lt; T, T &gt; zmbt::reflect::tag_invoke</definition>
+        <argsstring>(boost::json::value_to_tag&lt; T &gt; const &amp;, boost::json::value const &amp;v)</argsstring>
+        <name>tag_invoke</name>
+        <qualifiedname>zmbt::reflect::tag_invoke</qualifiedname>
+        <param>
+          <type>boost::json::value_to_tag&lt; T &gt; const &amp;</type>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>ADL injection wrapper enabling boost::json::value_from&lt;T&gt; conversion. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" line="121" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" bodystart="121" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1reflect_1aa637c52c70b61918c375d18a854c3cef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>detail::enable_hermetic_serialization&lt; T, std::ostream &amp; &gt;</type>
+        <definition>detail::enable_hermetic_serialization&lt; T, std::ostream &amp; &gt; zmbt::reflect::operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, T const &amp;value)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>zmbt::reflect::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>T const &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>ADL injection wrapper enabling operator&lt;&lt;. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" line="121" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/serialization.hpp" bodystart="129" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1reflect_1aab43686126f5b6bb34e6541ef87409fc" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr T</type>
+        <definition>constexpr T zmbt::reflect::init_tuple</definition>
+        <argsstring>()</argsstring>
+        <name>init_tuple</name>
+        <qualifiedname>zmbt::reflect::init_tuple</qualifiedname>
+        <briefdescription>
+<para>Initialize tuple with default values provided by <ref refid="structzmbt_1_1reflect_1_1signal__traits" kindref="compound">signal_traits</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="180" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="180" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacezmbt_1_1reflect_1a706a179482e53eb4b0e4d0ac38ffa169" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr T</type>
+        <definition>constexpr T zmbt::reflect::init_value</definition>
+        <argsstring>()</argsstring>
+        <name>init_value</name>
+        <qualifiedname>zmbt::reflect::init_value</qualifiedname>
+        <briefdescription>
+<para>Initialize value of type T with default value provided by <ref refid="structzmbt_1_1reflect_1_1signal__traits" kindref="compound">signal_traits</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" line="187" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/reflect/signal_traits.hpp" bodystart="187" bodyend="190"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Reflection metafunctions. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp" line="229" column="1"/>
+  </compounddef>
+</doxygen>

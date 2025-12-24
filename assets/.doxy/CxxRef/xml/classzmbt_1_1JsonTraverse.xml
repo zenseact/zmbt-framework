@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1JsonTraverse" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::JsonTraverse</compoundname>
+    <includes refid="json__traverse_8hpp" local="no">json_traverse.hpp</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzmbt_1_1JsonTraverse_1a51783ad6b19e52af1aa68a4780745c8e" prot="public" static="no">
+        <type>std::function&lt; bool(boost::json::value const  &amp;, std::string const)&gt;</type>
+        <definition>typedef std::function&lt;bool(boost::json::value const&amp;, std::string const)&gt; zmbt::JsonTraverse::visitor_fn</definition>
+        <argsstring></argsstring>
+        <name>visitor_fn</name>
+        <qualifiedname>zmbt::JsonTraverse::visitor_fn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" line="26" column="27" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1JsonTraverse_1a35e3d6e3fa801e183db9da41a229b09e" prot="private" static="no" mutable="no">
+        <type>visitor_fn const</type>
+        <definition>visitor_fn const zmbt::JsonTraverse::visit_</definition>
+        <argsstring></argsstring>
+        <name>visit_</name>
+        <qualifiedname>zmbt::JsonTraverse::visit_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" line="37" column="22" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1JsonTraverse_1a06ab85552ddbd4963a140b4bdc99da6a" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::JsonTraverse::traverse</definition>
+        <argsstring>(boost::json::value const &amp;v, std::string const jptr) const</argsstring>
+        <name>traverse</name>
+        <qualifiedname>zmbt::JsonTraverse::traverse</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>std::string const</type>
+          <declname>jptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" line="23" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1JsonTraverse_1ac24d5a149c32097af7e4c40431bc4d6b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::JsonTraverse::JsonTraverse</definition>
+        <argsstring>(visitor_fn visit)</argsstring>
+        <name>JsonTraverse</name>
+        <qualifiedname>zmbt::JsonTraverse::JsonTraverse</qualifiedname>
+        <param>
+          <type>visitor_fn</type>
+          <declname>visit</declname>
+        </param>
+        <briefdescription>
+<para>Construct JSON traverser. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>visit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSON node visitor: (Node, JSON Pointer) -&gt; node traverse stop </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" line="30" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1JsonTraverse_1ae1cdcb5c57d88b4b6e12d676dc32ba02" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::JsonTraverse::operator()</definition>
+        <argsstring>(boost::json::value const &amp;v) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>zmbt::JsonTraverse::operator()</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" line="32" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Boost JSON value depth-first traverser. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" line="21" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/core/json_traverse.hpp" bodystart="22" bodyend="38"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1JsonTraverse_1ac24d5a149c32097af7e4c40431bc4d6b" prot="public" virt="non-virtual"><scope>zmbt::JsonTraverse</scope><name>JsonTraverse</name></member>
+      <member refid="classzmbt_1_1JsonTraverse_1ae1cdcb5c57d88b4b6e12d676dc32ba02" prot="public" virt="non-virtual"><scope>zmbt::JsonTraverse</scope><name>operator()</name></member>
+      <member refid="classzmbt_1_1JsonTraverse_1a06ab85552ddbd4963a140b4bdc99da6a" prot="private" virt="non-virtual"><scope>zmbt::JsonTraverse</scope><name>traverse</name></member>
+      <member refid="classzmbt_1_1JsonTraverse_1a35e3d6e3fa801e183db9da41a229b09e" prot="private" virt="non-virtual"><scope>zmbt::JsonTraverse</scope><name>visit_</name></member>
+      <member refid="classzmbt_1_1JsonTraverse_1a51783ad6b19e52af1aa68a4780745c8e" prot="public" virt="non-virtual"><scope>zmbt::JsonTraverse</scope><name>visitor_fn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

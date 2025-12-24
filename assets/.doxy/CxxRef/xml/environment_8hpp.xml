@@ -1,0 +1,1636 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="environment_8hpp" kind="file" language="C++">
+    <compoundname>environment.hpp</compoundname>
+    <includes local="no">boost/json.hpp</includes>
+    <includes local="no">boost/mp11.hpp</includes>
+    <includes refid="aliases_8hpp" local="no">zmbt/core/aliases.hpp</includes>
+    <includes refid="format__string_8hpp" local="no">zmbt/core/format_string.hpp</includes>
+    <includes refid="interface__id_8hpp" local="no">zmbt/core/interface_id.hpp</includes>
+    <includes refid="interface__traits_8hpp" local="no">zmbt/core/interface_traits.hpp</includes>
+    <includes refid="json__node_8hpp" local="no">zmbt/core/json_node.hpp</includes>
+    <includes refid="object__id_8hpp" local="no">zmbt/core/object_id.hpp</includes>
+    <includes refid="signal__traits_8hpp" local="no">zmbt/reflect/signal_traits.hpp</includes>
+    <includes refid="invocation_8hpp" local="no">zmbt/reflect/invocation.hpp</includes>
+    <includes refid="prototypes_8hpp" local="no">zmbt/reflect/prototypes.hpp</includes>
+    <includes refid="serialization_8hpp" local="no">zmbt/reflect/serialization.hpp</includes>
+    <includes refid="expr_8hpp" local="no">zmbt/expr.hpp</includes>
+    <includes local="no">exception</includes>
+    <includes local="no">functional</includes>
+    <includes local="no">iosfwd</includes>
+    <includes local="no">map</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">stdexcept</includes>
+    <includes local="no">string</includes>
+    <includes local="no">type_traits</includes>
+    <includes local="no">typeindex</includes>
+    <includes local="no">utility</includes>
+    <includes refid="environment__data_8hpp" local="yes">environment_data.hpp</includes>
+    <includes refid="model_2exceptions_8hpp" local="yes">exceptions.hpp</includes>
+    <includes refid="trigger_8hpp" local="yes">trigger.hpp</includes>
+    <includes refid="permanent__data_8hpp" local="yes">permanent_data.hpp</includes>
+    <includedby refid="channel__handle_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp</includedby>
+    <includedby refid="model__definition__helper_8hpp" local="no">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_helper.hpp</includedby>
+    <includedby refid="pipe__handle_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/pipe_handle.hpp</includedby>
+    <includedby refid="test__parameter__resolver_8hpp" local="no">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp</includedby>
+    <includedby refid="model_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model.hpp</includedby>
+    <includedby refid="environment__interface__record_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp</includedby>
+    <includedby refid="param__transform_8hpp" local="yes">zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/param_transform.hpp</includedby>
+    <incdepgraph>
+      <node id="77">
+        <label>zmbt/application/log.hpp</label>
+        <link refid="log_8hpp"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>zmbt/core.hpp</label>
+        <link refid="core_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt/core/aliases.hpp</label>
+        <link refid="aliases_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>entity_id.hpp</label>
+        <link refid="entity__id_8hpp"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>core/exceptions.hpp</label>
+        <link refid="core_2exceptions_8hpp"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>core/file_parser.hpp</label>
+        <link refid="file__parser_8hpp"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt/core/format_string.hpp</label>
+        <link refid="format__string_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>generic_traits.hpp</label>
+        <link refid="generic__traits_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>core/get_info.hpp</label>
+        <link refid="get__info_8hpp"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt/core/interface_id.hpp</label>
+        <link refid="interface__id_8hpp"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>interface_traits.hpp</label>
+        <link refid="interface__traits_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>core/json_iter.hpp</label>
+        <link refid="json__iter_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>zmbt/core/json_node.hpp</label>
+        <link refid="json__node_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>core/json_number_cast.hpp</label>
+        <link refid="json__number__cast_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>core/json_pretty_print.hpp</label>
+        <link refid="json__pretty__print_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>core/json_traverse.hpp</label>
+        <link refid="json__traverse_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>zmbt/core/object_id.hpp</label>
+        <link refid="object__id_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>core/operator_traits.hpp</label>
+        <link refid="operator__traits_8hpp"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>core/preprocessor.hpp</label>
+        <link refid="preprocessor_8hpp"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>core/shared_resource.hpp</label>
+        <link refid="shared__resource_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>core/slice.hpp</label>
+        <link refid="slice_8hpp"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>core/tuple_conversion.hpp</label>
+        <link refid="tuple__conversion_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>core/tuple_exchange.hpp</label>
+        <link refid="tuple__exchange_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>core/tuple_indexator.hpp</label>
+        <link refid="tuple__indexator_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>type_info.hpp</label>
+        <link refid="type__info_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>type_tag.hpp</label>
+        <link refid="type__tag_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>zmbt/expr.hpp</label>
+        <link refid="expr_8hpp"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>expr/api.hpp</label>
+        <link refid="expr_2api_8hpp"/>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>api_signatures.hpp</label>
+        <link refid="api__signatures_8hpp"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>expr/attributes.hpp</label>
+        <link refid="attributes_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>encoding.hpp</label>
+        <link refid="encoding_8hpp"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>eval_context.hpp</label>
+        <link refid="eval__context_8hpp"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="85">
+        <label>eval_log.hpp</label>
+        <link refid="eval__log_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>expr/expression.hpp</label>
+        <link refid="expression_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>expr/expression_grammar.hpp</label>
+        <link refid="expression__grammar_8hpp"/>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>expr/global_env.hpp</label>
+        <link refid="global__env_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>keyword.hpp</label>
+        <link refid="keyword_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>expr/keyword_grammar.hpp</label>
+        <link refid="keyword__grammar_8hpp"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>lazy_param.hpp</label>
+        <link refid="lazy__param_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>expr/operator.hpp</label>
+        <link refid="operator_8hpp"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>channel_kind.hpp</label>
+        <link refid="channel__kind_8hpp"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp</label>
+        <link refid="environment_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>environment_data.hpp</label>
+        <link refid="environment__data_8hpp"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>error_info.hpp</label>
+        <link refid="error__info_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>error_or_return.hpp</label>
+        <link refid="error__or__return_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>exceptions.hpp</label>
+        <link refid="model_2exceptions_8hpp"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>generator.hpp</label>
+        <link refid="generator_8hpp"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>global_flags.hpp</label>
+        <link refid="global__flags_8hpp"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>global_stats.hpp</label>
+        <link refid="global__stats_8hpp"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>injection_table.hpp</label>
+        <link refid="injection__table_8hpp"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>output_recorder.hpp</label>
+        <link refid="output__recorder_8hpp"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>permanent_data.hpp</label>
+        <link refid="permanent__data_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>trigger.hpp</label>
+        <link refid="trigger_8hpp"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>zmbt/reflect.hpp</label>
+        <link refid="reflect_8hpp"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>ducktyping_traits_pp.hpp</label>
+        <link refid="ducktyping__traits__pp_8hpp"/>
+      </node>
+      <node id="55">
+        <label>zmbt/reflect/invocation.hpp</label>
+        <link refid="invocation_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>zmbt/reflect/prototypes.hpp</label>
+        <link refid="prototypes_8hpp"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>serialization.hpp</label>
+        <link refid="serialization_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>serialization_defaults.hpp</label>
+        <link refid="serialization__defaults_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>zmbt/reflect/signal_traits.hpp</label>
+        <link refid="signal__traits_8hpp"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>algorithm</label>
+      </node>
+      <node id="13">
+        <label>array</label>
+      </node>
+      <node id="96">
+        <label>atomic</label>
+      </node>
+      <node id="101">
+        <label>bitset</label>
+      </node>
+      <node id="7">
+        <label>boost/callable_traits.hpp</label>
+      </node>
+      <node id="102">
+        <label>boost/core/demangle.hpp</label>
+      </node>
+      <node id="71">
+        <label>boost/current_function.hpp</label>
+      </node>
+      <node id="60">
+        <label>boost/describe.hpp</label>
+      </node>
+      <node id="2">
+        <label>boost/json.hpp</label>
+      </node>
+      <node id="3">
+        <label>boost/mp11.hpp</label>
+      </node>
+      <node id="17">
+        <label>boost/mp11/tuple.hpp</label>
+      </node>
+      <node id="70">
+        <label>boost/optional.hpp</label>
+      </node>
+      <node id="74">
+        <label>boost/phoenix/operator.hpp</label>
+      </node>
+      <node id="87">
+        <label>boost/phoenix/phoenix.hpp</label>
+      </node>
+      <node id="43">
+        <label>boost/preprocessor.hpp</label>
+      </node>
+      <node id="88">
+        <label>boost/spirit/include/karma.hpp</label>
+      </node>
+      <node id="73">
+        <label>boost/spirit/include/qi.hpp</label>
+      </node>
+      <node id="33">
+        <label>boost/throw_exception.hpp</label>
+      </node>
+      <node id="23">
+        <label>boost/type_index.hpp</label>
+      </node>
+      <node id="50">
+        <label>boost/type_traits.hpp</label>
+      </node>
+      <node id="98">
+        <label>boost/unordered/concurrent_flat_map.hpp</label>
+      </node>
+      <node id="107">
+        <label>boost/variant2.hpp</label>
+      </node>
+      <node id="78">
+        <label>chrono</label>
+      </node>
+      <node id="61">
+        <label>complex</label>
+      </node>
+      <node id="19">
+        <label>cstddef</label>
+      </node>
+      <node id="14">
+        <label>cstdint</label>
+      </node>
+      <node id="15">
+        <label>cstring</label>
+      </node>
+      <node id="84">
+        <label>deque</label>
+      </node>
+      <node id="92">
+        <label>exception</label>
+      </node>
+      <node id="25">
+        <label>functional</label>
+      </node>
+      <node id="91">
+        <label>initializer_list</label>
+      </node>
+      <node id="79">
+        <label>iomanip</label>
+      </node>
+      <node id="93">
+        <label>iosfwd</label>
+      </node>
+      <node id="12">
+        <label>iostream</label>
+      </node>
+      <node id="66">
+        <label>limits</label>
+      </node>
+      <node id="82">
+        <label>list</label>
+      </node>
+      <node id="45">
+        <label>map</label>
+      </node>
+      <node id="28">
+        <label>memory</label>
+      </node>
+      <node id="97">
+        <label>mutex</label>
+      </node>
+      <node id="64">
+        <label>ostream</label>
+      </node>
+      <node id="46">
+        <label>set</label>
+      </node>
+      <node id="94">
+        <label>stdexcept</label>
+      </node>
+      <node id="9">
+        <label>string</label>
+      </node>
+      <node id="36">
+        <label>thread</label>
+      </node>
+      <node id="6">
+        <label>tuple</label>
+      </node>
+      <node id="5">
+        <label>type_traits</label>
+      </node>
+      <node id="20">
+        <label>typeindex</label>
+      </node>
+      <node id="16">
+        <label>typeinfo</label>
+      </node>
+      <node id="47">
+        <label>unordered_map</label>
+      </node>
+      <node id="48">
+        <label>unordered_set</label>
+      </node>
+      <node id="10">
+        <label>utility</label>
+      </node>
+      <node id="49">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zenseact-mbt.hpp</label>
+        <link refid="zenseact-mbt_8hpp"/>
+      </node>
+      <node id="4">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/all.hpp</label>
+        <link refid="all_8hpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api.hpp</label>
+        <link refid="api_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/model_test.hpp</label>
+        <link refid="model__test_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/api/ns.hpp</label>
+        <link refid="ns_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping.hpp</label>
+        <link refid="mapping_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp</label>
+        <link refid="channel__handle_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition.hpp</label>
+        <link refid="model__definition_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_helper.hpp</label>
+        <link refid="model__definition__helper_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_main.hpp</label>
+        <link refid="model__definition__main_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_node.hpp</label>
+        <link refid="model__definition__node_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp</label>
+        <link refid="model__definition__states_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_transitions.hpp</label>
+        <link refid="model__definition__transitions_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/pipe_handle.hpp</label>
+        <link refid="pipe__handle_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp</label>
+        <link refid="test__parameter__resolver_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model.hpp</label>
+        <link refid="model_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp</label>
+        <link refid="environment_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment_interface_record.hpp</label>
+        <link refid="environment__interface__record_8hpp"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/param_transform.hpp</label>
+        <link refid="param__transform_8hpp"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classzmbt_1_1Environment" prot="public">zmbt::Environment</innerclass>
+    <innernamespace refid="namespacezmbt">zmbt</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="copyright"><para>(c) Copyright 2022-2023 Volvo Car Corporation </para>
+</simplesect>
+<simplesect kind="copyright"><para>(c) Copyright 2024-2025 Zenseact AB </para>
+</simplesect>
+<simplesect kind="par"><title>License</title><para>SPDX-License-Identifier: Apache-2.0 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ZMBT_MODEL_ENVIRONMENT_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZMBT_MODEL_ENVIRONMENT_HPP_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/json.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mp11.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="aliases_8hpp" kindref="compound">zmbt/core/aliases.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="format__string_8hpp" kindref="compound">zmbt/core/format_string.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="interface__id_8hpp" kindref="compound">zmbt/core/interface_id.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="interface__traits_8hpp" kindref="compound">zmbt/core/interface_traits.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="json__node_8hpp" kindref="compound">zmbt/core/json_node.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="object__id_8hpp" kindref="compound">zmbt/core/object_id.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="signal__traits_8hpp" kindref="compound">zmbt/reflect/signal_traits.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="invocation_8hpp" kindref="compound">zmbt/reflect/invocation.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="prototypes_8hpp" kindref="compound">zmbt/reflect/prototypes.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="serialization_8hpp" kindref="compound">zmbt/reflect/serialization.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="expr_8hpp" kindref="compound">zmbt/expr.hpp</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;exception&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;functional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iosfwd&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;type_traits&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;typeindex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="environment__data_8hpp" kindref="compound">environment_data.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="model_2exceptions_8hpp" kindref="compound">exceptions.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="trigger_8hpp" kindref="compound">trigger.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="permanent__data_8hpp" kindref="compound">permanent_data.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacezmbt" kindref="compound">zmbt</ref><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="classzmbt_1_1Environment" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classzmbt_1_1OutputRecorder" kindref="compound">OutputRecorder</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">lock_t<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>EnvironmentData::lock_t;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">return_t<sp/>=<sp/><ref refid="namespacezmbt_1_1reflect_1af2f57a48f2123b00a20e762360c16b8b" kindref="member">reflect::invocation_ret_t&lt;ifc_pointer_t&lt;Interface&gt;</ref>&gt;;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">unqf_args_t<sp/>=<sp/><ref refid="namespacezmbt_1_1reflect_1a8b48be14f24e67dd05fd6b9fdde421ca" kindref="member">reflect::invocation_args_unqf_t&lt;ifc_pointer_t&lt;Interface&gt;</ref>&gt;;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">argsref_t<sp/>=<sp/><ref refid="namespacezmbt_1_1reflect_1a787b05eb9dd32f21a83f5867ce751585" kindref="member">reflect::invocation_args_t&lt;ifc_pointer_t&lt;Interface&gt;</ref>&gt;;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">rvref_to_val<sp/>=<sp/>mp_if&lt;std::is_rvalue_reference&lt;T&gt;,<sp/>std::remove_reference_t&lt;T&gt;,<sp/>T&gt;;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">hookout_args_t<sp/>=<sp/>mp_transform&lt;rvref_to_val,<sp/>argsref_t&lt;Interface&gt;&gt;;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;EnvironmentData&gt;<sp/>data_;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;PermanentEnvData&gt;<sp/>permanent_data_;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SetTestError(boost::json::value&amp;&amp;<sp/>msg);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">InterfaceHandle</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classzmbt_1_1Environment_1_1TypedInterfaceHandle" kindref="compound">TypedInterfaceHandle</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="classzmbt_1_1Environment_1adf59c79cee3dca2a7243fe1c9a84a7c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::value<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/><ref refid="classzmbt_1_1Environment_1adf59c79cee3dca2a7243fe1c9a84a7c7" kindref="member">TestError</ref>();</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="classzmbt_1_1Environment_1aeae26cc5dd8243317ceac1085adb754b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1aeae26cc5dd8243317ceac1085adb754b" kindref="member">HasTestError</ref>();</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref>&amp;<sp/>json_data()</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data_-&gt;json_data;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1reflect_1_1Prototypes" kindref="compound">reflect::Prototypes</ref><sp/>GetPrototypes(<ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="98"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>maybe_proto<sp/>=<sp/>permanent_data_-&gt;get_prototypes(</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!maybe_proto.has_value())</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw_exception(<ref refid="structzmbt_1_1environment__error" kindref="compound">environment_error</ref>(</highlight><highlight class="stringliteral">&quot;accessing<sp/>unregistered<sp/>prototypes<sp/>for<sp/>`%s`&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>maybe_proto.value();</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>JsonNode<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>json_data()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="108"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data_-&gt;json_data;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>lock_t<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="classzmbt_1_1Environment_1af2cf6d5acaf0c48005da8f2f78eb1073" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>lock_t<sp/><ref refid="classzmbt_1_1Environment_1af2cf6d5acaf0c48005da8f2f78eb1073" kindref="member">TryLock</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="classzmbt_1_1Environment_1a0d29714781092ea8c5f6d5302122fb6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>lock_t<sp/><ref refid="classzmbt_1_1Environment_1a0d29714781092ea8c5f6d5302122fb6f" kindref="member">DeferLock</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>(<ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref><sp/>&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>(<ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/>operator=(<ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref><sp/>&amp;&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/>operator=(<ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">~Environment</ref>()</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="classzmbt_1_1Environment_1a4e40e3e7bb3872bcc5c5636600bd0c10" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1a4e40e3e7bb3872bcc5c5636600bd0c10" kindref="member">DumpToJsonLog</ref>();</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="classzmbt_1_1Environment_1acf1c12d821f1b7f5f06fad50e9f5aa01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1acf1c12d821f1b7f5f06fad50e9f5aa01" kindref="member">SetVar</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>boost::json::value<sp/>var);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1acf1c12d821f1b7f5f06fad50e9f5aa01" kindref="member">SetVar</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>T<sp/>var)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1acf1c12d821f1b7f5f06fad50e9f5aa01" kindref="member">SetVar</ref>(key_expr,<sp/>json_from(var));</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="classzmbt_1_1Environment_1a5beb3a2fcc2fa77c5a02c0efe9be2cd7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::value<sp/><ref refid="classzmbt_1_1Environment_1a5beb3a2fcc2fa77c5a02c0efe9be2cd7" kindref="member">GetVarOrUpdate</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>boost::json::value<sp/>update_value);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classzmbt_1_1Environment_1a5beb3a2fcc2fa77c5a02c0efe9be2cd7" kindref="member">GetVarOrUpdate</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>T<sp/>update_value)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dejsonize&lt;T&gt;(<ref refid="classzmbt_1_1Environment_1a5beb3a2fcc2fa77c5a02c0efe9be2cd7" kindref="member">GetVarOrUpdate</ref>(key_expr,<sp/>json_from(update_value)));</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="classzmbt_1_1Environment_1a6c829502ec0c87f895ba3a411e286c36" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::value<sp/><ref refid="classzmbt_1_1Environment_1a6c829502ec0c87f895ba3a411e286c36" kindref="member">GetVarOrDefault</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>boost::json::value<sp/>default_value<sp/>=<sp/>{});</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classzmbt_1_1Environment_1a6c829502ec0c87f895ba3a411e286c36" kindref="member">GetVarOrDefault</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>T<sp/>default_value<sp/>=<sp/><ref refid="structzmbt_1_1reflect_1_1signal__traits" kindref="compound">reflect::signal_traits&lt;T&gt;::init</ref>())</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dejsonize&lt;T&gt;(<ref refid="classzmbt_1_1Environment_1a6c829502ec0c87f895ba3a411e286c36" kindref="member">GetVarOrDefault</ref>(key_expr,<sp/>json_from(default_value)));</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207" refid="classzmbt_1_1Environment_1a76d3d4c1bf2a7575be5cbd1ade6c0d06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::value<sp/><ref refid="classzmbt_1_1Environment_1a76d3d4c1bf2a7575be5cbd1ade6c0d06" kindref="member">GetVar</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classzmbt_1_1Environment_1a76d3d4c1bf2a7575be5cbd1ade6c0d06" kindref="member">GetVar</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr)</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dejsonize&lt;T&gt;(<ref refid="classzmbt_1_1Environment_1a76d3d4c1bf2a7575be5cbd1ade6c0d06" kindref="member">GetVar</ref>(key_expr));</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="226" refid="classzmbt_1_1Environment_1aea0ac4a4dfb4435c638fc43db5fb1f72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1aea0ac4a4dfb4435c638fc43db5fb1f72" kindref="member">SetShared</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>std::shared_ptr&lt;T&gt;<sp/>data)</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::json::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>key<sp/>=<sp/>key_expr.eval().as_string();</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnvironmentData::shared_data_record<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>record<sp/>{<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(T),<sp/>data<sp/>};</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lock<sp/>=<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>();</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(data_-&gt;shared.count(key)){</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;shared.at(key)<sp/>=<sp/>record;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;shared.emplace(key,<sp/>record);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="258" refid="classzmbt_1_1Environment_1a3ca454f5521c8f809d28df7f89d0fc99" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;T&gt;<sp/><ref refid="classzmbt_1_1Environment_1a3ca454f5521c8f809d28df7f89d0fc99" kindref="member">GetShared</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="259"><highlight class="keyword"><sp/><sp/><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::json::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>key<sp/>=<sp/>key_expr.eval().as_string();</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>found<sp/>=<sp/>data_-&gt;shared.cend();</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lock<sp/>=<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>();</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>found<sp/>=<sp/>data_-&gt;shared.find(key);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(found<sp/>==<sp/>data_-&gt;shared.cend())</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>record<sp/>=<sp/>found-&gt;second;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::type_index(</highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(T))<sp/>!=<sp/>record.first)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw_exception(<ref refid="structzmbt_1_1environment__error" kindref="compound">environment_error</ref>(</highlight><highlight class="stringliteral">&quot;GetShared<sp/>invoked<sp/>with<sp/>incompatible<sp/>type<sp/>for<sp/>`%s`&quot;</highlight><highlight class="normal">,<sp/>key));</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::static_pointer_cast&lt;T&gt;(record.second);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">T,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">...<sp/>A&gt;</highlight></codeline>
+<codeline lineno="286" refid="classzmbt_1_1Environment_1a80db41621ab5859e1e2be590d31f4a5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>T&amp;<sp/><ref refid="classzmbt_1_1Environment_1a80db41621ab5859e1e2be590d31f4a5a" kindref="member">GetSharedRef</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>A&amp;&amp;...<sp/>args)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::json::string<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>key<sp/>=<sp/>key_expr.eval().as_string();</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lock<sp/>=<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>();</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>found<sp/>=<sp/>data_-&gt;shared.find(key);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(found<sp/>==<sp/>data_-&gt;shared.cend())</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>shared<sp/>=<sp/>std::make_shared&lt;T&gt;(std::forward&lt;A&gt;(args)...);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnvironmentData::shared_data_record<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>record<sp/>{<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(T),<sp/>shared<sp/>};</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(not<sp/>data_-&gt;shared.emplace(key,<sp/>record).second)</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw_exception(<ref refid="structzmbt_1_1environment__error" kindref="compound">environment_error</ref>(</highlight><highlight class="stringliteral">&quot;GetSharedRef<sp/>failed<sp/>to<sp/>create<sp/>shared<sp/>object<sp/>at<sp/>`%s`&quot;</highlight><highlight class="normal">,<sp/>key));</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*shared;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>record<sp/>=<sp/>found-&gt;second;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::type_index(</highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(T))<sp/>!=<sp/>record.first)</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw_exception(<ref refid="structzmbt_1_1environment__error" kindref="compound">environment_error</ref>(</highlight><highlight class="stringliteral">&quot;GetSharedRef<sp/>invoked<sp/>with<sp/>incompatible<sp/>type<sp/>for<sp/>`%s`&quot;</highlight><highlight class="normal">,<sp/>key));</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*std::static_pointer_cast&lt;T&gt;(record.second);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313" refid="classzmbt_1_1Environment_1aa898a879e426de67da590d945785ed39" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1aa898a879e426de67da590d945785ed39" kindref="member">ContainsShared</ref>(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322" refid="classzmbt_1_1Environment_1ab7349ddc7226965351ca746e137c32c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1ab7349ddc7226965351ca746e137c32c7" kindref="member">ResetInterfaceData</ref>();</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329" refid="classzmbt_1_1Environment_1a79231e17a6bc249776bd2ed96f2ed025" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1a79231e17a6bc249776bd2ed96f2ed025" kindref="member">ResetAll</ref>();</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/>RegisterAction(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr,<sp/>std::function&lt;</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">()&gt;<sp/>action);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/>RunAction(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/>RunActionNoCatch(<ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>key_expr);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref><sp/>RegisterParametricTriggerIfc(Interface&amp;&amp;<sp/>interface)</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitializeInterfaceHandlers(std::forward&lt;Interface&gt;(interface));</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1TriggerIfc" kindref="compound">TriggerIfc</ref><sp/>trigger_ifc{std::forward&lt;Interface&gt;(interface)};</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref><sp/>ifc_id{trigger_ifc.id()};</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>key<sp/>=<sp/><ref refid="namespacezmbt_1a1a35075f9ef1258ab12df19db116662f" kindref="member">format</ref>(</highlight><highlight class="stringliteral">&quot;/trigger_ifcs/%s&quot;</highlight><highlight class="normal">,<sp/>ifc_id);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lock<sp/>=<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>();</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;trigger_ifcs.emplace(ifc_id,<sp/>std::move(trigger_ifc));</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;json_data(key)<sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>timestamp</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ifc_id;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>object_id<sp/>RegisterParametricTriggerObj(T&amp;&amp;<sp/>obj)</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerObj<sp/>trigger_obj{std::forward&lt;T&gt;(obj)};</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_id<sp/>obj_id{trigger_obj.id()};</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>key<sp/>=<sp/><ref refid="namespacezmbt_1a1a35075f9ef1258ab12df19db116662f" kindref="member">format</ref>(</highlight><highlight class="stringliteral">&quot;/trigger_objs/%s&quot;</highlight><highlight class="normal">,<sp/>obj_id);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lock<sp/>=<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>();</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;trigger_objs.emplace(obj_id,<sp/>std::move(trigger_obj));</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;json_data(key)<sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>timestamp</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>obj_id;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>boost::json::string<sp/>autokey(object_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id,<sp/>interface_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id)</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<ref refid="namespacezmbt_1a1a35075f9ef1258ab12df19db116662f" kindref="member">format</ref>(</highlight><highlight class="stringliteral">&quot;%s:%s&quot;</highlight><highlight class="normal">,<sp/>obj_id.key(),<sp/>ifc_id.key())};</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;OutputRecorder&gt;<sp/>GetRecorder(Interface&amp;&amp;<sp/>interface)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>GetRecorder(std::forward&lt;Interface&gt;(interface),<sp/>ifc_host_nullptr&lt;Interface&gt;);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;OutputRecorder&gt;<sp/>GetRecorder(interface_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id,<sp/>object_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id)</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;OutputRecorder&gt;<sp/>recorder;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;output_recorders.try_emplace_or_visit(std::make_pair(ifc_id,<sp/>obj_id),</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;recorder,<sp/>&amp;ifc_id,<sp/>&amp;obj_id]()<sp/>-&gt;<sp/>std::shared_ptr&lt;OutputRecorder&gt;<sp/>{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>recorder<sp/>=<sp/>std::make_shared&lt;OutputRecorder&gt;(ifc_id,<sp/>obj_id);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>recorder;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[&amp;recorder](</highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>record){</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>recorder<sp/>=<sp/>record.second;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>recorder;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::string<sp/>GetOrRegisterParametricTrigger(object_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id,<sp/>interface_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>H&gt;</highlight></codeline>
+<codeline lineno="407" refid="classzmbt_1_1Environment_1a90f55feda59884ce8a12c5d6c4e1262c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/><ref refid="classzmbt_1_1Environment_1a90f55feda59884ce8a12c5d6c4e1262c" kindref="member">RegisterTrigger</ref>(boost::json::string_view<sp/>key,<sp/>Interface&amp;&amp;<sp/>interface,<sp/>H&amp;&amp;<sp/>host)</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ifc_id{std::forward&lt;Interface&gt;(interface)};</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>obj_id{host};</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>recorder<sp/>=<sp/>GetRecorder(ifc_id,<sp/>obj_id);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Trigger" kindref="compound">Trigger</ref><sp/>trigger{std::forward&lt;H&gt;(host),<sp/>interface,<sp/>recorder};</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>json_data_key<sp/>=<sp/><ref refid="namespacezmbt_1a1a35075f9ef1258ab12df19db116662f" kindref="member">format</ref>(</highlight><highlight class="stringliteral">&quot;/triggers/%s&quot;</highlight><highlight class="normal">,<sp/>key);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>err_msg<sp/>=<sp/><ref refid="namespacezmbt_1a1a35075f9ef1258ab12df19db116662f" kindref="member">format</ref>(</highlight><highlight class="stringliteral">&quot;Trigger<sp/>registering<sp/>failed:<sp/>key<sp/>\&quot;%s\&quot;<sp/>is<sp/>taken&quot;</highlight><highlight class="normal">,<sp/>key);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>lock<sp/>=<sp/><ref refid="classzmbt_1_1Environment_1af311177d6523da8596b007d8ffc0ea11" kindref="member">Lock</ref>();</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>trigger_found<sp/>=<sp/><sp/>data_-&gt;triggers.find(key);</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(trigger_found<sp/>!=<sp/>data_-&gt;triggers.cend())</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(trigger_found-&gt;second<sp/>!=<sp/>trigger)</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw_exception(<ref refid="structzmbt_1_1environment__error" kindref="compound">environment_error</ref>(err_msg));</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;triggers.emplace(key,<sp/>trigger);</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_-&gt;json_data(json_data_key)<sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>timestamp</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" kindref="member">RegisterInterface</ref>(key,<sp/>interface,<sp/>trigger.obj_id());</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/><ref refid="classzmbt_1_1Environment_1a90f55feda59884ce8a12c5d6c4e1262c" kindref="member">RegisterTrigger</ref>(boost::json::string_view<sp/>key,<sp/>Interface&amp;&amp;<sp/>interface)</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1a90f55feda59884ce8a12c5d6c4e1262c" kindref="member">RegisterTrigger</ref>(key,<sp/>std::forward&lt;Interface&gt;(interface),<sp/>ifc_host_nullptr&lt;Interface&gt;);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>H&gt;</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::string<sp/>RegisterAnonymousTrigger(Interface&amp;&amp;<sp/>interface,<sp/>H&amp;&amp;<sp/>host)</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>key<sp/>=<sp/>autokey(host,<sp/>interface);</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment_1a90f55feda59884ce8a12c5d6c4e1262c" kindref="member">RegisterTrigger</ref>(key,<sp/>interface,<sp/>host);</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>key;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>HasTrigger(boost::json::string_view<sp/>key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>HasAction(boost::json::string_view<sp/>key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/>Environment&amp;<sp/>InitializeInterfaceHandlers(Interface&amp;&amp;<sp/>interface)</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(is_ifc_handle&lt;Interface&gt;::value,<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ifc_id<sp/>=<sp/>interface_id(std::forward&lt;Interface&gt;(interface));</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>permanent_data_-&gt;prototypes.emplace(ifc_id,<sp/>interface);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>permanent_data_-&gt;default_objects.emplace(ifc_id,<sp/>ifc_host_nullptr&lt;Interface&gt;);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>permanent_data_-&gt;output_recorder_factories.emplace(ifc_id,<sp/>[](OutputRecorder&amp;<sp/>rec){</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rec.setup_handlers&lt;Interface&gt;();</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478" refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/><ref refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" kindref="member">RegisterInterface</ref>(boost::json::string_view<sp/>key,<sp/><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id,<sp/><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;<sp/>RegisterAnonymousInterface(<ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id,<sp/><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id)</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" kindref="member">RegisterInterface</ref>(autokey(obj_id,<sp/>ifc_id),<sp/>ifc_id,<sp/>obj_id);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/>enable_if_t&lt;is_ifc_handle&lt;Interface&gt;::value,<sp/><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref>&amp;&gt;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" kindref="member">RegisterInterface</ref>(boost::json::string_view<sp/>key,<sp/>Interface&amp;&amp;<sp/>interface,<sp/><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id<sp/>=<sp/><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref>{ifc_host_nullptr&lt;Interface&gt;})</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InitializeInterfaceHandlers(std::forward&lt;Interface&gt;(interface));</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" kindref="member">RegisterInterface</ref>(key,<sp/>interface_id(std::forward&lt;Interface&gt;(interface)),<sp/>obj_id);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Interface&gt;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/>enable_if_t&lt;is_ifc_handle&lt;Interface&gt;::value,<sp/>Environment&amp;&gt;</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/>RegisterAnonymousInterface(Interface&amp;&amp;<sp/>interface,<sp/>object_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id<sp/>=<sp/>object_id{ifc_host_nullptr&lt;Interface&gt;})</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classzmbt_1_1Environment_1ac5cb569db6d5f58eeabe8cb792da6ade" kindref="member">RegisterInterface</ref>(autokey(obj_id,<sp/>std::forward&lt;Interface&gt;(interface)),<sp/>std::forward&lt;Interface&gt;(interface),<sp/>obj_id);</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/>object_id<sp/>ObjectId(boost::json::string_view<sp/>interface_key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/>interface_id<sp/>InterfaceId(boost::json::string_view<sp/>interface_key)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::json::string<sp/>GetOrRegisterInterface(object_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>obj_id,<sp/>interface_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/>object_id<sp/>DefaultObjectId(interface_id<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>ifc_id)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>zmbt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>ZMBT_FIXTURE_ENVIRONMENT_STORE_HPP_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/environment.hpp"/>
+  </compounddef>
+</doxygen>

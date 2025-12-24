@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1ChannelHandle" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::ChannelHandle</compoundname>
+    <includes refid="channel__handle_8hpp" local="no">channel_handle.hpp</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classzmbt_1_1mapping_1_1ChannelHandle_1aafb23866c0e6e60c7a56552c60c1b35f" prot="public" static="no">
+        <type>std::list&lt; <ref refid="classzmbt_1_1mapping_1_1ChannelHandle" kindref="compound">ChannelHandle</ref> &gt;</type>
+        <definition>using zmbt::mapping::ChannelHandle::ConditionPipe =  std::list&lt;ChannelHandle&gt;</definition>
+        <argsstring></argsstring>
+        <name>ConditionPipe</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::ConditionPipe</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="28" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classzmbt_1_1mapping_1_1ChannelHandle_1abae9254490e30b9527ca66d81e1ffec9" prot="public" static="no">
+        <type>ChannelKind</type>
+        <definition>using zmbt::mapping::ChannelHandle::Kind =  ChannelKind</definition>
+        <argsstring></argsstring>
+        <name>Kind</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::Kind</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="29" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1mapping_1_1ChannelHandle_1a6c69d3f61f90f093d303cf3fb001f0f8" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref></type>
+        <definition>JsonNode zmbt::mapping::ChannelHandle::data_</definition>
+        <argsstring></argsstring>
+        <name>data_</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::data_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="24" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1mapping_1_1ChannelHandle_1affbcd26be3f31ad62ea6439c17317d5c" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref></type>
+        <definition>Environment zmbt::mapping::ChannelHandle::env</definition>
+        <argsstring></argsstring>
+        <name>env</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::env</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="25" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a45d6f6a06faa49de37f1c11cf95ac66c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ChannelHandle::~ChannelHandle</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ChannelHandle</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::~ChannelHandle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="31" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a986bb96b4fab28661910111cb9319aac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ChannelHandle::ChannelHandle</definition>
+        <argsstring>(JsonNode &amp;model, boost::json::string_view cnl_ptr)</argsstring>
+        <name>ChannelHandle</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::ChannelHandle</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref> &amp;</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>cnl_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1ad26fd3f1958fe9bbb16fd7f9e866657d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::ChannelHandle::key</definition>
+        <argsstring>() const</argsstring>
+        <name>key</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::key</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="34" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a9240d1b8922095af45f1f213e64192c8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1object__id" kindref="compound">object_id</ref></type>
+        <definition>object_id zmbt::mapping::ChannelHandle::host</definition>
+        <argsstring>() const</argsstring>
+        <name>host</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::host</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="36" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1ac0f4862f389fb6364f1b88bedc5e88f9" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1interface__id" kindref="compound">interface_id</ref></type>
+        <definition>interface_id zmbt::mapping::ChannelHandle::interface</definition>
+        <argsstring>() const</argsstring>
+        <name>interface</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::interface</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="37" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a282f57599f403842dbe87d4668fbcb1c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::ChannelHandle::full_path</definition>
+        <argsstring>() const</argsstring>
+        <name>full_path</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::full_path</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="38" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1afa77142f529c39433446a4334da61e5b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::ChannelHandle::signal_path</definition>
+        <argsstring>() const</argsstring>
+        <name>signal_path</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::signal_path</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="39" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1ad73c58f957d5bd93cd6ee4f3311ab1f3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>Kind</type>
+        <definition>Kind zmbt::mapping::ChannelHandle::kind</definition>
+        <argsstring>() const</argsstring>
+        <name>kind</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::kind</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="40" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a9a8c9b6f1ae14d88031fdde1414a9b8d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::mapping::ChannelHandle::operator==</definition>
+        <argsstring>(boost::json::value const &amp;v) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::operator==</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="42" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1ae1da41d911ac5c7a75d40bd488c14f9e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::mapping::ChannelHandle::index</definition>
+        <argsstring>() const</argsstring>
+        <name>index</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="49" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a3940d6a76df908a9f7e9283aff749f17" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::ChannelHandle::tag</definition>
+        <argsstring>() const</argsstring>
+        <name>tag</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::tag</qualifiedname>
+        <briefdescription>
+<para>Channel alias or index if not set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="51" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a804a542e35edf035e520a0c80dd1877c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::mapping::ChannelHandle::captures</definition>
+        <argsstring>() const</argsstring>
+        <name>captures</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::captures</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="53" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1a4b94a5303eeb2c341abbe2b7c69a7616" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref></type>
+        <definition>lang::Expression zmbt::mapping::ChannelHandle::transform</definition>
+        <argsstring>() const</argsstring>
+        <name>transform</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::transform</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="55" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ChannelHandle_1ae0aed696feac65009c0403a233135a52" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1Environment_1_1InterfaceHandle" kindref="compound">Environment::InterfaceHandle</ref></type>
+        <definition>Environment::InterfaceHandle zmbt::mapping::ChannelHandle::inerface_handle</definition>
+        <argsstring>() const</argsstring>
+        <name>inerface_handle</name>
+        <qualifiedname>zmbt::mapping::ChannelHandle::inerface_handle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="57" column="34"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Channel clause handle for <ref refid="classzmbt_1_1mapping_1_1SignalMapping" kindref="compound">SignalMapping</ref> model. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" line="22" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/channel_handle.hpp" bodystart="23" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a804a542e35edf035e520a0c80dd1877c" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>captures</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a986bb96b4fab28661910111cb9319aac" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>ChannelHandle</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1aafb23866c0e6e60c7a56552c60c1b35f" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>ConditionPipe</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a6c69d3f61f90f093d303cf3fb001f0f8" prot="private" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>data_</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1affbcd26be3f31ad62ea6439c17317d5c" prot="private" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>env</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a282f57599f403842dbe87d4668fbcb1c" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>full_path</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a9240d1b8922095af45f1f213e64192c8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>host</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1ae1da41d911ac5c7a75d40bd488c14f9e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>index</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1ae0aed696feac65009c0403a233135a52" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>inerface_handle</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1ac0f4862f389fb6364f1b88bedc5e88f9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>interface</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1ad26fd3f1958fe9bbb16fd7f9e866657d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>key</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1ad73c58f957d5bd93cd6ee4f3311ab1f3" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>kind</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1abae9254490e30b9527ca66d81e1ffec9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>Kind</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a9a8c9b6f1ae14d88031fdde1414a9b8d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>operator==</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1afa77142f529c39433446a4334da61e5b" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>signal_path</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a3940d6a76df908a9f7e9283aff749f17" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>tag</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a4b94a5303eeb2c341abbe2b7c69a7616" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>transform</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ChannelHandle_1a45d6f6a06faa49de37f1c11cf95ac66c" prot="public" virt="non-virtual"><scope>zmbt::mapping::ChannelHandle</scope><name>~ChannelHandle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

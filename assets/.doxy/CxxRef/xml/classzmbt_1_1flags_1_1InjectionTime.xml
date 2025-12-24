@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1flags_1_1InjectionTime" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::flags::InjectionTime</compoundname>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1InjectionTime_1a80025cad328c510aab896fab0cd71321" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::flags::InjectionTime::add</definition>
+        <argsstring>(std::chrono::nanoseconds const duration) noexcept</argsstring>
+        <name>add</name>
+        <qualifiedname>zmbt::flags::InjectionTime::add</qualifiedname>
+        <param>
+          <type>std::chrono::nanoseconds const</type>
+          <declname>duration</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" line="22" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" bodystart="22" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1InjectionTime_1ae5a446afd40051418643329794c7e396" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::uint64_t</type>
+        <definition>static std::uint64_t zmbt::flags::InjectionTime::value</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>value</name>
+        <qualifiedname>zmbt::flags::InjectionTime::value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" line="27" column="26" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" bodystart="27" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1InjectionTime_1a5567ab009be036baeb219e4c88260e80" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::flags::InjectionTime::reset</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>reset</name>
+        <qualifiedname>zmbt::flags::InjectionTime::reset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" line="32" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classzmbt_1_1flags_1_1InjectionTime_1ad2568c58743b8b068c7c4447cbeb6e7f" prot="private" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>std::atomic&lt; std::uint64_t &gt; &amp;</type>
+        <definition>static std::atomic&lt; std::uint64_t &gt; &amp; zmbt::flags::InjectionTime::counter</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>counter</name>
+        <qualifiedname>zmbt::flags::InjectionTime::counter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" line="38" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" line="19" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/global_stats.hpp" bodystart="20" bodyend="39"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1flags_1_1InjectionTime_1a80025cad328c510aab896fab0cd71321" prot="public" virt="non-virtual"><scope>zmbt::flags::InjectionTime</scope><name>add</name></member>
+      <member refid="classzmbt_1_1flags_1_1InjectionTime_1ad2568c58743b8b068c7c4447cbeb6e7f" prot="private" virt="non-virtual"><scope>zmbt::flags::InjectionTime</scope><name>counter</name></member>
+      <member refid="classzmbt_1_1flags_1_1InjectionTime_1a5567ab009be036baeb219e4c88260e80" prot="public" virt="non-virtual"><scope>zmbt::flags::InjectionTime</scope><name>reset</name></member>
+      <member refid="classzmbt_1_1flags_1_1InjectionTime_1ae5a446afd40051418643329794c7e396" prot="public" virt="non-virtual"><scope>zmbt::flags::InjectionTime</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

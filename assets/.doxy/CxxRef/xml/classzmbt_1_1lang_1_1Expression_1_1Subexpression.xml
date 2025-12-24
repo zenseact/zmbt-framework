@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1lang_1_1Expression_1_1Subexpression" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::lang::Expression::Subexpression</compoundname>
+    <basecompoundref refid="classzmbt_1_1lang_1_1Expression" prot="private" virt="non-virtual">zmbt::lang::Expression</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1lang_1_1Expression_1_1Subexpression_1abd18ccff1feb17d671a440a8beceac45" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1lang_1_1EncodingView" kindref="compound">EncodingView</ref></type>
+        <definition>EncodingView zmbt::lang::Expression::Subexpression::ev_</definition>
+        <argsstring></argsstring>
+        <name>ev_</name>
+        <qualifiedname>zmbt::lang::Expression::Subexpression::ev_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp" line="22" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1lang_1_1Expression_1_1Subexpression_1af0288a58c4b5819f84d6e2ab67f0d769" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Expression::Subexpression::Subexpression</definition>
+        <argsstring>(EncodingView const &amp;ev)</argsstring>
+        <name>Subexpression</name>
+        <qualifiedname>zmbt::lang::Expression::Subexpression::Subexpression</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1EncodingView" kindref="compound">EncodingView</ref> const &amp;</type>
+          <declname>ev</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp" line="24" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp" bodystart="24" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::Expression::Subexpression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression_1_1Subexpression"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::ExpressionView</label>
+        <link refid="classzmbt_1_1lang_1_1ExpressionView"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>zmbt::lang::EncodingView</label>
+        <link refid="classzmbt_1_1lang_1_1EncodingView"/>
+      </node>
+      <node id="2">
+        <label>zmbt::lang::Expression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::lang::Expression::Subexpression</label>
+        <link refid="classzmbt_1_1lang_1_1Expression_1_1Subexpression"/>
+        <childnode refid="2" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::lang::ExpressionView</label>
+        <link refid="classzmbt_1_1lang_1_1ExpressionView"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>encoding_view_</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp" line="20" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/subexpression.hpp" bodystart="21" bodyend="28"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1lang_1_1Expression_1_1Subexpression_1abd18ccff1feb17d671a440a8beceac45" prot="private" virt="non-virtual"><scope>zmbt::lang::Expression::Subexpression</scope><name>ev_</name></member>
+      <member refid="classzmbt_1_1lang_1_1Expression_1_1Subexpression_1af0288a58c4b5819f84d6e2ab67f0d769" prot="public" virt="non-virtual"><scope>zmbt::lang::Expression::Subexpression</scope><name>Subexpression</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

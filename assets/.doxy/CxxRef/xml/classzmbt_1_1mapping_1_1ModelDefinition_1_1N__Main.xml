@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::ModelDefinition::N_Main</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::T_OnTrigger&lt; ModelDefinition::N_Repeat &gt;</basecompoundref>
+    <derivedcompoundref refid="classzmbt_1_1mapping_1_1SignalMapping" prot="public" virt="non-virtual">zmbt::mapping::SignalMapping</derivedcompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1ab10db554c05a9ae04dd655b342deac89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class ModelDefinition</definition>
+        <argsstring></argsstring>
+        <name>ModelDefinition</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Main::ModelDefinition</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition" kindref="compound">ModelDefinition</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="335" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="335" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1aeb103f2be8a05193405da7450831c11b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Main::N_Main</definition>
+        <argsstring>(detail::DefinitionHelper &amp;&amp;m)</argsstring>
+        <name>N_Main</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Main::N_Main</qualifiedname>
+        <param>
+          <type>detail::DefinitionHelper &amp;&amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="336" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="336" bodyend="338"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a9b32bd8d7e2316971f64700dbe10d7c2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Main::N_Main</definition>
+        <argsstring>(N_Main const &amp;)=delete</argsstring>
+        <name>N_Main</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Main::N_Main</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main" kindref="compound">N_Main</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="339" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a609403bd108511bd09b25d468003d700" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Main::N_Main</definition>
+        <argsstring>(N_Main &amp;&amp;)=default</argsstring>
+        <name>N_Main</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Main::N_Main</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main" kindref="compound">N_Main</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="340" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a31b4904966e2c24dcbea017c1defad6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_Main::N_Main</definition>
+        <argsstring>()</argsstring>
+        <name>N_Main</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Main::N_Main</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="343" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="343" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a9cd59779d84eb1c3ba73719bb0728057" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::mapping::ModelDefinition::N_Main::~N_Main</definition>
+        <argsstring>()</argsstring>
+        <name>~N_Main</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_Main::~N_Main</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="344" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="344" bodyend="346"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_Main</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;</label>
+        <childnode refid="3" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::SignalMapping</label>
+        <link refid="classzmbt_1_1mapping_1_1SignalMapping"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_Main</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::T_OnTrigger&lt; Target &gt;</label>
+        <childnode refid="3" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="331" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="333" bodyend="347"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1ab10db554c05a9ae04dd655b342deac89" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>ModelDefinition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1aeb103f2be8a05193405da7450831c11b" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>N_Main</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a9b32bd8d7e2316971f64700dbe10d7c2" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>N_Main</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a609403bd108511bd09b25d468003d700" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>N_Main</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a31b4904966e2c24dcbea017c1defad6d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>N_Main</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1ac4a78d65e1f77b81b76912623a2d99b7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a8e7ffb0dc9cda9259737bcc0efa08185" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1abe1652ccbb1ef4bf78d7abc53f3d32ca" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a1ef2c00c9237652c3d224aa17d85bf4a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a36079853aa6562f7c8c12e245231f6ce" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1a7542260a51e7f31f37f0a643c3a7c410" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__OnTrigger_1ae156ee7d8074e88a2cd50ebe2a139fc9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>OnTrigger</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>transit_to</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>~BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Main_1a9cd59779d84eb1c3ba73719bb0728057" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_Main</scope><name>~N_Main</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

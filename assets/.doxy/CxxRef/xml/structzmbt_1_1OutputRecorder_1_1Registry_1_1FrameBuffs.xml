@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::OutputRecorder::Registry::FrameBuffs</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs_1a027cb20a1fc5f55d294f178e3946c6c4" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; void &gt;</type>
+        <definition>std::shared_ptr&lt;void&gt; zmbt::OutputRecorder::Registry::FrameBuffs::args</definition>
+        <argsstring></argsstring>
+        <name>args</name>
+        <qualifiedname>zmbt::OutputRecorder::Registry::FrameBuffs::args</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="71" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="71" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs_1a56d6082dac35c017b883acd7ecce4b28" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; void &gt;</type>
+        <definition>std::shared_ptr&lt;void&gt; zmbt::OutputRecorder::Registry::FrameBuffs::ret</definition>
+        <argsstring></argsstring>
+        <name>ret</name>
+        <qualifiedname>zmbt::OutputRecorder::Registry::FrameBuffs::ret</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="72" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs_1aa40e0768ac01c91926a507abf39efd4f" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; void &gt;</type>
+        <definition>std::shared_ptr&lt;void&gt; zmbt::OutputRecorder::Registry::FrameBuffs::err</definition>
+        <argsstring></argsstring>
+        <name>err</name>
+        <qualifiedname>zmbt::OutputRecorder::Registry::FrameBuffs::err</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="73" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" line="69" column="9" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/model/output_recorder.hpp" bodystart="70" bodyend="74"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs_1a027cb20a1fc5f55d294f178e3946c6c4" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder::Registry::FrameBuffs</scope><name>args</name></member>
+      <member refid="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs_1aa40e0768ac01c91926a507abf39efd4f" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder::Registry::FrameBuffs</scope><name>err</name></member>
+      <member refid="structzmbt_1_1OutputRecorder_1_1Registry_1_1FrameBuffs_1a56d6082dac35c017b883acd7ecce4b28" prot="public" virt="non-virtual"><scope>zmbt::OutputRecorder::Registry::FrameBuffs</scope><name>ret</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,650 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1mapping_1_1TestDiagnostics" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::mapping::TestDiagnostics</compoundname>
+    <includes refid="test__diagnostics_8hpp" local="no">test_diagnostics.hpp</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a4f26bb8abfb388b828dd63e44041955d" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>Result</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Result</qualifiedname>
+        <enumvalue id="structzmbt_1_1mapping_1_1TestDiagnostics_1a4f26bb8abfb388b828dd63e44041955da505a83f220c02df2f85c3810cd9ceb38" prot="public">
+          <name>Success</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structzmbt_1_1mapping_1_1TestDiagnostics_1a4f26bb8abfb388b828dd63e44041955daceaa0734f0b3c738120c67344d8f3ec1" prot="public">
+          <name>Fail</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="structzmbt_1_1mapping_1_1TestDiagnostics_1a4f26bb8abfb388b828dd63e44041955da902b0d55fddef6f8d651fe1035b7d4bd" prot="public">
+          <name>Error</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="22" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="23" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1aad7d5a5f4c96b503d67712e8ace412e6" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::TestDiagnostics::model_name</definition>
+        <argsstring></argsstring>
+        <name>model_name</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::model_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="30" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a2817ebed2a8e464a91d14894770eadb7" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::TestDiagnostics::message</definition>
+        <argsstring></argsstring>
+        <name>message</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::message</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="31" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1ac28fb1636d9d9dae537a7271b8664ac7" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::TestDiagnostics::description</definition>
+        <argsstring></argsstring>
+        <name>description</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::description</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="32" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a74b052565d3b1e63e09eee7198dfa3fb" prot="public" static="no" mutable="no">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::mapping::TestDiagnostics::comment</definition>
+        <argsstring></argsstring>
+        <name>comment</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::comment</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="33" column="25" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1aef5a7bd26af2beaf463d2a75aed57669" prot="public" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::expected</definition>
+        <argsstring></argsstring>
+        <name>expected</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::expected</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="35" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="35" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1aa0f705e736e706833c3245e3fc78849e" prot="public" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::observed</definition>
+        <argsstring></argsstring>
+        <name>observed</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::observed</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="36" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="36" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1ad0e4748f71a0aef88723d3117e4c48f7" prot="public" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::vector</definition>
+        <argsstring></argsstring>
+        <name>vector</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::vector</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="37" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a7185c280d5ab8a6f36e7f6458a567652" prot="public" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::error</definition>
+        <argsstring></argsstring>
+        <name>error</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::error</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="38" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a35ba8e9af226d680a1ba70841efab850" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t zmbt::mapping::TestDiagnostics::tr</definition>
+        <argsstring></argsstring>
+        <name>tr</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::tr</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="39" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a2ed4629a100639fd154fcb5fe1034c9b" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t zmbt::mapping::TestDiagnostics::tc</definition>
+        <argsstring></argsstring>
+        <name>tc</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::tc</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="40" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a20742241e4d831d1ba927c1e8d37caff" prot="public" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::channel_id</definition>
+        <argsstring></argsstring>
+        <name>channel_id</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::channel_id</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="42" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a06529e6dc1ff3f20bcef6c9feffd974e" prot="public" static="no" mutable="no">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::pipe_id</definition>
+        <argsstring></argsstring>
+        <name>pipe_id</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::pipe_id</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="43" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a62682f425f585b0f829d21c95ffc7488" prot="public" static="no" mutable="no">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::mapping::TestDiagnostics::traces</definition>
+        <argsstring></argsstring>
+        <name>traces</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::traces</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="45" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="45" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a5f2d9fcf59c4c8dbf2bf4662b939c124" prot="public" static="no" mutable="no">
+        <type>boost::json::array</type>
+        <definition>boost::json::array zmbt::mapping::TestDiagnostics::eval_stack</definition>
+        <argsstring></argsstring>
+        <name>eval_stack</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::eval_stack</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="46" column="24" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a12953b3fa1ccdc0d31e7fdfdc6d16bf2" prot="public" static="no" mutable="no">
+        <type>Result</type>
+        <definition>Result zmbt::mapping::TestDiagnostics::result</definition>
+        <argsstring></argsstring>
+        <name>result</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::result</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="47" column="12" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a11ed8da25d5530781adf18e76a9cc49e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool zmbt::mapping::TestDiagnostics::tabular_condition_failure_</definition>
+        <argsstring></argsstring>
+        <name>tabular_condition_failure_</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::tabular_condition_failure_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="48" column="10" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="48" bodyend="48"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a8110edf3490b3d77f6dba2d9779c0265" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestDiagnostics::TestDiagnostics</definition>
+        <argsstring>(boost::json::string_view model_name)</argsstring>
+        <name>TestDiagnostics</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::TestDiagnostics</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>model_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="51" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1aef5bd1a72778ca5163c02f089ccaf327" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestDiagnostics::TestDiagnostics</definition>
+        <argsstring>(TestDiagnostics const &amp;)=default</argsstring>
+        <name>TestDiagnostics</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::TestDiagnostics</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="53" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1adfa3d19c3abd5ac42a82d8e0929cdc0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestDiagnostics::TestDiagnostics</definition>
+        <argsstring>(TestDiagnostics &amp;&amp;)=default</argsstring>
+        <name>TestDiagnostics</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::TestDiagnostics</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="54" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a7c251da9a2df898ad56dcf352a42d169" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::operator=</definition>
+        <argsstring>(TestDiagnostics const &amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::operator=</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="56" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a958a472d34c58da9a7603a80bf49f82e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::operator=</definition>
+        <argsstring>(TestDiagnostics &amp;&amp;)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::operator=</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="57" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a5be2cebd49ab95c546c3a8878d9c7506" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestDiagnostics::~TestDiagnostics</definition>
+        <argsstring>()=default</argsstring>
+        <name>~TestDiagnostics</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::~TestDiagnostics</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="58" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a4727a7fad2a67c60c9743b6393a4973b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::Description</definition>
+        <argsstring>(boost::json::string_view msg)</argsstring>
+        <name>Description</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Description</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="60" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a21cd1a440f4752d261e7ac16356ca3a1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::Comment</definition>
+        <argsstring>(boost::json::string_view msg)</argsstring>
+        <name>Comment</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Comment</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="65" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="65" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a775435cb7a9d7239ffe11bd01ee8bfa6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::Vector</definition>
+        <argsstring>(boost::json::value val)</argsstring>
+        <name>Vector</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Vector</qualifiedname>
+        <param>
+          <type>boost::json::value</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="70" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="70" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a6c4248ab771ab2f2eb209a1b2a2a24ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::TabularConditionFailure</definition>
+        <argsstring>(std::size_t const col)</argsstring>
+        <name>TabularConditionFailure</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::TabularConditionFailure</qualifiedname>
+        <param>
+          <type>std::size_t const</type>
+          <declname>col</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="74" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="74" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a9e07cb3cc22c132c89b3ccec84f7282f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::TestRow</definition>
+        <argsstring>(std::size_t const r)</argsstring>
+        <name>TestRow</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::TestRow</qualifiedname>
+        <param>
+          <type>std::size_t const</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="79" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1ab8172df527f57c683ade54ad7b068911" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::ChannelId</definition>
+        <argsstring>(boost::json::value const &amp;id)</argsstring>
+        <name>ChannelId</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::ChannelId</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="83" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="83" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a82ddc0bc49aab207b5fbc8b464593446" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::PipeId</definition>
+        <argsstring>(boost::json::value const &amp;id)</argsstring>
+        <name>PipeId</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::PipeId</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="87" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1ae99e4507c60eee8c489d1d894b4099f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::EvalStack</definition>
+        <argsstring>(lang::EvalLog const &amp;log)</argsstring>
+        <name>EvalStack</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::EvalStack</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1EvalLog" kindref="compound">lang::EvalLog</ref> const &amp;</type>
+          <declname>log</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="91" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="91" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1ac24a61c27dc88d53362c424a03054f4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::Traces</definition>
+        <argsstring>(std::shared_ptr&lt; boost::json::array &gt; const traces_ptr)</argsstring>
+        <name>Traces</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Traces</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; boost::json::array &gt; const</type>
+          <declname>traces_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="100" column="21" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="100" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a8b9a432fd3187d4635a2242b711f44c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::Error</definition>
+        <argsstring>(boost::json::string_view origin, boost::json::value const &amp;err)</argsstring>
+        <name>Error</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Error</qualifiedname>
+        <param>
+          <type>boost::json::string_view</type>
+          <declname>origin</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>err</declname>
+        </param>
+        <briefdescription>
+<para>report test setup or execution error </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="110" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1ab1915790c55a750ecf6b097527593073" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1mapping_1_1TestDiagnostics" kindref="compound">TestDiagnostics</ref> &amp;</type>
+        <definition>TestDiagnostics &amp; zmbt::mapping::TestDiagnostics::Fail</definition>
+        <argsstring>(lang::Expression const &amp;expected, boost::json::value const &amp;observed)</argsstring>
+        <name>Fail</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::Fail</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">lang::Expression</ref> const &amp;</type>
+          <declname>expected</declname>
+        </param>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>observed</declname>
+        </param>
+        <briefdescription>
+<para>report test expectation failure </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="113" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1mapping_1_1TestDiagnostics_1a0bf44c5217e01b12acb5535a74525ce8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::value</type>
+        <definition>boost::json::value zmbt::mapping::TestDiagnostics::to_json</definition>
+        <argsstring>() const</argsstring>
+        <name>to_json</name>
+        <qualifiedname>zmbt::mapping::TestDiagnostics::to_json</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="115" column="24"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Test diagnostics for test case execution. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" line="20" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_diagnostics.hpp" bodystart="21" bodyend="116"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a20742241e4d831d1ba927c1e8d37caff" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>channel_id</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1ab8172df527f57c683ade54ad7b068911" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>ChannelId</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a21cd1a440f4752d261e7ac16356ca3a1" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Comment</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a74b052565d3b1e63e09eee7198dfa3fb" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>comment</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a4727a7fad2a67c60c9743b6393a4973b" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Description</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1ac28fb1636d9d9dae537a7271b8664ac7" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>description</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a7185c280d5ab8a6f36e7f6458a567652" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>error</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a8b9a432fd3187d4635a2242b711f44c8" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Error</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a5f2d9fcf59c4c8dbf2bf4662b939c124" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>eval_stack</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1ae99e4507c60eee8c489d1d894b4099f2" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>EvalStack</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1aef5a7bd26af2beaf463d2a75aed57669" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>expected</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1ab1915790c55a750ecf6b097527593073" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Fail</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a2817ebed2a8e464a91d14894770eadb7" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>message</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1aad7d5a5f4c96b503d67712e8ace412e6" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>model_name</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1aa0f705e736e706833c3245e3fc78849e" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>observed</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a7c251da9a2df898ad56dcf352a42d169" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>operator=</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a958a472d34c58da9a7603a80bf49f82e" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>operator=</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a06529e6dc1ff3f20bcef6c9feffd974e" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>pipe_id</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a82ddc0bc49aab207b5fbc8b464593446" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>PipeId</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a12953b3fa1ccdc0d31e7fdfdc6d16bf2" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>result</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a4f26bb8abfb388b828dd63e44041955d" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Result</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a11ed8da25d5530781adf18e76a9cc49e" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>tabular_condition_failure_</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a6c4248ab771ab2f2eb209a1b2a2a24ee" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>TabularConditionFailure</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a2ed4629a100639fd154fcb5fe1034c9b" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>tc</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a8110edf3490b3d77f6dba2d9779c0265" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>TestDiagnostics</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1aef5bd1a72778ca5163c02f089ccaf327" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>TestDiagnostics</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1adfa3d19c3abd5ac42a82d8e0929cdc0d" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>TestDiagnostics</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a9e07cb3cc22c132c89b3ccec84f7282f" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>TestRow</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a0bf44c5217e01b12acb5535a74525ce8" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>to_json</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a35ba8e9af226d680a1ba70841efab850" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>tr</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a62682f425f585b0f829d21c95ffc7488" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>traces</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1ac24a61c27dc88d53362c424a03054f4d" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Traces</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a775435cb7a9d7239ffe11bd01ee8bfa6" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>Vector</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1ad0e4748f71a0aef88723d3117e4c48f7" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>vector</name></member>
+      <member refid="structzmbt_1_1mapping_1_1TestDiagnostics_1a5be2cebd49ab95c546c3a8878d9c7506" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestDiagnostics</scope><name>~TestDiagnostics</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

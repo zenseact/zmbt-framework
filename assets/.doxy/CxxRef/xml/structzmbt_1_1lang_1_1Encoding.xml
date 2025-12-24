@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1Encoding" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::Encoding</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structzmbt_1_1lang_1_1Encoding_1a9569df180fab2de046d746c5632e874f" prot="public" static="no">
+        <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">Keyword</ref></type>
+        <definition>using zmbt::lang::Encoding::K =  Keyword</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <qualifiedname>zmbt::lang::Encoding::K</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="27" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structzmbt_1_1lang_1_1Encoding_1a30c9f27fc72a4799a3b94c221b7c421e" prot="public" static="no">
+        <type>boost::json::value</type>
+        <definition>using zmbt::lang::Encoding::V =  boost::json::value</definition>
+        <argsstring></argsstring>
+        <name>V</name>
+        <qualifiedname>zmbt::lang::Encoding::V</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="28" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Encoding_1a4379021c32fbe2700d769938495a9239" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">K</ref> &gt;</type>
+        <definition>std::vector&lt;K&gt; zmbt::lang::Encoding::keywords</definition>
+        <argsstring></argsstring>
+        <name>keywords</name>
+        <qualifiedname>zmbt::lang::Encoding::keywords</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="29" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Encoding_1ad534eb9f736130a70405404204533966" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; std::size_t &gt;</type>
+        <definition>std::vector&lt;std::size_t&gt; zmbt::lang::Encoding::depth</definition>
+        <argsstring></argsstring>
+        <name>depth</name>
+        <qualifiedname>zmbt::lang::Encoding::depth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="30" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1Encoding_1af55bc101fd34e922dfb6551ecab8c6fa" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; V &gt;</type>
+        <definition>std::vector&lt;V&gt; zmbt::lang::Encoding::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <qualifiedname>zmbt::lang::Encoding::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="31" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1ac0dca251835ab9cfd83c60d3028a95c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Encoding::is_preproc_token</definition>
+        <argsstring>(boost::json::value const &amp;value)</argsstring>
+        <name>is_preproc_token</name>
+        <qualifiedname>zmbt::lang::Encoding::is_preproc_token</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="33" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1acb2d1a29a3219b4ecf883c01802efed7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool zmbt::lang::Encoding::is_link_token</definition>
+        <argsstring>(boost::json::value const &amp;value)</argsstring>
+        <name>is_link_token</name>
+        <qualifiedname>zmbt::lang::Encoding::is_link_token</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="34" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1acdc4b4a60998552b8740ff1fba7243b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Encoding::Encoding</definition>
+        <argsstring>()=default</argsstring>
+        <name>Encoding</name>
+        <qualifiedname>zmbt::lang::Encoding::Encoding</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="36" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a0095c56f82234fbc19d665f0fe2c6507" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Encoding::Encoding</definition>
+        <argsstring>(boost::json::value const &amp;value)</argsstring>
+        <name>Encoding</name>
+        <qualifiedname>zmbt::lang::Encoding::Encoding</qualifiedname>
+        <param>
+          <type>boost::json::value const &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="37" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a2a359b0d515f95d35fad4fedee60a6c1" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::Encoding::Encoding</definition>
+        <argsstring>(boost::json::value &amp;&amp;value)</argsstring>
+        <name>Encoding</name>
+        <qualifiedname>zmbt::lang::Encoding::Encoding</qualifiedname>
+        <param>
+          <type>boost::json::value &amp;&amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="38" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1aa74a02056e285f9b49c1b48bf22fe1e3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t zmbt::lang::Encoding::size</definition>
+        <argsstring>() const</argsstring>
+        <name>size</name>
+        <qualifiedname>zmbt::lang::Encoding::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="40" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a21d847eb7fc314b0a8c653203f38fb6b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Encoding::operator==</definition>
+        <argsstring>(Encoding const &amp;o) const</argsstring>
+        <name>operator==</name>
+        <qualifiedname>zmbt::lang::Encoding::operator==</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Encoding" kindref="compound">Encoding</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="42" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a80cd135e5679f5b1cf32dae8db5c9430" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Encoding::operator!=</definition>
+        <argsstring>(Encoding const &amp;o) const</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>zmbt::lang::Encoding::operator!=</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Encoding" kindref="compound">Encoding</ref> const &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="44" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1aa722b3065863f45f26083bf22d8beda1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::Encoding::push_back</definition>
+        <argsstring>(K const &amp;k, std::size_t const d, V const &amp;v)</argsstring>
+        <name>push_back</name>
+        <qualifiedname>zmbt::lang::Encoding::push_back</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">K</ref> const &amp;</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>V const &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="47" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a2b1f3edc70abf58c614442c1e7326530" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::Encoding::push_back</definition>
+        <argsstring>(K const &amp;k, std::size_t const d, V &amp;&amp;v)</argsstring>
+        <name>push_back</name>
+        <qualifiedname>zmbt::lang::Encoding::push_back</qualifiedname>
+        <param>
+          <type><ref refid="namespacezmbt_1_1lang_1a5a7dfa16b02bf75f82915d9893e8287b" kindref="member">K</ref> const &amp;</type>
+          <declname>k</declname>
+        </param>
+        <param>
+          <type>std::size_t const</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type>V &amp;&amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="48" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a4bd66a38c48f0ca2800094d3a08f0d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::Encoding::append_to_root</definition>
+        <argsstring>(Encoding const &amp;tail)</argsstring>
+        <name>append_to_root</name>
+        <qualifiedname>zmbt::lang::Encoding::append_to_root</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Encoding" kindref="compound">Encoding</ref> const &amp;</type>
+          <declname>tail</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="50" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1a5753184cf719c1fbe7af509e3d9a5160" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::Encoding::append_to_root</definition>
+        <argsstring>(Encoding &amp;&amp;tail)</argsstring>
+        <name>append_to_root</name>
+        <qualifiedname>zmbt::lang::Encoding::append_to_root</qualifiedname>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1Encoding" kindref="compound">Encoding</ref> &amp;&amp;</type>
+          <declname>tail</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="51" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1Encoding_1aa7c9dd6854e2eabd3fed0fe99a3fb757" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool zmbt::lang::Encoding::preprocess</definition>
+        <argsstring>()</argsstring>
+        <name>preprocess</name>
+        <qualifiedname>zmbt::lang::Encoding::preprocess</qualifiedname>
+        <briefdescription>
+<para>Single-pass preprocessing, return true if no multipass tokens left. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="54" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" line="25" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/encoding.hpp" bodystart="26" bodyend="55"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a4bd66a38c48f0ca2800094d3a08f0d74" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>append_to_root</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a5753184cf719c1fbe7af509e3d9a5160" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>append_to_root</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1af55bc101fd34e922dfb6551ecab8c6fa" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>data</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1ad534eb9f736130a70405404204533966" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>depth</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1acdc4b4a60998552b8740ff1fba7243b4" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>Encoding</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a0095c56f82234fbc19d665f0fe2c6507" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>Encoding</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a2a359b0d515f95d35fad4fedee60a6c1" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>Encoding</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1acb2d1a29a3219b4ecf883c01802efed7" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>is_link_token</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1ac0dca251835ab9cfd83c60d3028a95c5" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>is_preproc_token</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a9569df180fab2de046d746c5632e874f" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>K</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a4379021c32fbe2700d769938495a9239" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>keywords</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a80cd135e5679f5b1cf32dae8db5c9430" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>operator!=</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a21d847eb7fc314b0a8c653203f38fb6b" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>operator==</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1aa7c9dd6854e2eabd3fed0fe99a3fb757" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>preprocess</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1aa722b3065863f45f26083bf22d8beda1" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>push_back</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a2b1f3edc70abf58c614442c1e7326530" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>push_back</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1aa74a02056e285f9b49c1b48bf22fe1e3" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>size</name></member>
+      <member refid="structzmbt_1_1lang_1_1Encoding_1a30c9f27fc72a4799a3b94c221b7c421e" prot="public" virt="non-virtual"><scope>zmbt::lang::Encoding</scope><name>V</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

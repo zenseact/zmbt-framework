@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1decor_1_1precision__loss__error" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::decor::precision_loss_error</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::runtime_error</basecompoundref>
+    <includes refid="precise__real_8hpp" local="no">precise_real.hpp</includes>
+    <briefdescription>
+<para>Exception thrown by <ref refid="structzmbt_1_1decor_1_1precise" kindref="compound">decor::precise</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="1">
+        <label>zmbt::decor::precision_loss_error</label>
+        <link refid="structzmbt_1_1decor_1_1precision__loss__error"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>std::runtime_error</label>
+      </node>
+      <node id="1">
+        <label>zmbt::decor::precision_loss_error</label>
+        <link refid="structzmbt_1_1decor_1_1precision__loss__error"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp" line="22" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/decor/precise_real.hpp" bodystart="22" bodyend="24"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

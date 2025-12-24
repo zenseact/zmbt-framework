@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1TestParameterResolver" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::TestParameterResolver</compoundname>
+    <includes refid="test__parameter__resolver_8hpp" local="no">test_parameter_resolver.hpp</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a3a402229533ba54d16ef12b474ea6cc8" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref></type>
+        <definition>JsonNode zmbt::mapping::TestParameterResolver::model_</definition>
+        <argsstring></argsstring>
+        <name>model_</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::model_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="22" column="14" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a67f5fdde8e1875151ad782f551d3b5e3" prot="private" static="no" mutable="no">
+        <type>std::list&lt; std::shared_ptr&lt; <ref refid="classzmbt_1_1JsonIter" kindref="compound">JsonIter</ref> &gt; &gt;</type>
+        <definition>std::list&lt;std::shared_ptr&lt;JsonIter&gt; &gt; zmbt::mapping::TestParameterResolver::iterators_</definition>
+        <argsstring></argsstring>
+        <name>iterators_</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::iterators_</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="23" column="15" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="variable" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a42d17047107e6f88a7bf34a00132f883" prot="private" static="no" mutable="no">
+        <type><ref refid="classzmbt_1_1Environment" kindref="compound">Environment</ref></type>
+        <definition>Environment zmbt::mapping::TestParameterResolver::env</definition>
+        <argsstring></argsstring>
+        <name>env</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::env</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="24" column="17" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" bodystart="24" bodyend="24"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a524bc07a72cd17079345ba40b0357cc2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::mapping::TestParameterResolver::log_debug</definition>
+        <argsstring>(JsonNode next_model)</argsstring>
+        <name>log_debug</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::log_debug</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref></type>
+          <declname>next_model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="26" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a8c070b4dd3adbf77c1007339a13cafe3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::mapping::TestParameterResolver::resolve_deferred_params</definition>
+        <argsstring>(JsonNode &amp;next_model)</argsstring>
+        <name>resolve_deferred_params</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::resolve_deferred_params</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref> &amp;</type>
+          <declname>next_model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="27" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a2ce80d76c6fde6e4fcb370f43f77f96a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::mapping::TestParameterResolver::init_param_iters</definition>
+        <argsstring>()</argsstring>
+        <name>init_param_iters</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::init_param_iters</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="28" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a9770dbbb8da4ef840136c020fd7974ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::TestParameterResolver::TestParameterResolver</definition>
+        <argsstring>(JsonNode const &amp;model)</argsstring>
+        <name>TestParameterResolver</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::TestParameterResolver</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref> const &amp;</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1TestParameterResolver_1a75d9ab9f1ce16a78556ccfd0aaaa45d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classzmbt_1_1JsonNode" kindref="compound">JsonNode</ref></type>
+        <definition>JsonNode zmbt::mapping::TestParameterResolver::Next</definition>
+        <argsstring>()</argsstring>
+        <name>Next</name>
+        <qualifiedname>zmbt::mapping::TestParameterResolver::Next</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="33" column="14"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Test spec generator that handles parameter resolution. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" line="20" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/test_parameter_resolver.hpp" bodystart="21" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a42d17047107e6f88a7bf34a00132f883" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>env</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a2ce80d76c6fde6e4fcb370f43f77f96a" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>init_param_iters</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a67f5fdde8e1875151ad782f551d3b5e3" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>iterators_</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a524bc07a72cd17079345ba40b0357cc2" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>log_debug</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a3a402229533ba54d16ef12b474ea6cc8" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>model_</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a75d9ab9f1ce16a78556ccfd0aaaa45d2" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>Next</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a8c070b4dd3adbf77c1007339a13cafe3" prot="private" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>resolve_deferred_params</name></member>
+      <member refid="classzmbt_1_1mapping_1_1TestParameterResolver_1a9770dbbb8da4ef840136c020fd7974ca" prot="public" virt="non-virtual"><scope>zmbt::mapping::TestParameterResolver</scope><name>TestParameterResolver</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

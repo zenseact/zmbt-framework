@@ -1,0 +1,2282 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../signal-mapping/">
+      
+      
+        <link rel="next" href="../environment/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../images/zenseact-logo.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Expressions - Zenseact MBT Framework</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/puml.css">
+    
+      <link rel="stylesheet" href="../../assets/mkdocs_puml/interaction.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#zmbt-expressions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Zenseact MBT Framework" class="md-header__button md-logo" aria-label="Zenseact MBT Framework" data-md-component="logo">
+      
+  <img src="../../images/zenseact-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Zenseact MBT Framework
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Expressions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/zenseact/zmbt-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Zenseact MBT Framework" class="md-nav__button md-logo" aria-label="Zenseact MBT Framework" data-md-component="logo">
+      
+  <img src="../../images/zenseact-logo.svg" alt="logo">
+
+    </a>
+    Zenseact MBT Framework
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/zenseact/zmbt-framework" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../signal-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signal Mapping Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#everything-is-a-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Everything is a function
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arity-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arity forms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-logic-and-piecewise-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching logic and piecewise functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branching logic and piecewise functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-elif-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If-Elif-Else
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-and-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default, And, Or
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameter-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-order-keywords-and-structural-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-order keywords and structural transforms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#symbolic-linking-and-global-vars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symbolic linking and global vars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbolic linking and global vars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argument linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-vars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global vars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quotation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-and-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debug and Trace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Debug and Trace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#line-trimming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line trimming
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grammar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grammar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-on-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes on usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reflection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reflection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DSL Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    DSL Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsl-reference/signal-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Signal mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dsl-reference/expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Expressions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++ API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespaces
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Namespaces
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_members/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Members
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_typedefs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Typedefs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/namespace_member_enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespace Member Enumerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Classes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Classes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/annotated/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class List
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_members/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Members
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_typedefs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Typedefs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/class_member_enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Class Member Enumerations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/macros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Macros
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CxxRef/files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Files
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#everything-is-a-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Everything is a function
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arity-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arity forms
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branching-logic-and-piecewise-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Branching logic and piecewise functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Branching logic and piecewise functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-elif-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If-Elif-Else
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-and-or" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Default, And, Or
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameter-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preprocessing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error handling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-order-keywords-and-structural-transforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-order keywords and structural transforms
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#symbolic-linking-and-global-vars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Symbolic linking and global vars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Symbolic linking and global vars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#argument-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argument linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Function linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-vars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global vars
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quotation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-and-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debug and Trace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Debug and Trace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#line-trimming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Line trimming
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grammar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grammar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes-on-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes on usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<!-- (c) Copyright 2025 Zenseact AB -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
+<h1 id="zmbt-expressions">ZMBT Expressions<a class="headerlink" href="#zmbt-expressions" title="Permanent link">&para;</a></h1>
+<p><img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a7.svg" title=":construction:" /> <em>This document is in progress</em> <img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a7.svg" title=":construction:" /></p>
+<p>ZMBT utilizes an embedded functional programming language for the test data manipulation and matching,
+referred to in the documentation simply as <em>expressions</em>.</p>
+<p>The language resides in the <code>zmbt::expr</code> namespace and consists of keywords that can be parametrized and combined into a single expression, resulting in a pure <code>JSON -&gt; JSON</code> function, which is evaluated by test model runners. The language belongs to a family of <a href="https://en.wikipedia.org/wiki/Tacit_programming">tacit programming languages</a>.
+As it operates on JSON, certain elements may resemble the <a href="https://jqlang.org/">jq language</a>, however, <em>ZMBT Expressions</em> focus more on a simpler syntax,
+allowing to embed them in any C-like language, and provide certain test-specific features such as typed operator handling.</p>
+<p>The main purpose of using an embedded language over common C++ functions is to give the model runners a full control
+over test inputs, notably:</p>
+<ul>
+<li>serialization: any complex transformations are represented in JSON</li>
+<li>introspection: model runner can <a href="#debug-and-trace">explain in detail each step of evaluation</a> without any additional effort from user</li>
+<li>reflection: model runner can preprocess expressions terms to enable high-level parametrization</li>
+</ul>
+<h2 id="everything-is-a-function">Everything is a function<a class="headerlink" href="#everything-is-a-function" title="Permanent link">&para;</a></h2>
+<p>Each expression has the same JSON → JSON evaluation type, which also applies to both built-in and user-defined constants like <code>Pi</code> or JSON literals.
+For example, <code>42</code> represents the function <span class="arithmatex">\(x \mapsto 42\)</span>. This function simply discards its evaluation input instead of yielding an error.
+Using a constant or literal as the initial term in composition yields a constant expression.</p>
+<p>The <em>Everything is a function</em> principle allows different types of expressions to be composed using uniform syntactic rules.
+This design makes the expression system monadic in spirit, though not a full monad in the Haskell sense.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <span class="arithmatex">\(E = x \mapsto ...\)</span> notation is used below to define functor <em>expression</em> E in conventional mathematical notation.
+<span class="arithmatex">\(E = value\)</span> is a shortcut for a constant expressions, which stands for <span class="arithmatex">\(E = x \mapsto value\)</span>.</p>
+</div>
+<h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
+<p>General expression syntax is <code>literal | keyword[(expression...)]</code>, which expands to following options:</p>
+<ul>
+<li><code>literal</code>: JSON or any JSON-convertible value (not necessarily an actual C++ literal).</li>
+<li><code>keyword</code>: builtin expression keyword from zmbt::expr namespace.</li>
+<li><code>keyword(expression...)</code>: keyword with parameters (<em>not yet an evaluation call</em>).</li>
+</ul>
+<p>Both <code>keyword</code> forms yield a <code>Expression</code> object with an <code>eval</code> method, used by the framework at runtime,
+and <code>literal</code> is converted implicitly in corresponding context.</p>
+<p>In addition to verbose <code>keyword(expression...)</code> notation the Expression API provides syntactic sugar in form
+of shortcut infix and prefix operators:</p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Verbose form</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A | B | C</code></td>
+<td><code>Pipe(A, B, C)</code></td>
+<td>Left-to-Right composition</td>
+<td><code>X | Add(2) | Mul(3)</code> <span class="arithmatex">\(= x \mapsto (x + 2) * 3\)</span></td>
+</tr>
+<tr>
+<td><code>A + B</code></td>
+<td><code>Tuple(A, B)</code></td>
+<td>Quoted constants tuple</td>
+<td><code>x + y</code>               <span class="arithmatex">\(= x \mapsto [x, y]\)</span></td>
+</tr>
+<tr>
+<td><code>A &amp; B</code></td>
+<td><code>Fork(A, B)</code></td>
+<td>Evaluation branching</td>
+<td><code>x | Add(2) &amp; Mul(3)</code> <span class="arithmatex">\(= x \mapsto [x + 2, 3x]\)</span></td>
+</tr>
+<tr>
+<td><code>~A</code></td>
+<td><code>Flip(A)</code></td>
+<td>Operands swap</td>
+<td><code>x | ~Div(1)</code>         <span class="arithmatex">\(= x \mapsto 1 / x\)</span>, <br> but <code>x | Div(1)</code> <span class="arithmatex">\(= x \mapsto x / 1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The expression pipe (<code>|</code>) operator is associative from evaluation perspective,
+and the chain of multiple infix pipes is unfolded on construction, producing a single variadic <code>Pipe</code>:
+<code>A | B | C</code> yields <code>Pipe(A, B, C)</code> rather than <code>Pipe(Pipe(A, B), C)</code>.</p>
+<p>Infix unfolding is not applied to the fork (<code>&amp;</code>) operator, which is non-associative at evaluation.
+For this operator the grouping of infix operands is preserved, following
+the conventional C operator left-associativity:
+<code>A &amp; B &amp; C</code> = <code>(A &amp; B) &amp; C</code> = <code>Fork(Fork(A, B), C)</code>.</p>
+<h3 id="arity-forms">Arity forms<a class="headerlink" href="#arity-forms" title="Permanent link">&para;</a></h3>
+<p>Expression keywords are grouped by their design-time plus evaluation-time parameters arity.</p>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Resulting Expression Type</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Const</td>
+<td><span class="arithmatex">\(E^C            \mapsto (x \mapsto C)\)</span></td>
+<td><code>Pi</code>                     <span class="arithmatex">\(= 3.1415...\)</span></td>
+</tr>
+<tr>
+<td>Unary</td>
+<td><span class="arithmatex">\(E^f            \mapsto (x \mapsto f(x))\)</span></td>
+<td><code>Div</code> in <code>Pi | Div(2) | Sin</code><span class="arithmatex">\(= 1\)</span></td>
+</tr>
+<tr>
+<td>Binary₁</td>
+<td><span class="arithmatex">\(E^*            \mapsto ([x, y] \mapsto x * y )\)</span></td>
+<td><code>Add</code> in <code>[2,2] | Add</code>      <span class="arithmatex">\(= 4\)</span></td>
+</tr>
+<tr>
+<td>Binary₂</td>
+<td><span class="arithmatex">\(E^*(y)         \mapsto (x \mapsto x * y      )\)</span></td>
+<td><code>Eq</code> in <code>13 | Eq(42)</code>       <span class="arithmatex">\(= false\)</span></td>
+</tr>
+<tr>
+<td>Binary₃</td>
+<td><span class="arithmatex">\(E^*            \mapsto (x \mapsto x * default)\)</span></td>
+<td><code>Max</code> in <code>[-1,1] | Max</code>     <span class="arithmatex">\(= 1\)</span></td>
+</tr>
+<tr>
+<td>Variadic</td>
+<td><span class="arithmatex">\(E^f(a,b,c,...) \mapsto (x \mapsto f(a,b,c,...)(x))\)</span></td>
+<td><code>All</code> in <code>6 | All(Gt(5), Le(6))</code> <span class="arithmatex">\(= true\)</span></td>
+</tr>
+<tr>
+<td>Literal₁</td>
+<td>Evaluated as Const where a value is expected</td>
+<td><code>Map(Eq(0))</code>   <span class="arithmatex">\(\not\equiv\)</span> <code>Map(0)</code></td>
+</tr>
+<tr>
+<td>Literal₂</td>
+<td>Evaluated as <code>Eq(value)</code> where a predicate is expected</td>
+<td><code>Filter(42)</code>   <span class="arithmatex">\(\equiv\)</span> <code>Filter(Eq(42))</code></td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Const</strong> keywords are constant functions. They are syntactically equivalent to <strong>Unary</strong>,
+with the difference that constants will ignore the eval input value.</p>
+<p>Custom constants can be created with <code>Q</code> keyword, e.g. <code>Q(42)</code> or <code>Q(Add)</code>.</p>
+<p>JSON or JSON-convertible values produce a <strong>Literal</strong> form which is interpreted as
+a constants (<strong>Literal₁</strong>) or a predicate (<strong>Literal₂</strong>) depending on a context.</p>
+<p><strong>Binary</strong> keywords have the most flexible syntax. The canonical <strong>Binary₁</strong> form with no parameters like <code>Add</code> expects
+a pair of operands at eval input, but <strong>Binary₂</strong> form like <code>Add(42)</code> essentially creates a curried unary
+functor with bound <strong><em>right-hand side</em></strong> operand. To curry a left-hand side operand instead, the <code>Flip</code> keyword may be helpful.
+This is especially useful for non-commutative operators, e.g.:</p>
+<ul>
+<li><code>2 | Div(1)</code> <span class="arithmatex">\(= 2\)</span></li>
+<li><code>2 | Flip(Div(1))</code> <span class="arithmatex">\(= 0.5\)</span></li>
+</ul>
+<p>For the <strong>Binary₁</strong> the composition with <code>Reverse</code> can be utilized instead of <code>Flip</code> to get the proper commutation,
+as <code>Flip</code> only swaps the design-time and evaluation-time arguments, which differs from Haskell's <code>flip</code>.</p>
+<p>The predicates in <strong>Binary₂</strong> form are very similar to GoogleTest matchers, e.g. <code>Eq(42)</code> or <code>Lt(0.5)</code>.
+It may also be helpful to view this form from an OOP perspective, considering it as
+a class method on evaluation-time argument object. E.g.,</p>
+<p><div class="language-js highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">input</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">At</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+</span></code></pre></div>
+is equivalent to
+<div class="language-js highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">input</span><span class="p">.</span><span class="nx">At</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+</span></code></pre></div>
+in a generic OOP syntax.</p>
+<p>The <strong>Binary₃</strong> form replaces the <strong>Binary₁</strong> behavior for a small group of expressions that have the
+default rhs value, e.g. <code>Max(Id)</code> is equivalent to just <code>Max</code>, where the identity expression <code>Id</code>
+is a default parameter (a key function in this case).</p>
+<p>Evaluation of the unparametrized <strong>Variadic</strong> keywords follow the same rule as <strong>Binary₁</strong> vs <strong>Binary₂</strong>,
+e.g. variadic <code>Fmt</code>:</p>
+<ul>
+<li><code>"%s, %s!" | Fmt("Hello", "world")</code> <span class="arithmatex">\(=\)</span> <code>"Hello, world!"</code></li>
+<li><code>["%s, %s!", ["Hello", "world"]] | Fmt</code> <span class="arithmatex">\(=\)</span> <code>"Hello, world!"</code></li>
+</ul>
+<h2 id="branching-logic-and-piecewise-functions">Branching logic and piecewise functions<a class="headerlink" href="#branching-logic-and-piecewise-functions" title="Permanent link">&para;</a></h2>
+<p>The Expression API supports several options for branching and piecewise functions:</p>
+<ul>
+<li><code>If</code> (Lisp-like): <code>If(cond, then_expr, else_expr)</code></li>
+<li><code>If</code>, <code>Elif</code>, <code>Else</code> keywords in pipe syntax: <code>If(cond, expr) | Elif(cond, expr) | Else(expr)</code></li>
+<li><code>Lookup</code> keyword for index- or key-based lookup tables or maps (i.e., arrays, strings, or objects): <code>Lookup({1,2,3}) | Default(42)</code></li>
+<li><code>Default</code>, <code>And</code>, <code>Or</code> selection operators</li>
+</ul>
+<h3 id="if-elif-else">If-Elif-Else<a class="headerlink" href="#if-elif-else" title="Permanent link">&para;</a></h3>
+<p>In both Lisp and pipe formats of <code>If</code> statements, the argument is implicitly passed
+to lazily-evaluated then/else parameters, so it is possible to produce both constant and computed values:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>42 | If(42, &quot;X = 42&quot;) | Else(~Fmt(&quot;X = %d&quot;)) -&gt; &quot;X = 42&quot;
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>13 | If(42, &quot;X = 42&quot;) | Else(~Fmt(&quot;X = %d&quot;)) -&gt; &quot;X = 13&quot;
+</span></code></pre></div>
+<p>or in Lisp style:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>42 | If(42, &quot;X = 42&quot;, ~Fmt(&quot;X = %d&quot;)) -&gt; &quot;X = 42&quot;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>13 | If(42, &quot;X = 42&quot;, ~Fmt(&quot;X = %d&quot;)) -&gt; &quot;X = 13&quot;
+</span></code></pre></div>
+<p>For example, to get the same outcome with ternary <code>And/Or</code> one needs to capture argument explicitly:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>&quot;$X&quot; | Eq(42) | And(&quot;X = 42&quot;) | Or(&quot;$X&quot; | ~Fmt(&quot;X = %d&quot;))
+</span></code></pre></div>
+<p>The main difference between two formats is the readability of long elif chains:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>x   |   If(p1, v1)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    | Elif(p2, v2)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    | Elif(p3, v3)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    | Elif(p4, v4)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    | Else(v5)
+</span></code></pre></div>
+<p>In Lisp format, each elif case should be placed in nested else expression:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>x | If(p1, v1, If(p2, v2, If(p3, v3, If(p4, v4, v5))))
+</span></code></pre></div>
+<h3 id="default-and-or">Default, And, Or<a class="headerlink" href="#default-and-or" title="Permanent link">&para;</a></h3>
+<p>The <code>And/Or</code> argument boolean cast is intended mostly for handling
+empty vs non-empty values, so you can write <code>"" | Or("default")</code> instead of <code>"" | If("", "default") | Else(Id)</code>.</p>
+<p>The difference compared to <code>D</code> (aka <code>Default</code>) is that the latter one emits value only on null and error inputs:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>&quot;&quot; | Or(&quot;foo&quot;) -&gt; &quot;foo&quot;
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>&quot;&quot; | D(&quot;foo&quot;) -&gt; &quot;&quot;
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>&lt;error&gt; | Or(&quot;foo&quot;) -&gt; &lt;error&gt;
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>&lt;error&gt; | D(&quot;foo&quot;) -&gt; &quot;foo&quot;
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>null | Or(&quot;foo&quot;) -&gt; &quot;foo&quot;
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>null | D(&quot;foo&quot;) -&gt; &quot;foo&quot;
+</span></code></pre></div>
+<p>It is possible to recreate if-else logic with ternary <code>And/Or</code> idiom, but very much like in Python or JavaScript,
+the <code>And</code> parameter cannot hold empty strings, arrays, zero or null:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>false | And(&quot;&quot;) | Or(&quot;foo&quot;) -&gt; &quot;foo&quot;
+</span></code></pre></div>
+<h3 id="lookup">Lookup<a class="headerlink" href="#lookup" title="Permanent link">&para;</a></h3>
+<p><code>Lookup</code> is essentially the reversed counterpart of the query keyword <code>At</code> (See <code>At</code> and <code>Flip</code>).
+It is useful for long tables with exact matches by index or key. If no value found, the <code>Lookup</code>
+will return null, which can be handled with <code>Default</code> or <code>Or</code> keywords:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>0 | Lookup({42, 13}) -&gt; 42
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>1 | Lookup({42, 13}) -&gt; 13
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>3 | Lookup({42, 13}) -&gt; null
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>3 | Lookup({42, 13}) | Default(67) -&gt; 67
+</span></code></pre></div>
+<p>The result of Lookup is not evaluated (and is therefore more performant than an <code>If/Elif</code> chain),
+but evaluation can be forced with <code>Eval</code> keyword:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&quot;pi&quot; | Lookup({{&quot;pi&quot;, Pi}, {&quot;e&quot;, E}}) -&gt; /* unevaluated internal representation */
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>&quot;pi&quot; | Lookup({{&quot;pi&quot;, Pi}, {&quot;e&quot;, E}}) | Eval -&gt; 3.141592653589793...
+</span></code></pre></div>
+<h2 id="parameter-evaluation">Parameter evaluation<a class="headerlink" href="#parameter-evaluation" title="Permanent link">&para;</a></h2>
+<p>Design-time parameters are constant expressions. A simple use case
+is to utilize math constants like <code>Lt(Pi)</code>, but any complex expression can be used as long as it is constant,
+e. g. <code>Lt(Pi|Div(2))</code>.</p>
+<p>Parameter evaluation is lazy, s.t. in the ternary and-or idiom <code>condition | And(then) | Or(else)</code>
+the <code>else</code> part is only evaluated if <code>And(then)</code> produces falsy output.</p>
+<p>In the higher-order expressions parameters are passed unevaluated, similar to quoted expressions.</p>
+<h2 id="preprocessing">Preprocessing<a class="headerlink" href="#preprocessing" title="Permanent link">&para;</a></h2>
+<p>The Expression API provides preprocessing functionality similar to C Preprocessor, s.t.
+any string literal starting with $ sign and enclosed in square brackets (e.g. <code>"$[foo]"</code>)
+is considered a macro. The macro substitution is done on Expression deserialization from
+raw JSON data, and user-defined parameter handling is delegated to the test model runners.</p>
+<h2 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>Expression evaluation is <em>pure</em> and <em>non-throwing</em> — errors are represented using the <code>Err</code>
+expression instead of throwing host-language exceptions.
+Terminal expressions, such as arithmetic or logical operators,
+do not process Err values but propagate them unchanged through the pipeline.</p>
+<p>To handle errors and control branching, expressions such as <code>Try</code>, <code>D</code> (<code>Default</code>), <code>IsErr</code>, and <code>Assert</code> are available.</p>
+<h2 id="high-order-keywords-and-structural-transforms">High-order keywords and structural transforms<a class="headerlink" href="#high-order-keywords-and-structural-transforms" title="Permanent link">&para;</a></h2>
+<p>Several keywords produce higher-order expressions that are useful for creating a more complex matchers or generators.</p>
+<p>The most powerful in this group are <code>Pipe</code> and <code>Fork</code>.
+In addition to what is described above, composition also applies a special rule to literals beyond the initial term - they are interpreted as predicates,
+e.g. <code>[1,2,3] | Size | 3</code> is equivalent to <code>[1,2,3] | Size | Eq(3)</code>. To treat literal <code>3</code> as a constant expression, quote it as <code>Q(3)</code>.</p>
+<p>Other useful keywords are:</p>
+<ul>
+<li><code>Filter</code>, <code>Map</code>, <code>Fold</code> - similar to Python functools, e.g.:
+    <div class="language-js highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">[</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">   </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;one&quot;</span><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">   </span><span class="p">[</span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;two&quot;</span><span class="w">  </span><span class="p">],</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">   </span><span class="p">[</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;three&quot;</span><span class="p">],</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">   </span><span class="p">[</span><span class="mf">4</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;four&quot;</span><span class="w"> </span><span class="p">],</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Filter</span><span class="p">(</span><span class="nx">At</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span><span class="o">|</span><span class="nx">Lt</span><span class="p">(</span><span class="mf">3</span><span class="p">))</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">Map</span><span class="p">(</span><span class="nx">At</span><span class="p">(</span><span class="mf">0</span><span class="p">))</span><span class="w"> </span><span class="o">|-&gt;</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;one&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;two&quot;</span><span class="p">]</span>
+</span></code></pre></div></li>
+<li><code>At</code>, <code>Transp</code>, <code>Slide</code> - powerful data transformers, e.g.:<ul>
+<li><code>Slide(3)|Map(Avg)</code>: moving average with step width = 3</li>
+<li><code>At("key")</code>, <code>At(0)</code> - simple element getters</li>
+<li><code>At("/foo/bar")</code> - JSON pointer query</li>
+<li><code>At("::2")</code> - array slice query</li>
+</ul>
+</li>
+<li><code>Saturate</code>, <code>All</code>, <code>Any</code>, <code>Count</code> - matcher building elements</li>
+<li><code>Recur</code>, <code>Unfold</code> - recursion handlers with exit condition:<ul>
+<li><code>Q(Ge(12)) | Recur( 4 &amp; Add(1))</code> <span class="arithmatex">\(= 11\)</span></li>
+<li><code>Q(Ge(12)) | Unfold(8 &amp; Add(1))</code> <span class="arithmatex">\(= [8,9,10,11]\)</span></li>
+</ul>
+</li>
+</ul>
+<p>For the complete information see <a href="../../dsl-reference/expressions/#higher-order">Expression Language Reference</a>.</p>
+<h2 id="symbolic-linking-and-global-vars">Symbolic linking and global vars<a class="headerlink" href="#symbolic-linking-and-global-vars" title="Permanent link">&para;</a></h2>
+<p><img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a7.svg" title=":construction:" /> <em>This feature is in preview state</em> <img alt="🚧" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f6a7.svg" title=":construction:" /></p>
+<p>As a step aside from tacit style,
+Expressions support two types of symbolic linking using $-prefixed strings as references.</p>
+<h3 id="argument-linking">Argument linking<a class="headerlink" href="#argument-linking" title="Permanent link">&para;</a></h3>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="s">&quot;$x&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Ne</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">And</span><span class="p">(</span><span class="s">&quot;$x&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Flip</span><span class="p">(</span><span class="n">Div</span><span class="p">(</span><span class="mi">1</span><span class="p">)))</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Or</span><span class="p">(</span><span class="s">&quot;$x&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>In this example, the first encounter of "$x" stores the input value
+in an local environment and passes it to the subsequent term,
+making it available to all subexpressions, such as <code>And("$x" | ...)</code>.
+Recall that expression parameter evaluation is lazy.</p>
+<h3 id="function-linking">Function linking<a class="headerlink" href="#function-linking" title="Permanent link">&para;</a></h3>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="s">&quot;$f&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;$x&quot;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">Assert</span><span class="p">(</span><span class="n">Ge</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">Lt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">And</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">Or</span><span class="p">(</span><span class="s">&quot;$x&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Sub</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s">&quot;$f&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Mul</span><span class="p">(</span><span class="s">&quot;$x&quot;</span><span class="p">))</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">);</span>
+</span></code></pre></div>
+<p>This example constructs a recursive factorial function using <code>&lt;&lt;</code> as an assignment operator.
+The referenced expression is inlined at the call site and evaluated with
+the current input. The reference is available to the bound expression itself
+and to all its subexpressions, enabling arbitrary recursion.</p>
+<p>Each invocation of a function bound with <code>Fn</code> establishes a local scope for
+argument bindings created via <code>Link</code>, forming a lexical closure over the
+surrounding bindings. Argument links from outer scopes are captured by the
+function and remain accessible unless shadowed by a local binding.
+Such captured values can be explicitly read using the <code>Get</code> expression</p>
+<p>Function bindings are shared across the whole expression and are immutable:
+once a reference is bound with <code>Fn</code>, it cannot be redefined or reset.</p>
+<h3 id="global-vars">Global vars<a class="headerlink" href="#global-vars" title="Permanent link">&para;</a></h3>
+<p>As a deviation from the pure functional paradigm, ZMBT expressions provide access to
+global mutable state via the <code>EnvLoad</code> and <code>EnvStore</code> expressions.</p>
+<p><code>EnvStore</code> writes the current input value into the environment under the specified key (or JSON Pointer)
+and passes the same value downstream. Each call overwrites any previously stored value at that location.
+<code>EnvLoad</code> retrieves the current value from the environment or returns null if the key is not present.</p>
+<p>Both <code>EnvLoad</code> and <code>EnvStore</code> accept either a JSON Pointer or a string key to address environment
+entries. Any string starting with <code>/</code> is interpreted as a JSON Pointer.
+An empty string refers to the entire environment as a JSON object and is read-only:
+<code>EnvLoad("")</code> returns the full environment, while <code>EnvStore("")</code> produces an error.</p>
+<p>The test runner automatically resets the environment before each test execution. The environment
+remains available after the test completes and can be inspected for post-run assertions.</p>
+<h2 id="quotation">Quotation<a class="headerlink" href="#quotation" title="Permanent link">&para;</a></h2>
+<p>The keyword <code>Q</code> (<em>aliases: C, Const</em>) serves as a quotation operator, similar to Lisp’s quote.
+It lifts its parameter into a constant expression, preventing evaluation.</p>
+<p>This allows you to pass expressions as values to <code>Eval</code> or <code>~Bind(...)</code>,
+or to escape the special treatment of $-prefixed strings in parameters:
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="s">&quot;$x&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Eq</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="s">&quot;$x&quot;</span><span class="p">))</span>
+</span></code></pre></div></p>
+<h2 id="debug-and-trace">Debug and Trace<a class="headerlink" href="#debug-and-trace" title="Permanent link">&para;</a></h2>
+<p>Consider the following example:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Debug</span><span class="p">(</span><span class="n">Reduce</span><span class="p">(</span><span class="n">Add</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Div</span><span class="p">);</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">L</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">42.5</span><span class="p">};</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">BOOST_CHECK_EQUAL</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">eval</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="mf">12.125</span><span class="p">);</span>
+</span></code></pre></div>
+<p>When log level is set to <code>DEBUG</code> or higher, the following evaluation log is printed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>2025-07-20T14:04:14.485827201Z DEBUG ZMBT_EXPR_DEBUG
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>           ┌── Add $ [1,2] = 3
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>           ├── Add $ [3,3] = 6
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>           ├── Add $ [6,4.25E1] = 4.85E1
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        ┌── Fold(Add) $ [1,2,3,4.25E1] = 4.85E1
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        ├── Size $ [1,2,3,4.25E1] = 4
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>     ┌── Fold(Add) &amp; Size $ [1,2,3,4.25E1] = [4.85E1,4]
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>     ├── Div $ [4.85E1,4] = 1.2125E1
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>  □  (Fold(Add) &amp; Size) | Div $ [1,2,3,4.25E1] = 1.2125E1
+</span></code></pre></div>
+<p>Log lines are formatted as <code>f $ x = result</code>, and connected with line-drawing to show the expression terms hierarchy.</p>
+<p>In model tests, the evaluation is logged on failing tests by default.</p>
+<p>Another debugging utility keyword is <code>Trace</code>, which works like <code>Id</code> but also prints it's parameter to the call.
+It can be combined with <code>ZMBT_CUR_LOC</code> macro to trace mock invocations:</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Trace</span><span class="p">(</span><span class="n">ZMBT_CUR_LOC</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Reduce</span><span class="p">(</span><span class="n">Add</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Size</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Div</span><span class="p">;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">L</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">42.5</span><span class="p">};</span>
+</span></code></pre></div>
+<p>outputs</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>zmbt-framework/backends/cxx/test/expr_api.cpp#1010 [1,2,3,4.25E1]
+</span></code></pre></div>
+<p>to the log.</p>
+<p>The <code>Debug</code> keyword respects nesting - you can use it on different levels on the same expression,
+possibly chaining with <code>Trace</code> to distinguish subexpressions, e.g.</p>
+<div class="language-c++ highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="mi">40</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Debug</span><span class="p">(</span><span class="n">Trace</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Debug</span><span class="p">(</span><span class="n">Trace</span><span class="p">(</span><span class="s">&quot;bar&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Sub</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+</span></code></pre></div>
+<p>produces</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>2025-07-21T20:55:32.037990154Z DEBUG ZMBT_EXPR_DEBUG
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>     ┌── Trace(&quot;bar&quot;) $ 42 = 42
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>     ├── Sub(2) $ 42 = 40
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>  □  Trace(&quot;bar&quot;) | Sub(2) $ 42 = 40
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>2025-07-21T20:55:32.038143599Z DEBUG ZMBT_EXPR_DEBUG
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>     ┌── Trace(&quot;foo&quot;) $ 40 = 40
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>     ├── Add(2) $ 40 = 42
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>     │      ┌── Trace(&quot;bar&quot;) $ 42 = 42
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>     │      ├── Sub(2) $ 42 = 40
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>     │   ┌── Trace(&quot;bar&quot;) | Sub(2) $ 42 = 40
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>     ├── Dbg(Trace(&quot;bar&quot;) | Sub(2)) $ 42 = 40
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>  □  Trace(&quot;foo&quot;) | Add(2) | Dbg(Trace(&quot;bar&quot;) | Sub(2)) $ 40 = 40
+</span></code></pre></div>
+<h3 id="line-trimming">Line trimming<a class="headerlink" href="#line-trimming" title="Permanent link">&para;</a></h3>
+<p>For the bulky log messages, elements are trimmed with <code>...</code> while trying to keep the evaluation result visible.
+This option can be disabled with <code>--zmbt_log_notrim</code> flag.</p>
+<h2 id="grammar">Grammar<a class="headerlink" href="#grammar" title="Permanent link">&para;</a></h2>
+<div class='puml-container'><div class="puml light" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="EBNF" height="717px" preserveAspectRatio="xMidYMid meet" style="width:460px;height:717px;background:#FFFFFF;" version="1.1" viewBox="0 0 460 717" width="460px" zoomAndPan="magnify" class="diagram"><title>Expression Language syntax</title><defs/><g><g class="title" data-source-line="3"><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="225.6953" x="114.6421" y="32.9951">Expression Language syntax</text></g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="86.0645" x="10" y="60.292">Expression</text><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="54.0166" x="64" y="73.5938"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44.0166" x="69" y="91.5889">Literal</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="64" y1="86.7422" y2="86.7422"/><line style="stroke:#181818;stroke-width:1.5;" x1="118.0166" x2="317.4971" y1="86.7422" y2="86.7422"/><line style="stroke:#181818;stroke-width:1.5;" x1="64" x2="64" y1="123.0391" y2="123.0391"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="70.7373" x="64" y="109.8906"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60.7373" x="69" y="127.8857">Keyword</text><line style="stroke:#181818;stroke-width:1.5;" x1="134.7373" x2="154.7373" y1="123.0391" y2="123.0391"/><line style="stroke:#181818;stroke-width:1.5;" x1="154.7373" x2="293.4971" y1="123.0391" y2="123.0391"/><path d="M208.2412,123.0391 L208.2412,120.0391 L214.2412,123.0391 L208.2412,126.0391 L208.2412,123.0391" fill="#181818"/><path d="M154.7373,123.0391 C163.7373,123.0391 166.7373,125.6133 166.7373,134.6133 C166.7373,143.6133 169.7373,146.1875 178.7373,146.1875" fill="none" style="stroke:#181818;stroke-width:1.5;"/><path d="M269.4971,146.1875 C278.4971,146.1875 281.4971,143.6133 281.4971,134.6133 C281.4971,125.6133 284.4971,123.0391 293.4971,123.0391" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="90.7598" x="178.7373" y="133.0391"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80.7598" x="183.7373" y="151.0342">Parameters</text><path d="M52,111.0391 C52,120.0391 55,123.0391 64,123.0391" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="293.4971" x2="293.4971" y1="123.0391" y2="123.0391"/><path d="M305.4971,111.0391 C305.4971,120.0391 302.4971,123.0391 293.4971,123.0391" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="39.832" x="64" y="169.3359"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29.832" x="69" y="187.3311">Pipe</text><path d="M52,170.4844 C52,179.4844 55,182.4844 64,182.4844" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="103.832" x2="293.4971" y1="182.4844" y2="182.4844"/><path d="M196.6646,182.4844 L196.6646,179.4844 L202.6646,182.4844 L196.6646,185.4844 L196.6646,182.4844" fill="#181818"/><path d="M305.4971,170.4844 C305.4971,179.4844 302.4971,182.4844 293.4971,182.4844" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="40.4814" x="64" y="205.6328"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="30.4814" x="69" y="223.6279">Fork</text><path d="M52,206.7813 C52,215.7813 55,218.7813 64,218.7813" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="104.4814" x2="293.4971" y1="218.7813" y2="218.7813"/><path d="M196.9893,218.7813 L196.9893,215.7813 L202.9893,218.7813 L196.9893,221.7813 L196.9893,218.7813" fill="#181818"/><path d="M305.4971,206.7813 C305.4971,215.7813 302.4971,218.7813 293.4971,218.7813" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="48.8145" x="64" y="241.9297"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="38.8145" x="69" y="259.9248">Tuple</text><path d="M52,243.0781 C52,252.0781 55,255.0781 64,255.0781" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="112.8145" x2="293.4971" y1="255.0781" y2="255.0781"/><path d="M201.1558,255.0781 L201.1558,252.0781 L207.1558,255.0781 L201.1558,258.0781 L201.1558,255.0781" fill="#181818"/><path d="M305.4971,243.0781 C305.4971,252.0781 302.4971,255.0781 293.4971,255.0781" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="34.7188" x="64" y="278.2266"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="24.7188" x="69" y="296.2217">Flip</text><line style="stroke:#181818;stroke-width:1.5;" x1="98.7188" x2="293.4971" y1="291.375" y2="291.375"/><path d="M194.1079,291.375 L194.1079,288.375 L200.1079,291.375 L194.1079,294.375 L194.1079,291.375" fill="#181818"/><path d="M52,279.375 C52,288.375 55,291.375 64,291.375" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="52" x2="52" y1="98.7422" y2="279.375"/><path d="M40,86.7422 C49,86.7422 52,89.7422 52,98.7422" fill="none" style="stroke:#181818;stroke-width:1.5;"/><path d="M305.4971,279.375 C305.4971,288.375 302.4971,291.375 293.4971,291.375" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="305.4971" x2="305.4971" y1="98.7422" y2="279.375"/><path d="M305.4971,98.7422 C305.4971,89.7422 308.4971,86.7422 317.4971,86.7422" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="14" cy="86.7422" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="347.4971" cy="86.7422" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="86.7422" y2="86.7422"/><line style="stroke:#181818;stroke-width:1.5;" x1="317.4971" x2="343.4971" y1="86.7422" y2="86.7422"/><path d="M328.4971,86.7422 L328.4971,83.7422 L334.4971,86.7422 L328.4971,89.7422 L328.4971,86.7422" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="91.5674" x="10" y="332.5186">Parameters</text><line style="stroke:#181818;stroke-width:1.5;" x1="64" x2="64" y1="358.9688" y2="358.9688"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="15.4619" x="64" y="345.8203"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="5.4619" x="69" y="363.8154">(</text><line style="stroke:#181818;stroke-width:1.5;" x1="79.4619" x2="99.4619" y1="358.9688" y2="358.9688"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="99.4619" y="345.8203"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="104.4619" y="363.8154">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="185.7646" x2="205.7646" y1="358.9688" y2="358.9688"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="15.4619" x="205.7646" y="345.8203"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="5.4619" x="210.7646" y="363.8154">)</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="64" y1="358.9688" y2="358.9688"/><line style="stroke:#181818;stroke-width:1.5;" x1="221.2266" x2="415.9795" y1="358.9688" y2="358.9688"/><line style="stroke:#181818;stroke-width:1.5;" x1="64" x2="64" y1="407.2656" y2="407.2656"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="15.4619" x="64" y="394.1172"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="5.4619" x="69" y="412.1123">(</text><line style="stroke:#181818;stroke-width:1.5;" x1="79.4619" x2="99.4619" y1="407.2656" y2="407.2656"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="99.4619" y="394.1172"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="104.4619" y="412.1123">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="185.7646" x2="205.7646" y1="407.2656" y2="407.2656"/><path d="M213.7646,399.2656 C213.7646,405.2656 215.7646,407.2656 221.7646,407.2656" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="213.7646" x2="213.7646" y1="395.1172" y2="399.2656"/><path d="M213.7646,395.1172 C213.7646,389.1172 215.7646,387.1172 221.7646,387.1172" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="220.7646" x2="341.5176" y1="387.1172" y2="387.1172"/><path d="M291.2164,387.1172 L291.2164,384.1172 L285.2164,387.1172 L291.2164,390.1172 L291.2164,387.1172" fill="#181818"/><path d="M348.5176,399.2656 C348.5176,405.2656 346.5176,407.2656 340.5176,407.2656" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="348.5176" x2="348.5176" y1="395.1172" y2="399.2656"/><path d="M340.5176,387.1172 C346.5176,387.1172 348.5176,389.1172 348.5176,395.1172" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="205.7646" x2="220.7646" y1="407.2656" y2="407.2656"/><line style="stroke:#181818;stroke-width:1.5;" x1="341.5176" x2="356.5176" y1="407.2656" y2="407.2656"/><line style="stroke:#181818;stroke-width:1.5;" x1="220.7646" x2="220.7646" y1="407.2656" y2="407.2656"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="14.4502" x="220.7646" y="394.1172"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.4502" x="225.7646" y="412.1123">,</text><line style="stroke:#181818;stroke-width:1.5;" x1="235.2148" x2="255.2148" y1="407.2656" y2="407.2656"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="255.2148" y="394.1172"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="260.2148" y="412.1123">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="356.5176" x2="376.5176" y1="407.2656" y2="407.2656"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="15.4619" x="376.5176" y="394.1172"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="5.4619" x="381.5176" y="412.1123">)</text><line style="stroke:#181818;stroke-width:1.5;" x1="391.9795" x2="391.9795" y1="407.2656" y2="407.2656"/><path d="M52,395.2656 C52,404.2656 55,407.2656 64,407.2656" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="52" x2="52" y1="370.9688" y2="395.2656"/><path d="M40,358.9688 C49,358.9688 52,361.9688 52,370.9688" fill="none" style="stroke:#181818;stroke-width:1.5;"/><path d="M403.9795,395.2656 C403.9795,404.2656 400.9795,407.2656 391.9795,407.2656" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="403.9795" x2="403.9795" y1="370.9688" y2="395.2656"/><path d="M403.9795,370.9688 C403.9795,361.9688 406.9795,358.9688 415.9795,358.9688" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="14" cy="358.9688" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="445.9795" cy="358.9688" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="358.9688" y2="358.9688"/><line style="stroke:#181818;stroke-width:1.5;" x1="415.9795" x2="441.9795" y1="358.9688" y2="358.9688"/><path d="M426.9795,358.9688 L426.9795,355.9688 L432.9795,358.9688 L426.9795,361.9688 L426.9795,358.9688" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="34.5762" x="10" y="448.4092">Pipe</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="474.8594" y2="474.8594"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="40" y="461.7109"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="45" y="479.7061">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="126.3027" x2="146.3027" y1="474.8594" y2="474.8594"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="14.7168" x="146.3027" y="461.7109"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4.7168" x="151.3027" y="479.7061">|</text><line style="stroke:#181818;stroke-width:1.5;" x1="161.0195" x2="181.0195" y1="474.8594" y2="474.8594"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="181.0195" y="461.7109"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="186.0195" y="479.7061">Expression</text><ellipse cx="14" cy="474.8594" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="297.3223" cy="474.8594" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="474.8594" y2="474.8594"/><line style="stroke:#181818;stroke-width:1.5;" x1="267.3223" x2="293.3223" y1="474.8594" y2="474.8594"/><path d="M278.3223,474.8594 L278.3223,471.8594 L284.3223,474.8594 L278.3223,477.8594 L278.3223,474.8594" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="35.3965" x="10" y="516.0029">Fork</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="542.4531" y2="542.4531"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="40" y="529.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="45" y="547.2998">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="126.3027" x2="146.3027" y1="542.4531" y2="542.4531"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="20.917" x="146.3027" y="529.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="10.917" x="151.3027" y="547.2998">&amp;</text><line style="stroke:#181818;stroke-width:1.5;" x1="167.2197" x2="187.2197" y1="542.4531" y2="542.4531"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="187.2197" y="529.3047"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="192.2197" y="547.2998">Expression</text><ellipse cx="14" cy="542.4531" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="303.5225" cy="542.4531" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="542.4531" y2="542.4531"/><line style="stroke:#181818;stroke-width:1.5;" x1="273.5225" x2="299.5225" y1="542.4531" y2="542.4531"/><path d="M284.5225,542.4531 L284.5225,539.4531 L290.5225,542.4531 L284.5225,545.4531 L284.5225,542.4531" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="43.832" x="10" y="583.5967">Tuple</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="610.0469" y2="610.0469"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="40" y="596.8984"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="45" y="614.8936">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="126.3027" x2="146.3027" y1="610.0469" y2="610.0469"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="21.7305" x="146.3027" y="596.8984"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="11.7305" x="151.3027" y="614.8936">+</text><line style="stroke:#181818;stroke-width:1.5;" x1="168.0332" x2="188.0332" y1="610.0469" y2="610.0469"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="188.0332" y="596.8984"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="193.0332" y="614.8936">Expression</text><ellipse cx="14" cy="610.0469" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="304.3359" cy="610.0469" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="610.0469" y2="610.0469"/><line style="stroke:#181818;stroke-width:1.5;" x1="274.3359" x2="300.3359" y1="610.0469" y2="610.0469"/><path d="M285.3359,610.0469 L285.3359,607.0469 L291.3359,610.0469 L285.3359,613.0469 L285.3359,610.0469" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="29.1826" x="10" y="651.1904">Flip</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="677.6406" y2="677.6406"/><rect fill="none" height="26.2969" style="stroke:#181818;stroke-width:0.5;" width="21.7305" x="40" y="664.4922"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="11.7305" x="45" y="682.4873">~</text><line style="stroke:#181818;stroke-width:1.5;" x1="61.7305" x2="81.7305" y1="677.6406" y2="677.6406"/><rect fill="#F1F1F1" height="26.2969" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="86.3027" x="81.7305" y="664.4922"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76.3027" x="86.7305" y="682.4873">Expression</text><ellipse cx="14" cy="677.6406" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="198.0332" cy="677.6406" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="677.6406" y2="677.6406"/><line style="stroke:#181818;stroke-width:1.5;" x1="168.0332" x2="194.0332" y1="677.6406" y2="677.6406"/><path d="M179.0332,677.6406 L179.0332,674.6406 L185.0332,677.6406 L179.0332,680.6406 L179.0332,677.6406" fill="#181818"/></g></svg></div><div class="puml dark" style=""><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="EBNF" height="415px" preserveAspectRatio="xMidYMid meet" style="width:293px;height:415px;background:#FFFFFF;" version="1.1" viewBox="0 0 293 415" width="293px" zoomAndPan="magnify" class="diagram"><title>Expression Language syntax</title><defs/><g><g class="title" data-source-line="3"><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="143.5" y="20">Expression Language syntax</text></g><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="41">Expression</text><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="64" y="51"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="56">Literal</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="64" y1="56" y2="56"/><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="176" y1="56" y2="56"/><line style="stroke:#181818;stroke-width:1.5;" x1="64" x2="64" y1="81" y2="81"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="64" y="76"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="81">Keyword</text><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="94" y1="81" y2="81"/><line style="stroke:#181818;stroke-width:1.5;" x1="94" x2="152" y1="81" y2="81"/><path d="M115.2,81 L115.2,78 L121.2,81 L115.2,84 L115.2,81" fill="#181818"/><path d="M94,81 C103,81 106,79.5 106,88.5 C106,97.5 109,96 118,96" fill="none" style="stroke:#181818;stroke-width:1.5;"/><path d="M128,96 C137,96 140,97.5 140,88.5 C140,79.5 143,81 152,81" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="118" y="91"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="123" y="96">Parameters</text><path d="M52,69 C52,78 55,81 64,81" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="152" x2="152" y1="81" y2="81"/><path d="M164,69 C164,78 161,81 152,81" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="64" y="111"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="116">Pipe</text><path d="M52,104 C52,113 55,116 64,116" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="152" y1="116" y2="116"/><path d="M111,116 L111,113 L117,116 L111,119 L111,116" fill="#181818"/><path d="M164,104 C164,113 161,116 152,116" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="64" y="131"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="136">Fork</text><path d="M52,124 C52,133 55,136 64,136" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="152" y1="136" y2="136"/><path d="M111,136 L111,133 L117,136 L111,139 L111,136" fill="#181818"/><path d="M164,124 C164,133 161,136 152,136" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="64" y="151"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="156">Tuple</text><path d="M52,144 C52,153 55,156 64,156" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="152" y1="156" y2="156"/><path d="M111,156 L111,153 L117,156 L111,159 L111,156" fill="#181818"/><path d="M164,144 C164,153 161,156 152,156" fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="64" y="171"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="176">Flip</text><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="152" y1="176" y2="176"/><path d="M111,176 L111,173 L117,176 L111,179 L111,176" fill="#181818"/><path d="M52,164 C52,173 55,176 64,176" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="52" x2="52" y1="68" y2="164"/><path d="M40,56 C49,56 52,59 52,68" fill="none" style="stroke:#181818;stroke-width:1.5;"/><path d="M164,164 C164,173 161,176 152,176" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="164" x2="164" y1="68" y2="164"/><path d="M164,68 C164,59 167,56 176,56" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="14" cy="56" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="206" cy="56" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="56" y2="56"/><line style="stroke:#181818;stroke-width:1.5;" x1="176" x2="202" y1="56" y2="56"/><path d="M187,56 L187,53 L193,56 L187,59 L187,56" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="196">Parameters</text><line style="stroke:#181818;stroke-width:1.5;" x1="64" x2="64" y1="211" y2="211"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="64" y="206"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="211">(</text><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="94" y1="211" y2="211"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="94" y="206"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="99" y="211">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="104" x2="124" y1="211" y2="211"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="124" y="206"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="129" y="211">)</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="64" y1="211" y2="211"/><line style="stroke:#181818;stroke-width:1.5;" x1="134" x2="248" y1="211" y2="211"/><line style="stroke:#181818;stroke-width:1.5;" x1="64" x2="64" y1="243" y2="243"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="64" y="238"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="69" y="243">(</text><line style="stroke:#181818;stroke-width:1.5;" x1="74" x2="94" y1="243" y2="243"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="94" y="238"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="99" y="243">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="104" x2="124" y1="243" y2="243"/><path d="M132,235 C132,241 134,243 140,243" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="132" x2="132" y1="239" y2="235"/><path d="M132,239 C132,233 134,231 140,231" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="139" x2="179" y1="231" y2="231"/><path d="M161,231 L161,228 L155,231 L161,234 L161,231" fill="#181818"/><path d="M186,235 C186,241 184,243 178,243" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="186" x2="186" y1="239" y2="235"/><path d="M178,231 C184,231 186,233 186,239" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="124" x2="139" y1="243" y2="243"/><line style="stroke:#181818;stroke-width:1.5;" x1="179" x2="194" y1="243" y2="243"/><line style="stroke:#181818;stroke-width:1.5;" x1="139" x2="139" y1="243" y2="243"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="139" y="238"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="144" y="243">,</text><line style="stroke:#181818;stroke-width:1.5;" x1="149" x2="169" y1="243" y2="243"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="169" y="238"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="174" y="243">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="194" x2="214" y1="243" y2="243"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="214" y="238"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="219" y="243">)</text><line style="stroke:#181818;stroke-width:1.5;" x1="224" x2="224" y1="243" y2="243"/><path d="M52,231 C52,240 55,243 64,243" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="52" x2="52" y1="223" y2="231"/><path d="M40,211 C49,211 52,214 52,223" fill="none" style="stroke:#181818;stroke-width:1.5;"/><path d="M236,231 C236,240 233,243 224,243" fill="none" style="stroke:#181818;stroke-width:1.5;"/><line style="stroke:#181818;stroke-width:1.5;" x1="236" x2="236" y1="223" y2="231"/><path d="M236,223 C236,214 239,211 248,211" fill="none" style="stroke:#181818;stroke-width:1.5;"/><ellipse cx="14" cy="211" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="278" cy="211" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="211" y2="211"/><line style="stroke:#181818;stroke-width:1.5;" x1="248" x2="274" y1="211" y2="211"/><path d="M259,211 L259,208 L265,211 L259,214 L259,211" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="263">Pipe</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="278" y2="278"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="40" y="273"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="45" y="278">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="50" x2="70" y1="278" y2="278"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="70" y="273"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="75" y="278">|</text><line style="stroke:#181818;stroke-width:1.5;" x1="80" x2="100" y1="278" y2="278"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="100" y="273"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="105" y="278">Expression</text><ellipse cx="14" cy="278" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="140" cy="278" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="278" y2="278"/><line style="stroke:#181818;stroke-width:1.5;" x1="110" x2="136" y1="278" y2="278"/><path d="M121,278 L121,275 L127,278 L121,281 L121,278" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="298">Fork</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="313" y2="313"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="40" y="308"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="45" y="313">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="50" x2="70" y1="313" y2="313"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="70" y="308"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="75" y="313">&amp;</text><line style="stroke:#181818;stroke-width:1.5;" x1="80" x2="100" y1="313" y2="313"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="100" y="308"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="105" y="313">Expression</text><ellipse cx="14" cy="313" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="140" cy="313" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="313" y2="313"/><line style="stroke:#181818;stroke-width:1.5;" x1="110" x2="136" y1="313" y2="313"/><path d="M121,313 L121,310 L127,313 L121,316 L121,313" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="333">Tuple</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="348" y2="348"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="40" y="343"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="45" y="348">Expression</text><line style="stroke:#181818;stroke-width:1.5;" x1="50" x2="70" y1="348" y2="348"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="70" y="343"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="75" y="348">+</text><line style="stroke:#181818;stroke-width:1.5;" x1="80" x2="100" y1="348" y2="348"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="100" y="343"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="105" y="348">Expression</text><ellipse cx="14" cy="348" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="140" cy="348" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="348" y2="348"/><line style="stroke:#181818;stroke-width:1.5;" x1="110" x2="136" y1="348" y2="348"/><path d="M121,348 L121,345 L127,348 L121,351 L121,348" fill="#181818"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="368">Flip</text><line style="stroke:#181818;stroke-width:1.5;" x1="40" x2="40" y1="383" y2="383"/><rect fill="none" height="10" style="stroke:#181818;stroke-width:0.5;" width="10" x="40" y="378"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="45" y="383">~</text><line style="stroke:#181818;stroke-width:1.5;" x1="50" x2="70" y1="383" y2="383"/><rect fill="#F1F1F1" height="10" rx="5" ry="5" style="stroke:#181818;stroke-width:1.5;" width="10" x="70" y="378"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="75" y="383">Expression</text><ellipse cx="14" cy="383" fill="none" rx="4" ry="4" style="stroke:#181818;stroke-width:2;"/><ellipse cx="110" cy="383" fill="#181818" rx="4" ry="4" style="stroke:#181818;stroke-width:1;"/><line style="stroke:#181818;stroke-width:1.5;" x1="18" x2="40" y1="383" y2="383"/><line style="stroke:#181818;stroke-width:1.5;" x1="80" x2="106" y1="383" y2="383"/><path d="M91,383 L91,380 L97,383 L91,386 L91,383" fill="#181818"/></g></svg></div></div>
+
+<h2 id="notes-on-usage">Notes on usage<a class="headerlink" href="#notes-on-usage" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The builtin keywords from <code>zmbt::expr</code> namespace are callable objects with static storage,
+which makes them vulnerable to <a href="https://en.cppreference.com/w/cpp/language/siof.html">SIOF</a>
+in a context of other static complex expressions.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../signal-mapping/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Signal Mapping Model">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Signal Mapping Model
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../environment/" class="md-footer__link md-footer__link--next" aria-label="Next: Environment">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Environment
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022-2023 Volvo Car Corporation //
+Copyright &copy; 2024-2025 Zenseact AB
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.select", "content.code.copy", "content.code.annotate", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../docs/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/puml.js"></script>
+      
+        <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+      
+        <script src="../../assets/mkdocs_puml/interaction.js"></script>
+      
+    
+  </body>
+</html>

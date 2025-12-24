@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable" kind="class" language="C++" prot="public">
+    <compoundname>zmbt::mapping::ModelDefinition::N_TestTable</compoundname>
+    <basecompoundref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param" prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::N_Param</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">zmbt::mapping::ModelDefinition::T_TestRow&lt; ModelDefinition::N_TestTable &gt;</basecompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1ab10db554c05a9ae04dd655b342deac89" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class ModelDefinition</definition>
+        <argsstring></argsstring>
+        <name>ModelDefinition</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_TestTable::ModelDefinition</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition" kindref="compound">ModelDefinition</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="147" column="18" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="147" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1a316189d3bc5f6702b32a7bbd23427448" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</definition>
+        <argsstring>(detail::DefinitionHelper &amp;&amp;m)</argsstring>
+        <name>N_TestTable</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</qualifiedname>
+        <param>
+          <type>detail::DefinitionHelper &amp;&amp;</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="148" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="148" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1a68d2cb2d0137abbcb98237a6da5d3506" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</definition>
+        <argsstring>(N_TestTable const &amp;)=delete</argsstring>
+        <name>N_TestTable</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable" kindref="compound">N_TestTable</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="151" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1aa81fcbb66baffe80ea07bffa314fe879" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</definition>
+        <argsstring>(N_TestTable &amp;&amp;)=default</argsstring>
+        <name>N_TestTable</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable" kindref="compound">N_TestTable</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="152" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1af63468f56555fc1afb595b26d380572e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</definition>
+        <argsstring>()</argsstring>
+        <name>N_TestTable</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_TestTable::N_TestTable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="155" column="5" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="155" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1a42e015ef70a2aa573378c383a61d41b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual zmbt::mapping::ModelDefinition::N_TestTable::~N_TestTable</definition>
+        <argsstring>()</argsstring>
+        <name>~N_TestTable</name>
+        <qualifiedname>zmbt::mapping::ModelDefinition::N_TestTable::~N_TestTable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="156" column="13" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="156" bodyend="158"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_Descr</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::N_Param</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_Post</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Pre</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Term</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term"/>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_TestTable</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt::mapping::ModelDefinition::T_CustomParam&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt::mapping::ModelDefinition::T_Description&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt::mapping::ModelDefinition::T_Param&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::mapping::ModelDefinition::T_PostRun&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::mapping::ModelDefinition::T_PreRun&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt::mapping::ModelDefinition::T_TestRow&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="7">
+        <label>zmbt::mapping::ModelDefinition::BaseTransition</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition"/>
+      </node>
+      <node id="5">
+        <label>zmbt::mapping::ModelDefinition::N_Descr</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>zmbt::mapping::ModelDefinition::N_Param</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="11" relation="public-inheritance">
+        </childnode>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>zmbt::mapping::ModelDefinition::N_Post</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+        <childnode refid="9" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>zmbt::mapping::ModelDefinition::N_Pre</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="10" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>zmbt::mapping::ModelDefinition::N_Term</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term"/>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>zmbt::mapping::ModelDefinition::N_TestTable</label>
+        <link refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>zmbt::mapping::ModelDefinition::T_CustomParam&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>zmbt::mapping::ModelDefinition::T_Description&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>zmbt::mapping::ModelDefinition::T_Param&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>zmbt::mapping::ModelDefinition::T_PostRun&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>zmbt::mapping::ModelDefinition::T_PreRun&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>zmbt::mapping::ModelDefinition::T_TestRow&lt; Target &gt;</label>
+        <childnode refid="7" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" line="142" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/mapping/model_definition_states.hpp" bodystart="145" bodyend="159"/>
+    <listofallmembers>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1adc7509b88ca1d71c1afe67083cfa6c7f" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a09c9d3e4fb989eaf4fa43a03dcd2bcca" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a0cfc6b81218b3b2c52d95b496dea0027" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1ab9ca35ebc99ebaef836893c282537130" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>BaseTransition</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Description_1a597a881ebcb7618f2932b00fd01784c4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Description</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1ab10db554c05a9ae04dd655b342deac89" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>ModelDefinition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr_1a105fea655bc3070a501872120800a722" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_Descr</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param_1a096417386a2a81251854233bd992c3ce" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_Param</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post_1a6e7c91c3fd2a932cf69dadc54805fb6c" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_Post</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre_1ae4856852e73c5f2dc23455d34a9589e1" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_Pre</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term_1ab7366080fa36df79ca671dcf0507e0f4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_Term</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1a316189d3bc5f6702b32a7bbd23427448" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_TestTable</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1a68d2cb2d0137abbcb98237a6da5d3506" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_TestTable</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1aa81fcbb66baffe80ea07bffa314fe879" prot="private" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_TestTable</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1af63468f56555fc1afb595b26d380572e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>N_TestTable</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a4d360324b2b5df50a18d1b14c6a30ed9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1aa14ae91615f8695e916ff286e7134fcd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a80315d6ef4a210882fcee9b978dc45e5" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a5157f62b04dfd884f0eebb0704db3e50" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a56403876726b78f8a347381c59d8799a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a173cdb6bb8dd35aafedf23d53ef291bd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1abd5adc8a3235240640c08d2dd6529893" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a7470f507d61010318e065e5660eb1894" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1ada951dd6640adf85adf125126fa9a8d7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a75bee640f7270c1535d52912198a94f4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator()</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__TestRow_1a56bb1b231462adc4920facc67ce50b22" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>operator[]</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a9eadda33d061e9eea48e9afbd97ebe4d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a7ab09bbbb9f5eb9683fc748d880b097f" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a3f5740d791ba79faaf5671f145328728" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a28f816d12e3301871c891bd6f44f2a0e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ab561ba9ee60c0e609ae9bd2a4abb26e8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a12fa8a5f07c2527008b3891fa6ab74f9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ad7e1370e6a07db691b28fb6be540dd37" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8c6050fea1dadfc84fc70eef1c30e82e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a0146d5b7125a4877fc9ddd777d32fa78" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a0ee625faf4f971351a605b9f6519dce2" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Pairwise</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__CustomParam_1ad0c56c39ea80be66bfb5d8c14afb5754" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Parametrize</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__PostRun_1aa9a651ce45bc8492d9bae68386c86cfd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>PostRun</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__PreRun_1ada980496c402eed7d9f4835e4b90bce8" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>PreRun</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a650786358851b82cc60527e35bbc5686" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a6d3d54fc8fc06e601cfddfb600d4625d" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8843674859639bb64c2e4382c0e0e7a7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8578445204b3c49715bb4aa8230f8d97" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a5a821334eaf38c1cdfc10d47a53f2fcc" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1adcb6e37f5ee878f56dc0b3fb99f44fb7" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ad308aee0c0a06148e419d26f861a3428" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1adf1f19c364c3957313ab8c809f2b19cd" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a8862b1a2485d96d3fb4106c2bcd590b4" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1af99222d255cb7b7f2b8d5afa011384d5" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Prod</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a559d74cd80f0732ea0e1352fd31e1e31" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>state</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a8dad9849339dd3f2334a688fdb6f2b3c" prot="protected" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>transit_to</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ac7e49efd15f1eca4eab27f29072b28ec" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a3f0126031583dc200f3834bc7632df33" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a6d83ff1e517cf92d47df6dd58c7f0683" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a1fb4fa96dad701cf9faeca49d2cc05f9" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a917de7b3253eb7c23dd898eae2bf154e" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a26455d0633c1d23e117ce6e9b75d1ce1" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a3438ae0bda930d17e307fa8176cc44bf" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1ad5b68c24c585ba4b28ff44e461a8a654" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a33ec47ca0922264ff2b59977fe32c997" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="structzmbt_1_1mapping_1_1ModelDefinition_1_1T__Param_1a0a4b1f2914c093c9bde5dc5f217dfb0a" prot="public" virt="non-virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>Zip</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1BaseTransition_1a10b75a55fd8eaadfdfa0b291c825093e" prot="protected" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~BaseTransition</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Descr_1a5b36415429417495c2c87b800a9ffac0" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~N_Descr</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Param_1af34effcc8052c8dd51dd2c40510ba1d2" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~N_Param</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Post_1a6922c1855ea990d43392614260becb8d" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~N_Post</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Pre_1ac725fa4e1ce1ec2fd97ea936d14c1e84" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~N_Pre</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__Term_1af69fff59a013ee80392d3f9156a4f3ed" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~N_Term</name></member>
+      <member refid="classzmbt_1_1mapping_1_1ModelDefinition_1_1N__TestTable_1a42e015ef70a2aa573378c383a61d41b2" prot="public" virt="virtual"><scope>zmbt::mapping::ModelDefinition::N_TestTable</scope><name>~N_TestTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structzmbt_1_1lang_1_1EvalLog" kind="struct" language="C++" prot="public">
+    <compoundname>zmbt::lang::EvalLog</compoundname>
+    <includes refid="eval__log_8hpp" local="no">eval_log.hpp</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structzmbt_1_1lang_1_1EvalLog_1a41ad51b59986bd4dfed9ee3bb71d42dd" prot="public" static="no" mutable="yes">
+        <type>std::shared_ptr&lt; boost::json::array &gt;</type>
+        <definition>std::shared_ptr&lt;boost::json::array&gt; zmbt::lang::EvalLog::stack</definition>
+        <argsstring></argsstring>
+        <name>stack</name>
+        <qualifiedname>zmbt::lang::EvalLog::stack</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="23" column="29" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalLog_1a0420d7a9df2507bcd95cbc65877de106" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>zmbt::lang::EvalLog::EvalLog</definition>
+        <argsstring>()=default</argsstring>
+        <name>EvalLog</name>
+        <qualifiedname>zmbt::lang::EvalLog::EvalLog</qualifiedname>
+        <briefdescription>
+<para>Default instance with null log stack. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="26" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalLog_1a8aafec1e85aa2242a5d2b221b0e65b30" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>boost::json::string</type>
+        <definition>boost::json::string zmbt::lang::EvalLog::str</definition>
+        <argsstring>(int const indent=0) const</argsstring>
+        <name>str</name>
+        <qualifiedname>zmbt::lang::EvalLog::str</qualifiedname>
+        <param>
+          <type>int const</type>
+          <declname>indent</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Stringify log. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="29" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalLog_1a77d50223a4a5d9e5fdb356805796b249" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void zmbt::lang::EvalLog::push</definition>
+        <argsstring>(Expression const &amp;expr, Expression const &amp;x, Expression const &amp;result, std::uint64_t const depth) const</argsstring>
+        <name>push</name>
+        <qualifiedname>zmbt::lang::EvalLog::push</qualifiedname>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> const &amp;</type>
+          <declname>result</declname>
+        </param>
+        <param>
+          <type>std::uint64_t const</type>
+          <declname>depth</declname>
+        </param>
+        <briefdescription>
+<para>Push record to log stack. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="32" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalLog_1ae9adaa8258b98bb4b5d45e98c85ee733" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void zmbt::lang::EvalLog::format</definition>
+        <argsstring>(std::ostream &amp;os, boost::json::array const &amp;log, int const indent=0)</argsstring>
+        <name>format</name>
+        <qualifiedname>zmbt::lang::EvalLog::format</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>boost::json::array const &amp;</type>
+          <declname>log</declname>
+        </param>
+        <param>
+          <type>int const</type>
+          <declname>indent</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="35" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="structzmbt_1_1lang_1_1EvalLog_1a3967d634f2aad2caee54f2da5c0b770c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structzmbt_1_1lang_1_1EvalLog" kindref="compound">EvalLog</ref></type>
+        <definition>static EvalLog zmbt::lang::EvalLog::make</definition>
+        <argsstring>()</argsstring>
+        <name>make</name>
+        <qualifiedname>zmbt::lang::EvalLog::make</qualifiedname>
+        <briefdescription>
+<para>Make non-empty <ref refid="structzmbt_1_1lang_1_1EvalLog" kindref="compound">EvalLog</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="40" column="20"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="structzmbt_1_1lang_1_1EvalLog_1a4c1efd9f723285bbf373e0b2974ccd0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, EvalLog const &amp;log)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>zmbt::lang::EvalLog::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="structzmbt_1_1lang_1_1EvalLog" kindref="compound">EvalLog</ref> const &amp;</type>
+          <declname>log</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="37" column="12"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para><ref refid="classzmbt_1_1lang_1_1Expression" kindref="compound">Expression</ref> evaluation log. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" line="21" column="1" bodyfile="zmbt-framework/zmbt-framework/backends/cxx/include/zmbt/expr/eval_log.hpp" bodystart="22" bodyend="41"/>
+    <listofallmembers>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1a0420d7a9df2507bcd95cbc65877de106" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>EvalLog</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1ae9adaa8258b98bb4b5d45e98c85ee733" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>format</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1a3967d634f2aad2caee54f2da5c0b770c" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>make</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1a4c1efd9f723285bbf373e0b2974ccd0a" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>operator&lt;&lt;</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1a77d50223a4a5d9e5fdb356805796b249" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>push</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1a41ad51b59986bd4dfed9ee3bb71d42dd" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>stack</name></member>
+      <member refid="structzmbt_1_1lang_1_1EvalLog_1a8aafec1e85aa2242a5d2b221b0e65b30" prot="public" virt="non-virtual"><scope>zmbt::lang::EvalLog</scope><name>str</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

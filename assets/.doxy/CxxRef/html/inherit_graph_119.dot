@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="zmbt::reflect::default\l_invocation\< S, first\l_if_any_t\< void, ifc_is\l_fn_handle\< S \>, ifc_is\l_functor_ref\< S \> \> \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structzmbt_1_1reflect_1_1default__invocation_3_01S_00_01first__if__any__t_3_01void_00_01ifc__is_03ee2f30da4b8a63c386d237830e07c9.html",tooltip=" "];
+}

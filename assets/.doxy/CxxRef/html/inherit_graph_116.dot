@@ -1,0 +1,11 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node0 [id="Node000000",label="zmbt::reflect::custom\l_signal_traits\< T, E \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structzmbt_1_1reflect_1_1custom__signal__traits.html",tooltip="Customize signal traits metafunction."];
+  Node0 -> Node1 [id="edge57_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 [id="Node000001",label="zmbt::reflect::signal\l_traits\< T, detail::enable\l_custom_signal_traits\< T \> \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structzmbt_1_1reflect_1_1signal__traits_3_01T_00_01detail_1_1enable__custom__signal__traits_3_01T_01_4_01_4.html",tooltip=" "];
+}
