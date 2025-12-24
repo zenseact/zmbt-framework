@@ -1,4 +1,10 @@
-#include <chrono>
+/**
+ * @file
+ * @copyright (c) Copyright 2024-2025 Zenseact AB
+ * @license SPDX-License-Identifier: Apache-2.0
+ */
+
+ #include <chrono>
 #include <condition_variable>
 #include <mutex>
 #include <thread>

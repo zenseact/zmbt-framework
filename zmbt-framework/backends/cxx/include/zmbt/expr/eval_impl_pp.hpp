@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright (c) Copyright 2024-2025 Zenseact AB
+ * @license SPDX-License-Identifier: Apache-2.0
+ */
+
 #define ZMBT_DEFINE_EVALUATE_IMPL(K)                                            \
 template <> struct EvalImpl<Keyword::K>                                         \
     : public EvalImplBase<Keyword::K>                                           \

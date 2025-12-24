@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright (c) Copyright 2024-2025 Zenseact AB
+ * @license SPDX-License-Identifier: Apache-2.0
+ */
+
 #include <thread>
 
 #include <gtest/gtest.h>

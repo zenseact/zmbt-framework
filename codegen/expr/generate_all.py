@@ -1,3 +1,5 @@
+# (c) Copyright 2025 Zenseact AB
+# SPDX-License-Identifier: Apache-2.0
 
 import os
 from codegen import WORKDIR
